@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "caIITVZrhFKq5QP4hCsAiCIk5YV+l8a+VMFETK/KudMqVABrPRSi+bECT7DxMsWL2XZ3q9ra6aFVD9WSMg17Rw==",
+  "dgSpecHash": "u2Rbubcp53Jkxhp6iahaZ8PHyT/8hq6c4eJ3SKgy+YXtbYu3XLfLJv1uHXAacXKdGfNJKhcOnVCL2gq2PVPfUQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\Documents\\GitHub\\Health-Care-Clinic\\ClinicCore\\ClinicCore.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\User\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

@@ -1,6 +1,5 @@
 using DTOs;
 using Enums;
-using Newtonsoft.Json;
 using System;
 
 namespace Model
@@ -12,7 +11,7 @@ namespace Model
         public bool IsUrgent { get; set; } = false;
 
 
-        [JsonConstructor]
+       // [JsonConstructor]
         public DoctorAppointment(DateTime date, AppointmentType type, bool reserved, int room, Doctor doc, Patient patient) : base(date, type, reserved, room)
         {
             if (patient != null)

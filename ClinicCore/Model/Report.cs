@@ -1,5 +1,4 @@
 ﻿using Enums;
-using Newtonsoft.Json;
 using System;
 
 namespace Model
@@ -17,7 +16,7 @@ namespace Model
         public AppointmentType Type { get; set; }
         public String Cause { get; set; }
 
-        [JsonConstructor]
+       // [JsonConstructor]
         public Report(DateTime appointmentDate, String doctorName, String doctorSurname, AppointmentType type, String cause) {
             this.HaveRecipe = false;
             this.HaveTest = false;

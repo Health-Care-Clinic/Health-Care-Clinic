@@ -1,8 +1,5 @@
 ﻿using Model;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Storages
 {
@@ -25,11 +22,11 @@ namespace Storages
 
         public void SaveBeds(List<Bed> allBeds)
         {
-            var file = JsonConvert.SerializeObject(allBeds, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-            using (StreamWriter writer = new StreamWriter(this.fileLocation))
-            {
-                writer.Write(file);
-            }
+           // var file = JsonConvert.SerializeObject(allBeds, Formatting.Indented, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+            //using (StreamWriter writer = new StreamWriter(this.fileLocation))
+            //{
+              //  writer.Write(file);
+            //}
         }
     }
 }

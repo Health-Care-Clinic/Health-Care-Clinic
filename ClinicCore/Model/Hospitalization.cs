@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using System;
 
 namespace Model
@@ -13,7 +12,7 @@ namespace Model
         public string Doctor { get; set; }
         public bool IsReleased { get; set; }
 
-        [JsonConstructor]
+        //[JsonConstructor]
         public Hospitalization(DateTime admissionDate, DateTime releaseDate, string doctor, Room room, Bed bed, string details)
         {
             IsReleased = false;

@@ -4,15 +4,13 @@
     <id>ClinicCore</id>
     <version>1.0.0</version>
     <authors>ClinicCore</authors>
-    <description>Package Description</description>
-    <repository url="https://github.com/NekaFirma/dfa" />
+    <description>This package is a base for implementing an informational system of a hospital.</description>
+    <repository url="https://github.com/Health-Care-Clinic/Health-Care-Clinic" />
     <dependencies>
-      <group targetFramework=".NETCoreApp3.1">
-        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
-      </group>
+      <group targetFramework=".NETCoreApp3.1" />
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\bin\Debug\netcoreapp3.1\ClinicCore.dll" target="lib\netcoreapp3.1\ClinicCore.dll" />
+    <file src="C:\Users\User\Documents\GitHub\Health-Care-Clinic\ClinicCore\bin\Debug\netcoreapp3.1\ClinicCore.dll" target="lib\netcoreapp3.1\ClinicCore.dll" />
   </files>
 </package>

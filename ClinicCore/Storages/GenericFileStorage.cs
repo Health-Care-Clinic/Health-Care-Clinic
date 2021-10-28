@@ -1,8 +1,5 @@
 ﻿using ClinicCore.Model;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace ClinicCore.Storages
 {
@@ -11,9 +8,10 @@ namespace ClinicCore.Storages
         protected string fileLocation;
         public List<T> GetAll()
         {
-            String text = File.ReadAllText(this.fileLocation);
-            List<T> objects = JsonConvert.DeserializeObject<List<T>>(text);
-            return objects;
+            // String text = File.ReadAllText(this.fileLocation);
+            //List<T> objects = JsonConvert.DeserializeObject<List<T>>(text);
+            //return objects;
+            return null;
         }
         public void Add(T newObject)
         {
@@ -69,11 +67,11 @@ namespace ClinicCore.Storages
 
         public void SaveAll(List<T> objects)
         {
-            var file = JsonConvert.SerializeObject(objects, Formatting.Indented);
+           /* var file = JsonConvert.SerializeObject(objects, Formatting.Indented);
             using (StreamWriter writer = new StreamWriter(this.fileLocation))
             {
                 writer.Write(file);
-            }
+            }*/
         }
 
     }
