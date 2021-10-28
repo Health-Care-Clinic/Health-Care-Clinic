@@ -1,0 +1,10 @@
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\bin\Debug\netcoreapp3.1\ClinicCore.deps.json
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\bin\Debug\netcoreapp3.1\ClinicCore.dll
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\bin\Debug\netcoreapp3.1\ClinicCore.pdb
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\obj\Debug\netcoreapp3.1\ClinicCore.csproj.AssemblyReference.cache
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\obj\Debug\netcoreapp3.1\ClinicCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\obj\Debug\netcoreapp3.1\ClinicCore.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\obj\Debug\netcoreapp3.1\ClinicCore.AssemblyInfo.cs
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\obj\Debug\netcoreapp3.1\ClinicCore.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\obj\Debug\netcoreapp3.1\ClinicCore.dll
+C:\Users\User\Documents\GitHub\dfa\ISBolnice\Projekat\ClinicCore\obj\Debug\netcoreapp3.1\ClinicCore.pdb
