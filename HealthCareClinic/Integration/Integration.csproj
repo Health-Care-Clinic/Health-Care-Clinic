@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Partnership\Model\" />
+    <Folder Include="Partnership\Service\" />
+    <Folder Include="Partnership\Repository\" />
+    <Folder Include="Pharmacy\Model\" />
+    <Folder Include="Pharmacy\Service\" />
+    <Folder Include="Pharmacy\Repository\" />
+    <Folder Include="Shared model\" />
+    <Folder Include="Tendering\Model\" />
+    <Folder Include="Tendering\Service\" />
+    <Folder Include="Tendering\Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql" Version="5.0.10" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+  </ItemGroup>
+
+</Project>

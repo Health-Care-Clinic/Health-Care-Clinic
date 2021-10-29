@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Graphical editor\Model\" />
+    <Folder Include="Graphical editor\Service\" />
+    <Folder Include="Graphical editor\Repository\" />
+    <Folder Include="Medical records\Model\" />
+    <Folder Include="Medical records\Service\" />
+    <Folder Include="Medical records\Repository\" />
+    <Folder Include="Rooms and equipment\Model\" />
+    <Folder Include="Rooms and equipment\Service\" />
+    <Folder Include="Rooms and equipment\Repository\" />
+    <Folder Include="Schedule\Model\" />
+    <Folder Include="Schedule\Service\" />
+    <Folder Include="Schedule\Repository\" />
+    <Folder Include="Shared model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql" Version="5.0.10" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+  </ItemGroup>
+
+</Project>
