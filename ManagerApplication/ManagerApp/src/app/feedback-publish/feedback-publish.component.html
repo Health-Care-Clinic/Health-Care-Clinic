@@ -1,0 +1,5 @@
+<p *ngIf="feedback.nameAndSurnameOfPatient && !feedback.isPublished">
+    <button (click)="publish.emit()">
+        Objavi
+    </button>
+</p>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { feedbacks } from '../feedbacks';
+import { Feedback } from '../feedbacks';
 
 @Component({
   selector: 'app-feedback-view',
@@ -12,5 +13,10 @@ export class FeedbackViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onPublish(feedback: Feedback){
+    feedback.isPublished = true;
+    window.alert('Mišljenje pacijenta je objavljeno!')
   }
 }

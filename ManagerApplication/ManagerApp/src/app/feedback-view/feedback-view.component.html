@@ -7,4 +7,8 @@
     <h4>
         {{ feedback.text }}
     </h4>
+
+    <app-feedback-publish [feedback]= "feedback" (publish)= "onPublish(feedback)">
+        
+    </app-feedback-publish>
 </div>
