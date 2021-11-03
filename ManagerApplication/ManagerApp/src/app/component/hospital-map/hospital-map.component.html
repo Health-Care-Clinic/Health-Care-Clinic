@@ -1,6 +1,11 @@
 <h1 style="margin-left:auto; margin-right:auto; display:block;text-align:center;">Map of the hospital complex</h1>
 <div style="margin-left:auto; margin-right:auto; display:flex;align-content:center;">
-    <svg width="1060" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div style="margin-right: 20px;" *ngIf="isHospital && selectedBuilding">
+        <ul class="vertical-nav" *ngFor="let floor of building.floors">
+            <li><a [routerLink]="['/floor', building.id, floor.id]">{{floor.name}}</a></li>
+        </ul>
+    </div>
+	<svg width="1060" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
             <filter  id="f2" x="0" y="0" width="200%" height="200%">
               <feOffset result="offOut" in="SourceGraphic" dx="25" dy="25" />
