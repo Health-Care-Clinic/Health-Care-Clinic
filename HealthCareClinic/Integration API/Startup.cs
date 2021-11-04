@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Integration_API.Mapper;
+using Integration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Integration_API
