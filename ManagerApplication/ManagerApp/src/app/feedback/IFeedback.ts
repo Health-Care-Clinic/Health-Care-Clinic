@@ -1,4 +1,4 @@
-export interface Feedback {
+export interface IFeedback {
     id: number;
     date: Date;
     nameAndSurnameOfPatient: string;
