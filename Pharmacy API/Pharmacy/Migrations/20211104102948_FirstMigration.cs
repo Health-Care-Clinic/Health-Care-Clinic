@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Pharmacy_API.Migrations
+namespace Pharmacy.Migrations
 {
     public partial class FirstMigration : Migration
     {

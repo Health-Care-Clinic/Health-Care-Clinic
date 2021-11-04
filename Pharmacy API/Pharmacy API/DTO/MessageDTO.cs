@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
-namespace Integration_API.DTO
+namespace Pharmacy_API.DTO
 {
     public class MessageDTO
     {
