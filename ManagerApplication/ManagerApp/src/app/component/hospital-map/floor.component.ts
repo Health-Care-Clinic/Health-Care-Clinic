@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
+
 @Component({
   selector: 'app-floor',
   templateUrl: './floor.component.html',
   styleUrls: ['./floor.component.css']
 })
 export class FloorComponent implements OnInit {
+
 
   building: any;
   buildings: any;
@@ -46,4 +48,5 @@ export class FloorComponent implements OnInit {
       this.navigationSubscription.unsubscribe();
     }
   }
+
 }

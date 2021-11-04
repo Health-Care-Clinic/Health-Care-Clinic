@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Integration;
-using Microsoft.EntityFrameworkCore;
+using Pharmacy;
 
-namespace Integration_API
+namespace Pharmacy_API
 {
     public class Startup
     {
@@ -27,9 +21,9 @@ namespace Integration_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<IntegrationDbContext>(options =>
-                options.UseNpgsql(
-                    ConfigurationExtensions.GetConnectionString(Configuration, "IntegrationDbConnectionString")).UseLazyLoadingProxies());
+            services.AddDbContext<PharmacyDbContext>(options =>
+               options.UseNpgsql(
+                   ConfigurationExtensions.GetConnectionString(Configuration, "PharmacyDbConnectionString")).UseLazyLoadingProxies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

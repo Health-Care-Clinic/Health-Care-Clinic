@@ -5,24 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ApiKeyService.cs" />
     <Compile Remove="Class1.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Partnership\Model\" />
-    <Folder Include="Partnership\Service\" />
-    <Folder Include="Partnership\Repository\" />
-    <Folder Include="Pharmacy\Model\" />
-    <Folder Include="Pharmacy\Service\" />
-    <Folder Include="Pharmacy\Repository\" />
-    <Folder Include="Shared model\" />
-    <Folder Include="Tendering\Model\" />
-    <Folder Include="Tendering\Service\" />
-    <Folder Include="Tendering\Repository\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="ClinicCore" Version="1.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
       <PrivateAssets>all</PrivateAssets>

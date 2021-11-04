@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
     AppComponent,
     HospitalMapComponent,
     FloorComponent
+
   ],
   imports: [
     BrowserModule,

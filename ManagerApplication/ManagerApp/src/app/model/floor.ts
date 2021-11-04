@@ -1,3 +1,4 @@
+
 import { Room } from "./room";
 
 export class Floor {
@@ -10,4 +11,5 @@ export class Floor {
         this.name = name;
         this.rooms = rooms;
     }
+
 }

@@ -1,28 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Pharmacy_API</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
+    <Compile Remove="Mapper\PharmacyDbContext.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Partnership\Model\" />
-    <Folder Include="Partnership\Service\" />
-    <Folder Include="Partnership\Repository\" />
-    <Folder Include="Pharmacy\Model\" />
-    <Folder Include="Pharmacy\Service\" />
-    <Folder Include="Pharmacy\Repository\" />
-    <Folder Include="Shared model\" />
-    <Folder Include="Tendering\Model\" />
-    <Folder Include="Tendering\Service\" />
-    <Folder Include="Tendering\Repository\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="ClinicCore" Version="1.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
       <PrivateAssets>all</PrivateAssets>
@@ -32,5 +20,14 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     <PackageReference Include="RestSharp" Version="106.13.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pharmacy\Pharmacy.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Mapper\" />
+  </ItemGroup>
+
 
 </Project>
