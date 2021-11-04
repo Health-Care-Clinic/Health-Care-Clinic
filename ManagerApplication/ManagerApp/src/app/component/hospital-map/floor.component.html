@@ -1,0 +1,38 @@
+<nav class="nav">
+    <div class="nav-wrapper">
+        <ul class="menuButton">
+            <li><a [routerLink]="['']">Hospital complex map</a></li>  
+        </ul>
+    </div>
+</nav>   
+<h1 style="margin-left:auto; margin-right:auto; display:block;text-align:center;">{{building.name}}</h1>
+<div style="margin-left:auto; margin-right:auto; display:flex;align-content:center;">
+    <div style="margin-right:30px;">
+        <ul class="vertical-nav" *ngFor="let floor of building.floors">
+            <li [ngStyle]="{'background-color': idfString == floor.id ? '#f36f25' : '#495869'}"><a [routerLink]="['/floor', building.id, floor.id]">{{floor.name}}</a></li>
+        </ul>
+    </div>
+    <svg width="1060" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <filter  id="f2" x="0" y="0" width="200%" height="200%">
+              <feOffset result="offOut" in="SourceGraphic" dx="25" dy="25" />
+              <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+              <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+            </filter>
+        </defs>
+        <defs>
+            <linearGradient id="blue" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#577399;stop-opacity:1" />
+              <stop offset="70%" style="stop-color:#BDD5EA;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+        <defs>
+            <linearGradient id="green" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="10%" style="stop-color:#577399;stop-opacity:1" />
+              <stop offset="70%" style="stop-color:#52DEE5;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+
+
+    </svg>        
+</div>  
