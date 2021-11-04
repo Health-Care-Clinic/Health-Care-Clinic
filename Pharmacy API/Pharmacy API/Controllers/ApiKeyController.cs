@@ -2,29 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ClinicCore.DTOs;
-using Integration;
-using Integration.ApiKeys.Model;
-using Integration.ApiKeys.Model;
-using Integration.ApiKeys.Service;
-using Integration_API.Adapter;
-using Integration_API.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Pharmacy;
+using Pharmacy.Model;
+using Pharmacy_API.Adapter;
+using Pharmacy_API.DTO;
 using RestSharp;
 
-namespace Integration_API.Controller
+namespace Pharmacy_API.Controllers
 {
     [ApiController]
-    [Route("hospital/[controller]")]
+    [Route("benu/[controller]")]
     public class ApiKeyController : ControllerBase
     {
-        private readonly IntegrationDbContext _dbContext;
+        private readonly PharmacyDbContext _dbContext;
 
-        public ApiKeyController(IntegrationDbContext integrationDbContext)
+        public ApiKeyController(PharmacyDbContext dbContext)
         {
-            _dbContext = integrationDbContext;
+            _dbContext = dbContext;
         }
-
 
         [HttpPost]
         public IActionResult Register(ApiKeyDTO dto)
@@ -49,11 +45,11 @@ namespace Integration_API.Controller
             _dbContext.SaveChanges();
 
             String message = newApiKey.Key;
-            _dbContext.Messages.Add(new Message("Hospital", message, newApiKey.Name));
+            _dbContext.Messages.Add(new Message("Benu", message, newApiKey.Name));
             _dbContext.SaveChanges();
 
             var client = new RestSharp.RestClient(newApiKey.BaseUrl);
-            var request = new RestRequest("benu/apikey/receive");
+            var request = new RestRequest("hospital/apikey/receive");
             request.AddJsonBody(ApiKeyAdapter.ApiKeyToApiKeyDto(newApiKey));
             IRestResponse response = client.Post(request);
 
@@ -76,6 +72,31 @@ namespace Integration_API.Controller
             _dbContext.SaveChanges();
 
             return Ok("success");
+        }
+
+        [HttpGet("send/message")]
+        public IActionResult SendMessage(String to, String message)
+        {
+            MessageDTO toSend = new MessageDTO(message);
+            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Name.Equals(to));
+            ApiKey myApiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Name.Equals("Benu"));
+
+            if (apiKey == null)
+            {
+                return BadRequest();
+            }
+
+            var client = new RestSharp.RestClient(apiKey.BaseUrl);
+            var request = new RestRequest("receive/message");
+
+            request.AddHeader("ApiKey", myApiKey.Key);
+            request.AddJsonBody(toSend);
+            IRestResponse response = client.Post(request);
+
+            _dbContext.Messages.Add(new Message("Benu", message, to));
+            _dbContext.SaveChanges();
+
+            return Ok();
         }
 
         [HttpGet]
