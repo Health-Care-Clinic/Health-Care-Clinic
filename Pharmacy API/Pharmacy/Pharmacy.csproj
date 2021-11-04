@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ApiKeyService.cs" />
     <Compile Remove="Class1.cs" />
   </ItemGroup>
 

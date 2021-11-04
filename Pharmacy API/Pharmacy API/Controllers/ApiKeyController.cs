@@ -74,31 +74,6 @@ namespace Pharmacy_API.Controllers
             return Ok("success");
         }
 
-        [HttpGet("send/message")]
-        public IActionResult SendMessage(String to, String message)
-        {
-            MessageDTO toSend = new MessageDTO(message);
-            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Name.Equals(to));
-            ApiKey myApiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Name.Equals("Benu"));
-
-            if (apiKey == null)
-            {
-                return BadRequest();
-            }
-
-            var client = new RestSharp.RestClient(apiKey.BaseUrl);
-            var request = new RestRequest("receive/message");
-
-            request.AddHeader("ApiKey", myApiKey.Key);
-            request.AddJsonBody(toSend);
-            IRestResponse response = client.Post(request);
-
-            _dbContext.Messages.Add(new Message("Benu", message, to));
-            _dbContext.SaveChanges();
-
-            return Ok();
-        }
-
         [HttpGet]
         public IActionResult Get()
         {
