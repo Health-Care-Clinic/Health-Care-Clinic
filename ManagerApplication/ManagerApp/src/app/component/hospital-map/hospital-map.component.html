@@ -1,4 +1,11 @@
-<h1 style="margin-left:auto; margin-right:auto; display:block;text-align:center;">Map of the hospital complex</h1>
+<nav class="nav">
+    <div class="nav-wrapper">
+        <ul class="menuButton">
+            <li><a [routerLink]="['']">Hospital complex map</a></li>  
+        </ul>
+    </div>
+</nav>   
+<h1 style="margin-left:auto; margin-right:auto; display:block;text-align:center;">Hospital complex map</h1>
 <div style="margin-left:auto; margin-right:auto; display:flex;align-content:flex-end;">
     <div style="margin-right: 20px; padding: 70px;" *ngIf="!(building?.type.toString() === '0')"></div>
     <div style="margin-right: 20px;" *ngIf="isHospital && selectedBuilding">
