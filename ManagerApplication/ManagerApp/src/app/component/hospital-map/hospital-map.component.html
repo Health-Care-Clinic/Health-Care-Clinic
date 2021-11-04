@@ -1,53 +1,58 @@
 <h1 style="margin-left:auto; margin-right:auto; display:block;text-align:center;">Map of the hospital complex</h1>
-<div style="margin-left:auto; margin-right:auto; display:flex;align-content:center;">
+<div style="margin-left:auto; margin-right:auto; display:flex;align-content:flex-end;">
+    <div style="margin-right: 20px; padding: 70px;" *ngIf="!(building?.type.toString() === '0')"></div>
     <div style="margin-right: 20px;" *ngIf="isHospital && selectedBuilding">
         <ul class="vertical-nav" *ngFor="let floor of building.floors">
             <li><a [routerLink]="['/floor', building.id, floor.id]">{{floor.name}}</a></li>
         </ul>
     </div>
-	<svg width="1060" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <defs>
-            <filter  id="f2" x="0" y="0" width="200%" height="200%">
-              <feOffset result="offOut" in="SourceGraphic" dx="25" dy="25" />
-              <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
-              <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-            </filter>
-        </defs>
-        <defs>
-            <linearGradient id="blue" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#577399;stop-opacity:1" />
-              <stop offset="70%" style="stop-color:#BDD5EA;stop-opacity:1" />
-            </linearGradient>
-        </defs>
-        <defs>
-            <linearGradient id="green" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="10%" style="stop-color:#577399;stop-opacity:1" />
-              <stop offset="70%" style="stop-color:#52DEE5;stop-opacity:1" />
-            </linearGradient>
-        </defs>
-        
-        <g  *ngFor="let item of buildings">
-                 <rect *ngIf='item.type == 0' rx="20" ry="20" [attr.height]="item.height" [attr.x]="item.x+20" [attr.y]="item.y+26" [attr.width]="item.width+4" style="fill:white;
-                stroke:black;stroke-width:3;opacity:1
-                "/>
-                <rect [attr.filter]="item.type == 0 ? 'url(#f2)' : 'null'" rx="20" ry="20" [attr.height]="item.height" [attr.x]="item.x" [attr.y]="item.y" [attr.width]="item.width"  [attr.id]="item.id" (click)="select(item.id)" [ngStyle]="{'fill':item.type == 0 ? 'url(#green)' : 'url(#blue)' }" style="stroke:#990000; 
-                stroke:black;stroke-width:5;opacity:1
-                "/>
-                
-                <line *ngIf='item.type == 0' [attr.x1]="item.x+6" [attr.x2]="item.x+29" [attr.y1]="item.y+item.height-6" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
-                <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width-6" [attr.x2]="item.x+item.width+17" [attr.y1]="item.y+item.height-6" [attr.y2]="item.y+22+item.height" stroke="black" stroke-width="3"/>
-                <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width-4" [attr.x2]="item.x+item.width+23" [attr.y1]="item.y+6" [attr.y2]="item.y+39" stroke="black" stroke-width="3"/>
-                <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width/2-17" [attr.x2]="item.x+23+item.width/2-20" [attr.y1]="item.y+item.height" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
-                <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width/2+14" [attr.x2]="item.x+23+item.width/2+11" [attr.y1]="item.y+item.height" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
-                <circle *ngIf='item.type == 0' [attr.cx]="item.x+item.width/2+12" [attr.cy]="item.y+13.5+item.height" r="3"/>
-                <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y+item.height/2" [attr.width]="item.width">{{item.name}}</text>  
+    <div style="padding-right: -100px;">
+        <svg width="1060" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+                <filter  id="f2" x="0" y="0" width="200%" height="200%">
+                  <feOffset result="offOut" in="SourceGraphic" dx="25" dy="25" />
+                  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+                  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                </filter>
+            </defs>
+            <defs>
+                <linearGradient id="blue" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style="stop-color:#577399;stop-opacity:1" />
+                  <stop offset="70%" style="stop-color:#BDD5EA;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <defs>
+                <linearGradient id="green" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="10%" style="stop-color:#577399;stop-opacity:1" />
+                  <stop offset="70%" style="stop-color:#52DEE5;stop-opacity:1" />
+                </linearGradient>
+            </defs>
             
-        </g>
-    </svg>        
+            <g  *ngFor="let item of buildings">
+                     <rect *ngIf='item.type == 0' rx="20" ry="20" [attr.height]="item.height" [attr.x]="item.x+20" [attr.y]="item.y+26" [attr.width]="item.width+4" style="fill:white;
+                    stroke:black;stroke-width:3;opacity:1
+                    "/>
+                    <rect [attr.filter]="item.type == 0 ? 'url(#f2)' : 'null'" rx="20" ry="20" [attr.height]="item.height" [attr.x]="item.x" [attr.y]="item.y" [attr.width]="item.width"  [attr.id]="item.id" (click)="select(item.id)" [ngStyle]="{'fill':item.type == 0 ? 'url(#green)' : 'url(#blue)' }" style="stroke:#990000; 
+                    stroke:black;stroke-width:5;opacity:1
+                    "/>
+                    
+                    <line *ngIf='item.type == 0' [attr.x1]="item.x+6" [attr.x2]="item.x+29" [attr.y1]="item.y+item.height-6" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
+                    <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width-6" [attr.x2]="item.x+item.width+17" [attr.y1]="item.y+item.height-6" [attr.y2]="item.y+22+item.height" stroke="black" stroke-width="3"/>
+                    <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width-4" [attr.x2]="item.x+item.width+23" [attr.y1]="item.y+6" [attr.y2]="item.y+39" stroke="black" stroke-width="3"/>
+                    <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width/2-17" [attr.x2]="item.x+23+item.width/2-20" [attr.y1]="item.y+item.height" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
+                    <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width/2+14" [attr.x2]="item.x+23+item.width/2+11" [attr.y1]="item.y+item.height" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
+                    <circle *ngIf='item.type == 0' [attr.cx]="item.x+item.width/2+12" [attr.cy]="item.y+13.5+item.height" r="3"/>
+                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y+item.height/2" [attr.width]="item.width">{{item.name}}</text>  
+                
+            </g>
+        </svg>        
+    </div>
+    <div style="padding: 5px;">
 
-    <div style="background-color:#495869;margin-left:auto; margin-right:auto; display:flex;flex-direction: column;justify-content: center;">
+    </div>
+    <div style=" background-color:#495869; display:flex;flex-direction: column;justify-content: center; width: 10%;">
         
-         <b style="text-align: center;">Name:</b>
+        <b style="text-align: center;">Name:</b>
         <input style="text-align: center;" type="text" id="nameHTML"  value=""/>
         <button style="background-color: #BDD5EA;" (click)="change()" >Change</button>
         
