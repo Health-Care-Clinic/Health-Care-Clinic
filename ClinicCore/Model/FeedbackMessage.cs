@@ -1,16 +1,32 @@
-﻿using System;
+﻿using Model;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClinicCore.Model
 {
     public class FeedbackMessage
     {
+        [Key]
+        public long Id { get; set; }
+        public DateTime Date { get; set; }
         public String Text { get; set; }
-        public DateTime DateSent { get; set; }
+        public bool IsAnonymous { get; set; }
+        public String Identity { get; set; }
+        public bool CanBePublished { get; set; }
+        public bool IsPublished { get; set; }
 
-        public FeedbackMessage(string text, DateTime dateSent)
+        public FeedbackMessage() { }
+
+        public FeedbackMessage(long id, DateTime date, string text, bool isAnonymous, String identity, bool canBePublished, 
+            bool isPublished)
         {
+            Id = id;
+            Date = date;
             Text = text;
-            DateSent = dateSent;
+            IsAnonymous = isAnonymous;
+            Identity = identity;
+            CanBePublished = canBePublished;
+            IsPublished = isPublished;
         }
     }
 }
