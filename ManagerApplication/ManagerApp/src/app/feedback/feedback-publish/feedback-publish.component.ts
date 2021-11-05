@@ -23,10 +23,18 @@ export class FeedbackPublishComponent implements OnChanges {
   publish(feedback: IFeedback){
     feedback.isPublished = true;
     window.alert('Mišljenje pacijenta je objavljeno!');
-    this.addFeedback();
+    this.editFeedback();
   }
 
-  
+  editFeedback() {
+    this._feedbackService.editFeedback(this.feedback)
+      .subscribe(data => {
+        this.feedback.id = data.id
+        console.log(data)
+        this.refreshFeedback();
+      })      
+  }
+
   addFeedback() {
     this._feedbackService.addFeedback(this.feedback)
       .subscribe(data => {

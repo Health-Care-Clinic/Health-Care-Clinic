@@ -1,8 +1,10 @@
 export interface IFeedback {
     id: number;
     date: Date;
-    nameAndSurnameOfPatient: string;
     text: string;
+    isAnonymous: boolean;
+    identity: string;
+    canBePublished :boolean;
     isPublished: boolean;
   }
   

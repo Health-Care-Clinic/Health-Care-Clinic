@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class FeedbackService{
-    private _feedbackUrl = '/api/feedbackMessageController/';
+    private _feedbackUrl = '/api/feedbackMessage/';
 
     constructor(private _http : HttpClient){}
 
@@ -23,6 +23,11 @@ export class FeedbackService{
         console.log(body)
         return this._http.post(this._feedbackUrl, body,{'headers':headers})
       }
+    
+    editFeedback(feedback : IFeedback):Observable<any>{
+        const body = JSON.stringify(feedback);
+        return this._http.put<any>(this._feedbackUrl + '/' + feedback.id, body)
+    }
 
     private handleError(err : HttpErrorResponse) {
         console.log(err.message);

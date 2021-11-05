@@ -1,8 +1,8 @@
 <h2>Patient feedbacks</h2>
 
 <div *ngFor="let feedback of feedbacks">
-    <h3 *ngIf="feedback.nameAndSurnameOfPatient">
-        {{ feedback.nameAndSurnameOfPatient }}
+    <h3 *ngIf="feedback.identity">
+        {{ feedback.identity }}
     </h3>
     <h4>
         {{ feedback.text }}
