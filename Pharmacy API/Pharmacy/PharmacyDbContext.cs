@@ -11,6 +11,8 @@ namespace Pharmacy
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<ApiKey> ApiKeys { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<FeedbackReply> FeedbackReplies { get; set; }
 
         public PharmacyDbContext(DbContextOptions<PharmacyDbContext> options) : base(options) { }
 
@@ -26,6 +28,12 @@ namespace Pharmacy
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<Message>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Feedback>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<FeedbackReply>()
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
         }

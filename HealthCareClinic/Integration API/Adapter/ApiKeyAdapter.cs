@@ -15,6 +15,7 @@ namespace Integration_API.Adapter
             apiKey.Name = dto.Name;
             apiKey.Key = dto.Key;
             apiKey.BaseUrl = dto.BaseUrl;
+            apiKey.Category = dto.Category;
 
             return apiKey;
         }
@@ -25,6 +26,7 @@ namespace Integration_API.Adapter
             dto.Name = apiKey.Name;
             dto.Key = apiKey.Key;
             dto.BaseUrl = apiKey.BaseUrl;
+            dto.Category = apiKey.Category;
 
             return dto;
         }

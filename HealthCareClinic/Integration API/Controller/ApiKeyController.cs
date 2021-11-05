@@ -44,6 +44,7 @@ namespace Integration_API.Controller
             ApiKey newApiKey = ApiKeyAdapter.ApiKeyDtoToApiKey(dto);
             Guid g = Guid.NewGuid();
             newApiKey.Key = g.ToString();
+            newApiKey.Category = "Pharmacy";
 
             _dbContext.ApiKeys.Add(newApiKey);
             _dbContext.SaveChanges();
@@ -52,8 +53,12 @@ namespace Integration_API.Controller
             _dbContext.Messages.Add(new Message("Hospital", message, newApiKey.Name));
             _dbContext.SaveChanges();
 
+            
             var client = new RestSharp.RestClient(newApiKey.BaseUrl);
             var request = new RestRequest("benu/apikey/receive");
+            newApiKey.Name = "Hospital";
+            newApiKey.BaseUrl = $"{this.Request.Scheme}://{this.Request.Host}";
+            newApiKey.Category = "Hospital";
             request.AddJsonBody(ApiKeyAdapter.ApiKeyToApiKeyDto(newApiKey));
             IRestResponse response = client.Post(request);
 
@@ -83,6 +88,14 @@ namespace Integration_API.Controller
         public IActionResult Get()
         {
             return Ok("radi");
+        }
+
+        [HttpGet("pharmacies")]
+        public IActionResult GetPharmacies()
+        {
+            List<ApiKeyDTO> pharmacies = new List<ApiKeyDTO>();
+            _dbContext.ApiKeys.Where(apiKey => apiKey.Category.Equals("Pharmacy")).ToList().ForEach(apiKey => pharmacies.Add(ApiKeyAdapter.ApiKeyToApiKeyDto(apiKey)));
+            return Ok(pharmacies);
         }
     }
 }

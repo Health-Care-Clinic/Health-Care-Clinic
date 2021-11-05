@@ -40,6 +40,7 @@ namespace Pharmacy_API.Controllers
             ApiKey newApiKey = ApiKeyAdapter.ApiKeyDtoToApiKey(dto);
             Guid g = Guid.NewGuid();
             newApiKey.Key = g.ToString();
+            newApiKey.Category = "Hospital";
 
             _dbContext.ApiKeys.Add(newApiKey);
             _dbContext.SaveChanges();
@@ -50,6 +51,9 @@ namespace Pharmacy_API.Controllers
 
             var client = new RestSharp.RestClient(newApiKey.BaseUrl);
             var request = new RestRequest("hospital/apikey/receive");
+            newApiKey.Name = "Benu";
+            newApiKey.BaseUrl = $"{this.Request.Scheme}://{this.Request.Host}";
+            newApiKey.Category = "Pharmacy";
             request.AddJsonBody(ApiKeyAdapter.ApiKeyToApiKeyDto(newApiKey));
             IRestResponse response = client.Post(request);
 

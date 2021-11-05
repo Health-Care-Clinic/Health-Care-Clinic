@@ -1,9 +1,11 @@
 ﻿using Integration;
+using Integration.ApiKeys.Model;
 using Integration.Pharmacy.Model;
 using Integration_API.Adapter;
 using Integration_API.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,19 @@ namespace Integration_API.Controller
             return Ok(feedbacks);
         }
 
+        [HttpGet("{id?}")]
+        public IActionResult GetFeedbacksByHospitalId(int id)
+        {
+            Feedback feedback = _dbContext.Feedbacks.FirstOrDefault(feedback => feedback.SenderId == id);
+            if (feedback == null)
+            {
+                return NotFound();
+            }
+            List<FeedbackDTO> feedbacks = new List<FeedbackDTO>();
+            _dbContext.Feedbacks.Where(feedback => feedback.SenderId == id).ToList().ForEach(feedback => feedbacks.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback)));
+            return Ok(feedbacks);
+        }
+
         [HttpPost]
         public IActionResult GiveFeedback(FeedbackDTO dto)
         {
@@ -42,6 +57,13 @@ namespace Integration_API.Controller
 
             _dbContext.Feedbacks.Add(newFeedback);
             _dbContext.SaveChanges();
+
+            ApiKey apiKey = _dbContext.ApiKeys.SingleOrDefault(apiKey => apiKey.Id == newFeedback.ReceiverId);
+            
+            var client = new RestSharp.RestClient(apiKey.BaseUrl);
+            var request = new RestRequest("benu/feedback/receive");
+            request.AddJsonBody(FeedbackAdapter.FeedbackToFeedbackDto(newFeedback));
+            IRestResponse response = client.Post(request);
 
             return Ok("success");
         }

@@ -10,14 +10,16 @@ namespace Pharmacy.Model
         public String Name { get; set; }
         public String Key { get; set; }
         public String BaseUrl { get; set; }
+        public String Category { get; set; }
 
         public ApiKey() { }
 
-        public ApiKey(string name, string key, string baseUrl)
+        public ApiKey(string name, string key, string baseUrl, string category)
         {
             Name = name;
             Key = key;
             BaseUrl = baseUrl;
+            Category = category;
         }
     }
 }
