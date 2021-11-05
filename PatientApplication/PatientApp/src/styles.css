@@ -6,7 +6,7 @@ html {
     background: url(images/background3.jpg) no-repeat center center fixed;
     background-size: cover;
     height: 100%;
-    overflow: hidden;
+    /* overflow: visible; */
   }
 
 body { 
