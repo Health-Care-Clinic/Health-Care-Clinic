@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Floor } from '../model/floor';
+import { Room, TypeOfRoom } from '../model/room';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,17 @@ export class HospitalMapService {
 
   public getBuildings(): Observable<Array<Building>> {
     let buildings: any;
-    let building1 = new Building(1,260,30,400,140,"Building1",TypeOfBuilding.Hospital,[new Floor(1, "Sprat 1", null), new Floor(2, "Sprat 2", null), new Floor(3, "Sprat 3", null)]);
-    let building2 = new Building(2,260,230,400,140,"Building2",TypeOfBuilding.Hospital,[new Floor(4, "Sprat 1", null), new Floor(5, "Sprat 2", null)]);
-    let building3 = new Building(3,30,130,180,240,"Building3",TypeOfBuilding.Hospital,[new Floor(6, "Sprat 1", null), new Floor(7, "Sprat 2", null), new Floor(8, "Sprat 3", null)]);
-    let building4 = new Building(4,700,230,300,140,"Building4",TypeOfBuilding.Hospital,[new Floor(9, "Sprat 1", null), new Floor(10, "Sprat 2", null)]);
-
+    
+    let room1 = new Room('Operaciona sala', '', 'Pera Peric', 12, TypeOfRoom.OperationRoom,260,30,400,140);
+    let room2 = new Room('Toalet', '', '', 24, TypeOfRoom.Other,260,230,400,140);
+    let room3 = new Room('Soba za pregled', 'Kardiolog', 'Mika Mikic', 12, TypeOfRoom.RoomForAppointments,30,130,180,240);
+    let room4 = new Room('Sala za pregled', 'Radiolog', 'Ziva Zivic', 12, TypeOfRoom.RoomForAppointments,700,230,300,140);
+    let room5 = new Room('Kuhinja', '', '', 24, TypeOfRoom.Other,30,30,200,70);
+    let rooms = [room1, room2, room3, room4, room5];
+    let building1 = new Building(1,260,30,400,140,"Building1",TypeOfBuilding.Hospital,[new Floor(1, "Sprat 1", rooms), new Floor(2, "Sprat 2", rooms), new Floor(3, "Sprat 3", rooms)]);
+    let building2 = new Building(2,260,230,400,140,"Building2",TypeOfBuilding.Hospital,[new Floor(4, "Sprat 1", rooms), new Floor(5, "Sprat 2", rooms)]);
+    let building3 = new Building(3,30,130,180,240,"Building3",TypeOfBuilding.Hospital,[new Floor(6, "Sprat 1", rooms), new Floor(7, "Sprat 2", rooms), new Floor(8, "Sprat 3", rooms)]);
+    let building4 = new Building(4,700,230,300,140,"Building4",TypeOfBuilding.Hospital,[new Floor(9, "Sprat 1", rooms), new Floor(10, "Sprat 2", rooms)]);
     let building5 = new Building(5,30,30,200,70,"Parking1",TypeOfBuilding.Parking,null);
     let building6 = new Building(6,800,30,200,70,"Parking2",TypeOfBuilding.Parking,null);
     let building7 = new Building(7,800,130,200,70,"Parking3",TypeOfBuilding.Parking,null);
