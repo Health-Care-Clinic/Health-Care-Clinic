@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class FeedbackService{
-    private _feedbackUrl = 'localhost:6281/api';
+    private _feedbackUrl = '/api/feedbackMessageController/';
 
     constructor(private _http : HttpClient){}
 
