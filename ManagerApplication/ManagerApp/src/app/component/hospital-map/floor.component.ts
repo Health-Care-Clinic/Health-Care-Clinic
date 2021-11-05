@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { TypeOfBuilding } from 'src/app/model/building';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
 
@@ -15,7 +16,8 @@ export class FloorComponent implements OnInit {
   buildings: any;
   floor: any;
   idfString: string
-  navigationSubscription; 
+  navigationSubscription;
+  selectedBuilding: number; 
 
   constructor(private _route: ActivatedRoute, private hospitalMapService: HospitalMapService, private router: Router) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -49,4 +51,35 @@ export class FloorComponent implements OnInit {
     }
   }
 
+  select(index: number) {
+    var building = this.buildings.find(i => i.id === index);
+    this.building = building;
+    var buildingHTML = document.getElementById(index.toString());
+    var nameHTML = <HTMLInputElement>document.getElementById("nameHTML");
+    
+   
+    for (let i of this.buildings){
+      if(i.id!==index){
+        var unselectBuildingHTML = document.getElementById(i.id.toString());
+        if ( unselectBuildingHTML!.style["fill"]=="rgb(193, 73, 83)" && i.type === TypeOfBuilding.Hospital) {
+          unselectBuildingHTML!.style["fill"] = "url(#green)";
+          
+        }
+      }
+    }
+
+    if ( buildingHTML!.style["fill"]=="rgb(193, 73, 83)") {
+
+        buildingHTML!.style["fill"] = "url(#green)";
+        
+        nameHTML!.value = " ";
+        this.selectedBuilding = null;
+    }
+    else {
+        buildingHTML!.style["fill"] = "#C14953";   
+        nameHTML!.value = building.name;
+        this.selectedBuilding = index;
+    }
+
+  }
 }
