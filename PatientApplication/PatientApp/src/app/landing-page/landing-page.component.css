@@ -1,0 +1,26 @@
+.navbar {
+    /* justify-content: space-between; */
+    position: fixed;
+    top: 0;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+span {
+    padding-right: 1rem;
+}
+
+mat-button {
+    color: primary;
+}
+
+h1 {
+    text-align: center;
+    font-size: 44px; 
+}
+
+p {
+    font-size: 18px;
+}
