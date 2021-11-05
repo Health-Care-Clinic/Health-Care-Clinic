@@ -1,0 +1,15 @@
+.navbar {
+    /* justify-content: space-between; */
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+span {
+    padding-right: 1rem;
+}
+
+mat-button {
+    color: primary;
+}
