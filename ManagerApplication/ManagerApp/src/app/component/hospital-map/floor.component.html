@@ -12,53 +12,67 @@
             <li [ngStyle]="{'background-color': idfString == floor.id ? '#f36f25' : '#495869'}"><a [routerLink]="['/floor', building.id, floor.id]" (click)="selectFloor(floor.id)">{{floor.name}}</a></li>
         </ul>
     </div>
-    <svg width="1060" height="430" style="border:1px solid black;background-color:#695349;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg width="1060" height="430" style="border:1px solid black;background-color:#aa8777;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         
         <g *ngFor="let f of building.floors">
             <g *ngIf="f.id == floor.id">
                 <g *ngFor="let item of f.rooms">
                     <rect [attr.id]="item.roomNumber" rx="20" ry="20" [attr.height]="item.height" [attr.x]="item.x" [attr.y]="item.y" [attr.width]="item.width" (click)="selectRoom(item.roomNumber)" 
                     style="stroke:#990000; stroke:black; stroke-width:5; opacity:1; fill:#52DEE5; cursor: pointer;"/>
-                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y-10+item.height/2" [attr.width]="item.width" cursor="pointer" (click)="selectRoom(item.roomNumber)">Room number: {{item.roomNumber}}</text>
-                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y+10+item.height/2" [attr.width]="item.width" cursor="pointer" (click)="selectRoom(item.roomNumber)">{{item.name}}</text>
+                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y-10+item.height/2" [attr.width]="item.width" cursor="pointer" (click)="selectRoom(item.roomNumber)">Number: {{item.roomNumber}}</text>
+                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y+10+item.height/2" [attr.width]="item.width" cursor="pointer" (click)="selectRoom(item.roomNumber)">{{item.type}}</text>
                 </g>
             </g>
         </g>
 
     </svg>
-    <div style="background-color:#495869; display:flex; flex-direction: column;justify-content: center; width: 20%;" *ngIf="selectedRoom">
+    <div style="background-color:#aa8777; display:flex; flex-direction: column;justify-content: center; width: 20%;" *ngIf="selectedRoom">
         <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
-            <b style="width: auto;">Room number: {{selectedRoom.roomNumber}}</b>
-        </div>
-        
-        <br>
-        <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
-            <b>Room name:  {{selectedRoom.name}}</b>
-        </div>
-        
-        <br>
-        <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
-            <b>Room type: {{selectedRoom.type}}</b>
-        </div>
-        
-        <br>
-        <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
-            <b>Room description: {{selectedRoom.description}}</b>
-        </div>
-        
-        <br>
-        <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
-            <b>Room doctor: {{selectedRoom.doctor}}</b>
+            <b style="width: auto;">Room number: </b>
+            <b *ngIf="!changeSelected">{{selectedRoom.roomNumber}}</b>
+            <input *ngIf="changeSelected" value="{{selectedRoom.roomNumber}}" disabled/>
         </div>
 
         <br>
         <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
-            <b>Room work hour: {{selectedRoom.workHour}}</b>
+            <b>Room type: </b>
+            <b *ngIf="!changeSelected">{{selectedRoom.type}}</b>
+            <input *ngIf="changeSelected" value="{{selectedRoom.type}}" disabled/>
+        </div>
+        
+        <br>
+        <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
+            <b>Room name: </b>
+            <b *ngIf="!changeSelected">{{selectedRoom.name}}</b>
+            <input *ngIf="changeSelected" value="{{selectedRoom.name}}" id="roomNameHTML"/>
+        </div>
+                
+        <br>
+        <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
+            <b>Room description: </b>
+            <b *ngIf="!changeSelected">{{selectedRoom.description}}</b>
+            <input *ngIf="changeSelected" value="{{selectedRoom.description}}" id="roomDescriptionHTML"/>
+        </div>
+        
+        <br>
+        <div *ngIf="!wcSelected" style="width: 100%; margin-left: 20px; margin-right: 20px;">
+            <b>Room doctor: </b>
+            <b *ngIf="!changeSelected">{{selectedRoom.doctor}}</b>
+            <input *ngIf="changeSelected" value="{{selectedRoom.doctor}}" id="roomDoctorHTML"/>
+        </div>
+
+        <br>
+        <div *ngIf="!wcSelected" style="width: 100%; margin-left: 20px; margin-right: 20px;">
+            <b>Room work hour: </b>
+            <b *ngIf="!changeSelected">{{selectedRoom.workHour}}</b>
+            <input *ngIf="changeSelected" value="{{selectedRoom.workHour}}" id="roomWorkHourHTML" type="number" min=0 max=24/>
         </div>
 
         <br>
         <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
-            <button style="background-color: #BDD5EA;" (click)="changeRoom()">Change informations</button>
+            <button style="background-color: rgb(255, 255, 110);" (click)="changeRoom()">Change informations</button>
+            <br>
+            <button style="background-color: green;" (click)="editRoom()" *ngIf="changeSelected">Accept</button>
         </div>
 
     </div>
