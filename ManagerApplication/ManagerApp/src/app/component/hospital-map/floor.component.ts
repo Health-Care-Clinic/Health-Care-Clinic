@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TypeOfBuilding } from 'src/app/model/building';
+import { Room, TypeOfRoom } from 'src/app/model/room';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
 
@@ -19,6 +20,8 @@ export class FloorComponent implements OnInit {
   selectedBuilding: number;
   selectedFloor: any;
   selectedRoom: any;
+  wcSelected: any;
+  changeSelected: any;
 
   constructor(private _route: ActivatedRoute, private hospitalMapService: HospitalMapService, private router: Router) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -84,21 +87,24 @@ export class FloorComponent implements OnInit {
 
   }
 
-  public changeRoom(){
-    
-  }
-
   public selectFloor(index: number){
     this.selectedFloor = this.floor;
     this.selectedRoom = null;
+    this.wcSelected = null;
   }
 
   public selectRoom(index: number){
     var selectedRoomHTML = document.getElementById(index.toString());
+    this.changeSelected = false;
 
     for (let room of this.floor.rooms){
       if(room.roomNumber === index){
         this.selectedRoom = room;
+        if (room.type === TypeOfRoom.WC) {
+          this.wcSelected = true;
+        } else {
+          this.wcSelected = false;
+        }
         selectedRoomHTML.style["fill"] = "rgb(193, 73, 83)";
       } else {
         var unselectedRoomHTML = document.getElementById(room.roomNumber.toString());
@@ -106,6 +112,28 @@ export class FloorComponent implements OnInit {
       }
     }
 
+  }
+
+  public changeRoom(){
+    this.changeSelected = true;
+  }
+
+  public editRoom(){
+    this.changeSelected = false;
+
+    var roomNameHTML: any;
+    roomNameHTML = document.getElementById("roomNameHTML");
+    var roomDescriptionHTML: any;
+    roomDescriptionHTML = document.getElementById("roomDescriptionHTML");
+    var roomDoctorHTML: any;
+    roomDoctorHTML = document.getElementById("roomDoctorHTML");
+    var roomWorkHourHTML: any;
+    roomWorkHourHTML = document.getElementById("roomWorkHourHTML");
+
+    this.selectedRoom.name = roomNameHTML.value;
+    this.selectedRoom.description = roomDescriptionHTML.value;
+    this.selectedRoom.doctor = roomDoctorHTML.value;
+    this.selectedRoom.workHour = roomWorkHourHTML.value;
   }
 
 }
