@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Integration_API.DTO
+namespace Pharmacy.Model
 {
-    public class FeedbackDTO
+    public class Feedback
     {
+        public int Id { get; set; }
         public string Text { get; set; }
         public int SenderId { get; set; }
         public int ReceiverId { get; set; }
         public DateTime TimeOfSending { get; set; }
 
-        public FeedbackDTO()
+        public Feedback()
         {
 
         }
 
-        public FeedbackDTO(string text, int senderId, int receiverId, DateTime timeOfSending)
+        public Feedback(string text, int senderId, int receiverId, DateTime timeOfSending)
         {
             Text = text;
             SenderId = senderId;

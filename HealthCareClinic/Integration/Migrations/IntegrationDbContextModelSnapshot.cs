@@ -29,6 +29,9 @@ namespace Integration.Migrations
                     b.Property<string>("BaseUrl")
                         .HasColumnType("text");
 
+                    b.Property<string>("Category")
+                        .HasColumnType("text");
+
                     b.Property<string>("Key")
                         .HasColumnType("text");
 
