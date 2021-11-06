@@ -25,8 +25,6 @@ export class HospitalMapComponent implements OnInit {
   public change(){
     var nameHTML = <HTMLInputElement>document.getElementById("nameHTML");
     this.buildings.find(i => i.id === this.selectedBuilding).name=nameHTML!.value;
-
-
   }
 
   public select(index:number){
@@ -34,7 +32,6 @@ export class HospitalMapComponent implements OnInit {
     this.building = building;
     var buildingHTML = document.getElementById(index.toString());
     var nameHTML = <HTMLInputElement>document.getElementById("nameHTML");
-    
    
     for (let i of this.buildings){
       if(i.id!==index){
@@ -48,8 +45,6 @@ export class HospitalMapComponent implements OnInit {
         }
       }
     }
-    
-
 
     if ( buildingHTML!.style["fill"]=="rgb(193, 73, 83)") {
         if(building.type === TypeOfBuilding.Hospital){
