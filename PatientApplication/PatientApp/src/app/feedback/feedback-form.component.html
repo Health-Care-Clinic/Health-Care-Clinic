@@ -3,7 +3,7 @@
 
         <div class="form-group">
             <label for="feedback-input">Provide your opinion below:</label>
-            <textarea id="feedback-input" name="feedback-input" rows="5" cols="80" [(ngModel)]="feedbackModel.text"> </textarea>
+            <textarea id="feedback-input" name="feedback-input" rows="5" cols="80" [(ngModel)]="feedbackModel.text" required #message="ngModel"> </textarea>
         </div>
 
         <div class="form-group">
@@ -16,8 +16,10 @@
             <label class="form-check-label" for="publish">Allow my feedback to be published</label>
         </div>
     
-        <button (click)="submit()">Submit</button>
-        
+       <button name="submit-button" (click)="submit()" [disabled]="!message.valid">Submit</button>
+
+
+
     </form>
 </div>
 

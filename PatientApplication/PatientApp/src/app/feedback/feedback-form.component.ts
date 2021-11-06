@@ -25,7 +25,7 @@ export class FeedbackForm {
     console.log(this.feedbackModel);
     window.alert('Your feedback has been submited.');
     this.feedbackModel = new Feedback();
-  }
+    }
 
   
 }
