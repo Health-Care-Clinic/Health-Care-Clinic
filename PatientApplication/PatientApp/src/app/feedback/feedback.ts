@@ -1,5 +1,6 @@
 export class Feedback {
-    date: string = Date.now().toString();
+    id: number = 0;
+    date: Date = new Date();
     text: string = "";
     isAnonymous: boolean = false;
     identity: string = "";

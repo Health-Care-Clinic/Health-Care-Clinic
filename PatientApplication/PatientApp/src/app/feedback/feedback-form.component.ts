@@ -16,11 +16,11 @@ export class FeedbackForm {
 
   submit(): void {
 
-    /**this._feedbackService.generate(this.feedbackModel)
+    this._feedbackService.addFeedback(this.feedbackModel)
     .subscribe(
       data => console.log('Success!', data),
       error => console.log('Error!', error)
-    ) **/
+    ) 
 
     console.log(this.feedbackModel);
     window.alert('Your feedback has been submited.');

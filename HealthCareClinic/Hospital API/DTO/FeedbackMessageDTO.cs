@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ClinicCore.DTOs
+namespace Hospital_API.DTO
 {
     public class FeedbackMessageDTO
     {
         public long Id { get; set; }
-        public String DateAsString { get; set; }
+        public String Date { get; set; }
         public String Text { get; set; }
         public bool IsAnonymous { get; set; }
         public String Identity { get; set; }
@@ -14,11 +17,11 @@ namespace ClinicCore.DTOs
 
         public FeedbackMessageDTO() { }
 
-        public FeedbackMessageDTO(long id, String dateAsString, string text, bool isAnonymous, String identity, 
+        public FeedbackMessageDTO(long id, String date, string text, bool isAnonymous, String identity,
             bool canBePublished, bool isPublished)
         {
             Id = id;
-            DateAsString = dateAsString;
+            Date = date;
             Text = text;
             IsAnonymous = isAnonymous;
             Identity = identity;
