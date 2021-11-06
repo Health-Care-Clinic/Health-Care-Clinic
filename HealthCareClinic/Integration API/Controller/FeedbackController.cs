@@ -27,8 +27,7 @@ namespace Integration_API.Controller
         [HttpGet]
         public IActionResult Get()
         {
-            List<FeedbackDTO> feedbacks = new List<FeedbackDTO>();
-            _dbContext.Feedbacks.ToList().ForEach(feedback => feedbacks.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback)));
+            List<Feedback> feedbacks = _dbContext.Feedbacks.ToList();
             return Ok(feedbacks);
         }
 

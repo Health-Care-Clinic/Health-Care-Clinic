@@ -9,6 +9,7 @@ using Integration.ApiKeys.Model;
 using Integration.ApiKeys.Service;
 using Integration_API.Adapter;
 using Integration_API.DTO;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 
@@ -93,8 +94,8 @@ namespace Integration_API.Controller
         [HttpGet("pharmacies")]
         public IActionResult GetPharmacies()
         {
-            List<ApiKeyDTO> pharmacies = new List<ApiKeyDTO>();
-            _dbContext.ApiKeys.Where(apiKey => apiKey.Category.Equals("Pharmacy")).ToList().ForEach(apiKey => pharmacies.Add(ApiKeyAdapter.ApiKeyToApiKeyDto(apiKey)));
+            List<PharmacyDTO> pharmacies = new List<PharmacyDTO>();
+            _dbContext.ApiKeys.Where(apiKey => apiKey.Category.Equals("Pharmacy")).ToList().ForEach(apiKey => pharmacies.Add(ApiKeyAdapter.ApiKeyToPharmacyDto(apiKey)));
             return Ok(pharmacies);
         }
     }

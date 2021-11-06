@@ -30,5 +30,10 @@ namespace Integration_API.Adapter
 
             return dto;
         }
+
+        public static PharmacyDTO ApiKeyToPharmacyDto(ApiKey apiKey)
+        {
+            return new PharmacyDTO(apiKey.Id, apiKey.Name);
+        }
     }
 }
