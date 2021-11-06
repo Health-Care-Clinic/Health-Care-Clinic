@@ -38,11 +38,9 @@
             
             <g  *ngFor="let item of buildings">
                      <rect *ngIf='item.type == 0' rx="20" ry="20" [attr.height]="item.height" [attr.x]="item.x+20" [attr.y]="item.y+26" [attr.width]="item.width+4" style="fill:white;
-                    stroke:black;stroke-width:3;opacity:1
-                    "/>
+                    stroke:black;stroke-width:3;opacity:1; cursor: pointer;"/>
                     <rect [attr.filter]="item.type == 0 ? 'url(#f2)' : 'null'" rx="20" ry="20" [attr.height]="item.height" [attr.x]="item.x" [attr.y]="item.y" [attr.width]="item.width"  [attr.id]="item.id" (click)="select(item.id)" [ngStyle]="{'fill':item.type == 0 ? 'url(#green)' : 'url(#blue)' }" style="stroke:#990000; 
-                    stroke:black;stroke-width:5;opacity:1
-                    "/>
+                    stroke:black;stroke-width:5;opacity:1; cursor: pointer;"/>
                     
                     <line *ngIf='item.type == 0' [attr.x1]="item.x+6" [attr.x2]="item.x+29" [attr.y1]="item.y+item.height-6" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
                     <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width-6" [attr.x2]="item.x+item.width+17" [attr.y1]="item.y+item.height-6" [attr.y2]="item.y+22+item.height" stroke="black" stroke-width="3"/>
@@ -50,7 +48,7 @@
                     <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width/2-17" [attr.x2]="item.x+23+item.width/2-20" [attr.y1]="item.y+item.height" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
                     <line *ngIf='item.type == 0' [attr.x1]="item.x+item.width/2+14" [attr.x2]="item.x+23+item.width/2+11" [attr.y1]="item.y+item.height" [attr.y2]="item.y+25+item.height" stroke="black" stroke-width="3"/>
                     <circle *ngIf='item.type == 0' [attr.cx]="item.x+item.width/2+12" [attr.cy]="item.y+13.5+item.height" r="3"/>
-                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y+item.height/2" [attr.width]="item.width">{{item.name}}</text>  
+                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y+item.height/2" [attr.width]="item.width" cursor="pointer" (click)="select(item.id)">{{item.name}}</text>  
                 
             </g>
         </svg>        

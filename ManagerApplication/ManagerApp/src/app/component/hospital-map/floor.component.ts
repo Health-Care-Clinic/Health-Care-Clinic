@@ -11,13 +11,14 @@ import { HospitalMapService } from 'src/app/services/hospital-map-service.servic
 })
 export class FloorComponent implements OnInit {
 
-
   building: any;
   buildings: any;
   floor: any;
   idfString: string
   navigationSubscription;
-  selectedBuilding: number; 
+  selectedBuilding: number;
+  selectedFloor: any;
+  selectedRoom: any;
 
   constructor(private _route: ActivatedRoute, private hospitalMapService: HospitalMapService, private router: Router) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -56,7 +57,7 @@ export class FloorComponent implements OnInit {
     this.building = building;
     var buildingHTML = document.getElementById(index.toString());
     var nameHTML = <HTMLInputElement>document.getElementById("nameHTML");
-    
+    console.log(nameHTML);
    
     for (let i of this.buildings){
       if(i.id!==index){
@@ -82,4 +83,29 @@ export class FloorComponent implements OnInit {
     }
 
   }
+
+  public changeRoom(){
+    
+  }
+
+  public selectFloor(index: number){
+    this.selectedFloor = this.floor;
+    this.selectedRoom = null;
+  }
+
+  public selectRoom(index: number){
+    var selectedRoomHTML = document.getElementById(index.toString());
+
+    for (let room of this.floor.rooms){
+      if(room.roomNumber === index){
+        this.selectedRoom = room;
+        selectedRoomHTML.style["fill"] = "rgb(193, 73, 83)";
+      } else {
+        var unselectedRoomHTML = document.getElementById(room.roomNumber.toString());
+        unselectedRoomHTML.style["fill"] = "#52DEE5";
+      }
+    }
+
+  }
+
 }
