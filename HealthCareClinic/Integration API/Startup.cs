@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Integration_API.Mapper;
+using Integration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Integration_API
@@ -21,6 +21,7 @@ namespace Integration_API
             Configuration = configuration;
         }
 
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -30,6 +31,8 @@ namespace Integration_API
             services.AddDbContext<IntegrationDbContext>(options =>
                 options.UseNpgsql(
                     ConfigurationExtensions.GetConnectionString(Configuration, "IntegrationDbConnectionString")).UseLazyLoadingProxies());
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +51,13 @@ namespace Integration_API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCors(x => x
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true)
+                    .AllowCredentials()); 
+
         }
     }
 }
