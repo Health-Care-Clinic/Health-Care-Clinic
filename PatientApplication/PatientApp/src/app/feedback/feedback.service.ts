@@ -8,13 +8,12 @@ import { Observable } from 'rxjs';
 })
 export class FeedbackService {
 
-  private _feedbackUrl = '/api/feedbackMessage';
+  private _feedbackUrl = '/api/feedbackMessage/submit';
 
   constructor(private _http: HttpClient) { }
 
   addFeedback(feedback:Feedback): Observable<any> {
 
-    this._feedbackUrl += "/submit";
     feedback.date = new Date();
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(feedback);
