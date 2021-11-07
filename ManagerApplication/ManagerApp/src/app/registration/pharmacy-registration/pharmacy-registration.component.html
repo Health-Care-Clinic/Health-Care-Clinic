@@ -1,0 +1,39 @@
+<div class="d-flex flex-column align-items-center bg-ghostwhite flex-grow-1">
+    <h3 class="col-6 mt-5 px-5 lead" style="font-size: x-large">Pharmacy registration</h3>
+
+    <div class="d-flex flex-column align-items-center w-50 p-4 mt-3 bg-white box-shadow">
+      <form method="POST">
+        <table>
+          <tr>
+            <td>
+              <label for="name" class="mx-3 mt-2">
+                <h5>Company name:</h5>
+              </label>
+            </td>
+            <td><input name="name" id="name" placeholder="name" class="ml-2 input-size"></td>
+
+          </tr>
+          <tr>
+            <td><label for="ph-url" class="mx-3 mt-2">
+                <h5>Application URL:</h5>
+              </label>
+            </td>
+            <td>
+              <input name="ph-url" id="ph-url" placeholder="url" class="ml-2 input-size">
+            </td>
+
+          </tr>
+          <tr>
+          <!--<td colspan="2"><p v-if="isErrorLabelVisible" class="m-3 px-4 text-danger text-center">{{ errorText }}</p></td>-->
+          </tr>
+
+          <tr>
+            <td colspan="2" class="text-center"><input type="submit" value="Register" class="btn btn-dark mt-3 px-3">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+
+  </div>
