@@ -13,8 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Mapper\IntegrationDbContext.cs" />
     <Compile Remove="WeatherForecast.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controller\" />
+    <Folder Include="DTO\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,15 +30,6 @@
     </PackageReference>
     <PackageReference Include="Npgsql" Version="5.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
-    <PackageReference Include="RestSharp" Version="106.13.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Integration\Integration.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mapper\" />
   </ItemGroup>
 
 
