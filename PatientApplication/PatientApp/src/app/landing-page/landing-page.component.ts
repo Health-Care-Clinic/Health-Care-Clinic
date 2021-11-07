@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-landing-page',
@@ -6,10 +7,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit {
+  feedback = {
+    user: "",
+    content: ""
+  }
 
-  constructor() { }
+  feedbacks = [
+      {
+        user: "Nadja",
+        content: "adasdas"
+      },
+      {
+        user: "Nadja",
+        content: "adasdas"
+      },
+      {
+        user: "Nadja",
+        content: "adasdas"
+      },
+      {
+        user: "Nadja",
+        content: "adasdas"
+      },
+      {
+        user: "Nadja",
+        content: "adasdas"
+      },
+      {
+        user: "Nadja",
+        content: "adasdas"
+      },
+      {
+        user: "Nadja",
+        content: "adasdas"
+      }
+  ];
+
+  constructor(public dialog: MatDialog) { 
+  }
 
   ngOnInit(): void {
   }
 
+  openFeedbackDialog(feedback: any): void {
+    
+  }
 }
