@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ClinicCore.DTOs
+namespace Hospital_API.DTO
 {
     public class FeedbackMessageDTO
     {
@@ -14,11 +17,11 @@ namespace ClinicCore.DTOs
 
         public FeedbackMessageDTO() { }
 
-        public FeedbackMessageDTO(long id, String date, string text, bool isAnonymous, String identity,
+        public FeedbackMessageDTO(long id, String dateAsString, string text, bool isAnonymous, String identity,
             bool canBePublished, bool isPublished)
         {
             Id = id;
-            Date = date;
+            Date = dateAsString;
             Text = text;
             IsAnonymous = isAnonymous;
             Identity = identity;

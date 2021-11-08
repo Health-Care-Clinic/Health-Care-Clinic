@@ -27,6 +27,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatBadgeModule} from '@angular/material/badge';
 import { MatCarouselModule } from 'ng-mat-carousel';
 import {MatDialogModule} from '@angular/material/dialog';
+import { FeedbackService } from './service/feedback.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const MaterialComponents = [
@@ -59,9 +61,10 @@ const MaterialComponents = [
     ButtonModule,
     ToastModule,
     NgbModule,
-    MaterialComponents
+    MaterialComponents,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [FeedbackService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FeedbackService } from '../service/feedback.service';
+import { IFeedback } from '../service/IFeedback';
 
 @Component({
   selector: 'app-landing-page',
@@ -30,49 +32,23 @@ export class LandingPageComponent implements OnInit {
     }
   ];
 
-  feedback = {
-    user: "",
-    content: ""
-  }
+  feedbacks : IFeedback[] = [];
+  errorMessage : string  = '';
 
-  feedbacks = [
-      {
-        user: "Nadja",
-        content: "adasdas"
-      },
-      {
-        user: "Nadja",
-        content: "adasdas"
-      },
-      {
-        user: "Nadja",
-        content: "adasdas"
-      },
-      {
-        user: "Nadja",
-        content: "adasdas"
-      },
-      {
-        user: "Nadja",
-        content: "adasdas"
-      },
-      {
-        user: "Nadja",
-        content: "adasdas"
-      },
-      {
-        user: "Nadja",
-        content: "adasdas"
-      }
-  ];
-
-  constructor(public dialog: MatDialog) { 
+  constructor(public dialog: MatDialog, private _feedbackService : FeedbackService) { 
   }
 
   ngOnInit(): void {
+    this.refreshFeedback();
   }
 
   openFeedbackDialog(feedback: any): void {
     
+  }
+
+  refreshFeedback() {
+    this._feedbackService.getPublishedFeedbacks()
+        .subscribe(feedbacks => this.feedbacks = feedbacks,
+                    error => this.errorMessage = <any>error);     
   }
 }
