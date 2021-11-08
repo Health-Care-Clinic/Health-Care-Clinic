@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
+import { FeedbackService } from './feedback/feedback.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';   //da bih mogao da koristim 2-way binding sa ngModel
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {CarouselModule} from 'primeng/carousel';
@@ -29,6 +33,7 @@ import { MatCarouselModule } from 'ng-mat-carousel';
 import {MatDialogModule} from '@angular/material/dialog';
 
 
+
 const MaterialComponents = [
   MatSliderModule,
   MatToolbarModule,
@@ -45,8 +50,9 @@ const MaterialComponents = [
   declarations: [
     AppComponent,
     LandingPageComponent,
+    FeedbackFormComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
