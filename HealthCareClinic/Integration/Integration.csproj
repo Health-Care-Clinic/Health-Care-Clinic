@@ -12,7 +12,6 @@
     <Folder Include="Partnership\Model\" />
     <Folder Include="Partnership\Service\" />
     <Folder Include="Partnership\Repository\" />
-    <Folder Include="Pharmacy\Model\" />
     <Folder Include="Pharmacy\Service\" />
     <Folder Include="Pharmacy\Repository\" />
     <Folder Include="Shared model\" />
