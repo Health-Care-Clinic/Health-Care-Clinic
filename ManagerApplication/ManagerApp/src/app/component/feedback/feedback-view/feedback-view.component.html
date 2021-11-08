@@ -28,7 +28,9 @@
       <ng-container matColumnDef="publish">
         <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
         <mat-cell *matCellDef="let row"> 
-            <button mat-button >Publish</button>
+          <app-feedback-publish [feedback] = 'row' >
+        
+          </app-feedback-publish> 
          </mat-cell>
       </ng-container>
 

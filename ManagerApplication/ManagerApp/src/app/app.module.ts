@@ -11,6 +11,7 @@ import { PharmacyRegistrationComponent } from './registration/pharmacy-registrat
 import { HospitalMapComponent } from './component/hospital-map/hospital-map.component';
 import { FloorComponent } from './component/hospital-map/floor.component';
 import { FeedbackViewComponent } from './component/feedback/feedback-view/feedback-view.component';
+import { FeedbackPublishComponent } from './component/feedback/feedback-publish/feedback-publish.component';
 import { RouterModule } from '@angular/router';
 import { FeedbackService } from './services/feedback.service';
 import { HeaderComponent } from './component/header/header.component';
@@ -39,6 +40,7 @@ const MaterialComponents = [
     HospitalMapComponent,
     FloorComponent,
     FeedbackViewComponent,
+    FeedbackPublishComponent,
     HeaderComponent,
     FooterComponent
   ],
