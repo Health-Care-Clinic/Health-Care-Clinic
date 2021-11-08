@@ -1,18 +1,13 @@
 <h2>Patient feedbacks</h2>
 
-<!-- <div *ngFor="let feedback of feedbacks">
-    <h3 *ngIf="feedback.identity">
-        {{ feedback.identity }}
-    </h3>
-    <h4>
-        {{ feedback.text }}
-    </h4>
-</div> -->
-
 <table mat-table [dataSource]="feedbacks" class="mat-elevation-z8" style="width: 70%;">
     <ng-container matColumnDef="identity">
         <mat-header-cell *matHeaderCellDef> User </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.identity}} </mat-cell>
+            <mat-cell *matCellDef="let element" >
+              <ng-container *ngIf="!element.isAnonymous">
+                    {{element.identity}} 
+                </ng-container>
+                </mat-cell>
       </ng-container>
 
       <ng-container style="width: 40%;" matColumnDef="date">
