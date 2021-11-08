@@ -1,7 +1,7 @@
-<div class="container-fluid">
-    <form #feedbackForm="ngForm">
+<!-- <div class="container-fluid">
+    <form #feedbackForm="ngForm"> -->
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="feedback-input">Provide your opinion below:</label>
             <mat-form-field id="feedback-input" name="feedback-input" rows="5" cols="80" [(ngModel)]="feedbackModel.text" required #message="ngModel"> </mat-form-field>
         </div>
@@ -16,9 +16,18 @@
             <label class="form-check-label" for="publish">Allow my feedback to be published</label>
         </div>
     
-       <mat-button name="submit-button" (click)="submit()" [disabled]="!message.valid">Submit</mat-button>
+       <button mat-button name="submit-button" (click)="submit()" [disabled]="!message.valid">Submit</button> -->
 
 
-
+<!-- 
     </form>
+</div> -->
+
+<mat-form-field style="width: 300px; height: 200px;">
+    <textarea required matInput placeholder="Write your oppinion" [(ngModel)]="feedbackModel.text"  rows="15" cols="40" ></textarea>
+</mat-form-field>
+<div style="margin-left: 350px;">
+    <mat-checkbox [(ngModel)]="feedbackModel.canBePublished">Allow my feedback to be published</mat-checkbox>
+    <div><mat-checkbox [(ngModel)]="feedbackModel.isAnonymous">Anonymus</mat-checkbox></div>
+    <div><button mat-raised-button name="submit-button" (click)="submit()" [disabled]="feedbackModel.text === ''">Submit</button></div>
 </div>

@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Feedback } from '../feedback';
 import { FeedbackService } from '../feedback.service';
 
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'feedback-form',

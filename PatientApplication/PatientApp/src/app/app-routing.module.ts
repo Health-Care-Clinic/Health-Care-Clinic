@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LandingPageComponent
   },
   {
-    path: '/feedback',
+    path: 'feedback-form',
     component: FeedbackFormComponent
   }
 ];
