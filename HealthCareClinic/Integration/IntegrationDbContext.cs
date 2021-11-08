@@ -10,7 +10,6 @@ namespace Integration
     public class IntegrationDbContext : DbContext
     {
         public DbSet<ApiKey> ApiKeys { get; set; }
-
         public DbSet<Message> Messages { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<FeedbackReply> FeedbackReplies { get; set; }
