@@ -10,6 +10,7 @@ namespace Integration.ApiKeys.Model
         public String Name { get; set; }
         public String Key { get; set; }
         public String BaseUrl { get; set; }
+
         public String Category { get; set; }
 
         public ApiKey() {}

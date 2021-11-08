@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+.box-shadow {
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.06);
+    -moz-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.06);
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.06);
+  }
+
+  .input-size {
+    width: 300px;
+    height: 30px
+  }
+
+  .bg-ghostwhite{
+    background-color: #F7F7FF; 
+  }
+
+  .bg-lightblue{
+    background-color: #BDD5EA; 
+  }
+
+  .bg-blue{
+    background-color: #577399; 
+  }
+  
+  .bg-gray{
+    background-color: #495867; 
+  }
+
+  .bg-brickred{
+    background-color: #C14953; 
+  }
