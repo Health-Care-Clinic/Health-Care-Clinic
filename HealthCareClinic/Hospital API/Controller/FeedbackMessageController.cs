@@ -59,6 +59,7 @@ namespace Hospital_API.Controller.FeedbacksController
                 dbContext.SaveChanges();
                 return Ok(FeedbackMessageAdapter.FeedbackMessageToFeedbackMessageDTO(feedbackMessage));
             }
+        }
 
         [HttpPost("submit")]      // POST /api/feedbackMessage/submit
         public IActionResult SubmitFeedback(FeedbackMessageDTO dto)
