@@ -26,6 +26,7 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     CommonModule,
     RouterModule.forRoot([
+      { path: 'registration', component: PharmacyRegistrationComponent},
       { path: 'floor/:idb/:idf', component: FloorComponent },
       { path: '', component: HospitalMapComponent }
     ])

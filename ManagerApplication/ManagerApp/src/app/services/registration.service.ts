@@ -12,6 +12,6 @@ export class RegistrationService {
 
   }
   registerPharmacy(apikey:IApiKey): Observable<string> {
-    return this.http.post<any>(this.serverUrl + "/api/apikey", apikey);
+    return this.http.post<any>(this.serverUrl + "/hospital/apikey", apikey);
   }
 }

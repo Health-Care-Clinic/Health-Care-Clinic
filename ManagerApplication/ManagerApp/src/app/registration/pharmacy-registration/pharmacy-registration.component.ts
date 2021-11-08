@@ -15,7 +15,7 @@ export class PharmacyRegistrationComponent implements OnInit {
   public errorText: string;
   public labelVisible: boolean = false;
   public name: string = "";
-  public apikey: IApiKey = { Name: "", Key: "", BaseUrl: ""};
+  public apikey: IApiKey = { Name: "", Key: "", BaseUrl: "", Category: ""};
   public url: string = "";
 
   constructor(private _registrationService : RegistrationService) {
@@ -44,6 +44,7 @@ export class PharmacyRegistrationComponent implements OnInit {
     this.isErrorLabelVisible = false;
     this.apikey.Name = this.name;
     this.apikey.BaseUrl = this.url;
+    this.apikey.Category = "Pharmacy";
     this._registrationService.registerPharmacy(this.apikey).subscribe(res => {this.name = ""; this.url = "";}, error => {
         this.errorText = "Unsuccesful registration.";
         this.isErrorLabelVisible = true;}
