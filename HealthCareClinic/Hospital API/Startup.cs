@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hospital_API.Mapper;
+using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_API

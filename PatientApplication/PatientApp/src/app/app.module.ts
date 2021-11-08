@@ -35,6 +35,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
+import { FeedbackService } from './service/feedback.service';
+
+
 
 
 const MaterialComponents = [
@@ -72,9 +75,10 @@ const MaterialComponents = [
     ButtonModule,
     ToastModule,
     NgbModule,
-    MaterialComponents
+    MaterialComponents,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [FeedbackService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

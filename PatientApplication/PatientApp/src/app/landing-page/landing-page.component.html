@@ -61,10 +61,10 @@
         <div class="carousel-cell" *ngFor="let feedback of feedbacks">
             <mat-card class="feedback-card">        
                 <mat-card-title>
-                    <span matBadge="N" matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" >{{feedback.user}}</span>
+                    <span matBadge="N" matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" >{{feedback.identity}}</span>
                 </mat-card-title>
                 <mat-card-content>
-                    {{feedback.content}}
+                    {{feedback.text}}
                 </mat-card-content>
                 <mat-card-actions align="end">
                     <button (click)="openFeedbackDialog(feedback)" mat-button>Read more</button>
