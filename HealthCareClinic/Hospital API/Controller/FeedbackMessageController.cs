@@ -40,5 +40,26 @@ namespace Hospital_API.Controller.FeedbacksController
                 => result.Add(FeedbackMessageAdapter.FeedbackMessageToFeedbackMessageDTO(FeedbackMessage)));
             return Ok(result);
         }
+
+        [HttpPut("{id?}")]       // PUT /api/feedbackMessage/id
+        public IActionResult ModifyPublishable(long id = 0)
+        {
+            if (id < 0)
+            {
+                return BadRequest();    // if any of the values is incorrect return bad request
+            }
+            FeedbackMessage feedbackMessage = dbContext.FeedbackMessages.SingleOrDefault(feedbackMessage => feedbackMessage.Id == id);
+            if (feedbackMessage == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                feedbackMessage.IsPublished = true;
+                dbContext.SaveChanges();
+                return Ok(FeedbackMessageAdapter.FeedbackMessageToFeedbackMessageDTO(feedbackMessage));
+            }
+
+        }
     }
 }

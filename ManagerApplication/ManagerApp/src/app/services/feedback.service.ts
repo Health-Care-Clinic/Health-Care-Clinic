@@ -17,6 +17,11 @@ export class FeedbackService{
                          .catch(this.handleError);
     }
 
+    editFeedback(feedback : IFeedback):Observable<any>{
+        const body = JSON.stringify(feedback);
+        return this._http.put<any>(this._feedbackUrl + '/' + feedback.id, body)
+    }
+
     private handleError(err : HttpErrorResponse) {
         console.log(err.message);
         return Observable.throw(err.message);
