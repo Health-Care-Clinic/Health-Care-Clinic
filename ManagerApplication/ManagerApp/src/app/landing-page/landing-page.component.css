@@ -2,12 +2,6 @@ mat-button {
     color: primary;
 }
 
-.container {
-    width: 100%;
-    border: solid;
-    /* margin-left: -164.5;
-    margin-right: -164.5; */ 
-}
 
 h1 {
     text-align: center;
@@ -40,8 +34,11 @@ p {
     }
   
 ::ng-deep  .carousel-dot-active {
-      background-color: #777 !important;;
+      background-color: #777 !important;
     }
   
-  
+
+::ng-deep .carousel-indicators{
+    margin: 0 !important;
+}
 
