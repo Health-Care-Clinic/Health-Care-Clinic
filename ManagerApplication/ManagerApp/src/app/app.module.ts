@@ -17,20 +17,39 @@ import { FeedbackService } from './services/feedback.service';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import {IvyCarouselModule} from 'angular-responsive-carousel';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule  } from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatBadgeModule} from '@angular/material/badge';
+import { MatCarouselModule } from 'ng-mat-carousel';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 const MaterialComponents = [
+  MatTableModule,
   MatSliderModule,
   MatToolbarModule,
   MatButtonModule,
   MatIconModule,
-  MatTableModule
+  MatGridListModule,
+  MatCardModule,
+  MatBadgeModule,
+  MatCarouselModule.forRoot(),
+  MatDialogModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatCheckboxModule
 ];
 
 @NgModule({
@@ -42,7 +61,8 @@ const MaterialComponents = [
     FeedbackViewComponent,
     FeedbackPublishComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
@@ -52,10 +72,11 @@ const MaterialComponents = [
     RouterModule.forRoot([
       { path: 'registration', component: PharmacyRegistrationComponent},
       { path: 'floor/:idb/:idf', component: FloorComponent },
-      { path: '', component: HospitalMapComponent }
+      { path: 'hospital-map', component: HospitalMapComponent }
     ]),
     HttpClientModule,
     BrowserAnimationsModule,
+    IvyCarouselModule,
     MaterialComponents
   ],
   providers: [FeedbackService],

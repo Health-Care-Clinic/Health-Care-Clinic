@@ -1,3 +1,5 @@
+<!-- <p>works</p> -->
+<div  class="landing-page-container">
 <div [style.height]="500">
     <mat-carousel timings="250ms ease-in" [autoplay]="true" [interval]="5000" color="warn" maxWidth="auto" [proportion]="25" [slides]="5"
                 [loop]="true" [hideArrows]="false" [hideIndicators]="false" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
@@ -61,9 +63,9 @@
         <div class="carousel-cell" *ngFor="let feedback of feedbacks">
             <mat-card class="feedback-card">
                 <mat-card-title>
-                    <span matBadge={{feedback.identity.charAt(0)}} matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" *ngIf="!feedback.isAnonymous">{{feedback.identity}}
+                    <span matBadge={{feedback.identity.charAt(0)}} matBadgeColor="primary" matBadgeOverlap="false" matBadgePosition="before" *ngIf="!feedback.isAnonymous">{{feedback.identity}}
                     </span>
-                    <span matBadge={{feedback.identity.charAt(0)}} matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" *ngIf="feedback.isAnonymous">Anonymous
+                    <span matBadge={{feedback.identity.charAt(0)}} matBadgeColor="primary" matBadgeOverlap="false" matBadgePosition="before" *ngIf="feedback.isAnonymous">Anonymous
                     </span>
                 </mat-card-title>
                 <mat-card-content>
@@ -75,26 +77,5 @@
             </mat-card>
         </div>
     </carousel>
-    
-
-
-
-    <!-- <div class="carousel-position">
-        <mat-carousel timings="250ms ease-in" [autoplay]="false" color="accent" maxWidth="auto"  [loop]="true"
-         [hideArrows]="false" [hideIndicators]="false" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr" [lazyLoad]="true">
-          <mat-carousel-slide #matCarouselSlide *ngFor="let feedback of feedbacks; let i = index" overlayColor="" [hideOverlay]="false">
-            <mat-card class="feedback-card">        
-                <mat-card-title>
-                    <span matBadge="N" matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" >{{feedback.user}}</span>
-                </mat-card-title>
-                <mat-card-content>
-                    {{feedback.content}}
-                </mat-card-content>
-                <mat-card-actions align="end">
-                    <button mat-button>Read more</button>
-                </mat-card-actions>
-            </mat-card>              
-          </mat-carousel-slide>
-        </mat-carousel>
-      </div> -->
+</div>
 </div>
