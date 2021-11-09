@@ -22,6 +22,12 @@ export class FeedbackService{
         return this._http.put<any>(this._feedbackUrl + '/' + feedback.id, body)
     }
 
+    getPublishedFeedbacks() : Observable<IFeedback[]>{
+        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published')
+                         .do(data =>  console.log('All: ' + JSON.stringify(data)))
+                         .catch(this.handleError);
+    }
+
     private handleError(err : HttpErrorResponse) {
         console.log(err.message);
         return Observable.throw(err.message);
