@@ -55,7 +55,7 @@ namespace Hospital_API.Controller.FeedbacksController
             }
             else
             {
-                feedbackMessage.IsPublished = true;
+                feedbackMessage.IsPublished = !feedbackMessage.IsPublished;
                 dbContext.SaveChanges();
                 return Ok(FeedbackMessageAdapter.FeedbackMessageToFeedbackMessageDTO(feedbackMessage));
             }

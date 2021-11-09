@@ -25,6 +25,12 @@ export class FeedbackPublishComponent implements OnChanges {
     this.editFeedback();
   }
 
+  unpublish(feedback: IFeedback){
+    feedback.isPublished = false;
+    window.alert('Mišljenje pacijenta je povuceno!');
+    this.editFeedback();
+  }
+
   editFeedback() {
     this._feedbackService.editFeedback(this.feedback)
       .subscribe(data => {
