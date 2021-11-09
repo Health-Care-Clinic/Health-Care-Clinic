@@ -61,9 +61,9 @@
         <div class="carousel-cell" *ngFor="let feedback of feedbacks">
             <mat-card class="feedback-card">
                 <mat-card-title>
-                    <span matBadge="N" matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" *ngIf="!feedback.isAnonymous">{{feedback.identity}}
+                    <span matBadge={{feedback.identity.charAt(0)}} matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" *ngIf="!feedback.isAnonymous">{{feedback.identity}}
                     </span>
-                    <span matBadge="N" matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" *ngIf="feedback.isAnonymous">Anonymous
+                    <span matBadge={{feedback.identity.charAt(0)}} matBadgeColor="warn" matBadgeOverlap="false" matBadgePosition="before" *ngIf="feedback.isAnonymous">Anonymous
                     </span>
                 </mat-card-title>
                 <mat-card-content>
