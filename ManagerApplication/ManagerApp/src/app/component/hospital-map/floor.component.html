@@ -20,7 +20,7 @@
                     <rect [attr.id]="item.roomNumber" rx="20" ry="20" [attr.height]="item.height" [attr.x]="item.x" [attr.y]="item.y" [attr.width]="item.width" (click)="selectRoom(item.roomNumber)" 
                     style="stroke:#990000; stroke:black; stroke-width:5; opacity:1; fill:#52DEE5; cursor: pointer;"/>
                     <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y-10+item.height/2" [attr.width]="item.width" cursor="pointer" (click)="selectRoom(item.roomNumber)">Number: {{item.roomNumber}}</text>
-                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y+10+item.height/2" [attr.width]="item.width" cursor="pointer" (click)="selectRoom(item.roomNumber)">{{item.type}}</text>
+                    <text [attr.x]="item.x+item.width/2-item.name.length/2*7" [attr.y]="item.y+10+item.height/2" [attr.width]="item.width" cursor="pointer" (click)="selectRoom(item.roomNumber)">{{item.name}}</text>
                 </g>
             </g>
         </g>

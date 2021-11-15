@@ -39,13 +39,13 @@ export class HospitalMapService {
   public getRooms(): Observable<Array<Room>> {
     let rooms: any;
     
-    let room1 = new Room(1, 'Operation room', 'Room description...', 'Pera Peric', 12, TypeOfRoom.OperationRoom,320,30,400,140);
-    let room2 = new Room(2, 'Room for appointments', 'Room description...', 'Dejan Bodiroga', 24, TypeOfRoom.RoomForAppointments,320,260,380,140);
-    let room3 = new Room(3, 'Room for appointments', 'Room description...', 'Mika Mikic', 12, TypeOfRoom.RoomForAppointments,50,260,270,140);
-    let room4 = new Room(4, 'Room for appointments', 'Room description...', 'Ziva Zivic', 12, TypeOfRoom.RoomForAppointments,700,260,300,140);
-    let room5 = new Room(5, 'Room for appointments', 'Room description...', 'Darko Milicic', 24, TypeOfRoom.RoomForAppointments,50,30,270,140);
-    let room6 = new Room(6, 'Room for appointments', 'Room description...', 'Darko Milicic', 24, TypeOfRoom.RoomForAppointments,720,30,280,140);
-    let room7 = new Room(7, 'WC', 'Room description...', 'Darko Milicic', 24, TypeOfRoom.WC,50,170,150,90);
+    let room1 = new Room(1, 'Soba za operacije', 'Room description...', 'Pera Peric', 12, TypeOfRoom.OperationRoom,320,30,400,140);
+    let room2 = new Room(2, 'Soba za preglede', 'Room description...', 'Dejan Bodiroga', 24, TypeOfRoom.RoomForAppointments,320,260,380,140);
+    let room3 = new Room(3, 'Soba za cekanje', 'Room description...', 'Mika Mikic', 12, TypeOfRoom.RoomForAppointments,50,260,270,140);
+    let room4 = new Room(4, 'Bolnicka soba', 'Room description...', 'Ziva Zivic', 12, TypeOfRoom.RoomForAppointments,700,260,300,140);
+    let room5 = new Room(5, 'Kancelarija', 'Room description...', 'Darko Milicic', 24, TypeOfRoom.RoomForAppointments,50,30,270,140);
+    let room6 = new Room(6, 'Kafeterija', 'Room description...', 'Darko Milicic', 24, TypeOfRoom.RoomForAppointments,720,30,280,140);
+    let room7 = new Room(7, 'Toalet', 'Room description...', 'Darko Milicic', 24, TypeOfRoom.WC,50,170,150,90);
 
     rooms = [room1, room2, room3, room4, room5, room6, room7]
 
