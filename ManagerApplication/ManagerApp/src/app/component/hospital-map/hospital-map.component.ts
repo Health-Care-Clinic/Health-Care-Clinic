@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Building, TypeOfBuilding } from 'src/app/model/building';
+import { Floor } from 'src/app/model/floor';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
 @Component({
@@ -11,20 +12,28 @@ export class HospitalMapComponent implements OnInit {
 
   buildings : any;
   building: any;
+  floors: any;
   selectedBuilding: any;
   isHospital: boolean = false;
 
   constructor(private hospitalMapService: HospitalMapService) {
-
   }
-
   ngOnInit(): void {
-    this.buildings=this.hospitalMapService.getBuildings();
+    this.hospitalMapService.getBuildings().subscribe(buildingsFromBack => {
+          this.buildings = buildingsFromBack;
+      });
   }
 
   public change(){
     var nameHTML = <HTMLInputElement>document.getElementById("nameHTML");
-    this.buildings.find(i => i.id === this.selectedBuilding).name=nameHTML!.value;
+    for(let building of this.buildings){
+      if(building.id == this.selectedBuilding){
+        building.name=nameHTML!.value;
+        this.hospitalMapService.changeBuildingName(building).subscribe(() => {
+
+        })
+      }
+    }
   }
 
   public select(index:number){
@@ -67,6 +76,10 @@ export class HospitalMapComponent implements OnInit {
     }
     else 
       this.isHospital = false;
+
+    this.hospitalMapService.getFloorsByBuildingId(this.selectedBuilding).subscribe(floorsFromBack => {   
+      this.floors = floorsFromBack;
+    })
   }
 }
 

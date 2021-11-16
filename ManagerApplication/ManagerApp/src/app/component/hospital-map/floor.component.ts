@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TypeOfBuilding } from 'src/app/model/building';
+import { Floor } from 'src/app/model/floor';
 import { Room, TypeOfRoom } from 'src/app/model/room';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
@@ -13,7 +14,7 @@ import { HospitalMapService } from 'src/app/services/hospital-map-service.servic
 export class FloorComponent implements OnInit {
 
   building: any;
-  buildings: any;
+  floors: any;
   floor: any;
   idfString: string
   navigationSubscription;
@@ -22,6 +23,7 @@ export class FloorComponent implements OnInit {
   selectedRoom: any;
   wcSelected: any;
   changeSelected: any;
+  rooms: any;
 
   constructor(private _route: ActivatedRoute, private hospitalMapService: HospitalMapService, private router: Router) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -32,59 +34,51 @@ export class FloorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.buildings = this.hospitalMapService.getBuildings();
     let idb = +this._route.snapshot.paramMap.get('idb');
-    this.building = this.buildings.find(i => i.id === idb);
-    this.idfString = this._route.snapshot.paramMap.get('idf');
-    let idf = +this.idfString;
-    this.floor = this.building.floors.find(i => i.id === idf);
+    this.hospitalMapService.getBuildingById(idb).subscribe(buildingFromBack => {
+      this.building = buildingFromBack
+      this.idfString = this._route.snapshot.paramMap.get('idf');
+      let idf = +this.idfString;
+      this.hospitalMapService.getFloorsByBuildingId(this.building.id).subscribe(floorsFromBack => {
+          this.floors = floorsFromBack ;
+          for (let floor of this.floors){
+            if(idf == floor.id){
+              this.floor = floor;
+              this.hospitalMapService.getRoomsByFloorId(this.floor.id).subscribe(roomsFromBack =>{
+                this.rooms = roomsFromBack;
+              });
+            }
+          }
+        }
+      )
+  });
   }
 
   initialiseClass(): void {
-    this.buildings = this.hospitalMapService.getBuildings();
     let idb = +this._route.snapshot.paramMap.get('idb');
-    this.building = this.buildings.find(i => i.id === idb);
-    this.idfString = this._route.snapshot.paramMap.get('idf');
-    let idf = +this.idfString;
-    this.floor = this.building.floors.find(i => i.id === idf);
+    this.hospitalMapService.getBuildingById(idb).subscribe(buildingFromBack => {
+      this.building = buildingFromBack
+      this.idfString = this._route.snapshot.paramMap.get('idf');
+      let idf = +this.idfString;
+      this.hospitalMapService.getFloorsByBuildingId(this.building.id).subscribe(floorsFromBack => {
+          this.floors = floorsFromBack ;
+          for (let floor of this.floors){
+            if(idf == floor.id){
+              this.floor = floor;
+              this.hospitalMapService.getRoomsByFloorId(this.floor.id).subscribe(roomsFromBack =>{
+                this.rooms = roomsFromBack;
+              });
+            }
+          }
+        }
+      )
+  });
   }
 
   ngOnDestroy() {
     if (this.navigationSubscription) {
       this.navigationSubscription.unsubscribe();
     }
-  }
-
-  select(index: number) {
-    var building = this.buildings.find(i => i.id === index);
-    this.building = building;
-    var buildingHTML = document.getElementById(index.toString());
-    var nameHTML = <HTMLInputElement>document.getElementById("nameHTML");
-    console.log(nameHTML);
-   
-    for (let i of this.buildings){
-      if(i.id!==index){
-        var unselectBuildingHTML = document.getElementById(i.id.toString());
-        if ( unselectBuildingHTML!.style["fill"]=="rgb(193, 73, 83)" && i.type === TypeOfBuilding.Hospital) {
-          unselectBuildingHTML!.style["fill"] = "url(#green)";
-          
-        }
-      }
-    }
-
-    if ( buildingHTML!.style["fill"]=="rgb(193, 73, 83)") {
-
-        buildingHTML!.style["fill"] = "url(#green)";
-        
-        nameHTML!.value = " ";
-        this.selectedBuilding = null;
-    }
-    else {
-        buildingHTML!.style["fill"] = "#C14953";   
-        nameHTML!.value = building.name;
-        this.selectedBuilding = index;
-    }
-
   }
 
   public selectFloor(index: number){
@@ -96,22 +90,26 @@ export class FloorComponent implements OnInit {
   public selectRoom(index: number){
     var selectedRoomHTML = document.getElementById(index.toString());
     this.changeSelected = false;
-
-    for (let room of this.floor.rooms){
-      if(room.roomNumber === index){
-        this.selectedRoom = room;
-        if (room.type === TypeOfRoom.WC) {
-          this.wcSelected = true;
-        } else {
-          this.wcSelected = false;
+      for (let room of this.rooms){
+        if(room.id == index){
+            this.selectedRoom = room;
+            if (room.type === TypeOfRoom.WC) {
+              this.wcSelected = true;
+            } 
+            else 
+            {
+              this.wcSelected = false;
+            }
+            selectedRoomHTML.style["fill"] = "rgb(193, 73, 83)";
+            } 
+            else {
+            
+            var unselectedRoomHTML = document.getElementById(room.id.toString());
+            if (unselectedRoomHTML!= null){
+            unselectedRoomHTML.style["fill"] = "#52DEE5";
+            }
+          }
         }
-        selectedRoomHTML.style["fill"] = "rgb(193, 73, 83)";
-      } else {
-        var unselectedRoomHTML = document.getElementById(room.roomNumber.toString());
-        unselectedRoomHTML.style["fill"] = "#52DEE5";
-      }
-    }
-
   }
 
   public changeRoom(){
@@ -129,11 +127,16 @@ export class FloorComponent implements OnInit {
     roomDoctorHTML = document.getElementById("roomDoctorHTML");
     var roomWorkHourHTML: any;
     roomWorkHourHTML = document.getElementById("roomWorkHourHTML");
-
+    for (let room of this.rooms){
+      if(room.id == this.selectedRoom){
+        room.name = roomNameHTML.value;
+        room.description = roomDescriptionHTML.value;
+      }
+    }
     this.selectedRoom.name = roomNameHTML.value;
     this.selectedRoom.description = roomDescriptionHTML.value;
-    this.selectedRoom.doctor = roomDoctorHTML.value;
-    this.selectedRoom.workHour = roomWorkHourHTML.value;
+
+ 
   }
 
 }
