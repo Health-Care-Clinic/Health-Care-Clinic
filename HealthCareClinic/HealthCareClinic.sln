@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integration", "Integration\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClinicCore", "..\ClinicCore\ClinicCore.csproj", "{66BD74E7-FCEA-4508-8092-F55FB76EBDDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalTests", "HospitalTests\HospitalTests.csproj", "{BEA8C07F-EC33-4524-9146-E460DB3F3557}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{66BD74E7-FCEA-4508-8092-F55FB76EBDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66BD74E7-FCEA-4508-8092-F55FB76EBDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66BD74E7-FCEA-4508-8092-F55FB76EBDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEA8C07F-EC33-4524-9146-E460DB3F3557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEA8C07F-EC33-4524-9146-E460DB3F3557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEA8C07F-EC33-4524-9146-E460DB3F3557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEA8C07F-EC33-4524-9146-E460DB3F3557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
