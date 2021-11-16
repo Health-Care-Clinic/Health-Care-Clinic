@@ -34,8 +34,14 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 
 import { FeedbackService } from './service/feedback.service';
+import { SurveyService } from './survey/survey.service';
+import { SurveyComponent } from './survey/survey.component';
 
 
 
@@ -52,7 +58,11 @@ const MaterialComponents = [
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatStepperModule,
+  MatRadioModule,
+  MatDividerModule,
+  MatListModule
 ];
 
 @NgModule({
@@ -62,6 +72,7 @@ const MaterialComponents = [
     FeedbackFormComponent,
     HeaderComponent,
     FooterComponent,
+    SurveyComponent,
   ],
   imports: [
     HttpClientModule,
@@ -78,7 +89,7 @@ const MaterialComponents = [
     MaterialComponents,
     HttpClientModule
   ],
-  providers: [FeedbackService],
+  providers: [FeedbackService, SurveyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
