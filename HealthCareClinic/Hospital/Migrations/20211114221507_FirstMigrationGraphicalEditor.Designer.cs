@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211114221507_FirstMigrationGraphicalEditor")]
+    partial class FirstMigrationGraphicalEditor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,7 +133,7 @@ namespace Hospital.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
+            modelBuilder.Entity("Hospital.Graphical_editor.Model.Position", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,12 +142,6 @@ namespace Hospital.Migrations
 
                     b.Property<float>("Height")
                         .HasColumnType("real");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
 
                     b.Property<float>("Width")
                         .HasColumnType("real");
@@ -158,78 +154,192 @@ namespace Hospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Buildings");
+                    b.ToTable("Positions");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Height = 140f,
-                            Name = "Building1",
-                            Type = 0,
                             Width = 400f,
-                            X = 260f,
+                            X = 320f,
                             Y = 30f
                         },
                         new
                         {
                             Id = 2,
                             Height = 140f,
-                            Name = "Building2",
-                            Type = 0,
+                            Width = 380f,
+                            X = 320f,
+                            Y = 260f
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Height = 140f,
+                            Width = 270f,
+                            X = 50f,
+                            Y = 260f
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Height = 140f,
+                            Width = 300f,
+                            X = 700f,
+                            Y = 260f
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Height = 140f,
+                            Width = 270f,
+                            X = 50f,
+                            Y = 30f
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Height = 140f,
+                            Width = 280f,
+                            X = 720f,
+                            Y = 30f
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Height = 90f,
+                            Width = 150f,
+                            X = 50f,
+                            Y = 170f
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Height = 140f,
+                            Width = 400f,
+                            X = 260f,
+                            Y = 30f
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Height = 140f,
                             Width = 400f,
                             X = 260f,
                             Y = 230f
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 10,
                             Height = 240f,
-                            Name = "Building3",
-                            Type = 0,
                             Width = 180f,
                             X = 30f,
                             Y = 130f
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 11,
                             Height = 140f,
-                            Name = "Building4",
-                            Type = 0,
                             Width = 300f,
                             X = 700f,
                             Y = 230f
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 12,
                             Height = 70f,
-                            Name = "Parking1",
-                            Type = 1,
                             Width = 200f,
                             X = 30f,
                             Y = 30f
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 13,
                             Height = 70f,
-                            Name = "Parking2",
-                            Type = 1,
                             Width = 200f,
                             X = 800f,
                             Y = 30f
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 14,
                             Height = 70f,
-                            Name = "Parking3",
-                            Type = 1,
                             Width = 200f,
                             X = 800f,
                             Y = 130f
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PositionId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Buildings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Building1",
+                            PositionId = 8,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Building2",
+                            PositionId = 9,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Building3",
+                            PositionId = 10,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Building4",
+                            PositionId = 11,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Parking1",
+                            PositionId = 12,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Parking2",
+                            PositionId = 13,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Parking3",
+                            PositionId = 14,
+                            Type = 1
                         });
                 });
 
@@ -243,20 +353,8 @@ namespace Hospital.Migrations
                     b.Property<int>("BuildingId")
                         .HasColumnType("integer");
 
-                    b.Property<float>("Height")
-                        .HasColumnType("real");
-
                     b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<float>("Width")
-                        .HasColumnType("real");
-
-                    b.Property<float>("X")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Y")
-                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -267,101 +365,61 @@ namespace Hospital.Migrations
                         {
                             Id = 1,
                             BuildingId = 1,
-                            Height = 0f,
-                            Name = "Floor 1",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 1"
                         },
                         new
                         {
                             Id = 2,
                             BuildingId = 1,
-                            Height = 0f,
-                            Name = "Floor 2",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 2"
                         },
                         new
                         {
                             Id = 3,
                             BuildingId = 1,
-                            Height = 0f,
-                            Name = "Floor 3",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 3"
                         },
                         new
                         {
                             Id = 4,
                             BuildingId = 2,
-                            Height = 0f,
-                            Name = "Floor 1",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 1"
                         },
                         new
                         {
                             Id = 5,
                             BuildingId = 2,
-                            Height = 0f,
-                            Name = "Floor 2",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 2"
                         },
                         new
                         {
                             Id = 6,
                             BuildingId = 3,
-                            Height = 0f,
-                            Name = "Floor 1",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 1"
                         },
                         new
                         {
                             Id = 7,
                             BuildingId = 3,
-                            Height = 0f,
-                            Name = "Floor 2",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 2"
                         },
                         new
                         {
                             Id = 8,
                             BuildingId = 3,
-                            Height = 0f,
-                            Name = "Floor 3",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 3"
                         },
                         new
                         {
                             Id = 9,
                             BuildingId = 4,
-                            Height = 0f,
-                            Name = "Floor 1",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 1"
                         },
                         new
                         {
                             Id = 10,
                             BuildingId = 4,
-                            Height = 0f,
-                            Name = "Floor 2",
-                            Width = 0f,
-                            X = 0f,
-                            Y = 0f
+                            Name = "Floor 2"
                         });
                 });
 
@@ -378,23 +436,14 @@ namespace Hospital.Migrations
                     b.Property<int>("FloorId")
                         .HasColumnType("integer");
 
-                    b.Property<float>("Height")
-                        .HasColumnType("real");
-
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("PositionId")
                         .HasColumnType("integer");
 
-                    b.Property<float>("Width")
-                        .HasColumnType("real");
-
-                    b.Property<float>("X")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Y")
-                        .HasColumnType("real");
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -406,840 +455,630 @@ namespace Hospital.Migrations
                             Id = 1,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 2,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 3,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 4,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 5,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 6,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 7,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 8,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 9,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 10,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 11,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 12,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 13,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 14,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 15,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 16,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 17,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 18,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 19,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 20,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 21,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 22,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 23,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 24,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 25,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 26,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 27,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 28,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 29,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 30,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 31,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 32,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 33,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 34,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 35,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 36,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 37,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 38,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 39,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 40,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 41,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 42,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 43,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 44,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 45,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 46,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 47,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 48,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 49,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 50,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 51,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 52,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 53,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 54,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 55,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 56,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 57,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 58,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 59,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 60,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 61,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 62,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 63,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         },
                         new
                         {
                             Id = 64,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            PositionId = 1,
+                            Type = 1
                         },
                         new
                         {
                             Id = 65,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            PositionId = 2,
+                            Type = 0
                         },
                         new
                         {
                             Id = 66,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            PositionId = 3,
+                            Type = 0
                         },
                         new
                         {
                             Id = 67,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            PositionId = 4,
+                            Type = 0
                         },
                         new
                         {
                             Id = 68,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            PositionId = 5,
+                            Type = 0
                         },
                         new
                         {
                             Id = 69,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            PositionId = 6,
+                            Type = 0
                         },
                         new
                         {
                             Id = 70,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            PositionId = 7,
+                            Type = 2
                         });
                 });
 #pragma warning restore 612, 618

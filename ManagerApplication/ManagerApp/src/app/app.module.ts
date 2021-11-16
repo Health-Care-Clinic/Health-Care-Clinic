@@ -70,9 +70,6 @@ const MaterialComponents = [
     FormsModule,
     CommonModule,
     RouterModule.forRoot([
-      { path: 'registration', component: PharmacyRegistrationComponent},
-      { path: 'floor/:idb/:idf', component: FloorComponent },
-      { path: 'hospital-map', component: HospitalMapComponent }
     ]),
     HttpClientModule,
     BrowserAnimationsModule,

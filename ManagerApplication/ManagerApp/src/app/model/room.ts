@@ -1,27 +1,26 @@
 export class Room {
-    roomNumber: number;
+    id: number;
     name: string;
     description: string;
-    doctor: string;
-    workHour: number;
     type: TypeOfRoom;
     x: number;
     y: number;
     width: number;
     height: number;
+    floorId: number;
 
-    constructor(roomNumber: number, name: string, description: string, doctor: string, workHour: number, type: TypeOfRoom, 
-        x: number, y: number, width: number, height: number) {
-            this.roomNumber = roomNumber;
+    constructor(id: number, name: string, description: string, type: TypeOfRoom, 
+        x: number, y: number, width: number, height: number, floorId: number) {
+            this.id = id;
             this.name = name;
             this.description = description;
-            this.doctor = doctor;
-            this.workHour = workHour;
             this.type = type;
             this.x = x;
             this.y = y;
             this.width = width;
             this.height = height;
+            this.floorId = floorId;
+
     }
 }
 
