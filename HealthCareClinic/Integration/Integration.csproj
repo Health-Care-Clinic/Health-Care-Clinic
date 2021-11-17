@@ -6,14 +6,15 @@
 
   <ItemGroup>
     <Compile Remove="Class1.cs" />
+    <Compile Remove="Pharmacy\Service\ReportServicee.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Partnership\Model\" />
     <Folder Include="Partnership\Service\" />
     <Folder Include="Partnership\Repository\" />
-    <Folder Include="Pharmacy\Service\" />
     <Folder Include="Pharmacy\Repository\" />
+    <Folder Include="Pharmacy\Service\" />
     <Folder Include="Shared model\" />
     <Folder Include="Tendering\Model\" />
     <Folder Include="Tendering\Service\" />
@@ -31,6 +32,7 @@
     <PackageReference Include="Npgsql" Version="5.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     <PackageReference Include="RestSharp" Version="106.13.0" />
+    <PackageReference Include="SSH.NET" Version="2020.0.1" />
   </ItemGroup>
 
 </Project>
