@@ -14,6 +14,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClinicCore", "..\ClinicCore\ClinicCore.csproj", "{66BD74E7-FCEA-4508-8092-F55FB76EBDDD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{0BA1D6E7-A030-40C9-9179-5E004B694692}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalTests", "HospitalTests\HospitalTests.csproj", "{BEA8C07F-EC33-4524-9146-E460DB3F3557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +46,10 @@ Global
 		{0BA1D6E7-A030-40C9-9179-5E004B694692}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BA1D6E7-A030-40C9-9179-5E004B694692}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BA1D6E7-A030-40C9-9179-5E004B694692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEA8C07F-EC33-4524-9146-E460DB3F3557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEA8C07F-EC33-4524-9146-E460DB3F3557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEA8C07F-EC33-4524-9146-E460DB3F3557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEA8C07F-EC33-4524-9146-E460DB3F3557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
