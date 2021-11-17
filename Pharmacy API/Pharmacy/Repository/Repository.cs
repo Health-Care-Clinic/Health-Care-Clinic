@@ -19,6 +19,7 @@ namespace Pharmacy.Repository
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
+          
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
@@ -39,6 +40,12 @@ namespace Pharmacy.Repository
         public void Remove(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
+          
+        }
+
+        public void Save()
+        {
+            Context.SaveChanges();
         }
     }
 }

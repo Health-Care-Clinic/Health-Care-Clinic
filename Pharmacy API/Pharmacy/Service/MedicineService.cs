@@ -8,7 +8,9 @@ namespace Pharmacy.Service
 {
     class MedicineService : IService<Medicine>
     {
-        private MedicineRepository _medicineRepository;
+        private IMedicineRepository _medicineRepository;
+      
+
 
         public MedicineService(MedicineRepository medicineRepository)
         {
@@ -17,22 +19,24 @@ namespace Pharmacy.Service
 
         public void Add(Medicine entity)
         {
-            throw new NotImplementedException();
+            this._medicineRepository.Add(entity);
+            this._medicineRepository.Save();
         }
 
         public IEnumerable<Medicine> GetAll()
         {
-            throw new NotImplementedException();
+            return this._medicineRepository.GetAll();
         }
 
         public Medicine GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return this._medicineRepository.GetById(id);
         }
 
         public void Remove(Medicine entity)
         {
-            throw new NotImplementedException();
+            this._medicineRepository.Remove(entity);
+            this._medicineRepository.Save();
         }
     }
 }

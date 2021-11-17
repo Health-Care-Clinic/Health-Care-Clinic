@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Pharmacy.Repository
 {
-    public class MedicineRepository : Repository<Medicine>
+    public class MedicineRepository : Repository<Medicine>, IMedicineRepository
     {
         public MedicineRepository(PharmacyDbContext context) : base(context)
         {

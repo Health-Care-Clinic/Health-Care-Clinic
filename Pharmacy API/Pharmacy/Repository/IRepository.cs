@@ -11,6 +11,8 @@ namespace Pharmacy.Repository
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
+        void Save();
+
         void Add(TEntity entity);
         void Remove(TEntity entity);
 
