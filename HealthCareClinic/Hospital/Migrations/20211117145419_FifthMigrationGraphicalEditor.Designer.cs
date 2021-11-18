@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211117145419_FifthMigrationGraphicalEditor")]
+    partial class FifthMigrationGraphicalEditor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -382,7 +384,7 @@ namespace Hospital.Migrations
                             Id = 16,
                             Name = "Bed",
                             Quantity = 26,
-                            RoomId = 15,
+                            RoomId = 14,
                             Type = 0
                         },
                         new
@@ -478,7 +480,7 @@ namespace Hospital.Migrations
                             Id = 28,
                             Name = "TV",
                             Quantity = 2,
-                            RoomId = 29,
+                            RoomId = 28,
                             Type = 0
                         },
                         new
@@ -502,7 +504,7 @@ namespace Hospital.Migrations
                             Id = 31,
                             Name = "Bed",
                             Quantity = 7,
-                            RoomId = 36,
+                            RoomId = 35,
                             Type = 0
                         },
                         new
@@ -510,7 +512,7 @@ namespace Hospital.Migrations
                             Id = 32,
                             Name = "Needle",
                             Quantity = 4,
-                            RoomId = 36,
+                            RoomId = 35,
                             Type = 1
                         },
                         new
@@ -654,7 +656,7 @@ namespace Hospital.Migrations
                             Id = 50,
                             Name = "Blanket",
                             Quantity = 13,
-                            RoomId = 65,
+                            RoomId = 64,
                             Type = 0
                         },
                         new
@@ -662,7 +664,7 @@ namespace Hospital.Migrations
                             Id = 51,
                             Name = "Bed",
                             Quantity = 17,
-                            RoomId = 65,
+                            RoomId = 64,
                             Type = 0
                         },
                         new
@@ -686,7 +688,7 @@ namespace Hospital.Migrations
                             Id = 54,
                             Name = "Bandage",
                             Quantity = 17,
-                            RoomId = 79,
+                            RoomId = 70,
                             Type = 1
                         },
                         new
@@ -694,7 +696,7 @@ namespace Hospital.Migrations
                             Id = 55,
                             Name = "Blanket",
                             Quantity = 17,
-                            RoomId = 79,
+                            RoomId = 70,
                             Type = 0
                         });
                 });

@@ -62,3 +62,27 @@ nav ul, nav ul li {
 .menuButton {
     float: left;
 }
+
+.tableFixHead {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 280px;
+      }
+.tableFixHead thead th {
+        position: sticky;
+        top: 0;
+      }
+table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+th,td {
+        border: 1px solid #ccc;
+      }
+th {
+        background: #eee;
+        text-align: center;
+      }
+td{
+    text-align: center;
+}
