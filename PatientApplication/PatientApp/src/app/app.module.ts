@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,11 +39,14 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { FeedbackService } from './service/feedback.service';
 import { SurveyService } from './survey/survey.service';
 import { SurveyComponent } from './survey/survey.component';
-
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { PatientService } from './patient/patient.service';
 
 
 
@@ -62,7 +66,9 @@ const MaterialComponents = [
   MatStepperModule,
   MatRadioModule,
   MatDividerModule,
-  MatListModule
+  MatListModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({
@@ -73,6 +79,7 @@ const MaterialComponents = [
     HeaderComponent,
     FooterComponent,
     SurveyComponent,
+    RegistrationFormComponent,
   ],
   imports: [
     HttpClientModule,
@@ -87,9 +94,10 @@ const MaterialComponents = [
     ToastModule,
     NgbModule,
     MaterialComponents,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [FeedbackService, SurveyService],
+  providers: [FeedbackService, SurveyService, PatientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
