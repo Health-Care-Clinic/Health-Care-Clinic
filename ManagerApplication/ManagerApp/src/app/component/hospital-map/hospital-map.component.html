@@ -9,7 +9,7 @@
         </ul>
     </div>
     <div style="padding-right: -100px;">
-        <svg width="1060" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="1030" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <defs>
                 <filter  id="f2" x="0" y="0" width="200%" height="200%">
                   <feOffset result="offOut" in="SourceGraphic" dx="25" dy="25" />
@@ -47,16 +47,14 @@
             </g>
         </svg>        
     </div>
-    <div style="padding: 5px;">
-
-    </div>
-    <div style=" background-color:#495869; display:flex;flex-direction: column;justify-content: center; width: 10%;">
+    
+    <div style=" background-color:#495869; display:flex;flex-direction: column;justify-content: flex-start; width: 20%;">
         
         <b style="text-align: center;">Name:</b>
 
 
-        <input style="text-align: center;" type="text" id="nameHTML"  value=""/>
-        <button style="background-color: #BDD5EA;" (click)="change()" >Change</button>
+        <div style="display:flex;flex-direction: row;justify-content: center;"><input style="text-align: center;width: 60%;" type="text" id="nameHTML"  value=""/></div>
+        <div style="display:flex;flex-direction: row;justify-content: center;"><button style="background-color: #BDD5EA;width: 60%;" (click)="change()" >Change</button></div>
         
     </div>
     

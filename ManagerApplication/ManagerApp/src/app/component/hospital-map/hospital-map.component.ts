@@ -1,6 +1,10 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Building, TypeOfBuilding } from 'src/app/model/building';
+import { Equipment } from 'src/app/model/equipment';
 import { Floor } from 'src/app/model/floor';
+import { Room } from 'src/app/model/room';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
 @Component({
@@ -15,12 +19,17 @@ export class HospitalMapComponent implements OnInit {
   floors: any;
   selectedBuilding: any;
   isHospital: boolean = false;
+  equipments: any;
+  equipmentsRooms: any;
+  equipmentsFloors: any;
+  equipmentsBuilding: any;
 
-  constructor(private hospitalMapService: HospitalMapService) {
+  constructor(private hospitalMapService: HospitalMapService,public router: Router) {
   }
   ngOnInit(): void {
     this.hospitalMapService.getBuildings().subscribe(buildingsFromBack => {
           this.buildings = buildingsFromBack;
+          this.equipments = new Array<Equipment>();
       });
   }
 
@@ -81,6 +90,10 @@ export class HospitalMapComponent implements OnInit {
       this.floors = floorsFromBack;
     })
   }
+
+  
+  
+  
 }
 
 
