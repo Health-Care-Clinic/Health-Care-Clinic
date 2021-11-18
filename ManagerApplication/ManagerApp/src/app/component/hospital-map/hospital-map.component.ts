@@ -91,9 +91,42 @@ export class HospitalMapComponent implements OnInit {
     })
   }
 
+  public findEquipment(){
+    var equipmentHTML = <HTMLInputElement>document.getElementById("equipmentHTML");
+    this.hospitalMapService.getEquipmentByName(equipmentHTML.value).subscribe(equipmentFromBack=>{
+      this.equipments = equipmentFromBack;
+      this.equipmentsRooms = new Array<Room>(this.equipments?.length);
+      this.equipmentsFloors = new Array<Floor>(this.equipments?.length);
+      this.equipmentsBuilding = new Array<Building>(this.equipments?.length);
+      for(let i=0;i<this.equipments.length;i++){
+        this.hospitalMapService.getRoomById(this.equipments[i].roomId).subscribe(roomFromBack =>{
+          this.equipmentsRooms[i] = roomFromBack;
+          this.hospitalMapService.getFloorById(roomFromBack.floorId).subscribe(floorFromBack=>{
+            this.equipmentsFloors[i] = floorFromBack;
+            this.hospitalMapService.getBuildingById(floorFromBack.buildingId).subscribe(buildingFromBack =>{
+              this.equipmentsBuilding[i] = buildingFromBack;
+              
+            
+          })
+          
+        })
+      })
+      }
+      
+
+    })
+  }
   
-  
-  
+  public goToRoom(roomId:number){
+    this.hospitalMapService.getRoomById(roomId).subscribe(roomFromBack => {
+      this.hospitalMapService.getFloorById(roomFromBack.floorId).subscribe(floorFromBack =>{
+        this.hospitalMapService.getBuildingById(floorFromBack.buildingId).subscribe(buildingFromBack =>{
+          this.router.navigate(['/floor', buildingFromBack.id, floorFromBack.id,roomFromBack.id]);
+        })
+      })
+    })
+    
+  }
 }
 
 

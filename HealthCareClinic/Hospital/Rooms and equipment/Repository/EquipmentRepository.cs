@@ -24,6 +24,10 @@ namespace Hospital.Rooms_and_equipment.Repository
             return Context.Set<Equipment>().Where(c => c.RoomId == id).ToList();
         }
 
+        public List<Equipment> GetEquipmentByName(string name)
+        {
+            return Context.Set<Equipment>().Where(c => c.Name.ToLower().Contains(name.ToLower())).ToList();
+        }
 
     }
 

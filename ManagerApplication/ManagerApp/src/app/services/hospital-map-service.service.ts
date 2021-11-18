@@ -20,6 +20,7 @@ export class HospitalMapService {
   private roomsGetByFloorId: string;
   private changeBuildingNamePut: string;
   private equipmentGetByRoomId: string;
+  private equipmentGetByName: string;
   private roomGetById: string;
   private floorGetById: string;
 
@@ -33,6 +34,7 @@ export class HospitalMapService {
     this.roomGetById = '/api/room/getRoomById'
     this.changeBuildingNamePut = '/api/building/changeBuildingName'
     this.equipmentGetByRoomId = '/api/equipment/getEquipmentByRoomId'
+    this.equipmentGetByName = '/api/equipment/getEquipmentByName'
     this.floorGetById = '/api/floor/getFloorById';
     
   }
@@ -74,6 +76,13 @@ export class HospitalMapService {
     return this._http.get<Array<Equipment>>(this.equipmentGetByRoomId + "/"+roomId.toString(), {headers: headers});
 
   }
+  public getEquipmentByName(name:string): Observable<Array<Equipment>>{
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Equipment>>(this.equipmentGetByName + "/"+name.toString(), {headers: headers});
+
+  }
+  
 
   public getFloorsByBuildingId(buildingId:number): Observable<Array<Floor>> {
     let headers = new HttpHeaders();

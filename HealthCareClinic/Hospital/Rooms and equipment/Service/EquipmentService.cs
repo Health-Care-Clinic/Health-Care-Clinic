@@ -40,6 +40,9 @@ namespace Hospital.Rooms_and_equipment.Service
            return _equipmentRepository.GetEquipmentByRoomId(id);
         }
 
-
+        public List<Equipment> GetEquipmentByName(string name)
+        {
+           return _equipmentRepository.GetEquipmentByName(name);
+        }
     }
 }
