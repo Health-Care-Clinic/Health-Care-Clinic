@@ -32,6 +32,15 @@ namespace Hospital_API.Controller
                 => allEquipment.Add(EquipmentAdapter.EquipmentToEquipmentDTO(Equipment)));
             return Ok(allEquipment);
         }
+
+        [HttpGet("getEquipmentByName/{name?}")]
+        public IActionResult GetEquipmentByName(string name)
+        {
+            List<EquipmentDTO> allEquipment = new List<EquipmentDTO>();
+            equipmentService.GetEquipmentByName(name).ForEach(Equipment
+                => allEquipment.Add(EquipmentAdapter.EquipmentToEquipmentDTO(Equipment)));
+            return Ok(allEquipment);
+        }
     }
 
 }

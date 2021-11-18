@@ -55,7 +55,32 @@
 
         <div style="display:flex;flex-direction: row;justify-content: center;"><input style="text-align: center;width: 60%;" type="text" id="nameHTML"  value=""/></div>
         <div style="display:flex;flex-direction: row;justify-content: center;"><button style="background-color: #BDD5EA;width: 60%;" (click)="change()" >Change</button></div>
-        
+        <b style="text-align: center;">Search equipment:</b>
+        <div style="display:flex;flex-direction: row;justify-content: center;"><input style="text-align: center;width: 60%;" type="text" id="equipmentHTML"  value=""/></div>
+        <div style="display:flex;flex-direction: row;justify-content: center;"><button style="background-color: #BDD5EA;width: 60%;" (click)="findEquipment()" >Search</button></div>
+        <div class="tableFixHead">
+            <table *ngIf="equipments.length > 0" style=" background-color: #52DEE5; border: 1px solid black;width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid black;"><b>Name</b></th>
+                        <th style="border: 1px solid black;"><b>Quan.</b></th>
+                        <th style="border: 1px solid black;"><b>Room</b></th>
+                        <th style="border: 1px solid black;"><b>Floor</b></th>
+                        <th style="border: 1px solid black;"><b>Building &nbsp;</b></th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let item of equipments;let i = index;">
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{item.name}}</b></td>
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{item.quantity}}</b></td>
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{equipmentsRooms[i].name}}</b></td>
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{equipmentsFloors[i].name}}</b></td>
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{equipmentsBuilding[i].name}}&nbsp;&nbsp;&nbsp;</b></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
     
 </div>  

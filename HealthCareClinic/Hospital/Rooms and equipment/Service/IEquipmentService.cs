@@ -9,5 +9,6 @@ namespace Hospital.Rooms_and_equipment.Service
     public interface IEquipmentService : IService<Equipment>
     {
         public List<Equipment> GetEquipmentByRoomId(int id);
+        public List<Equipment> GetEquipmentByName(string name);
     }
 }
