@@ -1,0 +1,36 @@
+name: Discord Notification
+
+on:
+  push:
+    branches: [ develop, master ]
+  pull_request: 
+    types: [ opened ]
+    branches: [ develop ]
+    
+jobs:
+  push-notification:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          color: '#8B008B'
+          footer: Push
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  pr-notification:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          description: |
+                        *Pull request opened*
+                        
+                        [[Health-Care-Clinic/${{ github.event.pull_request.base.ref }}] #${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }}) - **${{ github.event.pull_request.user.login }}**
+                        ${{ github.event.pull_request.body }}
+                        
+          color: '#008080'
+          footer: Pull request
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
