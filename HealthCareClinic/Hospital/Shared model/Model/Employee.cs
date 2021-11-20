@@ -10,7 +10,7 @@ namespace Hospital.Shared_model.Model
     public class Employee : IEmployeeUser
     {
         [Key]
-        public int Id { get; set; }        
+        public int Id { get; set; }
         public String Name { get; set; }
         public String Surname { get; set; }
         public DateTime BirthDate { get; set; }
@@ -25,7 +25,7 @@ namespace Hospital.Shared_model.Model
         public virtual ICollection<WorkDay> WorkDay { get; set; }
 
         public Employee(int id, string name, string surname, string gender, DateTime birthDate, double salary, string address, string phone,
-            string email, string username, string password, 
+            string email, string username, string password,
             DateTime employmentDate, ICollection<WorkDay> workDay)
         {
             Id = id;
