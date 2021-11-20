@@ -1,5 +1,3 @@
-using ClinicCore.Model;
-
 using Hospital.Mapper;
 using Hospital.Rooms_and_equipment.Model;
 using Hospital_API.Adapter;

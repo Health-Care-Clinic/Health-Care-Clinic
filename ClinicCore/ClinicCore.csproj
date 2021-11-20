@@ -5,10 +5,15 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/Health-Care-Clinic/Health-Care-Clinic</RepositoryUrl>
     <Description>This package is a base for implementing an informational system of a hospital.</Description>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="DTOs\SecretaryDTOs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
   </ItemGroup>
 
 </Project>
