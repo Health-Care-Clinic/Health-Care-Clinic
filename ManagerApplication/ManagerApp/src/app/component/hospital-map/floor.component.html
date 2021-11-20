@@ -5,7 +5,7 @@
 <div style="margin-left:auto; margin-right:auto; display:flex;align-content:center;">
     <div style="margin-right:30px;">
         <ul class="vertical-nav" *ngFor="let floor of floors">
-            <li [ngStyle]="{'background-color': idfString == floor.id ? '#f36f25' : '#495869'}"><a [routerLink]="['/floor', building.id, floor.id]" (click)="selectFloor(floor.id)">{{floor.name}}</a></li>
+            <li [ngStyle]="{'background-color': (idfString == floor.id) ? '#f36f25' : '#495869'}"><a [routerLink]="['/floor', building.id, floor.id]" (click)="selectFloor(floor.id)">{{floor.name}}</a></li>
         </ul>
     </div>
     <svg width="1060" height="430" style="border:1px solid black;background-color:#aa8777;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

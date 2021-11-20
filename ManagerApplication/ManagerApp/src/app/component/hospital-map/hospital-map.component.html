@@ -1,6 +1,13 @@
 <div style="padding-top: 80px;">
 
 </div>
+<div style="z-index: 1; position: relative; left: 160px; background-color:#495869; width: 330px; height: 75px;">
+    <input placeholder="Search building by name" style="margin-left: 50px; margin-top: 25px;" type="text" id="buildingSearchHTML" value=""/>
+    <button style="margin-left: 5px; background-color: #BDD5EA;" (click)="searchBuildings()" >Search</button>
+    <ul id="myUL" style="margin-left: 50px; margin-top: 1px; margin-right: 114px;" *ngFor="let searchedBuilding of searchedBuildings">
+        <li (click)="selectSearchedBuilding(searchedBuilding.id)">{{searchedBuilding.name}}</li>
+    </ul>
+</div>
 <div style="margin-left:auto; margin-right:auto; display:flex;align-content:flex-end;">
     <div style="margin-right: 20px; padding: 70px;" *ngIf="!(building?.type.toString() === '0')"></div>
     <div style="margin-right: 20px;" *ngIf="isHospital && selectedBuilding">

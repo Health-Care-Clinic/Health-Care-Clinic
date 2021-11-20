@@ -9,6 +9,7 @@ namespace Hospital.Rooms_and_equipment.Repository
     public interface IBuildingRepository : IRepository<Building>
     {
         public void Change(Building entity);
-        
+
+        public List<Building> GetSearchedBuildings(string searchText);
     }
 }

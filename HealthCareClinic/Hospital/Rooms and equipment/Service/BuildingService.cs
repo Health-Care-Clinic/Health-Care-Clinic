@@ -39,5 +39,10 @@ namespace Hospital.Rooms_and_equipment.Service
         {
             _buildingRepository.Change(entity);
         }
+
+        public List<Building> GetSearchedBuildings(string searchText)
+        {
+            return _buildingRepository.GetSearchedBuildings(searchText);
+        }
     }
 }

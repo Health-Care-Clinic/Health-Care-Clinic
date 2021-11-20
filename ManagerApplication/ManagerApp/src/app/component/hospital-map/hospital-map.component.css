@@ -35,54 +35,23 @@
     color:#FFFFFF;
 }
 
-nav {
-    text-align: center;
-    background-color: #008cff;
-    font-family: arial;
+#myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
-.nav-wrapper a {
-    color: white;
+  
+#myUL li {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    background-color: #f6f6f6;
     text-decoration: none;
-    padding: 15px;
-    font-family:Calibri, Arial;
-    font-size:20px;
-    font-weight:bold;
-}
-nav a:hover {
-    background: #47ACFF;
-}
-.nav-wrapper {
-    padding: 0 20px 0 20px;
-    overflow:auto;
-}
-nav ul, nav ul li {
-    display: inline-block;
-    padding: 0px;
-}
-.menuButton {
-    float: left;
+    font-size: 14px;
+    color: black;
+    display: block;
+    cursor: pointer;
 }
 
-.tableFixHead {
-        overflow-y: auto;
-        overflow-x: hidden;
-        height: 280px;
-      }
-.tableFixHead thead th {
-        position: sticky;
-        top: 0;
-      }
-table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-th,td {
-        border: 1px solid #ccc;
-      }
-th {
-        background: #eee;
-        text-align: center;
-      }
-td{
-    text-align: center;
+#myUL li:hover:not(.header) {
+    background-color: #eee;
 }
