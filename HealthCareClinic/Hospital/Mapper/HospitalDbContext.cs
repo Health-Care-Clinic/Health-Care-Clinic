@@ -30,6 +30,9 @@ namespace Hospital.Mapper
         public DbSet<Appointment> Appointments { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
+
+        public DbSet<Model.Doctor> Doctors { get; set; }
+
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         // only for testing purposes

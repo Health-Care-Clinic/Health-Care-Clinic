@@ -20,6 +20,13 @@ namespace Model
             this.PrimaryRoom = primaryRoom;
         }
 
+        public Doctor(string name, Specialty spec, System.Collections.ArrayList patients)
+        {
+            this.Name = name;
+            this.Specialty = spec;
+            this.Patient = patients;
+        }
+
         public int PrimaryRoom { get; set; }
 
 
@@ -39,7 +46,6 @@ namespace Model
         }
 
         public System.Collections.ArrayList patient;
-
 
         public System.Collections.ArrayList Patient
         {
