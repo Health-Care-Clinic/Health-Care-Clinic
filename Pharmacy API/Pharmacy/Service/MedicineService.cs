@@ -6,12 +6,10 @@ using System.Text;
 
 namespace Pharmacy.Service
 {
-    class MedicineService : IService<Medicine>
+    public class MedicineService : IService<Medicine>
     {
         private IMedicineRepository _medicineRepository;
-      
-
-
+        
         public MedicineService(MedicineRepository medicineRepository)
         {
             this._medicineRepository = medicineRepository;
@@ -37,6 +35,20 @@ namespace Pharmacy.Service
         {
             this._medicineRepository.Remove(entity);
             this._medicineRepository.Save();
+        }
+
+        public Medicine GetByName(string name)
+        {
+            Medicine medicine = new Medicine();
+            foreach (Medicine med in _medicineRepository.GetAll())
+            {
+                if (med.Name.Equals(name))
+                {
+                    medicine = med;
+                }
+            }
+
+            return medicine;
         }
     }
 }
