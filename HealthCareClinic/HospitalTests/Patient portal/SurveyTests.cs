@@ -113,7 +113,9 @@ namespace HospitalTests
 
             stubRepository.Setup(m => m.GetAll()).Returns(surveys);
             stubRepository.Setup(m => m.GetById(1)).Returns(surveys[0]);
-            //stubRepository.Setup(m => m.GetAllByPatientId(3)).Returns(surveys.GetRange(0, 2));
+            stubRepository.Setup(m => m.GetAllByPatientId(1)).Returns(surveys.GetRange(0, 2));
+            stubRepository.Setup(m => m.GetAllDoneByPatientId(1)).Returns(surveys.GetRange(0, 2));
+            stubRepository.Setup(m => m.GetAllNotDoneByPatientId(1)).Returns(new List<Survey>());
 
             return stubRepository.Object;
         }

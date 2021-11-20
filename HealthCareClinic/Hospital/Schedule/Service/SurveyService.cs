@@ -29,40 +29,40 @@ namespace Hospital.Schedule.Service
 
         public List<Survey> GetAllByPatientId(int patientId)
         {
-            List<Survey> surveysForPatient = new List<Survey>();
+            //List<Survey> surveysForPatient = new List<Survey>();
 
-            foreach (Survey survey in surveyRepository.GetAll())
-                if (survey.PatientId == patientId)
-                    surveysForPatient.Add(survey);
+            //foreach (Survey survey in surveyRepository.GetAll())
+            //    if (survey.PatientId == patientId)
+            //        surveysForPatient.Add(survey);
 
-            return surveysForPatient;
+            //return surveysForPatient;
 
-            //return surveyRepository.GetAllByPatientId(patientId);
+            return surveyRepository.GetAllByPatientId(patientId);
         }
 
         public List<Survey> GetAllDoneByPatientId(int patientId)
         {
-            List<Survey> doneSurveysForPatient = new List<Survey>();
+            //List<Survey> doneSurveysForPatient = new List<Survey>();
 
-            foreach (Survey survey in GetAllByPatientId(patientId))
-                if (survey.Done)
-                    doneSurveysForPatient.Add(survey);
+            //foreach (Survey survey in GetAllByPatientId(patientId))
+            //    if (survey.Done)
+            //        doneSurveysForPatient.Add(survey);
 
-            return doneSurveysForPatient;
+            //return doneSurveysForPatient;
 
-            //return surveyRepository.GetAllDoneByPatientId(patientId);
+            return surveyRepository.GetAllDoneByPatientId(patientId);
         }
 
         public List<Survey> GetAllNotDoneByPatientId(int patientId)
         {
-            List<Survey> doneSurveysForPatient = new List<Survey>();
+            //List<Survey> doneSurveysForPatient = new List<Survey>();
 
-            foreach (Survey survey in GetAllByPatientId(patientId))
-                if (!survey.Done)
-                    doneSurveysForPatient.Add(survey);
+            //foreach (Survey survey in GetAllByPatientId(patientId))
+            //    if (!survey.Done)
+            //        doneSurveysForPatient.Add(survey);
 
-            return doneSurveysForPatient;
-            //return surveyRepository.GetAllNotDoneByPatientId(patientId);
+            //return doneSurveysForPatient;
+            return surveyRepository.GetAllNotDoneByPatientId(patientId);
         }
 
 
