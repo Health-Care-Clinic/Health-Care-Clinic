@@ -7,6 +7,7 @@ using static Hospital.Rooms_and_equipment.Model.Building;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
 using System.Collections.Generic;
+using Hospital.Shared_model.Model;
 
 namespace Hospital.Mapper
 {
@@ -29,6 +30,8 @@ namespace Hospital.Mapper
         public DbSet<Allergen> Allergens { get; set; }
 
         public DbSet<AllergenForPatient> AllergenForPatients { get; set; }
+
+        public DbSet<Allergen> Allergens { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
 
