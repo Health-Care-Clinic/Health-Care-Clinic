@@ -22,8 +22,8 @@ namespace Hospital.Mapper
 
         public DbSet<Room> Rooms { get; set; }
 
-        public DbSet<Survey> Surveys { get; set; }
-        public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+        //public DbSet<Survey> Surveys { get; set; }
+        //public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
@@ -278,13 +278,13 @@ namespace Hospital.Mapper
                 }
             );
 
-            modelBuilder.Entity<SurveyQuestion>().HasOne(sq => sq.Survey)
-                                                 .WithMany(s => s.SurveyQuestions)
-                                                 .HasForeignKey(sq => sq.SurveyId)
-                                                 .HasPrincipalKey(s => s.Id);
-            modelBuilder.Entity<Survey>()
-                .Property(p => p.Id)
-                .ValueGeneratedOnAdd();
+            //modelBuilder.Entity<SurveyQuestion>().HasOne(sq => sq.Survey)
+            //                                     .WithMany(s => s.SurveyQuestions)
+            //                                     .HasForeignKey(sq => sq.SurveyId)
+            //                                     .HasPrincipalKey(s => s.Id);
+            //modelBuilder.Entity<Survey>()
+            //    .Property(p => p.Id)
+            //    .ValueGeneratedOnAdd();
 
         }
     }

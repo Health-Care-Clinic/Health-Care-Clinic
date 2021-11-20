@@ -22,17 +22,20 @@ namespace Hospital.Schedule.Repository
 
         public List<Survey> GetAllByPatientId(int patientId)
         {
-            return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId).ToList();
+            //return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId).ToList()
+            return null;
         }
 
         public List<Survey> GetAllDoneByPatientId(int patientId)
         {
-            return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId && survey.Done == true).ToList();
+            //return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId && survey.Done == true).ToList();
+            return null;
         }
 
         public List<Survey> GetAllNotDoneByPatientId(int patientId)
         {
-            return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId && survey.Done == false).ToList();
+            //return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId && survey.Done == false).ToList();
+            return null;
         }
     }
 }
