@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using static Hospital.Rooms_and_equipment.Model.Building;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
+using Hospital.Shared_model.Model;
 
 namespace Hospital.Mapper
 {
@@ -24,6 +25,8 @@ namespace Hospital.Mapper
 
         //public DbSet<Survey> Surveys { get; set; }
         //public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+
+        public DbSet<Allergen> Allergens { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
@@ -276,6 +279,19 @@ namespace Hospital.Mapper
                     CanBePublished = true,
                     IsPublished = true
                 }
+            );
+
+            modelBuilder.Entity<Allergen>().HasData(
+                new Allergen(1, "Polen ambrozije"),
+                new Allergen(2, "Ibuprofen"),
+                new Allergen(3, "Aspirin"),
+                new Allergen(4, "Penicilin"),
+                new Allergen(5, "Mačija dlaka"),
+                new Allergen(6, "Lateks"),
+                new Allergen(7, "Kikiriki"),
+                new Allergen(8, "Kravlje mleko"),
+                new Allergen(9, "Jaja"),
+                new Allergen(10, "Školjke")
             );
 
             //modelBuilder.Entity<SurveyQuestion>().HasOne(sq => sq.Survey)
