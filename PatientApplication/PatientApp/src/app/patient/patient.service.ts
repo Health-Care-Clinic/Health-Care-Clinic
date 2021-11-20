@@ -1,21 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Patient } from './ipatient';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
 
-  constructor() { }
+  private _submitRequestURL = '/api/registration-form/submit-request';
 
-  form : FormGroup = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    dateOfBirth: new FormControl(null),
-    email: new FormControl(''),
-    username: new FormControl(''),
-    password: new FormControl(''),
-    rePassword: new FormControl('')
+  constructor(private _http: HttpClient) { }
 
-  })
+  submitRequest(patient:Patient): Observable<any> {
+
+    const headers = { 'content-type': 'application/json'}  
+    const body=JSON.stringify(patient);
+    console.log(body)
+    return this._http.post(this._submitRequestURL, body,{'headers':headers})
+    
+  }
 }

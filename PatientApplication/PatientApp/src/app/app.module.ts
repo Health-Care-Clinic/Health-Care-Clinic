@@ -13,13 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {IvyCarouselModule} from 'angular-responsive-carousel';
-import {CarouselModule} from 'primeng/carousel';
-import {ButtonModule} from 'primeng/button';
-import {ToastModule} from 'primeng/toast';
+import { IvyCarouselModule} from 'angular-responsive-carousel';
+import { CarouselModule} from 'primeng/carousel';
+import { ButtonModule} from 'primeng/button';
+import { ToastModule} from 'primeng/toast';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
-
-
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -27,19 +25,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatIconModule  } from '@angular/material/icon';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatCardModule} from '@angular/material/card';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatGridListModule} from '@angular/material/grid-list';
+import { MatCardModule} from '@angular/material/card';
+import { MatBadgeModule} from '@angular/material/badge';
 import { MatCarouselModule } from 'ng-mat-carousel';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatListModule} from '@angular/material/list';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDialogModule} from '@angular/material/dialog';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+import { MatCheckboxModule} from '@angular/material/checkbox';
+import { MatStepperModule} from '@angular/material/stepper';
+import { MatRadioModule} from '@angular/material/radio';
+import { MatDividerModule} from '@angular/material/divider';
+import { MatListModule} from '@angular/material/list';
+import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 import { FeedbackService } from './service/feedback.service';
