@@ -6,13 +6,12 @@ using System.Text;
 
 namespace Pharmacy.Service
 {
-    class MedicineService : IService<Medicine>
+    public class MedicineService : IMedicineService
     {
         private IMedicineRepository _medicineRepository;
-      
 
 
-        public MedicineService(MedicineRepository medicineRepository)
+        public MedicineService(IMedicineRepository medicineRepository)
         {
             this._medicineRepository = medicineRepository;
         }
@@ -38,5 +37,15 @@ namespace Pharmacy.Service
             this._medicineRepository.Remove(entity);
             this._medicineRepository.Save();
         }
+
+        public IEnumerable<Medicine> SearchMedicine(string name, string manufacturer, int weight)
+        {
+            return this._medicineRepository.GetByNameManufacturerWeight(name, manufacturer, weight);
+        }
+        public bool CheckMedicineQuantity(int id, int requestedQuantity)
+        {
+            return this._medicineRepository.CheckMedicineQuantity(id, requestedQuantity);
+        }
+
     }
 }
