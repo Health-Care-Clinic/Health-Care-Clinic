@@ -1,8 +1,6 @@
 ﻿using Integration;
 using Integration.ApiKeys.Model;
 using Integration.Pharmacy.Model;
-using Integration_API.Adapter;
-using Integration_API.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
@@ -10,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Integration.Adapter;
+using Integration.DTO;
 
 namespace Integration_API.Controller
 {

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy;
+using Pharmacy.DTO;
 using Pharmacy.Model;
-using Pharmacy_API.DTO;
+using Pharmacy.Service;
 using RestSharp;
 
 namespace Pharmacy_API.Controllers
@@ -15,6 +16,7 @@ namespace Pharmacy_API.Controllers
     public class MessageController : ControllerBase
     {
         private readonly PharmacyDbContext _dbContext;
+        private readonly FileTransferService _fileTransferService = new FileTransferService();
 
         public MessageController(PharmacyDbContext dbContext)
         {
@@ -74,6 +76,39 @@ namespace Pharmacy_API.Controllers
 
             _dbContext.Messages.Add(new Message(apiKey.Name, dto.MessageText, "Benu"));
             _dbContext.SaveChanges();
+
+            return Ok("success");
+        }
+
+        [HttpPost("receive/spec")]
+        public IActionResult ReceiveSpecification(MessageDTO dto)
+        {
+            if (!Request.Headers.TryGetValue("ApiKey", out var headerApiKey))
+            {
+                return BadRequest("Api key was not provided!");
+            }
+
+            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Key.Equals(headerApiKey));
+
+            if (apiKey.Name == null)
+            {
+                return BadRequest("Api key is not valid!");
+            }
+
+            if (dto.MessageText.Length <= 0)
+            {
+                return BadRequest();
+            }
+
+            _dbContext.Messages.Add(new Message(apiKey.Name, dto.MessageText, "Benu"));
+            _dbContext.SaveChanges();
+
+            var medToSend = _dbContext.Medicines.Where(m => m.Name.Equals(dto.MessageText)).FirstOrDefault();
+            string content = medToSend.Name + ", " + medToSend.Quantity;
+            string path =
+                "C:\\Users\\PC\\OneDrive\\Desktop\\Health-Care-Clinic\\Pharmacy API\\Pharmacy API\\MedSpecifications\\specification.txt";
+            _fileTransferService.CreateTxtFile(path, content);
+            _fileTransferService.UploadFile("specification");
 
             return Ok("success");
         }

@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy;
 using Pharmacy.Model;
-using Pharmacy_API.Adapter;
-using Pharmacy_API.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pharmacy.Adapter;
+using Pharmacy.DTO;
 
 namespace Pharmacy_API.Controllers
 {
