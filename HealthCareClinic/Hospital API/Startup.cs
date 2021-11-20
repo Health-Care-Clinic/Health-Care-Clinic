@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
+using Hospital.Schedule.Service;
+using Hospital.Schedule.Repository;
 
 namespace Hospital_API
 {
@@ -31,6 +33,11 @@ namespace Hospital_API
                 options.UseNpgsql(
                         ConfigurationExtensions.GetConnectionString(Configuration, "HospitalDbConnectionString"))
                     .UseLazyLoadingProxies());
+
+
+            services.AddScoped<IFeedbackMessageService, FeedbackMessageService>();
+            services.AddScoped<IFeedbackMessageRepository, FeedbackMessageRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

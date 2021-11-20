@@ -1,13 +1,14 @@
-﻿using Model;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-namespace ClinicCore.Model
+namespace Hospital.Schedule.Model
 {
     public class FeedbackMessage
     {
-        //[Key]
-        public long Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public String Text { get; set; }
         public bool IsAnonymous { get; set; }
@@ -17,7 +18,7 @@ namespace ClinicCore.Model
 
         public FeedbackMessage() { }
 
-        public FeedbackMessage(long id, DateTime date, string text, bool isAnonymous, String identity, bool canBePublished,
+        public FeedbackMessage(int id, DateTime date, string text, bool isAnonymous, String identity, bool canBePublished,
             bool isPublished)
         {
             Id = id;
