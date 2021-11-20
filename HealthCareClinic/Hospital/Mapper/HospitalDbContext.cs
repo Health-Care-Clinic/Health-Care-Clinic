@@ -205,7 +205,7 @@ namespace Hospital.Mapper
                 new Building { Id = 6, Name = "Parking2", X = 800, Y = 30, Width = 200, Height = 70, Type = BuildingType.Parking },
                 new Building { Id = 7, Name = "Parking3", X = 800, Y = 130, Width = 200, Height = 70, Type = BuildingType.Parking });
 
-            modelBuilder.Entity<FeedbackMessage>().HasData(            
+            modelBuilder.Entity<FeedbackMessage>().HasData(
                 new FeedbackMessage
                 {
                     Id = 1,
@@ -365,7 +365,7 @@ namespace Hospital.Mapper
                 new SurveyQuestion { Id = 15, Content = "Your general grade for whole hospital' service", Grade = 3, SurveyCategoryId = 3 });
             modelBuilder.Entity<Specialty>().HasData(
                new Specialty()
-               { 
+               {
                    SpecialtyId = 1,
                    Name = "General medicine"
                },
@@ -395,7 +395,7 @@ namespace Hospital.Mapper
                    SpecialtyId = 1,
                    PrimaryRoom = 1
                },
-                new Doctor() 
+                new Doctor()
                 {
                     Id = 2,
                     Name = "Marko",
@@ -405,7 +405,7 @@ namespace Hospital.Mapper
                     Salary = 80000.0,
                     Address = "Bogoboja Atanackovica 5",
                     Phone = "0697856665",
-                    Email = "markoradic@gmail.com", 
+                    Email = "markoradic@gmail.com",
                     Username = "marko",
                     Password = "marko",
                     EmploymentDate = new System.DateTime(2020, 06, 07),
