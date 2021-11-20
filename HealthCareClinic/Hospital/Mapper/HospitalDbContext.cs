@@ -26,6 +26,8 @@ namespace Hospital.Mapper
 
         public DbSet<Appointment> Appointments { get; set; }
 
+        public DbSet<Allergen> Allergens { get; set; }
+
         public DbSet<Equipment> Equipments { get; set; }
 
         public DbSet<Doctor> Doctors { get; set; }
@@ -280,6 +282,19 @@ namespace Hospital.Mapper
                     CanBePublished = true,
                     IsPublished = true
                 }
+            );
+
+            modelBuilder.Entity<Allergen>().HasData(
+                new Allergen(1, "Polen ambrozije"),
+                new Allergen(2, "Ibuprofen"),
+                new Allergen(3, "Aspirin"),
+                new Allergen(4, "Penicilin"),
+                new Allergen(5, "Mačija dlaka"),
+                new Allergen(6, "Lateks"),
+                new Allergen(7, "Kikiriki"),
+                new Allergen(8, "Kravlje mleko"),
+                new Allergen(9, "Jaja"),
+                new Allergen(10, "Školjke")
             );
 
             //modelBuilder.Entity<SurveyQuestion>().HasOne(sq => sq.Survey)
