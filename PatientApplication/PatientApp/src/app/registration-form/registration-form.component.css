@@ -1,0 +1,27 @@
+/* form {
+  display: table;
+  width: 800px;
+}
+
+p {
+  display: table-row;
+}
+
+mat-form-field {
+  display: table-cell;
+  width: 50%;
+  padding: 10px;
+}
+
+button {
+  margin:auto;
+  display:block;
+} */
+
+.mat-stepper-vertical {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}

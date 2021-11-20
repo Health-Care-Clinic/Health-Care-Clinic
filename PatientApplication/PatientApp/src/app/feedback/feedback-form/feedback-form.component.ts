@@ -23,7 +23,6 @@ export class FeedbackFormComponent {
       error => console.log('Error!', error)
     ) 
 
-    console.log(this.feedbackModel);
     window.alert('Your feedback has been submited.');
     this.feedbackModel = new Feedback();
     }
