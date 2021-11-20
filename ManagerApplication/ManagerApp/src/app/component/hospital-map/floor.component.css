@@ -17,10 +17,6 @@
     width: 100px;
 }
 
-.currentFloor {
-    background-color:#f36f25 !important;
-}
-
 .vertical-nav li:hover {
     background-color:#f36f25;
     color:#FFFFFF;

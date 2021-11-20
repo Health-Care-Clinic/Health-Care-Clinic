@@ -48,6 +48,15 @@ namespace Hospital_API.Controller
             return Ok();
         }
 
+        [HttpGet("getSearchedBuildings/{searchText?}")]
+        public IActionResult GetSearchedBuildings(String searchText)
+        {
+            List<BuildingDTO> result = new List<BuildingDTO>();
+            if (searchText != null)
+                buildingService.GetSearchedBuildings(searchText).ForEach(building
+                    => result.Add(BuildingAdapter.BuildingToBuildingDTO(building)));
+            return Ok(result);
+        }
     }
 
 }

@@ -18,6 +18,7 @@ export class HospitalMapComponent implements OnInit {
   building: any;
   floors: any;
   selectedBuilding: any;
+  searchedBuildings: any;
   isHospital: boolean = false;
   equipments: any;
   equipmentsRooms: any;
@@ -43,6 +44,19 @@ export class HospitalMapComponent implements OnInit {
         })
       }
     }
+  }
+
+  public searchBuildings(){
+    var searchText = (<HTMLInputElement>document.getElementById("buildingSearchHTML")).value;
+    this.hospitalMapService.getSearchedBuildings(searchText).subscribe(searchedBuildingsFromBack => {   
+      this.searchedBuildings = searchedBuildingsFromBack;
+    })
+  }
+
+  public selectSearchedBuilding(index: number){
+    this.searchedBuildings.length = 0;
+    (<HTMLInputElement>document.getElementById("buildingSearchHTML")).value = "";
+    this.select(index);
   }
 
   public select(index:number){
@@ -73,6 +87,7 @@ export class HospitalMapComponent implements OnInit {
         }
         nameHTML!.value = " ";
         this.selectedBuilding = null;
+        this.building = null;
     }
     else {
         buildingHTML!.style["fill"] = "#C14953";   
