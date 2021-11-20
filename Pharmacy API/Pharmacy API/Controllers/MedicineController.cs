@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pharmacy.Service;
+using System.Xml.Linq;
 
 namespace Pharmacy_API.Controllers
 {
@@ -13,11 +15,11 @@ namespace Pharmacy_API.Controllers
     [Route("benu/[controller]")]
     public class MedicineController : Controller
     {
-        private readonly PharmacyDbContext _dbContext;
+        private readonly IMedicineService medicineService;
 
-        public MedicineController(PharmacyDbContext dbContext)
+        public MedicineController(IMedicineService medicineService)
         {
-            _dbContext = dbContext;
+            this.medicineService = medicineService;
         }
 
         [HttpGet]
@@ -28,18 +30,13 @@ namespace Pharmacy_API.Controllers
                 string name = HttpContext.Request.Query["name"].ToString().ToLower();
                 string manufacturer = HttpContext.Request.Query["manufacturer"].ToString().ToLower();
                 string weight = HttpContext.Request.Query["weight"].ToString().ToLower();
-                int waightInt = 0;
-                if (!weight.Equals(""))
+                int weightInt = 0;
+                if(weight != "")
                 {
-                    waightInt = int.Parse(weight);
+                    weightInt = int.Parse(weight);
                 }
-                string usage = HttpContext.Request.Query["usage"].ToString().ToLower();
 
-                List<Medicine> medicines = _dbContext.Medicines.Where(medicine => medicine.Name.ToLower().Contains(name) && 
-                                                                      medicine.Manufacturer.ToLower().Contains(manufacturer) &&
-                                                                      medicine.Weight >= waightInt &&
-                                                                      medicine.Usage.ToLower().Contains(usage)).ToList();
-
+                List<Medicine> medicines = medicineService.SearchMedicine(name, manufacturer, weightInt).ToList();
 
                 return Ok(medicines);
             }
@@ -55,15 +52,8 @@ namespace Pharmacy_API.Controllers
         {
             try
             {
-                bool result = false;
                 int requestedQuantity = int.Parse(HttpContext.Request.Query["requestedQuantity"].ToString());
-                List<Medicine> medicines = _dbContext.Medicines.Where(medicine => medicine.Id == id &&
-                                                                      medicine.Quantity >= requestedQuantity).ToList();
-
-                if (medicines.Count() > 0)
-                {
-                    result = true;
-                }
+                bool result = medicineService.CheckMedicineQuantity(id, requestedQuantity);
 
                 return Ok(result);
             }

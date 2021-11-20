@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pharmacy;
+using Pharmacy.Repository;
+using Pharmacy.Service;
 
 namespace Pharmacy_API
 {
@@ -24,6 +26,9 @@ namespace Pharmacy_API
             services.AddDbContext<PharmacyDbContext>(options =>
                options.UseNpgsql(
                    ConfigurationExtensions.GetConnectionString(Configuration, "PharmacyDbConnectionString")).UseLazyLoadingProxies());
+
+            services.AddScoped<IMedicineRepository, MedicineRepository>();
+            services.AddScoped<IMedicineService, MedicineService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
