@@ -48,9 +48,9 @@ namespace HospitalTests.Patient_portal
 
             using (var context = new HospitalDbContext(options))
             {
-                AllergenController AllergenController = new AllergenController(context);
+                PatientRegistrationController patientRegistrationController = new PatientRegistrationController(context);
 
-                OkObjectResult a = AllergenController.GetAllAllergens() as OkObjectResult;
+                OkObjectResult a = patientRegistrationController.GetAllAllergens() as OkObjectResult;
                 List<Allergen> allergens = a.Value as List<Allergen>;
                 foreach (Allergen b in context.Allergens)
                 {
