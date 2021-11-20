@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'feedback-view', component: FeedbackViewComponent},
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
+  { path: 'floor/:idb/:idf/:idr', component: FloorComponent },
   { path: 'hospital-map', component: HospitalMapComponent }
 ];
 
