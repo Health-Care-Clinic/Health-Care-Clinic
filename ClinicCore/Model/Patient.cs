@@ -62,6 +62,11 @@ namespace Model
             this.Education = education;
         }
 
+        public Patient(string name)
+        {
+            this.Name = name;
+        }
+
         public Patient()
         {
         }

@@ -26,6 +26,9 @@ namespace Hospital.Mapper
         //public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
+
+        public DbSet<Model.Doctor> Doctors { get; set; }
+
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         // only for testing purposes
