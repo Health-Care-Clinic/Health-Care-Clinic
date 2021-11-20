@@ -52,10 +52,10 @@ namespace Hospital_API.Controller
             Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
             newPatient.Doctor = _doctorService.GetOneById(patientDTO.DoctorDTO.Id);
             _patientService.Add(newPatient);
-            
+
             return Ok();
         }
-        //[HttpGet("getAllPatients")]       
+        //[HttpGet("getAllPatients")]
         //public IActionResult GetAllPatients()
         //{
         //    List<Patient> result = (List<Patient>)_patientService.GetAll();
