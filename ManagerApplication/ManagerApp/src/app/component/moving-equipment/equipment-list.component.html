@@ -25,3 +25,13 @@
         <button id="back2" (click)="back2()">Back to step 2</button>
     </form>
 </div>
+<div>
+    <h1>Step 4: Select the destination room to move equipment</h1>
+    <form (ngSubmit)="onSubmit4()">
+        <select id="select4">
+            <option *ngFor='let e of roomsWithEquipmentDst' value="{{e.roomId}}">Room: {{e.roomId}}</option>
+        </select>
+        <button type="submit" id="next4">Next</button>
+        <button id="back3" (click)="back3()">Back to step 3</button>
+    </form>
+</div>
