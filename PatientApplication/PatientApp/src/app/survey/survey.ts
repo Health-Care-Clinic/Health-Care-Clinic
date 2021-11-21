@@ -1,8 +1,8 @@
-import { ISurveyQuestion } from "./survey-question";
+import { ISurveyCategory } from "./survey-category";
 
 export interface ISurvey {
     id: number;
-    patientId: number;
     appointmentId: number;
-    surveyQuestions: ISurveyQuestion[];
+    done: boolean;
+    surveyCategories: ISurveyCategory[];
 }

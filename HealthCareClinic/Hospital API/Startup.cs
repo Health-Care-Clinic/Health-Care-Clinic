@@ -37,6 +37,9 @@ namespace Hospital_API
 
             services.AddScoped<IFeedbackMessageService, FeedbackMessageService>();
             services.AddScoped<IFeedbackMessageRepository, FeedbackMessageRepository>();
+                        
+            services.AddScoped<ISurveyService, SurveyService>();
+            services.AddScoped<ISurveyRepository, SurveyRepository>();
 
         }
 

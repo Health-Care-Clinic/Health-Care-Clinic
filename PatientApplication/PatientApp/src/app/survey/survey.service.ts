@@ -13,7 +13,7 @@ export class SurveyService{
     constructor(private _http : HttpClient){}
 
     getSurvey() : Observable<ISurvey>{
-        return this._http.get<ISurvey>(this._surveyUrlGetAll)
+        return this._http.get<ISurvey>(this._surveyUrlGetAll + 'new')
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
     }
@@ -23,11 +23,13 @@ export class SurveyService{
         const body=JSON.stringify(survey);
         console.log(body)
         return this._http.post(this._surveyUrlSubmit, body,{'headers':headers})
-      }
+                         .catch(this.handleError);
+    }
 
     private handleError(err : HttpErrorResponse) {
         console.log(err.message);
         return Observable.throw(err.message);
         throw new Error('Method not implemented.');
     }
+
 }

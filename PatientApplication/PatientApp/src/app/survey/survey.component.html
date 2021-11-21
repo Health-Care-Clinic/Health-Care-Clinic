@@ -1,11 +1,12 @@
 <div class="stepper">
     <h1>Please tell us how you feel about our service</h1>
     <mat-horizontal-stepper linear>
-        <mat-step *ngFor="let type of questionTypeTitles; let i=index" label={{type}} completed=true>
-            <mat-list *ngFor="let question of survey.surveyQuestions | slice:i*5:i*5+4">     <!-- bice ngFor za sva pitanja iz te sekcije -->
+        <mat-step *ngFor="let category of survey.surveyCategories" label={{category.name}} completed=true>
+
+            <mat-list *ngFor="let question of category.surveyQuestions">     <!-- bice ngFor za sva pitanja iz te sekcije -->
                 <mat-list-item>
                     <label>{{question.content}}</label>   <!-- bice binding na labelu za tekst pitanja -->
-                    <mat-radio-group>
+                    <mat-radio-group [(ngModel)]="question.grade">
                         <mat-radio-button value="1">1</mat-radio-button>
                         <mat-radio-button value="2">2</mat-radio-button>
                         <mat-radio-button value="3">3</mat-radio-button>
@@ -15,8 +16,8 @@
                 </mat-list-item>
             </mat-list>
             <div style="margin-top: 3%;">
-                <button mat-button matStepperPrevious *ngIf="type !== 'Doctor'">Back</button>
-                <button mat-button matStepperNext *ngIf="type !== 'Hospital'">Next</button>
+                <button mat-button matStepperPrevious *ngIf="category.name !== 'Doctor'">Back</button>
+                <button mat-button matStepperNext *ngIf="category.name !== 'Hospital'">Next</button>
             </div>
         </mat-step>
     </mat-horizontal-stepper>

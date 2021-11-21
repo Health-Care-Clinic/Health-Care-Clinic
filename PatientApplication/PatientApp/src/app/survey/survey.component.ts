@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ISurvey } from './survey';
 import { ISurveyQuestion } from './survey-question';
+import { ISurveyCategory } from './survey-category';
 import { SurveyService } from './survey.service';
 
 @Component({
@@ -11,12 +12,12 @@ import { SurveyService } from './survey.service';
 export class SurveyComponent implements OnInit {
   survey : ISurvey = {
       id : 0,
-      patientId : 0,
       appointmentId : 0,
-      surveyQuestions : []
+      done: false,
+      surveyCategories : []
   };
   errorMessage : string  = '';
-  questionTypeTitles : string[] = ["Doctor", "Medical stuff", "Hospital"]
+  /* questionTypeTitles : string[] = ["Doctor", "Medical stuff", "Hospital"] */
 
   constructor(private _surveyService : SurveyService) { }
 

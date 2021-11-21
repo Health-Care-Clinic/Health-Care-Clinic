@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using static Hospital.Rooms_and_equipment.Model.Building;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
+using Hospital.Shared_model.Model;
 
 namespace Hospital.Mapper
 {
@@ -22,8 +23,11 @@ namespace Hospital.Mapper
 
         public DbSet<Room> Rooms { get; set; }
 
-        //public DbSet<Survey> Surveys { get; set; }
-        //public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+        public DbSet<SurveyCategory> SurveyCategories { get; set; }
+        public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
+
+        public DbSet<Appointment> Appointments { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
@@ -286,6 +290,68 @@ namespace Hospital.Mapper
             //    .Property(p => p.Id)
             //    .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<Appointment>(entity =>
+            {
+                entity.ToTable("appointment");
+            });
+
+            modelBuilder.Entity<Survey>(entity =>
+            {
+                entity.ToTable("survey");
+
+                entity.HasOne(d => d.Appointment)
+               .WithMany(p => p.Surveys)
+               .HasForeignKey(d => d.AppointmentId);
+            });
+
+            modelBuilder.Entity<SurveyCategory>(entity =>
+            {
+                entity.ToTable("surveyCategory");
+
+                entity.HasOne(d => d.Survey)
+               .WithMany(p => p.SurveyCategories)
+               .HasForeignKey(d => d.SurveyId);
+            });
+
+            modelBuilder.Entity<SurveyQuestion>(entity =>
+            {
+                entity.ToTable("surveyQuestion");
+
+                entity.HasOne(d => d.SurveyCategory)
+               .WithMany(p => p.SurveyQuestions)
+               .HasForeignKey(d => d.SurveyCategoryId);
+            });
+
+
+            modelBuilder.Entity<Appointment>().HasData(
+                new Appointment { Id = 1, DoctorId = 1, PatientId = 1, RoomId = 1, Surveys = new List<Survey>() });
+
+            modelBuilder.Entity<Survey>().HasData(
+                new Survey { Id = 1, Done = true, SurveyCategories = new List<SurveyCategory>(), AppointmentId = 1 });
+
+            modelBuilder.Entity<SurveyCategory>().HasData(
+                new SurveyCategory { Id = 1, Name = "Doctor", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 1 },
+                new SurveyCategory { Id = 2, Name = "Medical stuff", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 1 },
+                new SurveyCategory { Id = 3, Name = "Hospital", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 1 });
+
+            modelBuilder.Entity<SurveyQuestion>().HasData(
+                new SurveyQuestion { Id = 1, Content = "How careful did doctor listen you?", Grade = 1, SurveyCategoryId = 1 },
+                new SurveyQuestion { Id = 2, Content = "Has doctor been polite?", Grade = 3, SurveyCategoryId = 1 },
+                new SurveyQuestion { Id = 3, Content = "Has he explained you your condition enough that you can understand it?", Grade = 4, SurveyCategoryId = 1 },
+                new SurveyQuestion { Id = 4, Content = "How would you rate doctors' professionalism?", Grade = 5, SurveyCategoryId = 1 },
+                new SurveyQuestion { Id = 5, Content = "Your general grade for doctors' service", Grade = 3, SurveyCategoryId = 1 },
+
+                new SurveyQuestion { Id = 6, Content = "How much our medical staff were polite?", Grade = 2, SurveyCategoryId = 2 },
+                new SurveyQuestion { Id = 7, Content = "How would you rate time span that you spend waiting untill doctor attended you?", Grade = 3, SurveyCategoryId = 2 },
+                new SurveyQuestion { Id = 8, Content = "How prepared were stuff for emergency situations?", Grade = 4, SurveyCategoryId = 2 },
+                new SurveyQuestion { Id = 9, Content = "How good has stuff explained you our procedures?", Grade = 5, SurveyCategoryId = 2 },
+                new SurveyQuestion { Id = 10, Content = "Your general grade for medical stuffs' service", Grade = 3, SurveyCategoryId = 2 },
+
+                new SurveyQuestion { Id = 11, Content = "How would you rate our appointment organisation?", Grade = 1, SurveyCategoryId = 3 },
+                new SurveyQuestion { Id = 12, Content = "How would you rate hospitals' hygiene?", Grade = 4, SurveyCategoryId = 3 },
+                new SurveyQuestion { Id = 13, Content = "How good were procedure for booking appointment?", Grade = 4, SurveyCategoryId = 3 },
+                new SurveyQuestion { Id = 14, Content = "How easy was to use our application?", Grade = 5, SurveyCategoryId = 3 },
+                new SurveyQuestion { Id = 15, Content = "Your general grade for whole hospital' service", Grade = 3, SurveyCategoryId = 3 });
         }
     }
 }

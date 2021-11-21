@@ -70,20 +70,6 @@ namespace HospitalTests
 
 
 
-
-        [Fact]
-        public void Find_finished_appointment_without_survey()
-        {
-
-        }
-
-        [Fact]
-        public void Create_survey_for_appointment()     //mock
-        {
-
-        }
-
-
         //[Theory]
         //public void Get_all_surveys_for_appointments_after_some_date(DateTime date)
         //{
@@ -98,17 +84,17 @@ namespace HospitalTests
             List<Survey> surveys = new List<Survey>();
             var stubRepository = new Mock<ISurveyRepository>();
 
-            surveys.Add(new Survey(1, 1, 1));    //id, patientId, appointmentId
-            surveys.Add(new Survey(2, 1, 2));
-            surveys.Add(new Survey(3, 3, 5));
-            surveys.Add(new Survey(7, 12, 11));
+            //surveys.Add(new Survey(1, 1, 1));    //id, patientId, appointmentId
+            //surveys.Add(new Survey(2, 1, 2));
+            //surveys.Add(new Survey(3, 3, 5));
+            //surveys.Add(new Survey(7, 12, 11));
 
-            foreach (Survey survey in surveys)
-            {
-                foreach (SurveyQuestion question in survey.SurveyQuestions)
-                    question.Grade = random.Next(1, 6);
-                survey.Done = true;
-            }
+            //foreach (Survey survey in surveys)
+            //{
+            //    foreach (SurveyQuestion question in survey.SurveyQuestions)
+            //        question.Grade = random.Next(1, 6);
+            //    survey.Done = true;
+            //}
 
 
             stubRepository.Setup(m => m.GetAll()).Returns(surveys);
