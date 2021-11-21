@@ -1,11 +1,10 @@
 ﻿using Hospital.Mapper;
 using Hospital.Repository.Interface;
-using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
-using System.Text;
+using Hospital.Shared_model.Model;
 
 namespace Hospital.Repository
 {
@@ -50,8 +49,8 @@ namespace Hospital.Repository
         public List<Doctor> GetNonOverOcuipedDoctors()
         {
             List<Doctor> nonOverOccupiedDoctors = new List<Doctor>();
-            int min = dbContext.Doctors.Min(d => d.patient.Count);
-            nonOverOccupiedDoctors = dbContext.Doctors.Where(d => d.patient.Count <= min + 2).ToList();
+            int min = dbContext.Doctors.Min(d => d.Patients.Count);
+            nonOverOccupiedDoctors = dbContext.Doctors.Where(d => d.Patients.Count <= min + 2).ToList();
             return nonOverOccupiedDoctors;
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Hospital.Shared_model.Model
 {
@@ -38,20 +37,20 @@ namespace Hospital.Shared_model.Model
             throw new NotImplementedException();
         }
 
-        public System.Collections.ArrayList patient;
+        public List<Patient> patients;
 
 
-        public System.Collections.ArrayList Patient
+        public List<Patient> Patients
         {
             get
             {
-                if (patient == null)
-                    patient = new System.Collections.ArrayList();
-                return patient;
+                if (patients == null)
+                    patients = new List<Patient>();
+                return patients;
             }
             set
             {
-                RemoveAllPatient();
+                RemoveAllPatients();
                 if (value != null)
                 {
                     foreach (Patient oPatient in value)
@@ -65,11 +64,11 @@ namespace Hospital.Shared_model.Model
         {
             if (newPatient == null)
                 return;
-            if (this.patient == null)
-                this.patient = new System.Collections.ArrayList();
-            if (!this.patient.Contains(newPatient))
+            if (this.patients == null)
+                this.patients = new List<Patient>();
+            if (!this.patients.Contains(newPatient))
             {
-                this.patient.Add(newPatient);
+                this.patients.Add(newPatient);
                 newPatient.Doctor = this;
             }
         }
@@ -79,22 +78,22 @@ namespace Hospital.Shared_model.Model
         {
             if (oldPatient == null)
                 return;
-            if (this.patient != null)
-                if (this.patient.Contains(oldPatient))
+            if (this.patients != null)
+                if (this.patients.Contains(oldPatient))
                 {
-                    this.patient.Remove(oldPatient);
+                    this.patients.Remove(oldPatient);
                     oldPatient.Doctor = null;
                 }
         }
 
-        public void RemoveAllPatient()
+        public void RemoveAllPatients()
         {
-            if (patient != null)
+            if (patients != null)
             {
-                System.Collections.ArrayList tmpPatient = new System.Collections.ArrayList();
-                foreach (Patient oldPatient in patient)
+                List<Patient> tmpPatient = new List<Patient>();
+                foreach (Patient oldPatient in patients)
                     tmpPatient.Add(oldPatient);
-                patient.Clear();
+                patients.Clear();
                 foreach (Patient oldPatient in tmpPatient)
                     oldPatient.Doctor = null;
                 tmpPatient.Clear();

@@ -1,8 +1,6 @@
-﻿using ClinicCore.Storages;
-using Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using Hospital.Shared_model.Interface;
+using Hospital.Shared_model.Model;
 
 namespace Hospital.Repository.Interface
 {
