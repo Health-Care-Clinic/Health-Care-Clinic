@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ClinicCore.Service;
-using Hospital.Mapper;
 using Hospital.Repository.Interface;
-using Model;
+using Hospital.Shared_model.Interface;
+using Hospital.Shared_model.Model;
 
 namespace Hospital.Service
 {
@@ -54,14 +51,14 @@ namespace Hospital.Service
         public List<Doctor> GetNonOverOcuipedDoctors()
         {
             List<Doctor> noneOverOcupiedDoctors = new List<Doctor>();
-            int min = GetAllGeneralMedicineDoctors()[0].Patient.Count;
+            //int min = GetAllGeneralMedicineDoctors()[0].Patients.Count;
 
-            foreach (Doctor doctor in GetAllGeneralMedicineDoctors())
-                if (doctor.Patient.Count < min)
-                    min = doctor.Patient.Count;
-            foreach (Doctor doctor in GetAllGeneralMedicineDoctors())
-                if (doctor.Patient.Count <= min + 2)
-                    noneOverOcupiedDoctors.Add(doctor);
+            //foreach (Doctor doctor in GetAllGeneralMedicineDoctors())
+            //    if (doctor.Patients.Count < min)
+            //        min = doctor.Patients.Count;
+            //foreach (Doctor doctor in GetAllGeneralMedicineDoctors())
+            //    if (doctor.Patients.Count <= min + 2)
+            //        noneOverOcupiedDoctors.Add(doctor);
 
 
             return noneOverOcupiedDoctors;

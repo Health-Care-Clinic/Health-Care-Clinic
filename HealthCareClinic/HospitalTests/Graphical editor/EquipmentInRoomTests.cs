@@ -9,8 +9,7 @@ using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+
 using Xunit;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 

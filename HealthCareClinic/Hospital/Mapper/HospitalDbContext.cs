@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Hospital.Schedule.Model;
-
+using Hospital.Shared_model.Model;
 using Hospital.Rooms_and_equipment.Model;
 using Microsoft.EntityFrameworkCore;
 using static Hospital.Rooms_and_equipment.Model.Building;
@@ -31,7 +28,7 @@ namespace Hospital.Mapper
 
         public DbSet<Equipment> Equipments { get; set; }
 
-        public DbSet<Model.Doctor> Doctors { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
 
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
