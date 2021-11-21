@@ -6,7 +6,7 @@ using Hospital.Shared_model.Model;
 using Hospital.Medical_records.Repository.Interface;
 
 namespace Hospital.Medical_records.Service
-{ 
+{
     public class DoctorService : IDoctorService
     {
         private readonly IDoctorRepository doctorRepository;

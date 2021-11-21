@@ -23,7 +23,7 @@ namespace Hospital.Medical_records.Repository
         //    IQueryable<Doctor> generalMedicineDoctors = dbContext.Doctors.Where(d => d.Specialty.Name.ToLower().Equals("general medicine"));
         //    var activePatientsWithDoctorId  = dbContext.Patients
         //        .Join(generalMedicineDoctors,
-        //         p => p.DoctorId, 
+        //         p => p.DoctorId,
         //         d => d.Id,
         //         (p, d) => new { P = p, D = d }) // selection
         //            .Where(PiD => PiD.P.IsActive == true && PiD.P.IsBlocked == false);
