@@ -42,6 +42,17 @@ namespace Hospital.Schedule.Model
             this.AppointmentId = AppointmentId;
         }
 
+        public Survey(int id, int appointmentId, bool done)
+        {
+            this.Id = id;
+            this.AppointmentId = appointmentId;
+            Done = done;
+            SurveyCategories = new List<SurveyCategory>();
+            this.Appointment = new Appointment();
+        }
+
+
+
 
         //private void GenerateSurveyQuestionsWithNoGrades()
         //{

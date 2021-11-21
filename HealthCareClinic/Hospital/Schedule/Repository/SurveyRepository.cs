@@ -22,31 +22,25 @@ namespace Hospital.Schedule.Repository
 
         public Survey GenerateSurveyForAppointment()
         {
-            //Appointment app = (Appointment)HospitalDbContext.Appointments.Where(app => app.Id == 1);
-            //app.Surveys.Add(new Survey());
             Survey generatedSurvey = new Survey();
             Add(generatedSurvey);
-            //HospitalDbContext.
 
             return generatedSurvey;
         }
 
         public List<Survey> GetAllByPatientId(int patientId)
         {
-            //return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId).ToList()
-            return null;
+            return HospitalDbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId).ToList();
         }
 
         public List<Survey> GetAllDoneByPatientId(int patientId)
         {
-            //return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId && survey.Done == true).ToList();
-            return null;
+            return HospitalDbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId && survey.Done == true).ToList();
         }
 
         public List<Survey> GetAllNotDoneByPatientId(int patientId)
         {
-            //return HospitalDbContext.Surveys.Where(survey => survey.PatientId == patientId && survey.Done == false).ToList();
-            return null;
+            return HospitalDbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId && survey.Done == false).ToList();
         }
 
         public void ModifyGrade(int questionId, int newGrade)

@@ -1,12 +1,12 @@
 <div class="stepper">
     <h1>Please tell us how you feel about our service</h1>
     <mat-horizontal-stepper linear>
-        <mat-step *ngFor="let category of survey.surveyCategories" label={{category.name}} completed=true>
-
+        <mat-step *ngFor="let category of survey.surveyCategories" label={{category.name}}>
+            
             <mat-list *ngFor="let question of category.surveyQuestions">     <!-- bice ngFor za sva pitanja iz te sekcije -->
                 <mat-list-item>
                     <label>{{question.content}}</label>   <!-- bice binding na labelu za tekst pitanja -->
-                    <mat-radio-group [(ngModel)]="question.grade">
+                    <mat-radio-group [(ngModel)]="question.grade" required>
                         <mat-radio-button value="1">1</mat-radio-button>
                         <mat-radio-button value="2">2</mat-radio-button>
                         <mat-radio-button value="3">3</mat-radio-button>
@@ -21,5 +21,7 @@
             </div>
         </mat-step>
     </mat-horizontal-stepper>
-    <button mat-raised-button name="submit-button" (click)="submit()">Submit</button>
+    <div class="submitButton">
+        <button name="submitButton" title="You need to answer all questions" mat-raised-button (click)="submit()" [disabled]="!validate()">Submit</button>
+    </div>    
 </div>

@@ -41,4 +41,21 @@ export class SurveyComponent implements OnInit {
       window.alert('Your survey has been submited.');
     }
 
+  validate() {
+    var ok = true;
+    this.survey.surveyCategories.forEach(category => { category.surveyQuestions.forEach(question => {
+      if (question.grade == 0)
+      {
+        ok = false;
+        /* break; */
+      }
+    });      
+    });
+    if (ok)
+    {
+      var button = document.getElementsByTagName("button")[0];
+      button.title = "Submit your survey answers";
+    }
+    return ok;
+  }
 }

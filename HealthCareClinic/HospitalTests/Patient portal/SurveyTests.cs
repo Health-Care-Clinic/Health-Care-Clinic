@@ -6,17 +6,40 @@ using Shouldly;
 using Hospital.Schedule.Service;
 using Hospital.Schedule.Model;
 using Hospital.Schedule.Repository;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
+using Hospital.Mapper;
+using Hospital_API.Controller;
 
 namespace HospitalTests
 {
     public class SurveyTests
     {
-        private SurveyService surveyService = new SurveyService(CreateStubRepository());
+        [Fact]      //integration test
+        public void Get_empty_survey()
+        {
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
+            var _context = new HospitalDbContext(optionsBuilder.Options);
+
+            SurveyRepository surveyRepository = new SurveyRepository(_context);
+            SurveyService surveyService = new SurveyService(surveyRepository);
+            SurveyController surveyController = new SurveyController(surveyService);
+
+            Survey newSurvey = (Survey)surveyController.GetEmptySurveyForAppointment();
+
+            Assert.NotNull(newSurvey);
+        }
+
 
 
         [Fact]
         public void Get_all_surveys()
-        {            
+        {
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
             List<Survey> surveys = (List<Survey>)surveyService.GetAll();
 
             Assert.NotEmpty(surveys);
@@ -25,6 +48,7 @@ namespace HospitalTests
         [Fact]
         public void Get_all_surveys_for_patient()
         {
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
             List<Survey> patientSurveys = surveyService.GetAllByPatientId(1);
 
             Assert.Equal(2, patientSurveys.Count);
@@ -33,17 +57,19 @@ namespace HospitalTests
         [Fact]
         public void Get_all_done_surveys_for_patient()
         {
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
             List<Survey> patientSurveys = surveyService.GetAllDoneByPatientId(1);
 
-            Assert.Equal(2, patientSurveys.Count);
+            Assert.Single(patientSurveys);
         }
 
         [Fact]
         public void Get_all_not_done_surveys_for_patient()
         {
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
             List<Survey> patientSurveys = surveyService.GetAllNotDoneByPatientId(1);
 
-            Assert.Empty(patientSurveys);
+            Assert.Single(patientSurveys);
         }
 
 
@@ -51,9 +77,9 @@ namespace HospitalTests
         [MemberData(nameof(Data))]
         public void Check_matching_member_of_survey_list(int surveyId, int expectedIndex, bool shouldWork)
         {
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
             List<Survey> surveys = (List<Survey>)surveyService.GetAll(); 
             Survey wantedSurvey = surveyService.GetOneById(surveyId);
-            //Survey wantedSurvey = surveyService.GetSurveyById(index);
 
             if (shouldWork)
                 Assert.Equal(surveys[expectedIndex], wantedSurvey);
@@ -69,39 +95,27 @@ namespace HospitalTests
             };
 
 
-
-        //[Theory]
-        //public void Get_all_surveys_for_appointments_after_some_date(DateTime date)
-        //{
-
-        //}
-
-
-
         private static ISurveyRepository CreateStubRepository()
         {
-            Random random = new Random();
             List<Survey> surveys = new List<Survey>();
             var stubRepository = new Mock<ISurveyRepository>();
 
-            //surveys.Add(new Survey(1, 1, 1));    //id, patientId, appointmentId
-            //surveys.Add(new Survey(2, 1, 2));
-            //surveys.Add(new Survey(3, 3, 5));
-            //surveys.Add(new Survey(7, 12, 11));
+            surveys.Add(new Survey(1, 1, true));    //id, appointmentid, done
+            surveys.Add(new Survey(2, 2, false));
+            surveys.Add(new Survey(3, 5, false));
+            surveys.Add(new Survey(7, 11, true));
 
-            //foreach (Survey survey in surveys)
-            //{
-            //    foreach (SurveyQuestion question in survey.SurveyQuestions)
-            //        question.Grade = random.Next(1, 6);
-            //    survey.Done = true;
-            //}
+            surveys[0].Appointment.PatientId = 1;
+            surveys[1].Appointment.PatientId = 1;
+            surveys[2].Appointment.PatientId = 4;
+            surveys[3].Appointment.PatientId = 3;
 
 
             stubRepository.Setup(m => m.GetAll()).Returns(surveys);
             stubRepository.Setup(m => m.GetById(1)).Returns(surveys[0]);
             stubRepository.Setup(m => m.GetAllByPatientId(1)).Returns(surveys.GetRange(0, 2));
-            stubRepository.Setup(m => m.GetAllDoneByPatientId(1)).Returns(surveys.GetRange(0, 2));
-            stubRepository.Setup(m => m.GetAllNotDoneByPatientId(1)).Returns(new List<Survey>());
+            stubRepository.Setup(m => m.GetAllDoneByPatientId(1)).Returns(surveys.GetRange(0, 1));
+            stubRepository.Setup(m => m.GetAllNotDoneByPatientId(1)).Returns(surveys.GetRange(1, 1));
 
             return stubRepository.Object;
         }

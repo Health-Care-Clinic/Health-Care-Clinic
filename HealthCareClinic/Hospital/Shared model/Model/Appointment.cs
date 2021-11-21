@@ -24,5 +24,9 @@ namespace Hospital.Shared_model.Model
 
         //public int SurveyId { get; set; }
         public virtual ICollection<Survey> Surveys { get; set; }
+
+        public Appointment()
+        {
+        }
     }
 }
