@@ -40,19 +40,19 @@ namespace Hospital_API
 
             services.AddScoped<IFeedbackMessageService, FeedbackMessageService>();
             services.AddScoped<IFeedbackMessageRepository, FeedbackMessageRepository>();
-          
+
             services.AddScoped<ISurveyService, SurveyService>();
             services.AddScoped<ISurveyRepository, SurveyRepository>();
-          
+
             services.AddScoped<IBuildingService, BuildingService>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
-          
+
             services.AddScoped<IFloorService, FloorService>();
             services.AddScoped<IFloorRepository, FloorRepository>();
-          
+
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomRepository, RoomRepository>();
-          
+
             services.AddScoped<IEquipmentService, EquipmentService>();
             services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 
@@ -64,6 +64,12 @@ namespace Hospital_API
 
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IPatientRepository, PatientRepository>();
+
+            services.AddScoped<IAllergenService, AllergenService>();
+            services.AddScoped<IAllergenRepository, AllergenRepository>();
+
+            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
 
         }
 
