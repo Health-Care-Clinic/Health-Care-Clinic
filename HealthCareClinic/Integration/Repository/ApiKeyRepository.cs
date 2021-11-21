@@ -26,7 +26,7 @@ namespace Integration.Repository
 
         public ApiKey GetByUrl(string url)
         {
-            return IntegrationDbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Name.Equals(url));
+            return IntegrationDbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.BaseUrl.Equals(url));
         }
     }
 }

@@ -33,6 +33,8 @@ namespace Pharmacy_API
             services.AddScoped<IApiKeyService, ApiKeyService>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IMedicineRepository, MedicineRepository>();
+            services.AddScoped<IMedicineService, MedicineService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

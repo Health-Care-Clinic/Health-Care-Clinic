@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pharmacy;
@@ -10,9 +11,10 @@ using Pharmacy;
 namespace Pharmacy.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    partial class PharmacyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211121091411_NMigration")]
+    partial class NMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,8 +104,8 @@ namespace Pharmacy.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("CompatibileMedicine")
-                        .HasColumnType("text");
+                    b.Property<List<int>>("CompatibileMedicine")
+                        .HasColumnType("integer[]");
 
                     b.Property<string>("Manufacturer")
                         .HasColumnType("text");
@@ -114,11 +116,11 @@ namespace Pharmacy.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Reactions")
-                        .HasColumnType("text");
+                    b.Property<List<string>>("Reactions")
+                        .HasColumnType("text[]");
 
-                    b.Property<string>("SideEffects")
-                        .HasColumnType("text");
+                    b.Property<List<string>>("SideEffects")
+                        .HasColumnType("text[]");
 
                     b.Property<string>("Usage")
                         .HasColumnType("text");
@@ -134,38 +136,25 @@ namespace Pharmacy.Migrations
                         new
                         {
                             Id = 1,
-                            CompatibileMedicine = "Aspirin",
                             Manufacturer = "Bayer",
                             Name = "Brufen",
                             Quantity = 400,
-                            Reactions = "Headache",
-                            SideEffects = "Rash, Stomach pain",
-                            Usage = "Pain relief",
-                            Weight = 400
+                            Usage = "",
+                            Weight = 200
                         },
                         new
                         {
                             Id = 2,
-                            CompatibileMedicine = "Aspirin",
-                            Manufacturer = "Bayer",
                             Name = "Klacid",
                             Quantity = 200,
-                            Reactions = "Headache, Swelling",
-                            SideEffects = "Rash, Unconsciousness",
-                            Usage = "Lung infections, Bronchitis",
-                            Weight = 500
+                            Weight = 0
                         },
                         new
                         {
                             Id = 3,
-                            CompatibileMedicine = "Aspirin",
-                            Manufacturer = "Galenika",
                             Name = "Paracetamol",
                             Quantity = 250,
-                            Reactions = "None",
-                            SideEffects = "None",
-                            Usage = "Toothache, Headache",
-                            Weight = 500
+                            Weight = 0
                         });
                 });
 

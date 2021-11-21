@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace Pharmacy.Repository
 {
@@ -34,6 +35,11 @@ namespace Pharmacy.Repository
             IEnumerable<Medicine> medicines = Find(exp);
 
             return medicines.Count<Medicine>() != 0;
+        }
+        
+        public Medicine GetByName(string name)
+        {
+            return PharmacyDbContext.Medicines.Where(m => m.Name.Equals(name)).FirstOrDefault();
         }
     }
 }

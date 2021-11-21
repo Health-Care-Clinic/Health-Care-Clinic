@@ -7,5 +7,6 @@ namespace Pharmacy.Repository
 {
     public interface IApiKeyRepository : IRepository<ApiKey>
     {
+        ApiKey GetByKey(string key);
     }
 }

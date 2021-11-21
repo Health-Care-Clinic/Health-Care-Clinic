@@ -9,7 +9,7 @@ namespace Pharmacy.Service
     public class MedicineService : IMedicineService
     {
         private IMedicineRepository _medicineRepository;
-
+        
         public MedicineService(IMedicineRepository medicineRepository)
         {
             this._medicineRepository = medicineRepository;
@@ -41,7 +41,7 @@ namespace Pharmacy.Service
         {
             return this._medicineRepository.GetByNameManufacturerWeight(name, manufacturer, weight);
         }
-        
+
         public bool CheckMedicineQuantity(int id, int requestedQuantity)
         {
             return this._medicineRepository.CheckMedicineQuantity(id, requestedQuantity);

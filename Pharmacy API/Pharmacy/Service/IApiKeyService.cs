@@ -10,5 +10,6 @@ namespace Pharmacy.Service
     {
         ApiKey CreateApiKey(ApiKeyDTO dto);
         void ReceiveApiKey(ApiKeyDTO dto);
+        ApiKey GetByKey(string key);
     }
 }
