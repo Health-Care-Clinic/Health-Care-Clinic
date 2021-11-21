@@ -1,0 +1,19 @@
+<div>
+    <h1>Step 1: Select the equipment that you want to move</h1>
+    <form (ngSubmit)="onSubmit()">
+        <select id="select1">
+            <option *ngFor='let e of equipmentNames' value="{{e}}">{{e}}</option>
+        </select>
+        <button type="submit" id="next1">Next</button>
+    </form>
+</div>
+<div>
+    <h1>Step 2: Select the room from which equipment is moved</h1>
+    <form (ngSubmit)="onSubmit2()">
+        <select id="select2">
+            <option *ngFor='let e of roomsWithEquipment' value="{{e.roomId}}">Room: {{e.roomId}}, quantity of {{selectedEquipment}}: {{e.quantity}}</option>
+        </select>
+        <button type="submit" id="next2">Next</button>
+        <button id="back1" (click)="back1()">Back to step 1</button>
+    </form>
+</div>
