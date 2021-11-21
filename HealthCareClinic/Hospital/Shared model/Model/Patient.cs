@@ -15,7 +15,6 @@ namespace Hospital.Shared_model.Model
         public DateTime DateOfRegistration { get; set; }
         public bool IsBlocked { get; set; }
         public bool IsActive { get; set; }
-        // Promenjeno iz List<string> u List<Allergen>.
         public virtual ICollection<AllergenForPatient> Allergens { get; set; }
         public string BloodType { get; set; }
         public string Name { get; set; }
