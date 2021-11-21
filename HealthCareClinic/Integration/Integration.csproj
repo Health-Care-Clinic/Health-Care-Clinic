@@ -15,6 +15,8 @@
     <Compile Remove="ApiKeys\Repository\IApiKeyRepository.cs" />
     <Compile Remove="ApiKeys\Service\ApiKeyService.cs" />
     <Compile Remove="Class1.cs" />
+    <Compile Remove="DTO\PeriodDTO.cs" />
+    <Compile Remove="Interface\Service\IReportService.cs" />
     <Compile Remove="Pharmacy\Service\ReportServicee.cs" />
     <Compile Remove="Service\IFileTransferService.cs" />
   </ItemGroup>
