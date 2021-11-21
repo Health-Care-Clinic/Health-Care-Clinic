@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Integration.ApiKeys.Model;
-using Integration_API.Service.TestServices;
+using Integration.Service.TestServices;
 using Moq;
 using Shouldly;
 using Xunit;

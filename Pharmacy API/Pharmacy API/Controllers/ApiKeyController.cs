@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy;
+using Pharmacy.Adapter;
+using Pharmacy.DTO;
 using Pharmacy.Model;
-using Pharmacy_API.Adapter;
-using Pharmacy_API.DTO;
+using Pharmacy.Service;
 using RestSharp;
 
 namespace Pharmacy_API.Controllers
@@ -15,11 +16,13 @@ namespace Pharmacy_API.Controllers
     [Route("benu/[controller]")]
     public class ApiKeyController : ControllerBase
     {
-        private readonly PharmacyDbContext _dbContext;
+        private readonly IApiKeyService _apiKeyService;
+        private readonly IMessageService _messageService;
 
-        public ApiKeyController(PharmacyDbContext dbContext)
+        public ApiKeyController(IApiKeyService apiKeyService, IMessageService messageService)
         {
-            _dbContext = dbContext;
+            _apiKeyService = apiKeyService;
+            _messageService = messageService;
         }
 
         [HttpPost]
@@ -30,34 +33,15 @@ namespace Pharmacy_API.Controllers
                 return BadRequest();
             }
 
-            ApiKey apiKey = _dbContext.ApiKeys.SingleOrDefault(apiKey => apiKey.BaseUrl == dto.BaseUrl);
-
-            if (apiKey != null)
-            {
-                return BadRequest("Already exists!");
-            }
-
-            ApiKey newApiKey = ApiKeyAdapter.ApiKeyDtoToApiKey(dto);
-            Guid g = Guid.NewGuid();
-            newApiKey.Key = g.ToString();
-            newApiKey.Category = "Hospital";
-
-            _dbContext.ApiKeys.Add(newApiKey);
-            _dbContext.SaveChanges();
-
-            String message = newApiKey.Key;
-            _dbContext.Messages.Add(new Message("Benu", message, newApiKey.Name));
-            _dbContext.SaveChanges();
+            ApiKey newApiKey = _apiKeyService.CreateApiKey(dto);
+            _messageService.SendMessage(newApiKey.Key, newApiKey.Name);
 
             var client = new RestSharp.RestClient(newApiKey.BaseUrl);
             var request = new RestRequest("hospital/apikey/receive");
-            newApiKey.Name = "Benu";
-            newApiKey.BaseUrl = $"{this.Request.Scheme}://{this.Request.Host}";
-            newApiKey.Category = "Pharmacy";
             request.AddJsonBody(ApiKeyAdapter.ApiKeyToApiKeyDto(newApiKey));
             IRestResponse response = client.Post(request);
 
-            return Ok("success");
+            return Ok("Successfully registered!");
         }
 
         [HttpPost("receive")]
@@ -67,21 +51,14 @@ namespace Pharmacy_API.Controllers
             {
                 return BadRequest();
             }
-
-            var url = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-
-            ApiKey receivedApiKey = ApiKeyAdapter.ApiKeyDtoToApiKey(dto);
-
-            _dbContext.ApiKeys.Add(receivedApiKey);
-            _dbContext.SaveChanges();
-
+            _apiKeyService.ReceiveApiKey(dto);
             return Ok("success");
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("radi");
+            return Ok("success");
         }
     }
 }

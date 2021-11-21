@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ClinicCore.Model;
+using Hospital.Schedule.Model;
 
 using Hospital.Rooms_and_equipment.Model;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +21,9 @@ namespace Hospital.Mapper
         public DbSet<Floor> Floors { get; set; }
 
         public DbSet<Room> Rooms { get; set; }
+
+        //public DbSet<Survey> Surveys { get; set; }
+        //public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
@@ -274,6 +277,15 @@ namespace Hospital.Mapper
                     IsPublished = true
                 }
             );
+
+            //modelBuilder.Entity<SurveyQuestion>().HasOne(sq => sq.Survey)
+            //                                     .WithMany(s => s.SurveyQuestions)
+            //                                     .HasForeignKey(sq => sq.SurveyId)
+            //                                     .HasPrincipalKey(s => s.Id);
+            //modelBuilder.Entity<Survey>()
+            //    .Property(p => p.Id)
+            //    .ValueGeneratedOnAdd();
+
         }
     }
 }

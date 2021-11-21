@@ -6,7 +6,7 @@ namespace ClinicCore.Model
 {
     public class FeedbackMessage
     {
-        [Key]
+        //[Key]
         public long Id { get; set; }
         public DateTime Date { get; set; }
         public String Text { get; set; }

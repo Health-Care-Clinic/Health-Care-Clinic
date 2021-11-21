@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,9 @@
     <Folder Include="Medical records\Model\" />
     <Folder Include="Medical records\Service\" />
     <Folder Include="Medical records\Repository\" />
+    <Folder Include="Rooms and equipment\Service\" />
+    <Folder Include="Rooms and equipment\Repository\" />
+    <Folder Include="Shared model\Model\" />
     <Folder Include="Schedule\Model\" />
     <Folder Include="Schedule\Service\" />
     <Folder Include="Schedule\Repository\" />

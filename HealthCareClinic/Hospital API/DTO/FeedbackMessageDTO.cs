@@ -7,7 +7,7 @@ namespace Hospital_API.DTO
 {
     public class FeedbackMessageDTO
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public String Date { get; set; }
         public String Text { get; set; }
         public bool IsAnonymous { get; set; }
@@ -17,7 +17,7 @@ namespace Hospital_API.DTO
 
         public FeedbackMessageDTO() { }
 
-        public FeedbackMessageDTO(long id, String dateAsString, string text, bool isAnonymous, String identity,
+        public FeedbackMessageDTO(int id, String dateAsString, string text, bool isAnonymous, String identity,
             bool canBePublished, bool isPublished)
         {
             Id = id;
