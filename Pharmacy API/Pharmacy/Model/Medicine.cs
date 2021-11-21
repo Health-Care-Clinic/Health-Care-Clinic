@@ -16,7 +16,7 @@ namespace Pharmacy.Model
         public String Reactions { get; set; }
         public String CompatibileMedicine { get; set; }
 
-        public Medicine(int id, string name, int quantity, string manufacturer, string usage, int weight, List<string> sideEffects, List<string> reactions, List<int> compatibileMedicine)
+        public Medicine(int id, string name, int quantity)
         {
             Id = id;
             Name = name;
