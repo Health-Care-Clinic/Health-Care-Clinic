@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Hospital.Shared_model.Service
+namespace Hospital.Shared_model.Repository
 {
-    public interface IAllergenService : IService<Allergen>
+    public interface IAllergenRepository : IRepository<Allergen>
     {
     }
 }
