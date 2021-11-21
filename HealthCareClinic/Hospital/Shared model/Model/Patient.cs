@@ -1,6 +1,7 @@
 ﻿using Hospital.Shared_model.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Hospital.Shared_model.Model
@@ -12,9 +13,9 @@ namespace Hospital.Shared_model.Model
         public string Employer { get; set; }
         public bool Admitted { get; set; }
         // Promenjeno iz List<string> u List<Allergen>.
-        public List<Allergen> Alergies { get; set; }
-        public AntiTroll TrollMechanism { get; set; } = new AntiTroll();
-        public List<PatientNote> PatientNotes { get; set; } = new List<PatientNote>();
+        public ICollection<Allergen> Alergies { get; set; }
+        //public AntiTroll TrollMechanism { get; set; } = new AntiTroll();
+        //public ICollection<PatientNote> PatientNotes { get; set; } = new List<PatientNote>();
         public string BloodType { get; set; }
         public bool IsGuest { get; set; } = false;
         public EducationCategory Education { get; set; }
@@ -28,6 +29,9 @@ namespace Hospital.Shared_model.Model
         public string Relationship { get; set; }
         public string Password { get; set; }
         public string Address { get; set; }
+
+        public Patient()
+        { }
 
         public Patient(int id, string name, string surname, DateTime birthDate, string address, string email, string password, DateTime filedate, String employer, List<Allergen> alergies, Boolean isGuest, Boolean isAdmitted)
         {
@@ -62,33 +66,31 @@ namespace Hospital.Shared_model.Model
             this.Relationship = relationship;
             this.Education = education;
         }
+        [ForeignKey("Doctor")]
+        public int DoctorId;
 
-        public Patient()
-        {
-        }
-
-        public Doctor Doc { get; set; }
+        private Doctor doctor;
 
         public Doctor Doctor
         {
             get
             {
-                return Doc;
+                return doctor;
             }
             set
             {
-                if (this.Doc == null || !this.Doc.Equals(value))
+                if (this.doctor == null || !this.doctor.Equals(value))
                 {
-                    if (this.Doc != null)
+                    if (this.doctor != null)
                     {
-                        Doctor oldDoctor = this.Doc;
-                        this.Doc = null;
+                        Doctor oldDoctor = this.doctor;
+                        this.doctor = null;
                         oldDoctor.RemovePatient(this);
                     }
                     if (value != null)
                     {
-                        this.Doc = value;
-                        this.Doc.AddPatient(this);
+                        this.doctor = value;
+                        this.doctor.AddPatient(this);
                     }
                 }
             }

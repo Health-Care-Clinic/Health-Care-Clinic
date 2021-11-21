@@ -20,9 +20,13 @@ namespace Hospital.Medical_records.Repository
 
         public List<Doctor> GetAvailableDoctors()
         {
-            List<Doctor> nonOverOccupiedDoctors = new List<Doctor>();
-            int min = dbContext.Doctors.Where(d => d.Specialty.Name.ToLower() == "general medicine").Min(d => d.Patients.Count );
+            List<Doctor> nonOverOccupiedDoctors;
+            List<Doctor> generalMedicineDoctors = dbContext.Doctors.Where(d => d.Specialty.Name.ToLower().Equals("general medicine")).ToList();
+
+            int min = dbContext.Doctors.Where(d => d.Specialty.Name.ToLower() == "general medicine").Min(d => d.Patients.Count ); //NE RADI KADA JE PRE MINA LISTA NULL
             nonOverOccupiedDoctors = dbContext.Doctors.Where(d => d.Patients.Count <= min + 2 ).ToList();
+            //System.Console.WriteLine(dbContext.Doctors.ToList());
+            //nonOverOccupiedDoctors = dbContext.Doctors.Where(d => d.Specialty.Name.ToLower().Equals("general medicine")).ToList();
             return nonOverOccupiedDoctors;
         }
     }

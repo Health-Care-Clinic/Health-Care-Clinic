@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hospital.Shared_model.Model
 {
     public class Doctor : Employee
     {
         public DateTime VacationTimeStart { get; set; }
-        public WorkDayShift WorkShift { get; set; }
+        public virtual WorkDayShift WorkShift { get; set; }
 
-        public Specialty Specialty { get; set; }
+        [ForeignKey("Specialty")]
+        public int SpecialtyId { get; set; }
+        public virtual Specialty Specialty { get; set; }
 
-        public List<DateTime> DaysOff { get; set; } = new List<DateTime>();
+        //public virtual ICollection<DateTime> DaysOff { get; set; } = new List<DateTime>();
+        public Doctor()
+        { }
 
         public Doctor(int id, string name, string surname, DateTime birthDate, string email, string password, string address,
-            double salary, DateTime employmentDate, List<WorkDay> workDays, Specialty spec, int primaryRoom) : base(id, name, surname, birthDate, address, email, password, salary, employmentDate, workDays)
+            double salary, DateTime employmentDate, ICollection<WorkDay> workDays, Specialty spec, int primaryRoom) : base(id, name, surname, birthDate, address, email, password, salary, employmentDate, workDays)
         {
+            this.SpecialtyId = spec.Id;
             this.Specialty = spec;
             this.PrimaryRoom = primaryRoom;
         }
@@ -37,10 +43,9 @@ namespace Hospital.Shared_model.Model
             throw new NotImplementedException();
         }
 
-        public List<Patient> patients;
+        private ICollection<Patient> patients;
 
-
-        public List<Patient> Patients
+        public virtual ICollection<Patient> Patients
         {
             get
             {

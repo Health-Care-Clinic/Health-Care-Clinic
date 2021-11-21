@@ -9,6 +9,6 @@ namespace Hospital.Shared_model.Interface
     {
         public Double Salary { get; set; }
         public DateTime EmploymentDate { get; set; }
-        public List<WorkDay> WorkDay { get; set; }
+        public ICollection<WorkDay> WorkDay { get; set; }
     }
 }
