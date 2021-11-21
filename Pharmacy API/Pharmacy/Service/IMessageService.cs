@@ -8,5 +8,6 @@ namespace Pharmacy.Service
     public interface IMessageService : IService<Message>
     {
         void SendMessage(string message, string receiver);
+        void ReceiveMessage(Message message);
     }
 }

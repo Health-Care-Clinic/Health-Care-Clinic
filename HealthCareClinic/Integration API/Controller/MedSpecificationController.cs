@@ -54,16 +54,16 @@ namespace Integration_API.Controller
         {
             MessageDTO toSend = new MessageDTO(message);
             ApiKey apiKey = _apiKeyService.GetApiKeyByName(to);
-            var url = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+            string url = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
             ApiKey myApiKey = _apiKeyService.GetMyApiKey(url);
+
+            _messageService.SendMessage(message, to);
 
             var client = new RestSharp.RestClient(apiKey.BaseUrl);
             var request = new RestRequest("benu/message/receive/spec");
             request.AddJsonBody(toSend);
             request.AddHeader("ApiKey", myApiKey.Key);
             IRestResponse response = client.Post(request);
-
-            _messageService.SendMessage(message, to);
 
             return Ok("Successfully sent!");
         }

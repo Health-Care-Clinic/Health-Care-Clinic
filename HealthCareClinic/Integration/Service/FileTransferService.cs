@@ -38,5 +38,24 @@ namespace Integration.Service
             }
             client.Disconnect();
         }
+
+        public void CreateTxtFile(string path, string content)
+        {
+            if (!File.Exists(path))
+            {
+                File.Create(path).Dispose();
+                using (TextWriter textWriter = new StreamWriter(path))
+                {
+                    textWriter.WriteLine(content);
+                }
+            }
+            else
+            {
+                using (TextWriter textWriter = new StreamWriter(path))
+                {
+                    textWriter.WriteLine(content);
+                }
+            }
+        }
     }
 }

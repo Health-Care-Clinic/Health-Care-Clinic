@@ -15,69 +15,23 @@ namespace Pharmacy_API.Controllers
     [Route("benu/[controller]")]
     public class MessageController : ControllerBase
     {
-        private readonly PharmacyDbContext _dbContext;
         private readonly FileTransferService _fileTransferService = new FileTransferService();
+        private readonly IApiKeyService _apiKeyService;
+        private readonly IMessageService _messageService;
+        private readonly IMedicineService _medicineService;
 
-        public MessageController(PharmacyDbContext dbContext)
+        public MessageController(PharmacyDbContext dbContext, IApiKeyService apiKeyService, IMessageService messageService,
+            IMedicineService medicineService)
         {
-            _dbContext = dbContext;
+            _apiKeyService = apiKeyService;
+            _messageService = messageService;
+            _medicineService = medicineService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
             return Ok();
-        }
-
-        [HttpGet("send")]
-        public IActionResult SendMessage(string to, string message)
-        {
-            MessageDTO toSend = new MessageDTO(message);
-            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Name.Equals(to));
-            var url = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-            ApiKey myApiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.BaseUrl.Equals(url));
-
-            if (apiKey == null)
-            {
-                return BadRequest();
-            }
-
-            var client = new RestSharp.RestClient(apiKey.BaseUrl);
-            var request = new RestRequest("hospital/message");
-            request.AddJsonBody(toSend);
-            request.AddHeader("ApiKey", myApiKey.Key);
-            IRestResponse response = client.Post(request);
-
-            _dbContext.Messages.Add(new Message("Benu", message, to));
-            _dbContext.SaveChanges();
-
-            return Ok("successfully sent");
-        }
-
-        [HttpPost]
-        public IActionResult ReceiveMessage(MessageDTO dto)
-        {
-            if (!Request.Headers.TryGetValue("ApiKey", out var headerApiKey))
-            {
-                return BadRequest("Api key was not provided!");
-            }
-
-            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Key.Equals(headerApiKey));
-
-            if (apiKey.Name == null)
-            {
-                return BadRequest("Api key is not valid!");
-            }
-
-            if (dto.MessageText.Length <= 0)
-            {
-                return BadRequest();
-            }
-
-            _dbContext.Messages.Add(new Message(apiKey.Name, dto.MessageText, "Benu"));
-            _dbContext.SaveChanges();
-
-            return Ok("success");
         }
 
         [HttpPost("receive/spec")]
@@ -88,7 +42,7 @@ namespace Pharmacy_API.Controllers
                 return BadRequest("Api key was not provided!");
             }
 
-            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Key.Equals(headerApiKey));
+            ApiKey apiKey = _apiKeyService.GetByKey(headerApiKey);
 
             if (apiKey.Name == null)
             {
@@ -100,16 +54,15 @@ namespace Pharmacy_API.Controllers
                 return BadRequest();
             }
 
-            _dbContext.Messages.Add(new Message(apiKey.Name, dto.MessageText, "Benu"));
-            _dbContext.SaveChanges();
+            Message message = new Message(apiKey.Name, dto.MessageText, "Benu");
+            _messageService.ReceiveMessage(message);
 
-            var medToSend = _dbContext.Medicines.Where(m => m.Name.Equals(dto.MessageText)).FirstOrDefault();
+            var medToSend = _medicineService.GetByName(dto.MessageText);
             string content = medToSend.Name + ", " + medToSend.Quantity;
             string path =
-                "C:\\Users\\PC\\OneDrive\\Desktop\\Health-Care-Clinic\\Pharmacy API\\Pharmacy API\\MedSpecifications\\specification.txt";
+                "C:\\Users\\PC\\OneDrive\\Desktop\\Health-Care-Clinic\\Pharmacy API\\Pharmacy API\\MedSpecifications\\" + medToSend.Name.ToLower() +".txt";
             _fileTransferService.CreateTxtFile(path, content);
-            _fileTransferService.UploadFile("specification");
-
+            _fileTransferService.UploadFile(medToSend.Name.ToLower());
             return Ok("success");
         }
     }

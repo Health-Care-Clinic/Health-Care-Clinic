@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Pharmacy.Model;
 
@@ -14,6 +15,11 @@ namespace Pharmacy.Repository
         public PharmacyDbContext PharmacyDbContext
         {
             get { return Context as PharmacyDbContext; }
+        }
+
+        public ApiKey GetByKey(string key)
+        {
+            return PharmacyDbContext.ApiKeys.FirstOrDefault(k => k.Key.Equals(key));
         }
     }
 }

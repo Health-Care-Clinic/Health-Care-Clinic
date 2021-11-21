@@ -2,6 +2,7 @@
 using Pharmacy.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Pharmacy.Repository
@@ -15,6 +16,11 @@ namespace Pharmacy.Repository
         public PharmacyDbContext PharmacyDbContext
         {
             get { return Context as PharmacyDbContext; }
+        }
+
+        public Medicine GetByName(string name)
+        {
+            return PharmacyDbContext.Medicines.Where(m => m.Name.Equals(name)).FirstOrDefault();
         }
     }
 }

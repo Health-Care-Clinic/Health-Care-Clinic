@@ -54,7 +54,7 @@ namespace Pharmacy.Service
                     textWriter.WriteLine(content);
                 }
             } 
-            else if (File.Exists(path))
+            else
             {
                 using (TextWriter textWriter = new StreamWriter(path))
                 {

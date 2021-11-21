@@ -39,5 +39,11 @@ namespace Pharmacy.Service
             _messageRepository.Add(new Message("Hospital", message, receiver));
             _messageRepository.Save();
         }
+
+        public void ReceiveMessage(Message message)
+        {
+            _messageRepository.Add(message);
+            _messageRepository.Save();
+        }
     }
 }

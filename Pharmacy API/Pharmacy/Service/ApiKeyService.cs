@@ -55,5 +55,10 @@ namespace Pharmacy.Service
             _apiKeyRepository.Add(receivedApiKey);
             _apiKeyRepository.Save();
         }
+
+        public ApiKey GetByKey(string key)
+        {
+           return _apiKeyRepository.GetByKey(key);
+        }
     }
 }

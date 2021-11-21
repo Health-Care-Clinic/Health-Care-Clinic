@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Pharmacy.Service
 {
-    public class MedicineService : IService<Medicine>
+    public class MedicineService : IMedicineService
     {
         private IMedicineRepository _medicineRepository;
         
-        public MedicineService(MedicineRepository medicineRepository)
+        public MedicineService(IMedicineRepository medicineRepository)
         {
             this._medicineRepository = medicineRepository;
         }
