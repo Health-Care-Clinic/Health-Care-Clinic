@@ -47,5 +47,26 @@ namespace Pharmacy.Service
             return this._medicineRepository.CheckMedicineQuantity(id, requestedQuantity);
         }
 
+        public bool Update(int id, Medicine medicine)
+        {
+            try
+            {
+                Medicine updateMedicine = this._medicineRepository.GetById(id);
+                updateMedicine.Manufacturer = medicine.Manufacturer;
+                updateMedicine.Name = medicine.Name;
+                updateMedicine.Quantity = medicine.Quantity;
+                updateMedicine.Reactions = medicine.Reactions;
+                updateMedicine.SideEffects = medicine.SideEffects;
+                updateMedicine.Usage = medicine.Usage;
+                updateMedicine.Weight = medicine.Weight;
+                this._medicineRepository.Save();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
     }
 }

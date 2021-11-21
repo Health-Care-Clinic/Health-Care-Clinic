@@ -9,5 +9,7 @@ namespace Pharmacy.Service
     {
         public IEnumerable<Medicine> SearchMedicine(string name, string manufacturer, int weight);
         public bool CheckMedicineQuantity(int id, int requestedQuantity);
+
+        public bool Update(int id,Medicine medicine);
     }
 }

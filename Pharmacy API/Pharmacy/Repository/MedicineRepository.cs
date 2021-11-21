@@ -35,5 +35,7 @@ namespace Pharmacy.Repository
 
             return medicines.Count<Medicine>() != 0;
         }
+
+     
     }
 }
