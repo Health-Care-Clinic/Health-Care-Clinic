@@ -6,15 +6,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Adapter\**" />
     <Compile Remove="Controllers\**" />
+    <Compile Remove="DTO\**" />
+    <Compile Remove="Mapper\**" />
+    <Compile Remove="Service\**" />
+    <Content Remove="Adapter\**" />
     <Content Remove="Controllers\**" />
+    <Content Remove="DTO\**" />
+    <Content Remove="Mapper\**" />
+    <Content Remove="Service\**" />
+    <EmbeddedResource Remove="Adapter\**" />
     <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="DTO\**" />
+    <EmbeddedResource Remove="Mapper\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <None Remove="Adapter\**" />
     <None Remove="Controllers\**" />
+    <None Remove="DTO\**" />
+    <None Remove="Mapper\**" />
+    <None Remove="Service\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Mapper\IntegrationDbContext.cs" />
-    <Compile Remove="Service\ReportServicee.cs" />
     <Compile Remove="WeatherForecast.cs" />
   </ItemGroup>
 
@@ -33,11 +47,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
     <ProjectReference Include="..\Integration\Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mapper\" />
     <Folder Include="MedSpecifications\" />
   </ItemGroup>
 

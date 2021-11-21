@@ -10,6 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Integration;
+using Integration.Interface.Repository;
+using Integration.Interface.Service;
+using Integration.Repository;
+using Integration.Service;
 using Microsoft.EntityFrameworkCore;
 
 namespace Integration_API
@@ -34,6 +38,11 @@ namespace Integration_API
                     ConfigurationExtensions.GetConnectionString(Configuration, "IntegrationDbConnectionString")).UseLazyLoadingProxies());
 
             services.AddCors();
+
+            services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
+            services.AddScoped<IApiKeyService, ApiKeyService>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IMessageService, MessageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
