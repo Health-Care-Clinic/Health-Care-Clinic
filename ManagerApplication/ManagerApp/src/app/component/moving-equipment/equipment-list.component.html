@@ -17,3 +17,11 @@
         <button id="back1" (click)="back1()">Back to step 1</button>
     </form>
 </div>
+<div>
+    <h1>Step 3: Select the quantity of equipment that you want to move</h1>
+    <form (ngSubmit)="onSubmit3()">
+        <input id="select3" type="number" min=1 max={{maxQuantity}} onKeyDown="return false"/>
+        <button type="submit" id="next3">Next</button>
+        <button id="back2" (click)="back2()">Back to step 2</button>
+    </form>
+</div>
