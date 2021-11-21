@@ -1,56 +1,28 @@
 ﻿using Hospital.Mapper;
-using Hospital.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
 using Hospital.Shared_model.Model;
+using Hospital.Medical_records.Repository.Interface;
+using Hospital.Shared_model.Repository;
 
-namespace Hospital.Repository
+namespace Hospital.Medical_records.Repository
 {
-    class DoctorRepository : IDoctorRepository
+    public class DoctorRepository : Repository<Doctor>, IDoctorRepository
     {
         private readonly HospitalDbContext dbContext;
 
-        public DoctorRepository(HospitalDbContext context)
+        public DoctorRepository(HospitalDbContext context) : base(context)
         {
             dbContext = context;
         }
-        public void Add(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<Doctor> Find(Expression<Func<Doctor, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Doctor> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Doctor GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(Doctor entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Doctor> GetNonOverOcuipedDoctors()
+        public List<Doctor> GetAvailableDoctors()
         {
             List<Doctor> nonOverOccupiedDoctors = new List<Doctor>();
-            int min = dbContext.Doctors.Min(d => d.Patients.Count);
-            nonOverOccupiedDoctors = dbContext.Doctors.Where(d => d.Patients.Count <= min + 2).ToList();
+            int min = dbContext.Doctors.Where(d => d.Specialty.Name.ToLower() == "general medicine").Min(d => d.Patients.Count );
+            nonOverOccupiedDoctors = dbContext.Doctors.Where(d => d.Patients.Count <= min + 2 ).ToList();
             return nonOverOccupiedDoctors;
         }
     }

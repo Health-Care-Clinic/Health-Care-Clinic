@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using static Hospital.Rooms_and_equipment.Model.Building;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
-using Hospital.Shared_model.Model;
 
 namespace Hospital.Mapper
 {

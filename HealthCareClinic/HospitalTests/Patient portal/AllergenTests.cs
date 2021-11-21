@@ -1,4 +1,6 @@
 ﻿using Hospital.Mapper;
+using Hospital.Medical_records.Repository;
+using Hospital.Medical_records.Service;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
@@ -48,7 +50,13 @@ namespace HospitalTests.Patient_portal
 
             using (var context = new HospitalDbContext(options))
             {
-                PatientRegistrationController patientRegistrationController = new PatientRegistrationController(context);
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                DoctorService _doctorService = new DoctorService(doctorRepository);
+
+                AllergenRepository allergenRepository = new AllergenRepository(context);
+                AllergenService alergenService = new AllergenService(allergenRepository);
+
+                PatientRegistrationController patientRegistrationController = new PatientRegistrationController(alergenService, _doctorService);
 
                 OkObjectResult a = patientRegistrationController.GetAllAllergens() as OkObjectResult;
                 List<Allergen> allergens = a.Value as List<Allergen>;

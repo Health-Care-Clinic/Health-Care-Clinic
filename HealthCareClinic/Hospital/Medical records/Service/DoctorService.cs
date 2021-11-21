@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Hospital.Repository.Interface;
+
 using Hospital.Shared_model.Interface;
 using Hospital.Shared_model.Model;
+using Hospital.Medical_records.Repository.Interface;
 
-namespace Hospital.Service
-{
-    public class DoctorService : IService<Doctor>
+namespace Hospital.Medical_records.Service
+{ 
+    public class DoctorService : IDoctorService
     {
         private readonly IDoctorRepository doctorRepository;
 
@@ -34,34 +35,13 @@ namespace Hospital.Service
             doctorRepository.Remove(entity);
         }
 
-        public List<Doctor> GetAllGeneralMedicineDoctors()
+        public List<Doctor> GetAvailableDoctors()
         {
-            List<Doctor> generalMedicineDoctors = new List<Doctor>();
+            List<Doctor> availableDoctors = new List<Doctor>();
 
-            foreach (Doctor doctor in doctorRepository.GetAll())
-            {
-                if (doctor.Specialty.Name.Equals("General medicine"))
-                    generalMedicineDoctors.Add(doctor);
-            }
+            availableDoctors = doctorRepository.GetAvailableDoctors();
 
-            return generalMedicineDoctors;
-        }
-
-
-        public List<Doctor> GetNonOverOcuipedDoctors()
-        {
-            List<Doctor> noneOverOcupiedDoctors = new List<Doctor>();
-            //int min = GetAllGeneralMedicineDoctors()[0].Patients.Count;
-
-            //foreach (Doctor doctor in GetAllGeneralMedicineDoctors())
-            //    if (doctor.Patients.Count < min)
-            //        min = doctor.Patients.Count;
-            //foreach (Doctor doctor in GetAllGeneralMedicineDoctors())
-            //    if (doctor.Patients.Count <= min + 2)
-            //        noneOverOcupiedDoctors.Add(doctor);
-
-
-            return noneOverOcupiedDoctors;
+            return availableDoctors;
         }
 
     }

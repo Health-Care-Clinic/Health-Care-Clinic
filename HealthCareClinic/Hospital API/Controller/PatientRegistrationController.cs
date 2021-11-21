@@ -1,13 +1,15 @@
 ﻿using Hospital.Mapper;
+using Hospital.Medical_records.Service;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
+using Hospital_API.Adapter;
+using Hospital_API.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Hospital_API.Controller
 {
@@ -15,12 +17,22 @@ namespace Hospital_API.Controller
     [ApiController]
     public class PatientRegistrationController : ControllerBase
     {
-        private AllergenService _allergenService;
+        private IAllergenService _allergenService;
+        private IDoctorService _doctorService;
 
-        public PatientRegistrationController(HospitalDbContext context)
+        public PatientRegistrationController(IAllergenService allergenService,IDoctorService doctorService)
         {
-            AllergenRepository allergenRepository = new AllergenRepository(context);
-            _allergenService = new AllergenService(allergenRepository);
+            this._allergenService = allergenService;
+            this._doctorService = doctorService;
+        }
+
+
+        [HttpGet("getAllAvailableDoctors")]
+        public IActionResult GetAvailableDoctors()
+        {
+            List<Doctor> doctors = (List<Doctor>)_doctorService.GetAvailableDoctors();
+            List<DoctorDTO> result = DoctorAdapter.DoctorListToDoctorDTOList(doctors);
+            return Ok(result);
         }
 
         [HttpGet("getAllAllergens")]       // GET /api/allergen
