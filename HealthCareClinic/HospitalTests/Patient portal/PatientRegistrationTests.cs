@@ -90,11 +90,11 @@ namespace HospitalTests
 
             Patient patient1 = new Patient(1, "Petar", "Petrovic", "male", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "", EducationCategory.HighSchool, "petar", "", null, false);
             Patient patient2 = new Patient(2, "Jovan", "Zoric", "male", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-            Patient patient3 = new Patient(2, "Zorana", "Bilic", "male", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-            Patient patient4 = new Patient(2, "Milica", "Maric", "male", new System.DateTime(1969, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-            Patient patient5 = new Patient(2, "Igor", "Caric", "male", new System.DateTime(1936, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-            Patient patient6 = new Patient(2, "Predrag", "Zaric", "male", new System.DateTime(1975, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-            Patient patient7 = new Patient(2, "Miki", "Nikolic", "male", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+            Patient patient3 = new Patient(3, "Zorana", "Bilic", "male", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+            Patient patient4 = new Patient(4, "Milica", "Maric", "male", new System.DateTime(1969, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+            Patient patient5 = new Patient(5, "Igor", "Caric", "male", new System.DateTime(1936, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+            Patient patient6 = new Patient(6, "Predrag", "Zaric", "male", new System.DateTime(1975, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+            Patient patient7 = new Patient(7, "Miki", "Nikolic", "male", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
 
             List<Patient> patients1 = new List<Patient>();
             patients1.Add(patient1);
@@ -138,7 +138,7 @@ namespace HospitalTests
         private DbContextOptions<HospitalDbContext> CreateStubDatabase()
         {
             var options = new DbContextOptionsBuilder<HospitalDbContext>()
-            .UseInMemoryDatabase(databaseName: "Buildings")
+            .UseInMemoryDatabase(databaseName: "Doctors")
             .Options;
 
             using (var context = new HospitalDbContext(options))
@@ -148,11 +148,11 @@ namespace HospitalTests
 
                 Patient patient1 = new Patient(1, "Petar", "Petrovic", "male", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "", EducationCategory.HighSchool, "petar", "", null, false);
                 Patient patient2 = new Patient(2, "Jovan", "Zoric", "male", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-                Patient patient3 = new Patient(2, "Zorana", "Bilic", "male", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-                Patient patient4 = new Patient(2, "Milica", "Maric", "male", new System.DateTime(1969, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-                Patient patient5 = new Patient(2, "Igor", "Caric", "male", new System.DateTime(1936, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-                Patient patient6 = new Patient(2, "Predrag", "Zaric", "male", new System.DateTime(1975, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
-                Patient patient7 = new Patient(2, "Miki", "Nikolic", "male", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+                Patient patient3 = new Patient(3, "Zorana", "Bilic", "male", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+                Patient patient4 = new Patient(4, "Milica", "Maric", "male", new System.DateTime(1969, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+                Patient patient5 = new Patient(5, "Igor", "Caric", "male", new System.DateTime(1936, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+                Patient patient6 = new Patient(6, "Predrag", "Zaric", "male", new System.DateTime(1975, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
+                Patient patient7 = new Patient(7, "Miki", "Nikolic", "male", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "", EducationCategory.Graduate, "miki", "", null, false);
 
                 List<Patient> patients1 = new List<Patient>();
                 patients1.Add(patient1);

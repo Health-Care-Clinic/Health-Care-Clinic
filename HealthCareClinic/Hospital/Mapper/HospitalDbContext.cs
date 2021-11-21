@@ -295,6 +295,44 @@ namespace Hospital.Mapper
                 new Allergen(9, "Jaja"),
                 new Allergen(10, "Školjke")
             );
+            modelBuilder.Entity<Doctor>(entity =>
+            {
+                entity.ToTable("Doctor");
+
+                entity.HasMany(d => d.Patients)
+               .WithOne(p => p.Doctor)
+               .HasForeignKey(p => p.DoctorId);
+            });
+
+            modelBuilder.Entity<Patient>(entity =>
+            {
+                entity.ToTable("Patient");
+
+                entity.HasOne(p => p.Doctor)
+               .WithMany(d => d.Patients)
+               .HasForeignKey(p => p.DoctorId);
+            });
+
+            //modelbuilder.entity<surveycategory>(entity =>
+            //{
+            //    entity.totable("surveycategory");
+
+            //    entity.hasone(d => d.survey)
+            //   .withmany(p => p.surveycategories)
+            //   .hasforeignkey(d => d.surveyid);
+            //});
+
+            //modelbuilder.entity<surveyquestion>(entity =>
+            //{
+            //    entity.totable("surveyquestion");
+
+            //    entity.hasone(d => d.surveycategory)
+            //   .withmany(p => p.surveyquestions)
+            //   .hasforeignkey(d => d.surveycategoryid);
+            //});
+
+
+
 
             //modelBuilder.Entity<SurveyQuestion>().HasOne(sq => sq.Survey)
             //                                     .WithMany(s => s.SurveyQuestions)

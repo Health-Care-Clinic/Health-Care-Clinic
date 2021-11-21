@@ -9,9 +9,9 @@ namespace Hospital.Shared_model.Interface
         public DateTime FileDate { get; set; }
         public String Employer { get; set; }
         public Boolean Admitted { get; set; }
-        public List<Allergen> Alergies { get; set; }
-        public AntiTroll TrollMechanism { get; set; }
-        public List<PatientNote> PatientNotes { get; set; }
+        //public List<Allergen> Alergies { get; set; }
+        //public AntiTroll TrollMechanism { get; set; }
+        //public List<PatientNote> PatientNotes { get; set; }
         public String BloodType { get; set; }
         public Boolean IsGuest { get; set; }
     }
