@@ -9,8 +9,7 @@ namespace Pharmacy.Service
     public class MedicineService : IMedicineService
     {
         private IMedicineRepository _medicineRepository;
-
-
+        
         public MedicineService(IMedicineRepository medicineRepository)
         {
             this._medicineRepository = medicineRepository;
@@ -42,14 +41,15 @@ namespace Pharmacy.Service
         {
             return this._medicineRepository.GetByNameManufacturerWeight(name, manufacturer, weight);
         }
+
         public bool CheckMedicineQuantity(int id, int requestedQuantity)
         {
             return this._medicineRepository.CheckMedicineQuantity(id, requestedQuantity);
         }
 
+
         public bool Update(int id, Medicine medicine)
         {
-       
             Medicine updateMedicine = this._medicineRepository.GetById(id);
             if (updateMedicine != null)
             {
@@ -63,10 +63,7 @@ namespace Pharmacy.Service
                 this._medicineRepository.Save();
                 return true;
             }
-
             return false;
-         
-
         }
 
         public bool LowerMedicineQuantity(int id, int quantity)
@@ -77,7 +74,6 @@ namespace Pharmacy.Service
                 Medicine updateMedicine = this._medicineRepository.GetById(id);
                 updateMedicine.Quantity -= quantity;
                 this._medicineRepository.Save();
-              
             }
             return isChangable;
         }
@@ -93,6 +89,18 @@ namespace Pharmacy.Service
                 isChangable = true;
             }
             return isChangable;
+
+        public Medicine GetByName(string name)
+        {
+            Medicine medicine = new Medicine();
+            foreach (Medicine med in _medicineRepository.GetAll())
+            {
+                if (med.Name.Equals(name))
+                {
+                    medicine = med;
+                }
+            }
+            return medicine;
         }
     }
 }
