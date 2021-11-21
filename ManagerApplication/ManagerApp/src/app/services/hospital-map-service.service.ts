@@ -19,6 +19,7 @@ export class HospitalMapService {
   private floorsGetByBuildingId: string;
   private roomsGetByFloorId: string;
   private changeBuildingNamePut: string;
+  private equipmentGet: string;
   private equipmentGetByRoomId: string;
   private equipmentGetByName: string;
   private roomGetById: string;
@@ -34,17 +35,18 @@ export class HospitalMapService {
     this.roomsGetByFloorId = '/api/room/getRoomsByFloorId'
     this.roomGetById = '/api/room/getRoomById'
     this.changeBuildingNamePut = '/api/building/changeBuildingName'
+    this.equipmentGet = '/api/equipment/getAllEquipment'
     this.equipmentGetByRoomId = '/api/equipment/getEquipmentByRoomId'
     this.equipmentGetByName = '/api/equipment/getEquipmentByName'
     this.floorGetById = '/api/floor/getFloorById';
     this.searchedBuildings = '/api/building/getSearchedBuildings';
+
   }
 
   public getBuildings(): Observable<Array<Building>> {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Building>>(this.buildingsGet, {headers: headers});
-    
   }
 
   public getSearchedBuildings(searchText:string): Observable<Array<Building>> {
@@ -57,12 +59,10 @@ export class HospitalMapService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Building>(this.buildingGetById + "/"+buildingId.toString(), {headers: headers});
-    
   }
 
   public changeBuildingName(building:Building): Observable<any> {
     return this._http.put<any>(this.changeBuildingNamePut, building);
-    
   }
 
   public getRoomById(Id:number): Observable<Room> {
@@ -77,17 +77,22 @@ export class HospitalMapService {
     return this._http.get<Array<Room>>(this.roomsGetByFloorId + "/"+floorId.toString(), {headers: headers});
   }
 
+  public getAllEquipment(): Observable<Array<Equipment>>{
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Equipment>>(this.equipmentGet, {headers: headers});
+  }
+
   public getEquipmentByRoomId(roomId:number): Observable<Array<Equipment>>{
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Equipment>>(this.equipmentGetByRoomId + "/"+roomId.toString(), {headers: headers});
-
   }
+
   public getEquipmentByName(name:string): Observable<Array<Equipment>>{
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Equipment>>(this.equipmentGetByName + "/"+name.toString(), {headers: headers});
-
   }
   
 
@@ -102,18 +107,15 @@ export class HospitalMapService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Floor>(this.floorGetById + "/"+Id.toString(), {headers: headers});
-    
   }
 
   public getRooms(): Observable<Array<Room>> {
-    
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Room>>(this.roomsGet, {headers: headers});
   }
 
   public getFloors(): Observable<Array<Floor>> {
-    
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Floor>>(this.floorsGet, {headers: headers});

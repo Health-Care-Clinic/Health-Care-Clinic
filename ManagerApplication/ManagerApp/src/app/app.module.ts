@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { PharmacyRegistrationComponent } from './registration/pharmacy-registration/pharmacy-registration.component';
 import { HospitalMapComponent } from './component/hospital-map/hospital-map.component';
 import { FloorComponent } from './component/hospital-map/floor.component';
+import { EquipmentListComponent } from './component/moving-equipment/equipment-list.component';
 import { FeedbackViewComponent } from './component/feedback/feedback-view/feedback-view.component';
 import { FeedbackPublishComponent } from './component/feedback/feedback-publish/feedback-publish.component';
 import { RouterModule } from '@angular/router';
@@ -33,7 +34,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
 
 
 const MaterialComponents = [
@@ -62,7 +62,8 @@ const MaterialComponents = [
     FeedbackPublishComponent,
     HeaderComponent,
     FooterComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    EquipmentListComponent
   ],
   imports: [
     BrowserModule,

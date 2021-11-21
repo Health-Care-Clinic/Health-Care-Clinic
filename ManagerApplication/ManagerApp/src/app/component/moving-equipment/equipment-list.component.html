@@ -1,0 +1,9 @@
+<div>
+    <h1>Step 1: Select the equipment that you want to move</h1>
+    <form (ngSubmit)="onSubmit()">
+        <select id="select1">
+            <option *ngFor='let e of equipmentNames' value="{{e}}">{{e}}</option>
+        </select>
+        <button type="submit" id="next1">Next</button>
+    </form>
+</div>
