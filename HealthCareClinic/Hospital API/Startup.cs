@@ -1,18 +1,19 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Hospital.Schedule.Service;
 using Hospital.Schedule.Repository;
+using Hospital.Shared_model.Service;
+using Hospital.Shared_model.Repository;
+using Hospital.Medical_records.Service;
+using Hospital.Medical_records.Repository.Interface;
+using Hospital.Medical_records.Repository;
 
 namespace Hospital_API
 {
@@ -37,6 +38,12 @@ namespace Hospital_API
 
             services.AddScoped<IFeedbackMessageService, FeedbackMessageService>();
             services.AddScoped<IFeedbackMessageRepository, FeedbackMessageRepository>();
+
+            services.AddScoped<IAllergenService, AllergenService>();
+            services.AddScoped<IAllergenRepository, AllergenRepository>();
+
+            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
 
         }
 
