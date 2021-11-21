@@ -24,6 +24,7 @@ export class HospitalMapService {
   private roomGetById: string;
   private floorGetById: string;
   private searchedBuildings: string;
+  private searchedRooms: string;
 
   constructor(private _http: HttpClient) {
     this.buildingGetById = '/api/building/getBuildingById';
@@ -38,6 +39,7 @@ export class HospitalMapService {
     this.equipmentGetByName = '/api/equipment/getEquipmentByName'
     this.floorGetById = '/api/floor/getFloorById';
     this.searchedBuildings = '/api/building/getSearchedBuildings';
+    this.searchedRooms = '/api/room/getSearchedRooms';
   }
 
   public getBuildings(): Observable<Array<Building>> {
@@ -51,6 +53,12 @@ export class HospitalMapService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Building>>(this.searchedBuildings + "/" + searchText, {headers: headers});
+  }
+
+  public getSearchedRooms(searchText:string): Observable<Array<Room>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Room>>(this.searchedRooms + "/" + searchText, {headers: headers});
   }
 
   public getBuildingById(buildingId:number): Observable<Building> {

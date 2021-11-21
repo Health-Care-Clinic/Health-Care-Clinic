@@ -9,5 +9,6 @@ namespace Hospital.Rooms_and_equipment.Service
     public interface IBuildingService : IService<Building>
     {
         public List<Building> GetSearchedBuildings(string searchText);
+        public void Change(Building entity);
     }
 }

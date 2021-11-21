@@ -16,7 +16,7 @@ using System.Text;
 using Xunit;
 using static Hospital.Rooms_and_equipment.Model.Building;
 
-namespace HospitalTests
+namespace HospitalTests.Graphical_editor
 {
     public class SearchBuildingsTests
     {
@@ -44,7 +44,9 @@ namespace HospitalTests
 
             using (var context = new HospitalDbContext(options))
             {
-                BuildingController buildingController = new BuildingController(context);
+                BuildingRepository buildingRepository = new BuildingRepository(context);
+                BuildingService buildingService = new BuildingService(buildingRepository);
+                BuildingController buildingController = new BuildingController(buildingService);
                 
                 OkObjectResult a = buildingController.GetSearchedBuildings("b") as OkObjectResult;
                 List<BuildingDTO> buildings = a.Value as List<BuildingDTO>;
@@ -65,8 +67,10 @@ namespace HospitalTests
 
             using (var context = new HospitalDbContext(options))
             {
-                BuildingController buildingController = new BuildingController(context);
-                
+                BuildingRepository buildingRepository = new BuildingRepository(context);
+                BuildingService buildingService = new BuildingService(buildingRepository);
+                BuildingController buildingController = new BuildingController(buildingService);
+
                 OkObjectResult a = buildingController.GetSearchedBuildings("ek") as OkObjectResult;
                 List<BuildingDTO> buildings = a.Value as List<BuildingDTO>;
                 foreach (Building b in context.Buildings)

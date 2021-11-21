@@ -39,5 +39,10 @@ namespace Hospital.Rooms_and_equipment.Service
         {
             return _roomRepository.GetRoomsByFloorId(id);
         }
+
+        public List<Room> GetSearchedRooms(string searchText)
+        {
+            return _roomRepository.GetSearchedRooms(searchText);
+        }
     }
 }

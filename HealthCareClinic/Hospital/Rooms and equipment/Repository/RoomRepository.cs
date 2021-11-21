@@ -24,5 +24,10 @@ namespace Hospital.Rooms_and_equipment.Repository
         {
             return Context.Set<Room>().Where(c => c.FloorId == id).ToList();
         }
+
+        public List<Room> GetSearchedRooms(string searchText)
+        {
+            return Context.Set<Room>().Where(c => c.Name.ToLower().StartsWith(searchText.ToLower())).OrderBy(x => x.Id).ToList();
+        }
     }
 }
