@@ -14,7 +14,7 @@ using System.Text;
 using Xunit;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 
-namespace HospitalTests
+namespace HospitalTests.Graphical_editor
 {
     
     public class EquipmentInRoomTests
