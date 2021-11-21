@@ -75,8 +75,27 @@ namespace Pharmacy_API.Controllers
 
             Medicine medicine = MedicineAdapter.MedicineDTOToMedicine(medicineDTO);
             bool isUpdated = this.medicineService.Update(id, medicine);
-                return Ok(isUpdated);
+           
+            return Ok(isUpdated);
           
         }
+
+        [HttpPut("lowerQuantity/{id?}")]
+        public IActionResult LowerMedicineQuantity(int id)
+        {
+            int quantity = int.Parse(HttpContext.Request.Query["quantity"].ToString());
+            bool isLowered = this.medicineService.LowerMedicineQuantity(id, quantity);
+            return Ok(isLowered);
+        }
+
+        [HttpPut("raiseQuantity/{id?}")]
+        public IActionResult RaiseMedicineQuantity(int id)
+        {
+            int quantity = int.Parse(HttpContext.Request.Query["quantity"].ToString());
+            bool isRaised = this.medicineService.RaiseMedicineQuantity(id, quantity);
+            return Ok(isRaised);
+        }
+
+
     }
 }

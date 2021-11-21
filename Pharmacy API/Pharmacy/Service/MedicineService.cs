@@ -49,9 +49,10 @@ namespace Pharmacy.Service
 
         public bool Update(int id, Medicine medicine)
         {
-            try
+       
+            Medicine updateMedicine = this._medicineRepository.GetById(id);
+            if (updateMedicine != null)
             {
-                Medicine updateMedicine = this._medicineRepository.GetById(id);
                 updateMedicine.Manufacturer = medicine.Manufacturer;
                 updateMedicine.Name = medicine.Name;
                 updateMedicine.Quantity = medicine.Quantity;
@@ -62,11 +63,36 @@ namespace Pharmacy.Service
                 this._medicineRepository.Save();
                 return true;
             }
-            catch
-            {
-                return false;
-            }
 
+            return false;
+         
+
+        }
+
+        public bool LowerMedicineQuantity(int id, int quantity)
+        {
+            bool isChangable = this.CheckMedicineQuantity(id, quantity);
+            if (isChangable)
+            {
+                Medicine updateMedicine = this._medicineRepository.GetById(id);
+                updateMedicine.Quantity -= quantity;
+                this._medicineRepository.Save();
+              
+            }
+            return isChangable;
+        }
+
+        public bool RaiseMedicineQuantity(int id, int quantity)
+        {
+            Medicine medicine = this._medicineRepository.GetById(id);
+            bool isChangable = false;
+            if (medicine != null)
+            {
+                medicine.Quantity += quantity;
+                this._medicineRepository.Save();
+                isChangable = true;
+            }
+            return isChangable;
         }
     }
 }
