@@ -17,7 +17,7 @@ jobs:
       - uses: lostick/path-filtering-action@main
         with:
           # Diff rules file path
-          config_file: .github/integration-rules.yml
+          config_file: .github/integration-unit-rules.yml
           # Base branch to compare to
           base_ref:  develop
         
