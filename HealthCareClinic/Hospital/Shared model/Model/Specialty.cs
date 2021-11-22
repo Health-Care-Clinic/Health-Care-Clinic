@@ -8,7 +8,7 @@ namespace Hospital.Shared_model.Model
     public class Specialty
     {
         [Key]
-        public int Id { get; set; }
+        public int SpecialtyId { get; set; }
         public String Name { get; set; }
 
         public Specialty()
