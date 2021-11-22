@@ -55,10 +55,6 @@ namespace Hospital_API.Adapter
         {
             Survey survey = surveyService.GetOneById(dto.Id);
 
-            //foreach (SurveyCategory category in survey.SurveyCategories)
-            //    foreach (SurveyQuestion question in category.SurveyQuestions)
-            //        question.
-
             foreach (var cd in survey.SurveyCategories.Zip(dto.SurveyCategories, Tuple.Create))
                 foreach (var qd in cd.Item1.SurveyQuestions.Zip(cd.Item2.SurveyQuestions, Tuple.Create))
                     surveyService.ModifyGrade(qd.Item1.Id, qd.Item2.Grade);

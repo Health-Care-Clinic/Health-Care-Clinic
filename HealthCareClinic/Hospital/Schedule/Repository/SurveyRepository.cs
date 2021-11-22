@@ -22,7 +22,7 @@ namespace Hospital.Schedule.Repository
 
         public Survey GenerateSurveyForAppointment()
         {
-            Survey generatedSurvey = new Survey();
+            Survey generatedSurvey = new Survey(1);
             Add(generatedSurvey);
 
             return generatedSurvey;
@@ -45,9 +45,10 @@ namespace Hospital.Schedule.Repository
 
         public void ModifyGrade(int questionId, int newGrade)
         {
-            SurveyQuestion wantedQuestion = (SurveyQuestion)HospitalDbContext.SurveyQuestions.Where(question => question.Id == questionId);
-            wantedQuestion.Grade = newGrade;
-            wantedQuestion.SurveyCategory.Survey.Done = true;
+            List<SurveyQuestion> wantedQuestion = new List<SurveyQuestion>();
+            wantedQuestion = HospitalDbContext.SurveyQuestions.Where(question => question.Id == questionId).ToList();
+            wantedQuestion[0].Grade = newGrade;
+            wantedQuestion[0].SurveyCategory.Survey.Done = true;
             Save();
         }
     }

@@ -17,14 +17,12 @@ export class SurveyComponent implements OnInit {
       surveyCategories : []
   };
   errorMessage : string  = '';
-  /* questionTypeTitles : string[] = ["Doctor", "Medical stuff", "Hospital"] */
 
   constructor(private _surveyService : SurveyService) { }
 
   ngOnInit(): void {
     this.showSurvey();
   }
-
 
 
   showSurvey() {
@@ -38,7 +36,7 @@ export class SurveyComponent implements OnInit {
         .subscribe(data => console.log('Success!', data),
                     error => console.log('Error!', error)) 
       console.log(this.survey);
-      window.alert('Your survey has been submited.');
+      window.alert('Your survey has been submited.');      
     }
 
   validate() {

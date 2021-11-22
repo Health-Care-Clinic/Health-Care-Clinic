@@ -24,10 +24,13 @@ namespace Hospital.Schedule.Model
         [ForeignKey("AppointmentId")]
         public virtual Appointment Appointment { get; set; }
 
-
         public Survey()
         {
-            AppointmentId = 1;
+        }
+
+        public Survey(int appointmentId)
+        {
+            AppointmentId = appointmentId;
             Done = false;
 
             SurveyCategories = new List<SurveyCategory>();

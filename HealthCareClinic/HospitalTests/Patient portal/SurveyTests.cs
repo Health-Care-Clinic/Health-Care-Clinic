@@ -11,6 +11,8 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Hospital.Mapper;
 using Hospital_API.Controller;
+using Microsoft.AspNetCore.Mvc;
+using Hospital_API.DTO;
 
 namespace HospitalTests
 {
@@ -19,21 +21,29 @@ namespace HospitalTests
         [Fact]      //integration test
         public void Get_empty_survey()
         {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-            var configuration = builder.Build();
-            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
-            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
-            var _context = new HospitalDbContext(optionsBuilder.Options);
+            var stubDatabase = CreateStubDatabase();
 
-            SurveyRepository surveyRepository = new SurveyRepository(_context);
-            SurveyService surveyService = new SurveyService(surveyRepository);
-            SurveyController surveyController = new SurveyController(surveyService);
+            using (var context = new HospitalDbContext(stubDatabase))
+            {
+                SurveyRepository surveyRepository = new SurveyRepository(context);
+                SurveyService surveyService = new SurveyService(surveyRepository);
 
-            Survey newSurvey = (Survey)surveyController.GetEmptySurveyForAppointment();
+                SurveyController surveyController = new SurveyController(surveyService);
 
-            Assert.NotNull(newSurvey);
+                OkObjectResult a = surveyController.GetEmptySurveyForAppointment() as OkObjectResult;
+                SurveyDTO survey = a.Value as SurveyDTO;
+                foreach (Survey s in context.Surveys)
+                {
+                    context.Surveys.Remove(s);
+                    context.SaveChanges();
+                }
+
+                Assert.NotNull(survey);
+                Assert.Equal(1, survey.AppointmentId);
+                Assert.Equal(8, survey.Id);
+            }
+
         }
-
 
 
         [Fact]
@@ -118,6 +128,37 @@ namespace HospitalTests
             stubRepository.Setup(m => m.GetAllNotDoneByPatientId(1)).Returns(surveys.GetRange(1, 1));
 
             return stubRepository.Object;
+        }
+
+
+        private DbContextOptions<HospitalDbContext> CreateStubDatabase()
+        {
+            var options = new DbContextOptionsBuilder<HospitalDbContext>()
+                                .UseInMemoryDatabase(databaseName: "Surveys")
+                                .Options;
+
+            using (var context = new HospitalDbContext(options))
+            {
+                List<Survey> surveys = new List<Survey>();
+
+                surveys.Add(new Survey(1, 1, true));    //id, appointmentid, done
+                surveys.Add(new Survey(2, 2, false));
+                surveys.Add(new Survey(3, 5, false));
+                surveys.Add(new Survey(7, 11, true));
+
+                surveys[0].Appointment.PatientId = 1;
+                surveys[1].Appointment.PatientId = 1;
+                surveys[2].Appointment.PatientId = 4;
+                surveys[3].Appointment.PatientId = 3;
+
+
+                foreach (Survey survey in surveys)
+                    context.Surveys.Add(survey);
+
+                context.SaveChanges();
+            }
+
+            return options;
         }
     }
 }
