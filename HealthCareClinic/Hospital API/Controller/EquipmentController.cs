@@ -15,13 +15,19 @@ namespace Hospital_API.Controller
     [ApiController]
     public class EquipmentController : ControllerBase
     {
-
-
-        private EquipmentService equipmentService;
-        public EquipmentController(HospitalDbContext context)
+        private readonly IEquipmentService equipmentService;
+        public EquipmentController(IEquipmentService equipmentService)
         {
-            EquipmentRepository equipmentRepository = new EquipmentRepository(context);
-            equipmentService = new EquipmentService(equipmentRepository);
+            this.equipmentService = equipmentService;
+        }
+
+        [HttpGet("getAllEquipment")]
+        public IActionResult GetAllEquipment()
+        {
+            List<EquipmentDTO> allEquipment = new List<EquipmentDTO>();
+            equipmentService.GetAll().ToList().ForEach(Equipment
+                => allEquipment.Add(EquipmentAdapter.EquipmentToEquipmentDTO(Equipment)));
+            return Ok(allEquipment);
         }
 
         [HttpGet("getEquipmentByRoomId/{id?}")]

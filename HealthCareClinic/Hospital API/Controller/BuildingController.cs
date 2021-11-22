@@ -17,11 +17,10 @@ namespace Hospital_API.Controller
     public class BuildingController : ControllerBase
     {
 
-        private BuildingService buildingService;
-        public BuildingController(HospitalDbContext context)
+        private readonly IBuildingService buildingService;
+        public BuildingController(IBuildingService buildingService)
         {
-            BuildingRepository buildingRepository = new BuildingRepository(context);
-            buildingService = new BuildingService(buildingRepository);
+            this.buildingService = buildingService;
         }
 
 

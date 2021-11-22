@@ -13,6 +13,8 @@ using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Hospital.Schedule.Service;
 using Hospital.Schedule.Repository;
+using Hospital.Rooms_and_equipment.Service;
+using Hospital.Rooms_and_equipment.Repository;
 
 namespace Hospital_API
 {
@@ -37,9 +39,21 @@ namespace Hospital_API
 
             services.AddScoped<IFeedbackMessageService, FeedbackMessageService>();
             services.AddScoped<IFeedbackMessageRepository, FeedbackMessageRepository>();
-                        
+          
             services.AddScoped<ISurveyService, SurveyService>();
             services.AddScoped<ISurveyRepository, SurveyRepository>();
+          
+            services.AddScoped<IBuildingService, BuildingService>();
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
+          
+            services.AddScoped<IFloorService, FloorService>();
+            services.AddScoped<IFloorRepository, FloorRepository>();
+          
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+          
+            services.AddScoped<IEquipmentService, EquipmentService>();
+            services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 
         }
 

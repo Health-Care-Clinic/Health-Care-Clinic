@@ -19,11 +19,13 @@ export class HospitalMapComponent implements OnInit {
   floors: any;
   selectedBuilding: any;
   searchedBuildings: any;
+  searchedRooms: any;
   isHospital: boolean = false;
   equipments: any;
   equipmentsRooms: any;
   equipmentsFloors: any;
   equipmentsBuilding: any;
+  roomSearchText: string = '';
 
   constructor(private hospitalMapService: HospitalMapService,public router: Router) {
   }
@@ -57,6 +59,10 @@ export class HospitalMapComponent implements OnInit {
     this.searchedBuildings.length = 0;
     (<HTMLInputElement>document.getElementById("buildingSearchHTML")).value = "";
     this.select(index);
+  }
+
+  public setRoomSearchText(){
+    this.roomSearchText = (<HTMLInputElement>document.getElementById("roomSearchHTML")).value;
   }
 
   public select(index:number){

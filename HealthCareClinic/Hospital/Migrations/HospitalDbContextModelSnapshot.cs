@@ -574,7 +574,7 @@ namespace Hospital.Migrations
                             Id = 54,
                             Name = "Bandage",
                             Quantity = 17,
-                            RoomId = 79,
+                            RoomId = 69,
                             Type = 1
                         },
                         new
@@ -582,7 +582,7 @@ namespace Hospital.Migrations
                             Id = 55,
                             Name = "Blanket",
                             Quantity = 17,
-                            RoomId = 79,
+                            RoomId = 69,
                             Type = 0
                         });
                 });
