@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Hospital.Shared_model.Model
 {
@@ -12,35 +13,18 @@ namespace Hospital.Shared_model.Model
         [ForeignKey("Specialty")]
         public int SpecialtyId { get; set; }
         public virtual Specialty Specialty { get; set; }
-
-        //public virtual ICollection<DateTime> DaysOff { get; set; } = new List<DateTime>();
+        public virtual ICollection<Day> DaysOff { get; set; } = new List<Day>();
+        public int PrimaryRoom { get; set; }
         public Doctor()
         { }
 
-        public Doctor(int id, string name, string surname, DateTime birthDate, string email, string password, string address,
-            double salary, DateTime employmentDate, ICollection<WorkDay> workDays, Specialty spec, int primaryRoom) : base(id, name, surname, birthDate, address, email, password, salary, employmentDate, workDays)
+        public Doctor(int id, string name, string surname, string gender, DateTime birthDate, double salary, string address, string phone,
+            string email, string username, string password, DateTime employmentDate, ICollection<WorkDay> workDay, Specialty spec, int primaryRoom) : base(id, name, surname, gender, birthDate, salary, address, phone,
+            email, username, password, employmentDate,  workDay)
         {
-            this.SpecialtyId = spec.Id;
+            this.SpecialtyId = spec.SpecialtyId;
             this.Specialty = spec;
             this.PrimaryRoom = primaryRoom;
-        }
-
-        public int PrimaryRoom { get; set; }
-
-
-        public void ViewPatientDocuments(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Boolean UpadatePatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Boolean AddPatietientDocument(Patient patient)
-        {
-            throw new NotImplementedException();
         }
 
         private ICollection<Patient> patients;
@@ -103,6 +87,24 @@ namespace Hospital.Shared_model.Model
                     oldPatient.Doctor = null;
                 tmpPatient.Clear();
             }
+        }
+        public List<Patient> GetActivePatients()
+        {
+            return this.Patients.Where(p => p.IsActive == true).ToList();
+        }
+        public void ViewPatientDocuments(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Boolean UpadatePatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Boolean AddPatietientDocument(Patient patient)
+        {
+            throw new NotImplementedException();
         }
     }
 }

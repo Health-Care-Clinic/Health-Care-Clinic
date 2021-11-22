@@ -9,13 +9,13 @@ namespace Hospital.Shared_model.Model
     {
         [Key]
         public int Id { get; set; }
-        public Day Day { get; set; }
+        public DayOfWeek Day { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
         public WorkDay()
         { }
-        public WorkDay(Day day, DateTime startTime, DateTime endTime)
+        public WorkDay(DayOfWeek day, DateTime startTime, DateTime endTime)
         {
             this.Day = day;
             this.StartTime = startTime;
