@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Pharmacy.Adapter;
 using Pharmacy.DTO;
+using Pharmacy.Service;
 
 namespace Pharmacy_API.Controllers
 {
@@ -15,11 +16,11 @@ namespace Pharmacy_API.Controllers
     [ApiController]
     public class FeedbackController : ControllerBase
     {
-        private readonly PharmacyDbContext _dbContext;
+        private readonly IFeedbackService _feedbackService;
 
-        public FeedbackController(PharmacyDbContext dbContext)
+        public FeedbackController(IFeedbackService feedbackService)
         {
-            _dbContext = dbContext;
+            _feedbackService = feedbackService;
         }
 
         [HttpPost("receive")]
@@ -32,8 +33,8 @@ namespace Pharmacy_API.Controllers
 
             Feedback receivedFeedback = FeedbackAdapter.FeedbackDtoToFeedback(dto);
 
-            _dbContext.Feedbacks.Add(receivedFeedback);
-            _dbContext.SaveChanges();
+            _feedbackService.Add(receivedFeedback);
+            _feedbackService.SaveChanges();
 
             return Ok("success");
         }

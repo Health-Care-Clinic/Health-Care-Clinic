@@ -89,6 +89,7 @@ namespace Pharmacy.Service
                 isChangable = true;
             }
             return isChangable;
+        }
 
         public Medicine GetByName(string name)
         {

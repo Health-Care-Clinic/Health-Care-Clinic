@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integration.Adapter;
 using Integration.DTO;
+using Integration.Interface.Service;
 
 namespace Integration_API.Controller
 {
@@ -15,11 +16,11 @@ namespace Integration_API.Controller
     [ApiController]
     public class FeedbackReplyController : ControllerBase
     {
-        private readonly IntegrationDbContext _dbContext;
+        private readonly IFeedbackReplyService _feedbackReplyService;
 
-        public FeedbackReplyController(IntegrationDbContext integrationDbContext)
+        public FeedbackReplyController(IFeedbackReplyService feedbackReplyService)
         {
-            _dbContext = integrationDbContext;
+            _feedbackReplyService = feedbackReplyService;
         }
 
         [HttpPost("receive")]
@@ -32,8 +33,8 @@ namespace Integration_API.Controller
 
             FeedbackReply receivedFeedbackReply = FeedbackReplyAdapter.FeedbackReplyDtoToFeedbackReply(dto);
 
-            _dbContext.FeedbackReplies.Add(receivedFeedbackReply);
-            _dbContext.SaveChanges();
+            _feedbackReplyService.Add(receivedFeedbackReply);
+            _feedbackReplyService.SaveChanges();
 
             return Ok("success");
         }
