@@ -8,7 +8,7 @@ jobs:
     env:
       config: Release
       PROJECT: 'HealthCareClinic/Hospital/Hospital.csproj'
-      TEST: 'HealthCareClinic/HospitalTests/HospitalTests.csproj'
+      TEST: 'HealthCareClinic/HospitalTests/HospitalUnitTests.csproj'
     # Map a step output to a job output
     steps:
       - uses: actions/checkout@v2
