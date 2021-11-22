@@ -3,9 +3,9 @@
     <mat-horizontal-stepper linear>
         <mat-step *ngFor="let category of survey.surveyCategories" label={{category.name}}>
             
-            <mat-list *ngFor="let question of category.surveyQuestions">     <!-- bice ngFor za sva pitanja iz te sekcije -->
+            <mat-list *ngFor="let question of category.surveyQuestions"> 
                 <mat-list-item>
-                    <label>{{question.content}}</label>   <!-- bice binding na labelu za tekst pitanja -->
+                    <label>{{question.content}}</label>  
                     <mat-radio-group class="gradeRadioButtons" [(ngModel)]="question.grade" required>
                         <mat-radio-button [value]="1">1</mat-radio-button>
                         <mat-radio-button [value]="2">2</mat-radio-button>

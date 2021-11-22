@@ -5,10 +5,12 @@ import { ISurvey } from './survey';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { throwError } from 'rxjs';
+import { ISurveyQuestion } from './survey-question';
 
 @Injectable()
 export class SurveyService{
     private _surveyUrl = '/api/survey/';
+    private questions: ISurveyQuestion[] = []
 
     constructor(private _http : HttpClient){}
 
@@ -19,7 +21,12 @@ export class SurveyService{
     }
 
     addSurvey(survey : ISurvey):Observable<any>{
-        const body = JSON.stringify(survey);
+        survey.surveyCategories.forEach(category => {
+            category.surveyQuestions.forEach(question => {
+                this.questions.push(question);
+            });
+        });
+        const body = JSON.stringify(this.questions);
         const headers = { 'content-type': 'application/json'}
         return this._http.put<any>(this._surveyUrl + '/' + survey.id, body, {'headers':headers})
     }

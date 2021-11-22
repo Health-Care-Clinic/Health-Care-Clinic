@@ -58,7 +58,6 @@ namespace Hospital_API.Adapter
             foreach (var cd in survey.SurveyCategories.Zip(dto.SurveyCategories, Tuple.Create))
                 foreach (var qd in cd.Item1.SurveyQuestions.Zip(cd.Item2.SurveyQuestions, Tuple.Create))
                     surveyService.ModifyGrade(qd.Item1.Id, qd.Item2.Grade);
-                    //qd.Item1.Grade = qd.Item2.Grade;
 
         }
     }
