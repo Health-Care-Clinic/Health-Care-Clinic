@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integration;
 using Integration.ApiKeys.Model;
-using Integration_API.DTO;
+using Integration.DTO;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 
@@ -51,6 +51,7 @@ namespace Integration_API.Controller
 
             return Ok("successfully sent");
         }
+
 
         [HttpPost]
         public IActionResult ReceiveMessage(MessageDTO dto)

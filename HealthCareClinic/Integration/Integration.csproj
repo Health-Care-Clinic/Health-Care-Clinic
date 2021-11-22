@@ -5,11 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ApiKeys\Repository\ApiKeyRepository.cs" />
+    <Compile Remove="ApiKeys\Repository\IApiKeyRepository.cs" />
+    <Compile Remove="ApiKeys\Service\ApiKeyService.cs" />
     <Compile Remove="Class1.cs" />
     <Compile Remove="Pharmacy\Service\ReportServicee.cs" />
+    <Compile Remove="Service\IFileTransferService.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ApiKeys\Repository\" />
+    <Folder Include="ApiKeys\Service\" />
     <Folder Include="Partnership\Model\" />
     <Folder Include="Partnership\Service\" />
     <Folder Include="Partnership\Repository\" />
@@ -29,10 +35,16 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="Npgsql" Version="5.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
     <PackageReference Include="RestSharp" Version="106.13.0" />
     <PackageReference Include="SSH.NET" Version="2020.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
   </ItemGroup>
 
 </Project>

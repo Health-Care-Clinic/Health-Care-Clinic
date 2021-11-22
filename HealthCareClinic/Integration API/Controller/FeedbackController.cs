@@ -1,8 +1,6 @@
 ﻿using Integration;
 using Integration.ApiKeys.Model;
 using Integration.Pharmacy.Model;
-using Integration_API.Adapter;
-using Integration_API.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
@@ -10,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Integration.Adapter;
+using Integration.DTO;
+using Integration.Interface.Service;
 
 namespace Integration_API.Controller
 {
@@ -17,31 +18,35 @@ namespace Integration_API.Controller
     [ApiController]
     public class FeedbackController : ControllerBase
     {
-        private readonly IntegrationDbContext _dbContext;
+        private readonly IFeedbackService _feedbackService;
+        private readonly IFeedbackReplyService _feedbackReplyService;
+        private readonly IApiKeyService _apiKeyService;
 
-        public FeedbackController(IntegrationDbContext integrationDbContext)
+        public FeedbackController(IFeedbackService feedbackService, IFeedbackReplyService feedbackReplyService, 
+            IApiKeyService apiKeyService)
         {
-            _dbContext = integrationDbContext;
+            _feedbackService = feedbackService;
+            _feedbackReplyService = feedbackReplyService;
+            _apiKeyService = apiKeyService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            List<Feedback> feedbacks = _dbContext.Feedbacks.ToList();
+            List<Feedback> feedbacks = (List<Feedback>)_feedbackService.GetAll();
             return Ok(feedbacks);
         }
 
         [HttpGet("{id?}")]
         public IActionResult GetFeedbacksByHospitalId(int id)
         {
-            Feedback feedback = _dbContext.Feedbacks.FirstOrDefault(feedback => feedback.SenderId == id);
+            Feedback feedback = _feedbackService.GetFeedbackBySenderId(id);
             if (feedback == null)
             {
                 return NotFound();
             }
-            List<FeedbackDTO> feedbacks = new List<FeedbackDTO>();
-            _dbContext.Feedbacks.Where(feedback => feedback.SenderId == id).ToList().ForEach(feedback => feedbacks.Add(FeedbackAdapter.FeedbackToFeedbackDto(feedback)));
-            return Ok(feedbacks);
+            
+            return Ok(_feedbackService.GetFeedbacksWithReply(id));
         }
 
         [HttpPost]
@@ -52,12 +57,16 @@ namespace Integration_API.Controller
                 return BadRequest();
             }
 
+            ApiKey apiKey = _apiKeyService.GetOneById(dto.ReceiverId);
+
+            if (apiKey == null)
+            {
+                return NotFound();
+            }
+
             Feedback newFeedback = FeedbackAdapter.FeedbackDtoToFeedback(dto);
-
-            _dbContext.Feedbacks.Add(newFeedback);
-            _dbContext.SaveChanges();
-
-            ApiKey apiKey = _dbContext.ApiKeys.SingleOrDefault(apiKey => apiKey.Id == newFeedback.ReceiverId);
+            _feedbackService.Add(newFeedback);
+            _feedbackService.SaveChanges();
             
             var client = new RestSharp.RestClient(apiKey.BaseUrl);
             var request = new RestRequest("benu/feedback/receive");

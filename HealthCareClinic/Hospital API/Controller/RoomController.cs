@@ -16,11 +16,10 @@ namespace Hospital_API.Controller
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private RoomService roomService;
-        public RoomController(HospitalDbContext context)
+        private  readonly IRoomService roomService;
+        public RoomController(IRoomService roomService)
         {
-            RoomRepository roomRepository = new RoomRepository(context);
-            roomService = new RoomService(roomRepository);
+            this.roomService = roomService;
         }
 
         [HttpGet("getRoomsByFloorId/{id?}")]
@@ -45,6 +44,16 @@ namespace Hospital_API.Controller
             roomService.GetAll().ToList().ForEach(Room
                 => allRooms.Add(RoomAdapter.RoomToRoomDTO(Room)));
             return Ok(allRooms);
+        }
+
+        [HttpGet("getSearchedRooms/{searchText?}")]
+        public IActionResult GetSearchedRooms(String searchText)
+        {
+            List<RoomDTO> result = new List<RoomDTO>();
+            if (searchText != null)
+                roomService.GetSearchedRooms(searchText).ForEach(room
+                    => result.Add(RoomAdapter.RoomToRoomDTO(room)));
+            return Ok(result);
         }
     }
 
