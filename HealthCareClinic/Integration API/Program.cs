@@ -1,5 +1,9 @@
+using Integration.Interface.Repository;
+using Integration.Repository;
+using Integration.Service;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -21,6 +25,12 @@ namespace Integration_API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddHostedService<RabbitMQService>();
+                    services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
+                    services.AddScoped<IPharmacyPromotionRepository, PharmacyPromotionRepository>();
                 });
     }
 }
