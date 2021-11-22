@@ -26,7 +26,7 @@ namespace Hospital_API.DTO
         public String DateOfRegistration { get; set; }
         public bool IsBlocked { get; set; }
         public bool IsActive { get; set; }
-    
+
 
         public PatientDTO() {}
 

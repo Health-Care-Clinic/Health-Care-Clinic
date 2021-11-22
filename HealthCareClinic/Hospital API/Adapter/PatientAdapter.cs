@@ -31,7 +31,7 @@ namespace Hospital_API.Adapter
             patient.BloodType = dto.BloodType;
             patient.IsBlocked = dto.IsBlocked;
             patient.Allergens = AllergenAdapter.AllergenDTOListToAllergenForPatientList(dto.Allergens, dto.Id);
-            
+
 
             //patient.Doctor = DoctorAdapter.DoctorDTOToDoctor(dto.DoctorDTO);
 
