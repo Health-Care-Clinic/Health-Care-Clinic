@@ -68,7 +68,7 @@ const MaterialComponents = [
   MatListModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSelectModule
+  MatSelectModule,
 ];
 
 @NgModule({

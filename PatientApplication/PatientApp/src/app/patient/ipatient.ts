@@ -1,5 +1,4 @@
 export class Patient {
-
     firstName: string = "";
     lastName: string = "";
     dateOfBirth: Date = new Date();
@@ -14,7 +13,7 @@ export class Patient {
     password: string = "";
     rePassword: string = "";
     doctor: string = "";
-    allergies: string[] = [];
+    allergens: string[] = [];
 }
 
 export interface IPatient {
@@ -32,5 +31,5 @@ export interface IPatient {
     password: string;
     rePassword: string;
     doctor: string;
-    allergies: string[];
+    allergens: string[];
 }
