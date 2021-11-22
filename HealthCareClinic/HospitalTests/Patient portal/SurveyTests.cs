@@ -14,7 +14,7 @@ using Hospital_API.Controller;
 using Microsoft.AspNetCore.Mvc;
 using Hospital_API.DTO;
 
-namespace HospitalUnitTests
+namespace HospitalTests.Patient_portal
 {
     public class SurveyTests
     {
