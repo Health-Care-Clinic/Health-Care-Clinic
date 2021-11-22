@@ -42,5 +42,19 @@ namespace Hospital_API.Controller
 
             return Ok(result);
         }
+
+        [HttpPost("submitPatientRegistrationRequest")]
+        public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
+        {
+            if (patientDTO.Id < 0)
+            {
+                return BadRequest();
+            }
+
+            //Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
+            //patientService.Add(newPatient);
+
+            return Ok();
+        }
     }
 }
