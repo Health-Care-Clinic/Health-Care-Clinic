@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Patient } from '../patient/ipatient';
+import { Doctor } from './doctor';
+import { Allergen } from './allergen';
 import { PatientService } from '../patient/patient.service';
 
 interface EmploymentStatus {
-  value: string;
-  viewValue: string;
-}
-
-interface Doctor {
   value: string;
   viewValue: string;
 }
@@ -34,18 +31,16 @@ export class RegistrationFormComponent implements OnInit {
     {value: 'unemployed-2', viewValue: 'Unemployed'},
     {value: 'retired-3', viewValue: 'Retired'}
   ];
-  doctors: Doctor[] = [
-    {value: 'doc-0', viewValue: 'Marko Nikolic'},
-    {value: 'doc-1', viewValue: 'Nikola Kajtes'},
-    {value: 'doc-2', viewValue: 'Darijan Micic'},
-  ];
-  alergens: string[] = ["kikiriki", "semenke", "med"]
   bloodTypes: BloodType[] = [
     {value: 'A-0', viewValue: 'A'},
     {value: 'B-1', viewValue: 'B'},
     {value: '0-2', viewValue: '0'},
     {value: 'AB-3', viewValue: 'AB'}
   ];
+  doctors: Doctor[] = [];
+  allergens: Allergen[] = [];
+  errorMessage : string  = '';
+  
   
 
   constructor(
@@ -54,7 +49,20 @@ export class RegistrationFormComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getDoctors();
+    this.getAllergens();
+  }
 
+  getDoctors() {
+    this._patientservice.getAvailableDoctors()
+        .subscribe(doctors => this.doctors = doctors,
+                    error => this.errorMessage = <any>error);     
+  }
+
+  getAllergens() {
+    this._patientservice.getAllAllergens()
+        .subscribe(allergens => this.allergens = allergens,
+                    error => this.errorMessage = <any>error);     
   }
 
   submit(): void {
