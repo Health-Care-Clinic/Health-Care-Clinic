@@ -16,7 +16,7 @@ using System.Text;
 using Xunit;
 using static Hospital.Rooms_and_equipment.Model.Building;
 
-namespace HospitalTests.Graphical_editor
+namespace HospitalUnitTests.Graphical_editor
 {
     public class SearchBuildingsTests
     {
@@ -83,20 +83,5 @@ namespace HospitalTests.Graphical_editor
             }
         }
 
-        [Fact]
-        public void Search_buildings_by_name()
-        {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-            var configuration = builder.Build();
-            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
-            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
-            var _context = new HospitalDbContext(optionsBuilder.Options);
-            BuildingRepository buildingRepository = new BuildingRepository(_context);
-            BuildingService buildingService = new BuildingService(buildingRepository);
-
-            int numberOfSearchedBuildings = buildingService.GetSearchedBuildings("building2").Count;
-
-            Assert.Equal(1, numberOfSearchedBuildings);
-        }
     }
 }

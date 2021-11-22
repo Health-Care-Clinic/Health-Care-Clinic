@@ -13,7 +13,7 @@ using System.Text;
 using Xunit;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 
-namespace HospitalTests.Graphical_editor
+namespace HospitalUnitTests.Graphical_editor
 {
     public class SearchEquipment
     {
@@ -44,20 +44,6 @@ namespace HospitalTests.Graphical_editor
             equipmentService.GetEquipmentByName("lalala").ShouldBeNull();
         }
 
-        [Fact]
-        public void Search_equipment_by_name()
-        {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-            var configuration = builder.Build();
-            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
-            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
-            var _context = new HospitalDbContext(optionsBuilder.Options);
-
-            EquipmentRepository equipmentRepository = new EquipmentRepository(_context);
-            EquipmentService equipmentService = new EquipmentService(equipmentRepository);
-
-            equipmentService.GetEquipmentByName("ed").ShouldNotBeNull();
-
-        }
+        
     }
 }
