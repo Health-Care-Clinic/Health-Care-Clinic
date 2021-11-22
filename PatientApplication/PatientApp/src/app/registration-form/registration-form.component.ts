@@ -25,7 +25,7 @@ interface BloodType {
 })
 
 export class RegistrationFormComponent implements OnInit {
-  allergensCtrl : FormControl = new FormControl('');
+  
   emailControl: FormControl = new FormControl('', [Validators.required, Validators.email]);
   patientModel: Patient = new Patient();
   employmentStatuses: EmploymentStatus[] = [
@@ -34,7 +34,11 @@ export class RegistrationFormComponent implements OnInit {
     {value: 'unemployed-2', viewValue: 'Unemployed'},
     {value: 'retired-3', viewValue: 'Retired'}
   ];
-  doctors: Doctor[] = [];
+  doctors: Doctor[] = [
+    {value: 'doc-0', viewValue: 'Marko Nikolic'},
+    {value: 'doc-1', viewValue: 'Nikola Kajtes'},
+    {value: 'doc-2', viewValue: 'Darijan Micic'},
+  ];
   alergens: string[] = ["kikiriki", "semenke", "med"]
   bloodTypes: BloodType[] = [
     {value: 'A-0', viewValue: 'A'},
@@ -61,6 +65,7 @@ export class RegistrationFormComponent implements OnInit {
       error => console.log('Error!', error)
     )
 
+    console.log(this.patientModel);
     window.alert('Registration request successfully submited!');
     this.patientModel = new Patient();
   }
