@@ -19,7 +19,7 @@ jobs:
           # Diff rules file path
           config_file: .github/hospital-rules.yml
           # Base branch to compare to
-#           base_ref:  default is develop
+          base_ref:  develop
         
       - name: Setup .NET
         if: env.DIFF_DETECTED == 'true'
