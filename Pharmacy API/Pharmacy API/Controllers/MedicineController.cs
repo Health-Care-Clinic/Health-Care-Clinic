@@ -8,6 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Pharmacy.Service;
 using System.Xml.Linq;
+using Pharmacy_API.DTO;
+using Pharmacy_API.Adapter;
+using System.Diagnostics;
+
+
 
 namespace Pharmacy_API.Controllers
 {
@@ -62,5 +67,35 @@ namespace Pharmacy_API.Controllers
                 return BadRequest();
             }
         }
+
+
+        [HttpPut("update/{id?}")]
+        public IActionResult UpdateMedicine(int id, MedicineDTO medicineDTO)
+        {
+
+            Medicine medicine = MedicineAdapter.MedicineDTOToMedicine(medicineDTO);
+            bool isUpdated = this.medicineService.Update(id, medicine);
+           
+            return Ok(isUpdated);
+          
+        }
+
+        [HttpPut("lowerQuantity/{id?}")]
+        public IActionResult LowerMedicineQuantity(int id)
+        {
+            int quantity = int.Parse(HttpContext.Request.Query["quantity"].ToString());
+            bool isLowered = this.medicineService.LowerMedicineQuantity(id, quantity);
+            return Ok(isLowered);
+        }
+
+        [HttpPut("raiseQuantity/{id?}")]
+        public IActionResult RaiseMedicineQuantity(int id)
+        {
+            int quantity = int.Parse(HttpContext.Request.Query["quantity"].ToString());
+            bool isRaised = this.medicineService.RaiseMedicineQuantity(id, quantity);
+            return Ok(isRaised);
+        }
+
+
     }
 }

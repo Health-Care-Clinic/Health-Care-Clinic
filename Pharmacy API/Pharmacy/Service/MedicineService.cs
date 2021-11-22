@@ -47,6 +47,49 @@ namespace Pharmacy.Service
             return this._medicineRepository.CheckMedicineQuantity(id, requestedQuantity);
         }
 
+
+        public bool Update(int id, Medicine medicine)
+        {
+            Medicine updateMedicine = this._medicineRepository.GetById(id);
+            if (updateMedicine != null)
+            {
+                updateMedicine.Manufacturer = medicine.Manufacturer;
+                updateMedicine.Name = medicine.Name;
+                updateMedicine.Quantity = medicine.Quantity;
+                updateMedicine.Reactions = medicine.Reactions;
+                updateMedicine.SideEffects = medicine.SideEffects;
+                updateMedicine.Usage = medicine.Usage;
+                updateMedicine.Weight = medicine.Weight;
+                this._medicineRepository.Save();
+                return true;
+            }
+            return false;
+        }
+
+        public bool LowerMedicineQuantity(int id, int quantity)
+        {
+            bool isChangable = this.CheckMedicineQuantity(id, quantity);
+            if (isChangable)
+            {
+                Medicine updateMedicine = this._medicineRepository.GetById(id);
+                updateMedicine.Quantity -= quantity;
+                this._medicineRepository.Save();
+            }
+            return isChangable;
+        }
+
+        public bool RaiseMedicineQuantity(int id, int quantity)
+        {
+            Medicine medicine = this._medicineRepository.GetById(id);
+            bool isChangable = false;
+            if (medicine != null)
+            {
+                medicine.Quantity += quantity;
+                this._medicineRepository.Save();
+                isChangable = true;
+            }
+            return isChangable;
+
         public Medicine GetByName(string name)
         {
             Medicine medicine = new Medicine();
@@ -57,7 +100,6 @@ namespace Pharmacy.Service
                     medicine = med;
                 }
             }
-
             return medicine;
         }
     }
