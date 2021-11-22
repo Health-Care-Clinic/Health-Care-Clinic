@@ -21,6 +21,7 @@ export class EquipmentListComponent implements OnInit {
   backButton1: any;
   backButton2: any;
   backButton3: any;
+  backButton4: any;
 
   constructor(private hospitalMapService: HospitalMapService) {
     this.hospitalMapService.getAllEquipment().subscribe(equipmentFromBack =>{
@@ -38,10 +39,12 @@ export class EquipmentListComponent implements OnInit {
     this.step2Disable();
     this.step3Disable();
     this.step4Disable();
+    this.step5Disable();
 
     this.backButton1 = false;
     this.backButton2 = false;
     this.backButton3 = false;
+    this.backButton4 = false;
    }
 
   onSubmit() : void{
@@ -111,10 +114,25 @@ export class EquipmentListComponent implements OnInit {
   onSubmit4() : void {
     if (this.backButton3) {
       this.step3Enable();
-    } else {}
+      this.step5Disable();
+    } else {
+      this.step5Enable();
+    }
 
     this.step4Disable();
     this.backButton3 = false;
+  }
+
+  onSubmit5(): void {
+    if (this.backButton4) {
+      this.step4Enable();
+      
+    } else {
+
+    }
+
+    this.step5Disable();
+    this.backButton4 = false;
   }
 
   back1() : void {
@@ -127,6 +145,10 @@ export class EquipmentListComponent implements OnInit {
 
   back3() : void {
     this.backButton3 = true;
+  }
+
+  back4() : void {
+    this.backButton4 = true;
   }
 
   step1Enable() : void {
@@ -203,6 +225,28 @@ export class EquipmentListComponent implements OnInit {
     select4.disabled = true;
 
     this.selectedRoomDst = select4.value;
+  }
+
+  step5Enable() : void {
+    let next5 = document.getElementById('next5') as HTMLButtonElement;
+    next5.disabled = false;
+    let back4 = document.getElementById('back4') as HTMLButtonElement;
+    back4.disabled = false;
+    let select5 = document.getElementById('select5') as HTMLSelectElement;
+    select5.disabled = false;
+    let date = document.getElementById('date') as HTMLSelectElement;
+    date.disabled = false;
+  }
+
+  step5Disable() : void {
+    let next5 = document.getElementById('next5') as HTMLButtonElement;
+    next5.disabled = true;
+    let back4 = document.getElementById('back4') as HTMLButtonElement;
+    back4.disabled = true;
+    let select5 = document.getElementById('select5') as HTMLSelectElement;
+    select5.disabled = true;
+    let date = document.getElementById('date') as HTMLSelectElement;
+    date.disabled = true;
   }
 
 }

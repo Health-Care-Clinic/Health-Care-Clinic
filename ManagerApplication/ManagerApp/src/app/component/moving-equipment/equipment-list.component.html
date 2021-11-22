@@ -35,3 +35,21 @@
         <button id="back3" (click)="back3()">Back to step 3</button>
     </form>
 </div>
+<div>
+    <h1>Step 5: Choose time and duration(in minutes) of the process</h1>
+    <form (ngSubmit)="onSubmit5()">
+        <input type="date" id="date" name="dateofprocess">
+        <select id="select5" style="margin-left: 10px; margin-right: 10px;">
+            <option> 15 </option>
+            <option> 30 </option>
+            <option> 45 </option>
+            <option> 60 </option>
+            <option> 90 </option>
+            <option> 120 </option>
+            <option> 150 </option>
+            <option> 180 </option>
+        </select>
+        <button type="submit" id="next5">Next</button>
+        <button id="back4" (click)="back4()">Back to step 4</button>
+    </form>
+</div>
