@@ -25,6 +25,17 @@ namespace Hospital_API.Adapter
 
             return dto;
         }
+
+        internal static Doctor DoctorDTOToDoctor(DoctorDTO dto)
+        {
+            Doctor doctor = new Doctor();
+
+            doctor.Id = dto.Id;
+            doctor.Name = dto.Name;
+            doctor.Surname = dto.Surname;
+
+            return doctor;
+        }
     }
 
 }

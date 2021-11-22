@@ -7,7 +7,7 @@ using Hospital.Schedule.Service;
 using Hospital.Schedule.Model;
 using Hospital.Schedule.Repository;
 
-namespace HospitalTests
+namespace HospitalTests.Patient_portal
 {
     public class SurveyTests
     {

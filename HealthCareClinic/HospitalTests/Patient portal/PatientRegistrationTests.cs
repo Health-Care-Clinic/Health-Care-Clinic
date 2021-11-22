@@ -15,7 +15,7 @@ using Hospital.Medical_records.Repository.Interface;
 using Hospital.Medical_records.Repository;
 using Hospital.Shared_model.Repository;
 
-namespace HospitalTests
+namespace HospitalTests.Patient_portal
 {
     public class PatientRegistrationTests
     {

@@ -14,23 +14,23 @@ namespace Hospital_API.Adapter
             Patient patient = new Patient();
 
             patient.Id = dto.Id;
-            patient.Education = dto.Education;
+            patient.EmploymentStatus = dto.EmploymentStatus;
             patient.Name = dto.Name;
             patient.Surname = dto.Surname;
             patient.BirthDate = ConvertToDate(dto.BirthDate);
             patient.Phone = dto.Phone;
             patient.Email = dto.Email;
             patient.Gender = dto.Gender;
-            patient.Relationship = dto.Relationship;
+            patient.Username = dto.Username;
             patient.Password = dto.Password;
             patient.Address = dto.Address;
-            patient.FileDate = ConvertToDate(dto.FileDate);
-            patient.Employer = dto.Employer;
-            patient.Admitted = dto.Admitted;
+            patient.DateOfRegistration = ConvertToDate(dto.DateOfRegistration);
+            patient.ParentName = dto.ParentName;
+            patient.IsActive = dto.IsActive;
             patient.Alergies = dto.Alergies;
             patient.BloodType = dto.BloodType;
-            patient.IsGuest = dto.IsGuest;
-            //patient.Doc = DoctorAdapter(dto.Doc);
+            patient.IsBlocked = dto.IsBlocked;
+            patient.Doctor = DoctorAdapter.DoctorDTOToDoctor(dto.DoctorDTO);
 
             return patient;
         }
@@ -40,22 +40,22 @@ namespace Hospital_API.Adapter
             PatientDTO dto = new PatientDTO();
 
             dto.Id = patient.Id;
-            dto.Education = patient.Education;
+            dto.EmploymentStatus = patient.EmploymentStatus;
             dto.Name = patient.Name;
             dto.Surname = patient.Surname;
             dto.BirthDate = ConvertToString(patient.BirthDate);
             dto.Phone = patient.Phone;
             dto.Email = patient.Email;
             dto.Gender = patient.Gender;
-            dto.Relationship = patient.Relationship;
+            dto.Username = patient.Username;
             dto.Password = patient.Password;
             dto.Address = patient.Address;
-            dto.FileDate = ConvertToString(patient.FileDate);
-            dto.Employer = patient.Employer;
-            dto.Admitted = patient.Admitted;
+            dto.DateOfRegistration = ConvertToString(patient.DateOfRegistration);
+            dto.ParentName = patient.ParentName;
+            dto.IsActive = patient.IsActive;
             dto.Alergies = patient.Alergies;
             dto.BloodType = patient.BloodType;
-            dto.IsGuest = patient.IsGuest;
+            dto.IsBlocked = patient.IsBlocked;
             dto.DoctorDTO = DoctorAdapter.DoctorToDoctorDTO(patient.Doctor);
 
             return dto;
