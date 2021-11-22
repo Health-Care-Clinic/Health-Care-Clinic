@@ -18,6 +18,31 @@ button {
   display:block;
 } */
 
+form {
+  width: 800px;
+}
+
+mat-form-field {
+  width: 300px;
+  padding-top: 10px;
+}
+
+
+mat-radio-button {
+  margin-left: 16px;
+  display: inline-block;
+}
+
+ul {
+  column-count:2;
+  -moz-column-count:2; /* Firefox */
+  -webkit-column-count:2; /* Safari and Chrome */
+}
+
+ul li {
+  display: block;
+}
+
 .mat-stepper-vertical {
   margin-top: 8px;
 }

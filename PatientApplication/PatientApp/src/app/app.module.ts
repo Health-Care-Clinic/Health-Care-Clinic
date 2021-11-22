@@ -39,6 +39,7 @@ import { MatDividerModule} from '@angular/material/divider';
 import { MatListModule} from '@angular/material/list';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule} from '@angular/material/select';
 
 import { FeedbackService } from './service/feedback.service';
 import { SurveyService } from './survey/survey.service';
@@ -66,7 +67,8 @@ const MaterialComponents = [
   MatDividerModule,
   MatListModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatSelectModule
 ];
 
 @NgModule({
