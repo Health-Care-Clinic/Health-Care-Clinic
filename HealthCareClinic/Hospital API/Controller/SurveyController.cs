@@ -31,23 +31,15 @@ namespace Hospital_API.Controller
             return Ok(result);
         }
 
-
-        [HttpPut("{id?}")]      
-        public IActionResult SubmitSurvey(SurveyDTO surveyDto)
+        [HttpPut("{id?}")]
+        public IActionResult SubmitSurvey(List<SurveyQuestionDTO> questionDto)
         {
-            Survey survey = surveyService.GetOneById(surveyDto.Id);
-            if (survey == null)
-            {
-                return NotFound();
-            }
+            foreach (SurveyQuestionDTO question in questionDto)
+                if (question.Grade < 1 || question.Grade > 5)
+                    return BadRequest();
+                else
+                    surveyService.ModifyGrade(question.Id, question.Grade);
 
-            foreach (SurveyCategoryDTO category in surveyDto.SurveyCategories)
-                foreach (SurveyQuestionDTO question in category.SurveyQuestions)
-                    if (question.Grade < 1 || question.Grade > 5)
-                        return BadRequest();
-
-
-            SurveyAdapter.DtoToSurvey(surveyDto, surveyService);
             return Ok();
         }
 
@@ -55,6 +47,25 @@ namespace Hospital_API.Controller
 
 
 
+
+        //[HttpPut("{id?}")]      
+        //public IActionResult SubmitSurvey(SurveyDTO surveyDto)
+        //{
+        //    Survey survey = surveyService.GetOneById(surveyDto.Id);
+        //    if (survey == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    foreach (SurveyCategoryDTO category in surveyDto.SurveyCategories)
+        //        foreach (SurveyQuestionDTO question in category.SurveyQuestions)
+        //            if (question.Grade < 1 || question.Grade > 5)
+        //                return BadRequest();
+
+
+        //    SurveyAdapter.DtoToSurvey(surveyDto, surveyService);
+        //    return Ok();
+        //}
 
         //[HttpPost("submit")]      
         //public IActionResult SubmitSurvey(SurveyDTO surveyDto)
