@@ -1,6 +1,7 @@
 ﻿using Hospital.Schedule.Model;
 using Hospital.Schedule.Repository;
 using Hospital.Shared_model.Interface;
+using Hospital.Shared_model.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,6 +21,11 @@ namespace Hospital.Schedule.Service
         public void Add(Survey entity)
         {
             this.surveyRepository.Add(entity);
+        }
+
+        public Survey GenerateSurveyForAppointment()
+        {
+            return surveyRepository.GenerateSurveyForAppointment();
         }
 
         public IEnumerable<Survey> GetAll()
@@ -65,7 +71,6 @@ namespace Hospital.Schedule.Service
             return surveyRepository.GetAllNotDoneByPatientId(patientId);
         }
 
-
         public Survey GetOneById(int id)
         {
             //Survey wantedSurvey = surveyRepository.GetById(id);
@@ -75,6 +80,10 @@ namespace Hospital.Schedule.Service
             return surveyRepository.GetById(id);
         }
 
+        public void ModifyGrade(int questionId, int newGrade)
+        {
+            surveyRepository.ModifyGrade(questionId, newGrade);
+        }
 
         public void Remove(Survey entity)
         {

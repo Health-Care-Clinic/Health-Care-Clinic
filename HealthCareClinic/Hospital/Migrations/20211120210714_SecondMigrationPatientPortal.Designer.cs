@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211120210714_SecondMigrationPatientPortal")]
+    partial class SecondMigrationPatientPortal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -574,7 +576,7 @@ namespace Hospital.Migrations
                             Id = 54,
                             Name = "Bandage",
                             Quantity = 17,
-                            RoomId = 69,
+                            RoomId = 79,
                             Type = 1
                         },
                         new
@@ -582,7 +584,7 @@ namespace Hospital.Migrations
                             Id = 55,
                             Name = "Blanket",
                             Quantity = 17,
-                            RoomId = 69,
+                            RoomId = 79,
                             Type = 0
                         });
                 });
