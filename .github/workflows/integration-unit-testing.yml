@@ -34,6 +34,9 @@ jobs:
       - name: Build
         if: env.DIFF_DETECTED == 'true'
         run: dotnet build $PROJECT --configuration $config --no-restore 
+      
+      - name: Setup RabbitMQ
+        uses: nijel/rabbitmq-action@v1.0.0
 
       - name: Test with dotnet
         if: env.DIFF_DETECTED == 'true'
