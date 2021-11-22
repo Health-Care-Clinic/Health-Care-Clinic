@@ -18,15 +18,11 @@ namespace Integration.Service
     {
         IConnection connection;
         IModel channel;
-        //private readonly IApiKeyRepository _apiKeyRepository;
         public IServiceProvider Services { get; }
-        //private readonly IntegrationDbContext _dbContext;
 
         public RabbitMQService(IServiceProvider services)
         {
             Services = services;
-            //_apiKeyRepository = apiKeyRepository;
-            //_dbContext = integrationDbContext;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
