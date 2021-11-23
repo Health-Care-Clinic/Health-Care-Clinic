@@ -9,7 +9,7 @@
         </ul>
     </div>
     <div style="padding-right: -100px;">
-        <svg width="1060" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg width="1030" height="430" style="border:1px solid black;background-color:#495869;margin-left:auto; margin-right:auto; display:block;"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <defs>
                 <filter  id="f2" x="0" y="0" width="200%" height="200%">
                   <feOffset result="offOut" in="SourceGraphic" dx="25" dy="25" />
@@ -47,17 +47,40 @@
             </g>
         </svg>        
     </div>
-    <div style="padding: 5px;">
-
-    </div>
-    <div style=" background-color:#495869; display:flex;flex-direction: column;justify-content: center; width: 10%;">
+    
+    <div style=" background-color:#495869; display:flex;flex-direction: column;justify-content: flex-start; width: 20%;">
         
         <b style="text-align: center;">Name:</b>
 
 
-        <input style="text-align: center;" type="text" id="nameHTML"  value=""/>
-        <button style="background-color: #BDD5EA;" (click)="change()" >Change</button>
-        
+        <div style="display:flex;flex-direction: row;justify-content: center;"><input style="text-align: center;width: 60%;" type="text" id="nameHTML"  value=""/></div>
+        <div style="display:flex;flex-direction: row;justify-content: center;"><button style="background-color: #BDD5EA;width: 60%;" (click)="change()" >Change</button></div>
+        <b style="text-align: center;">Search equipment:</b>
+        <div style="display:flex;flex-direction: row;justify-content: center;"><input style="text-align: center;width: 60%;" type="text" id="equipmentHTML"  value=""/></div>
+        <div style="display:flex;flex-direction: row;justify-content: center;"><button style="background-color: #BDD5EA;width: 60%;" (click)="findEquipment()" >Search</button></div>
+        <div class="tableFixHead">
+            <table *ngIf="equipments.length > 0" style=" background-color: #52DEE5; border: 1px solid black;width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid black;"><b>Name</b></th>
+                        <th style="border: 1px solid black;"><b>Quan.</b></th>
+                        <th style="border: 1px solid black;"><b>Room</b></th>
+                        <th style="border: 1px solid black;"><b>Floor</b></th>
+                        <th style="border: 1px solid black;"><b>Building &nbsp;</b></th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let item of equipments;let i = index;">
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{item.name}}</b></td>
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{item.quantity}}</b></td>
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{equipmentsRooms[i].name}}</b></td>
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{equipmentsFloors[i].name}}</b></td>
+                        <td (click)="goToRoom(item.roomId)" style="border: 1px solid black;"><b>{{equipmentsBuilding[i].name}}&nbsp;&nbsp;&nbsp;</b></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
     
 </div>  

@@ -1,6 +1,10 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Building, TypeOfBuilding } from 'src/app/model/building';
+import { Equipment } from 'src/app/model/equipment';
 import { Floor } from 'src/app/model/floor';
+import { Room } from 'src/app/model/room';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
 @Component({
@@ -15,12 +19,17 @@ export class HospitalMapComponent implements OnInit {
   floors: any;
   selectedBuilding: any;
   isHospital: boolean = false;
+  equipments: any;
+  equipmentsRooms: any;
+  equipmentsFloors: any;
+  equipmentsBuilding: any;
 
-  constructor(private hospitalMapService: HospitalMapService) {
+  constructor(private hospitalMapService: HospitalMapService,public router: Router) {
   }
   ngOnInit(): void {
     this.hospitalMapService.getBuildings().subscribe(buildingsFromBack => {
           this.buildings = buildingsFromBack;
+          this.equipments = new Array<Equipment>();
       });
   }
 
@@ -80,6 +89,43 @@ export class HospitalMapComponent implements OnInit {
     this.hospitalMapService.getFloorsByBuildingId(this.selectedBuilding).subscribe(floorsFromBack => {   
       this.floors = floorsFromBack;
     })
+  }
+
+  public findEquipment(){
+    var equipmentHTML = <HTMLInputElement>document.getElementById("equipmentHTML");
+    this.hospitalMapService.getEquipmentByName(equipmentHTML.value).subscribe(equipmentFromBack=>{
+      this.equipments = equipmentFromBack;
+      this.equipmentsRooms = new Array<Room>(this.equipments?.length);
+      this.equipmentsFloors = new Array<Floor>(this.equipments?.length);
+      this.equipmentsBuilding = new Array<Building>(this.equipments?.length);
+      for(let i=0;i<this.equipments.length;i++){
+        this.hospitalMapService.getRoomById(this.equipments[i].roomId).subscribe(roomFromBack =>{
+          this.equipmentsRooms[i] = roomFromBack;
+          this.hospitalMapService.getFloorById(roomFromBack.floorId).subscribe(floorFromBack=>{
+            this.equipmentsFloors[i] = floorFromBack;
+            this.hospitalMapService.getBuildingById(floorFromBack.buildingId).subscribe(buildingFromBack =>{
+              this.equipmentsBuilding[i] = buildingFromBack;
+              
+            
+          })
+          
+        })
+      })
+      }
+      
+
+    })
+  }
+  
+  public goToRoom(roomId:number){
+    this.hospitalMapService.getRoomById(roomId).subscribe(roomFromBack => {
+      this.hospitalMapService.getFloorById(roomFromBack.floorId).subscribe(floorFromBack =>{
+        this.hospitalMapService.getBuildingById(floorFromBack.buildingId).subscribe(buildingFromBack =>{
+          this.router.navigate(['/floor', buildingFromBack.id, floorFromBack.id,roomFromBack.id]);
+        })
+      })
+    })
+    
   }
 }
 

@@ -233,6 +233,472 @@ namespace Hospital.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Equipment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Equipments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Bed",
+                            Quantity = 5,
+                            RoomId = 1,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Needle",
+                            Quantity = 25,
+                            RoomId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "TV",
+                            Quantity = 1,
+                            RoomId = 1,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Bandage",
+                            Quantity = 10,
+                            RoomId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Blanket",
+                            Quantity = 5,
+                            RoomId = 1,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Bed",
+                            Quantity = 2,
+                            RoomId = 2,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Needle",
+                            Quantity = 3,
+                            RoomId = 2,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "TV",
+                            Quantity = 3,
+                            RoomId = 4,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Bandage",
+                            Quantity = 5,
+                            RoomId = 4,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Blanket",
+                            Quantity = 2,
+                            RoomId = 4,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Bed",
+                            Quantity = 25,
+                            RoomId = 8,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Needle",
+                            Quantity = 3,
+                            RoomId = 9,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "TV",
+                            Quantity = 4,
+                            RoomId = 9,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Bandage",
+                            Quantity = 6,
+                            RoomId = 11,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Blanket",
+                            Quantity = 5,
+                            RoomId = 11,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Bed",
+                            Quantity = 26,
+                            RoomId = 15,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Needle",
+                            Quantity = 23,
+                            RoomId = 17,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "TV",
+                            Quantity = 1,
+                            RoomId = 17,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Bandage",
+                            Quantity = 120,
+                            RoomId = 17,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Blanket",
+                            Quantity = 52,
+                            RoomId = 18,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Bed",
+                            Quantity = 1,
+                            RoomId = 20,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "Needle",
+                            Quantity = 1,
+                            RoomId = 22,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "TV",
+                            Quantity = 1,
+                            RoomId = 22,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "Bandage",
+                            Quantity = 1,
+                            RoomId = 23,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Name = "Blanket",
+                            Quantity = 1,
+                            RoomId = 23,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Name = "Bed",
+                            Quantity = 3,
+                            RoomId = 26,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Name = "Needle",
+                            Quantity = 2,
+                            RoomId = 26,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Name = "TV",
+                            Quantity = 2,
+                            RoomId = 29,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Name = "Bandage",
+                            Quantity = 4,
+                            RoomId = 30,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Name = "Blanket",
+                            Quantity = 4,
+                            RoomId = 30,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Name = "Bed",
+                            Quantity = 7,
+                            RoomId = 36,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Name = "Needle",
+                            Quantity = 4,
+                            RoomId = 36,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Name = "TV",
+                            Quantity = 3,
+                            RoomId = 40,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Name = "Bandage",
+                            Quantity = 1,
+                            RoomId = 40,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Name = "Blanket",
+                            Quantity = 9,
+                            RoomId = 40,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Name = "Bed",
+                            Quantity = 9,
+                            RoomId = 43,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Name = "Needle",
+                            Quantity = 9,
+                            RoomId = 43,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Name = "TV",
+                            Quantity = 3,
+                            RoomId = 45,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Name = "Bandage",
+                            Quantity = 9,
+                            RoomId = 47,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Name = "Blanket",
+                            Quantity = 9,
+                            RoomId = 47,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Name = "Bed",
+                            Quantity = 7,
+                            RoomId = 50,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Name = "Needle",
+                            Quantity = 4,
+                            RoomId = 51,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Name = "TV",
+                            Quantity = 1,
+                            RoomId = 52,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Name = "Bandage",
+                            Quantity = 11,
+                            RoomId = 55,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Name = "Blanket",
+                            Quantity = 15,
+                            RoomId = 55,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Name = "Bed",
+                            Quantity = 13,
+                            RoomId = 60,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Name = "Needle",
+                            Quantity = 13,
+                            RoomId = 60,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Name = "TV",
+                            Quantity = 2,
+                            RoomId = 62,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Name = "Bandage",
+                            Quantity = 13,
+                            RoomId = 62,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Name = "Blanket",
+                            Quantity = 13,
+                            RoomId = 65,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Name = "Bed",
+                            Quantity = 17,
+                            RoomId = 65,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Name = "Needle",
+                            Quantity = 17,
+                            RoomId = 66,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Name = "TV",
+                            Quantity = 2,
+                            RoomId = 68,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 54,
+                            Name = "Bandage",
+                            Quantity = 17,
+                            RoomId = 79,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Name = "Blanket",
+                            Quantity = 17,
+                            RoomId = 79,
+                            Type = 0
+                        });
+                });
+
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Floor", b =>
                 {
                     b.Property<int>("Id")

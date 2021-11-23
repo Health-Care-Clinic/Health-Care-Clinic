@@ -21,7 +21,7 @@
         </g>
 
     </svg>
-    <div style="background-color:#aa8777; display:flex; flex-direction: column;justify-content: center; width: 20%;" *ngIf="selectedRoom">
+    <div style="background-color:#aa8777; display:flex; flex-direction: column;justify-content: row; width: 20%;" *ngIf="selectedRoom">
        
 
         <br>
@@ -44,6 +44,33 @@
             <b *ngIf="!changeSelected">{{selectedRoom.description}}</b>
             <input *ngIf="changeSelected" value="{{selectedRoom.description}}" id="roomDescriptionHTML"/>
         </div>
+        <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
+            <button style="background-color: rgb(255, 255, 110);" (click)="changeRoom()">Change informations</button>
+            <br>
+            <button style="background-color: green;" (click)="editRoom()" *ngIf="changeSelected">Accept</button>
+        </div>
+        
+        <b ><h3 style="text-align: center;">Equipments</h3></b>
+        <div class="tableFixHead">
+            <table style="text-align: center; background-color: #52DEE5; border: 1px solid black;">
+                <thead>
+                    <tr>
+                        <th style="border: 1px solid black;"><b>Name</b></th>
+                        <th style="border: 1px solid black;"><b>Quantity</b></th>
+                        <th style="border: 1px solid black;"><b>Type</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of equipments">
+                        <td style="border: 1px solid black;"><b>{{item.name}}</b></td>
+                        <td style="border: 1px solid black;"><b>{{item.quantity}}</b></td>
+                        <td *ngIf="item.type==0" style="border: 1px solid black;"><b>Static</b></td>
+                        <td *ngIf="item.type==1" style="border: 1px solid black;"><b>Dynamic</b></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
         
         <!--<br>
          <div *ngIf="!wcSelected" style="width: 100%; margin-left: 20px; margin-right: 20px;">
@@ -60,11 +87,7 @@
         </div>
         
         <br> -->
-        <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
-            <button style="background-color: rgb(255, 255, 110);" (click)="changeRoom()">Change informations</button>
-            <br>
-            <button style="background-color: green;" (click)="editRoom()" *ngIf="changeSelected">Accept</button>
-        </div>
+       
 
     </div>
        

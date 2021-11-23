@@ -14,7 +14,9 @@ const routes: Routes = [
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
   { path: 'hospital-map', component: HospitalMapComponent },
-  { path: 'urgent-procurement', component: UrgentProcurementComponent }
+  { path: 'floor/:idb/:idf/:idr', component: FloorComponent },
+  { path: 'urgent-procurement', component: UrgentProcurementComponent },
+  { path: 'hospital-map', component: HospitalMapComponent }
 ];
 
 @NgModule({

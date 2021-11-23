@@ -17,6 +17,7 @@ export class FloorComponent implements OnInit {
   floors: any;
   floor: any;
   idfString: string
+  idrString: string
   navigationSubscription;
   selectedBuilding: number;
   selectedFloor: any;
@@ -24,6 +25,7 @@ export class FloorComponent implements OnInit {
   wcSelected: any;
   changeSelected: any;
   rooms: any;
+  equipments: any;
 
   constructor(private _route: ActivatedRoute, private hospitalMapService: HospitalMapService, private router: Router) {
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -38,7 +40,9 @@ export class FloorComponent implements OnInit {
     this.hospitalMapService.getBuildingById(idb).subscribe(buildingFromBack => {
       this.building = buildingFromBack
       this.idfString = this._route.snapshot.paramMap.get('idf');
+      this.idrString = this._route.snapshot.paramMap.get('idr');
       let idf = +this.idfString;
+      let idr = +this.idrString;
       this.hospitalMapService.getFloorsByBuildingId(this.building.id).subscribe(floorsFromBack => {
           this.floors = floorsFromBack ;
           for (let floor of this.floors){
@@ -46,6 +50,9 @@ export class FloorComponent implements OnInit {
               this.floor = floor;
               this.hospitalMapService.getRoomsByFloorId(this.floor.id).subscribe(roomsFromBack =>{
                 this.rooms = roomsFromBack;
+                if (idr != null){
+                  this.selectRoom(idr);
+                }
               });
             }
           }
@@ -59,7 +66,9 @@ export class FloorComponent implements OnInit {
     this.hospitalMapService.getBuildingById(idb).subscribe(buildingFromBack => {
       this.building = buildingFromBack
       this.idfString = this._route.snapshot.paramMap.get('idf');
+      this.idrString = this._route.snapshot.paramMap.get('idr');
       let idf = +this.idfString;
+      let idr = +this.idrString;
       this.hospitalMapService.getFloorsByBuildingId(this.building.id).subscribe(floorsFromBack => {
           this.floors = floorsFromBack ;
           for (let floor of this.floors){
@@ -67,6 +76,9 @@ export class FloorComponent implements OnInit {
               this.floor = floor;
               this.hospitalMapService.getRoomsByFloorId(this.floor.id).subscribe(roomsFromBack =>{
                 this.rooms = roomsFromBack;
+                if (idr != null){
+                  this.selectRoom(idr);
+                }
               });
             }
           }
@@ -101,15 +113,23 @@ export class FloorComponent implements OnInit {
               this.wcSelected = false;
             }
             selectedRoomHTML.style["fill"] = "rgb(193, 73, 83)";
+           
             } 
             else {
             
             var unselectedRoomHTML = document.getElementById(room.id.toString());
             if (unselectedRoomHTML!= null){
             unselectedRoomHTML.style["fill"] = "#52DEE5";
+             
             }
+
           }
         }
+        this.hospitalMapService.getEquipmentByRoomId(this.selectedRoom.id).subscribe(equipmentFromBack =>{
+          this.equipments = equipmentFromBack;
+          selectedRoomHTML = document.getElementById(this.selectedRoom.id.toString());
+          selectedRoomHTML.style["fill"] = "rgb(193, 73, 83)";
+        })
   }
 
   public changeRoom(){
