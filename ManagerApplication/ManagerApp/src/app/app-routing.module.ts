@@ -5,6 +5,7 @@ import { PharmacyRegistrationComponent } from './registration/pharmacy-registrat
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HospitalMapComponent } from './component/hospital-map/hospital-map.component';
 import { FloorComponent } from './component/hospital-map/floor.component';
+import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'feedback-view', component: FeedbackViewComponent},
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
-  { path: 'hospital-map', component: HospitalMapComponent }
+  { path: 'hospital-map', component: HospitalMapComponent },
+  { path: 'urgent-procurement', component: UrgentProcurementComponent }
 ];
 
 @NgModule({
