@@ -31,8 +31,6 @@ namespace Hospital.Mapper
 
         public DbSet<AllergenForPatient> AllergenForPatients { get; set; }
 
-        public DbSet<Allergen> Allergens { get; set; }
-
         public DbSet<Equipment> Equipments { get; set; }
 
         public DbSet<Doctor> Doctors { get; set; }
