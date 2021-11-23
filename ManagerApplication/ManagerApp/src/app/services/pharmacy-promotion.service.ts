@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import { IPromotion } from '../model/promotion';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PharmacyPromotionService {
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
 
+  
+
+  getAllPromotions(): Observable<IPromotion[]> {
+    return this._http.get<IPromotion[]>("http://localhost:65508/hospital/pharmacypromotion");
+  }
+
+  
+  /*
   getPostedPharmacyPromotions(): IPromotion[]{
     let promotions :IPromotion[] = this.getAllPharmacyPromotions();
     let postedPromotions :IPromotion[] = [];
     for(let p of promotions){
-      if(p.Posted){
+      if(p.posted){
         postedPromotions.push(p);
       }
     }
@@ -23,71 +33,71 @@ export class PharmacyPromotionService {
     let date = new Date();
     return [
       {
-        "Id": 0,
-        "Title": "Promotion 1",
-        "Content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "StartDate": date,
-        "EndDate": date,
-        "Posted": true
+        "id": 0,
+        "title": "Promotion 1",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "startDate": date,
+        "endDate": date,
+        "posted": true
       },
       {
-        "Id": 1,
-        "Title": "Promotion 2",
-        "Content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "StartDate": date,
-        "EndDate": date,
-        "Posted": false
+        "id": 1,
+        "title": "Promotion 2",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "startDate": date,
+        "endDate": date,
+        "posted": false
       },
       {
-        "Id": 2,
-        "Title": "Promotion 3",
-        "Content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "StartDate": date,
-        "EndDate": date,
-        "Posted": false
+        "id": 2,
+        "title": "Promotion 3",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "startDate": date,
+        "endDate": date,
+        "posted": false
       },
       {
-        "Id": 3,
-        "Title": "Promotion 4",
-        "Content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "StartDate": date,
-        "EndDate": date,
-        "Posted": true
+        "id": 3,
+        "title": "Promotion 4",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "startDate": date,
+        "endDate": date,
+        "posted": true
       },
       {
-        "Id": 4,
-        "Title": "Promotion 5",
-        "Content": "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "StartDate": date,
-        "EndDate": date,
-        "Posted": true
+        "id": 4,
+        "title": "Promotion 5",
+        "content": "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "startDate": date,
+        "endDate": date,
+        "posted": true
       },
       {
-        "Id": 5,
-        "Title": "Promotion 6",
-        "Content": "Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "StartDate": date,
-        "EndDate": date,
-        "Posted": true
+        "id": 5,
+        "title": "Promotion 6",
+        "content": "Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "startDate": date,
+        "endDate": date,
+        "posted": true
       },
       {
-        "Id": 6,
-        "Title": "Promotion 7",
-        "Content": "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "StartDate": date,
-        "EndDate": date,
-        "Posted": false
+        "id": 6,
+        "title": "Promotion 7",
+        "content": "Dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "startDate": date,
+        "endDate": date,
+        "posted": false
       },
       {
-        "Id": 7,
-        "Title": "Promotion 8",
-        "Content": "Asit amet, consectetur adipiscing elitpsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "StartDate": date,
-        "EndDate": date,
-        "Posted": true
+        "id": 7,
+        "title": "Promotion 8",
+        "content": "Asit amet, consectetur adipiscing elitpsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "startDate": date,
+        "endDate": date,
+        "posted": true
       }
     ]
-  }
+  }*/
 
   
 

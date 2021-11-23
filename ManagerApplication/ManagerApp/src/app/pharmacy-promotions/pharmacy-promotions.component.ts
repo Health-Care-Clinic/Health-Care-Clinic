@@ -12,10 +12,14 @@ export class PharmacyPromotionsComponent implements OnInit {
 
   
   promotions : IPromotion[] = [];
-  constructor(private _promotionService : PharmacyPromotionService) { }
+  constructor(private _promotionService : PharmacyPromotionService) { 
+    
+  }
 
   ngOnInit(): void {
-    this.promotions = this._promotionService.getAllPharmacyPromotions();
+    this._promotionService.getAllPromotions().subscribe(
+      promotions => this.promotions = promotions
+      );
   }
 
   isExpired(end: Date): boolean {

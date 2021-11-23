@@ -42,8 +42,9 @@ export class LandingPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.refreshFeedback();
-    this.promotions = this._promotionService.getPostedPharmacyPromotions()
+    this.refreshFeedback();
+    this.refreshPromotion();
+    //this.promotions = this._promotionService.getPostedPharmacyPromotions()
   }
 
   openFeedbackDialog(feedback: any): void {
@@ -55,4 +56,17 @@ export class LandingPageComponent implements OnInit {
         .subscribe(feedbacks => this.feedbacks = feedbacks,
                     error => this.errorMessage = <any>error);     
   }
+
+  
+  refreshPromotion() {
+    this._promotionService.getAllPromotions().subscribe(promotions => {
+      let allPromotions :IPromotion[] = promotions;
+      for(let p of allPromotions){
+        if(p.posted){
+          this.promotions.push(p);
+        }
+      }
+    });     
+  }
+  
 }

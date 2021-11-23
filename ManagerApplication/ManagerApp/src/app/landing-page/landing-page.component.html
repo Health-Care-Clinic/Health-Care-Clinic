@@ -113,13 +113,13 @@
             <div class="carousel-cell" *ngFor="let promotion of promotions">
                 <mat-card class="promotion-card">
                     <mat-card-title>
-                        {{promotion.Title}}
+                        {{promotion.title}}
                     </mat-card-title>
                     <mat-card-subtitle>
-                        {{promotion.StartDate | date : 'dd.MM.yyyy.'}} - {{promotion.EndDate | date : 'dd.MM.yyyy.'}}
+                        {{promotion.startDate | date : 'dd.MM.yyyy.'}} - {{promotion.endDate | date : 'dd.MM.yyyy.'}}
                     </mat-card-subtitle>
                     <mat-card-content>
-                        {{promotion.Content}}
+                        {{promotion.content}}
                     </mat-card-content>
                 </mat-card>
             </div>
