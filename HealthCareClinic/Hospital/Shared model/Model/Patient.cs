@@ -16,7 +16,7 @@ namespace Hospital.Shared_model.Model
         public bool IsBlocked { get; set; }
         public bool IsActive { get; set; }
         // Promenjeno iz List<string> u List<Allergen>.
-        public virtual ICollection<Allergen> Alergies { get; set; }
+        public virtual ICollection<AllergenForPatient> Allergens { get; set; }
         public string BloodType { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -36,7 +36,7 @@ namespace Hospital.Shared_model.Model
         public Patient()
         { }
 
-        public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, string address, string phone, string email, string username, string password, String ParentName, List<Allergen> alergies, string employmentStatus,bool isActive)
+        public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, string address, string phone, string email, string username, string password, String ParentName, List<AllergenForPatient> alergies, string employmentStatus,bool isActive)
         {
             this.Id = id;
             this.Name = name;
@@ -50,12 +50,12 @@ namespace Hospital.Shared_model.Model
             this.Email = email;
             this.Username = username;
             this.Password = password;
-            this.Alergies = alergies;
+            this.Allergens = alergies;
             this.EmploymentStatus = employmentStatus;
             this.IsActive = isActive;
             this.IsBlocked = false;
         }
-        public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, string address, string phone, string email, string username, string password, String ParentName, List<Allergen> alergies, string employmentStatus,Doctor doctor)
+        public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, string address, string phone, string email, string username, string password, String ParentName, List<AllergenForPatient> alergies, string employmentStatus,Doctor doctor)
         {
             this.Id = id;
             this.Name = name;
@@ -69,7 +69,7 @@ namespace Hospital.Shared_model.Model
             this.Email = email;
             this.Username = username;
             this.Password = password;
-            this.Alergies = alergies;
+            this.Allergens = alergies;
             this.EmploymentStatus = employmentStatus;
             this.IsActive = false;
             this.IsBlocked = false;

@@ -1917,12 +1917,7 @@ namespace Hospital.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("Allergens");
 
@@ -1930,63 +1925,69 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Polen ambrozije",
-                            PatientId = 1
+                            Name = "Polen ambrozije"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Ibuprofen",
-                            PatientId = 4
+                            Name = "Ibuprofen"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Aspirin",
-                            PatientId = 5
+                            Name = "Aspirin"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Penicilin",
-                            PatientId = 2
+                            Name = "Penicilin"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Mačija dlaka",
-                            PatientId = 4
+                            Name = "Mačija dlaka"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Lateks",
-                            PatientId = 1
+                            Name = "Lateks"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Kikiriki",
-                            PatientId = 2
+                            Name = "Kikiriki"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Kravlje mleko",
-                            PatientId = 3
+                            Name = "Kravlje mleko"
                         },
                         new
                         {
                             Id = 9,
-                            Name = "Jaja",
-                            PatientId = 3
+                            Name = "Jaja"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Školjke",
-                            PatientId = 1
+                            Name = "Školjke"
                         });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.AllergenForPatient", b =>
+                {
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AllergenId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("PatientId", "AllergenId");
+
+                    b.ToTable("AllergenForPatients");
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
@@ -2524,15 +2525,13 @@ namespace Hospital.Migrations
                     b.Navigation("SurveyCategory");
                 });
 
-            modelBuilder.Entity("Hospital.Shared_model.Model.Allergen", b =>
+            modelBuilder.Entity("Hospital.Shared_model.Model.AllergenForPatient", b =>
                 {
-                    b.HasOne("Hospital.Shared_model.Model.Patient", "Patient")
-                        .WithMany("Alergies")
+                    b.HasOne("Hospital.Shared_model.Model.Patient", null)
+                        .WithMany("Allergens")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
@@ -2599,7 +2598,7 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Patient", b =>
                 {
-                    b.Navigation("Alergies");
+                    b.Navigation("Allergens");
                 });
 #pragma warning restore 612, 618
         }

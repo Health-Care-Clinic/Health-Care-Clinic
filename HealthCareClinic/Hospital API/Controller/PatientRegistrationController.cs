@@ -37,12 +37,12 @@ namespace Hospital_API.Controller
             return Ok(result);
         }
 
-        [HttpGet("getAllAllergens")]       // GET /api/allergen
+        [HttpGet("getAllAllergens")]       // GET /api/getAllAllergens
         public IActionResult GetAllAllergens()
         {
             List<Allergen> result = (List<Allergen>) _allergenService.GetAll();
 
-            return Ok(AllergenAdapter.AllergenToDto(result));
+            return Ok(AllergenAdapter.AllergenListToDtoList(result));
         }
 
         [HttpPost("submitPatientRegistrationRequest")]
@@ -55,5 +55,12 @@ namespace Hospital_API.Controller
             
             return Ok();
         }
+        //[HttpGet("getAllPatients")]       
+        //public IActionResult GetAllPatients()
+        //{
+        //    List<Patient> result = (List<Patient>)_patientService.GetAll();
+
+        //    return Ok(PatientAdapter.PatientsToPatientDTOs(result));
+        //}
     }
 }

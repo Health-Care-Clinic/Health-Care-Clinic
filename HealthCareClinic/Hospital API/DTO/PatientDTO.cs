@@ -22,7 +22,7 @@ namespace Hospital_API.DTO
         public String Username { get; set; }
         public String Password { get; set; }
         public DoctorDTO DoctorDTO { get; set; }
-        public ICollection<Allergen> Alergies { get; set; }
+        public ICollection<AllergenDTO> Allergens { get; set; }
         public String DateOfRegistration { get; set; }
         public bool IsBlocked { get; set; }
         public bool IsActive { get; set; }
@@ -30,7 +30,7 @@ namespace Hospital_API.DTO
 
         public PatientDTO() {}
 
-        public PatientDTO(int id, String name, String surname, String birthDate, String parentName, String address, String phone, String employmentStatus, String bloodType, String gender, String email, String username, String password, DoctorDTO doctorDTO, ICollection<Allergen> alergies, String dateOfRegistration, bool isBlocked, bool isActive)
+        public PatientDTO(int id, String name, String surname, String birthDate, String parentName, String address, String phone, String employmentStatus, String bloodType, String gender, String email, String username, String password, DoctorDTO doctorDTO, ICollection<AllergenDTO> alergies, String dateOfRegistration, bool isBlocked, bool isActive)
         {
             Id = id;
             Name = name;
@@ -46,7 +46,7 @@ namespace Hospital_API.DTO
             Username = username;
             Password = password;
             DoctorDTO = doctorDTO;
-            Alergies = alergies;
+            Allergens = alergies;
             DateOfRegistration = dateOfRegistration;
             IsBlocked = isBlocked;
             IsActive = isActive;

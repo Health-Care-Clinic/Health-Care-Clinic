@@ -28,7 +28,7 @@ namespace Hospital_API.Controller
         {
             List<Allergen> result = (List<Allergen>) _allergenService.GetAll();
 
-            return Ok(AllergenAdapter.AllergenToDto(result));
+            return Ok(AllergenAdapter.AllergenListToDtoList(result));
         }
     }
 }

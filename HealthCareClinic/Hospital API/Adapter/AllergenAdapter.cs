@@ -1,7 +1,9 @@
-﻿using Hospital.Medical_records.Service;
+﻿using Hospital.Mapper;
+using Hospital.Medical_records.Service;
 using Hospital.Schedule.Model;
 using Hospital.Schedule.Service;
 using Hospital.Shared_model.Model;
+using Hospital.Shared_model.Repository;
 using Hospital_API.DTO;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ namespace Hospital_API.Adapter
 {
     public class AllergenAdapter
     {
-        public static List<AllergenDTO> AllergenToDto(List<Allergen> allergens)
+        public static List<AllergenDTO> AllergenListToDtoList(List<Allergen> allergens)
         {
             List<AllergenDTO> dtoList = new List<AllergenDTO>();
 
@@ -21,7 +23,6 @@ namespace Hospital_API.Adapter
                 AllergenDTO dto = new AllergenDTO();
                 dto.Id = a.Id;
                 dto.Name = a.Name;
-                dto.PatientId = a.PatientId;
                 dtoList.Add(dto);
             }
             
@@ -29,21 +30,67 @@ namespace Hospital_API.Adapter
             return dtoList;
         }
 
-        public static List<Allergen> AllergenDTOToAllergen(List<AllergenDTO> allergenDTOs)
+        //public static List<Allergen> AllergenDTOToAllergen(List<AllergenDTO> allergenDTOs)
+        //{
+        //    List<Allergen> allergens = new List<Allergen>();
+
+        //    foreach (AllergenDTO a in allergenDTOs)
+        //    {
+        //        Allergen al = new Allergen();
+        //        al.Id = a.Id;
+        //        al.Name = a.Name;
+        //        allergens.Add(al);
+        //    }
+
+        //    return allergens;
+        //}
+
+        public static Allergen AllergenDTOToAllergen(AllergenDTO dto)
         {
-            List<Allergen> allergens = new List<Allergen>();
+            Allergen al = new Allergen();
+            al.Id = dto.Id;
+            al.Name = dto.Name;
 
-            foreach (AllergenDTO a in allergenDTOs)
-            {
-                Allergen al = new Allergen();
-                al.Id = a.Id;
-                al.Name = a.Name;
-                al.PatientId = a.PatientId;
-                allergens.Add(al);
-            }
-
-            return allergens;
+            return al;         
         }
 
+        public static AllergenDTO AllergenToAllergenDTO(Allergen a)
+        {
+            AllergenDTO dto = new AllergenDTO();
+            dto.Id = a.Id;
+            dto.Name = a.Name;
+
+            return dto;
+        }
+
+        public static ICollection<AllergenForPatient> AllergenDTOListToAllergenForPatientList(ICollection<AllergenDTO> allergens, int patientId)
+        {
+            ICollection<AllergenForPatient> AllergensForPatient = new List<AllergenForPatient>();
+
+            if (allergens != null)
+                foreach (AllergenDTO allergenDTO in allergens)
+                {
+                    AllergenForPatient al = new AllergenForPatient(allergenDTO.Id, patientId, allergenDTO.Name);
+                    AllergensForPatient.Add(al);
+                }
+
+            return AllergensForPatient;
+        }
+
+        public static ICollection<AllergenDTO> AllergenForPatientListToAllergenDTOList(ICollection<AllergenForPatient> AllergensForPatient)
+        {
+            ICollection<AllergenDTO> AllergensDTO = new List<AllergenDTO>();
+
+            if (AllergensForPatient != null)
+                foreach (AllergenForPatient afp in AllergensForPatient)
+                {
+                    AllergenDTO allergenDTO = new AllergenDTO();
+                    allergenDTO.Name = afp.Name;
+                    allergenDTO.Id = afp.AllergenId;
+                    AllergensDTO.Add(allergenDTO);
+                }
+
+            return AllergensDTO;
+        }
     }
 }

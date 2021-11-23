@@ -2,8 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Doctor } from '../registration-form/doctor';
-import { Allergen } from '../registration-form/allergen';
-import { Patient } from './ipatient';
+import { IAllergen } from '../registration-form/allergen';
+import { IPatient } from './ipatient';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
@@ -28,13 +28,13 @@ export class PatientService {
                          .catch(this.handleError);
   }
 
-  getAllAllergens(): Observable<Allergen[]> {
-    return this._http.get<Allergen[]>(this._getAllAllergens)
+  getAllAllergens(): Observable<IAllergen[]> {
+    return this._http.get<IAllergen[]>(this._getAllAllergens)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
-  submitRequest(patient:Patient): Observable<any> {
+  submitRequest(patient:IPatient): Observable<any> {
 
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(patient);

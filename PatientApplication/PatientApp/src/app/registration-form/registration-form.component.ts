@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Patient } from '../patient/ipatient';
+import { IPatient } from '../patient/ipatient';
 import { Doctor } from './doctor';
-import { Allergen } from './allergen';
+import { IAllergen } from './allergen';
 import { PatientService } from '../patient/patient.service';
 
 interface EmploymentStatus {
@@ -24,7 +24,26 @@ interface BloodType {
 export class RegistrationFormComponent implements OnInit {
   
   emailControl: FormControl = new FormControl('', [Validators.required, Validators.email]);
-  patientModel: Patient = new Patient();
+  patientModel: IPatient = {
+    id: 0,
+    name: "",
+    surname: "",
+    birthDate: new Date(),
+    parentName: "",
+    address: "",
+    phone:  "",
+    employmentStatus: "",
+    bloodType: "",
+    gender: "",
+    email:  "",
+    username:  "",
+    password: "",
+    doctorDTO: {id: 0, name: "", surname: ""},
+    allergens: [ ],
+    dateOfRegistration:  new Date(),
+    isBlocked: false,
+    isActive: false
+  }
   employmentStatuses: EmploymentStatus[] = [
     {value: 'student-0', viewValue: 'Student'},
     {value: 'employed-1', viewValue: 'Employed'},
@@ -38,7 +57,7 @@ export class RegistrationFormComponent implements OnInit {
     {value: 'AB-3', viewValue: 'AB'}
   ];
   doctors: Doctor[] = [];
-  allergens: Allergen[] = [];
+  allergens: IAllergen[] = [];
   errorMessage : string  = '';
   
   
@@ -79,7 +98,6 @@ export class RegistrationFormComponent implements OnInit {
 
     console.log(this.patientModel);
     window.alert('Registration request successfully submited!');
-    this.patientModel = new Patient();
   }
 
 }

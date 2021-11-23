@@ -101,7 +101,7 @@
           </mat-step>
           <mat-step label="Medical info">
             <mat-label for="allergens">List of your allergens</mat-label>
-                <mat-selection-list name="allergens" [(ngModel)]="patientModel.alergies" multiple>
+                <mat-selection-list name="allergens" [(ngModel)]="patientModel.allergens" multiple>
                   <mat-list-option checkboxPosition="before" *ngFor="let allergen of allergens" [value]="allergen">
                       {{ allergen.name }}
                   </mat-list-option>

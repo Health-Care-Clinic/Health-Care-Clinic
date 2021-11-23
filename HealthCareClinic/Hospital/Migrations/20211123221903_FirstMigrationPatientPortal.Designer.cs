@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20211122234430_ThirdMigrationPatientPortal")]
-    partial class ThirdMigrationPatientPortal
+    [Migration("20211123221903_FirstMigrationPatientPortal")]
+    partial class FirstMigrationPatientPortal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1919,12 +1919,7 @@ namespace Hospital.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("Allergens");
 
@@ -1979,6 +1974,22 @@ namespace Hospital.Migrations
                             Id = 10,
                             Name = "Školjke"
                         });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.AllergenForPatient", b =>
+                {
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AllergenId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("PatientId", "AllergenId");
+
+                    b.ToTable("AllergenForPatients");
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
@@ -2516,11 +2527,13 @@ namespace Hospital.Migrations
                     b.Navigation("SurveyCategory");
                 });
 
-            modelBuilder.Entity("Hospital.Shared_model.Model.Allergen", b =>
+            modelBuilder.Entity("Hospital.Shared_model.Model.AllergenForPatient", b =>
                 {
                     b.HasOne("Hospital.Shared_model.Model.Patient", null)
-                        .WithMany("Alergies")
-                        .HasForeignKey("PatientId");
+                        .WithMany("Allergens")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
@@ -2587,7 +2600,7 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Patient", b =>
                 {
-                    b.Navigation("Alergies");
+                    b.Navigation("Allergens");
                 });
 #pragma warning restore 612, 618
         }

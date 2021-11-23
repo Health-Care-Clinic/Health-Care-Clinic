@@ -9,8 +9,6 @@ namespace Hospital_API.DTO
     {
         public int Id { get; set; }
         public String Name { get; set; }
-        public int PatientId { get; set; }
-
         public AllergenDTO()
         {
         }
