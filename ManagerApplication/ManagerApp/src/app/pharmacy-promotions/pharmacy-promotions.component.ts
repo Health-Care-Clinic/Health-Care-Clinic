@@ -26,5 +26,15 @@ export class PharmacyPromotionsComponent implements OnInit {
     return end < new Date();
   }
 
+  publishPromotion(id: number){
+    this._promotionService.publishPromotion(id).subscribe(res => {
+      for(let p of this.promotions){
+        if(p.id === id){
+          p.posted = true;
+        }
+      }
+    });
+  }
+
 
 }
