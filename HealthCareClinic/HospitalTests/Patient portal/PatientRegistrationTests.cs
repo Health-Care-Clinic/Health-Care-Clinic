@@ -28,12 +28,15 @@ namespace HospitalTests.Patient_portal
             using (var context = new HospitalDbContext(options))
             {
                 DoctorRepository doctorRepository = new DoctorRepository(context);
-                DoctorService _doctorService = new DoctorService(doctorRepository);
+                DoctorService doctorService = new DoctorService(doctorRepository);
 
                 AllergenRepository allergenRepository = new AllergenRepository(context);
                 AllergenService alergenService = new AllergenService(allergenRepository);
 
-                PatientRegistrationController patientController = new PatientRegistrationController(alergenService, _doctorService);
+                PatientRepository patientRepository = new PatientRepository(context);
+                PatientService patientService = new PatientService(patientRepository);
+
+                PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
                 OkObjectResult a = patientController.GetAvailableDoctors() as OkObjectResult;
                 List<DoctorDTO> doctors = a.Value as List<DoctorDTO>;

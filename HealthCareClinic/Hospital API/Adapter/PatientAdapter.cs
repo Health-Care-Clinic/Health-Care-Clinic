@@ -30,7 +30,8 @@ namespace Hospital_API.Adapter
             patient.Alergies = dto.Alergies;
             patient.BloodType = dto.BloodType;
             patient.IsBlocked = dto.IsBlocked;
-            patient.Doctor = DoctorAdapter.DoctorDTOToDoctor(dto.DoctorDTO);
+
+            //patient.Doctor = DoctorAdapter.DoctorDTOToDoctor(dto.DoctorDTO);
 
             return patient;
         }

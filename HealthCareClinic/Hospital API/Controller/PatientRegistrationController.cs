@@ -17,13 +17,15 @@ namespace Hospital_API.Controller
     [ApiController]
     public class PatientRegistrationController : ControllerBase
     {
+        private IPatientService _patientService;
         private IAllergenService _allergenService;
         private IDoctorService _doctorService;
 
-        public PatientRegistrationController(IAllergenService allergenService,IDoctorService doctorService)
+        public PatientRegistrationController(IAllergenService allergenService,IDoctorService doctorService,IPatientService patientService)
         {
             this._allergenService = allergenService;
             this._doctorService = doctorService;
+            this._patientService = patientService;
         }
 
 
@@ -40,20 +42,17 @@ namespace Hospital_API.Controller
         {
             List<Allergen> result = (List<Allergen>) _allergenService.GetAll();
 
-            return Ok(result);
+            return Ok(AllergenAdapter.AllergenToDto(result));
         }
 
         [HttpPost("submitPatientRegistrationRequest")]
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {
-            if (patientDTO.Id < 0)
-            {
-                return BadRequest();
-            }
 
-            //Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
-            //patientService.Add(newPatient);
-
+            Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
+            newPatient.Doctor = _doctorService.GetOneById(patientDTO.DoctorDTO.Id);
+            _patientService.Add(newPatient);
+            
             return Ok();
         }
     }

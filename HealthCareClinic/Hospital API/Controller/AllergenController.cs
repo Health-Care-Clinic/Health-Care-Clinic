@@ -2,6 +2,7 @@
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
+using Hospital_API.Adapter;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,10 +18,9 @@ namespace Hospital_API.Controller
     {
         private readonly IAllergenService _allergenService;
 
-        public AllergenController(HospitalDbContext context)
+        public AllergenController(IAllergenService allergenService)
         {
-            AllergenRepository allergenRepository = new AllergenRepository(context);
-            _allergenService = new AllergenService(allergenRepository);
+            _allergenService = allergenService;
         }
 
         [HttpGet]       // GET /api/allergen
@@ -28,7 +28,7 @@ namespace Hospital_API.Controller
         {
             List<Allergen> result = (List<Allergen>) _allergenService.GetAll();
 
-            return Ok(result);
+            return Ok(AllergenAdapter.AllergenToDto(result));
         }
     }
 }

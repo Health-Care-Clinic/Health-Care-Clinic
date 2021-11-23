@@ -65,6 +65,10 @@ export class RegistrationFormComponent implements OnInit {
                     error => this.errorMessage = <any>error);     
   }
 
+  checkPasswords(): boolean {
+    return document.getElementById("password")?.textContent == document.getElementById("repassword")?.textContent;
+  }
+
   submit(): void {
 
     this._patientservice.submitRequest(this.patientModel)
@@ -79,3 +83,4 @@ export class RegistrationFormComponent implements OnInit {
   }
 
 }
+

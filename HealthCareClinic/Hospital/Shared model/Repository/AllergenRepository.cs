@@ -8,13 +8,12 @@ namespace Hospital.Shared_model.Repository
 {
     public class AllergenRepository : Repository<Allergen>, IAllergenRepository
     {
+        private readonly HospitalDbContext dbContext;
+
         public AllergenRepository(HospitalDbContext context) : base(context)
         {
+            dbContext = context;
         }
 
-        public HospitalDbContext HospitalDbContext
-        {
-            get { return Context as HospitalDbContext; }
-        }
     }
 }

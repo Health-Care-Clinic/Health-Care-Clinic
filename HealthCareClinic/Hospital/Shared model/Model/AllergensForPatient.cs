@@ -6,19 +6,23 @@ using System.Text;
 
 namespace Hospital.Shared_model.Model
 {
-    public class Allergen
+    public class AllergenForPatients
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public int PatientId { get; set; }
+        [ForeignKey("PatientId")]
+        public virtual Patient Patient { get; set; }
 
 
-        public Allergen() {}
+        public AllergenForPatients() {}
 
-        public Allergen(int id, string name)
+        public AllergenForPatients(int id, string name, int pid)
         {
             Id = id;
             Name = name;
+            PatientId = pid;
         }
     }
 }

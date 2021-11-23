@@ -16,14 +16,14 @@ export class PatientService {
 
   private _patientRegistration = '/api/patientRegistration';
   private _submitRegistration  = this._patientRegistration + '/submitPatientRegistrationRequest';
-  private _getAvailabelDoctors = this._patientRegistration + '/getAvailableDoctors';
+  private _getAvailableDoctors = this._patientRegistration + '/getAllAvailableDoctors';
   private _getAllAllergens     = this._patientRegistration + '/getAllAllergens';
 
 
   constructor(private _http: HttpClient) { }
 
   getAvailableDoctors(): Observable<Doctor[]> {
-    return this._http.get<Doctor[]>(this._getAvailabelDoctors)
+    return this._http.get<Doctor[]>(this._getAvailableDoctors)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
@@ -40,7 +40,6 @@ export class PatientService {
     const body=JSON.stringify(patient);
     console.log(body)
     return this._http.post(this._submitRegistration, body,{'headers':headers})
-    
   }
 
   private handleError(err : HttpErrorResponse) {

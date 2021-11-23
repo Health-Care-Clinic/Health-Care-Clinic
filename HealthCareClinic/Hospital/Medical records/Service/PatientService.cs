@@ -1,13 +1,12 @@
-﻿using ClinicCore.Service;
-using Hospital.Repository.Interface;
-using Model;
+﻿using Hospital.Medical_records.Repository.Interface;
+using Hospital.Shared_model.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Hospital.Service
+namespace Hospital.Medical_records.Service
 {
-    public class PatientService : IService<Patient>
+    public class PatientService : IPatientService
     {
         private readonly IPatientRepository patientRepository;
 
@@ -15,10 +14,9 @@ namespace Hospital.Service
         {
             this.patientRepository = patientRepository;
         }
-
         public void Add(Patient entity)
         {
-            throw new NotImplementedException();
+            patientRepository.Add(entity);
         }
 
         public IEnumerable<Patient> GetAll()
@@ -34,13 +32,6 @@ namespace Hospital.Service
         public void Remove(Patient entity)
         {
             throw new NotImplementedException();
-        }
-
-        public bool CheckIfPasswordsMatch(Patient patient)
-        { 
-            if (patient.Password != patient.RePassword)
-                return false;
-            return true;
         }
     }
 }

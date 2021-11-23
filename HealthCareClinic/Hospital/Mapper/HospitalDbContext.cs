@@ -287,16 +287,16 @@ namespace Hospital.Mapper
             );
 
             modelBuilder.Entity<Allergen>().HasData(
-                new Allergen(1, "Polen ambrozije"),
-                new Allergen(2, "Ibuprofen"),
-                new Allergen(3, "Aspirin"),
-                new Allergen(4, "Penicilin"),
-                new Allergen(5, "Mačija dlaka"),
-                new Allergen(6, "Lateks"),
-                new Allergen(7, "Kikiriki"),
-                new Allergen(8, "Kravlje mleko"),
-                new Allergen(9, "Jaja"),
-                new Allergen(10, "Školjke")
+                new Allergen(1, "Polen ambrozije", 1),
+                new Allergen(2, "Ibuprofen", 4),
+                new Allergen(3, "Aspirin", 5),
+                new Allergen(4, "Penicilin", 2),
+                new Allergen(5, "Mačija dlaka", 4),
+                new Allergen(6, "Lateks", 1),
+                new Allergen(7, "Kikiriki",2),
+                new Allergen(8, "Kravlje mleko", 3),
+                new Allergen(9, "Jaja",3),
+                new Allergen(10, "Školjke", 1)
             );
 
             modelBuilder.Entity<Appointment>(entity =>

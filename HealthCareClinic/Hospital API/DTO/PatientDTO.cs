@@ -9,49 +9,47 @@ namespace Hospital_API.DTO
     public class PatientDTO
     {
         public int Id { get; set; }
-        public string ParentName { get; set; }
-        public string DateOfRegistration { get; set; }
+        public String Name { get; set; }
+        public String Surname { get; set; }
+        public String BirthDate { get; set; }
+        public String ParentName { get; set; }
+        public String Address { get; set; }
+        public String Phone { get; set; }
+        public String EmploymentStatus { get; set; }
+        public String BloodType { get; set; }
+        public String Gender { get; set; }
+        public String Email { get; set; }
+        public String Username { get; set; }
+        public String Password { get; set; }
+        public DoctorDTO DoctorDTO { get; set; }
+        public ICollection<Allergen> Alergies { get; set; }
+        public String DateOfRegistration { get; set; }
         public bool IsBlocked { get; set; }
         public bool IsActive { get; set; }
-        public ICollection<Allergen> Alergies { get; set; }
-        public string BloodType { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string BirthDate { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string Gender { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Address { get; set; }
-        public string EmploymentStatus { get; set; }
-
-        public DoctorDTO DoctorDTO { get; set; }
+    
 
         public PatientDTO() {}
 
-        public PatientDTO(int id, string parentName, string dateOfRegistration, bool isBlocked, bool isActive, ICollection<Allergen> alergies, string bloodType,
-                            string name, string surname, string birthDate, string phone, string email, string gender, string username, string password,
-                             string address, string employmentStatus, DoctorDTO doctorDTO)
+        public PatientDTO(int id, String name, String surname, String birthDate, String parentName, String address, String phone, String employmentStatus, String bloodType, String gender, String email, String username, String password, DoctorDTO doctorDTO, ICollection<Allergen> alergies, String dateOfRegistration, bool isBlocked, bool isActive)
         {
             Id = id;
-            ParentName = parentName;
-            DateOfRegistration = dateOfRegistration;
-            IsBlocked = isBlocked;
-            IsActive = isActive;
-            Alergies = alergies;
-            BloodType = bloodType;
             Name = name;
             Surname = surname;
             BirthDate = birthDate;
+            ParentName = parentName;
+            Address = address;
             Phone = phone;
-            Email = email;
+            EmploymentStatus = employmentStatus;
+            BloodType = bloodType;
             Gender = gender;
+            Email = email;
             Username = username;
             Password = password;
-            Address = address;
-            EmploymentStatus = employmentStatus;
             DoctorDTO = doctorDTO;
+            Alergies = alergies;
+            DateOfRegistration = dateOfRegistration;
+            IsBlocked = isBlocked;
+            IsActive = isActive;
         }
     }
 }

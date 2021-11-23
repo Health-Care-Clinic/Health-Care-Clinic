@@ -82,7 +82,7 @@ namespace Hospital.Shared_model.Model
 
         private Doctor doctor;
 
-        public Doctor Doctor
+        public virtual Doctor Doctor
         {
             get
             {

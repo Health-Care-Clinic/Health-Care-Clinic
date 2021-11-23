@@ -1,19 +1,25 @@
+import { Allergen } from "../registration-form/allergen";
+import { Doctor } from "../registration-form/doctor";
+
 export class Patient {
-    firstName: string = "";
-    lastName: string = "";
-    dateOfBirth: Date = new Date();
-    nameOfParent: string = "";
+    id: number = 0;
+    name: string = "";
+    surname: string = "";
+    birthDate: Date = new Date();
+    parentName: string = "";
     address: string = "";
-    phoneNumber: string = "";
+    phone: string = "";
     employmentStatus: string = "";
     bloodType: string = "";
     gender: string = "";
     email: string = "";
     username: string = "";
     password: string = "";
-    rePassword: string = "";
-    doctor: string = "";
-    allergens: string[] = [];
+    doctorDTO: Doctor = {id: 0, name: "", surname: ""};
+    alergies: Allergen[] = [];
+    dateOfRegistration: Date = new Date();
+    isBlocked: boolean = false;
+    isActive: boolean = false;
 }
 
 export interface IPatient {
@@ -30,6 +36,6 @@ export interface IPatient {
     username: string;
     password: string;
     rePassword: string;
-    doctor: string;
-    allergens: string[];
+    doctor: number;
+    allergens: number[];
 }

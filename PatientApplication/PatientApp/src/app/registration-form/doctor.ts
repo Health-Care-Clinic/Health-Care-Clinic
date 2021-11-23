@@ -1,4 +1,5 @@
 export interface Doctor {
-    value: string;
-    viewValue: string;
+    id: number;
+    name: string;
+    surname: string;
   }

@@ -6,20 +6,20 @@
             <li>
               <mat-form-field appearance="fill">
                 <mat-label>First name</mat-label>
-                <input matInput type="text" name="firstname" [(ngModel)]="patientModel.firstName" required>
+                <input matInput type="text" name="firstname" [(ngModel)]="patientModel.name" required>
                 <mat-icon matSuffix></mat-icon>
               </mat-form-field>
             </li>
             <li>
               <mat-form-field appearance="fill">
                 <mat-label>Last name</mat-label>
-                <input matInput type="text" name="lastname" [(ngModel)]="patientModel.lastName" required>
+                <input matInput type="text" name="lastname" [(ngModel)]="patientModel.surname" required>
               </mat-form-field>
             </li>
             <li>
               <mat-form-field appearance="fill">
                 <mat-label>Date of birth</mat-label>
-                <input matInput [matDatepicker]="picker" name="dateofbirth" [(ngModel)]="patientModel.dateOfBirth" required>
+                <input matInput [matDatepicker]="picker" name="dateofbirth" [(ngModel)]="patientModel.birthDate" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -27,7 +27,7 @@
             <li>
               <mat-form-field appearance="fill">
                 <mat-label>Name of a parent</mat-label>
-                <input matInput type="text" name="nameofparent" [(ngModel)]="patientModel.nameOfParent" required>
+                <input matInput type="text" name="nameofparent" [(ngModel)]="patientModel.parentName" required>
                 <mat-icon matSuffix></mat-icon>
               </mat-form-field>
             </li>
@@ -40,7 +40,7 @@
             <li>
               <mat-form-field appearance="fill">
                 <mat-label>Phone number</mat-label>
-                <input matInput type="text" name="phoneNumber" [(ngModel)]="patientModel.phoneNumber" required>
+                <input matInput type="text" name="phoneNumber" [(ngModel)]="patientModel.phone" required>
               </mat-form-field>
             </li>
             <li>
@@ -83,13 +83,13 @@
             <div>
               <mat-form-field hintLabel="Between 6 and 16 characters" appearance="fill">
                 <mat-label>Password</mat-label>
-                <input matInput type="password" name="password" minlength="6" maxlength="16" [(ngModel)]="patientModel.password" required>
+                <input matInput type="password" name="password" id="password" minlength="6" maxlength="16" [(ngModel)]="patientModel.password" required>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Confirm password</mat-label>
-                <input matInput type="password" name="repassword" [(ngModel)]="patientModel.rePassword" required>
+                <input matInput type="password" name="repassword" id="repassword" required>
               </mat-form-field>
             </div>
           
@@ -101,16 +101,16 @@
           </mat-step>
           <mat-step label="Medical info">
             <mat-label for="allergens">List of your allergens</mat-label>
-                <mat-selection-list name="allergens" [(ngModel)]="patientModel.allergens" multiple>
-                  <mat-list-option checkboxPosition="before" *ngFor="let allergen of allergens" [value]="allergen.name">
+                <mat-selection-list name="allergens" [(ngModel)]="patientModel.alergies" multiple>
+                  <mat-list-option checkboxPosition="before" *ngFor="let allergen of allergens" [value]="allergen">
                       {{ allergen.name }}
                   </mat-list-option>
                 </mat-selection-list>
             <mat-form-field appearance="fill">
               <mat-label>Preffered doctor</mat-label>
-              <mat-select name="doctor" [(ngModel)]="patientModel.doctor" required>
-                <mat-option *ngFor="let doctor of doctors" [value]="doctor.viewValue">
-                  {{doctor.viewValue}}
+              <mat-select name="doctor" [(ngModel)]="patientModel.doctorDTO" required>
+                <mat-option *ngFor="let doctor of doctors" [value]="doctor">
+                  {{doctor.name + " " + doctor.surname}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -134,7 +134,7 @@
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button color="warn" (click)="stepper.reset()">Reset</button>
-              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password==patientModel.rePassword)">Submit</button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && checkPasswords())">Submit</button>
             </div>
           </mat-step>
     </mat-stepper>
