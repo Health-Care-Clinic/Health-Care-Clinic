@@ -27,7 +27,7 @@ export class PharmacyPromotionsComponent implements OnInit {
   }
 
   publishPromotion(id: number){
-    this._promotionService.publishPromotion(id).subscribe(res => {
+    this._promotionService.togglePublishPromotion(id).subscribe(res => {
       for(let p of this.promotions){
         if(p.id === id){
           p.posted = true;
@@ -36,5 +36,13 @@ export class PharmacyPromotionsComponent implements OnInit {
     });
   }
 
-
+  removePublishedPromotion(id: number){
+    this._promotionService.togglePublishPromotion(id).subscribe(res => {
+      for(let p of this.promotions){
+        if(p.id === id){
+          p.posted = false;
+        }
+      }
+    });
+  }
 }
