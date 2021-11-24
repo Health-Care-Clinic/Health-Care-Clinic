@@ -9,10 +9,18 @@ namespace Hospital.Schedule.Service
 {
     public interface ISurveyService : IService<Survey>
     {
-        public List<Survey> GetAllByPatientId(int patientId);
-        public List<Survey> GetAllDoneByPatientId(int patientId);
-        public List<Survey> GetAllNotDoneByPatientId(int patientId);
-        public Survey GenerateSurveyForAppointment();
-        public void ModifyGrade(int id, int grade);
+        List<Survey> GetAllByPatientId(int patientId);
+        SurveyStatistics GenerateSurveyStatistics();
+        List<string> GetDistinctQuestionCategoriesNames();
+        List<string> GetDistinctQuestionContentsForCategory(string categoryName);
+        List<int> GetNumberOfAssignsForEachGradeForQuestionInCategory(string questionContent, 
+            List<string> distinctQuestionsContentsForCategory);
+        double GetAverageGradeForQuestionCategory(string categoryName);
+        int GetNumberOfGradesForQuestion(string questionContent, int grade);
+        double GetAverageGradeForQuestion(string questionContent);
+        List<Survey> GetAllDoneByPatientId(int patientId);
+        List<Survey> GetAllNotDoneByPatientId(int patientId);
+        Survey GenerateSurveyForAppointment();
+        void ModifyGrade(int id, int grade);
     }
 }
