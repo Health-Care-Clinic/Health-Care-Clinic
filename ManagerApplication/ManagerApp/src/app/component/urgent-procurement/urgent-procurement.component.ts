@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Pharmacy } from 'src/app/dto/Pharmacy';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
+import { UrgentProcurementService } from 'src/app/services/urgent-procurement.service';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 
 @Component({
@@ -14,16 +15,26 @@ export class UrgentProcurementComponent implements OnInit {
   filteredString: string = '';
   medicineName: string = '';
   medicineAmount: string = '';
-  constructor(private pharmacyService: PharmacyService, private dialog: MatDialog) { }
+  status: boolean = false;
+  constructor(private pharmacyService: PharmacyService, private dialog: MatDialog, private urgentProcurementService: UrgentProcurementService) { }
 
   ngOnInit(): void {
     this.pharmacyService.getPharmacies().subscribe((pharmacies) => {this.pharmacies = pharmacies; console.log(JSON.stringify(this.pharmacies))});
   }
 
   check(pharmacyId: string) {
-    if (true) {
-      this.openDialog();
-    }
+    this.urgentProcurementService.checkMedicine(this.medicineName, this.medicineAmount).subscribe((status) => 
+    {
+      this.status = status; 
+      if (this.status) 
+      {
+        this.openDialog();
+      } 
+      else 
+      {
+        alert("Does not exist.")
+      }
+    });
   }
 
   openDialog() {
@@ -42,7 +53,7 @@ export class UrgentProcurementComponent implements OnInit {
     if(!shouldOrder) {
       return;
     }
-    alert("ORDERING");
+    this.urgentProcurementService.order(this.medicineName, this.medicineAmount);
   }
 
 }
