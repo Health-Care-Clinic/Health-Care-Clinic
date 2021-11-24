@@ -34,7 +34,11 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatStepperModule} from '@angular/material/stepper'; 
+import {MatListModule} from '@angular/material/list';
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
+import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
+import { SurveyObservationService } from './services/survey-observation.service';
 
 
 const MaterialComponents = [
@@ -50,7 +54,9 @@ const MaterialComponents = [
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatStepperModule,
+  MatListModule
 ];
 
 @NgModule({
@@ -65,7 +71,8 @@ const MaterialComponents = [
     FooterComponent,
     LandingPageComponent,
     RoomSearchComponent,
-    EquipmentListComponent
+    EquipmentListComponent,
+    SurveyObservationComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +86,7 @@ const MaterialComponents = [
     IvyCarouselModule,
     MaterialComponents
   ],
-  providers: [FeedbackService],
+  providers: [FeedbackService, SurveyObservationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

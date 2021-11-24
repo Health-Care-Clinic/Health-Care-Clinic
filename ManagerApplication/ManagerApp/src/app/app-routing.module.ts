@@ -7,11 +7,13 @@ import { HospitalMapComponent } from './component/hospital-map/hospital-map.comp
 import { FloorComponent } from './component/hospital-map/floor.component';
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { EquipmentListComponent } from './component/moving-equipment/equipment-list.component';
+import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
   { path: 'registration',  component: PharmacyRegistrationComponent },
   { path: 'feedback-view', component: FeedbackViewComponent},
+  { path: 'survey-observation', component: SurveyObservationComponent},
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
   { path: 'floor/:idb/:idf/:idr', component: FloorComponent },
