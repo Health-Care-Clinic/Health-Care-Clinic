@@ -6,10 +6,6 @@ using System.Text;
 
 namespace Pharmacy.Service
 {
-    public class MedicineService : IService<Medicine>
-    {
-        private IMedicineRepository _medicineRepository;
-      
 
     public class MedicineService : IMedicineService
     {
@@ -67,14 +63,6 @@ namespace Pharmacy.Service
             this._medicineRepository.Save();
         }
 
-        public bool MedicineExistInQuantity(string medicineName, int quantity)
-        {
-            var medicine = this.GetOneByName(medicineName);
-            if (medicine == null)
-            {
-                return false;
-            }
-            return medicine.Quantity >= quantity;
         public IEnumerable<Medicine> SearchMedicine(string name, string manufacturer, int weight)
         {
             return this._medicineRepository.GetByNameManufacturerWeight(name, manufacturer, weight);
@@ -140,6 +128,16 @@ namespace Pharmacy.Service
                 }
             }
             return medicine;
+        }
+
+        public bool MedicineExistsInQuantity(string medicineName, int quantity)
+        {
+            var medicine = this.GetOneByName(medicineName);
+            if (medicine == null)
+            {
+                return false;
+            }
+            return medicine.Quantity >= quantity;
         }
     }
 }

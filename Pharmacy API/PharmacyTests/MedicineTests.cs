@@ -47,7 +47,7 @@ namespace PharmacyTests
 
             MedicineService service = new MedicineService(stubRepository.Object);
 
-            Assert.True(service.MedicineExistInQuantity(brufen.Name, brufen.Quantity));
+            Assert.True(service.MedicineExistsInQuantity(brufen.Name, brufen.Quantity));
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace PharmacyTests
 
             MedicineService service = new MedicineService(stubRepository.Object);
 
-            Assert.False(service.MedicineExistInQuantity(brufen.Name, brufen.Quantity));
+            Assert.False(service.MedicineExistsInQuantity(brufen.Name, brufen.Quantity));
         }
     }
 }

@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class UrgentProcurementService {
   checkMedicine(medicineName: string, medicineAmount: string) {
-    return this.http.get<boolean>('http://localhost:18089/api/medicine/medicineExistsInQuantity?medicineName=' + medicineName +'&quantity=' + medicineAmount);
+    return this.http.get<boolean>('http://localhost:18089/benu/medicine/medicineExistsInQuantity?medicineName=' + medicineName +'&quantity=' + medicineAmount);
   }
 
   order(medicineName: string, medicineAmount: string) {
     this.http.get('http://localhost:65508/api/medicine/addMedicine?medicineName=' + medicineName +'&quantity=' + medicineAmount).subscribe();
-    this.http.get('http://localhost:18089/api/medicine/reduceMedicineQuantity?medicineName=' + medicineName +'&quantity=' + medicineAmount).subscribe();
+    this.http.get('http://localhost:18089/benu/medicine/reduceMedicineQuantity?medicineName=' + medicineName +'&quantity=' + medicineAmount).subscribe();
     alert("Medicine moved!")
   }
 

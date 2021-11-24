@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'hospital-map', component: HospitalMapComponent },
   { path: 'floor/:idb/:idf/:idr', component: FloorComponent },
   { path: 'urgent-procurement', component: UrgentProcurementComponent },
-  { path: 'hospital-map', component: HospitalMapComponent }
+  { path: 'hospital-map', component: HospitalMapComponent },
   { path: 'hospital-map', component: HospitalMapComponent },
   { path: 'room-search-result/:searchText', component: RoomSearchComponent },
   { path: 'moving-equipment', component: EquipmentListComponent }

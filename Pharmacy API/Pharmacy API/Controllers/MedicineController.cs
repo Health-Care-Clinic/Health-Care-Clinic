@@ -10,45 +10,8 @@ using System.Threading.Tasks;
 using Pharmacy.Service;
 using Pharmacy;
 using Pharmacy.Repository;
-
-namespace Pharmacy_API.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MedicineController : ControllerBase
-    {
-        private readonly PharmacyDbContext _dbContext;
-        private MedicineService medicineService;
-
-        public MedicineController(PharmacyDbContext dbContext)
-        {
-            _dbContext = dbContext;
-            medicineService = new MedicineService(new MedicineRepository(dbContext));
-        }
-
-        [HttpGet("medicineExistsInQuantity")]
-        public IActionResult MedicineExistsInQuantity(string medicineName, int quantity)
-        {
-            if (medicineService.MedicineExistInQuantity(medicineName, quantity))
-            {
-                return Ok(true);
-            }
-            else
-            {
-                return Ok(false);
-            }
-        }
-
-        [HttpGet("reduceMedicineQuantity")]
-        public IActionResult ReduceMedicineQuantity(string medicineName, int quantity)
-        {
-            medicineService.ReduceMedicineQuantity(medicineName, quantity);
-            return Ok("success");
-using System.Xml.Linq;
 using Pharmacy_API.DTO;
 using Pharmacy_API.Adapter;
-using System.Diagnostics;
-
 
 
 namespace Pharmacy_API.Controllers
@@ -59,12 +22,35 @@ namespace Pharmacy_API.Controllers
     {
         private readonly IMedicineService medicineService;
 
+
+        
         public MedicineController(IMedicineService medicineService)
         {
             this.medicineService = medicineService;
         }
 
-        [HttpGet]
+            [HttpGet("medicineExistsInQuantity")]
+            public IActionResult MedicineExistsInQuantity(string medicineName, int quantity)
+            {
+                if (medicineService.MedicineExistsInQuantity(medicineName, quantity))
+                {
+                    return Ok(true);
+                }
+                else
+                {
+                    return Ok(false);
+                }
+            }
+
+            [HttpGet("reduceMedicineQuantity")]
+            public IActionResult ReduceMedicineQuantity(string medicineName, int quantity)
+            {
+                medicineService.ReduceMedicineQuantity(medicineName, quantity);
+                return Ok("success");
+
+            }
+
+            [HttpGet]
         public IActionResult SearchMedicine()
         {
             try
