@@ -21,10 +21,13 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "angular-material-expansion-panel": "^0.7.2",
+    "@mui/material": "^5.1.1",
+    "@mui/styled-engine-sc": "^5.1.0",
     "angular-responsive-carousel": "^2.1.2",
     "ng-mat-carousel": "^0.11.1",
     "rxjs": "~6.6.0",
     "rxjs-compat": "^6.6.7",
+    "styled-components": "^5.3.3",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },

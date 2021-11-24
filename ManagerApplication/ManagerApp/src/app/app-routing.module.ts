@@ -9,6 +9,8 @@ import { UrgentProcurementComponent } from './component/urgent-procurement/urgen
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { EquipmentListComponent } from './component/moving-equipment/equipment-list.component';
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
+import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
+import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -23,7 +25,9 @@ const routes: Routes = [
   { path: 'hospital-map', component: HospitalMapComponent },
   { path: 'hospital-map', component: HospitalMapComponent },
   { path: 'room-search-result/:searchText', component: RoomSearchComponent },
-  { path: 'moving-equipment', component: EquipmentListComponent }
+  { path: 'moving-equipment', component: EquipmentListComponent },
+  { path: 'specifications', component: MedicineSpecificationsComponent },
+  { path: 'consumption-report', component: ConsumptionReportComponent }
 ];
 
 @NgModule({

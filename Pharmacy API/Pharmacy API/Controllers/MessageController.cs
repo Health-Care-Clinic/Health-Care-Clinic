@@ -65,5 +65,12 @@ namespace Pharmacy_API.Controllers
             _fileTransferService.UploadFile(medToSend.Name.ToLower());
             return Ok("success");
         }
+
+        [HttpGet("ftp")]
+        public IActionResult DownloadFile(String fileName)
+        {
+            _fileTransferService.DownloadFile(fileName);
+            return Ok();
+        }
     }
 }

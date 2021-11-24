@@ -18,13 +18,11 @@ namespace Integration_API.Controller
     [Route("hospital/[controller]")]
     public class MedSpecificationController : ControllerBase
     {
-        private readonly IntegrationDbContext _dbContext;
         private readonly FileTransferService _fileTransferService;
         private readonly IApiKeyService _apiKeyService;
         private readonly IMessageService _messageService;
-        public MedSpecificationController(IntegrationDbContext dbContext, IApiKeyService apiKeyService, IMessageService messageService)
+        public MedSpecificationController(IApiKeyService apiKeyService, IMessageService messageService)
         {
-            _dbContext = dbContext;
             _fileTransferService = new FileTransferService();
             _apiKeyService = apiKeyService;
             _messageService = messageService;
@@ -48,7 +46,6 @@ namespace Integration_API.Controller
             return StatusCode(204);
         }
 
-        // POSALJI ZAHTEV ZA SPECIFIKACIJU LEKA
         [HttpGet("send/spec")]
         public IActionResult SendSpecRequest(string to, string message)
         {
@@ -68,8 +65,7 @@ namespace Integration_API.Controller
             return Ok("Successfully sent!");
         }
 
-        // PREUZMI SPECIFIKACIJU SA REBEXA
-        [HttpGet("ftp/{fileName}")]
+        [HttpGet("ftp")]
         public IActionResult DownloadFile(String fileName)
         {
             _fileTransferService.DownloadFile(fileName);

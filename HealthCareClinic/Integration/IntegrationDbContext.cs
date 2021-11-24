@@ -15,6 +15,7 @@ namespace Integration
         public DbSet<FeedbackReply> FeedbackReplies { get; set; }
         public DbSet<Integration.Model.Medicine> Medicines { get; set; }
         public DbSet<PharmacyPromotion> PharmacyPromotions { get; set; }
+        public DbSet<MedicationConsumption> MedicationConsumptions { get; set; }
         public IntegrationDbContext(DbContextOptions<IntegrationDbContext> options) : base(options) {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +38,18 @@ namespace Integration
             modelBuilder.Entity<PharmacyPromotion>()
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
+            modelBuilder.Entity<MedicationConsumption>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<MedicationConsumption>().HasData(
+                new MedicationConsumption { Id = 1, Name = "Brufen", Amount = 30, Date = new DateTime(2021, 11, 10) },
+                new MedicationConsumption { Id = 2, Name = "Brufen", Amount = 25, Date = new DateTime(2021, 11, 12) },
+                new MedicationConsumption { Id = 3, Name = "Panadol", Amount = 40, Date = new DateTime(2021, 11, 10) },
+                new MedicationConsumption { Id = 4, Name = "Paracetamol", Amount = 33, Date = new DateTime(2021, 11, 5) },
+                new MedicationConsumption { Id = 5, Name = "Robenan", Amount = 15, Date = new DateTime(2021, 11, 9) },
+                new MedicationConsumption { Id = 6, Name = "Andol", Amount = 10, Date = new DateTime(2021, 11, 13) }
+                );
         }
     }
 }
