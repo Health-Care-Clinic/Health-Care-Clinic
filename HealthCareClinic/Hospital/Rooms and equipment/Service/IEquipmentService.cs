@@ -10,5 +10,7 @@ namespace Hospital.Rooms_and_equipment.Service
     {
         public List<Equipment> GetEquipmentByRoomId(int id);
         public List<Equipment> GetEquipmentByName(string name);
+        public void Change(String equipment, int sourceRoomId, int destinationRoomId, int quantity);
+
     }
 }

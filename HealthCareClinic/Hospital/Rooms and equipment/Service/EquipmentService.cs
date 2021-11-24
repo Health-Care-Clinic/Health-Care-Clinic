@@ -44,5 +44,9 @@ namespace Hospital.Rooms_and_equipment.Service
         {
            return _equipmentRepository.GetEquipmentByName(name);
         }
+
+        public void Change(String equipment, int sourceRoomId, int destinationRoomId, int quantity) {
+            _equipmentRepository.Change(equipment, sourceRoomId, destinationRoomId, quantity);
+        }
     }
 }
