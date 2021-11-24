@@ -1,0 +1,31 @@
+<div class="container">
+    <table class="table">
+      
+      <th>Name</th>
+      <th>City</th>
+      <th>Medicine</th>
+      <tr>
+        <td>
+
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="filteredString"/>
+        </td>
+        <td>
+          Name: <input id="medicineName" name="medicineName" [(ngModel)]="medicineName" type="text"/> <br/>
+          Amount: <input id="medicineAmount" name="medicineAmount" [(ngModel)]="medicineAmount"  type="text"/> 
+        </td>
+      </tr>
+      <tr *ngFor="let pharmacy of pharmacies | pharmacyCityFilter:filteredString">
+        <td>
+          {{pharmacy.name}}
+        </td>
+        <td>
+          {{pharmacy.city}}
+        </td>
+        <td>
+          <button (click)="check(pharmacy.id)">Check</button>
+        </td>
+      </tr>
+    </table>
+  </div>

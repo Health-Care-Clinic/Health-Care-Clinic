@@ -1,0 +1,4 @@
+export interface Medicine {
+    medicineName: string;
+    quantity: int;
+}

@@ -8,11 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pharmacy.Service;
-using System.Xml.Linq;
+using Pharmacy;
+using Pharmacy.Repository;
 using Pharmacy_API.DTO;
 using Pharmacy_API.Adapter;
-using System.Diagnostics;
-
 
 
 namespace Pharmacy_API.Controllers
@@ -23,12 +22,35 @@ namespace Pharmacy_API.Controllers
     {
         private readonly IMedicineService medicineService;
 
+
+        
         public MedicineController(IMedicineService medicineService)
         {
             this.medicineService = medicineService;
         }
 
-        [HttpGet]
+            [HttpGet("medicineExistsInQuantity")]
+            public IActionResult MedicineExistsInQuantity(string medicineName, int quantity)
+            {
+                if (medicineService.MedicineExistsInQuantity(medicineName, quantity))
+                {
+                    return Ok(true);
+                }
+                else
+                {
+                    return Ok(false);
+                }
+            }
+
+            [HttpGet("reduceMedicineQuantity")]
+            public IActionResult ReduceMedicineQuantity(string medicineName, int quantity)
+            {
+                medicineService.ReduceMedicineQuantity(medicineName, quantity);
+                return Ok("success");
+
+            }
+
+            [HttpGet]
         public IActionResult SearchMedicine()
         {
             try

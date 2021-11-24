@@ -34,6 +34,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
+import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
+import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
+
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -58,7 +62,7 @@ const MaterialComponents = [
   MatInputModule,
   MatCheckboxModule,
   MatExpansionModule,
-  MatTooltipModule,
+  MatTooltipModule
 ];
 
 @NgModule({
@@ -72,6 +76,9 @@ const MaterialComponents = [
     HeaderComponent,
     FooterComponent,
     LandingPageComponent,
+    UrgentProcurementComponent,
+    PharmacyCityFilterPipe,
+    OrderDialogComponent,
     RoomSearchComponent,
     EquipmentListComponent,
     PharmacyPromotionsComponent,
@@ -91,6 +98,7 @@ const MaterialComponents = [
     MaterialComponents
   ],
   providers: [FeedbackService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [OrderDialogComponent]
 })
 export class AppModule { }
