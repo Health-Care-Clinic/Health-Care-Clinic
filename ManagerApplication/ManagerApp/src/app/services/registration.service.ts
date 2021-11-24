@@ -11,7 +11,7 @@ export class RegistrationService {
   constructor(private http: HttpClient) { 
 
   }
-  registerPharmacy(apikey:IApiKey): Observable<string> {
+  registerPharmacy(apikey:IApiKey): Observable<any> {
     return this.http.post<any>(this.serverUrl + "/hospital/apikey", apikey);
   }
 }
