@@ -17,13 +17,15 @@ namespace Hospital_API.Controller
     [ApiController]
     public class PatientRegistrationController : ControllerBase
     {
+        private IPatientService _patientService;
         private IAllergenService _allergenService;
         private IDoctorService _doctorService;
 
-        public PatientRegistrationController(IAllergenService allergenService,IDoctorService doctorService)
+        public PatientRegistrationController(IAllergenService allergenService,IDoctorService doctorService,IPatientService patientService)
         {
             this._allergenService = allergenService;
             this._doctorService = doctorService;
+            this._patientService = patientService;
         }
 
 
@@ -35,26 +37,30 @@ namespace Hospital_API.Controller
             return Ok(result);
         }
 
-        [HttpGet("getAllAllergens")]       // GET /api/allergen
+
+        [HttpGet("getAllAllergens")]       // GET /api/getAllAllergens
         public IActionResult GetAllAllergens()
         {
             List<Allergen> result = (List<Allergen>) _allergenService.GetAll();
 
-            return Ok(result);
+            return Ok(AllergenAdapter.AllergenListToDtoList(result));
         }
 
         [HttpPost("submitPatientRegistrationRequest")]
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {
-            if (patientDTO.Id < 0)
-            {
-                return BadRequest();
-            }
-
-            //Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
-            //patientService.Add(newPatient);
+            Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
+            newPatient.Doctor = _doctorService.GetOneById(patientDTO.DoctorDTO.Id);
+            _patientService.Add(newPatient);
 
             return Ok();
         }
+        //[HttpGet("getAllPatients")]
+        //public IActionResult GetAllPatients()
+        //{
+        //    List<Patient> result = (List<Patient>)_patientService.GetAll();
+
+        //    return Ok(PatientAdapter.PatientsToPatientDTOs(result));
+        //}
     }
 }

@@ -7,6 +7,7 @@ using static Hospital.Rooms_and_equipment.Model.Building;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
 using System.Collections.Generic;
+using Hospital.Shared_model.Model;
 
 namespace Hospital.Mapper
 {
@@ -27,6 +28,8 @@ namespace Hospital.Mapper
         public DbSet<Appointment> Appointments { get; set; }
 
         public DbSet<Allergen> Allergens { get; set; }
+
+        public DbSet<AllergenForPatient> AllergenForPatients { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }
 
@@ -203,7 +206,7 @@ namespace Hospital.Mapper
                 new Building { Id = 6, Name = "Parking2", X = 800, Y = 30, Width = 200, Height = 70, Type = BuildingType.Parking },
                 new Building { Id = 7, Name = "Parking3", X = 800, Y = 130, Width = 200, Height = 70, Type = BuildingType.Parking });
 
-            modelBuilder.Entity<FeedbackMessage>().HasData(            
+            modelBuilder.Entity<FeedbackMessage>().HasData(
                 new FeedbackMessage
                 {
                     Id = 1,
@@ -299,6 +302,24 @@ namespace Hospital.Mapper
                 new Allergen(10, "Školjke")
             );
 
+            modelBuilder.Entity<Doctor>(entity =>
+            {
+                entity.ToTable("Doctor");
+
+                entity.HasMany(d => d.Patients)
+               .WithOne(p => p.Doctor)
+               .HasForeignKey(p => p.DoctorId);
+            });
+
+            modelBuilder.Entity<Patient>(entity =>
+            {
+                entity.ToTable("Patient");
+
+                entity.HasOne(p => p.Doctor)
+               .WithMany(d => d.Patients)
+               .HasForeignKey(p => p.DoctorId);
+            });
+
             modelBuilder.Entity<Appointment>(entity =>
             {
                 entity.ToTable("appointment");
@@ -361,10 +382,10 @@ namespace Hospital.Mapper
                 new SurveyQuestion { Id = 13, Content = "How good were procedure for booking appointment?", Grade = 4, SurveyCategoryId = 3 },
                 new SurveyQuestion { Id = 14, Content = "How easy was to use our application?", Grade = 5, SurveyCategoryId = 3 },
                 new SurveyQuestion { Id = 15, Content = "Your general grade for whole hospital' service", Grade = 3, SurveyCategoryId = 3 });
-            
+
             modelBuilder.Entity<Specialty>().HasData(
                new Specialty()
-               { 
+               {
                    SpecialtyId = 1,
                    Name = "General medicine"
                },
@@ -394,7 +415,8 @@ namespace Hospital.Mapper
                    SpecialtyId = 1,
                    PrimaryRoom = 1
                },
-                new Doctor() 
+
+                new Doctor()
                 {
                     Id = 2,
                     Name = "Marko",
@@ -404,7 +426,7 @@ namespace Hospital.Mapper
                     Salary = 80000.0,
                     Address = "Bogoboja Atanackovica 5",
                     Phone = "0697856665",
-                    Email = "markoradic@gmail.com", 
+                    Email = "markoradic@gmail.com",
                     Username = "marko",
                     Password = "marko",
                     EmploymentDate = new System.DateTime(2020, 06, 07),
@@ -503,6 +525,9 @@ namespace Hospital.Mapper
                 new Patient(8, "Zorka", "Djokic", "female", "B", new System.DateTime(1987, 07, 01), "Kralja Petra 19", "0697856665", "zorka@gmail.com", "zorka", "zorka", "zorka", null, "Unemployed", true)
                 { DoctorId = 6 }
                 );
+            
+            modelBuilder.Entity<AllergenForPatient>()
+                .HasKey(c => new { c.PatientId, c.AllergenId });
         }
     }
 }

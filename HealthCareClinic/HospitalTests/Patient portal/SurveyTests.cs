@@ -88,7 +88,7 @@ namespace HospitalTests.Patient_portal
         public void Check_matching_member_of_survey_list(int surveyId, int expectedIndex, bool shouldWork)
         {
             SurveyService surveyService = new SurveyService(CreateStubRepository());
-            List<Survey> surveys = (List<Survey>)surveyService.GetAll(); 
+            List<Survey> surveys = (List<Survey>)surveyService.GetAll();
             Survey wantedSurvey = surveyService.GetOneById(surveyId);
 
             if (shouldWork)

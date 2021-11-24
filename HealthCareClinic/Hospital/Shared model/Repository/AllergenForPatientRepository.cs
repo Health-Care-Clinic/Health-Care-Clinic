@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Hospital.Shared_model.Repository
 {
-    public class AllergenRepository : Repository<Allergen>, IAllergenRepository
+    public class AllergenForPatientRepository : Repository<AllergenForPatient>, IAllergenForPatientRepository
     {
         private readonly HospitalDbContext dbContext;
 
-        public AllergenRepository(HospitalDbContext context) : base(context)
+        public AllergenForPatientRepository(HospitalDbContext context) : base(context)
         {
             dbContext = context;
         }

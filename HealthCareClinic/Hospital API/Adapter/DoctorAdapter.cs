@@ -37,5 +37,5 @@ namespace Hospital_API.Adapter
             return doctor;
         }
     }
-
 }
+

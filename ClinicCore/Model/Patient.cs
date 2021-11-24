@@ -26,6 +26,8 @@ namespace Model
         public string Gender { get; set; }
         public string Relationship { get; set; }
         public string Password { get; set; }
+
+        public string RePassword { get; set; }
         public string Address { get; set; }
 
         public Patient(int id, string name, string surname, DateTime birthDate, string address, string email, string password, DateTime filedate, String employer, List<String> alergies, Boolean isGuest, Boolean isAdmitted)
@@ -69,6 +71,14 @@ namespace Model
 
         public Patient()
         {
+        }
+
+        public Patient(string Name, string Surname, string Password, string RePassword)
+        {
+            this.Name = Name; 
+            this.Surname = Surname;
+            this.Password = Password;
+            this.RePassword = RePassword;
         }
 
         public Doctor Doc { get; set; }

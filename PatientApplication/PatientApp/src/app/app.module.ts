@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,13 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {IvyCarouselModule} from 'angular-responsive-carousel';
-import {CarouselModule} from 'primeng/carousel';
-import {ButtonModule} from 'primeng/button';
-import {ToastModule} from 'primeng/toast';
+import { IvyCarouselModule} from 'angular-responsive-carousel';
+import { CarouselModule} from 'primeng/carousel';
+import { ButtonModule} from 'primeng/button';
+import { ToastModule} from 'primeng/toast';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
-
-
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -26,23 +25,27 @@ import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatIconModule  } from '@angular/material/icon';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatCardModule} from '@angular/material/card';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatGridListModule} from '@angular/material/grid-list';
+import { MatCardModule} from '@angular/material/card';
+import { MatBadgeModule} from '@angular/material/badge';
 import { MatCarouselModule } from 'ng-mat-carousel';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatListModule} from '@angular/material/list';
+import { MatDialogModule} from '@angular/material/dialog';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+import { MatCheckboxModule} from '@angular/material/checkbox';
+import { MatStepperModule} from '@angular/material/stepper';
+import { MatRadioModule} from '@angular/material/radio';
+import { MatDividerModule} from '@angular/material/divider';
+import { MatListModule} from '@angular/material/list';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule} from '@angular/material/select';
 
 import { FeedbackService } from './service/feedback.service';
 import { SurveyService } from './survey/survey.service';
 import { SurveyComponent } from './survey/survey.component';
-
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { PatientService } from './patient/patient.service';
 
 
 
@@ -62,7 +65,10 @@ const MaterialComponents = [
   MatStepperModule,
   MatRadioModule,
   MatDividerModule,
-  MatListModule
+  MatListModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSelectModule,
 ];
 
 @NgModule({
@@ -73,6 +79,7 @@ const MaterialComponents = [
     HeaderComponent,
     FooterComponent,
     SurveyComponent,
+    RegistrationFormComponent,
   ],
   imports: [
     HttpClientModule,
@@ -87,9 +94,10 @@ const MaterialComponents = [
     ToastModule,
     NgbModule,
     MaterialComponents,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [FeedbackService, SurveyService],
+  providers: [FeedbackService, SurveyService, PatientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

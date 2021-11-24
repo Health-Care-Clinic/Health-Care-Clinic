@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20211117145419_FifthMigrationGraphicalEditor")]
-    partial class FifthMigrationGraphicalEditor
+    [Migration("20211123221903_FirstMigrationPatientPortal")]
+    partial class FirstMigrationPatientPortal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,118 +20,6 @@ namespace Hospital.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-            modelBuilder.Entity("ClinicCore.Model.FeedbackMessage", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<bool>("CanBePublished")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Identity")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsAnonymous")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FeedbackMessages");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 4, 29, 18, 34, 21, 0, DateTimeKind.Unspecified),
-                            Identity = "acaNikolic",
-                            IsAnonymous = false,
-                            IsPublished = false,
-                            Text = "Zadovoljan sam uslugom."
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 6, 21, 14, 21, 56, 0, DateTimeKind.Unspecified),
-                            Identity = "NikolaTodorovic94",
-                            IsAnonymous = true,
-                            IsPublished = false,
-                            Text = "Čekanje je moglo biti kraće."
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CanBePublished = false,
-                            Date = new DateTime(2021, 2, 16, 11, 8, 47, 0, DateTimeKind.Unspecified),
-                            Identity = "MarijaPopovic",
-                            IsAnonymous = false,
-                            IsPublished = false,
-                            Text = "Informacionom sistemu potrebne su određene popravke."
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 5, 20, 9, 10, 21, 0, DateTimeKind.Unspecified),
-                            Identity = "UrosDevic0",
-                            IsAnonymous = false,
-                            IsPublished = false,
-                            Text = "Odlični lekari."
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
-                            Identity = "MladenAlicic1",
-                            IsAnonymous = false,
-                            IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
-                            Identity = "IvanJovanovic",
-                            IsAnonymous = false,
-                            IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
-                            Identity = "JovanaGugl",
-                            IsAnonymous = false,
-                            IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
-                            Identity = "RatkoVarda8",
-                            IsAnonymous = false,
-                            IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
-                        });
-                });
 
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
                 {
@@ -384,7 +272,7 @@ namespace Hospital.Migrations
                             Id = 16,
                             Name = "Bed",
                             Quantity = 26,
-                            RoomId = 14,
+                            RoomId = 15,
                             Type = 0
                         },
                         new
@@ -480,7 +368,7 @@ namespace Hospital.Migrations
                             Id = 28,
                             Name = "TV",
                             Quantity = 2,
-                            RoomId = 28,
+                            RoomId = 29,
                             Type = 0
                         },
                         new
@@ -504,7 +392,7 @@ namespace Hospital.Migrations
                             Id = 31,
                             Name = "Bed",
                             Quantity = 7,
-                            RoomId = 35,
+                            RoomId = 36,
                             Type = 0
                         },
                         new
@@ -512,7 +400,7 @@ namespace Hospital.Migrations
                             Id = 32,
                             Name = "Needle",
                             Quantity = 4,
-                            RoomId = 35,
+                            RoomId = 36,
                             Type = 1
                         },
                         new
@@ -656,7 +544,7 @@ namespace Hospital.Migrations
                             Id = 50,
                             Name = "Blanket",
                             Quantity = 13,
-                            RoomId = 64,
+                            RoomId = 65,
                             Type = 0
                         },
                         new
@@ -664,7 +552,7 @@ namespace Hospital.Migrations
                             Id = 51,
                             Name = "Bed",
                             Quantity = 17,
-                            RoomId = 64,
+                            RoomId = 65,
                             Type = 0
                         },
                         new
@@ -688,7 +576,7 @@ namespace Hospital.Migrations
                             Id = 54,
                             Name = "Bandage",
                             Quantity = 17,
-                            RoomId = 70,
+                            RoomId = 69,
                             Type = 1
                         },
                         new
@@ -696,7 +584,7 @@ namespace Hospital.Migrations
                             Id = 55,
                             Name = "Blanket",
                             Quantity = 17,
-                            RoomId = 70,
+                            RoomId = 69,
                             Type = 0
                         });
                 });
@@ -1709,6 +1597,1010 @@ namespace Hospital.Migrations
                             X = 50f,
                             Y = 170f
                         });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.FeedbackMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("CanBePublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Identity")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsAnonymous")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FeedbackMessages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 4, 29, 18, 34, 21, 0, DateTimeKind.Unspecified),
+                            Identity = "acaNikolic",
+                            IsAnonymous = false,
+                            IsPublished = false,
+                            Text = "Zadovoljan sam uslugom."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 6, 21, 14, 21, 56, 0, DateTimeKind.Unspecified),
+                            Identity = "NikolaTodorovic94",
+                            IsAnonymous = true,
+                            IsPublished = false,
+                            Text = "Čekanje je moglo biti kraće."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CanBePublished = false,
+                            Date = new DateTime(2021, 2, 16, 11, 8, 47, 0, DateTimeKind.Unspecified),
+                            Identity = "MarijaPopovic",
+                            IsAnonymous = false,
+                            IsPublished = false,
+                            Text = "Informacionom sistemu potrebne su određene popravke."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 5, 20, 9, 10, 21, 0, DateTimeKind.Unspecified),
+                            Identity = "UrosDevic0",
+                            IsAnonymous = false,
+                            IsPublished = false,
+                            Text = "Odlični lekari."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Identity = "MladenAlicic1",
+                            IsAnonymous = false,
+                            IsPublished = true,
+                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Identity = "IvanJovanovic",
+                            IsAnonymous = false,
+                            IsPublished = true,
+                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Identity = "JovanaGugl",
+                            IsAnonymous = false,
+                            IsPublished = true,
+                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Identity = "RatkoVarda8",
+                            IsAnonymous = false,
+                            IsPublished = true,
+                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Done")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("survey");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentId = 1,
+                            Done = true
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("SurveyId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurveyId");
+
+                    b.ToTable("surveyCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Doctor",
+                            SurveyId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Medical stuff",
+                            SurveyId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Hospital",
+                            SurveyId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SurveyCategoryId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurveyCategoryId");
+
+                    b.ToTable("surveyQuestion");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 1,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Has doctor been polite?",
+                            Grade = 3,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 4,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 5,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 3,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 2,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 3,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 4,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 5,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 3,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 1,
+                            SurveyCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 4,
+                            SurveyCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 4,
+                            SurveyCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Content = "How easy was to use our application?",
+                            Grade = 5,
+                            SurveyCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 3,
+                            SurveyCategoryId = 3
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Allergen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Allergens");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Polen ambrozije"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Ibuprofen"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Aspirin"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Penicilin"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Mačija dlaka"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Lateks"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Kikiriki"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Kravlje mleko"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Jaja"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Školjke"
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.AllergenForPatient", b =>
+                {
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AllergenId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("PatientId", "AllergenId");
+
+                    b.ToTable("AllergenForPatients");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("appointment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DoctorId = 1,
+                            PatientId = 1,
+                            RoomId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
+                {
+                    b.Property<int>("DayId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Spec_Day")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("DayId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Day");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("EmploymentDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PrimaryRoom")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("SpecialtyId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("VacationTimeStart")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("WorkShift")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("Doctors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Brace Radica 15",
+                            BirthDate = new DateTime(1981, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "nikolanikolic@gmail.com",
+                            EmploymentDate = new DateTime(2021, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Nikola",
+                            Password = "nikola",
+                            Phone = "0697856665",
+                            PrimaryRoom = 1,
+                            Salary = 80000.0,
+                            SpecialtyId = 1,
+                            Surname = "Nikolic",
+                            Username = "nikola",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Bogoboja Atanackovica 5",
+                            BirthDate = new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "markoradic@gmail.com",
+                            EmploymentDate = new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Marko",
+                            Password = "marko",
+                            Phone = "0697856665",
+                            PrimaryRoom = 2,
+                            Salary = 80000.0,
+                            SpecialtyId = 1,
+                            Surname = "Radic",
+                            Username = "marko",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Bulevar Oslobodjenja 5",
+                            BirthDate = new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "jozika@gmail.com",
+                            EmploymentDate = new DateTime(2011, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Jozef",
+                            Password = "jozef",
+                            Phone = "0697856665",
+                            PrimaryRoom = 3,
+                            Salary = 80000.0,
+                            SpecialtyId = 1,
+                            Surname = "Sivc",
+                            Username = "jozef",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Mike Antice 5",
+                            BirthDate = new DateTime(1968, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "dragana@gmail.com",
+                            EmploymentDate = new DateTime(2017, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "female",
+                            Name = "Dragana",
+                            Password = "dragana",
+                            Phone = "0697856665",
+                            PrimaryRoom = 4,
+                            Salary = 80000.0,
+                            SpecialtyId = 2,
+                            Surname = "Zoric",
+                            Username = "dragana",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "Pariske Komune 35",
+                            BirthDate = new DateTime(1978, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mile@gmail.com",
+                            EmploymentDate = new DateTime(2007, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Mile",
+                            Password = "mile",
+                            Phone = "0697856665",
+                            PrimaryRoom = 4,
+                            Salary = 80000.0,
+                            SpecialtyId = 2,
+                            Surname = "Grandic",
+                            Username = "mile",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "Pariske Komune 85",
+                            BirthDate = new DateTime(1968, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "misa@gmail.com",
+                            EmploymentDate = new DateTime(2006, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Misa",
+                            Password = "misa",
+                            Phone = "0697856665",
+                            PrimaryRoom = 3,
+                            Salary = 80000.0,
+                            SpecialtyId = 1,
+                            Surname = "Bradina",
+                            Username = "misa",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Patient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("BloodType")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateOfRegistration")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EmploymentStatus")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ParentName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Bogoboja Atanackovica 15",
+                            BirthDate = new DateTime(2005, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1,
+                            Email = "petar@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Petar",
+                            ParentName = "miki",
+                            Password = "petar",
+                            Phone = "0634556665",
+                            Surname = "Petrovic",
+                            Username = "petar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1985, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Jovan",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Zoric",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1978, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Zorana",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Bilic",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1969, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Milica",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Maric",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1936, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Igor",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Caric",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1975, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Predrag",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Zaric",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1960, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Miki",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Nikolic",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Address = "Kralja Petra 19",
+                            BirthDate = new DateTime(1987, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "B",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 6,
+                            Email = "zorka@gmail.com",
+                            EmploymentStatus = "Unemployed",
+                            Gender = "female",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Zorka",
+                            ParentName = "zorka",
+                            Password = "zorka",
+                            Phone = "0697856665",
+                            Surname = "Djokic",
+                            Username = "zorka"
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Specialty", b =>
+                {
+                    b.Property<int>("SpecialtyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("SpecialtyId");
+
+                    b.ToTable("Specialty");
+
+                    b.HasData(
+                        new
+                        {
+                            SpecialtyId = 1,
+                            Name = "General medicine"
+                        },
+                        new
+                        {
+                            SpecialtyId = 2,
+                            Name = "Surgery"
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Day")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("WorkDay");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Appointment", "Appointment")
+                        .WithMany("Surveys")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyCategory", b =>
+                {
+                    b.HasOne("Hospital.Schedule.Model.Survey", "Survey")
+                        .WithMany("SurveyCategories")
+                        .HasForeignKey("SurveyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Survey");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyQuestion", b =>
+                {
+                    b.HasOne("Hospital.Schedule.Model.SurveyCategory", "SurveyCategory")
+                        .WithMany("SurveyQuestions")
+                        .HasForeignKey("SurveyCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SurveyCategory");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.AllergenForPatient", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Patient", null)
+                        .WithMany("Allergens")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Doctor", null)
+                        .WithMany("DaysOff")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Specialty", "Specialty")
+                        .WithMany()
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Specialty");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Patient", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Doctor", "Doctor")
+                        .WithMany("Patients")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDay", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Doctor", null)
+                        .WithMany("WorkDay")
+                        .HasForeignKey("DoctorId");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
+                {
+                    b.Navigation("SurveyCategories");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyCategory", b =>
+                {
+                    b.Navigation("SurveyQuestions");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.Navigation("Surveys");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>
+                {
+                    b.Navigation("DaysOff");
+
+                    b.Navigation("Patients");
+
+                    b.Navigation("WorkDay");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Patient", b =>
+                {
+                    b.Navigation("Allergens");
                 });
 #pragma warning restore 612, 618
         }
