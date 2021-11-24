@@ -28,6 +28,7 @@ namespace Hospital.Shared_model.Model
         public string Password { get; set; }
         public string Address { get; set; }
         public string EmploymentStatus { get; set; }
+        public string HashCode { get; set; }
         //[ForeignKey("TrollMechanism")]
         //public AntiTroll TrollMechanismId { get; set; }
         //public virtual AntiTroll TrollMechanism { get; set; } = new AntiTroll();
@@ -82,7 +83,7 @@ namespace Hospital.Shared_model.Model
 
         private Doctor doctor;
 
-        public Doctor Doctor
+        public virtual Doctor Doctor
         {
             get
             {

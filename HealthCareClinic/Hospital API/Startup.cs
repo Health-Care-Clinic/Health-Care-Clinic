@@ -16,6 +16,8 @@ using Hospital.Shared_model.Repository;
 using Hospital.Medical_records.Service;
 using Hospital.Medical_records.Repository.Interface;
 using Hospital.Medical_records.Repository;
+using Hospital.Shared_model.Model;
+using Hospital.Shared_model.Interface;
 
 namespace Hospital_API
 {
@@ -37,6 +39,8 @@ namespace Hospital_API
                         ConfigurationExtensions.GetConnectionString(Configuration, "HospitalDbConnectionString"))
                     .UseLazyLoadingProxies());
 
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));     //za slanje mejlova
+            services.AddTransient<IMailService, MailService>();
 
             services.AddScoped<IFeedbackMessageService, FeedbackMessageService>();
             services.AddScoped<IFeedbackMessageRepository, FeedbackMessageRepository>();
