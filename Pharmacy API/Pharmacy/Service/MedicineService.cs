@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Pharmacy.Service
 {
-    class MedicineService : IService<Medicine>
+    public class MedicineService : IService<Medicine>
     {
         private IMedicineRepository _medicineRepository;
       
@@ -23,6 +23,12 @@ namespace Pharmacy.Service
             this._medicineRepository.Save();
         }
 
+        public void Update(Medicine entity)
+        {
+            this._medicineRepository.Update(entity);
+            this._medicineRepository.Save();
+        }
+
         public IEnumerable<Medicine> GetAll()
         {
             return this._medicineRepository.GetAll();
@@ -33,10 +39,39 @@ namespace Pharmacy.Service
             return this._medicineRepository.GetById(id);
         }
 
+        public Medicine GetOneByName(string name)
+        {
+            foreach (Medicine medicine in GetAll())
+            {
+                if (medicine.Name.Equals(name))
+                {
+                    return medicine;
+                }
+            }
+            return null;
+        }
+
+        public void ReduceMedicineQuantity(string medicineName, int quantity)
+        {
+            var medicine = GetOneByName(medicineName);
+            medicine.Quantity -= quantity;
+            Update(medicine);
+        }
+
         public void Remove(Medicine entity)
         {
             this._medicineRepository.Remove(entity);
             this._medicineRepository.Save();
+        }
+
+        public bool MedicineExistInQuantity(string medicineName, int quantity)
+        {
+            var medicine = this.GetOneByName(medicineName);
+            if (medicine == null)
+            {
+                return false;
+            }
+            return medicine.Quantity >= quantity;
         }
     }
 }
