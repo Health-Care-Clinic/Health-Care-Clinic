@@ -15,11 +15,11 @@
                     </mat-panel-description>
                 </mat-expansion-panel-header>
                 <p>{{promotion.content}}</p>
-                <mat-action-row *ngIf="!((!promotion.posted) && isExpired(promotion.endDate))">
+                <mat-action-row *ngIf="promotion.posted || !isExpired(promotion.endDate)"> <!--!((!promotion.posted) && isExpired(promotion.endDate))-->
                     <button mat-button *ngIf="!promotion.posted" (click)="publishPromotion(promotion.id)">
                         Publish
                     </button>
-                    <button mat-button *ngIf="promotion.posted">
+                    <button mat-button *ngIf="promotion.posted" (click)="removePublishedPromotion(promotion.id)">
                         Remove
                     </button>
                 </mat-action-row>
