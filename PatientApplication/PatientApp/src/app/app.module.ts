@@ -99,7 +99,7 @@ const MaterialComponents = [
     NgbModule,
     MaterialComponents,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [FeedbackService, SurveyService, PatientService],
   bootstrap: [AppComponent]

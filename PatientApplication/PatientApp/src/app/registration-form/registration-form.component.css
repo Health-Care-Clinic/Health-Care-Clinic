@@ -55,3 +55,8 @@ ul li {
 .mat-form-field {
   margin-top: 16px;
 }
+
+.errorText {
+  color: red;
+  font-size: small;
+}

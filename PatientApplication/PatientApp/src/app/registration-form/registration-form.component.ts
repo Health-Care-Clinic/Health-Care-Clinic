@@ -61,6 +61,7 @@ export class RegistrationFormComponent implements OnInit {
   allergens: IAllergen[] = [];
   errorMessage : string  = '';
   repassword: string = '';
+  usernames: Array<string> = [];
   
   
 
@@ -71,6 +72,7 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit(): void {
     this.getDoctors();
     this.getAllergens();
+    this.getAllUsernames();
   }
 
   getDoctors() {
@@ -85,8 +87,10 @@ export class RegistrationFormComponent implements OnInit {
                     error => this.errorMessage = <any>error);     
   }
 
-  checkPasswords(): boolean {
-    return document.getElementById("password")?.textContent == document.getElementById("repassword")?.textContent;
+  getAllUsernames() {
+    this._patientservice.getAllUsernames()
+        .subscribe(usernames => this.usernames = usernames,
+                    error => this.errorMessage = <any>error); 
   }
 
   submit(): void {

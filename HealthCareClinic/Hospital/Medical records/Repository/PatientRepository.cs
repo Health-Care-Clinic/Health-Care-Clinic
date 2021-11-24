@@ -29,6 +29,11 @@ namespace Hospital.Medical_records.Repository
         {
             return dbContext.Patients.SingleOrDefault(p => p.Hashcode.Equals(token));
         }
+
+        public List<string> GetAllUsernames()
+        {
+            return dbContext.Patients.Select(p => p.Username).ToList();
+        }
     }
 
 }

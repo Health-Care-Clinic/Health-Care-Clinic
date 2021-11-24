@@ -1,6 +1,6 @@
 <div class="stepper">
   <h1>Registration form</h1>
-<form #registerForm="ngForm">
+<form name="rform" #registerForm="ngForm">
     <mat-stepper orientation="vertical" linear #stepper >
         <mat-step label="Fill in personal info">
           
@@ -79,8 +79,9 @@
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Username</mat-label>
-                <input matInput type="text" name="username" [(ngModel)]="patientModel.username" required>
+                <input matInput type="text" name="username" [(ngModel)]="patientModel.username" required>               
               </mat-form-field>
+              <div *ngIf="usernames.includes(patientModel.username)" class="errorText">Username already exists!</div>
             </div>
             <div>
               <mat-form-field hintLabel="Between 6 and 16 characters" appearance="fill">
@@ -138,7 +139,7 @@
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button color="warn" (click)="stepper.reset()">Reset</button>
-              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password === repassword)">Submit</button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password === repassword)" [routerLink]="['/login']">Submit</button>
             </div>
           </mat-step>
     </mat-stepper>

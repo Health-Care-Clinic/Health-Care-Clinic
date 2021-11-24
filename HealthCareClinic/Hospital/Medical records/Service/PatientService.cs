@@ -91,6 +91,11 @@ namespace Hospital.Medical_records.Service
             smtp.Disconnect(true);
         }
 
+        public List<string> GetAllUsernames()
+        {
+            return patientRepository.GetAllUsernames();
+        }
+
         public IEnumerable<Patient> GetAll()
         {
             throw new NotImplementedException();

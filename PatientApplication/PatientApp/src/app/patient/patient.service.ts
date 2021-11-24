@@ -18,6 +18,7 @@ export class PatientService {
   private _submitRegistration  = this._patientRegistration + '/submitPatientRegistrationRequest';
   private _getAvailableDoctors = this._patientRegistration + '/getAllAvailableDoctors';
   private _getAllAllergens     = this._patientRegistration + '/getAllAllergens';
+  private _getAllUsernames     = this._patientRegistration + '/getAllUsernames';
 
 
   constructor(private _http: HttpClient) { }
@@ -31,6 +32,12 @@ export class PatientService {
   getAllAllergens(): Observable<IAllergen[]> {
     return this._http.get<IAllergen[]>(this._getAllAllergens)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
+                         .catch(this.handleError);
+  }
+
+  getAllUsernames(): Observable<string[]> {
+    return this._http.get<string[]>(this._getAllUsernames)     
+                         .do(data =>  console.log('All: ' + JSON.stringify(data)))                    
                          .catch(this.handleError);
   }
 

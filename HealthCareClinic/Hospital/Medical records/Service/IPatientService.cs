@@ -13,5 +13,6 @@ namespace Hospital.Medical_records.Service
         void ActivatePatientsAccount(Patient patient);
         string GenerateHashcode(string password);
         public Task SendMail(MailRequest mailRequest);
+        public List<string> GetAllUsernames();
     }
 }

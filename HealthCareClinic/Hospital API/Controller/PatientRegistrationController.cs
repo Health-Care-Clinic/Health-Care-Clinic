@@ -46,6 +46,12 @@ namespace Hospital_API.Controller
             return Ok(AllergenAdapter.AllergenListToDtoList(result));
         }
 
+        [HttpGet("getAllUsernames")]       // GET /api/getAllUsernames
+        public IActionResult GetAllUsernames()
+        {
+            return Ok(patientService.GetAllUsernames());
+        }
+
         [HttpPost("submitPatientRegistrationRequest")]
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {
