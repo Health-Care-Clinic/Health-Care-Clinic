@@ -13,5 +13,6 @@ namespace Integration.Interface.Service
         void ReceiveApiKey(ApiKeyDTO dto);
         ApiKey GetMyApiKey(string url);
         ApiKey GetApiKeyByName(string name);
+        ApiKey GetByKey(string key);
     }
 }
