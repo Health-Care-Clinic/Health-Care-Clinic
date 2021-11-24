@@ -1,4 +1,4 @@
-﻿using ClinicCore.Model;
+﻿using Hospital.Schedule.Model;
 using Hospital_API.DTO;
 using System;
 using System.Collections.Generic;
@@ -37,6 +37,14 @@ namespace Hospital_API.Adapter
             dto.IsPublished = feedbackMessage.IsPublished;
 
             return dto;
+        }
+        public static List<FeedbackMessageDTO> FeedbackMessageListToFeedbackMessageDTOList(List<FeedbackMessage> feedbacks)
+        {
+            List<FeedbackMessageDTO> feedbacksDTO = new List<FeedbackMessageDTO>();
+            foreach (FeedbackMessage feedback in feedbacks)
+                feedbacksDTO.Add(FeedbackMessageToFeedbackMessageDTO(feedback));
+
+            return feedbacksDTO;
         }
 
         private static DateTime ConvertToDate(String feedbackDateAsString)

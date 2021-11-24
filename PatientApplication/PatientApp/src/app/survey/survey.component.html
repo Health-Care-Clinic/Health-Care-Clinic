@@ -1,24 +1,27 @@
 <div class="stepper">
     <h1>Please tell us how you feel about our service</h1>
     <mat-horizontal-stepper linear>
-        <mat-step *ngFor="let type of questionTypeTitles; let i=index" label={{type}} completed=true>
-            <mat-list *ngFor="let question of survey.surveyQuestions | slice:i*5:i*5+4">     <!-- bice ngFor za sva pitanja iz te sekcije -->
+        <mat-step *ngFor="let category of survey.surveyCategories" label={{category.name}}>
+            
+            <mat-list *ngFor="let question of category.surveyQuestions"> 
                 <mat-list-item>
-                    <label>{{question.content}}</label>   <!-- bice binding na labelu za tekst pitanja -->
-                    <mat-radio-group>
-                        <mat-radio-button value="1">1</mat-radio-button>
-                        <mat-radio-button value="2">2</mat-radio-button>
-                        <mat-radio-button value="3">3</mat-radio-button>
-                        <mat-radio-button value="4">4</mat-radio-button>
-                        <mat-radio-button value="5">5</mat-radio-button>
+                    <label>{{question.content}}</label>  
+                    <mat-radio-group class="gradeRadioButtons" [(ngModel)]="question.grade" required>
+                        <mat-radio-button [value]="1">1</mat-radio-button>
+                        <mat-radio-button [value]="2">2</mat-radio-button>
+                        <mat-radio-button [value]="3">3</mat-radio-button>
+                        <mat-radio-button [value]="4">4</mat-radio-button>
+                        <mat-radio-button [value]="5">5</mat-radio-button>
                     </mat-radio-group>
                 </mat-list-item>
             </mat-list>
             <div style="margin-top: 3%;">
-                <button mat-button matStepperPrevious *ngIf="type !== 'Doctor'">Back</button>
-                <button mat-button matStepperNext *ngIf="type !== 'Hospital'">Next</button>
+                <button mat-button matStepperPrevious *ngIf="category.name !== 'Doctor'">Back</button>
+                <button mat-button matStepperNext *ngIf="category.name !== 'Hospital'">Next</button>
             </div>
         </mat-step>
     </mat-horizontal-stepper>
-    <button mat-raised-button name="submit-button" (click)="submit()">Submit</button>
+    <div class="submitButton">
+        <button name="submitButton" title="You need to answer all questions" mat-raised-button (click)="submit()" [disabled]="!validate()" [routerLink]="['/']">Submit</button>
+    </div>    
 </div>

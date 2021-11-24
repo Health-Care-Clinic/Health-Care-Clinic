@@ -19,118 +19,6 @@ namespace Hospital.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("ClinicCore.Model.FeedbackMessage", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<bool>("CanBePublished")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Identity")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsAnonymous")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsPublished")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FeedbackMessages");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 4, 29, 18, 34, 21, 0, DateTimeKind.Unspecified),
-                            Identity = "acaNikolic",
-                            IsAnonymous = false,
-                            IsPublished = false,
-                            Text = "Zadovoljan sam uslugom."
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 6, 21, 14, 21, 56, 0, DateTimeKind.Unspecified),
-                            Identity = "NikolaTodorovic94",
-                            IsAnonymous = true,
-                            IsPublished = false,
-                            Text = "Čekanje je moglo biti kraće."
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CanBePublished = false,
-                            Date = new DateTime(2021, 2, 16, 11, 8, 47, 0, DateTimeKind.Unspecified),
-                            Identity = "MarijaPopovic",
-                            IsAnonymous = false,
-                            IsPublished = false,
-                            Text = "Informacionom sistemu potrebne su određene popravke."
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 5, 20, 9, 10, 21, 0, DateTimeKind.Unspecified),
-                            Identity = "UrosDevic0",
-                            IsAnonymous = false,
-                            IsPublished = false,
-                            Text = "Odlični lekari."
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
-                            Identity = "MladenAlicic1",
-                            IsAnonymous = false,
-                            IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
-                            Identity = "IvanJovanovic",
-                            IsAnonymous = false,
-                            IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
-                            Identity = "JovanaGugl",
-                            IsAnonymous = false,
-                            IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
-                            Identity = "RatkoVarda8",
-                            IsAnonymous = false,
-                            IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
-                        });
-                });
-
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
                 {
                     b.Property<int>("Id")
@@ -686,7 +574,7 @@ namespace Hospital.Migrations
                             Id = 54,
                             Name = "Bandage",
                             Quantity = 17,
-                            RoomId = 79,
+                            RoomId = 69,
                             Type = 1
                         },
                         new
@@ -694,7 +582,7 @@ namespace Hospital.Migrations
                             Id = 55,
                             Name = "Blanket",
                             Quantity = 17,
-                            RoomId = 79,
+                            RoomId = 69,
                             Type = 0
                         });
                 });
@@ -1707,6 +1595,394 @@ namespace Hospital.Migrations
                             X = 50f,
                             Y = 170f
                         });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.FeedbackMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<bool>("CanBePublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Identity")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsAnonymous")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FeedbackMessages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 4, 29, 18, 34, 21, 0, DateTimeKind.Unspecified),
+                            Identity = "acaNikolic",
+                            IsAnonymous = false,
+                            IsPublished = false,
+                            Text = "Zadovoljan sam uslugom."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 6, 21, 14, 21, 56, 0, DateTimeKind.Unspecified),
+                            Identity = "NikolaTodorovic94",
+                            IsAnonymous = true,
+                            IsPublished = false,
+                            Text = "Čekanje je moglo biti kraće."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CanBePublished = false,
+                            Date = new DateTime(2021, 2, 16, 11, 8, 47, 0, DateTimeKind.Unspecified),
+                            Identity = "MarijaPopovic",
+                            IsAnonymous = false,
+                            IsPublished = false,
+                            Text = "Informacionom sistemu potrebne su određene popravke."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 5, 20, 9, 10, 21, 0, DateTimeKind.Unspecified),
+                            Identity = "UrosDevic0",
+                            IsAnonymous = false,
+                            IsPublished = false,
+                            Text = "Odlični lekari."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Identity = "MladenAlicic1",
+                            IsAnonymous = false,
+                            IsPublished = true,
+                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Identity = "IvanJovanovic",
+                            IsAnonymous = false,
+                            IsPublished = true,
+                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Identity = "JovanaGugl",
+                            IsAnonymous = false,
+                            IsPublished = true,
+                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CanBePublished = true,
+                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Identity = "RatkoVarda8",
+                            IsAnonymous = false,
+                            IsPublished = true,
+                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Done")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("survey");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentId = 1,
+                            Done = true
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("SurveyId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurveyId");
+
+                    b.ToTable("surveyCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Doctor",
+                            SurveyId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Medical stuff",
+                            SurveyId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Hospital",
+                            SurveyId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SurveyCategoryId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurveyCategoryId");
+
+                    b.ToTable("surveyQuestion");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 1,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Has doctor been polite?",
+                            Grade = 3,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 4,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 5,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 3,
+                            SurveyCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 2,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 3,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 4,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 5,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 3,
+                            SurveyCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 1,
+                            SurveyCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 4,
+                            SurveyCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 4,
+                            SurveyCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Content = "How easy was to use our application?",
+                            Grade = 5,
+                            SurveyCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 3,
+                            SurveyCategoryId = 3
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("appointment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DoctorId = 1,
+                            PatientId = 1,
+                            RoomId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Appointment", "Appointment")
+                        .WithMany("Surveys")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyCategory", b =>
+                {
+                    b.HasOne("Hospital.Schedule.Model.Survey", "Survey")
+                        .WithMany("SurveyCategories")
+                        .HasForeignKey("SurveyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Survey");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyQuestion", b =>
+                {
+                    b.HasOne("Hospital.Schedule.Model.SurveyCategory", "SurveyCategory")
+                        .WithMany("SurveyQuestions")
+                        .HasForeignKey("SurveyCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SurveyCategory");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
+                {
+                    b.Navigation("SurveyCategories");
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.SurveyCategory", b =>
+                {
+                    b.Navigation("SurveyQuestions");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.Navigation("Surveys");
                 });
 #pragma warning restore 612, 618
         }

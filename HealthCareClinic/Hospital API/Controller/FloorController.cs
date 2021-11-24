@@ -15,11 +15,10 @@ namespace Hospital_API.Controller
     [ApiController]
     public class FloorController : ControllerBase
     {
-        private FloorService floorService;
-        public FloorController(HospitalDbContext context)
+        private readonly IFloorService floorService;
+        public FloorController(IFloorService floorService)
         {
-            FloorRepository floorRepository = new FloorRepository(context);
-            floorService = new FloorService(floorRepository);
+            this.floorService = floorService;
         }
 
         [HttpGet("getFloorsByBuildingId/{id?}")]

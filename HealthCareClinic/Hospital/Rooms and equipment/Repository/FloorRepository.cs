@@ -21,7 +21,7 @@ namespace Hospital.Rooms_and_equipment.Repository
 
         public List<Floor> GetFloorsByBuildingId(int id)
         {
-            return Context.Set<Floor>().Where(c => c.BuildingId == id).ToList();
+            return Context.Set<Floor>().Where(c => c.BuildingId == id).OrderBy(x => x.Id).ToList();
         }
     }
 

@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { PharmacyRegistrationComponent } from './registration/pharmacy-registration/pharmacy-registration.component';
 import { HospitalMapComponent } from './component/hospital-map/hospital-map.component';
 import { FloorComponent } from './component/hospital-map/floor.component';
+import { EquipmentListComponent } from './component/moving-equipment/equipment-list.component';
 import { FeedbackViewComponent } from './component/feedback/feedback-view/feedback-view.component';
 import { FeedbackPublishComponent } from './component/feedback/feedback-publish/feedback-publish.component';
 import { RouterModule } from '@angular/router';
@@ -38,6 +39,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
 import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
 
+import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 
 
 const MaterialComponents = [
@@ -70,7 +72,9 @@ const MaterialComponents = [
     LandingPageComponent,
     UrgentProcurementComponent,
     PharmacyCityFilterPipe,
-    OrderDialogComponent
+    OrderDialogComponent,
+    RoomSearchComponent,
+    EquipmentListComponent
   ],
   imports: [
     BrowserModule,

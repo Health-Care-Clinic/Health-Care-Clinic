@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ISurvey } from './survey';
 import { ISurveyQuestion } from './survey-question';
+import { ISurveyCategory } from './survey-category';
 import { SurveyService } from './survey.service';
 
 @Component({
@@ -11,19 +12,17 @@ import { SurveyService } from './survey.service';
 export class SurveyComponent implements OnInit {
   survey : ISurvey = {
       id : 0,
-      patientId : 0,
       appointmentId : 0,
-      surveyQuestions : []
+      done: false,
+      surveyCategories : []
   };
   errorMessage : string  = '';
-  questionTypeTitles : string[] = ["Doctor", "Medical stuff", "Hospital"]
 
   constructor(private _surveyService : SurveyService) { }
 
   ngOnInit(): void {
     this.showSurvey();
   }
-
 
 
   showSurvey() {
@@ -37,7 +36,24 @@ export class SurveyComponent implements OnInit {
         .subscribe(data => console.log('Success!', data),
                     error => console.log('Error!', error)) 
       console.log(this.survey);
-      window.alert('Your survey has been submited.');
+      window.alert('Your survey has been submited.');      
     }
 
+  validate() {
+    var ok = true;
+    this.survey.surveyCategories.forEach(category => { category.surveyQuestions.forEach(question => {
+      if (question.grade == 0)
+      {
+        ok = false;
+        /* break; */
+      }
+    });      
+    });
+    if (ok)
+    {
+      var button = document.getElementsByTagName("button")[0];
+      button.title = "Submit your survey answers";
+    }
+    return ok;
+  }
 }

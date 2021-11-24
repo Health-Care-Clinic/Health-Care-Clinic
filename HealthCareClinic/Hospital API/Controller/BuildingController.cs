@@ -17,11 +17,10 @@ namespace Hospital_API.Controller
     public class BuildingController : ControllerBase
     {
 
-        private BuildingService buildingService;
-        public BuildingController(HospitalDbContext context)
+        private readonly IBuildingService buildingService;
+        public BuildingController(IBuildingService buildingService)
         {
-            BuildingRepository buildingRepository = new BuildingRepository(context);
-            buildingService = new BuildingService(buildingRepository);
+            this.buildingService = buildingService;
         }
 
 
@@ -48,6 +47,15 @@ namespace Hospital_API.Controller
             return Ok();
         }
 
+        [HttpGet("getSearchedBuildings/{searchText?}")]
+        public IActionResult GetSearchedBuildings(String searchText)
+        {
+            List<BuildingDTO> result = new List<BuildingDTO>();
+            if (searchText != null)
+                buildingService.GetSearchedBuildings(searchText).ForEach(building
+                    => result.Add(BuildingAdapter.BuildingToBuildingDTO(building)));
+            return Ok(result);
+        }
     }
 
 }

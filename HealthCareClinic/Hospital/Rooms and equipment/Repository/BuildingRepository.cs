@@ -25,6 +25,10 @@ namespace Hospital.Rooms_and_equipment.Repository
 
         }
 
+        public List<Building> GetSearchedBuildings(string searchText)
+        {
+            return Context.Set<Building>().Where(c => c.Name.ToLower().StartsWith(searchText.ToLower()) && c.Type == Building.BuildingType.Hospital).OrderBy(x => x.Id).ToList();
+        }
     }
 
 

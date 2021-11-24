@@ -14,6 +14,7 @@ namespace Integration
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<FeedbackReply> FeedbackReplies { get; set; }
         public DbSet<Integration.Model.Medicine> Medicines { get; set; }
+        public DbSet<PharmacyPromotion> PharmacyPromotions { get; set; }
         public IntegrationDbContext(DbContextOptions<IntegrationDbContext> options) : base(options) {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,6 +32,9 @@ namespace Integration
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<Integration.Model.Medicine>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<PharmacyPromotion>()
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
         }

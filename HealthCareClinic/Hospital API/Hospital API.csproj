@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Hospital_API</RootNamespace>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>ClinicCore.dll</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

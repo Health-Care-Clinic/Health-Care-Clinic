@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy;
 using Pharmacy.Model;
-using Pharmacy_API.Adapter;
-using Pharmacy_API.DTO;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pharmacy.Adapter;
+using Pharmacy.DTO;
+using Pharmacy.Service;
 
 namespace Pharmacy_API.Controllers
 {
@@ -16,11 +17,14 @@ namespace Pharmacy_API.Controllers
     [ApiController]
     public class FeedbackReplyController : ControllerBase
     {
-        private readonly PharmacyDbContext _dbContext;
+        private readonly IFeedbackReplyService _feedbackReplyService;
+        private readonly IApiKeyService _apiKeyService;
 
-        public FeedbackReplyController(PharmacyDbContext dbContext)
+        public FeedbackReplyController(IFeedbackReplyService feedbackReplyService,
+            IApiKeyService apiKeyService)
         {
-            _dbContext = dbContext;
+            _feedbackReplyService = feedbackReplyService;
+            _apiKeyService = apiKeyService;
         }
 
         [HttpPost]
@@ -33,10 +37,10 @@ namespace Pharmacy_API.Controllers
 
             FeedbackReply newFeedbackReply = FeedbackReplyAdapter.FeedbackReplyDtoToFeedbackReply(dto);
 
-            _dbContext.FeedbackReplies.Add(newFeedbackReply);
-            _dbContext.SaveChanges();
+            _feedbackReplyService.Add(newFeedbackReply);
+            _feedbackReplyService.SaveChanges();
 
-            ApiKey apiKey = _dbContext.ApiKeys.SingleOrDefault(apiKey => apiKey.Id == newFeedbackReply.ReceiverId);
+            ApiKey apiKey = _apiKeyService.GetOneById(newFeedbackReply.ReceiverId);
 
             var client = new RestSharp.RestClient(apiKey.BaseUrl);
             var request = new RestRequest("hospital/feedbackreply/receive");
