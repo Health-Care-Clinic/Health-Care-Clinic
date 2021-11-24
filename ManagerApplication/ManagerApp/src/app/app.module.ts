@@ -19,12 +19,12 @@ import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule  } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
@@ -40,6 +40,9 @@ import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
 import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
 
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
+import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 const MaterialComponents = [
@@ -56,7 +59,8 @@ const MaterialComponents = [
   MatFormFieldModule,
   MatInputModule,
   MatCheckboxModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatTooltipModule
 ];
 
 @NgModule({
@@ -74,7 +78,8 @@ const MaterialComponents = [
     PharmacyCityFilterPipe,
     OrderDialogComponent,
     RoomSearchComponent,
-    EquipmentListComponent
+    EquipmentListComponent,
+    PharmacyPromotionsComponent
   ],
   imports: [
     BrowserModule,

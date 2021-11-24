@@ -8,11 +8,13 @@ import { FloorComponent } from './component/hospital-map/floor.component';
 import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { EquipmentListComponent } from './component/moving-equipment/equipment-list.component';
+import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
   { path: 'registration',  component: PharmacyRegistrationComponent },
   { path: 'feedback-view', component: FeedbackViewComponent},
+  { path: 'promotions', component: PharmacyPromotionsComponent},
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
   { path: 'hospital-map', component: HospitalMapComponent },

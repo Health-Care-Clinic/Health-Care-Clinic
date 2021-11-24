@@ -17,7 +17,7 @@ namespace Integration.Service
         }
         public void Add(PharmacyPromotion entity)
         {
-            throw new NotImplementedException();
+            _pharmacyPromotionRepository.Add(entity);
         }
 
         public IEnumerable<PharmacyPromotion> GetAll()
@@ -27,12 +27,17 @@ namespace Integration.Service
 
         public PharmacyPromotion GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return _pharmacyPromotionRepository.GetById(id);
         }
 
         public void Remove(PharmacyPromotion entity)
         {
-            throw new NotImplementedException();
+            _pharmacyPromotionRepository.Remove(entity);
+        }
+
+        public void SaveChanges()
+        {
+            _pharmacyPromotionRepository.Save();
         }
     }
 }
