@@ -12,7 +12,7 @@ namespace Pharmacy.Service
       
 
 
-        public MedicineService(MedicineRepository medicineRepository)
+        public MedicineService(IMedicineRepository medicineRepository)
         {
             this._medicineRepository = medicineRepository;
         }
