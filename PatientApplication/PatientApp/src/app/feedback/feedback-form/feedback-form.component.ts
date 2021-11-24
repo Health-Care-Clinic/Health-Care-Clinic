@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Feedback } from '../feedback';
 import { FeedbackService } from '../feedback.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class FeedbackFormComponent {
 
   feedbackModel: Feedback = new Feedback();
 
-  constructor(private _feedbackService: FeedbackService) {}
+  constructor(private _feedbackService: FeedbackService, private _snackBar: MatSnackBar) {}
 
   submit(): void {
 
@@ -22,8 +23,8 @@ export class FeedbackFormComponent {
       data => console.log('Success!', data),
       error => console.log('Error!', error)
     ) 
-
-    window.alert('Your feedback has been submited.');
+    
+    this._snackBar.open('Your feedback has been submited.', 'Close', {duration: 3000});
     this.feedbackModel = new Feedback();
     }
 

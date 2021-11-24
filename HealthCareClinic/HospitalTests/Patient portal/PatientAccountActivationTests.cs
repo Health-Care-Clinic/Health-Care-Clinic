@@ -18,7 +18,7 @@ namespace HospitalUnitTests.Patient_portal
     public class PatientAccountActivationTests
     {
         [Fact]
-        public void Invalid_token_recived()
+        public void Invalid_token_recieved()
         {
             var options = CreateStubDatabase();
 
@@ -35,7 +35,7 @@ namespace HospitalUnitTests.Patient_portal
 
                 PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
-                var result = patientController.ActivatePatientsAccount("lazni hash token");
+                var result = patientController.ActivatePatientsAccount("lazniHashToken");
 
                 //var result = a.Value as StatusCodeResult; NE OVO
                 foreach (Patient p in context.Patients)
@@ -44,8 +44,10 @@ namespace HospitalUnitTests.Patient_portal
                     context.SaveChanges();
                 }
 
-              // Assert.AreEqual(HttpStatusCode.NotFound, result);
-              // Assert.IsType<StatusCodeResult>(result);
+                //Assert.AreEqual(HttpStatusCode.NotFound, result);
+                //result.Should.BeOfType<BadRequestResult>();
+                Assert.IsAssignableFrom<NotFoundResult>(result);
+                Assert.IsType<NotFoundResult>(result);
             }
         }
 
@@ -67,7 +69,7 @@ namespace HospitalUnitTests.Patient_portal
 
                 PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
-                var result = patientController.ActivatePatientsAccount("pravi hash token");
+                var result = patientController.ActivatePatientsAccount("praviHashToken");
 
                 //var result = a.Value as StatusCodeResult; NE OVO
                 foreach (Patient p in context.Patients)
@@ -78,6 +80,14 @@ namespace HospitalUnitTests.Patient_portal
 
                 // Assert.AreEqual(HttpStatusCode.Redirect, result);
                 // Assert.IsType<StatusCodeResult>(result);
+
+                //Assert.Equal(HttpStatusCode.RedirectKeepVerb, result.StatusCode);
+                //Assert.StartsWith("http://localhost/", result.RequestMessage.RequestUri.AbsoluteUri);
+
+                //Assert.StartsWith("https://localhost:8080/",
+                //    response.Headers.Location.OriginalString);
+
+                //Assert
             }
         }
 
@@ -94,7 +104,7 @@ namespace HospitalUnitTests.Patient_portal
                 Patient patient1 = new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petar", "miki", null, "Employed", false)
                 { 
                     DoctorId = 1 ,
-                    Hashcode = "neki hash"
+                    Hashcode = "praviHashToken"
                 };
                 Patient patient2 = new Patient(2, "Jovan", "Zoric", "male", "A", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", false)
                 { 

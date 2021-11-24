@@ -1,5 +1,7 @@
+<div class="stepper">
+  <h1>Registration form</h1>
 <form #registerForm="ngForm">
-    <mat-stepper orientation="vertical" linear #stepper>
+    <mat-stepper orientation="vertical" linear #stepper >
         <mat-step label="Fill in personal info">
           
           <ul>
@@ -89,7 +91,7 @@
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Confirm password</mat-label>
-                <input matInput type="password" name="repassword" id="repassword" required>
+                <input matInput type="password" name="repassword" [(ngModel)]="repassword" required>
               </mat-form-field>
             </div>
           
@@ -100,12 +102,7 @@
               </div>
           </mat-step>
           <mat-step label="Medical info">
-            <mat-label for="allergens">List of your allergens</mat-label>
-                <mat-selection-list name="allergens" [(ngModel)]="patientModel.allergens" multiple>
-                  <mat-list-option checkboxPosition="before" *ngFor="let allergen of allergens" [value]="allergen">
-                      {{ allergen.name }}
-                  </mat-list-option>
-                </mat-selection-list>
+                          
             <mat-form-field appearance="fill">
               <mat-label>Preffered doctor</mat-label>
               <mat-select name="doctor" [(ngModel)]="patientModel.doctorDTO" required>
@@ -114,7 +111,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            
+            <div>
               <mat-form-field appearance="fill">
                 <mat-label>Blood type</mat-label>
                 <mat-select name="blood" [(ngModel)]="patientModel.bloodType" required>
@@ -123,6 +120,13 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+            </div>
+            <mat-label style="padding-top: 20px;" for="allergens">List of your allergens</mat-label>
+                <mat-selection-list name="allergens" [(ngModel)]="patientModel.allergens" multiple>
+                  <mat-list-option checkboxPosition="before" *ngFor="let allergen of allergens" [value]="allergen">
+                      {{ allergen.name }}
+                  </mat-list-option>
+                </mat-selection-list>  
 
               <div>
                 <button mat-button matStepperPrevious>Back</button>
@@ -134,8 +138,9 @@
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button color="warn" (click)="stepper.reset()">Reset</button>
-              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && checkPasswords())">Submit</button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password === repassword)">Submit</button>
             </div>
           </mat-step>
     </mat-stepper>
-</form>
+   </form>
+  </div>

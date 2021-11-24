@@ -3,6 +3,7 @@ using Hospital.Shared_model.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Hospital.Medical_records.Service
 {
@@ -10,7 +11,7 @@ namespace Hospital.Medical_records.Service
     {
         Patient FindByToken(string token);
         void ActivatePatientsAccount(Patient patient);
-        string GenerateHashcode(string username);
-        void SendMail(Patient newPatient);
+        string GenerateHashcode(string password);
+        public Task SendMail(MailRequest mailRequest);
     }
 }

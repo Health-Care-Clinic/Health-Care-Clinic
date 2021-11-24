@@ -4,6 +4,7 @@ import { IPatient } from '../patient/ipatient';
 import { Doctor } from './doctor';
 import { IAllergen } from './allergen';
 import { PatientService } from '../patient/patient.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 interface EmploymentStatus {
   value: string;
@@ -59,12 +60,12 @@ export class RegistrationFormComponent implements OnInit {
   doctors: Doctor[] = [];
   allergens: IAllergen[] = [];
   errorMessage : string  = '';
+  repassword: string = '';
   
   
 
-  constructor(
-    public _patientservice: PatientService,
-    ) { }
+  constructor(public _patientservice: PatientService, private _snackBar: MatSnackBar)
+  { }
 
 
   ngOnInit(): void {
@@ -97,7 +98,7 @@ export class RegistrationFormComponent implements OnInit {
     )
 
     console.log(this.patientModel);
-    window.alert('Registration request successfully submited!');
+    this._snackBar.open('Registration request successfully submited! An activation mail has been sent to your inbox.', 'Close', {duration: 3000});
   }
 
 }

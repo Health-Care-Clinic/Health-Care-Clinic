@@ -40,12 +40,14 @@ import { MatListModule} from '@angular/material/list';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule} from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { FeedbackService } from './service/feedback.service';
 import { SurveyService } from './survey/survey.service';
 import { SurveyComponent } from './survey/survey.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { PatientService } from './patient/patient.service';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 
 
@@ -69,6 +71,7 @@ const MaterialComponents = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatSelectModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
@@ -80,6 +83,7 @@ const MaterialComponents = [
     FooterComponent,
     SurveyComponent,
     RegistrationFormComponent,
+    LoginPageComponent,
   ],
   imports: [
     HttpClientModule,

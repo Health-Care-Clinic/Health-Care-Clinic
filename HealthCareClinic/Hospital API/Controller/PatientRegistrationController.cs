@@ -49,24 +49,26 @@ namespace Hospital_API.Controller
         [HttpPost("submitPatientRegistrationRequest")]
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {
-            Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
+            Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);            
             newPatient.Doctor = doctorService.GetOneById(patientDTO.DoctorDTO.Id);
 
-            newPatient.Hashcode = patientService.GenerateHashcode(newPatient.Username);
-
-            patientService.SendMail(newPatient);
+            newPatient.Hashcode = patientService.GenerateHashcode(newPatient.Password);
 
             patientService.Add(newPatient);
+
+            //var confirmationLink = Url.Action("activate", "api", new { token = newPatient.Hashcode }, Request.Scheme);
+            var confirmationLink = "http://localhost:4200/api/patientRegistration/activate?token=" + newPatient.Hashcode;
+            patientService.SendMail(new MailRequest(confirmationLink, newPatient.Name, newPatient.Email));           
 
             return Ok();
         }
 
-        [HttpGet("activateAccount")]
+        [HttpGet("activate")]
         public IActionResult ActivatePatientsAccount([FromQuery] string token)
         {
             Patient patient = patientService.FindByToken(token);
 
-            if (patient == null)
+            if (patient == null || patient.IsActive)
             {
                 return NotFound();
             }
