@@ -67,5 +67,10 @@ namespace Integration.Service
         {
             return _apiKeyRepository.GetByName(name);
         }
+
+        public ApiKey GetByKey(string key)
+        {
+            return _apiKeyRepository.GetByKey(key);
+        }
     }
 }

@@ -38,6 +38,9 @@ import { RoomSearchComponent } from './component/hospital-map/room-search.compon
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
+import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
+
 
 
 const MaterialComponents = [
@@ -72,6 +75,8 @@ const MaterialComponents = [
     RoomSearchComponent,
     EquipmentListComponent,
     PharmacyPromotionsComponent,
+    MedicineSpecificationsComponent,
+    ConsumptionReportComponent
   ],
   imports: [
     BrowserModule,

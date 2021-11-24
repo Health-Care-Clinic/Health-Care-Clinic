@@ -65,7 +65,7 @@ namespace Integration_API.Controller
             return Ok("Successfully sent!");
         }
 
-        [HttpGet("ftp/{fileName}")]
+        [HttpGet("ftp")]
         public IActionResult DownloadFile(String fileName)
         {
             _fileTransferService.DownloadFile(fileName);
