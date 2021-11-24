@@ -302,23 +302,23 @@ namespace Hospital.Mapper
                 new Allergen(10, "Školjke")
             );
 
-            modelBuilder.Entity<Doctor>(entity =>
-            {
-                entity.ToTable("Doctor");
+            //modelBuilder.Entity<Doctor>(entity =>
+            //{
+            //    entity.ToTable("Doctor");
 
-                entity.HasMany(d => d.Patients)
-               .WithOne(p => p.Doctor)
-               .HasForeignKey(p => p.DoctorId);
-            });
+            //    entity.HasMany(d => d.Patients)
+            //   .WithOne(p => p.Doctor)
+            //   .HasForeignKey(p => p.DoctorId);
+            //});
 
-            modelBuilder.Entity<Patient>(entity =>
-            {
-                entity.ToTable("Patient");
+            //modelBuilder.Entity<Patient>(entity =>
+            //{
+            //    entity.ToTable("Patient");
 
-                entity.HasOne(p => p.Doctor)
-               .WithMany(d => d.Patients)
-               .HasForeignKey(p => p.DoctorId);
-            });
+            //    entity.HasOne(p => p.Doctor)
+            //   .WithMany(d => d.Patients)
+            //   .HasForeignKey(p => p.DoctorId);
+            //});
 
             modelBuilder.Entity<Appointment>(entity =>
             {

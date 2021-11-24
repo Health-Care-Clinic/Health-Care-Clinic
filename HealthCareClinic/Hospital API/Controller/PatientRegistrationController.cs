@@ -17,22 +17,22 @@ namespace Hospital_API.Controller
     [ApiController]
     public class PatientRegistrationController : ControllerBase
     {
-        private IPatientService _patientService;
-        private IAllergenService _allergenService;
-        private IDoctorService _doctorService;
+        private IPatientService patientService;
+        private IAllergenService allergenService;
+        private IDoctorService doctorService;
 
         public PatientRegistrationController(IAllergenService allergenService,IDoctorService doctorService,IPatientService patientService)
         {
-            this._allergenService = allergenService;
-            this._doctorService = doctorService;
-            this._patientService = patientService;
+            this.allergenService = allergenService;
+            this.doctorService = doctorService;
+            this.patientService = patientService;
         }
 
 
         [HttpGet("getAllAvailableDoctors")]
         public IActionResult GetAvailableDoctors()
         {
-            List<Doctor> doctors = (List<Doctor>)_doctorService.GetAvailableDoctors();
+            List<Doctor> doctors = (List<Doctor>)doctorService.GetAvailableDoctors();
             List<DoctorDTO> result = DoctorAdapter.DoctorListToDoctorDTOList(doctors);
             return Ok(result);
         }
@@ -41,7 +41,7 @@ namespace Hospital_API.Controller
         [HttpGet("getAllAllergens")]       // GET /api/getAllAllergens
         public IActionResult GetAllAllergens()
         {
-            List<Allergen> result = (List<Allergen>) _allergenService.GetAll();
+            List<Allergen> result = (List<Allergen>)allergenService.GetAll();
 
             return Ok(AllergenAdapter.AllergenListToDtoList(result));
         }
@@ -50,11 +50,31 @@ namespace Hospital_API.Controller
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {
             Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
-            newPatient.Doctor = _doctorService.GetOneById(patientDTO.DoctorDTO.Id);
-            _patientService.Add(newPatient);
+            newPatient.Doctor = doctorService.GetOneById(patientDTO.DoctorDTO.Id);
+
+            newPatient.Hashcode = patientService.GenerateHashcode(newPatient.Username);
+
+            patientService.SendMail(newPatient);
+
+            patientService.Add(newPatient);
 
             return Ok();
         }
+
+        [HttpGet("activateAccount")]
+        public IActionResult ActivatePatientsAccount([FromQuery] string token)
+        {
+            Patient patient = patientService.FindByToken(token);
+
+            if (patient == null)
+            {
+                return NotFound();
+            }
+            patientService.ActivatePatientsAccount(patient);
+
+            return Redirect("http://localhost:4200/login");
+        }
+
         //[HttpGet("getAllPatients")]
         //public IActionResult GetAllPatients()
         //{

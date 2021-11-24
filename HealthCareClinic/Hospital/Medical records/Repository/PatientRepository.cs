@@ -5,6 +5,7 @@ using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Linq;
 using System.Text;
 
 namespace Hospital.Medical_records.Repository
@@ -15,6 +16,18 @@ namespace Hospital.Medical_records.Repository
         public PatientRepository(HospitalDbContext context) : base(context)
         {
             dbContext = context;
+        }
+
+        public void ActivatePatientsAccount(int id)
+        {
+            Patient patient = GetById(id);
+            patient.IsActive = true;
+            Save();
+        }
+
+        public Patient FindByToken(string token)
+        {
+            return dbContext.Patients.SingleOrDefault(p => p.Hashcode.Equals(token));
         }
     }
 

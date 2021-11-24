@@ -30,7 +30,6 @@ namespace HospitalTests.Patient_portal
                 DoctorRepository doctorRepository = new DoctorRepository(context);
                 DoctorService doctorService = new DoctorService(doctorRepository);
 
-
                 AllergenRepository allergenRepository = new AllergenRepository(context);
                 AllergenService alergenService = new AllergenService(allergenRepository);
 

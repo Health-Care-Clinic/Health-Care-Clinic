@@ -5,6 +5,7 @@ using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
 using Hospital_API.Controller;
+using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -62,14 +63,14 @@ namespace HospitalTests.Patient_portal
                 PatientRegistrationController patientRegistrationController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
                 OkObjectResult a = patientRegistrationController.GetAllAllergens() as OkObjectResult;
-                List<Allergen> allergens = a.Value as List<Allergen>;
+                List<AllergenDTO> allergens = a.Value as List<AllergenDTO>;
                 foreach (Allergen b in context.Allergens)
                 {
                     context.Allergens.Remove(b);
                     context.SaveChanges();
                 }
 
-                Assert.Equal(10, allergens.Count);
+                Assert.Equal(10, allergens.Count());
             }
         }
     }
