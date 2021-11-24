@@ -35,7 +35,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
 import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
 
