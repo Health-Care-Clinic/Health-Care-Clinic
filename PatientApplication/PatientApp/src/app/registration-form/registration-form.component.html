@@ -139,7 +139,7 @@
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button color="warn" (click)="stepper.reset()">Reset</button>
-              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password === repassword && usernames.includes(patientModel.username))" [routerLink]="['/login']">Submit</button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password === repassword && !usernames.includes(patientModel.username))" [routerLink]="['/login']">Submit</button>
             </div>
           </mat-step>
     </mat-stepper>
