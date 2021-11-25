@@ -12,5 +12,11 @@ namespace Hospital_API.DTO
         public AllergenDTO()
         {
         }
+
+        public AllergenDTO(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }
