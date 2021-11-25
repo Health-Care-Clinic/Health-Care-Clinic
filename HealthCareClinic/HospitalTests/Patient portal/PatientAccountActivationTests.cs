@@ -13,12 +13,12 @@ using System.Net;
 using System.Text;
 using Xunit;
 
-namespace HospitalUnitTests.Patient_portal
+namespace HospitalTests.Patient_portal
 {
     public class PatientAccountActivationTests
     {
         [Fact]
-        public void Invalid_token_recieved()
+        public void Invalid_or_used_token_recieved()
         {
             var options = CreateStubDatabase();
 
@@ -35,18 +35,14 @@ namespace HospitalUnitTests.Patient_portal
 
                 PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
-                var result = patientController.ActivatePatientsAccount("lazniHashToken");
+                var result = patientController.ActivatePatientsAccount("lazniIliKorisceniHashToken");
 
-                //var result = a.Value as StatusCodeResult; NE OVO
                 foreach (Patient p in context.Patients)
                 {
                     context.Patients.Remove(p);
                     context.SaveChanges();
                 }
 
-                //Assert.AreEqual(HttpStatusCode.NotFound, result);
-                //result.Should.BeOfType<BadRequestResult>();
-                Assert.IsAssignableFrom<NotFoundResult>(result);
                 Assert.IsType<NotFoundResult>(result);
             }
         }
@@ -70,24 +66,16 @@ namespace HospitalUnitTests.Patient_portal
                 PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
                 var result = patientController.ActivatePatientsAccount("praviHashToken");
-
-                //var result = a.Value as StatusCodeResult; NE OVO
+                
                 foreach (Patient p in context.Patients)
                 {
                     context.Patients.Remove(p);
                     context.SaveChanges();
                 }
 
-                // Assert.AreEqual(HttpStatusCode.Redirect, result);
-                // Assert.IsType<StatusCodeResult>(result);
-
-                //Assert.Equal(HttpStatusCode.RedirectKeepVerb, result.StatusCode);
-                //Assert.StartsWith("http://localhost/", result.RequestMessage.RequestUri.AbsoluteUri);
-
-                //Assert.StartsWith("https://localhost:8080/",
-                //    response.Headers.Location.OriginalString);
-
-                //Assert
+                Assert.IsType<RedirectResult>(result);
+                RedirectResult redirectResult = (RedirectResult)result;
+                Assert.Equal("http://localhost:4200/login", redirectResult.Url);
             }
         }
 
