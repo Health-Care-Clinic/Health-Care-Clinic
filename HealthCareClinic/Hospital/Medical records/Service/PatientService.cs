@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Hospital.Medical_records.Service
 {
     public class PatientService : IPatientService
@@ -103,7 +104,7 @@ namespace Hospital.Medical_records.Service
 
         public Patient GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return patientRepository.GetById(id);
         }
 
         public void Remove(Patient entity)

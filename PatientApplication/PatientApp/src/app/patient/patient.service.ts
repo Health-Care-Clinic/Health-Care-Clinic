@@ -6,6 +6,7 @@ import { IAllergen } from '../registration-form/allergen';
 import { IPatient } from './ipatient';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class PatientService {
   private _getAvailableDoctors = this._patientRegistration + '/getAllAvailableDoctors';
   private _getAllAllergens     = this._patientRegistration + '/getAllAllergens';
   private _getAllUsernames     = this._patientRegistration + '/getAllUsernames';
+  private _getPatient          = this._patientRegistration + '/getPatient/';
 
 
   constructor(private _http: HttpClient) { }
@@ -38,6 +40,12 @@ export class PatientService {
   getAllUsernames(): Observable<string[]> {
     return this._http.get<string[]>(this._getAllUsernames)     
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))                    
+                         .catch(this.handleError);
+  }
+
+  getPatient(id: number): Observable<IPatient> {
+    return this._http.get<IPatient>(this._getPatient+id)                              
+                         .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 

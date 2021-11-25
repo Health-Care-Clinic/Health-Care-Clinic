@@ -52,6 +52,12 @@ namespace Hospital_API.Controller
             return Ok(patientService.GetAllUsernames());
         }
 
+        [HttpGet("getPatient/{id?}")]       
+        public IActionResult GetPatient(int id)
+        {
+            return Ok(PatientAdapter.PatientToPatientDTO(patientService.GetOneById(id)));
+        }
+
         [HttpPost("submitPatientRegistrationRequest")]
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { IPatient } from '../patient/ipatient';
 import { Doctor } from './doctor';
 import { IAllergen } from './allergen';

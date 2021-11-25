@@ -1,0 +1,25 @@
+.mat-tab-group {
+    border: solid;
+    border-color:darkslateblue;
+    border-style: groove;
+    margin-top: 4%;
+    margin-left: 20%;
+    margin-right: 20%;
+    height: 600px;
+    background-color:azure;
+}
+
+.mat-list {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+label {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.tab-icon {
+    margin-right: 10px;
+}

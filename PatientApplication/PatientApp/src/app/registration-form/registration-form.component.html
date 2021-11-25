@@ -1,6 +1,6 @@
 <div class="stepper">
   <h1>Registration form</h1>
-<form name="rform" #registerForm="ngForm">
+<form #registerForm="ngForm">
     <mat-stepper orientation="vertical" linear #stepper >
         <mat-step label="Fill in personal info">
           
@@ -92,7 +92,7 @@
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Confirm password</mat-label>
-                <input matInput type="password" name="repassword" [(ngModel)]="repassword" required>
+                <input matInput type="password" name="repass" [(ngModel)]="repassword" required>
               </mat-form-field>
             </div>
           
@@ -139,7 +139,7 @@
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button color="warn" (click)="stepper.reset()">Reset</button>
-              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password === repassword && usernames.includes(patientModel.username))" [routerLink]="['/login']">Submit</button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password === repassword && !usernames.includes(patientModel.username))" [routerLink]="['/login']">Submit</button>
             </div>
           </mat-step>
     </mat-stepper>
