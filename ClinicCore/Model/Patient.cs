@@ -71,8 +71,7 @@ namespace Model
         {
         }
 
-        public Doctor Doc { get; set; }
-
+        public virtual Doctor Doc { get; set; }
         public Doctor Doctor
         {
             get

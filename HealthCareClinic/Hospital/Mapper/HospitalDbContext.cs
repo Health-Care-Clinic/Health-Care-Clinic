@@ -7,6 +7,7 @@ using static Hospital.Rooms_and_equipment.Model.Building;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
 using System.Collections.Generic;
+using static Hospital.Rooms_and_equipment.Model.Transfer;
 
 namespace Hospital.Mapper
 {
@@ -34,11 +35,25 @@ namespace Hospital.Mapper
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Specialty> Specialty { get; set; }
 
+        public DbSet<Transfer> Transfer { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         // only for testing purposes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Transfer>().HasData(
+                new Transfer { Id = 1, Equipment = "Bed", Quantity = 2, SourceRoomId = 1, DestinationRoomId = 2,
+                    Date = new DateTime(2021, 11, 25, 9, 30, 00), Duration = 60 },
+                new Transfer { Id = 2, Equipment = "Bed", Quantity = 4, SourceRoomId = 50, DestinationRoomId = 60,
+                    Date = new DateTime(2021, 11, 30, 12, 00, 00), Duration = 45 },
+                new Transfer {  Id = 3, Equipment = "TV", Quantity = 1, SourceRoomId = 45, DestinationRoomId = 52,
+                    Date = new DateTime(2021, 11, 24, 10, 00, 00), Duration = 45 },
+                new Transfer { Id = 4, Equipment = "Bandage", Quantity = 4, SourceRoomId = 47, DestinationRoomId = 62,
+                    Date = new DateTime(2021, 11, 24, 9, 30, 00), Duration = 15 },
+                new Transfer { Id = 5, Equipment = "Blanket", Quantity = 10, SourceRoomId = 18, DestinationRoomId = 23,
+                    Date = new DateTime(2021, 11, 28, 14, 00, 00), Duration = 15 }
+                ) ;
+
             modelBuilder.Entity<Equipment>().HasData(
                 new Equipment { Id = 1, Name = "Bed", Type = EquipmentType.Static, Quantity = 5, RoomId = 1 },
                 new Equipment { Id = 2, Name = "Needle", Type = EquipmentType.Dynamic, Quantity = 25, RoomId = 1 },
