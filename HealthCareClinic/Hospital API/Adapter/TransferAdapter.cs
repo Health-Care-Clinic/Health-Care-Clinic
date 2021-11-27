@@ -18,7 +18,7 @@ namespace Hospital_API.Adapter
             transfer.Quantity = dto.Quantity;
             transfer.SourceRoomId = dto.SourceRoomId;
             transfer.DestinationRoomId = dto.DestinationRoomId;
-            transfer.Date = createDate(dto.Date);
+            transfer.Date = dto.Date;
             transfer.Duration = dto.Duration;
 
             return transfer;
@@ -33,24 +33,10 @@ namespace Hospital_API.Adapter
             dto.Quantity = transfer.Quantity;
             dto.SourceRoomId = transfer.SourceRoomId;
             dto.DestinationRoomId = transfer.DestinationRoomId;
-            dto.Date = transfer.Date.ToString();
+            dto.Date = transfer.Date;
             dto.Duration = transfer.Duration;
             
             return dto;
-        }
-
-        private static DateTime createDate(string date) {
-            String[] dates = date.Split(' ');
-            int day = Convert.ToInt32(dates[0].Split('.')[0]);
-            int month = Convert.ToInt32(dates[0].Split('.')[1]);
-            int year = Convert.ToInt32(dates[0].Split('.')[2]);
-          
-            int hour = Convert.ToInt32(dates[1].Split(':')[0]);
-            int minute = Convert.ToInt32(dates[1].Split(':')[1]);
-            int second = 0;
-            DateTime date1 = new DateTime(year, month, day, hour, minute, second);
-
-            return date1;
         }
         /*
         private static int returnMonth(String month)

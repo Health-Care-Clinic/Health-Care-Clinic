@@ -66,7 +66,7 @@ namespace HospitalUnitTests.Graphical_editor
                 TransferService transferService = new TransferService(transferRepository);
                 TransferController transferController = new TransferController(transferService, null);
 
-                TransferDTO transfer = new TransferDTO(5, "Bed", 5, 1, 2, new DateTime(2021, 11, 28, 9, 0, 0).ToString(), 60);
+                TransferDTO transfer = new TransferDTO(5, "Bed", 5, 1, 2, new DateTime(2021, 11, 28, 9, 0, 0), 60);
                 OkObjectResult a = transferController.AddNewTransfer(transfer) as OkObjectResult;
                 context.SaveChanges();
 
