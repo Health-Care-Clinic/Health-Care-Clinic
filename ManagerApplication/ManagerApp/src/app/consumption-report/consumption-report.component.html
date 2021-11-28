@@ -1,0 +1,10 @@
+<div class="d-flex flex-column align-items-center bg-ghostwhite flex-grow-1">
+    <h3 class="col-6 mt-5 px-5 lead" style="font-size: x-large">Create consumption report</h3>
+    <div class="d-flex flex-column align-items-center w-50 p-4 mt-3 bg-white box-shadow">
+        <h4>Start date: </h4>
+        <input type="date" [(ngModel)]='startDate'/> <br/>
+        <h4>End date: </h4>
+        <input type="date" [(ngModel)]='endDate'/> <br/>
+        <button mat-raised-button (click)='generateReport()'>Generate</button>
+    </div> <br/> <br/>
+</div>

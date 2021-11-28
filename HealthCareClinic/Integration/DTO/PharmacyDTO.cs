@@ -6,13 +6,15 @@ namespace Integration.DTO
     {
         public int Id { get; set; }
         public String Name { get; set; }
+        public string City { get; set; }
 
         public PharmacyDTO() { }
 
-        public PharmacyDTO(int id, string name)
+        public PharmacyDTO(int id, string name, string city)
         {
             Id = id;
             Name = name;
+            City = city;
         }
     }
 }

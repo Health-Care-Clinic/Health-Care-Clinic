@@ -10,5 +10,6 @@ namespace Integration.Interface.Repository
     {
         ApiKey GetByName(string name);
         ApiKey GetByUrl(string url);
+        ApiKey GetByKey(string key);
     }
 }

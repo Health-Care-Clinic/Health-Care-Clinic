@@ -19,12 +19,12 @@ import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import {IvyCarouselModule} from 'angular-responsive-carousel';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule  } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
@@ -39,6 +39,18 @@ import {MatListModule} from '@angular/material/list';
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
 import { SurveyObservationService } from './services/survey-observation.service';
+
+import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
+import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
+import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
+
+import { RoomSearchComponent } from './component/hospital-map/room-search.component';
+import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
+import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
+
 
 
 const MaterialComponents = [
@@ -56,7 +68,9 @@ const MaterialComponents = [
   MatInputModule,
   MatCheckboxModule,
   MatStepperModule,
-  MatListModule
+  MatListModule,
+  MatExpansionModule,
+  MatTooltipModule
 ];
 
 @NgModule({
@@ -70,9 +84,15 @@ const MaterialComponents = [
     HeaderComponent,
     FooterComponent,
     LandingPageComponent,
+    UrgentProcurementComponent,
+    PharmacyCityFilterPipe,
+    OrderDialogComponent,
     RoomSearchComponent,
     EquipmentListComponent,
-    SurveyObservationComponent
+    SurveyObservationComponent,
+    PharmacyPromotionsComponent,
+    MedicineSpecificationsComponent,
+    ConsumptionReportComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +107,7 @@ const MaterialComponents = [
     MaterialComponents
   ],
   providers: [FeedbackService, SurveyObservationService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [OrderDialogComponent]
 })
 export class AppModule { }

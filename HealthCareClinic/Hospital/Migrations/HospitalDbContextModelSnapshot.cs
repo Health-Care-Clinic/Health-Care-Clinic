@@ -1597,6 +1597,88 @@ namespace Hospital.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Transfer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("DestinationRoomId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Equipment")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SourceRoomId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transfer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 2,
+                            Duration = 60,
+                            Equipment = "Bed",
+                            Quantity = 2,
+                            SourceRoomId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2021, 11, 30, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 60,
+                            Duration = 45,
+                            Equipment = "Bed",
+                            Quantity = 4,
+                            SourceRoomId = 50
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 52,
+                            Duration = 15,
+                            Equipment = "TV",
+                            Quantity = 1,
+                            SourceRoomId = 45
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2021, 11, 24, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 62,
+                            Duration = 15,
+                            Equipment = "Bandage",
+                            Quantity = 4,
+                            SourceRoomId = 47
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 23,
+                            Duration = 15,
+                            Equipment = "Blanket",
+                            Quantity = 10,
+                            SourceRoomId = 18
+                        });
+                });
+
             modelBuilder.Entity("Hospital.Schedule.Model.FeedbackMessage", b =>
                 {
                     b.Property<int>("Id")

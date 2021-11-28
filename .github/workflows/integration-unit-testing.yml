@@ -1,0 +1,44 @@
+name: Integration Unit Test
+on:
+  pull_request:
+    branches: [ master, develop ]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    env:
+      config: Release
+      PROJECT: 'HealthCareClinic/Integration/Integration.csproj'
+      TEST: 'HealthCareClinic/IntegrationTests/IntegrationTests.csproj'
+    # Map a step output to a job output
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
+      - uses: lostick/path-filtering-action@main
+        with:
+          # Diff rules file path
+          config_file: .github/integration-unit-rules.yml
+          # Base branch to compare to
+          base_ref:  develop
+        
+      - name: Setup .NET
+        if: env.DIFF_DETECTED == 'true'
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+
+      - name: Restore dependencies
+        if: env.DIFF_DETECTED == 'true'
+        run: dotnet restore $PROJECT
+
+      - name: Build
+        if: env.DIFF_DETECTED == 'true'
+        run: dotnet build $PROJECT --configuration $config --no-restore 
+      
+      - name: Setup RabbitMQ
+        if: env.DIFF_DETECTED == 'true'
+        uses: nijel/rabbitmq-action@v1.0.0
+
+      - name: Test with dotnet
+        if: env.DIFF_DETECTED == 'true'
+        run: dotnet test $TEST --verbosity quiet

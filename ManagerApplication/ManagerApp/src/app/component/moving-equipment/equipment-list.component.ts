@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Transfer } from 'src/app/model/transfer';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
 @Component({
@@ -17,11 +18,21 @@ export class EquipmentListComponent implements OnInit {
   selectedQuantity: any;
   roomsWithEquipmentDst: any;
   selectedRoomDst: any;
+  allTransfers: any;
+  selectedDate: any;
+  selectedDuration: any;
+  radioSelected: any;
+  freeTerms: any;
+  day: number;
+  var: number;
+  duration: number;
+  radioInput: any;
 
   backButton1: any;
   backButton2: any;
   backButton3: any;
   backButton4: any;
+  backButton5: any;
 
   constructor(private hospitalMapService: HospitalMapService) {
     this.hospitalMapService.getAllEquipment().subscribe(equipmentFromBack =>{
@@ -32,19 +43,62 @@ export class EquipmentListComponent implements OnInit {
           this.equipmentNames.push(e.name)
         }
       }
+    });
+    this.hospitalMapService.getTransfers().subscribe(transfersFromBack =>{
+      this.allTransfers = transfersFromBack;
+      this.freeTerms = []
     })
    }
 
   ngOnInit(): void {
+    this.selectedDate = new Date()
+    this.var = 0
+    this.duration = 0 
+    this.radioInput = -1;
+
     this.step2Disable();
     this.step3Disable();
     this.step4Disable();
     this.step5Disable();
+    this.step6Disable();
 
     this.backButton1 = false;
     this.backButton2 = false;
     this.backButton3 = false;
     this.backButton4 = false;
+    this.backButton5 = false;
+   }
+
+   onFinish(): void {
+    if(this.backButton5){
+      this.step5Enable();
+      this.step6Disable();
+    } else {
+
+      if(this.radioInput == -1){
+        return;
+      }
+      
+      let id = this.returnKey() + 1
+      let term = this.freeTerms[this.radioInput].toString().split(' ')
+      let month = this.returnMonth(term[1])-1;
+      let time = term[4].split(':')
+      let date = new Date(term[3], month, term[2], time[0], time[1], time[2]);
+
+      let transfer = new Transfer(id, this.selectedEquipment, parseInt(this.selectedQuantity), parseInt(this.selectedRoom), parseInt(this.selectedRoomDst), 
+        date.toString(), parseInt(this.selectedDuration))
+      
+      this.freeTerms = [];
+      this.backButton5 = false;
+      this.radioInput = -1;
+      this.step6Disable();
+      this.step1Enable();
+
+      this.hospitalMapService.addTransfer(transfer).subscribe(() =>  {}     
+      )
+
+    }
+
    }
 
   onSubmit() : void{
@@ -57,6 +111,10 @@ export class EquipmentListComponent implements OnInit {
         this.roomsWithEquipment.push(e)
       }
     }
+
+    this.hospitalMapService.getTransfers().subscribe(transfersFromBack =>{
+      this.allTransfers = transfersFromBack;
+    })
   }
 
   onSubmit2() : void {
@@ -126,13 +184,19 @@ export class EquipmentListComponent implements OnInit {
   onSubmit5(): void {
     if (this.backButton4) {
       this.step4Enable();
-      
+      this.step6Disable();
+
     } else {
+      this.step5Disable();
+      this.backButton4 = false;
+      this.step6Enable();
 
+      this.findFreeTerms();
     }
-
+    
     this.step5Disable();
     this.backButton4 = false;
+
   }
 
   back1() : void {
@@ -149,6 +213,10 @@ export class EquipmentListComponent implements OnInit {
 
   back4() : void {
     this.backButton4 = true;
+  }
+
+  back5(): void {
+    this.backButton5 = true;
   }
 
   step1Enable() : void {
@@ -236,6 +304,10 @@ export class EquipmentListComponent implements OnInit {
     select5.disabled = false;
     let date = document.getElementById('date') as HTMLSelectElement;
     date.disabled = false;
+
+    this.backButton5 = false;
+
+    this.freeTerms = []
   }
 
   step5Disable() : void {
@@ -247,6 +319,234 @@ export class EquipmentListComponent implements OnInit {
     select5.disabled = true;
     let date = document.getElementById('date') as HTMLSelectElement;
     date.disabled = true;
+
+    this.selectedDuration = select5.value;
+
   }
 
+  step6Enable(): void {
+    let finish = document.getElementById('finish') as HTMLButtonElement;
+    finish.disabled = false;
+    let back5 = document.getElementById('back5') as HTMLButtonElement;
+    back5.disabled = false;
+    let table = document.getElementById('tableTransfer') as HTMLSelectElement;
+    table.disabled = false;
+
+    let dates = this.selectedDate.toString().split("-")
+    this.day = parseInt(dates[2])
+  }
+
+  step6Disable(): void {
+    let finish = document.getElementById('finish') as HTMLButtonElement;
+    finish.disabled = true;
+    let back5 = document.getElementById('back5') as HTMLButtonElement;
+    back5.disabled = true;
+    let table = document.getElementById('tableTransfer') as HTMLSelectElement;
+    table.disabled = true;
+  }
+
+  addMinutes(date): Date {
+    let date1 = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + 15, 0); 
+    return date1;
+  }
+
+  findFreeTerms(): void{
+    let num = this.selectedDuration/15;
+    let dates = this.selectedDate.toString().split("-")
+    this.day = parseInt(dates[2]);
+    
+    let date = new Date(parseInt(dates[0]), dates[1] - 1, this.day, 8, 0, 0);
+    
+    if(num == 1){
+      while(date.getHours() != 17){
+      
+        if(this.checkIsItPosibleToPushIntoList(num, date)){
+          this.freeTerms.push(date);
+        }
+        
+        if(this.var == 0)
+          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
+        else 
+          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
+      }
+    } else if(num == 2) {
+      while(date.getHours() != 16 || date.getMinutes() != 45){
+      
+        if(this.checkIsItPosibleToPushIntoList(num, date)){
+          this.freeTerms.push(date);
+        }
+
+        if(this.var == 0)
+          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
+        else 
+          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
+      }
+    } else if(num == 3) {
+      while(date.getHours() != 16 || date.getMinutes() != 30){
+      
+        if(this.checkIsItPosibleToPushIntoList(num, date)){
+          this.freeTerms.push(date);
+        }
+
+        if(this.var == 0)
+          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
+        else 
+          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
+      }
+    } else if(num == 4) {
+      while(date.getHours() != 16 || date.getMinutes() != 15){
+        
+        if(this.checkIsItPosibleToPushIntoList(num, date)){
+          this.freeTerms.push(date);
+        }
+
+        if(this.var == 0)
+          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
+        else 
+          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
+      }
+    } else if(num == 6) {
+      while(date.getHours() != 15 || date.getMinutes() != 45){
+      
+        if(this.checkIsItPosibleToPushIntoList(num, date)){
+          this.freeTerms.push(date);
+        }
+
+        if(this.var == 0)
+          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
+        else 
+          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
+      }
+    } else if(num == 8) {
+      while(date.getHours() != 15 || date.getMinutes() != 15){
+      
+        if(this.checkIsItPosibleToPushIntoList(num, date)){
+          this.freeTerms.push(date);
+        }
+
+        if(this.var == 0)
+          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
+        else 
+          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
+      }
+    } else if(num == 10) {
+      while(date.getHours() != 14 || date.getMinutes() != 45){
+      
+        if(this.checkIsItPosibleToPushIntoList(num, date)){
+          this.freeTerms.push(date);
+        }
+
+        if(this.var == 0)
+          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
+        else 
+          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
+      }
+    } else if(num == 12) {
+      while(date.getHours() != 14 || date.getMinutes() != 15){
+      
+        if(this.checkIsItPosibleToPushIntoList(num, date)){
+          this.freeTerms.push(date);
+        }
+        if(this.var == 0)
+          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
+        else 
+          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
+        
+      }
+    }
+  }
+
+  checkIsItPosibleToPushIntoList(num, date): Boolean{
+
+    for(let i=0; i<num; i++){
+      if(this.checkIsTermFree(date)) {
+        date = this.addMinutes(date);
+        this.var = 0;
+      } else {
+        if(i == 0) {
+          this.var = 1;
+          this.duration = this.findDuration(date);
+        }
+        
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  checkIsTermFree(date): Boolean{
+    
+    for (let t of this.allTransfers) {
+      
+      let prom = t.date.toString().split(' ')
+      let dates = prom[0].split('.');
+      let time = prom[1].split(':');
+      
+      if(t.sourceRoomId == this.selectedRoom || t.destinationRoomId == this.selectedRoomDst || 
+        t.sourceRoomId == this.selectedRoomDst || t.destinationRoomId == this.selectedRoom){
+          
+        if(parseInt(dates[1]) == (date.getMonth()+1) && parseInt(dates[0]) == this.day && parseInt(time[0]) == date.getHours() && 
+            parseInt(time[1]) == date.getMinutes()){
+          return false;
+        }
+      } 
+    }
+
+    return true;
+  }
+
+  findDuration(date): number{
+    let dur = 0;
+    for (let t of this.allTransfers) {
+      let prom = t.date.toString().split(' ')
+      let dates = prom[0].split('.');
+      let time = prom[1].split(':');
+      
+      if(parseInt(dates[1]) == (date.getMonth()+1) && parseInt(dates[0]) == this.day && parseInt(time[0]) == date.getHours() && 
+      parseInt(time[1]) == date.getMinutes()){
+        dur = t.duration;
+      } 
+    }
+
+    return dur;
+  }
+  
+  returnMonth(month): number{
+    if(month == 'Dec') {
+      return 12;
+    } else if (month == 'Nov') {
+      return 11;
+    } else if (month == 'Oct') {
+      return 10;
+    } else if (month == 'Sep') {
+      return 9;
+    } else if (month == 'Aug') {
+      return 8;
+    } else if (month == 'Jul') {
+      return 7;
+    } else if (month == 'Jun') {
+      return 6;
+    } else if (month == 'May') {
+      return 5;
+    }else if (month == 'Apr') {
+      return 4;
+    }else if (month == 'Mar') {
+      return 3;
+    } else if (month == 'Feb') {
+      return 2;
+    } else 
+      return 1;
+  }
+
+  returnKey(): number {
+    let ret = this.allTransfers[0].id
+
+    for(let t of this.allTransfers){
+      if(t.id > ret)
+        ret = t.id
+    }
+
+    return ret;
+  }
 }

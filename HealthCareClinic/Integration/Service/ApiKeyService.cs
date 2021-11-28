@@ -31,7 +31,7 @@ namespace Integration.Service
 
         public ApiKey GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return _apiKeyRepository.GetById(id);
         }
 
         public IEnumerable<ApiKey> GetAll()
@@ -66,6 +66,11 @@ namespace Integration.Service
         public ApiKey GetApiKeyByName(string name)
         {
             return _apiKeyRepository.GetByName(name);
+        }
+
+        public ApiKey GetByKey(string key)
+        {
+            return _apiKeyRepository.GetByKey(key);
         }
     }
 }

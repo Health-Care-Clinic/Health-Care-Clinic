@@ -29,12 +29,12 @@ namespace Pharmacy.Service
 
         public ApiKey GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return _apiKeyRepository.GetById(id);
         }
 
         public IEnumerable<ApiKey> GetAll()
         {
-            throw new NotImplementedException();
+            return _apiKeyRepository.GetAll();
         }
 
         public ApiKey CreateApiKey(ApiKeyDTO dto)

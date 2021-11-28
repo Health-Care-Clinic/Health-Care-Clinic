@@ -1,5 +1,4 @@
-﻿
-using Hospital.Mapper;
+﻿using Hospital.Mapper;
 using Hospital.Rooms_and_equipment.Repository;
 using Hospital.Rooms_and_equipment.Service;
 using Hospital_API.Adapter;
