@@ -16,6 +16,7 @@ using Hospital.Shared_model.Repository;
 using Hospital.Medical_records.Service;
 using Hospital.Medical_records.Repository.Interface;
 using Hospital.Medical_records.Repository;
+using Hospital.Shared_model.Model;
 
 namespace Hospital_API
 {
@@ -37,24 +38,35 @@ namespace Hospital_API
                         ConfigurationExtensions.GetConnectionString(Configuration, "HospitalDbConnectionString"))
                     .UseLazyLoadingProxies());
 
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));     //za slanje mejlova
+            services.AddTransient<IPatientService, PatientService>();
 
             services.AddScoped<IFeedbackMessageService, FeedbackMessageService>();
             services.AddScoped<IFeedbackMessageRepository, FeedbackMessageRepository>();
-          
+
             services.AddScoped<ISurveyService, SurveyService>();
             services.AddScoped<ISurveyRepository, SurveyRepository>();
-          
+
             services.AddScoped<IBuildingService, BuildingService>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
-          
+
             services.AddScoped<IFloorService, FloorService>();
             services.AddScoped<IFloorRepository, FloorRepository>();
-          
+
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomRepository, RoomRepository>();
-          
+
             services.AddScoped<IEquipmentService, EquipmentService>();
             services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+
+            services.AddScoped<IAllergenService, AllergenService>();
+            services.AddScoped<IAllergenRepository, AllergenRepository>();
+
+            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
+
+            services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
 
             services.AddScoped<IAllergenService, AllergenService>();
             services.AddScoped<IAllergenRepository, AllergenRepository>();

@@ -5,6 +5,7 @@ using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
 using Hospital_API.Controller;
+using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace HospitalTests.Patient_portal
+namespace HospitalIntegrationTests.Patient_portal
 {
     public class AllergenTests
     {
@@ -51,22 +52,25 @@ namespace HospitalTests.Patient_portal
             using (var context = new HospitalDbContext(options))
             {
                 DoctorRepository doctorRepository = new DoctorRepository(context);
-                DoctorService _doctorService = new DoctorService(doctorRepository);
+                DoctorService doctorService = new DoctorService(doctorRepository);
 
                 AllergenRepository allergenRepository = new AllergenRepository(context);
                 AllergenService alergenService = new AllergenService(allergenRepository);
 
-                PatientRegistrationController patientRegistrationController = new PatientRegistrationController(alergenService, _doctorService);
+                PatientRepository patientRepository = new PatientRepository(context);
+                PatientService patientService = new PatientService(patientRepository);
+
+                PatientRegistrationController patientRegistrationController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
                 OkObjectResult a = patientRegistrationController.GetAllAllergens() as OkObjectResult;
-                List<Allergen> allergens = a.Value as List<Allergen>;
+                List<AllergenDTO> allergens = a.Value as List<AllergenDTO>;
                 foreach (Allergen b in context.Allergens)
                 {
                     context.Allergens.Remove(b);
                     context.SaveChanges();
                 }
 
-                Assert.Equal(10, allergens.Count);
+                Assert.Equal(10, allergens.Count());
             }
         }
     }

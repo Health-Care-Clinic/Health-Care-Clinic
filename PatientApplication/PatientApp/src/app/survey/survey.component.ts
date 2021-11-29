@@ -3,6 +3,7 @@ import { ISurvey } from './survey';
 import { ISurveyQuestion } from './survey-question';
 import { ISurveyCategory } from './survey-category';
 import { SurveyService } from './survey.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-survey',
@@ -18,7 +19,7 @@ export class SurveyComponent implements OnInit {
   };
   errorMessage : string  = '';
 
-  constructor(private _surveyService : SurveyService) { }
+  constructor(private _surveyService : SurveyService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.showSurvey();
@@ -36,7 +37,7 @@ export class SurveyComponent implements OnInit {
         .subscribe(data => console.log('Success!', data),
                     error => console.log('Error!', error)) 
       console.log(this.survey);
-      window.alert('Your survey has been submited.');      
+      this._snackBar.open('Your survey has been submited.', 'Close', {duration: 3000}); 
     }
 
   validate() {
