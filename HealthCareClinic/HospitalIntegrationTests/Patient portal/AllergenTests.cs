@@ -64,9 +64,9 @@ namespace HospitalIntegrationTests.Patient_portal
 
                 OkObjectResult a = patientRegistrationController.GetAllAllergens() as OkObjectResult;
                 List<AllergenDTO> allergens = a.Value as List<AllergenDTO>;
-                foreach (Allergen b in context.Allergens)
+                foreach (Allergen allergen in context.Allergens)
                 {
-                    context.Allergens.Remove(b);
+                    context.Allergens.Remove(allergen);
                     context.SaveChanges();
                 }
 

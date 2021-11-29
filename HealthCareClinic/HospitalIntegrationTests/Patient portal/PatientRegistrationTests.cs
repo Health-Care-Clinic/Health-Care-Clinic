@@ -45,6 +45,12 @@ namespace HospitalIntegrationTests.Patient_portal
                     context.SaveChanges();
                 }
 
+                foreach (Patient p in context.Patients)
+                {
+                    context.Patients.Remove(p);
+                    context.SaveChanges();
+                }
+
                 Assert.Equal(2, doctors.Count);
                 Assert.IsType<List<DoctorDTO>>(doctors);
             }

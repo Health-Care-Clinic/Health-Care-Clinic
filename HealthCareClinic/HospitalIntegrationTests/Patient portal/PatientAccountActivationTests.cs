@@ -67,9 +67,9 @@ namespace HospitalIntegrationTests.Patient_portal
 
                 var result = patientController.ActivatePatientsAccount("praviHashToken");
                 
-                foreach (Patient p in context.Patients)
+                foreach (Patient patient in context.Patients)
                 {
-                    context.Patients.Remove(p);
+                    context.Patients.Remove(patient);
                     context.SaveChanges();
                 }
 
