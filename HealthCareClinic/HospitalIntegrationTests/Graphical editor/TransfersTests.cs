@@ -27,14 +27,14 @@ namespace HospitalIntegrationTests.Graphical_editor
 
             TransferRepository transferRepository = new TransferRepository(_context);
             TransferService transferService = new TransferService(transferRepository);
-            int broj = transferService.GetAll().ToList().Count;
+            int numberOfTransfers = transferService.GetAll().ToList().Count;
           
             Transfer transfer = new Transfer(20, "Bed", 5, 1, 2, new DateTime(2021, 11, 28, 9, 0, 0), 60);
             transferService.Add(transfer);
+            int numberOfTransfersWithAddedTransfer = transferService.GetAll().ToList().Count;
             transferService.RemoveById(transfer.Id);
-            Assert.Equal(broj, transferService.GetAll().ToList().Count);
 
-            
+            Assert.Equal(numberOfTransfersWithAddedTransfer, numberOfTransfers + 1);
         }
     }
 }
