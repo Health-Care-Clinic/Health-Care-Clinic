@@ -1989,6 +1989,89 @@ namespace Hospital.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hospital.Shared_model.Model.Allergen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Allergens");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Polen ambrozije"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Ibuprofen"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Aspirin"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Penicilin"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Mačija dlaka"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Lateks"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Kikiriki"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Kravlje mleko"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Jaja"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Školjke"
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.AllergenForPatient", b =>
+                {
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AllergenId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("PatientId", "AllergenId");
+
+                    b.ToTable("AllergenForPatients");
+                });
+
             modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
                 {
                     b.Property<int>("Id")
@@ -2017,6 +2100,481 @@ namespace Hospital.Migrations
                             PatientId = 1,
                             RoomId = 1
                         });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
+                {
+                    b.Property<int>("DayId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("Spec_Day")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("DayId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Day");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("EmploymentDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PrimaryRoom")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("SpecialtyId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("VacationTimeStart")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("WorkShift")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("Doctors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Brace Radica 15",
+                            BirthDate = new DateTime(1981, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "nikolanikolic@gmail.com",
+                            EmploymentDate = new DateTime(2021, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Nikola",
+                            Password = "nikola",
+                            Phone = "0697856665",
+                            PrimaryRoom = 1,
+                            Salary = 80000.0,
+                            SpecialtyId = 1,
+                            Surname = "Nikolic",
+                            Username = "nikola",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Bogoboja Atanackovica 5",
+                            BirthDate = new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "markoradic@gmail.com",
+                            EmploymentDate = new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Marko",
+                            Password = "marko",
+                            Phone = "0697856665",
+                            PrimaryRoom = 2,
+                            Salary = 80000.0,
+                            SpecialtyId = 1,
+                            Surname = "Radic",
+                            Username = "marko",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Bulevar Oslobodjenja 5",
+                            BirthDate = new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "jozika@gmail.com",
+                            EmploymentDate = new DateTime(2011, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Jozef",
+                            Password = "jozef",
+                            Phone = "0697856665",
+                            PrimaryRoom = 3,
+                            Salary = 80000.0,
+                            SpecialtyId = 1,
+                            Surname = "Sivc",
+                            Username = "jozef",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Mike Antice 5",
+                            BirthDate = new DateTime(1968, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "dragana@gmail.com",
+                            EmploymentDate = new DateTime(2017, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "female",
+                            Name = "Dragana",
+                            Password = "dragana",
+                            Phone = "0697856665",
+                            PrimaryRoom = 4,
+                            Salary = 80000.0,
+                            SpecialtyId = 2,
+                            Surname = "Zoric",
+                            Username = "dragana",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "Pariske Komune 35",
+                            BirthDate = new DateTime(1978, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mile@gmail.com",
+                            EmploymentDate = new DateTime(2007, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Mile",
+                            Password = "mile",
+                            Phone = "0697856665",
+                            PrimaryRoom = 4,
+                            Salary = 80000.0,
+                            SpecialtyId = 2,
+                            Surname = "Grandic",
+                            Username = "mile",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "Pariske Komune 85",
+                            BirthDate = new DateTime(1968, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "misa@gmail.com",
+                            EmploymentDate = new DateTime(2006, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "Misa",
+                            Password = "misa",
+                            Phone = "0697856665",
+                            PrimaryRoom = 3,
+                            Salary = 80000.0,
+                            SpecialtyId = 1,
+                            Surname = "Bradina",
+                            Username = "misa",
+                            VacationTimeStart = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkShift = 0
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Patient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("BloodType")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateOfRegistration")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EmploymentStatus")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Hashcode")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ParentName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Bogoboja Atanackovica 15",
+                            BirthDate = new DateTime(2005, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1,
+                            Email = "petar@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Petar",
+                            ParentName = "miki",
+                            Password = "petar",
+                            Phone = "0634556665",
+                            Surname = "Petrovic",
+                            Username = "petar"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1985, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Jovan",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Zoric",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1978, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Zorana",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Bilic",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1969, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Milica",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Maric",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1936, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Igor",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Caric",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1975, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Predrag",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Zaric",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "Voje Rodica 19",
+                            BirthDate = new DateTime(1960, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "A",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            Email = "miki@gmail.com",
+                            EmploymentStatus = "Employed",
+                            Gender = "male",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Miki",
+                            ParentName = "miki",
+                            Password = "miki",
+                            Phone = "0697856665",
+                            Surname = "Nikolic",
+                            Username = "miki"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Address = "Kralja Petra 19",
+                            BirthDate = new DateTime(1987, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BloodType = "B",
+                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 6,
+                            Email = "zorka@gmail.com",
+                            EmploymentStatus = "Unemployed",
+                            Gender = "female",
+                            IsActive = true,
+                            IsBlocked = false,
+                            Name = "Zorka",
+                            ParentName = "zorka",
+                            Password = "zorka",
+                            Phone = "0697856665",
+                            Surname = "Djokic",
+                            Username = "zorka"
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Specialty", b =>
+                {
+                    b.Property<int>("SpecialtyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("SpecialtyId");
+
+                    b.ToTable("Specialty");
+
+                    b.HasData(
+                        new
+                        {
+                            SpecialtyId = 1,
+                            Name = "General medicine"
+                        },
+                        new
+                        {
+                            SpecialtyId = 2,
+                            Name = "Surgery"
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Day")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("WorkDay");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
@@ -2052,6 +2610,53 @@ namespace Hospital.Migrations
                     b.Navigation("SurveyCategory");
                 });
 
+            modelBuilder.Entity("Hospital.Shared_model.Model.AllergenForPatient", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Patient", null)
+                        .WithMany("Allergens")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Doctor", null)
+                        .WithMany("DaysOff")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Specialty", "Specialty")
+                        .WithMany()
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Specialty");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Patient", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Doctor", "Doctor")
+                        .WithMany("Patients")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDay", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Doctor", null)
+                        .WithMany("WorkDay")
+                        .HasForeignKey("DoctorId");
+                });
+
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
                 {
                     b.Navigation("SurveyCategories");
@@ -2065,6 +2670,20 @@ namespace Hospital.Migrations
             modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
                 {
                     b.Navigation("Surveys");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>
+                {
+                    b.Navigation("DaysOff");
+
+                    b.Navigation("Patients");
+
+                    b.Navigation("WorkDay");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Patient", b =>
+                {
+                    b.Navigation("Allergens");
                 });
 #pragma warning restore 612, 618
         }

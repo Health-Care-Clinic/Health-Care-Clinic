@@ -16,6 +16,7 @@ using Hospital.Shared_model.Repository;
 using Hospital.Medical_records.Service;
 using Hospital.Medical_records.Repository.Interface;
 using Hospital.Medical_records.Repository;
+using Hospital.Shared_model.Model;
 
 namespace Hospital_API
 {
@@ -37,22 +38,24 @@ namespace Hospital_API
                         ConfigurationExtensions.GetConnectionString(Configuration, "HospitalDbConnectionString"))
                     .UseLazyLoadingProxies());
 
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));     //za slanje mejlova
+            services.AddTransient<IPatientService, PatientService>();
 
             services.AddScoped<IFeedbackMessageService, FeedbackMessageService>();
             services.AddScoped<IFeedbackMessageRepository, FeedbackMessageRepository>();
-          
+
             services.AddScoped<ISurveyService, SurveyService>();
             services.AddScoped<ISurveyRepository, SurveyRepository>();
-          
+
             services.AddScoped<IBuildingService, BuildingService>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
-          
+
             services.AddScoped<IFloorService, FloorService>();
             services.AddScoped<IFloorRepository, FloorRepository>();
-          
+
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomRepository, RoomRepository>();
-          
+
             services.AddScoped<IEquipmentService, EquipmentService>();
             services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 
@@ -62,21 +65,17 @@ namespace Hospital_API
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
 
-            services.AddScoped<ITransferService, TransferService>();
-            services.AddScoped<ITransferRepository, TransferRepository>();
-
-            //services.AddScoped<IPatientService, PatientService>();
-            //services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
 
             services.AddScoped<IAllergenService, AllergenService>();
             services.AddScoped<IAllergenRepository, AllergenRepository>();
-            //DUPLO IMAS ALERGEN
+            //DUPLO ALERGENE
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
-            //DUPLO IMAS DOKTOR
-            services.AddScoped<IAppointmentService, AppointmentService>();
-            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-
+            //DUPLO DOKTORE
+            services.AddScoped<ITransferService, TransferService>();
+            services.AddScoped<ITransferRepository, TransferRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

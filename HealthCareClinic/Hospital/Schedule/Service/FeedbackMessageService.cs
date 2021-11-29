@@ -30,7 +30,7 @@ namespace Hospital.Schedule.Service
 
         public FeedbackMessage GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return feedbackRepository.GetById(id);
         }
 
         public List<FeedbackMessage> GetPublished()

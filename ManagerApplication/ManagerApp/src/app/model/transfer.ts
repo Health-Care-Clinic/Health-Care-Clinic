@@ -4,11 +4,11 @@ export class Transfer {
     Quantity:number;
     SourceRoomId: number;
     DestinationRoomId: number;
-    Date: string;
+    Date: Date;
     Duration: number;
 
     constructor(id: number, equipment:string, quantity: number, sourceRoomId: number, destinationRoomId: number, 
-        date: string, duration: number){
+        date: Date, duration: number){
         
         this.Id = id;
         this.Equipment = equipment;

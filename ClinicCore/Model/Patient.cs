@@ -17,7 +17,7 @@ namespace Model
         public string BloodType { get; set; }
         public bool IsGuest { get; set; } = false;
         public EducationCategory Education { get; set; }
-      
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }
@@ -26,6 +26,8 @@ namespace Model
         public string Gender { get; set; }
         public string Relationship { get; set; }
         public string Password { get; set; }
+
+        public string RePassword { get; set; }
         public string Address { get; set; }
 
         public Patient(int id, string name, string surname, DateTime birthDate, string address, string email, string password, DateTime filedate, String employer, List<String> alergies, Boolean isGuest, Boolean isAdmitted)
@@ -70,8 +72,16 @@ namespace Model
         public Patient()
         {
         }
+        public Patient(string Name, string Surname, string Password, string RePassword)
+        {
+            this.Name = Name;
+            this.Surname = Surname;
+            this.Password = Password;
+            this.RePassword = RePassword;
+        }
 
-        public virtual Doctor Doc { get; set; }
+        public Doctor Doc { get; set; }
+
         public Doctor Doctor
         {
             get
