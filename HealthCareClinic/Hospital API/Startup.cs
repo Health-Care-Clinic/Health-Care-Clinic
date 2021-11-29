@@ -70,13 +70,12 @@ namespace Hospital_API
 
             services.AddScoped<IAllergenService, AllergenService>();
             services.AddScoped<IAllergenRepository, AllergenRepository>();
-
+            //DUPLO ALERGENE
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
-
+            //DUPLO DOKTORE
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<ITransferRepository, TransferRepository>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
