@@ -13,7 +13,7 @@ using System.Net;
 using System.Text;
 using Xunit;
 
-namespace HospitalTests.Patient_portal
+namespace HospitalIntegrationTests.Patient_portal
 {
     public class PatientAccountActivationTests
     {

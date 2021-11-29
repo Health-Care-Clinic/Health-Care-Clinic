@@ -16,7 +16,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace HospitalTests.Patient_portal
+namespace HospitalIntegrationTests.Patient_portal
 {
     public class AllergenTests
     {
