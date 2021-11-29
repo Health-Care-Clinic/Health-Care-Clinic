@@ -28,7 +28,7 @@ namespace Hospital_API.DTO
             get; set;
         }
 
-        public String Date
+        public DateTime Date
         {
             get; set;
         }
@@ -38,7 +38,7 @@ namespace Hospital_API.DTO
             get; set;
         }
 
-        public TransferDTO(int id, String equipment, int quantity, int sourceID, int destinationID, String date, int duration)
+        public TransferDTO(int id, String equipment, int quantity, int sourceID, int destinationID, DateTime date, int duration)
         {
             Id = id;
             Equipment = equipment;

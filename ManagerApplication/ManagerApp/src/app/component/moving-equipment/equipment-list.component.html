@@ -38,9 +38,9 @@
             </form>
         </div>
         <div>
-            <h1>Step 5: Choose time and duration(in minutes) of the process</h1>
-            <form (ngSubmit)="onSubmit5()">
-                <input type="date" id="date" name="dateofprocess" [(ngModel)]="selectedDate">
+            <h1>Step 5: Choose till when and duration(in minutes) of the process</h1>
+            <form (ngSubmit)="onSubmit5()" >
+                <input type="datetime-local" id="date" name="dateofprocess" [(ngModel)]="selectedDate">
                 <select id="select5" style="margin-left: 10px; margin-right: 10px;">
                     <option value="15"> 15 </option>
                     <option value="30"> 30 </option>
@@ -58,7 +58,7 @@
     </div>
     <div class="col-6">
         <h1>Step 6: Select time when you want to finish your process</h1>
-        <form (ngSubmit)="onFinish()">
+        <form (ngSubmit)="onFinish()" >
             <table style="font-size: 20px;" id="tableTransfer">
                 <tr style="margin-bottom: 20px;">
                 <th></th>

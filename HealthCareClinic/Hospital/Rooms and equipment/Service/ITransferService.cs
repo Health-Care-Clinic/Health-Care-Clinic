@@ -9,5 +9,6 @@ namespace Hospital.Rooms_and_equipment.Service
     public interface ITransferService: IService<Transfer>
     {
         public void RemoveById(int id);
+        public List<DateTime> checkFreeTransfers(Transfer transfer);
     }
 }
