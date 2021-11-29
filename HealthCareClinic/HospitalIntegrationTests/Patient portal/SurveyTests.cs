@@ -13,6 +13,7 @@ using Hospital.Mapper;
 using Hospital_API.Controller;
 using Microsoft.AspNetCore.Mvc;
 using Hospital_API.DTO;
+using Hospital.Shared_model.Model;
 
 namespace HospitalIntegrationTests.Patient_portal
 {
@@ -37,7 +38,12 @@ namespace HospitalIntegrationTests.Patient_portal
                     context.Surveys.Remove(s);
                     context.SaveChanges();
                 }
-
+                foreach (Appointment app in context.Appointments)
+                {
+                    context.Appointments
+                        .Remove(app);
+                    context.SaveChanges();
+                }
                 Assert.NotNull(survey);
                 Assert.Equal(1, survey.AppointmentId);
                 Assert.Equal(8, survey.Id);
