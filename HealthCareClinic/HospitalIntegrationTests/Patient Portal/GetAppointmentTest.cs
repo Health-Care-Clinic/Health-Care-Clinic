@@ -32,6 +32,12 @@ namespace HospitalIntegrationTests.Patient_Portal
 
                 var response = appointmentController.getAppointmentsByPatientId(PatientId) as OkObjectResult;
 
+                foreach (Appointment appointment in context.Appointments)
+                {
+                    context.Appointments.Remove(appointment);
+                    context.SaveChanges();
+                }
+
                 response.Value.ShouldBeAssignableTo<List<AppointmetDTO>>();
 
                 List<AppointmetDTO> appointmetDTOs = (List<AppointmetDTO>)response.Value;

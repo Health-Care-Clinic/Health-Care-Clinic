@@ -37,11 +37,18 @@ namespace HospitalIntegrationTests.Patient_portal
 
                 PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
-                OkObjectResult a = patientController.GetAvailableDoctors() as OkObjectResult;
-                List<DoctorDTO> doctors = a.Value as List<DoctorDTO>;
-                foreach (Doctor d in context.Doctors)
+                OkObjectResult result = patientController.GetAvailableDoctors() as OkObjectResult;
+                List<DoctorDTO> doctors = result.Value as List<DoctorDTO>;
+
+                foreach (Doctor doctor in context.Doctors)
                 {
-                    context.Doctors.Remove(d);
+                    context.Doctors.Remove(doctor);
+                    context.SaveChanges();
+                }
+
+                foreach (Patient patient in context.Patients)
+                {
+                    context.Patients.Remove(patient);
                     context.SaveChanges();
                 }
 
