@@ -70,10 +70,10 @@ namespace Hospital_API
 
             services.AddScoped<IAllergenService, AllergenService>();
             services.AddScoped<IAllergenRepository, AllergenRepository>();
-
+            //DUPLO IMAS ALERGEN
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
-
+            //DUPLO IMAS DOKTOR
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
