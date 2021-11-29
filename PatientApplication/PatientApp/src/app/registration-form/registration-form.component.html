@@ -1,9 +1,9 @@
 <div class="stepper">
   <h1>Registration form</h1>
-<form #registerForm="ngForm">
+<form name="rform" #registerForm="ngForm">
     <mat-stepper orientation="vertical" linear #stepper >
         <mat-step label="Fill in personal info">
-
+          
           <ul>
             <li>
               <mat-form-field appearance="fill">
@@ -69,7 +69,7 @@
 
         </mat-step>
         <mat-step label="Fill in account info">
-
+          
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>E-mail</mat-label>
@@ -79,7 +79,7 @@
             <div>
               <mat-form-field appearance="fill">
                 <mat-label>Username</mat-label>
-                <input matInput type="text" name="username" [(ngModel)]="patientModel.username" required>
+                <input matInput type="text" name="username" [(ngModel)]="patientModel.username" required>               
               </mat-form-field>
               <div *ngIf="usernames.includes(patientModel.username)" class="errorText">Username already exists!</div>
             </div>
@@ -95,7 +95,7 @@
                 <input matInput type="password" name="repassword" [(ngModel)]="repassword" required>
               </mat-form-field>
             </div>
-
+          
 
               <div>
                 <button mat-button matStepperPrevious>Back</button>
@@ -103,7 +103,7 @@
               </div>
           </mat-step>
           <mat-step label="Medical info">
-
+                          
             <mat-form-field appearance="fill">
               <mat-label>Preffered doctor</mat-label>
               <mat-select name="doctor" [(ngModel)]="patientModel.doctorDTO" required>
@@ -127,7 +127,7 @@
                   <mat-list-option checkboxPosition="before" *ngFor="let allergen of allergens" [value]="allergen">
                       {{ allergen.name }}
                   </mat-list-option>
-                </mat-selection-list>
+                </mat-selection-list>  
 
               <div>
                 <button mat-button matStepperPrevious>Back</button>
