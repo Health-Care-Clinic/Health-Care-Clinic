@@ -24,4 +24,8 @@ export class HeaderComponent implements OnInit {
   goToRegistrationForm() {
     this.router.navigateByUrl('/register');
   }
+
+  goToMedicalRecord() {
+    this.router.navigateByUrl('/medical-record');
+  }
 }

@@ -17,7 +17,7 @@ import { IvyCarouselModule} from 'angular-responsive-carousel';
 import { CarouselModule} from 'primeng/carousel';
 import { ButtonModule} from 'primeng/button';
 import { ToastModule} from 'primeng/toast';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -41,6 +41,7 @@ import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { FeedbackService } from './service/feedback.service';
 import { SurveyService } from './survey/survey.service';
@@ -48,6 +49,7 @@ import { SurveyComponent } from './survey/survey.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { PatientService } from './patient/patient.service';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { MedicalRecordComponent } from './medical-record/medical-record.component';
 
 
 
@@ -71,7 +73,8 @@ const MaterialComponents = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTabsModule
 ];
 
 @NgModule({
@@ -84,6 +87,7 @@ const MaterialComponents = [
     SurveyComponent,
     RegistrationFormComponent,
     LoginPageComponent,
+    MedicalRecordComponent,
   ],
   imports: [
     HttpClientModule,

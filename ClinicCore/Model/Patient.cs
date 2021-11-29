@@ -17,7 +17,7 @@ namespace Model
         public string BloodType { get; set; }
         public bool IsGuest { get; set; } = false;
         public EducationCategory Education { get; set; }
-      
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public DateTime BirthDate { get; set; }
@@ -74,7 +74,7 @@ namespace Model
         }
         public Patient(string Name, string Surname, string Password, string RePassword)
         {
-            this.Name = Name; 
+            this.Name = Name;
             this.Surname = Surname;
             this.Password = Password;
             this.RePassword = RePassword;

@@ -21,7 +21,7 @@ namespace Hospital_API.Controller
         private IAllergenService allergenService;
         private IDoctorService doctorService;
 
-        public PatientRegistrationController(IAllergenService allergenService,IDoctorService doctorService,IPatientService patientService)
+        public PatientRegistrationController(IAllergenService allergenService, IDoctorService doctorService, IPatientService patientService)
         {
             this.allergenService = allergenService;
             this.doctorService = doctorService;
@@ -52,19 +52,24 @@ namespace Hospital_API.Controller
             return Ok(patientService.GetAllUsernames());
         }
 
+        [HttpGet("getPatient/{id?}")]
+        public IActionResult GetPatient(int id)
+        {
+            return Ok(PatientAdapter.PatientToPatientDTO(patientService.GetOneById(id)));
+        }
+
         [HttpPost("submitPatientRegistrationRequest")]
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {
-            Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);            
+            Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
             newPatient.Doctor = doctorService.GetOneById(patientDTO.DoctorDTO.Id);
 
             newPatient.Hashcode = patientService.GenerateHashcode(newPatient.Password);
 
             patientService.Add(newPatient);
 
-            //var confirmationLink = Url.Action("activate", "api", new { token = newPatient.Hashcode }, Request.Scheme);
             var confirmationLink = "http://localhost:4200/api/patientRegistration/activate?token=" + newPatient.Hashcode;
-            patientService.SendMail(new MailRequest(confirmationLink, newPatient.Name, newPatient.Email));           
+            patientService.SendMail(new MailRequest(confirmationLink, newPatient.Name, newPatient.Email));
 
             return Ok();
         }
