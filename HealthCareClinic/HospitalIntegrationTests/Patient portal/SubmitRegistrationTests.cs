@@ -64,13 +64,25 @@ namespace HospitalIntegrationTests.Patient_portal
                 };
 
 
-                OkObjectResult a = patientController.SubmitPatientRegistrationRequest(patientDTO) as OkObjectResult;
+                OkObjectResult res = patientController.SubmitPatientRegistrationRequest(patientDTO) as OkObjectResult;
 
-                OkObjectResult p = patientController.GetPatient(patientDTO.Id) as OkObjectResult;
-                PatientDTO patient = p.Value as PatientDTO;
-                foreach (Patient d in context.Patients)
+                OkObjectResult patientResult = patientController.GetPatient(patientDTO.Id) as OkObjectResult;
+                PatientDTO patient = patientResult.Value as PatientDTO;
+                foreach (Patient patientFor in context.Patients)
                 {
-                    context.Patients.Remove(d);
+                    context.Patients.Remove(patientFor);
+                    context.SaveChanges();
+                }
+
+                foreach (Allergen allergen in context.Allergens)
+                {
+                    context.Allergens.Remove(allergen);
+                    context.SaveChanges();
+                }
+
+                foreach (Doctor doc in context.Doctors)
+                {
+                    context.Doctors.Remove(doc);
                     context.SaveChanges();
                 }
 

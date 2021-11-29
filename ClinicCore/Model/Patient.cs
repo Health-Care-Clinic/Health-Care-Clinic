@@ -82,16 +82,6 @@ namespace Model
 
         public Doctor Doc { get; set; }
 
-        public Patient(string Name, string Surname, string Password, string RePassword)
-        {
-            this.Name = Name;
-            this.Surname = Surname;
-            this.Password = Password;
-            this.RePassword = RePassword;
-        }
-
-        public Doctor Doc { get; set; }
-
         public Doctor Doctor
         {
             get
