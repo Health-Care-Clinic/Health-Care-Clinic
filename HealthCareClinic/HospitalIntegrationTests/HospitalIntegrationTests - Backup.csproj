@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.11" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.11" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
@@ -26,10 +26,6 @@
     <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
     <ProjectReference Include="..\Hospital API\Hospital API.csproj" />
     <ProjectReference Include="..\Hospital\Hospital.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Patient portal\" />
   </ItemGroup>
 
 </Project>

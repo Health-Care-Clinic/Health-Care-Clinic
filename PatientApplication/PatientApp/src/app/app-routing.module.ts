@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'survey', component: SurveyComponent },
   { path: 'register', component: RegistrationFormComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'medical-record', component: MedicalRecordComponent } 
+  { path: 'medical-record', component: MedicalRecordComponent }
 ];
 
 @NgModule({

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Hospital.Shared_model.Model;
 using static Hospital.Rooms_and_equipment.Model.Transfer;
 
+
 namespace Hospital.Mapper
 {
     public class HospitalDbContext : DbContext

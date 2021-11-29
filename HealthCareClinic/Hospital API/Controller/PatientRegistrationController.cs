@@ -52,7 +52,7 @@ namespace Hospital_API.Controller
             return Ok(patientService.GetAllUsernames());
         }
 
-        [HttpGet("getPatient/{id?}")]       
+        [HttpGet("getPatient/{id?}")]
         public IActionResult GetPatient(int id)
         {
             return Ok(PatientAdapter.PatientToPatientDTO(patientService.GetOneById(id)));
@@ -61,7 +61,7 @@ namespace Hospital_API.Controller
         [HttpPost("submitPatientRegistrationRequest")]
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {
-            Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);            
+            Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
             newPatient.Doctor = doctorService.GetOneById(patientDTO.DoctorDTO.Id);
 
             newPatient.Hashcode = patientService.GenerateHashcode(newPatient.Password);

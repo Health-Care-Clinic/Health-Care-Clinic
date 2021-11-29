@@ -23,7 +23,7 @@ interface BloodType {
 })
 
 export class RegistrationFormComponent implements OnInit {
-  
+
   emailControl: FormControl = new FormControl('', [Validators.required, Validators.email]);
   patientModel: IPatient = {
     id: 0,
@@ -62,8 +62,8 @@ export class RegistrationFormComponent implements OnInit {
   errorMessage : string  = '';
   repassword: string = '';
   usernames: Array<string> = [];
-  
-  
+
+
 
   constructor(public _patientservice: PatientService, private _snackBar: MatSnackBar)
   { }
@@ -78,19 +78,19 @@ export class RegistrationFormComponent implements OnInit {
   getDoctors() {
     this._patientservice.getAvailableDoctors()
         .subscribe(doctors => this.doctors = doctors,
-                    error => this.errorMessage = <any>error);     
+                    error => this.errorMessage = <any>error);
   }
 
   getAllergens() {
     this._patientservice.getAllAllergens()
         .subscribe(allergens => this.allergens = allergens,
-                    error => this.errorMessage = <any>error);     
+                    error => this.errorMessage = <any>error);
   }
 
   getAllUsernames() {
     this._patientservice.getAllUsernames()
         .subscribe(usernames => this.usernames = usernames,
-                    error => this.errorMessage = <any>error); 
+                    error => this.errorMessage = <any>error);
   }
 
   submit(): void {
@@ -106,4 +106,3 @@ export class RegistrationFormComponent implements OnInit {
   }
 
 }
-

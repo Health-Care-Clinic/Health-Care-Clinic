@@ -10,7 +10,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Hospital.Medical_records.Service
 {
     public class PatientService : IPatientService
@@ -31,26 +30,26 @@ namespace Hospital.Medical_records.Service
         public void Add(Patient entity)
         {
             patientRepository.Add(entity);
-            
+
         }
 
-        public void ActivatePatientsAccount(Patient patient) 
+        public void ActivatePatientsAccount(Patient patient)
         {
-            patientRepository.ActivatePatientsAccount(patient.Id); 
+            patientRepository.ActivatePatientsAccount(patient.Id);
         }
 
         public Patient FindByToken(string token)
         {
             return patientRepository.FindByToken(token);
         }
-        public string GenerateHashcode(string password) 
+        public string GenerateHashcode(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
-                // ComputeHash - returns byte array  
+                // ComputeHash - returns byte array
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-                // Convert byte array to a string   
+                // Convert byte array to a string
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {
@@ -60,7 +59,7 @@ namespace Hospital.Medical_records.Service
             }
         }
 
-        public async Task SendMail(MailRequest mailRequest) 
+        public async Task SendMail(MailRequest mailRequest)
         {
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);

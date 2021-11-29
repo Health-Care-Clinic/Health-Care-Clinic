@@ -17,7 +17,7 @@ import { IvyCarouselModule} from 'angular-responsive-carousel';
 import { CarouselModule} from 'primeng/carousel';
 import { ButtonModule} from 'primeng/button';
 import { ToastModule} from 'primeng/toast';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';

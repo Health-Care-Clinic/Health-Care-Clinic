@@ -6,7 +6,6 @@ import { IAllergen } from '../registration-form/allergen';
 import { IPatient } from './ipatient';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
 
 @Injectable({
@@ -38,20 +37,20 @@ export class PatientService {
   }
 
   getAllUsernames(): Observable<string[]> {
-    return this._http.get<string[]>(this._getAllUsernames)     
-                         .do(data =>  console.log('All: ' + JSON.stringify(data)))                    
+    return this._http.get<string[]>(this._getAllUsernames)
+                         .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
   getPatient(id: number): Observable<IPatient> {
-    return this._http.get<IPatient>(this._getPatient+id)                              
+    return this._http.get<IPatient>(this._getPatient+id)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
   submitRequest(patient:IPatient): Observable<any> {
 
-    const headers = { 'content-type': 'application/json'}  
+    const headers = { 'content-type': 'application/json'}
     const body=JSON.stringify(patient);
     console.log(body)
     return this._http.post(this._submitRegistration, body,{'headers':headers})
