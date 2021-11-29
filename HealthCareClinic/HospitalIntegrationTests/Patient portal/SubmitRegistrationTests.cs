@@ -14,7 +14,7 @@ using System.Text;
 using Xunit;
 using Microsoft.Extensions.Options;
 
-namespace HospitalUnitTests.Patient_portal
+namespace HospitalIntegrationTests.Patient_portal
 {
     public class SubmitRegistrationTests
     {
