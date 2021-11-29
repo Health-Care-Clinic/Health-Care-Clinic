@@ -14,38 +14,10 @@ using Hospital_API.Controller;
 using Microsoft.AspNetCore.Mvc;
 using Hospital_API.DTO;
 
-namespace HospitalTests.Patient_portal
+namespace HospitalUnitTests.Patient_portal
 {
     public class SurveyTests
     {
-        [Fact]      //integration test
-        public void Get_empty_survey()
-        {
-            var stubDatabase = CreateStubDatabase();
-
-            using (var context = new HospitalDbContext(stubDatabase))
-            {
-                SurveyRepository surveyRepository = new SurveyRepository(context);
-                SurveyService surveyService = new SurveyService(surveyRepository);
-
-                SurveyController surveyController = new SurveyController(surveyService);
-
-                OkObjectResult a = surveyController.GetEmptySurveyForAppointment() as OkObjectResult;
-                SurveyDTO survey = a.Value as SurveyDTO;
-                foreach (Survey s in context.Surveys)
-                {
-                    context.Surveys.Remove(s);
-                    context.SaveChanges();
-                }
-
-                Assert.NotNull(survey);
-                Assert.Equal(1, survey.AppointmentId);
-                Assert.Equal(8, survey.Id);
-            }
-
-        }
-
-
         [Fact]
         public void Get_all_surveys()
         {
@@ -83,95 +55,44 @@ namespace HospitalTests.Patient_portal
         }
 
         [Fact]
-        public void Gets_survey_statistics()
-        {
-            var stubDatabase = CreateStubDatabase();
-
-            using (var context = new HospitalDbContext(stubDatabase))
-            {
-                SurveyRepository surveyRepository = new SurveyRepository(context);
-                SurveyService surveyService = new SurveyService(surveyRepository);
-
-                SurveyController surveyController = new SurveyController(surveyService);
-
-                OkObjectResult a = surveyController.GetStatistics() as OkObjectResult;
-                SurveyStatistics surveyStatistics = a.Value as SurveyStatistics;
-
-                foreach (Survey s in context.Surveys)
-                {
-                    context.Surveys.Remove(s);
-                    context.SaveChanges();
-                }
-
-                Assert.NotNull(surveyStatistics);
-            }
-        }
-
-        [Fact]
         public void Gets_distinct_question_categories_names()
         {
-            var stubDatabase = CreateStubDatabase();
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
+            List<string> distinctQuestionCategoriesNames = surveyService.GetDistinctQuestionCategoriesNames();
 
-            using (var context = new HospitalDbContext(stubDatabase))
-            {
-                SurveyRepository surveyRepository = new SurveyRepository(context);
-                SurveyService surveyService = new SurveyService(surveyRepository);
-
-                List<string> distinctQuestionCategoriesNames = surveyService.GetDistinctQuestionCategoriesNames();
-
-                foreach (Survey s in context.Surveys)
-                {
-                    context.Surveys.Remove(s);
-                    context.SaveChanges();
-                }
-
-                Assert.Equal(3, distinctQuestionCategoriesNames.Count);
-            }
+            Assert.Equal(3, distinctQuestionCategoriesNames.Count);
         }
 
         [Theory]
         [MemberData(nameof(CategoryNameData))]
         public void Gets_distinct_question_contents_for_category(string categoryName)
         {
-            var stubDatabase = CreateStubDatabase();
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
+            List<string> distinctQuestionContentsForCategory = surveyService.GetDistinctQuestionContentsForCategory(categoryName);
 
-            using (var context = new HospitalDbContext(stubDatabase))
+            if (categoryName.Equals("Hospital"))
             {
-                SurveyRepository surveyRepository = new SurveyRepository(context);
-                SurveyService surveyService = new SurveyService(surveyRepository);
-
-                List<string> distinctQuestionCategoriesNames = surveyService.GetDistinctQuestionContentsForCategory(categoryName);
-
-                foreach (Survey s in context.Surveys)
-                {
-                    context.Surveys.Remove(s);
-                    context.SaveChanges();
-                }
-
-                if (categoryName.Equals("Hospital"))
-                {
-                    Assert.Contains("How would you rate our appointment organisation?", distinctQuestionCategoriesNames);
-                    Assert.Contains("How would you rate hospitals' hygiene?", distinctQuestionCategoriesNames);
-                    Assert.Contains("How good were procedure for booking appointment?", distinctQuestionCategoriesNames);
-                    Assert.Contains("How easy was to use our application?", distinctQuestionCategoriesNames);
-                    Assert.Contains("Your general grade for whole hospital' service", distinctQuestionCategoriesNames);
-                }
-                else if (categoryName.Equals("Medical stuff"))
-                {
-                    Assert.Contains("How much our medical staff were polite?", distinctQuestionCategoriesNames);
-                    Assert.Contains("How would you rate time span that you spend waiting untill doctor attended you?", distinctQuestionCategoriesNames);
-                    Assert.Contains("How prepared were stuff for emergency situations?", distinctQuestionCategoriesNames);
-                    Assert.Contains("How good has stuff explained you our procedures?", distinctQuestionCategoriesNames);
-                    Assert.Contains("Your general grade for medical stuffs' service", distinctQuestionCategoriesNames);
-                }
-                else if (categoryName.Equals("Doctor"))
-                {
-                    Assert.Contains("How careful did doctor listen you?", distinctQuestionCategoriesNames);
-                    Assert.Contains("Has doctor been polite?", distinctQuestionCategoriesNames);
-                    Assert.Contains("Has he explained you your condition enough that you can understand it?", distinctQuestionCategoriesNames);
-                    Assert.Contains("How would you rate doctors' professionalism?", distinctQuestionCategoriesNames);
-                    Assert.Contains("Your general grade for doctors' service", distinctQuestionCategoriesNames);
-                }
+                Assert.Contains("How would you rate our appointment organisation?", distinctQuestionContentsForCategory);
+                Assert.Contains("How would you rate hospitals' hygiene?", distinctQuestionContentsForCategory);
+                Assert.Contains("How good were procedure for booking appointment?", distinctQuestionContentsForCategory);
+                Assert.Contains("How easy was to use our application?", distinctQuestionContentsForCategory);
+                Assert.Contains("Your general grade for whole hospital' service", distinctQuestionContentsForCategory);
+            }
+            else if (categoryName.Equals("Medical stuff"))
+            {
+                Assert.Contains("How much our medical staff were polite?", distinctQuestionContentsForCategory);
+                Assert.Contains("How would you rate time span that you spend waiting untill doctor attended you?", distinctQuestionContentsForCategory);
+                Assert.Contains("How prepared were stuff for emergency situations?", distinctQuestionContentsForCategory);
+                Assert.Contains("How good has stuff explained you our procedures?", distinctQuestionContentsForCategory);
+                Assert.Contains("Your general grade for medical stuffs' service", distinctQuestionContentsForCategory);
+            }
+            else if (categoryName.Equals("Doctor"))
+            {
+                Assert.Contains("How careful did doctor listen you?", distinctQuestionContentsForCategory);
+                Assert.Contains("Has doctor been polite?", distinctQuestionContentsForCategory);
+                Assert.Contains("Has he explained you your condition enough that you can understand it?", distinctQuestionContentsForCategory);
+                Assert.Contains("How would you rate doctors' professionalism?", distinctQuestionContentsForCategory);
+                Assert.Contains("Your general grade for doctors' service", distinctQuestionContentsForCategory);
             }
         }
 
@@ -179,33 +100,20 @@ namespace HospitalTests.Patient_portal
         [MemberData(nameof(CategoryNameData))]
         public void Gets_average_grade_for_question_category(string categoryName)
         {
-            var stubDatabase = CreateStubDatabase();
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
+            double averageGradeForQuestionCategory = surveyService.GetAverageGradeForQuestionCategory(categoryName);
 
-            using (var context = new HospitalDbContext(stubDatabase))
+            if (categoryName.Equals("Hospital"))
             {
-                SurveyRepository surveyRepository = new SurveyRepository(context);
-                SurveyService surveyService = new SurveyService(surveyRepository);
-
-                double averageGradeForQuestionCategory = surveyService.GetAverageGradeForQuestionCategory(categoryName);
-
-                foreach (Survey s in context.Surveys)
-                {
-                    context.Surveys.Remove(s);
-                    context.SaveChanges();
-                }
-
-                if (categoryName.Equals("Hospital"))
-                {
-                    Assert.Equal(3.4, averageGradeForQuestionCategory);
-                }
-                else if (categoryName.Equals("Medical stuff"))
-                {
-                    Assert.Equal(4.2, averageGradeForQuestionCategory);
-                }
-                else if (categoryName.Equals("Doctor"))
-                {
-                    Assert.Equal(3.8, averageGradeForQuestionCategory);
-                }
+                Assert.Equal(3.4, averageGradeForQuestionCategory);
+            }
+            else if (categoryName.Equals("Medical stuff"))
+            {
+                Assert.Equal(4.2, averageGradeForQuestionCategory);
+            }
+            else if (categoryName.Equals("Doctor"))
+            {
+                Assert.Equal(3.8, averageGradeForQuestionCategory);
             }
         }
 
@@ -213,39 +121,26 @@ namespace HospitalTests.Patient_portal
         [MemberData(nameof(QuestionContentAndGradeData))]
         public void Gets_number_of_grades_for_single_question(string questionContent, int grade)
         {
-            var stubDatabase = CreateStubDatabase();
+            SurveyService surveyService = new SurveyService(CreateStubRepository());
+            int numberOfGradesForQuestion = surveyService.GetNumberOfGradesForQuestion(questionContent, grade);
 
-            using (var context = new HospitalDbContext(stubDatabase))
+            switch (grade)
             {
-                SurveyRepository surveyRepository = new SurveyRepository(context);
-                SurveyService surveyService = new SurveyService(surveyRepository);
-
-                int numberOfGradesForQuestion = surveyService.GetNumberOfGradesForQuestion(questionContent, grade);
-
-                foreach (Survey s in context.Surveys)
-                {
-                    context.Surveys.Remove(s);
-                    context.SaveChanges();
-                }
-
-                switch (grade)
-                {
-                    case 1:
-                        Assert.Equal(0, numberOfGradesForQuestion);
-                        break;
-                    case 2:
-                        Assert.Equal(0, numberOfGradesForQuestion);
-                        break;
-                    case 3:
-                        Assert.Equal(0, numberOfGradesForQuestion);
-                        break;
-                    case 4:
-                        Assert.Equal(4, numberOfGradesForQuestion);
-                        break;
-                    case 5:
-                        Assert.Equal(0, numberOfGradesForQuestion);
-                        break;
-                }
+                case 1:
+                    Assert.Equal(0, numberOfGradesForQuestion);
+                    break;
+                case 2:
+                    Assert.Equal(0, numberOfGradesForQuestion);
+                    break;
+                case 3:
+                    Assert.Equal(0, numberOfGradesForQuestion);
+                    break;
+                case 4:
+                    Assert.Equal(2, numberOfGradesForQuestion);
+                    break;
+                case 5:
+                    Assert.Equal(0, numberOfGradesForQuestion);
+                    break;
             }
         }
 
@@ -310,6 +205,44 @@ namespace HospitalTests.Patient_portal
             surveys[2].Appointment.PatientId = 4;
             surveys[3].Appointment.PatientId = 3;
 
+            List<string> surveyCategoriesNames = new List<string> { "Doctor", "Medical stuff", "Hospital" };
+            foreach (Survey s in surveys)
+            {
+                SurveyCategory c1 = new SurveyCategory(surveyCategoriesNames[0]);
+                SurveyCategory c2 = new SurveyCategory(surveyCategoriesNames[1]);
+                SurveyCategory c3 = new SurveyCategory(surveyCategoriesNames[2]);
+
+                s.SurveyCategories.Add(c1);
+                s.SurveyCategories.Add(c2);
+                s.SurveyCategories.Add(c3);
+            }
+
+            List<string> questionContentsForDoctorCategory = new List<string>
+            {
+                "How careful did doctor listen you?",
+                "Has doctor been polite?",
+                "Has he explained you your condition enough that you can understand it?",
+                "How would you rate doctors' professionalism?",
+                "Your general grade for doctors' service"
+            };
+            List<string> questionContentsForMedicalStuffCategory = new List<string>
+            {
+                "How much our medical staff were polite?",
+                "How would you rate time span that you spend waiting untill doctor attended you?",
+                "How prepared were stuff for emergency situations?",
+                "How good has stuff explained you our procedures?",
+                "Your general grade for medical stuffs' service"
+            };
+            List<string> questionContentsForHospitalCategory = new List<string>
+            {
+                "How would you rate our appointment organisation?",
+                "How would you rate hospitals' hygiene?",
+                "How good were procedure for booking appointment?",
+                "How easy was to use our application?",
+                "Your general grade for whole hospital' service"
+            };
+
+            FillOutGradesForEachQuestionDependingOnCategory(surveys);
 
             stubRepository.Setup(m => m.GetAll()).Returns(surveys);
             stubRepository.Setup(m => m.GetById(1)).Returns(surveys[0]);
@@ -317,50 +250,32 @@ namespace HospitalTests.Patient_portal
             stubRepository.Setup(m => m.GetAllDoneByPatientId(1)).Returns(surveys.GetRange(0, 1));
             stubRepository.Setup(m => m.GetAllNotDoneByPatientId(1)).Returns(surveys.GetRange(1, 1));
 
+            stubRepository.Setup(m => m.GetDistinctQuestionCategoriesNames())
+                .Returns(surveyCategoriesNames);
+            stubRepository.Setup(m => m.GetDistinctQuestionContentsForCategory("Doctor"))
+                .Returns(questionContentsForDoctorCategory);
+            stubRepository.Setup(m => m.GetDistinctQuestionContentsForCategory("Medical stuff"))
+                .Returns(questionContentsForMedicalStuffCategory);
+            stubRepository.Setup(m => m.GetDistinctQuestionContentsForCategory("Hospital"))
+                .Returns(questionContentsForHospitalCategory);
+            stubRepository.Setup(m => m.GetAverageGradeForQuestionCategory("Doctor"))
+                .Returns(3.8);
+            stubRepository.Setup(m => m.GetAverageGradeForQuestionCategory("Medical stuff"))
+                .Returns(4.2);
+            stubRepository.Setup(m => m.GetAverageGradeForQuestionCategory("Hospital"))
+                .Returns(3.4);
+            stubRepository.Setup(m => m.GetNumberOfGradesForQuestion("How easy was to use our application?", 1))
+                .Returns(0);
+            stubRepository.Setup(m => m.GetNumberOfGradesForQuestion("How easy was to use our application?", 2))
+                .Returns(0);
+            stubRepository.Setup(m => m.GetNumberOfGradesForQuestion("How easy was to use our application?", 3))
+                .Returns(0);
+            stubRepository.Setup(m => m.GetNumberOfGradesForQuestion("How easy was to use our application?", 4))
+                .Returns(2);
+            stubRepository.Setup(m => m.GetNumberOfGradesForQuestion("How easy was to use our application?", 5))
+                .Returns(0);
+
             return stubRepository.Object;
-        }
-
-
-        private DbContextOptions<HospitalDbContext> CreateStubDatabase()
-        {
-            var options = new DbContextOptionsBuilder<HospitalDbContext>()
-                                .UseInMemoryDatabase(databaseName: "Surveys")
-                                .Options;
-
-            using (var context = new HospitalDbContext(options))
-            {
-                List<Survey> surveys = new List<Survey>();
-
-                surveys.Add(new Survey(1, 1, true));    //id, appointmentid, done
-                surveys.Add(new Survey(2, 2, false));
-                surveys.Add(new Survey(3, 5, false));
-                surveys.Add(new Survey(7, 11, true));
-
-                surveys[0].Appointment.PatientId = 1;
-                surveys[1].Appointment.PatientId = 1;
-                surveys[2].Appointment.PatientId = 4;
-                surveys[3].Appointment.PatientId = 3;
-
-                foreach (Survey s in surveys)
-                {
-                    SurveyCategory c1 = new SurveyCategory("Doctor");
-                    SurveyCategory c2 = new SurveyCategory("Medical stuff");
-                    SurveyCategory c3 = new SurveyCategory("Hospital");
-
-                    s.SurveyCategories.Add(c1);
-                    s.SurveyCategories.Add(c2);
-                    s.SurveyCategories.Add(c3);
-                }
-
-                FillOutGradesForEachQuestionDependingOnCategory(surveys);
-
-                foreach (Survey survey in surveys)
-                    context.Surveys.Add(survey);
-
-                context.SaveChanges();
-            }
-
-            return options;
         }
 
         private static void FillOutGradesForEachQuestionDependingOnCategory(List<Survey> surveys)
