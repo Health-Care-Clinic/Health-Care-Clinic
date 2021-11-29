@@ -45,6 +45,31 @@ namespace HospitalIntegrationTests.Patient_portal
 
         }
 
+        [Fact]
+        public void Gets_survey_statistics()
+        {
+            var stubDatabase = CreateStubDatabase();
+
+            using (var context = new HospitalDbContext(stubDatabase))
+            {
+                SurveyRepository surveyRepository = new SurveyRepository(context);
+                SurveyService surveyService = new SurveyService(surveyRepository);
+
+                SurveyController surveyController = new SurveyController(surveyService);
+
+                OkObjectResult a = surveyController.GetStatistics() as OkObjectResult;
+                SurveyStatistics surveyStatistics = a.Value as SurveyStatistics;
+
+                foreach (Survey s in context.Surveys)
+                {
+                    context.Surveys.Remove(s);
+                    context.SaveChanges();
+                }
+
+                Assert.NotNull(surveyStatistics);
+            }
+        }
+
         private DbContextOptions<HospitalDbContext> CreateStubDatabase()
         {
             var options = new DbContextOptionsBuilder<HospitalDbContext>()
@@ -65,6 +90,18 @@ namespace HospitalIntegrationTests.Patient_portal
                 surveys[2].Appointment.PatientId = 4;
                 surveys[3].Appointment.PatientId = 3;
 
+                foreach (Survey s in surveys)
+                {
+                    SurveyCategory c1 = new SurveyCategory("Doctor");
+                    SurveyCategory c2 = new SurveyCategory("Medical stuff");
+                    SurveyCategory c3 = new SurveyCategory("Hospital");
+
+                    s.SurveyCategories.Add(c1);
+                    s.SurveyCategories.Add(c2);
+                    s.SurveyCategories.Add(c3);
+                }
+
+                FillOutGradesForEachQuestionDependingOnCategory(surveys);
 
                 foreach (Survey survey in surveys)
                     context.Surveys.Add(survey);
@@ -73,6 +110,62 @@ namespace HospitalIntegrationTests.Patient_portal
             }
 
             return options;
+        }
+
+        private static void FillOutGradesForEachQuestionDependingOnCategory(List<Survey> surveys)
+        {
+            foreach (Survey s in surveys)
+            {
+                if (s.Done)
+                {
+                    foreach (SurveyCategory c in s.SurveyCategories)
+                    {
+                        if (c.Name.Equals("Doctor"))
+                        {
+                            int grade = 1;
+                            foreach (SurveyQuestion q in c.SurveyQuestions)
+                            {
+                                q.Grade = grade;
+
+                                if (grade < 5)
+                                {
+                                    grade += 2;
+                                }
+                            }
+                        }
+                        else if (c.Name.Equals("Medical stuff"))
+                        {
+                            int grade = 2;
+                            foreach (SurveyQuestion q in c.SurveyQuestions)
+                            {
+                                q.Grade = grade;
+
+                                if (grade < 4)
+                                {
+                                    grade += 2;
+                                }
+                                else
+                                {
+                                    grade = 5;
+                                }
+                            }
+                        }
+                        else if (c.Name.Equals("Hospital"))
+                        {
+                            int grade = 2;
+                            foreach (SurveyQuestion q in c.SurveyQuestions)
+                            {
+                                q.Grade = grade;
+
+                                if (grade < 4)
+                                {
+                                    grade++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

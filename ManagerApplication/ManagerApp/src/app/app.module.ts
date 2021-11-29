@@ -34,11 +34,15 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatStepperModule} from '@angular/material/stepper'; 
+import {MatListModule} from '@angular/material/list';
+import { RoomSearchComponent } from './component/hospital-map/room-search.component';
+import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
+import { SurveyObservationService } from './services/survey-observation.service';
+
 import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
 import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
 import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
-
-import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -61,6 +65,8 @@ const MaterialComponents = [
   MatFormFieldModule,
   MatInputModule,
   MatCheckboxModule,
+  MatStepperModule,
+  MatListModule,
   MatExpansionModule,
   MatTooltipModule
 ];
@@ -81,6 +87,7 @@ const MaterialComponents = [
     OrderDialogComponent,
     RoomSearchComponent,
     EquipmentListComponent,
+    SurveyObservationComponent,
     PharmacyPromotionsComponent,
     MedicineSpecificationsComponent,
     ConsumptionReportComponent
@@ -97,7 +104,7 @@ const MaterialComponents = [
     IvyCarouselModule,
     MaterialComponents
   ],
-  providers: [FeedbackService],
+  providers: [FeedbackService, SurveyObservationService],
   bootstrap: [AppComponent],
   entryComponents: [OrderDialogComponent]
 })

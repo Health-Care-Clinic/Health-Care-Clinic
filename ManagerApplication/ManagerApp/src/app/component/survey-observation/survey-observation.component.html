@@ -1,0 +1,33 @@
+<div class="stepper">
+    <h1>Ratings of our services by patients, at</h1>
+    <mat-horizontal-stepper linear>
+        <mat-step *ngFor="let surveyCategoryStatistics of surveyStatistics.surveyCategoriesStatistics" 
+            label={{surveyCategoryStatistics.name}}>
+            <label for="surveyCategoryStatistics.averageGrade">Average grade for category:</label>
+            <label>{{surveyCategoryStatistics.averageGrade}}</label>
+            <mat-list *ngFor="let surveyQuestionStatistics of surveyCategoryStatistics.surveyQuestionsStatistics"> 
+                <mat-list-item>
+                    <p mat-line>{{surveyQuestionStatistics.content}}</p>  
+                    <!--<div class="gradesLabels">-->
+                        <p mat-line><label for="surveyQuestionsStatistics.numberOfAssignsForEachGrade[0]">Number of grade '1':</label>
+                        <label>{{surveyQuestionStatistics.numberOfAssignsForEachGrade[0]}}</label></p>
+                        <p mat-line><label for="surveyQuestionsStatistics.numberOfAssignsForEachGrade[1]">Number of grade '2':</label>
+                        <label>{{surveyQuestionStatistics.numberOfAssignsForEachGrade[1]}}</label></p>
+                        <p mat-line><label for="surveyQuestionsStatistics.numberOfAssignsForEachGrade[2]">Number of grade '3':</label>
+                        <label>{{surveyQuestionStatistics.numberOfAssignsForEachGrade[2]}}</label></p>
+                        <p mat-line><label for="surveyQuestionsStatistics.numberOfAssignsForEachGrade[3]">Number of grade '4':</label>
+                        <label>{{surveyQuestionStatistics.numberOfAssignsForEachGrade[3]}}</label></p>
+                        <p mat-line><label for="surveyQuestionsStatistics.numberOfAssignsForEachGrade[4]">Number of grade '5':</label>
+                        <label>{{surveyQuestionStatistics.numberOfAssignsForEachGrade[4]}}</label></p>
+                        <p mat-line><label for="surveyQuestionsStatistics.averageGrade">Average grade for question:</label>
+                        <label>{{surveyQuestionStatistics.averageGrade}}</label></p>
+                    <!--</div>-->
+                </mat-list-item>
+            </mat-list>
+            <div style="margin-top: 3%;">
+                <button mat-button matStepperPrevious *ngIf="surveyCategoryStatistics.name !== 'Hospital'">Back</button>
+                <button mat-button matStepperNext *ngIf="surveyCategoryStatistics.name !== 'Doctor'">Next</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

@@ -1,0 +1,24 @@
+.mat-radio-button {
+    margin-left: 16px;
+  }
+
+.stepper {
+  margin: 4%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.submitButton {
+  float: right;
+  margin-top: 5px;
+}
+
+.gradesLabels {
+  margin-left: auto;
+  margin-right: 180px;
+}
+
+label {
+  margin-top: 10px;
+  margin-left: 5px;
+}

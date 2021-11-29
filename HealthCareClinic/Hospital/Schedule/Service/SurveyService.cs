@@ -17,7 +17,6 @@ namespace Hospital.Schedule.Service
             this.surveyRepository = surveyRepository;
         }
 
-
         public void Add(Survey entity)
         {
             this.surveyRepository.Add(entity);
@@ -44,6 +43,86 @@ namespace Hospital.Schedule.Service
             //return surveysForPatient;
 
             return surveyRepository.GetAllByPatientId(patientId);
+        }
+
+        public SurveyStatistics GenerateSurveyStatistics()
+        {
+            SurveyStatistics surveyStatistics = new SurveyStatistics();
+
+            surveyStatistics.SurveyCategoriesStatistics = new List<SurveyCategoryStatistics>();
+            foreach (string categoryName in GetDistinctQuestionCategoriesNames())
+            {
+                SurveyCategoryStatistics oneCategoryStatistics = new SurveyCategoryStatistics();
+
+                oneCategoryStatistics.Name = categoryName;
+                oneCategoryStatistics.AverageGrade = GetAverageGradeForQuestionCategory(categoryName);
+
+                oneCategoryStatistics.SurveyQuestionsStatistics = new List<SurveyQuestionStatistics>();
+                List<string> distinctQuestionContentsForCategory = GetDistinctQuestionContentsForCategory(categoryName);
+                foreach (string questionContent in distinctQuestionContentsForCategory)
+                {
+                    SurveyQuestionStatistics oneQuestionStatistics = new SurveyQuestionStatistics();
+
+                    oneQuestionStatistics.Content = questionContent;
+                    oneQuestionStatistics.NumberOfAssignsForEachGrade = 
+                        GetNumberOfAssignsForEachGradeForQuestionInCategory(questionContent, distinctQuestionContentsForCategory);
+                    oneQuestionStatistics.AverageGrade = GetAverageGradeForQuestion(questionContent);
+                    oneQuestionStatistics.SurveyCategoryName = categoryName;
+
+                    oneCategoryStatistics.SurveyQuestionsStatistics.Add(oneQuestionStatistics);
+                }
+
+                surveyStatistics.SurveyCategoriesStatistics.Add(oneCategoryStatistics);
+            }
+
+            return surveyStatistics;
+        }
+
+        public List<string> GetDistinctQuestionCategoriesNames()
+        {
+            return surveyRepository.GetDistinctQuestionCategoriesNames();
+        }
+
+        public List<string> GetDistinctQuestionContentsForCategory(string categoryName)
+        {
+            return surveyRepository.GetDistinctQuestionContentsForCategory(categoryName);
+        }
+
+        public List<int> GetNumberOfAssignsForEachGradeForQuestionInCategory(string questionContent, 
+            List<string> distinctQuestionsContentsForCategory)
+        {
+            List<int> numberOfEachGradeForQuestion = new List<int>();
+
+            foreach (string qC in distinctQuestionsContentsForCategory)
+            {
+                if (questionContent.Equals(qC))
+                {
+                    for (int g = 1; g < 6; g++)
+                    {
+                        int numberOfGradeAssigns = GetNumberOfGradesForQuestion(questionContent, g);
+                        numberOfEachGradeForQuestion.Add(numberOfGradeAssigns);
+                    }
+
+                    break;
+                }
+            }
+
+            return numberOfEachGradeForQuestion;
+        }
+
+        public double GetAverageGradeForQuestionCategory(string categoryName)
+        {
+            return surveyRepository.GetAverageGradeForQuestionCategory(categoryName);
+        }
+
+        public int GetNumberOfGradesForQuestion(string questionContent, int grade)
+        {
+            return surveyRepository.GetNumberOfGradesForQuestion(questionContent, grade);
+        }
+
+        public double GetAverageGradeForQuestion(string questionContent)
+        {
+            return surveyRepository.GetAverageGradeForQuestion(questionContent);
         }
 
         public List<Survey> GetAllDoneByPatientId(int patientId)
