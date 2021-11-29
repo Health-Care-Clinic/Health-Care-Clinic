@@ -12,7 +12,7 @@ namespace Pharmacy.Repository
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
         void Save();
-
+        void Update(TEntity entity);
         void Add(TEntity entity);
         void Remove(TEntity entity);
 

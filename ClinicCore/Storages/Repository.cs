@@ -20,7 +20,7 @@ namespace ClinicCore.Storages
             public void Add(TEntity entity)
             {
                 Context.Set<TEntity>().Add(entity);
-
+                Context.SaveChanges();
             }
 
             public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
@@ -41,7 +41,7 @@ namespace ClinicCore.Storages
             public void Remove(TEntity entity)
             {
                 Context.Set<TEntity>().Remove(entity);
-
+                Save();
             }
 
             public void Save()

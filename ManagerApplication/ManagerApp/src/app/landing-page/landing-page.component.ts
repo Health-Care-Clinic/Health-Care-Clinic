@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedbackService } from '../services/feedback.service';
 import { IFeedback } from '../model/feedback/IFeedback';
+import { PharmacyPromotionService } from '../services/pharmacy-promotion.service';
+import { IPromotion } from '../model/promotion';
 
 @Component({
   selector: 'app-landing-page',
@@ -33,13 +35,16 @@ export class LandingPageComponent implements OnInit {
   ];
 
   feedbacks : IFeedback[] = [];
+  promotions : IPromotion[] = [];
   errorMessage : string  = '';
 
-  constructor(public dialog: MatDialog, private _feedbackService : FeedbackService) { 
+  constructor(public dialog: MatDialog, private _feedbackService : FeedbackService, private _promotionService : PharmacyPromotionService) { 
   }
 
   ngOnInit(): void {
     this.refreshFeedback();
+    this.refreshPromotion();
+    //this.promotions = this._promotionService.getPostedPharmacyPromotions()
   }
 
   openFeedbackDialog(feedback: any): void {
@@ -51,4 +56,17 @@ export class LandingPageComponent implements OnInit {
         .subscribe(feedbacks => this.feedbacks = feedbacks,
                     error => this.errorMessage = <any>error);     
   }
+
+  
+  refreshPromotion() {
+    this._promotionService.getAllPromotions().subscribe(promotions => {
+      let allPromotions :IPromotion[] = promotions;
+      for(let p of allPromotions){
+        if(p.posted){
+          this.promotions.push(p);
+        }
+      }
+    });     
+  }
+  
 }

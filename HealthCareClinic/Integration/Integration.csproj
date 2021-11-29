@@ -1,7 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+ 
   <PropertyGroup>
+    <PackageId>INTEGRATION.IS</PackageId>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Health-Care-Clinic/Health-Care-Clinic</RepositoryUrl>
+    <Description>This package is a base for implementing an informational system of a hospital.</Description>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,6 +15,8 @@
     <Compile Remove="ApiKeys\Repository\IApiKeyRepository.cs" />
     <Compile Remove="ApiKeys\Service\ApiKeyService.cs" />
     <Compile Remove="Class1.cs" />
+    <Compile Remove="DTO\PeriodDTO.cs" />
+    <Compile Remove="Interface\Service\IReportService.cs" />
     <Compile Remove="Pharmacy\Service\ReportServicee.cs" />
     <Compile Remove="Service\IFileTransferService.cs" />
   </ItemGroup>

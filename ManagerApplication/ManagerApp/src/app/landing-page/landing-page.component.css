@@ -18,7 +18,16 @@ p {
     /* height: 300px; */
     margin-left: 13%;
     margin-top: 5%;
-  }
+}
+  
+.promotion-card {
+width: 450px;
+height: 250px;
+/* height: 300px; */
+margin-left: 5%;
+margin-right: 5%;
+margin-top: 5%;
+}
 
 .carousel-position {
     margin-top: 4%;

@@ -25,5 +25,26 @@ namespace Integration_API.Controller
             List<PharmacyPromotion> pharmacyPromotions = (List<PharmacyPromotion>)_pharmacyPromotionService.GetAll();
             return Ok(pharmacyPromotions);
         }
+
+
+        [HttpPut("{id?}")]
+        public IActionResult PostOrRemovePromotion(int id)
+        {
+            PharmacyPromotion pharmacyPromotion = _pharmacyPromotionService.GetOneById(id);
+            if (pharmacyPromotion == null)
+            {
+                return NotFound();
+            }
+
+            _pharmacyPromotionService.Remove(pharmacyPromotion);
+            _pharmacyPromotionService.SaveChanges();
+
+            pharmacyPromotion.Posted = !pharmacyPromotion.Posted;
+
+            _pharmacyPromotionService.Add(pharmacyPromotion);
+            _pharmacyPromotionService.SaveChanges();
+
+            return Ok();
+        }
     }
 }

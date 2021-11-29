@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Integration;
 using Integration.ApiKeys.Model;
 using Integration.DTO;
+using Integration.Interface.Service;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 
@@ -14,11 +15,13 @@ namespace Integration_API.Controller
     [Route("hospital/[controller]")]
     public class MessageController : ControllerBase
     {
-        private readonly IntegrationDbContext _dbContext;
+        private readonly IMessageService _messageService;
+        private readonly IApiKeyService _apiKeyService;
 
-        public MessageController(IntegrationDbContext dbContext)
+        public MessageController(IMessageService messageService, IApiKeyService apiKeyService)
         {
-            _dbContext = dbContext;
+            _messageService = messageService;
+            _apiKeyService = apiKeyService;
         }
 
         [HttpGet]
@@ -31,9 +34,9 @@ namespace Integration_API.Controller
         public IActionResult SendMessage(string to, string message)
         {
             MessageDTO toSend = new MessageDTO(message);
-            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Name.Equals(to));
+            ApiKey apiKey = _apiKeyService.GetApiKeyByName(to);
             var url = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-            ApiKey myApiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.BaseUrl.Equals(url));
+            ApiKey myApiKey = _apiKeyService.GetMyApiKey(url);
 
             if (apiKey == null)
             {
@@ -46,8 +49,7 @@ namespace Integration_API.Controller
             request.AddHeader("ApiKey", myApiKey.Key);
             IRestResponse response = client.Post(request);
 
-            _dbContext.Messages.Add(new Message("Hospital", message, to));
-            _dbContext.SaveChanges();
+            _messageService.SendMessage(message, to);
 
             return Ok("successfully sent");
         }
@@ -61,7 +63,7 @@ namespace Integration_API.Controller
                 return BadRequest("Api key was not provided!");
             }
 
-            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Key.Equals(headerApiKey));
+            ApiKey apiKey = _apiKeyService.GetByKey(headerApiKey);
 
             if (apiKey.Name == null)
             {
@@ -72,9 +74,6 @@ namespace Integration_API.Controller
             {
                 return BadRequest();
             }
-
-            _dbContext.Messages.Add(new Message(apiKey.Name, dto.MessageText, "Hospital"));
-            _dbContext.SaveChanges();
 
             return Ok("success");
         }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Transfer } from 'src/app/model/transfer';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
 @Component({
@@ -17,13 +18,26 @@ export class EquipmentListComponent implements OnInit {
   selectedQuantity: any;
   roomsWithEquipmentDst: any;
   selectedRoomDst: any;
+  allTransfers: any;
+  selectedDate: any;
+  selectedDuration: any;
+  radioSelected: any;
+  freeTerms: any;
+  day: number;
+  var: number;
+  duration: number;
+  radioInput: any;
 
   backButton1: any;
   backButton2: any;
   backButton3: any;
   backButton4: any;
+  backButton5: any;
 
   constructor(private hospitalMapService: HospitalMapService) {
+   }
+
+  ngOnInit(): void {
     this.hospitalMapService.getAllEquipment().subscribe(equipmentFromBack =>{
       this.allEquipment = equipmentFromBack;
       this.equipmentNames = []
@@ -32,19 +46,53 @@ export class EquipmentListComponent implements OnInit {
           this.equipmentNames.push(e.name)
         }
       }
-    })
+      this.selectedDate = new Date()
+      this.var = 0
+      this.duration = 0 
+      this.radioInput = -1;
+  
+      this.step2Disable();
+      this.step3Disable();
+      this.step4Disable();
+      this.step5Disable();
+      this.step6Disable();
+  
+      this.backButton1 = false;
+      this.backButton2 = false;
+      this.backButton3 = false;
+      this.backButton4 = false;
+      this.backButton5 = false;
+    });
+   
    }
 
-  ngOnInit(): void {
-    this.step2Disable();
-    this.step3Disable();
-    this.step4Disable();
-    this.step5Disable();
+   onFinish(): void {
+    if(this.backButton5){
+      this.step5Enable();
+      this.step6Disable();
+    } else {
 
-    this.backButton1 = false;
-    this.backButton2 = false;
-    this.backButton3 = false;
-    this.backButton4 = false;
+      if(this.radioInput == -1){
+        return;
+      }
+      
+      let id = this.returnKey() + 1
+      let term = this.freeTerms[this.radioInput]
+
+      let transfer = new Transfer(id, this.selectedEquipment, parseInt(this.selectedQuantity), parseInt(this.selectedRoom), parseInt(this.selectedRoomDst), 
+      term, parseInt(this.selectedDuration))
+      
+      this.freeTerms = [];
+      this.backButton5 = false;
+      this.radioInput = -1;
+      this.step6Disable();
+      this.step1Enable();
+
+      this.hospitalMapService.addTransfer(transfer).subscribe(() =>  {}     
+      )
+
+    }
+
    }
 
   onSubmit() : void{
@@ -57,6 +105,10 @@ export class EquipmentListComponent implements OnInit {
         this.roomsWithEquipment.push(e)
       }
     }
+
+    this.hospitalMapService.getTransfers().subscribe(transfersFromBack =>{
+      this.allTransfers = transfersFromBack;
+    })
   }
 
   onSubmit2() : void {
@@ -126,13 +178,19 @@ export class EquipmentListComponent implements OnInit {
   onSubmit5(): void {
     if (this.backButton4) {
       this.step4Enable();
-      
+      this.step6Disable();
+
     } else {
+      this.step5Disable();
+      this.backButton4 = false;
+      this.step6Enable();
 
+      this.findFreeTerms();
     }
-
+    
     this.step5Disable();
     this.backButton4 = false;
+
   }
 
   back1() : void {
@@ -149,6 +207,10 @@ export class EquipmentListComponent implements OnInit {
 
   back4() : void {
     this.backButton4 = true;
+  }
+
+  back5(): void {
+    this.backButton5 = true;
   }
 
   step1Enable() : void {
@@ -236,6 +298,10 @@ export class EquipmentListComponent implements OnInit {
     select5.disabled = false;
     let date = document.getElementById('date') as HTMLSelectElement;
     date.disabled = false;
+
+    this.backButton5 = false;
+
+    this.freeTerms = []
   }
 
   step5Disable() : void {
@@ -247,6 +313,78 @@ export class EquipmentListComponent implements OnInit {
     select5.disabled = true;
     let date = document.getElementById('date') as HTMLSelectElement;
     date.disabled = true;
+
+    this.selectedDuration = select5.value;
+
   }
 
+  step6Enable(): void {
+    let finish = document.getElementById('finish') as HTMLButtonElement;
+    finish.disabled = false;
+    let back5 = document.getElementById('back5') as HTMLButtonElement;
+    back5.disabled = false;
+    let table = document.getElementById('tableTransfer') as HTMLSelectElement;
+    table.disabled = false;
+
+    let dates = this.selectedDate.toString().split("-")
+    this.day = parseInt(dates[2])
+  }
+
+  step6Disable(): void {
+    let finish = document.getElementById('finish') as HTMLButtonElement;
+    finish.disabled = true;
+    let back5 = document.getElementById('back5') as HTMLButtonElement;
+    back5.disabled = true;
+    let table = document.getElementById('tableTransfer') as HTMLSelectElement;
+    table.disabled = true;
+  }
+
+  findFreeTerms(): void{
+    let num = this.selectedDuration;
+    let date = this.selectedDate;
+    let room = parseInt(this.selectedRoom);
+    let roomDest = parseInt(this.selectedRoomDst);
+    let transfer = new Transfer(0,"",0,room,roomDest,date,parseInt(this.selectedDuration));
+    this.hospitalMapService.checkFreeTransfers(transfer).subscribe(datesFromBack => {
+      this.freeTerms = datesFromBack;
+    });
+  }
+  
+  returnMonth(month): number{
+    if(month == 'Dec') {
+      return 12;
+    } else if (month == 'Nov') {
+      return 11;
+    } else if (month == 'Oct') {
+      return 10;
+    } else if (month == 'Sep') {
+      return 9;
+    } else if (month == 'Aug') {
+      return 8;
+    } else if (month == 'Jul') {
+      return 7;
+    } else if (month == 'Jun') {
+      return 6;
+    } else if (month == 'May') {
+      return 5;
+    }else if (month == 'Apr') {
+      return 4;
+    }else if (month == 'Mar') {
+      return 3;
+    } else if (month == 'Feb') {
+      return 2;
+    } else 
+      return 1;
+  }
+
+  returnKey(): number {
+    let ret = this.allTransfers[0].id
+
+    for(let t of this.allTransfers){
+      if(t.id > ret)
+        ret = t.id
+    }
+
+    return ret;
+  }
 }
