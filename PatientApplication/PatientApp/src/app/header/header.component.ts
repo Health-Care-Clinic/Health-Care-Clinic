@@ -18,7 +18,14 @@ export class HeaderComponent implements OnInit {
   }
 
   goToFeedbackForm() {
-    this.router.navigateByUrl('/feedback-form')
+    this.router.navigateByUrl('/feedback-form');
   }
 
+  goToRegistrationForm() {
+    this.router.navigateByUrl('/register');
+  }
+
+  goToMedicalRecord() {
+    this.router.navigateByUrl('/medical-record');
+  }
 }

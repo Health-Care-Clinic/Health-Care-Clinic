@@ -40,11 +40,18 @@ namespace Hospital_API.Controller {
             return Ok();
         }
 
+        [HttpPost("checkFreeTransfers")]
+        public IActionResult checkFreeTransfers(TransferDTO transferDTO)
+        {
+            Transfer transfer = TransferAdapter.TransferDTOToTransfer(transferDTO);
+            return Ok(transferService.checkFreeTransfers(transfer));
+        }
+
         private void checkTransfers(List<TransferDTO> allTransfers) {
             DateTime today = DateTime.Now;
 
             foreach (TransferDTO transfer in allTransfers) {
-                DateTime dateFromBase = createDate(transfer.Date);
+                DateTime dateFromBase = transfer.Date;
 
                 if (DateTime.Compare(dateFromBase, today) < 0) 
                 {
@@ -54,17 +61,6 @@ namespace Hospital_API.Controller {
                 }
             }
         }
-
-        private DateTime createDate(String date) {
-            int day = Convert.ToInt32(date.Split(' ')[0].Split('.')[0]);
-            int month = Convert.ToInt32(date.Split(' ')[0].Split('.')[1]);
-            int year = Convert.ToInt32(date.Split(' ')[0].Split('.')[2]);
-            int hours = Convert.ToInt32(date.Split(' ')[1].Split(':')[0]);
-            int minutes = Convert.ToInt32(date.Split(' ')[1].Split(':')[1]);
-
-            return new DateTime(year, month, day, hours, minutes, 0);
-        }
-
     }
 
 }

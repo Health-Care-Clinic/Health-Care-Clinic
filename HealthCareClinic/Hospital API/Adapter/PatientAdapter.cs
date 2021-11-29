@@ -13,6 +13,8 @@ namespace Hospital_API.Adapter
         {
             Patient patient = new Patient();
 
+            AllergenForPatient allergenForPatient = new AllergenForPatient();
+
             patient.Id = dto.Id;
             patient.EmploymentStatus = dto.EmploymentStatus;
             patient.Name = dto.Name;
@@ -27,11 +29,9 @@ namespace Hospital_API.Adapter
             patient.DateOfRegistration = ConvertToDate(dto.DateOfRegistration);
             patient.ParentName = dto.ParentName;
             patient.IsActive = dto.IsActive;
-            patient.Alergies = dto.Alergies;
             patient.BloodType = dto.BloodType;
             patient.IsBlocked = dto.IsBlocked;
-            patient.Doctor = DoctorAdapter.DoctorDTOToDoctor(dto.DoctorDTO);
-
+            patient.Allergens = AllergenAdapter.AllergenDTOListToAllergenForPatientList(dto.Allergens, dto.Id);
             return patient;
         }
 
@@ -53,7 +53,7 @@ namespace Hospital_API.Adapter
             dto.DateOfRegistration = ConvertToString(patient.DateOfRegistration);
             dto.ParentName = patient.ParentName;
             dto.IsActive = patient.IsActive;
-            dto.Alergies = patient.Alergies;
+            dto.Allergens = AllergenAdapter.AllergenForPatientListToAllergenDTOList(patient.Allergens);
             dto.BloodType = patient.BloodType;
             dto.IsBlocked = patient.IsBlocked;
             dto.DoctorDTO = DoctorAdapter.DoctorToDoctorDTO(patient.Doctor);

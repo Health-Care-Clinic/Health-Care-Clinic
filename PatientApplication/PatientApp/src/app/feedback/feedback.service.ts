@@ -14,7 +14,6 @@ export class FeedbackService {
 
   addFeedback(feedback:Feedback): Observable<any> {
 
- 
     feedback.date = new Date();
     const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(feedback);

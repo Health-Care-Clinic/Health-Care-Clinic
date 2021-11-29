@@ -1,0 +1,147 @@
+<div class="stepper">
+  <h1>Registration form</h1>
+<form #registerForm="ngForm">
+    <mat-stepper orientation="vertical" linear #stepper >
+        <mat-step label="Fill in personal info">
+
+          <ul>
+            <li>
+              <mat-form-field appearance="fill">
+                <mat-label>First name</mat-label>
+                <input matInput type="text" name="firstname" [(ngModel)]="patientModel.name" required>
+                <mat-icon matSuffix></mat-icon>
+              </mat-form-field>
+            </li>
+            <li>
+              <mat-form-field appearance="fill">
+                <mat-label>Last name</mat-label>
+                <input matInput type="text" name="lastname" [(ngModel)]="patientModel.surname" required>
+              </mat-form-field>
+            </li>
+            <li>
+              <mat-form-field appearance="fill">
+                <mat-label>Date of birth</mat-label>
+                <input matInput [matDatepicker]="picker" name="dateofbirth" [(ngModel)]="patientModel.birthDate" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </li>
+            <li>
+              <mat-form-field appearance="fill">
+                <mat-label>Name of a parent</mat-label>
+                <input matInput type="text" name="nameofparent" [(ngModel)]="patientModel.parentName" required>
+                <mat-icon matSuffix></mat-icon>
+              </mat-form-field>
+            </li>
+            <li>
+              <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput type="text" name="address" [(ngModel)]="patientModel.address" required>
+              </mat-form-field>
+            </li>
+            <li>
+              <mat-form-field appearance="fill">
+                <mat-label>Phone number</mat-label>
+                <input matInput type="text" name="phoneNumber" [(ngModel)]="patientModel.phone" required>
+              </mat-form-field>
+            </li>
+            <li>
+              <mat-form-field appearance="fill">
+                <mat-label>Employment status</mat-label>
+                <mat-select name="employmentStatus" [(ngModel)]="patientModel.employmentStatus" required>
+                  <mat-option *ngFor="let status of employmentStatuses" [value]="status.viewValue" >
+                    {{status.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </li>
+            <li style="margin-top: 35px;">
+              <mat-radio-group [(ngModel)]="patientModel.gender" name="gender" label-position="before" required>
+                <mat-label>Gender</mat-label>
+                <mat-radio-button value="Male">Male</mat-radio-button>
+                <mat-radio-button value="Female">Female</mat-radio-button>
+              </mat-radio-group>
+            </li>
+          </ul>
+          <div>
+            <button mat-button matStepperNext color="primary">Next</button>
+          </div>
+
+        </mat-step>
+        <mat-step label="Fill in account info">
+
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>E-mail</mat-label>
+                <input matInput type="email" name="email" [formControl]="emailControl" [(ngModel)]="patientModel.email" required>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" name="username" [(ngModel)]="patientModel.username" required>
+              </mat-form-field>
+              <div *ngIf="usernames.includes(patientModel.username)" class="errorText">Username already exists!</div>
+            </div>
+            <div>
+              <mat-form-field hintLabel="Between 6 and 16 characters" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" name="password" id="password" minlength="6" maxlength="16" [(ngModel)]="patientModel.password" required>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>Confirm password</mat-label>
+                <input matInput type="password" name="repassword" [(ngModel)]="repassword" required>
+              </mat-form-field>
+            </div>
+
+
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext color="primary">Next</button>
+              </div>
+          </mat-step>
+          <mat-step label="Medical info">
+
+            <mat-form-field appearance="fill">
+              <mat-label>Preffered doctor</mat-label>
+              <mat-select name="doctor" [(ngModel)]="patientModel.doctorDTO" required>
+                <mat-option *ngFor="let doctor of doctors" [value]="doctor">
+                  {{doctor.name + " " + doctor.surname}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-label>Blood type</mat-label>
+                <mat-select name="blood" [(ngModel)]="patientModel.bloodType" required>
+                  <mat-option *ngFor="let bloodType of bloodTypes" [value]="bloodType.viewValue">
+                    {{bloodType.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <mat-label style="padding-top: 20px;" for="allergens">List of your allergens</mat-label>
+                <mat-selection-list name="allergens" [(ngModel)]="patientModel.allergens" multiple>
+                  <mat-list-option checkboxPosition="before" *ngFor="let allergen of allergens" [value]="allergen">
+                      {{ allergen.name }}
+                  </mat-list-option>
+                </mat-selection-list>
+
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext color="primary">Next</button>
+              </div>
+          </mat-step>
+          <mat-step label="Submit registration request">
+            <p><b>Before submiting, please check info you filled</b></p>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button color="warn" (click)="stepper.reset()">Reset</button>
+              <button mat-raised-button color="accent" (click)="submit()" [disabled]="!(registerForm.valid && patientModel.password === repassword && !usernames.includes(patientModel.username))" [routerLink]="['/login']">Submit</button>
+            </div>
+          </mat-step>
+    </mat-stepper>
+   </form>
+  </div>

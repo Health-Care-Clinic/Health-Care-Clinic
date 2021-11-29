@@ -35,6 +35,9 @@ export class EquipmentListComponent implements OnInit {
   backButton5: any;
 
   constructor(private hospitalMapService: HospitalMapService) {
+   }
+
+  ngOnInit(): void {
     this.hospitalMapService.getAllEquipment().subscribe(equipmentFromBack =>{
       this.allEquipment = equipmentFromBack;
       this.equipmentNames = []
@@ -43,30 +46,24 @@ export class EquipmentListComponent implements OnInit {
           this.equipmentNames.push(e.name)
         }
       }
+      this.selectedDate = new Date()
+      this.var = 0
+      this.duration = 0 
+      this.radioInput = -1;
+  
+      this.step2Disable();
+      this.step3Disable();
+      this.step4Disable();
+      this.step5Disable();
+      this.step6Disable();
+  
+      this.backButton1 = false;
+      this.backButton2 = false;
+      this.backButton3 = false;
+      this.backButton4 = false;
+      this.backButton5 = false;
     });
-    this.hospitalMapService.getTransfers().subscribe(transfersFromBack =>{
-      this.allTransfers = transfersFromBack;
-      this.freeTerms = []
-    })
-   }
-
-  ngOnInit(): void {
-    this.selectedDate = new Date()
-    this.var = 0
-    this.duration = 0 
-    this.radioInput = -1;
-
-    this.step2Disable();
-    this.step3Disable();
-    this.step4Disable();
-    this.step5Disable();
-    this.step6Disable();
-
-    this.backButton1 = false;
-    this.backButton2 = false;
-    this.backButton3 = false;
-    this.backButton4 = false;
-    this.backButton5 = false;
+   
    }
 
    onFinish(): void {
@@ -80,13 +77,10 @@ export class EquipmentListComponent implements OnInit {
       }
       
       let id = this.returnKey() + 1
-      let term = this.freeTerms[this.radioInput].toString().split(' ')
-      let month = this.returnMonth(term[1])-1;
-      let time = term[4].split(':')
-      let date = new Date(term[3], month, term[2], time[0], time[1], time[2]);
+      let term = this.freeTerms[this.radioInput]
 
       let transfer = new Transfer(id, this.selectedEquipment, parseInt(this.selectedQuantity), parseInt(this.selectedRoom), parseInt(this.selectedRoomDst), 
-        date.toString(), parseInt(this.selectedDuration))
+      term, parseInt(this.selectedDuration))
       
       this.freeTerms = [];
       this.backButton5 = false;
@@ -345,171 +339,15 @@ export class EquipmentListComponent implements OnInit {
     table.disabled = true;
   }
 
-  addMinutes(date): Date {
-    let date1 = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + 15, 0); 
-    return date1;
-  }
-
   findFreeTerms(): void{
-    let num = this.selectedDuration/15;
-    let dates = this.selectedDate.toString().split("-")
-    this.day = parseInt(dates[2]);
-    
-    let date = new Date(parseInt(dates[0]), dates[1] - 1, this.day, 8, 0, 0);
-    
-    if(num == 1){
-      while(date.getHours() != 17){
-      
-        if(this.checkIsItPosibleToPushIntoList(num, date)){
-          this.freeTerms.push(date);
-        }
-        
-        if(this.var == 0)
-          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
-        else 
-          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
-      }
-    } else if(num == 2) {
-      while(date.getHours() != 16 || date.getMinutes() != 45){
-      
-        if(this.checkIsItPosibleToPushIntoList(num, date)){
-          this.freeTerms.push(date);
-        }
-
-        if(this.var == 0)
-          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
-        else 
-          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
-      }
-    } else if(num == 3) {
-      while(date.getHours() != 16 || date.getMinutes() != 30){
-      
-        if(this.checkIsItPosibleToPushIntoList(num, date)){
-          this.freeTerms.push(date);
-        }
-
-        if(this.var == 0)
-          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
-        else 
-          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
-      }
-    } else if(num == 4) {
-      while(date.getHours() != 16 || date.getMinutes() != 15){
-        
-        if(this.checkIsItPosibleToPushIntoList(num, date)){
-          this.freeTerms.push(date);
-        }
-
-        if(this.var == 0)
-          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
-        else 
-          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
-      }
-    } else if(num == 6) {
-      while(date.getHours() != 15 || date.getMinutes() != 45){
-      
-        if(this.checkIsItPosibleToPushIntoList(num, date)){
-          this.freeTerms.push(date);
-        }
-
-        if(this.var == 0)
-          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
-        else 
-          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
-      }
-    } else if(num == 8) {
-      while(date.getHours() != 15 || date.getMinutes() != 15){
-      
-        if(this.checkIsItPosibleToPushIntoList(num, date)){
-          this.freeTerms.push(date);
-        }
-
-        if(this.var == 0)
-          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
-        else 
-          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
-      }
-    } else if(num == 10) {
-      while(date.getHours() != 14 || date.getMinutes() != 45){
-      
-        if(this.checkIsItPosibleToPushIntoList(num, date)){
-          this.freeTerms.push(date);
-        }
-
-        if(this.var == 0)
-          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
-        else 
-          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
-      }
-    } else if(num == 12) {
-      while(date.getHours() != 14 || date.getMinutes() != 15){
-      
-        if(this.checkIsItPosibleToPushIntoList(num, date)){
-          this.freeTerms.push(date);
-        }
-        if(this.var == 0)
-          date = this.addMinutes(new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes(), 0));
-        else 
-          date = new Date(date.getFullYear(), date.getMonth(), this.day, date.getHours(), date.getMinutes() + this.duration, 0);
-        
-      }
-    }
-  }
-
-  checkIsItPosibleToPushIntoList(num, date): Boolean{
-
-    for(let i=0; i<num; i++){
-      if(this.checkIsTermFree(date)) {
-        date = this.addMinutes(date);
-        this.var = 0;
-      } else {
-        if(i == 0) {
-          this.var = 1;
-          this.duration = this.findDuration(date);
-        }
-        
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  checkIsTermFree(date): Boolean{
-    
-    for (let t of this.allTransfers) {
-      
-      let prom = t.date.toString().split(' ')
-      let dates = prom[0].split('.');
-      let time = prom[1].split(':');
-      
-      if(t.sourceRoomId == this.selectedRoom || t.destinationRoomId == this.selectedRoomDst || 
-        t.sourceRoomId == this.selectedRoomDst || t.destinationRoomId == this.selectedRoom){
-          
-        if(parseInt(dates[1]) == (date.getMonth()+1) && parseInt(dates[0]) == this.day && parseInt(time[0]) == date.getHours() && 
-            parseInt(time[1]) == date.getMinutes()){
-          return false;
-        }
-      } 
-    }
-
-    return true;
-  }
-
-  findDuration(date): number{
-    let dur = 0;
-    for (let t of this.allTransfers) {
-      let prom = t.date.toString().split(' ')
-      let dates = prom[0].split('.');
-      let time = prom[1].split(':');
-      
-      if(parseInt(dates[1]) == (date.getMonth()+1) && parseInt(dates[0]) == this.day && parseInt(time[0]) == date.getHours() && 
-      parseInt(time[1]) == date.getMinutes()){
-        dur = t.duration;
-      } 
-    }
-
-    return dur;
+    let num = this.selectedDuration;
+    let date = this.selectedDate;
+    let room = parseInt(this.selectedRoom);
+    let roomDest = parseInt(this.selectedRoomDst);
+    let transfer = new Transfer(0,"",0,room,roomDest,date,parseInt(this.selectedDuration));
+    this.hospitalMapService.checkFreeTransfers(transfer).subscribe(datesFromBack => {
+      this.freeTerms = datesFromBack;
+    });
   }
   
   returnMonth(month): number{
