@@ -29,7 +29,7 @@ namespace Integration.Adapter
 
         public static PharmacyDTO ApiKeyToPharmacyDto(ApiKey apiKey)
         {
-            return new PharmacyDTO(apiKey.Id, apiKey.Name);
+            return new PharmacyDTO(apiKey.Id, apiKey.Name, apiKey.City);
         }
     }
 }

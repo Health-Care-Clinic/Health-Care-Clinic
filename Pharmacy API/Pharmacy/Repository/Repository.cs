@@ -19,7 +19,11 @@ namespace Pharmacy.Repository
         public void Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
-          
+        }
+
+        public void Update(TEntity entity)
+        {
+            Context.Set<TEntity>().Update(entity);
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)

@@ -8,5 +8,6 @@ namespace Integration.Interface.Service
 {
     public interface IPharmacyPromotionService : IService<PharmacyPromotion>
     {
+        void SaveChanges();
     }
 }

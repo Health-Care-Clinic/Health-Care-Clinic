@@ -29,6 +29,36 @@ namespace Hospital.Rooms_and_equipment.Repository
             return Context.Set<Equipment>().Where(c => c.Name.ToLower().Contains(name.ToLower())).ToList();
         }
 
+        public void Change(String equipment, int sourceRoomId, int destinationRoomId, int quantity)
+        {
+            Equipment.EquipmentType type = Equipment.EquipmentType.Static;
+
+            foreach (Equipment e in GetEquipmentByRoomId(sourceRoomId)) {
+                if (e.Name.Equals(equipment))
+                {
+                    type = e.Type;
+                    Context.Set<Equipment>().Find(e.Id).Quantity -= quantity;
+                    Save();
+                }
+            }
+
+            Boolean done = false;
+            foreach (Equipment e in GetEquipmentByRoomId(destinationRoomId)) {
+                if (e.Name.Equals(equipment))
+                {
+                    done = true;
+                    Context.Set<Equipment>().Find(e.Id).Quantity += quantity;
+                    Save();
+                }
+            }
+
+            if (!done) {
+                Equipment eq = new Equipment(quantity, equipment, type, quantity, destinationRoomId);
+                GetEquipmentByRoomId(destinationRoomId).Add(eq);
+            }
+
+        }
+
     }
 
 

@@ -1,0 +1,30 @@
+<h1>
+    Pharmacy promotions
+</h1>
+
+<div>
+    <mat-accordion >
+        <div *ngFor="let promotion of promotions">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{promotion.title}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{promotion.startDate | date : ' dd.MM.yyyy. '}} - {{promotion.endDate | date : ' dd.MM.yyyy.'}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>{{promotion.content}}</p>
+                <mat-action-row *ngIf="promotion.posted || !isExpired(promotion.endDate)"> <!--!((!promotion.posted) && isExpired(promotion.endDate))-->
+                    <button mat-button *ngIf="!promotion.posted" (click)="publishPromotion(promotion.id)">
+                        Publish
+                    </button>
+                    <button mat-button *ngIf="promotion.posted" (click)="removePublishedPromotion(promotion.id)">
+                        Remove
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </div>
+
+    </mat-accordion>
+</div>

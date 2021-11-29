@@ -72,7 +72,6 @@ namespace Model
         public Patient()
         {
         }
-
         public Patient(string Name, string Surname, string Password, string RePassword)
         {
             this.Name = Name; 
@@ -82,6 +81,8 @@ namespace Model
         }
 
         public Doctor Doc { get; set; }
+
+        public virtual Doctor Doc { get; set; }
 
         public Doctor Doctor
         {

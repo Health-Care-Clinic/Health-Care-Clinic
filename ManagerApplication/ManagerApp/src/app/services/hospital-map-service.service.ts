@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Floor } from '../model/floor';
 import { Room, TypeOfRoom } from '../model/room';
 import { Equipment } from '../model/equipment';
+import { Transfer } from '../model/transfer';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,9 @@ export class HospitalMapService {
   private floorGetById: string;
   private searchedBuildings: string;
   private searchedRooms: string;
+  private transfersGet: string;
+  private addNewTransfer: string;
+  private checkFreeTransfersUrl: string;
 
   constructor(private _http: HttpClient) {
     this.buildingGetById = '/api/building/getBuildingById';
@@ -42,6 +46,9 @@ export class HospitalMapService {
     this.floorGetById = '/api/floor/getFloorById';
     this.searchedBuildings = '/api/building/getSearchedBuildings';
     this.searchedRooms = '/api/room/getSearchedRooms';
+    this.transfersGet = '/api/transfer/getAllTransfers';
+    this.addNewTransfer = '/api/transfer/addNewTransfer';
+    this.checkFreeTransfersUrl = '/api/transfer/checkFreeTransfers';
   }
 
   public getBuildings(): Observable<Array<Building>> {
@@ -127,5 +134,20 @@ export class HospitalMapService {
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Floor>>(this.floorsGet, {headers: headers});
   }
+
+  public getTransfers(): Observable<Array<Transfer>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Transfer>>(this.transfersGet, {headers: headers});
+  }
+
+  public addTransfer(transfer:Transfer): Observable<Transfer> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<Transfer>(this.addNewTransfer, transfer, {headers: headers});
+  } 
+  public checkFreeTransfers(transfer:Transfer): Observable<Array<Date>> {
+    return this._http.post<Array<Date>>(this.checkFreeTransfersUrl, transfer);
+  } 
  
 }

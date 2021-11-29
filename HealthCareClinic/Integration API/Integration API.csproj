@@ -53,6 +53,7 @@
 
   <ItemGroup>
     <Folder Include="MedSpecifications\" />
+    <Folder Include="MedSpecifications\" />
   </ItemGroup>
 
 

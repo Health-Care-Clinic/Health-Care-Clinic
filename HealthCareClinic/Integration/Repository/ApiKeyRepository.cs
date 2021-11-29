@@ -28,5 +28,10 @@ namespace Integration.Repository
         {
             return IntegrationDbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.BaseUrl.Equals(url));
         }
+
+        public ApiKey GetByKey(string key)
+        {
+            return IntegrationDbContext.ApiKeys.FirstOrDefault(k => k.Key.Equals(key));
+        }
     }
 }
