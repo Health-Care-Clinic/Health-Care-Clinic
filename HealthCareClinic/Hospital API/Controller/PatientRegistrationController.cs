@@ -94,5 +94,24 @@ namespace Hospital_API.Controller
 
             return Redirect("http://localhost:4200/login");
         }
+
+        [HttpPut("{id?}")]
+        public IActionResult BlockPatientById(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest();    // if any of the values is incorrect return bad request
+            }
+            Patient patient = patientService.GetOneById(id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                patientService.BlockPatientById(id);
+                return Ok(PatientAdapter.PatientToPatientDTO(patient));
+            }
+        }
     }
 }

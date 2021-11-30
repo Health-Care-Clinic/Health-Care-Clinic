@@ -25,6 +25,13 @@ namespace Hospital.Medical_records.Repository
             Save();
         }
 
+        public void BlockPatientById(int id)
+        {
+            Patient patient = GetById(id);
+            patient.IsBlocked = true;
+            Save();
+        }
+
         public Patient FindByToken(string token)
         {
             return dbContext.Patients.SingleOrDefault(p => p.Hashcode.Equals(token));

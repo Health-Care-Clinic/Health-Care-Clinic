@@ -10,5 +10,6 @@ namespace Hospital.Medical_records.Repository.Interface
         void ActivatePatientsAccount(int id);
         Patient FindByToken(string token);
         public List<string> GetAllUsernames();
+        public void BlockPatientById(int id);
     }
 }

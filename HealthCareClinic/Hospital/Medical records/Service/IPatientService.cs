@@ -14,5 +14,6 @@ namespace Hospital.Medical_records.Service
         string GenerateHashcode(string password);
         public Task SendMail(MailRequest mailRequest);
         public List<string> GetAllUsernames();
+        public void BlockPatientById(int id);
     }
 }
