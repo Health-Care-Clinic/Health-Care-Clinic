@@ -53,10 +53,26 @@ namespace Hospital.Rooms_and_equipment.Repository
             }
 
             if (!done) {
-                Equipment eq = new Equipment(quantity, equipment, type, quantity, destinationRoomId);
-                GetEquipmentByRoomId(destinationRoomId).Add(eq);
+                int i = 0;
+                foreach (Equipment e in GetAll().ToList())
+                {
+                    if (e.Id > i)
+                    {
+                        i = e.Id;
+                    }
+                }
+                Equipment eq = new Equipment(i+1, equipment, type, quantity, destinationRoomId);
+                Add(eq);
             }
 
+            foreach (Equipment e in GetEquipmentByRoomId(sourceRoomId))
+            {
+                if (e.Name.Equals(equipment) && e.Quantity == 0)
+                {
+                    Remove(e);
+                    break;
+                }
+            }
         }
 
     }
