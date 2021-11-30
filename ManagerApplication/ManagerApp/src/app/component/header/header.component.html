@@ -1,11 +1,28 @@
 <mat-toolbar color="warn" class="navbar">
     <button style="font-size : 25px" mat-button [routerLink]="['']">Hospital</button>
-    <button mat-button  [routerLink]="['hospital-map']">Hospital complex map</button>
-    <button mat-button  [routerLink]="['moving-equipment']">Moving equipment</button>
+
+    <button mat-button [matMenuTriggerFor]="facility">Our Facility</button>
+    <mat-menu #facility="matMenu">
+        <button mat-menu-item [routerLink]="['hospital-map']">Hospital map</button>
+        <button mat-menu-item [routerLink]="['moving-equipment']">Move equipment</button>
+    </mat-menu>
+    
     <button mat-button  [routerLink]="['feedback-view']">All feedbacks</button>
     <button mat-button  [routerLink]="['survey-observation']">Survey statistics</button>
-    <button mat-button  [routerLink]="['urgent-procurement']">Urgent procurement</button>
-    <button mat-button  [routerLink]="['promotions']">Promotions</button>
+
+    <button mat-button [matMenuTriggerFor]="pharmacies">Pharmacies</button>
+    <mat-menu #pharmacies="matMenu">
+        <button mat-menu-item [routerLink]="['registration']">Register pharmacy</button>
+        <button mat-menu-item>All pharmacies</button>
+        <button mat-menu-item [routerLink]="['promotions']">Promotions</button>
+        <button mat-menu-item [routerLink]="['specifications']">Medicine specification</button>
+    </mat-menu>
+    
+    <button mat-button [matMenuTriggerFor]="medicineProcurement">Medicine Procurement</button>
+    <mat-menu #medicineProcurement="matMenu">
+        <button mat-menu-item [routerLink]="['urgent-procurement']">Urgent procurement</button>
+        <button mat-menu-item [routerLink]="['consumption-report']">Medicine consumption</button>
+    </mat-menu>
     <span class="example-spacer"></span>
     <button mat-raised-button>Log in</button>
 </mat-toolbar>
