@@ -27,10 +27,10 @@ namespace Hospital_API.Controller
         [HttpGet("getAllEquipment")]
         public IActionResult GetAllEquipment()
         {
+            checkTransfers();
             List<EquipmentDTO> allEquipment = new List<EquipmentDTO>();
             equipmentService.GetAll().ToList().ForEach(Equipment
                 => allEquipment.Add(EquipmentAdapter.EquipmentToEquipmentDTO(Equipment)));
-            checkTransfers();
             return Ok(allEquipment);
         }
 
