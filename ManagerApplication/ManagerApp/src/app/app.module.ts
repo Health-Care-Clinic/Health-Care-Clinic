@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PharmacyRegistrationComponent } from './registration/pharmacy-registration/pharmacy-registration.component';
@@ -36,13 +35,16 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatStepperModule} from '@angular/material/stepper'; 
 import {MatListModule} from '@angular/material/list';
-import { RoomSearchComponent } from './component/hospital-map/room-search.component';
+import {MatMenuModule} from '@angular/material/menu';
+
 import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
 import { SurveyObservationService } from './services/survey-observation.service';
-
 import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
 import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
 import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
+
+
+import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -68,7 +70,8 @@ const MaterialComponents = [
   MatStepperModule,
   MatListModule,
   MatExpansionModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatMenuModule
 ];
 
 @NgModule({
