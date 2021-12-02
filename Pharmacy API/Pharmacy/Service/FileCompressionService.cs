@@ -8,6 +8,9 @@ namespace Pharmacy.Service
 {
     public class FileCompressionService
     {
+        private static readonly int sixMonthsInHours = 6 * 30 * 24;
+        private static readonly int sixMonthsInDays = 6 * 30;
+
         public static void CompressFiles()
         {
             string path = "..\\..\\Pharmacy API\\Pharmacy API\\MedSpecifications\\";
@@ -25,7 +28,8 @@ namespace Pharmacy.Service
 
                 RemoveCompressedFiles(filesToCompress);
 
-                Thread.Sleep(10000);
+                TimeSpan oldFilesLimit = new TimeSpan(sixMonthsInHours, 0, 0);
+                Thread.Sleep(oldFilesLimit);
             }
         }
 
@@ -61,7 +65,7 @@ namespace Pharmacy.Service
         {
             foreach (FileInfo file in files)
             {
-                if (/*file.CreationTime < DateTime.Now.AddDays(-7) && */file.Extension != ".zip")
+                if (file.CreationTime < DateTime.Now.AddDays(-sixMonthsInDays) && file.Extension != ".zip")
                 {
                     filesToCompress.Add(file);
                 }
