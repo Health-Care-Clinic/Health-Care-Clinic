@@ -1,0 +1,39 @@
+<!--<mat-list>
+    <div *ngFor="let notification of notifications" style="margin-left: 10%; margin-right: 10%;">
+        <mat-list-item >
+            <mat-icon mat-list-icon *ngIf="!notification.seen">fiber_new</mat-icon>
+            <h3 style="font-weight: light; font-size : 18px" mat-line> {{notification.title}} </h3>
+            <h6 mat-line> {{notification.date | date : ' dd.MM.yyyy. '}} </h6>
+            <p mat-line> {{notification.content}} </p>
+        </mat-list-item>
+        
+        <mat-divider></mat-divider>
+    </div>
+    
+</mat-list>-->
+
+<div style="margin-left: 3%; margin-right: 3%;">
+    <h1>
+        Notifications
+    </h1>
+
+    <div>
+        <mat-accordion>
+            <div *ngFor="let notification of notifications">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon mat-list-icon *ngIf="!notification.seen">fiber_new</mat-icon>
+                            <div>{{notification.title}}</div>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{notification.date | date : ' dd.MM.yyyy. '}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>{{notification.content}}</p>
+                </mat-expansion-panel>
+            </div>
+
+        </mat-accordion>
+    </div>
+</div>

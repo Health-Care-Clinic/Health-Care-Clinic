@@ -27,6 +27,10 @@
         <button mat-menu-item [routerLink]="['urgent-procurement']">Urgent procurement</button>
         <button mat-menu-item [routerLink]="['consumption-report']">Medicine consumption</button>
     </mat-menu>
+    <span class="example-spacer-notification"></span>
+    <button mat-icon-button [routerLink]="['notifications']" (click)='seeNotifications()' [matBadge]='unreadNotificationNumber' [matBadgeHidden]="unreadNotificationNumber === 0">
+        <mat-icon>notifications</mat-icon>
+    </button> 
     <span class="example-spacer"></span>
-    <button mat-raised-button>Log in</button>
+    <button mat-button>Log in</button>
 </mat-toolbar>

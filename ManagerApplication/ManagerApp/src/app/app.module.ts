@@ -33,7 +33,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatStepperModule} from '@angular/material/stepper'; 
+import {MatStepperModule} from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
@@ -42,7 +42,7 @@ import { SurveyObservationComponent } from './component/survey-observation/surve
 import { SurveyObservationService } from './services/survey-observation.service';
 import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
 import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
-import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
+import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component';
 
 
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
@@ -52,6 +52,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
 import { MaliciousPatientsComponent } from './component/malicious-patients/malicious-patients.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
 import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
@@ -100,11 +101,12 @@ const MaterialComponents = [
     ConsumptionReportComponent,
     MaliciousPatientsComponent,
     RenovationRoomsComponent,
-    RoomScheduleComponent
+    RoomScheduleComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     FormsModule,
     CommonModule,
     RouterModule.forRoot([
