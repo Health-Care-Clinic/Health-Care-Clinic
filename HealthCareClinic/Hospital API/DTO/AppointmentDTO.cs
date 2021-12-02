@@ -1,6 +1,6 @@
 ﻿namespace Hospital_API.DTO
 {
-    public class AppointmetDTO
+    public class AppointmentDTO
     {
         public int Id { get; set; }
 
@@ -17,7 +17,7 @@
 
         public int SurveyId { get; set; }
 
-        public AppointmetDTO(int id, int patientId, int doctorId, int roomId, bool isCancelled, bool isDone, string date, int surveyId)
+        public AppointmentDTO(int id, int patientId, int doctorId, int roomId, bool isCancelled, bool isDone, string date, int surveyId)
         {
             Id = id;
             PatientId = patientId;
@@ -29,7 +29,7 @@
             SurveyId = surveyId;
         }
 
-        public AppointmetDTO()
+        public AppointmentDTO()
         {
         }
     }

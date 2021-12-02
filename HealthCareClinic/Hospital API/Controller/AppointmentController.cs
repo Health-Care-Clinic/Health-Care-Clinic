@@ -25,14 +25,28 @@ namespace Hospital_API.Controller
         }
 
         [HttpGet("getAppointmetsByPatientId/{id?}")]
-        public IActionResult getAppointmentsByPatientId(int patinetId)
+        public IActionResult GetAppointmentsByPatientId(int patinetId)
         {
+            if (patinetId < 0)
+                return BadRequest();
             //TODO PROVERA DA LI PACIJENT SA TI ID UOPSTE POSTOJI
-            List<AppointmetDTO> allAppointments = new List<AppointmetDTO>();
+            List<AppointmentDTO> allAppointments = new List<AppointmentDTO>();
             appointmentService.getAppointmentsByPatientId(patinetId).ForEach(Appointment
                 => allAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment)));
 
             return Ok(allAppointments);
+        }
+        [HttpGet("cancelAppointment/{id?}")]
+        public IActionResult CancelAppointment(int appointmentId)
+        {
+            if (appointmentId < 0)
+                return BadRequest();   
+            
+            if (appointmentService.GetOneById(appointmentId) == null)
+                return NotFound();
+
+            Appointment Appointment =  appointmentService.CancelAppointment(appointmentId);
+            return Ok(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment));
         }
     }
 

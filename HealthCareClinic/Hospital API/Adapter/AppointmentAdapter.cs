@@ -6,9 +6,9 @@ namespace Hospital_API.Adapter
 {
     public class AppointmentAdapter
     {
-        public static AppointmetDTO AppointmentToAppointmentDTO(Appointment appointment)
+        public static AppointmentDTO AppointmentToAppointmentDTO(Appointment appointment)
         {
-            AppointmetDTO dto = new AppointmetDTO();
+            AppointmentDTO dto = new AppointmentDTO();
 
             dto.Id = appointment.Id;
             dto.DoctorId = appointment.DoctorId;

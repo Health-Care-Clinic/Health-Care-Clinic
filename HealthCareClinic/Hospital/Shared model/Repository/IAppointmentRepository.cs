@@ -9,5 +9,6 @@ namespace Hospital.Shared_model.Repository
     public interface IAppointmentRepository : IRepository<Appointment>
     {
         List<Appointment> getAppointmentsByPatientId(int patinetId);
+        Appointment CancelAppointment(int appointmentId);
     }
 }
