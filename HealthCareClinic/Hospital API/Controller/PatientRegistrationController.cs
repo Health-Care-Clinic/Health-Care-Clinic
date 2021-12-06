@@ -111,7 +111,7 @@ namespace Hospital_API.Controller
         }
 
         [HttpGet("allSuspiciousPatients")]
-        public IActionResult GetAllActivePatients()
+        public IActionResult GetAllSuspiciousPatients()
         {
             List<Patient> patients = patientService.GetAllSuspiciousPatients();
 

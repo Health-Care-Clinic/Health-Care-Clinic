@@ -1,6 +1,7 @@
 ﻿using Hospital.Mapper;
 using Hospital.Medical_records.Repository;
 using Hospital.Medical_records.Service;
+using Hospital.Schedule.Model;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
@@ -58,7 +59,7 @@ namespace HospitalIntegrationTests.Patient_Portal
 
 
         [Fact]
-        public void Get_all_active_patients_which_are_not_blocked()
+        public void Get_all_suspicious_patients_which_are_not_blocked()
         {
             var options = CreateStubDatabase();
 
@@ -75,8 +76,8 @@ namespace HospitalIntegrationTests.Patient_Portal
 
                 PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
 
-                OkObjectResult result = patientController.GetAllActivePatients() as OkObjectResult;
-                List<PatientDTO> activatedPatients = result.Value as List<PatientDTO>;
+                OkObjectResult result = patientController.GetAllSuspiciousPatients() as OkObjectResult;
+                List<PatientDTO> suspiciousPatients = result.Value as List<PatientDTO>;
 
                 foreach (Doctor doctor in context.Doctors)
                 {
@@ -90,8 +91,8 @@ namespace HospitalIntegrationTests.Patient_Portal
                     context.SaveChanges();
                 }
 
-                Assert.Equal(7, activatedPatients.Count);
-                Assert.IsType<List<PatientDTO>>(activatedPatients);
+                Assert.Single(suspiciousPatients);
+                Assert.IsType<List<PatientDTO>>(suspiciousPatients);
             }
         }
 
@@ -151,11 +152,15 @@ namespace HospitalIntegrationTests.Patient_Portal
                 context.Patients.Add(patient5);
                 context.Patients.Add(patient6);
                 context.Patients.Add(patient7);
+                context.CanceledAppointments.Add(new CanceledAppointment(new System.DateTime(2021, 12, 1), 1, 123));
+                context.CanceledAppointments.Add(new CanceledAppointment(new System.DateTime(2021, 12, 3), 1, 124));
+                context.CanceledAppointments.Add(new CanceledAppointment(new System.DateTime(2021, 12, 4), 1, 125));
+                context.CanceledAppointments.Add(new CanceledAppointment(new System.DateTime(2021, 12, 1), 1, 126));
                 //context.Patients.Add(patient8);
                 context.SaveChanges();
             }
 
             return options;
-        }
+        }    
     }
 }
