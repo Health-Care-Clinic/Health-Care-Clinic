@@ -1,0 +1,40 @@
+<div style="margin-left: 15%; margin-top: 3%;">
+    <h2>Active patients</h2>
+    
+    <table mat-table [dataSource]="patients" class="mat-elevation-z8" style="width: 70%;">
+        <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+                  <ng-container >{{element.username}}</ng-container>
+                    </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element" >
+                  <ng-container >{{element.name}} {{element.surname}}</ng-container>
+                    </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="phone">
+            <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="block">
+            <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+            <mat-cell *matCellDef="let row"> 
+                <button mat-button (click)="block(row)"> Block </button>
+             </mat-cell>
+          </ng-container>
+    
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </table>
+    </div>
+    

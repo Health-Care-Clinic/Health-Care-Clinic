@@ -17,6 +17,9 @@ namespace Hospital_API.Adapter
         }
         public static DoctorDTO DoctorToDoctorDTO(Doctor doctor)
         {
+            if (doctor is null)
+                return null;
+
             DoctorDTO dto = new DoctorDTO();
 
             dto.Id = doctor.Id;

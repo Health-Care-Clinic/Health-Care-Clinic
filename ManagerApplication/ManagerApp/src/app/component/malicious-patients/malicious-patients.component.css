@@ -1,0 +1,9 @@
+.mat-column-username {
+    flex: 0 0 12%;
+}
+.mat-column-email {
+    flex: 0 0 30%;
+}
+.mat-column-block {
+    flex: 0 0 10%;
+}
