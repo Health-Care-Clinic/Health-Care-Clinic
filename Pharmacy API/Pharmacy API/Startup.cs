@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Pharmacy;
 using Pharmacy.Repository;
 using Pharmacy.Service;
+using System.Threading;
 
 namespace Pharmacy_API
 {
@@ -38,6 +39,9 @@ namespace Pharmacy_API
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IFeedbackReplyRepository, FeedbackReplyRepository>();
             services.AddScoped<IFeedbackReplyService, FeedbackReplyService>();
+
+            Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
+            fileCompressionThread.Start();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
