@@ -28,24 +28,6 @@ namespace Integration_API.Controller
             _messageService = messageService;
         }
 
-        [HttpGet("specification/{name}")]
-        public IActionResult GetSpecification(String name)
-        {
-            if (System.IO.File.Exists("MedSpecifications" + Path.DirectorySeparatorChar + name + ".txt"))
-            {
-                new Process()
-                {
-                    StartInfo = new ProcessStartInfo("MedSpecifications\\" + name + ".txt")
-                    {
-                        UseShellExecute = true
-                    }
-                }.Start();
-                return StatusCode(200);
-            }
-
-            return StatusCode(204);
-        }
-
         [HttpGet("send/spec")]
         public IActionResult SendSpecRequest(string to, string message)
         {
