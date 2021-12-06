@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/apikey",
+      "launchUrl": "hospital/apikey",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

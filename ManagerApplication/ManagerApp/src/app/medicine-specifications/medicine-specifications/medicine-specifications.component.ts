@@ -32,5 +32,10 @@ export class MedicineSpecificationsComponent implements OnInit {
   download(): void {
     this.specification.fileName = this.fileName;
     this._specificationService.downloadSpecification(this.specification).subscribe();
+    //window.open("../../../assets/brufen.pdf", '_blank');
+  }
+
+  openPdf(): void {
+    window.open("../../../assets/brufen.pdf", '_blank');
   }
 }

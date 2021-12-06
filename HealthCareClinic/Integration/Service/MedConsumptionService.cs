@@ -44,10 +44,13 @@ namespace Integration.Service
         public void GenerateConsumptionReport(string start, string end)
         {
             List<string> output = GetConsumptionData(start, end);
-            string filename = "Report " + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss");
-            string path = "C:\\Users\\PC\\OneDrive\\Desktop\\Health-Care-Clinic\\HealthCareClinic\\Integration API\\" +
-                          filename + ".txt";
-            File.WriteAllLines(path, output.ToArray());
+            string filename = "Report";
+            string content = "";
+            foreach (string o in output)
+            {
+                content += o + "\n";
+            }
+            fileTransferService.CreatePdfDocument(content, filename);
             fileTransferService.UploadFile(filename);
         }
 
