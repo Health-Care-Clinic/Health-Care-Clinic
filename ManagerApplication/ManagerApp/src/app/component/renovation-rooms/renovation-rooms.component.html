@@ -1,10 +1,31 @@
 <div>
     <h1>Step 1: Select the renovation type</h1>
-    <form (ngSubmit)="onSubmit()">
-        <select id="select1">
-            <option>Merge</option>
-            <option>Divide</option>
-        </select>
-        <button type="submit" id="next1">Next</button>
-    </form>
+    <select id="select1">
+        <option value="Merge">Merge</option>
+        <option value="Divide">Divide</option>
+    </select>
+    <button (click)="onSubmit()" type="submit" id="next1">Next</button>
 </div>
+<div>
+    <div *ngIf="selectedType === 'Merge'">
+        <h1>Step 2: Select the rooms which you want to merge</h1>
+        <select id="select2">
+            <option *ngFor='let e of allRooms' value="{{e.id}}">Room: {{e.id}}</option>
+        </select>
+        <select id="select3">
+            <option *ngFor='let e of allRooms' value="{{e.id}}">Room: {{e.id}}</option>
+        </select>
+        <button (click)="onSubmit1()" type="submit" id="next2">Next</button>
+        <button id="back1" (click)="back1()">Back to step 1</button>
+        <p *ngIf="errorMessage === false" style="color: red;"> The rooms are not next to each other </p>
+    </div>
+    <div *ngIf="selectedType === 'Divide'">
+        <h1>Step 2: Select the room which you want to divide</h1>
+        <select id="select4">
+            <option *ngFor='let e of allRooms' value="{{e.id}}">Room: {{e.id}}</option>
+        </select>
+        <button (click)="onSubmit2()" type="submit" id="next2">Next</button>
+        <button id="back1" (click)="back1()">Back to step 1</button>
+    </div>
+</div>
+

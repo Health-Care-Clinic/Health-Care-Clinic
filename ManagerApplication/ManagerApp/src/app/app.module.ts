@@ -51,7 +51,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
 
-
+import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -93,7 +93,8 @@ const MaterialComponents = [
     SurveyObservationComponent,
     PharmacyPromotionsComponent,
     MedicineSpecificationsComponent,
-    ConsumptionReportComponent
+    ConsumptionReportComponent,
+    RenovationRoomsComponent
   ],
   imports: [
     BrowserModule,
