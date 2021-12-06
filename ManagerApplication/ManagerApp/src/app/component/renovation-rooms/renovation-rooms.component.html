@@ -30,10 +30,31 @@
 </div>
 <div>
     <div *ngIf="step3">
-        <h1>Step 3: Select time when you want to renovate rooms</h1>
-        <input type="date" id="date" name="dateofrenovation" [(ngModel)]="selectedDate">
+        <h1>Step 3: Select the time until which it needs to be renovated</h1>
+        <input type="date" id="date" name="dateofrenovation" [(ngModel)]="selectedEndDate">
         <button (click)="onSubmit3()" type="submit" id="next3">Next</button>
         <button id="back2" (click)="back2()">Back to step 2</button>
     </div>
 </div>
-
+<div>
+    <div *ngIf="step4">
+        <h1>Step 4: Select duration(in days) which you need for renovation</h1>
+        <select id="select5">
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value=5>5</option>
+            <option value=6>6</option>
+            <option value=7>7</option>
+            <option value=8>8</option>
+            <option value=9>9</option>
+            <option value=10>10</option>
+            <option value=15>15</option>
+            <option value=20>20</option>
+            <option value=30>30</option>
+        </select>
+        <button (click)="onSubmit4()" type="submit" id="next4">Next</button>
+        <button id="back3" (click)="back3()">Back to step 3</button>
+    </div>
+</div>
