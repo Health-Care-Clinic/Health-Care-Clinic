@@ -32,6 +32,16 @@ namespace Hospital_API.Controller {
             return Ok(allTransfers);
         }
 
+        [HttpGet("getRoomTransfers/{id?}")]
+        public IActionResult GetRoomTransfers(int id)
+        {
+            checkTransfers();
+            List<TransferDTO> roomTransfers = new List<TransferDTO>();
+            transferService.GetRoomTransfers(id).ToList().ForEach(Transfer
+                => roomTransfers.Add(TransferAdapter.TransferToTransferDTO(Transfer)));
+            return Ok(roomTransfers);
+        }
+
         [HttpPost("addNewTransfer")]
         public IActionResult AddNewTransfer(TransferDTO transferDTO) 
         {
