@@ -35,6 +35,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatStepperModule} from '@angular/material/stepper'; 
 import {MatListModule} from '@angular/material/list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 
 import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
@@ -50,6 +51,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
+import { MaliciousPatientsComponent } from './component/malicious-patients/malicious-patients.component';
 
 import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
 
@@ -71,6 +73,7 @@ const MaterialComponents = [
   MatListModule,
   MatExpansionModule,
   MatTooltipModule,
+  MatSnackBarModule,
   MatMenuModule
 ];
 
@@ -94,6 +97,7 @@ const MaterialComponents = [
     PharmacyPromotionsComponent,
     MedicineSpecificationsComponent,
     ConsumptionReportComponent,
+    MaliciousPatientsComponent,
     RenovationRoomsComponent
   ],
   imports: [

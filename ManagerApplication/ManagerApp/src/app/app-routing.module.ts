@@ -12,6 +12,7 @@ import { SurveyObservationComponent } from './component/survey-observation/surve
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
 import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
+import { MaliciousPatientsComponent } from './component/malicious-patients/malicious-patients.component';
 import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'moving-equipment', component: EquipmentListComponent },
   { path: 'specifications', component: MedicineSpecificationsComponent },
   { path: 'consumption-report', component: ConsumptionReportComponent },
+  { path: 'malicious-patients', component: MaliciousPatientsComponent },
   { path: 'renovation', component: RenovationRoomsComponent }
 ];
 

@@ -94,5 +94,37 @@ namespace Hospital_API.Controller
 
             return Redirect("http://localhost:4200/login");
         }
+
+        [HttpPut("{id?}")]
+        public IActionResult BlockPatientById(int id)
+        {
+            Patient patient = patientService.GetOneById(id);
+            if (patient == null || patient.IsBlocked)
+            {
+                return NotFound();
+            }
+            else
+            {
+                patientService.BlockPatientById(id);
+                return Ok(PatientAdapter.PatientToPatientDTO(patient));
+            }
+        }
+
+        [HttpGet("allSuspiciousPatients")]
+        public IActionResult GetAllSuspiciousPatients()
+        {
+            List<Patient> patients = patientService.GetAllSuspiciousPatients();
+
+            if (patients.Count == 0)
+            {
+                return NotFound();
+            }
+
+            List<PatientDTO> patientsDto = new List<PatientDTO>();
+            foreach (Patient patient in patients)
+                patientsDto.Add(PatientAdapter.PatientToPatientDTO(patient));
+
+            return Ok(patientsDto);
+        }
     }
 }

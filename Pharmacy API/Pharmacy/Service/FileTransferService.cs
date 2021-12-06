@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Pharmacy.DTO;
 using Renci.SshNet;
+using SautinSoft.Document;
 
 namespace Pharmacy.Service
 {
@@ -16,7 +17,7 @@ namespace Pharmacy.Service
                 credentials.Password));
             client.Connect();
             String sourceFile = ServerCredentialsDTO.GetInstance().SourceFolder + Path.DirectorySeparatorChar +
-                                fileName + ".txt";
+                                fileName + ".pdf";
             using (Stream stream = File.OpenRead(sourceFile))
             {
                 client.UploadFile(stream, Path.GetFileName(sourceFile), x =>
@@ -36,31 +37,29 @@ namespace Pharmacy.Service
             client.Connect();
             String sourceFile = ServerCredentialsDTO.GetInstance().ServerFolder + Path.DirectorySeparatorChar + fileName;
             using (Stream stream =
-                File.OpenWrite("MedSpecifications" + Path.DirectorySeparatorChar + fileName + ".txt"))
+                File.OpenWrite("MedSpecifications" + Path.DirectorySeparatorChar + fileName + ".pdf"))
             {
-                client.DownloadFile(fileName + ".txt", stream);
+                client.DownloadFile(fileName + ".pdf", stream);
             }
 
             client.Disconnect(); 
         }
 
-        public void CreateTxtFile(string path, string content)
+
+        public void CreatePdfDocument(string content, string fileName)
         {
-            if (!File.Exists(path))
+            DocumentCore document = new DocumentCore();
+            document.Content.End.Insert(content, new CharacterFormat()
             {
-                File.Create(path).Dispose();
-                using (TextWriter textWriter = new StreamWriter(path))
-                {
-                    textWriter.WriteLine(content);
-                }
-            } 
-            else
+                FontName = "Verdana",
+                Size = 10.5f
+            });
+            document.Save(fileName + ".pdf");
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(fileName + ".pdf")
             {
-                using (TextWriter textWriter = new StreamWriter(path))
-                {
-                    textWriter.WriteLine(content);
-                }
-            }
+                UseShellExecute = true
+            });
         }
     }
 }

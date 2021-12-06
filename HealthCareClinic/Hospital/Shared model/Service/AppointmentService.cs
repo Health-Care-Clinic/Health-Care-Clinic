@@ -26,7 +26,7 @@ namespace Hospital.Shared_model.Service
 
         public Appointment GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return appointmentRepository.GetById(id);
         }
 
         public void Remove(Appointment entity)
@@ -37,6 +37,11 @@ namespace Hospital.Shared_model.Service
         public List<Appointment> getAppointmentsByPatientId(int patinetId)
         {
             return appointmentRepository.getAppointmentsByPatientId(patinetId);
+        }
+
+        public Appointment CancelAppointment(int appointmentId)
+        {
+           return appointmentRepository.CancelAppointment(appointmentId);
         }
     }
 }

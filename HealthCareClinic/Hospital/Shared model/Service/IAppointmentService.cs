@@ -9,5 +9,6 @@ namespace Hospital.Shared_model.Service
     public interface IAppointmentService : IService<Appointment>
     {
         List<Appointment> getAppointmentsByPatientId(int patinetId);
+        Appointment CancelAppointment(int appointmentId);
     }
 }

@@ -59,9 +59,7 @@ namespace Pharmacy_API.Controllers
 
             var medToSend = _medicineService.GetByName(dto.MessageText);
             string content = medToSend.Name + ", " + medToSend.Quantity;
-            string path =
-                "C:\\Users\\PC\\OneDrive\\Desktop\\Health-Care-Clinic\\Pharmacy API\\Pharmacy API\\MedSpecifications\\" + medToSend.Name.ToLower() +".txt";
-            _fileTransferService.CreateTxtFile(path, content);
+            _fileTransferService.CreatePdfDocument(content, medToSend.Name.ToLower());
             _fileTransferService.UploadFile(medToSend.Name.ToLower());
             return Ok("success");
         }

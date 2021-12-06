@@ -28,7 +28,7 @@ namespace Integration_API.Controller
             return Ok();
         }
 
-        [HttpGet("ftp/{fileName}")]
+        [HttpGet("ftp")]
         public IActionResult DownloadFile(String fileName)
         {
             _fileTransferService.DownloadFile(fileName);
