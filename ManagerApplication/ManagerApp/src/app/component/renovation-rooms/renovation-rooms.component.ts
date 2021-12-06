@@ -19,6 +19,10 @@ export class RenovationRoomsComponent implements OnInit {
     step3: Boolean = false;
     step4: Boolean = false;
     duration: number = 1;
+    step5: Boolean = false;
+    newName: string = '';
+    newType: any;
+    newDescription: string = '';
 
     constructor(private hospitalMapService: HospitalMapService) {
     }
@@ -93,7 +97,49 @@ export class RenovationRoomsComponent implements OnInit {
       back3.disabled = true;
       let select5 = document.getElementById('select5') as HTMLButtonElement;
       select5.disabled = true;
-           
+      
+      if(this.selectedType == 'Divide')
+        this.step5 = true;
+    }
+
+    onSubmit5(): void {
+      let type = document.getElementById('select6') as HTMLButtonElement;
+      this.newType = type.value;
+
+      let next5 = document.getElementById('next5') as HTMLButtonElement;
+      next5.disabled = true;
+      let back4 = document.getElementById('back4') as HTMLButtonElement;
+      back4.disabled = true;
+
+      let nameLabel = document.getElementById('nameLabel') as HTMLButtonElement;
+      nameLabel.disabled = true;
+      let typeLabel = document.getElementById('typeLabel') as HTMLButtonElement;
+      typeLabel.disabled = true;
+      let descriptionLabel = document.getElementById('descriptionLabel') as HTMLButtonElement;
+      descriptionLabel.disabled = true;
+      let newName = document.getElementById('newName') as HTMLButtonElement;
+      newName.disabled = true;
+      let newType = document.getElementById('select6') as HTMLButtonElement;
+      newType.disabled = true;
+      let duration = document.getElementById('newDescription') as HTMLButtonElement;
+      duration.disabled = true;
+
+      alert(this.newName + ' ' + this.newType + ' ' + this.newDescription)
+    }
+
+    back4(): void {
+      this.step5 = false;
+
+      let next4 = document.getElementById('next4') as HTMLButtonElement;
+      next4.disabled = false;
+      let back3 = document.getElementById('back3') as HTMLButtonElement;
+      back3.disabled = false;
+      let select5 = document.getElementById('select5') as HTMLButtonElement;
+      select5.disabled = false;
+
+      this.newName = '';
+      this.newType = 'RoomForAppointments';
+      this.newDescription = '';
     }
 
     back3(): void {
