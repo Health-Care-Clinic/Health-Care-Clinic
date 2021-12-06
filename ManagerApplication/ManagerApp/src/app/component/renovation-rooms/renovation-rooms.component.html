@@ -58,3 +58,29 @@
         <button id="back3" (click)="back3()">Back to step 3</button>
     </div>
 </div>
+<div>
+    <div *ngIf="step5">
+        <h1>Step 5: Choose the new informations for divided room</h1>
+        <div class="row">
+            <label for="" id="nameLabel">Name: </label>
+            <input type="name" id="newName" [(ngModel)]="newName">
+        </div>
+        <div class="row">
+            <label for="" id="typeLabel">Type: </label>
+            <select id="select6">
+                <option value="RoomForAppointments">RoomForAppointments</option>
+                <option value="OperationRoom">OperationRoom</option>
+                <option value="WC">WC</option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="" id="descriptionLabel">Description: </label>
+            <input type="description" id="newDescription" [(ngModel)]="newDescription">
+        </div>
+        <div class="row">
+            <button (click)="onSubmit5()" type="submit" id="next5">Next</button>
+            <button id="back4" (click)="back4()">Back to step 4</button>
+        </div>
+    </div>
+</div>
+<div>
