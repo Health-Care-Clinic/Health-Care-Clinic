@@ -36,6 +36,7 @@ namespace Hospital_API.Controller
 
             return Ok(allAppointments);
         }
+        
         [HttpGet("cancelAppointment/{id?}")]
         public IActionResult CancelAppointment(int appointmentId)
         {

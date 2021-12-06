@@ -33,6 +33,43 @@ namespace Hospital.Schedule.Repository
             return HospitalDbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId).ToList();
         }
 
+        public List<string> GetDistinctQuestionCategoriesNames()
+        {
+            return HospitalDbContext.SurveyCategories.Select(category => category.Name).Distinct().ToList();
+        }
+
+        public List<string> GetDistinctQuestionContentsForCategory(string categoryName)
+        {
+            return HospitalDbContext.SurveyQuestions.Where(question => 
+                question.SurveyCategory.Name.Equals(categoryName)).Select(question => question.Content).Distinct().ToList();
+        }
+
+        public double GetAverageGradeForQuestionCategory(string categoryName)
+        {
+            double averageGradeForQuestionCategory = HospitalDbContext.SurveyQuestions.Where(question => 
+                question.SurveyCategory.Survey.Done == true && question.SurveyCategory.Name.Equals(categoryName))
+                    .Average(q => q.Grade);
+
+            return averageGradeForQuestionCategory;
+        }
+
+        public int GetNumberOfGradesForQuestion(string questionContent, int grade)
+        {
+            int numberOfGradesForQuestion = HospitalDbContext.SurveyQuestions.Where(question =>
+                question.SurveyCategory.Survey.Done == true && question.Content.Equals(questionContent) && 
+                question.Grade == grade).Count();
+
+            return numberOfGradesForQuestion;
+        }
+
+        public double GetAverageGradeForQuestion(string questionContent)
+        {
+            double averageGradeForQuestion = HospitalDbContext.SurveyQuestions.Where(question =>
+                question.SurveyCategory.Survey.Done == true && question.Content.Equals(questionContent)).Average(q => q.Grade);
+
+            return averageGradeForQuestion;
+        }
+
         public List<Survey> GetAllDoneByPatientId(int patientId)
         {
             return HospitalDbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId && survey.Done == true).ToList();

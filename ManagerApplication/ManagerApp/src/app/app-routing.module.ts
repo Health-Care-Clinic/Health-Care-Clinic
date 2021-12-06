@@ -8,14 +8,17 @@ import { FloorComponent } from './component/hospital-map/floor.component';
 import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { EquipmentListComponent } from './component/moving-equipment/equipment-list.component';
+import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
 import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
+import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
   { path: 'registration',  component: PharmacyRegistrationComponent },
   { path: 'feedback-view', component: FeedbackViewComponent},
+  { path: 'survey-observation', component: SurveyObservationComponent},
   { path: 'promotions', component: PharmacyPromotionsComponent},
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
@@ -27,7 +30,8 @@ const routes: Routes = [
   { path: 'room-search-result/:searchText', component: RoomSearchComponent },
   { path: 'moving-equipment', component: EquipmentListComponent },
   { path: 'specifications', component: MedicineSpecificationsComponent },
-  { path: 'consumption-report', component: ConsumptionReportComponent }
+  { path: 'consumption-report', component: ConsumptionReportComponent },
+  { path: 'renovation', component: RenovationRoomsComponent }
 ];
 
 @NgModule({

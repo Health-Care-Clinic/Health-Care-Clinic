@@ -27,7 +27,7 @@ namespace HospitalIntegrationTests.Graphical_editor
 
             int numberOfSearchedBuildings = buildingService.GetSearchedBuildings("building2").Count;
 
-            Assert.Equal(1, numberOfSearchedBuildings);
+            Assert.True(numberOfSearchedBuildings > 0);
         }
     }
 }

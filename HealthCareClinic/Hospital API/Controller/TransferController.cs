@@ -25,10 +25,10 @@ namespace Hospital_API.Controller {
         [HttpGet("getAllTransfers")]
         public IActionResult GetAllTransfers()
         {
+            checkTransfers();
             List<TransferDTO> allTransfers = new List<TransferDTO>();
             transferService.GetAll().ToList().ForEach(Transfer
                 => allTransfers.Add(TransferAdapter.TransferToTransferDTO(Transfer)));
-            checkTransfers(allTransfers);
             return Ok(allTransfers);
         }
 
@@ -47,9 +47,11 @@ namespace Hospital_API.Controller {
             return Ok(transferService.checkFreeTransfers(transfer));
         }
 
-        private void checkTransfers(List<TransferDTO> allTransfers) {
+        private void checkTransfers() {
             DateTime today = DateTime.Now;
-
+            List<TransferDTO> allTransfers = new List<TransferDTO>();
+            transferService.GetAll().ToList().ForEach(Transfer
+                => allTransfers.Add(TransferAdapter.TransferToTransferDTO(Transfer)));
             foreach (TransferDTO transfer in allTransfers) {
                 DateTime dateFromBase = transfer.Date;
 

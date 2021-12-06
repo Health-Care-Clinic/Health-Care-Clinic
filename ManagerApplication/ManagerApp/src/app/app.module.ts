@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PharmacyRegistrationComponent } from './registration/pharmacy-registration/pharmacy-registration.component';
@@ -34,9 +33,16 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatStepperModule} from '@angular/material/stepper'; 
+import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+
+import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
+import { SurveyObservationService } from './services/survey-observation.service';
 import { UrgentProcurementComponent } from './component/urgent-procurement/urgent-procurement.component';
 import { PharmacyCityFilterPipe } from './pipes/pharmacy-city-filter.pipe';
 import { OrderDialogComponent } from './component/urgent-procurement/order-dialog/order-dialog.component'; 
+
 
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
@@ -61,8 +67,11 @@ const MaterialComponents = [
   MatFormFieldModule,
   MatInputModule,
   MatCheckboxModule,
+  MatStepperModule,
+  MatListModule,
   MatExpansionModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatMenuModule
 ];
 
 @NgModule({
@@ -81,6 +90,7 @@ const MaterialComponents = [
     OrderDialogComponent,
     RoomSearchComponent,
     EquipmentListComponent,
+    SurveyObservationComponent,
     PharmacyPromotionsComponent,
     MedicineSpecificationsComponent,
     ConsumptionReportComponent
@@ -97,7 +107,7 @@ const MaterialComponents = [
     IvyCarouselModule,
     MaterialComponents
   ],
-  providers: [FeedbackService],
+  providers: [FeedbackService, SurveyObservationService],
   bootstrap: [AppComponent],
   entryComponents: [OrderDialogComponent]
 })
