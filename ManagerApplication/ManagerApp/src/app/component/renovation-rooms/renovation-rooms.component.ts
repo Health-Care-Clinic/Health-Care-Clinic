@@ -15,6 +15,8 @@ export class RenovationRoomsComponent implements OnInit {
     firstRoom: number;
     secondRoom: number;
     divideRoom: number;
+    selectedDate: any;
+    step3: Boolean = false;
 
     constructor(private hospitalMapService: HospitalMapService) {
     }
@@ -24,6 +26,7 @@ export class RenovationRoomsComponent implements OnInit {
         this.allRooms = roomsFromBack;
       }); 
 
+      this.selectedDate = new Date()
     }
 
     onSubmit(): void {
@@ -39,18 +42,22 @@ export class RenovationRoomsComponent implements OnInit {
        
       this.hospitalMapService.IsFirstRoomNextToSecond(this.firstRoom, this.secondRoom).subscribe(ret => {
         this.errorMessage = ret;
+        
+        if(this.errorMessage === true) {
+          let select2 = document.getElementById('select2') as HTMLSelectElement;
+          select2.disabled = true;
+          let select3 = document.getElementById('select3') as HTMLSelectElement;
+          select3.disabled = true;
+          let next2 = document.getElementById('next2') as HTMLButtonElement;
+          next2.disabled = true;
+          let back1 = document.getElementById('back1') as HTMLButtonElement;
+          back1.disabled = true;
+
+          this.step3 = true;
+        } 
       })
 
-      if(this.errorMessage) {
-        let select2 = document.getElementById('select2') as HTMLSelectElement;
-        select2.disabled = true;
-        let select3 = document.getElementById('select3') as HTMLSelectElement;
-        select3.disabled = true;
-        let next2 = document.getElementById('next2') as HTMLButtonElement;
-        next2.disabled = true;
-        let back1 = document.getElementById('back1') as HTMLButtonElement;
-        back1.disabled = true;
-      }
+      
 
     }
 
@@ -62,6 +69,38 @@ export class RenovationRoomsComponent implements OnInit {
       next2.disabled = true;
       let back1 = document.getElementById('back1') as HTMLButtonElement;
       back1.disabled = true;
+
+      this.step3 = true;
+    }
+
+    onSubmit3(): void {
+      let next3 = document.getElementById('next3') as HTMLButtonElement;
+      next3.disabled = true;
+      let back2 = document.getElementById('back2') as HTMLButtonElement;
+      back2.disabled = true;
+      let datepicker = document.getElementById('date') as HTMLButtonElement;
+      datepicker.disabled = true;
+      
+    }
+
+    back2(): void {
+      let next2 = document.getElementById('next2') as HTMLButtonElement;
+      next2.disabled = false;
+      let back1 = document.getElementById('back1') as HTMLButtonElement;
+      back1.disabled = false;
+
+      if(this.selectedType == 'Merge'){
+        let select2 = document.getElementById('select2') as HTMLSelectElement;
+        select2.disabled = false;
+        let select3 = document.getElementById('select3') as HTMLSelectElement;
+        select3.disabled = false;
+      } else {
+        let select4 = document.getElementById('select4') as HTMLSelectElement;
+        select4.disabled = false;
+      }    
+
+      this.selectedDate = new Date()
+      this.step3 = false;
     }
 
     back1(): void {

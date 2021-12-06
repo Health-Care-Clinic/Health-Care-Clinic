@@ -28,4 +28,12 @@
         <button id="back1" (click)="back1()">Back to step 1</button>
     </div>
 </div>
+<div>
+    <div *ngIf="step3">
+        <h1>Step 3: Select time when you want to renovate rooms</h1>
+        <input type="date" id="date" name="dateofrenovation" [(ngModel)]="selectedDate">
+        <button (click)="onSubmit3()" type="submit" id="next3">Next</button>
+        <button id="back2" (click)="back2()">Back to step 2</button>
+    </div>
+</div>
 
