@@ -29,6 +29,8 @@ namespace Hospital.Mapper
 
         public DbSet<Appointment> Appointments { get; set; }
 
+        public DbSet<CanceledAppointment> CanceledAppointments { get; set; }
+
         public DbSet<Allergen> Allergens { get; set; }
 
         public DbSet<AllergenForPatient> AllergenForPatients { get; set; }
@@ -338,12 +340,12 @@ namespace Hospital.Mapper
 
             modelBuilder.Entity<Appointment>(entity =>
             {
-                entity.ToTable("appointment");
+                entity.ToTable("Appointment");
             });
 
             modelBuilder.Entity<Survey>(entity =>
             {
-                entity.ToTable("survey");
+                entity.ToTable("Survey");
 
                 entity.HasOne(d => d.Appointment)
                .WithMany(p => p.Surveys)
@@ -352,7 +354,7 @@ namespace Hospital.Mapper
 
             modelBuilder.Entity<SurveyCategory>(entity =>
             {
-                entity.ToTable("surveyCategory");
+                entity.ToTable("SurveyCategory");
 
                 entity.HasOne(d => d.Survey)
                .WithMany(p => p.SurveyCategories)
@@ -361,7 +363,7 @@ namespace Hospital.Mapper
 
             modelBuilder.Entity<SurveyQuestion>(entity =>
             {
-                entity.ToTable("surveyQuestion");
+                entity.ToTable("SurveyQuestion");
 
                 entity.HasOne(d => d.SurveyCategory)
                .WithMany(p => p.SurveyQuestions)
@@ -541,9 +543,26 @@ namespace Hospital.Mapper
                 new Patient(8, "Zorka", "Djokic", "female", "B", new System.DateTime(1987, 07, 01), "Kralja Petra 19", "0697856665", "zorka@gmail.com", "zorka", "zorka", "zorka", null, "Unemployed", true)
                 { DoctorId = 6 }
                 );
-            
+
             modelBuilder.Entity<AllergenForPatient>()
                 .HasKey(c => new { c.PatientId, c.AllergenId });
+
+
+            modelBuilder.Entity<CanceledAppointment>()
+                .HasKey(c => new { c.PatientId, c.AppointmentId });
+
+            modelBuilder.Entity<CanceledAppointment>().HasData(
+                new CanceledAppointment { AppointmentId = 1764, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 11) },
+                new CanceledAppointment { AppointmentId = 1765, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 21) },
+                new CanceledAppointment { AppointmentId = 1763, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 30) },
+                new CanceledAppointment { AppointmentId = 1766, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 1) },
+                new CanceledAppointment { AppointmentId = 1777, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 22) },
+                new CanceledAppointment { AppointmentId = 1767, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 8) },
+                new CanceledAppointment { AppointmentId = 1768, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 6) },
+                new CanceledAppointment { AppointmentId = 1769, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 7) },
+                new CanceledAppointment { AppointmentId = 1799, PatientId = 2, DateOfCancellation = new System.DateTime(2021, 11, 11) },
+                new CanceledAppointment { AppointmentId = 1780, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 11, 21) },
+                new CanceledAppointment { AppointmentId = 1870, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 22) });
         }
     }
 }

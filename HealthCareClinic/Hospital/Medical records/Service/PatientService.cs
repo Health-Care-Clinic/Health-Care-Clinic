@@ -110,5 +110,15 @@ namespace Hospital.Medical_records.Service
         {
             throw new NotImplementedException();
         }
+
+        public void BlockPatientById(int id)
+        {
+            this.patientRepository.BlockPatientById(id);
+        }
+
+        public List<Patient> GetAllSuspiciousPatients()
+        {
+            return this.patientRepository.GetAllSuspiciousPatients();
+        }
     }
 }

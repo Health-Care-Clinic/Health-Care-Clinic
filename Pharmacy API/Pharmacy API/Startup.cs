@@ -40,8 +40,8 @@ namespace Pharmacy_API
             services.AddScoped<IFeedbackReplyRepository, FeedbackReplyRepository>();
             services.AddScoped<IFeedbackReplyService, FeedbackReplyService>();
 
-            Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
-            fileCompressionThread.Start();
+            //Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
+            //fileCompressionThread.Start();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
