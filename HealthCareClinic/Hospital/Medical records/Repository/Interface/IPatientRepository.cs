@@ -7,9 +7,10 @@ namespace Hospital.Medical_records.Repository.Interface
 {
     public interface IPatientRepository : IRepository<Patient>
     {
-        void ActivatePatientsAccount(int id);
-        Patient FindByToken(string token);
+        public void ActivatePatientsAccount(int id);
+        public Patient FindByToken(string token);
         public List<string> GetAllUsernames();
         public void BlockPatientById(int id);
+        public List<Patient> GetAllSuspiciousPatients();
     }
 }

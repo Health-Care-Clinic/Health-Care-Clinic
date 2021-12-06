@@ -56,6 +56,45 @@ namespace HospitalIntegrationTests.Patient_Portal
             }
         }
 
+
+        [Fact]
+        public void Get_all_active_patients_which_are_not_blocked()
+        {
+            var options = CreateStubDatabase();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                DoctorService doctorService = new DoctorService(doctorRepository);
+
+                AllergenRepository allergenRepository = new AllergenRepository(context);
+                AllergenService alergenService = new AllergenService(allergenRepository);
+
+                PatientRepository patientRepository = new PatientRepository(context);
+                PatientService patientService = new PatientService(patientRepository);
+
+                PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
+
+                OkObjectResult result = patientController.GetAllActivePatients() as OkObjectResult;
+                List<PatientDTO> activatedPatients = result.Value as List<PatientDTO>;
+
+                foreach (Doctor doctor in context.Doctors)
+                {
+                    context.Doctors.Remove(doctor);
+                    context.SaveChanges();
+                }
+
+                foreach (Patient patient in context.Patients)
+                {
+                    context.Patients.Remove(patient);
+                    context.SaveChanges();
+                }
+
+                Assert.Equal(7, activatedPatients.Count);
+                Assert.IsType<List<PatientDTO>>(activatedPatients);
+            }
+        }
+
         private DbContextOptions<HospitalDbContext> CreateStubDatabase()
         {
             var options = new DbContextOptionsBuilder<HospitalDbContext>()

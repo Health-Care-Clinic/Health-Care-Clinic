@@ -115,5 +115,10 @@ namespace Hospital.Medical_records.Service
         {
             this.patientRepository.BlockPatientById(id);
         }
+
+        public List<Patient> GetAllSuspiciousPatients()
+        {
+            return this.patientRepository.GetAllSuspiciousPatients();
+        }
     }
 }

@@ -98,12 +98,8 @@ namespace Hospital_API.Controller
         [HttpPut("{id?}")]
         public IActionResult BlockPatientById(int id)
         {
-            if (id < 0)
-            {
-                return BadRequest();    // if any of the values is incorrect return bad request
-            }
             Patient patient = patientService.GetOneById(id);
-            if (patient == null)
+            if (patient == null || patient.IsBlocked)
             {
                 return NotFound();
             }
@@ -112,6 +108,23 @@ namespace Hospital_API.Controller
                 patientService.BlockPatientById(id);
                 return Ok(PatientAdapter.PatientToPatientDTO(patient));
             }
+        }
+
+        [HttpGet("allSuspiciousPatients")]
+        public IActionResult GetAllActivePatients()
+        {
+            List<Patient> patients = patientService.GetAllSuspiciousPatients();
+
+            if (patients.Count == 0)
+            {
+                return NotFound();
+            }
+
+            List<PatientDTO> patientsDto = new List<PatientDTO>();
+            foreach (Patient patient in patients)
+                patientsDto.Add(PatientAdapter.PatientToPatientDTO(patient));
+
+            return Ok(patientsDto);
         }
     }
 }

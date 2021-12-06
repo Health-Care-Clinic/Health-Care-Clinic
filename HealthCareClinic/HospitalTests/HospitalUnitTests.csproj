@@ -28,8 +28,4 @@
     <ProjectReference Include="..\Hospital\Hospital.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Patient portal\" />
-  </ItemGroup>
-
 </Project>

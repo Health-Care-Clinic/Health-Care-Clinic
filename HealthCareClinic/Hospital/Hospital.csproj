@@ -20,7 +20,6 @@
     <Folder Include="Medical records\Model\" />
     <Folder Include="Rooms and equipment\Service\" />
     <Folder Include="Rooms and equipment\Repository\" />
-    <Folder Include="Schedule\Model\" />
     <Folder Include="Schedule\Service\" />
     <Folder Include="Schedule\Repository\" />
   </ItemGroup>

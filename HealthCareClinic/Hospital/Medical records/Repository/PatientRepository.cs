@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
+using Hospital.Schedule.Model;
 
 namespace Hospital.Medical_records.Repository
 {
@@ -35,6 +36,23 @@ namespace Hospital.Medical_records.Repository
         public Patient FindByToken(string token)
         {
             return dbContext.Patients.SingleOrDefault(p => p.Hashcode.Equals(token));
+        }
+
+        public List<Patient> GetAllSuspiciousPatients()
+        {
+            var allPatientsIds = (from patient in dbContext.Patients
+                                       where patient.IsActive == true && patient.IsBlocked == false
+                                       select patient.Id);
+
+            IQueryable<CanceledAppointment> allCanceledAppsInLastMonths = dbContext.CanceledAppointments.Where(c => allPatientsIds.Contains(c.PatientId) && (DateTime.Now.Date - c.DateOfCancellation.Date).Days < 30);
+
+            var patientIdsWithNumberOfCanceledAppointments = dbContext.CanceledAppointments.GroupBy(c => c.PatientId).Select(a => new { patientId = a.Key, count = a.Count() });
+
+            var resultIds = (from idAndCount in patientIdsWithNumberOfCanceledAppointments
+                             where idAndCount.count > 3
+                             select idAndCount.patientId);
+
+            return dbContext.Patients.Where(p => resultIds.Contains(p.Id)).ToList();
         }
 
         public List<string> GetAllUsernames()

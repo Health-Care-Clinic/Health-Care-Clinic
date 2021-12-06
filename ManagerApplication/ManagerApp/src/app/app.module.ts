@@ -36,6 +36,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatStepperModule} from '@angular/material/stepper'; 
 import {MatListModule} from '@angular/material/list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { RoomSearchComponent } from './component/hospital-map/room-search.component';
 import { SurveyObservationComponent } from './component/survey-observation/survey-observation.component';
 import { SurveyObservationService } from './services/survey-observation.service';
@@ -48,6 +49,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
+import { AllPatientsComponent } from './component/all-patients/all-patients.component';
 
 
 
@@ -68,7 +70,8 @@ const MaterialComponents = [
   MatStepperModule,
   MatListModule,
   MatExpansionModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
@@ -90,7 +93,8 @@ const MaterialComponents = [
     SurveyObservationComponent,
     PharmacyPromotionsComponent,
     MedicineSpecificationsComponent,
-    ConsumptionReportComponent
+    ConsumptionReportComponent,
+    AllPatientsComponent
   ],
   imports: [
     BrowserModule,
