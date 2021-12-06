@@ -15,6 +15,15 @@ namespace Hospital.Shared_model.Repository
             dbContext = context;
         }
 
+        public Appointment CancelAppointment(int appointmentId)
+        {
+
+            Appointment appointment = GetById(appointmentId);
+            appointment.isCancelled = true;
+            Save();
+            return appointment;
+        }
+
         public List<Appointment> getAppointmentsByPatientId(int patinetId)
         {
             return dbContext.Appointments.Where(app => app.PatientId == patinetId).ToList();

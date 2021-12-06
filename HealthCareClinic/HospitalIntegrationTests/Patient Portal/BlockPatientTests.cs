@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace HospitalIntegrationTests.Patient_Portal
+namespace HospitalIntegrationTests.Patient_portal
 {
     public class BlockPatientTests
     {
