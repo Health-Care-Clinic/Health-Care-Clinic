@@ -12,7 +12,7 @@ import { SurveyObservationComponent } from './component/survey-observation/surve
 import { PharmacyPromotionsComponent } from './pharmacy-promotions/pharmacy-promotions.component';
 import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
-import { AllPatientsComponent } from './component/all-patients/all-patients.component';
+import { MaliciousPatientsComponent } from './component/malicious-patients/malicious-patients.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'moving-equipment', component: EquipmentListComponent },
   { path: 'specifications', component: MedicineSpecificationsComponent },
   { path: 'consumption-report', component: ConsumptionReportComponent },
-  { path: 'all-patients', component: AllPatientsComponent }
+  { path: 'malicious-patients', component: MaliciousPatientsComponent }
 ];
 
 @NgModule({

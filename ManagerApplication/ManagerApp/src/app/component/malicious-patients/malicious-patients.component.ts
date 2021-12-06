@@ -4,11 +4,11 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { PatientService } from '../../services/patient.service';
 
 @Component({
-  selector: 'app-all-patients',
-  templateUrl: './all-patients.component.html',
-  styleUrls: ['./all-patients.component.css']
+  selector: 'app-malicious-patients',
+  templateUrl: './malicious-patients.component.html',
+  styleUrls: ['./malicious-patients.component.css']
 })
-export class AllPatientsComponent implements OnInit {
+export class MaliciousPatientsComponent implements OnInit {
 
   patients: IPatient[] = []
   displayedColumns: string[] = ['username', 'name', 'phone', 'email', 'block'];

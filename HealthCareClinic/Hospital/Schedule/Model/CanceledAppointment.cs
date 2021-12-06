@@ -17,9 +17,9 @@ namespace Hospital.Schedule.Model
         {
         }
 
-        public CanceledAppointment(int id, DateTime dateOfcancellation, int patientId, int appointmentId)
+        public CanceledAppointment(DateTime dateOfCancellation, int patientId, int appointmentId)
         {
-            DateOfCancellation = dateOfcancellation;
+            DateOfCancellation = dateOfCancellation;
             PatientId = patientId;
             AppointmentId = appointmentId;
         }

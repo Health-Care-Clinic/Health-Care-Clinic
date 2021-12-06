@@ -49,7 +49,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MedicineSpecificationsComponent } from './medicine-specifications/medicine-specifications/medicine-specifications.component';
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
-import { AllPatientsComponent } from './component/all-patients/all-patients.component';
+import { MaliciousPatientsComponent } from './component/malicious-patients/malicious-patients.component';
 
 
 
@@ -94,7 +94,7 @@ const MaterialComponents = [
     PharmacyPromotionsComponent,
     MedicineSpecificationsComponent,
     ConsumptionReportComponent,
-    AllPatientsComponent
+    MaliciousPatientsComponent
   ],
   imports: [
     BrowserModule,
