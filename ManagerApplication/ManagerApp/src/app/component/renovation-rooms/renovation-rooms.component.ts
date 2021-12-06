@@ -15,8 +15,10 @@ export class RenovationRoomsComponent implements OnInit {
     firstRoom: number;
     secondRoom: number;
     divideRoom: number;
-    selectedDate: any;
+    selectedEndDate: any;
     step3: Boolean = false;
+    step4: Boolean = false;
+    duration: number = 1;
 
     constructor(private hospitalMapService: HospitalMapService) {
     }
@@ -26,7 +28,7 @@ export class RenovationRoomsComponent implements OnInit {
         this.allRooms = roomsFromBack;
       }); 
 
-      this.selectedDate = new Date()
+      this.selectedEndDate = new Date()
     }
 
     onSubmit(): void {
@@ -57,8 +59,6 @@ export class RenovationRoomsComponent implements OnInit {
         } 
       })
 
-      
-
     }
 
     onSubmit2(): void {
@@ -80,7 +80,32 @@ export class RenovationRoomsComponent implements OnInit {
       back2.disabled = true;
       let datepicker = document.getElementById('date') as HTMLButtonElement;
       datepicker.disabled = true;
-      
+      this.step4 = true;
+    }
+
+    onSubmit4(): void {
+      let combo = document.getElementById('select5') as HTMLButtonElement;
+      this.duration = parseInt(combo.value);
+
+      let next4 = document.getElementById('next4') as HTMLButtonElement;
+      next4.disabled = true;
+      let back3 = document.getElementById('back3') as HTMLButtonElement;
+      back3.disabled = true;
+      let select5 = document.getElementById('select5') as HTMLButtonElement;
+      select5.disabled = true;
+           
+    }
+
+    back3(): void {
+      let next3 = document.getElementById('next3') as HTMLButtonElement;
+      next3.disabled = false;
+      let back2 = document.getElementById('back2') as HTMLButtonElement;
+      back2.disabled = false;
+      let datepicker = document.getElementById('date') as HTMLButtonElement;
+      datepicker.disabled = false;
+      this.duration = 1;
+
+      this.step4 = false;
     }
 
     back2(): void {
@@ -99,7 +124,7 @@ export class RenovationRoomsComponent implements OnInit {
         select4.disabled = false;
       }    
 
-      this.selectedDate = new Date()
+      this.selectedEndDate = new Date()
       this.step3 = false;
     }
 
