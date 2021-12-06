@@ -30,6 +30,7 @@ export class HospitalMapService {
   private transfersGet: string;
   private addNewTransfer: string;
   private checkFreeTransfersUrl: string;
+  private checkRooms: string;
 
   constructor(private _http: HttpClient) {
     this.buildingGetById = '/api/building/getBuildingById';
@@ -49,6 +50,7 @@ export class HospitalMapService {
     this.transfersGet = '/api/transfer/getAllTransfers';
     this.addNewTransfer = '/api/transfer/addNewTransfer';
     this.checkFreeTransfersUrl = '/api/transfer/checkFreeTransfers';
+    this.checkRooms = '/api/room/isFirstRoomNextToSecond';
   }
 
   public getBuildings(): Observable<Array<Building>> {
@@ -149,5 +151,11 @@ export class HospitalMapService {
   public checkFreeTransfers(transfer:Transfer): Observable<Array<Date>> {
     return this._http.post<Array<Date>>(this.checkFreeTransfersUrl, transfer);
   } 
+
+  public IsFirstRoomNextToSecond(id1:number, id2:number): Observable<Boolean> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Boolean>(this.checkRooms + "/"+ id1 + "/" + id2, {headers: headers});
+  }
  
 }

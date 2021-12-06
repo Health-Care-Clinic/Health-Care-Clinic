@@ -53,7 +53,7 @@ import { MedicineSpecificationsComponent } from './medicine-specifications/medic
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
 import { MaliciousPatientsComponent } from './component/malicious-patients/malicious-patients.component';
 
-
+import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -97,7 +97,8 @@ const MaterialComponents = [
     PharmacyPromotionsComponent,
     MedicineSpecificationsComponent,
     ConsumptionReportComponent,
-    MaliciousPatientsComponent
+    MaliciousPatientsComponent,
+    RenovationRoomsComponent
   ],
   imports: [
     BrowserModule,
