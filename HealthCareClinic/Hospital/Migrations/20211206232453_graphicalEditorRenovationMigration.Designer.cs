@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211206232453_graphicalEditorRenovationMigration")]
+    partial class graphicalEditorRenovationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1732,16 +1734,6 @@ namespace Hospital.Migrations
                             Equipment = "Blanket",
                             Quantity = 10,
                             SourceRoomId = 18
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Date = new DateTime(2022, 2, 20, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            DestinationRoomId = 2,
-                            Duration = 45,
-                            Equipment = "TV",
-                            Quantity = 1,
-                            SourceRoomId = 1
                         });
                 });
 

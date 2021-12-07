@@ -1,5 +1,7 @@
 import { Component, NgModule, OnInit } from '@angular/core';
+import { Renovation, TypeOfRenovation } from 'src/app/model/renovation';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
+import { RenovationService } from 'src/app/services/renovation.service';
 
 @Component({
   selector: 'app-renovation-rooms',
@@ -23,11 +25,18 @@ export class RenovationRoomsComponent implements OnInit {
     newName: string = '';
     newType: any;
     newDescription: string = '';
+    freeTerms: Array<Date>;
+    date:Date;
+    radioInput: any;
+    showTerms:boolean;
 
-    constructor(private hospitalMapService: HospitalMapService) {
+    constructor(private hospitalMapService: HospitalMapService, private renovationService: RenovationService) {
     }
 
     ngOnInit(): void {
+      this.date = new Date();
+      this.showTerms = false;
+      this.freeTerms = new Array<Date>();
       this.hospitalMapService.getRooms().subscribe(roomsFromBack =>{
         this.allRooms = roomsFromBack;
       }); 
@@ -83,6 +92,7 @@ export class RenovationRoomsComponent implements OnInit {
       let back2 = document.getElementById('back2') as HTMLButtonElement;
       back2.disabled = true;
       let datepicker = document.getElementById('date') as HTMLButtonElement;
+      this.date = new Date(datepicker.value);
       datepicker.disabled = true;
       this.step4 = true;
     }
@@ -98,8 +108,16 @@ export class RenovationRoomsComponent implements OnInit {
       let select5 = document.getElementById('select5') as HTMLButtonElement;
       select5.disabled = true;
       
-      if(this.selectedType == 'Divide')
+      if(this.selectedType == 'Divide'){
         this.step5 = true;
+      }
+      else {
+        let renovation = new Renovation(0,this.firstRoom,this.secondRoom,TypeOfRenovation.Merge,this.date,this.duration);
+        this.renovationService.getFreeTermsForMerge(renovation).subscribe(ret =>{
+          this.freeTerms = ret;
+          this.showTerms = true;
+        })
+      }
     }
 
     onSubmit5(): void {
@@ -124,7 +142,46 @@ export class RenovationRoomsComponent implements OnInit {
       let duration = document.getElementById('newDescription') as HTMLButtonElement;
       duration.disabled = true;
 
-      alert(this.newName + ' ' + this.newType + ' ' + this.newDescription)
+      let renovation = new Renovation(0,this.divideRoom,0,TypeOfRenovation.Divide,this.date,this.duration);
+      this.renovationService.getFreeTermsForDivide(renovation).subscribe(ret => {
+        this.freeTerms = ret;
+        this.showTerms = true;
+      })
+    }
+
+    onFinish(): void{
+    }
+
+    backFromFinish(): void{
+      if(this.selectedType == 'Divide'){
+        let next5 = document.getElementById('next5') as HTMLButtonElement;
+      next5.disabled = false;
+      let back4 = document.getElementById('back4') as HTMLButtonElement;
+      back4.disabled = false;
+
+      let nameLabel = document.getElementById('nameLabel') as HTMLButtonElement;
+      nameLabel.disabled = false;
+      let typeLabel = document.getElementById('typeLabel') as HTMLButtonElement;
+      typeLabel.disabled = false;
+      let descriptionLabel = document.getElementById('descriptionLabel') as HTMLButtonElement;
+      descriptionLabel.disabled = false;
+      let newName = document.getElementById('newName') as HTMLButtonElement;
+      newName.disabled = false;
+      let newType = document.getElementById('select6') as HTMLButtonElement;
+      newType.disabled = false;
+      let newDescription = document.getElementById('newDescription') as HTMLButtonElement;
+      newDescription.disabled = false;
+        this.showTerms = false;
+      }
+      else{
+        let next4 = document.getElementById('next4') as HTMLButtonElement;
+      next4.disabled = false;
+      let back3 = document.getElementById('back3') as HTMLButtonElement;
+      back3.disabled = false;
+      let select5 = document.getElementById('select5') as HTMLButtonElement;
+      select5.disabled = false;
+      this.showTerms = false;
+      }
     }
 
     back4(): void {

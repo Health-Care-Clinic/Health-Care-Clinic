@@ -41,12 +41,20 @@ namespace Hospital.Mapper
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Specialty> Specialty { get; set; }
 
+        public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Transfer> Transfer { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         // only for testing purposes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Renovation>().HasData(
+                new Renovation { Id = 1, FirstRoomId = 1, SecondRoomId = 2, Duration = 2, Date = new DateTime(2022, 02, 02, 14, 00, 00), Type = Renovation.RenovationType.Merge },
+                new Renovation { Id = 2, FirstRoomId = 1, SecondRoomId = 0, Duration = 3, Date = new DateTime(2022, 02, 05, 14, 00, 00), Type = Renovation.RenovationType.Divide },
+                new Renovation { Id = 3, FirstRoomId = 47, SecondRoomId = 62, Duration = 2, Date = new DateTime(2022, 02, 20, 14, 00, 00), Type = Renovation.RenovationType.Merge }
+                );
+
             modelBuilder.Entity<Transfer>().HasData(
                 new Transfer { Id = 1, Equipment = "Bed", Quantity = 2, SourceRoomId = 1, DestinationRoomId = 2,
                     Date = new DateTime(2021, 11, 25, 9, 30, 00), Duration = 60 },
