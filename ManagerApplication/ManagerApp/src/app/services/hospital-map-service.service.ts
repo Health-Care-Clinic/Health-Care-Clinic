@@ -32,6 +32,8 @@ export class HospitalMapService {
   private checkFreeTransfersUrl: string;
   private checkRooms: string;
   private roomTransfersGet: string;
+  private isTransferCancellable: string;
+  private cancelTransfer: string
 
   constructor(private _http: HttpClient) {
     this.roomTransfersGet = '/api/transfer/getRoomTransfers'
@@ -53,6 +55,20 @@ export class HospitalMapService {
     this.addNewTransfer = '/api/transfer/addNewTransfer';
     this.checkFreeTransfersUrl = '/api/transfer/checkFreeTransfers';
     this.checkRooms = '/api/room/isFirstRoomNextToSecond';
+    this.isTransferCancellable = '/api/transfer/checkIfTransferCancellable';
+    this.cancelTransfer = '/api/transfer/cancelTransfer';
+  }
+
+  public deleteCancelledTransfer(transfer: Transfer):Observable<Transfer> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<Transfer>(this.cancelTransfer, transfer, {headers: headers});
+  }
+
+  public checkIfTransferCancellable(transferId: number): Observable<Boolean> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Boolean>(this.isTransferCancellable + "/" + transferId, {headers: headers});
   }
 
   public getRoomTransfers(roomId: number): Observable<Array<Transfer>> {

@@ -22,6 +22,21 @@ namespace Hospital_API.Controller {
             this.equipmentService = equipmentService;
         }
 
+        [HttpGet("checkIfTransferCancellable/{id?}")]
+        public IActionResult CheckIfTransferCancellable(int id)
+        {
+            bool isCancellable = transferService.CheckIfTransferCancellable(id);
+            return Ok(isCancellable);
+        }
+
+        [HttpPost("cancelTransfer")]
+        public IActionResult CancelTransfer(TransferDTO transferDTO)
+        {
+            Transfer transfer = TransferAdapter.TransferDTOToTransfer(transferDTO);
+            transferService.RemoveById(transfer.Id);
+            return Ok();
+        }
+
         [HttpGet("getAllTransfers")]
         public IActionResult GetAllTransfers()
         {

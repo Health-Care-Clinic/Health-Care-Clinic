@@ -61,8 +61,9 @@ namespace HospitalUnitTests.Graphical_editor
             }  
         }
 
-        [Fact]
-        public void Get_room_transfers() 
+        [Theory]
+        [MemberData(nameof(Data))]
+        public void Get_room_transfers(int roomId, int roomTransfersCount) 
         {
             var options = CreateStubRepository();
 
@@ -74,33 +75,22 @@ namespace HospitalUnitTests.Graphical_editor
                 EquipmentService equipmentService = new EquipmentService(equipmentRepository);
                 TransferController transferController = new TransferController(transferService, equipmentService);
 
-                OkObjectResult transfersResponse = transferController.GetRoomTransfers(1) as OkObjectResult;
+                OkObjectResult transfersResponse = transferController.GetRoomTransfers(roomId) as OkObjectResult;
                 List<TransferDTO> transfers = transfersResponse.Value as List<TransferDTO>;
                 ClearStubRepository(context);
 
-                Assert.Equal(2, transfers.Count);
+                Assert.Equal(roomTransfersCount, transfers.Count);
             }
         }
 
-        [Fact]
-        public void Get_no_room_transfers()
+        public static IEnumerable<object[]> Data() 
         {
-            var options = CreateStubRepository();
+            var retVal = new List<object[]>();
 
-            using (var context = new HospitalDbContext(options))
-            {
-                TransferRepository transferRepository = new TransferRepository(context);
-                EquipmentRepository equipmentRepository = new EquipmentRepository(context);
-                TransferService transferService = new TransferService(transferRepository);
-                EquipmentService equipmentService = new EquipmentService(equipmentRepository);
-                TransferController transferController = new TransferController(transferService, equipmentService);
+            retVal.Add(new object[] { 1, 2});
+            retVal.Add(new object[] { 3, 0 });
 
-                OkObjectResult transfersResponse = transferController.GetRoomTransfers(3) as OkObjectResult;
-                List<TransferDTO> transfers = transfersResponse.Value as List<TransferDTO>;
-                ClearStubRepository(context);
-
-                Assert.Empty(transfers);
-            }
+            return retVal;
         }
 
         [Fact]
