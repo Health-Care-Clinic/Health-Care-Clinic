@@ -39,6 +39,30 @@ namespace Hospital_API.Adapter
 
             return doctor;
         }
+
+        public static List<DoctorWithSpecialtyDTO> DoctorListToDoctorWithSpecialtyDTOList(List<Doctor> doctors)
+        {
+            List<DoctorWithSpecialtyDTO> doctorsDTO = new List<DoctorWithSpecialtyDTO>();
+            foreach (Doctor doctor in doctors)
+                doctorsDTO.Add(DoctorToDoctorWithSpecialtyDTO(doctor));
+
+            return doctorsDTO;
+        }
+
+        public static DoctorWithSpecialtyDTO DoctorToDoctorWithSpecialtyDTO(Doctor doctor)
+        {
+            if (doctor is null)
+                return null;
+
+            DoctorWithSpecialtyDTO dto = new DoctorWithSpecialtyDTO();
+
+            dto.Id = doctor.Id;
+            dto.Name = doctor.Name;
+            dto.Surname = doctor.Surname;
+            dto.Specialty = doctor.Specialty.Name;
+
+            return dto;
+        }
     }
 }
 
