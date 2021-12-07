@@ -185,5 +185,15 @@ namespace Hospital.Rooms_and_equipment.Service
             }
             return roomTransfers;
         }
+
+        public bool CheckIfTransferCancellable(int id)
+        {
+            foreach (Transfer transfer in GetAll())
+            {
+                if (transfer.Id == id && DateTime.Now.AddHours(24) <= transfer.Date)
+                    return true;
+            }
+            return false;
+        }
     }
 }
