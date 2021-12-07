@@ -1676,6 +1676,16 @@ namespace Hospital.Migrations
                             Equipment = "Blanket",
                             Quantity = 10,
                             SourceRoomId = 18
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Date = new DateTime(2022, 2, 20, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 2,
+                            Duration = 45,
+                            Equipment = "TV",
+                            Quantity = 1,
+                            SourceRoomId = 1
                         });
                 });
 

@@ -62,6 +62,48 @@ namespace HospitalUnitTests.Graphical_editor
         }
 
         [Fact]
+        public void Get_room_transfers() 
+        {
+            var options = CreateStubRepository();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                TransferRepository transferRepository = new TransferRepository(context);
+                EquipmentRepository equipmentRepository = new EquipmentRepository(context);
+                TransferService transferService = new TransferService(transferRepository);
+                EquipmentService equipmentService = new EquipmentService(equipmentRepository);
+                TransferController transferController = new TransferController(transferService, equipmentService);
+
+                OkObjectResult transfersResponse = transferController.GetRoomTransfers(1) as OkObjectResult;
+                List<TransferDTO> transfers = transfersResponse.Value as List<TransferDTO>;
+                ClearStubRepository(context);
+
+                Assert.Equal(2, transfers.Count);
+            }
+        }
+
+        [Fact]
+        public void Get_no_room_transfers()
+        {
+            var options = CreateStubRepository();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                TransferRepository transferRepository = new TransferRepository(context);
+                EquipmentRepository equipmentRepository = new EquipmentRepository(context);
+                TransferService transferService = new TransferService(transferRepository);
+                EquipmentService equipmentService = new EquipmentService(equipmentRepository);
+                TransferController transferController = new TransferController(transferService, equipmentService);
+
+                OkObjectResult transfersResponse = transferController.GetRoomTransfers(3) as OkObjectResult;
+                List<TransferDTO> transfers = transfersResponse.Value as List<TransferDTO>;
+                ClearStubRepository(context);
+
+                Assert.Empty(transfers);
+            }
+        }
+
+        [Fact]
         public void Update_rooms_equipment_after_transfer()
         {
             var options = CreateStubRepository();
