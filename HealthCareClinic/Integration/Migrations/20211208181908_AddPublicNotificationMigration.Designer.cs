@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using Integration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Integration.Migrations
 {
     [DbContext(typeof(IntegrationDbContext))]
-    partial class IntegrationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208181908_AddPublicNotificationMigration")]
+    partial class AddPublicNotificationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,30 +106,6 @@ namespace Integration.Migrations
                     b.ToTable("Medicines");
                 });
 
-            modelBuilder.Entity("Integration.Notifications.Model.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("Seen")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notification");
-                });
-
             modelBuilder.Entity("Integration.Pharmacy.Model.Feedback", b =>
                 {
                     b.Property<int>("Id")
@@ -197,7 +175,7 @@ namespace Integration.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MedicationConsumption");
+                    b.ToTable("MedicationConsumptions");
 
                     b.HasData(
                         new

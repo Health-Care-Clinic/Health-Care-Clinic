@@ -27,7 +27,7 @@
                             <div>{{notification.title}}</div>
                         </mat-panel-title>
                         <mat-panel-description>
-                            {{notification.date | date : ' dd.MM.yyyy. '}}
+                             {{notification.date | date : 'dd.MM.yyyy.  HH:mm'}}
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>{{notification.content}}</p>

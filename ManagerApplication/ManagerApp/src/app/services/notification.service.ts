@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
 import { INotification } from '../model/notification';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
 
-  getAllNotifications(): INotification[]{
+  getAllNotifications(): Observable<INotification[]> {
+    return this._http.get<INotification[]>("http://localhost:65508/hospital/notification");
+  }
+
+  markAllNotificationsAsSeen() : Observable<any>{
+    return this._http.put<any>("http://localhost:65508/hospital/notification/seen", null);
+  }
+
+  getAllDummyNotifications(): INotification[]{
     let date = new Date();
     return [
       {

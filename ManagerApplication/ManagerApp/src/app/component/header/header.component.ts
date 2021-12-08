@@ -14,16 +14,19 @@ export class HeaderComponent implements OnInit {
   constructor(private _notificationService : NotificationService) { }
 
   ngOnInit(): void {
-    this.notifications = this._notificationService.getAllNotifications();
-    for(let notification of this.notifications){
-      if (notification.seen === false){
-        this.unreadNotificationNumber +=1;
+    this._notificationService.getAllNotifications().subscribe(
+      notifications => {
+        this.notifications = notifications;
+        for(let notification of this.notifications){
+          if (notification.seen === false){
+            this.unreadNotificationNumber +=1;
+          }
+        }
       }
-    }
+      );
   } 
   
   seeNotifications(): void {
-    // posalje zahtev na bek da se sve notifikacije postave na seen
     for(let notification of this.notifications){
       notification.seen = true;
     }
