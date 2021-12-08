@@ -15,7 +15,7 @@ namespace Hospital.Shared_model.Service
             this.appointmentRepository = _appointmentRepository;
         }
         public void Add(Appointment entity)
-        {
+        {            
             throw new NotImplementedException();
         }
 
@@ -26,7 +26,7 @@ namespace Hospital.Shared_model.Service
 
         public Appointment GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return appointmentRepository.GetById(id);
         }
 
         public void Remove(Appointment entity)
@@ -37,6 +37,21 @@ namespace Hospital.Shared_model.Service
         public List<Appointment> getAppointmentsByPatientId(int patinetId)
         {
             return appointmentRepository.getAppointmentsByPatientId(patinetId);
+        }
+
+        public Appointment CancelAppointment(int appointmentId)
+        {
+           return appointmentRepository.CancelAppointment(appointmentId);
+        }
+
+        public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate)
+        {
+            return appointmentRepository.GetAvailableTermsForDoctor(doctor, fromDate, toDate);
+        }
+
+        public void AddAppointment(Appointment app)
+        {
+            appointmentRepository.AddAppointment(app);
         }
     }
 }

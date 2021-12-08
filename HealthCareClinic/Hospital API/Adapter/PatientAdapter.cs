@@ -61,7 +61,7 @@ namespace Hospital_API.Adapter
             return dto;
         }
 
-        private static DateTime ConvertToDate(String dateAsString)
+        public static DateTime ConvertToDate(String dateAsString)
         {
             String[] mainParts = dateAsString.Split('T');
 
@@ -80,7 +80,7 @@ namespace Hospital_API.Adapter
             return date;
         }
 
-        private static String ConvertToString(DateTime date)
+        public static String ConvertToString(DateTime date)
         {
             String dateAsString = date.ToString();
 

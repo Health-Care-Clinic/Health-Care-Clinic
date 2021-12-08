@@ -115,11 +115,6 @@ namespace Hospital_API.Controller
         {
             List<Patient> patients = patientService.GetAllSuspiciousPatients();
 
-            if (patients.Count == 0)
-            {
-                return NotFound();
-            }
-
             List<PatientDTO> patientsDto = new List<PatientDTO>();
             foreach (Patient patient in patients)
                 patientsDto.Add(PatientAdapter.PatientToPatientDTO(patient));

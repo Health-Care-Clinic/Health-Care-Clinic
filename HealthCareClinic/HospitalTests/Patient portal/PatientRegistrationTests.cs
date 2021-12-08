@@ -48,10 +48,10 @@ namespace HospitalUnitTests.Patient_portal
             var doctors = new List<Doctor>();
 
             var doctor1 = new Doctor(1, "Nikola", "Nikolic", "male", new System.DateTime(1981, 05, 06), 80000.0, "Brace Radica 15", "0697856665", "nikolanikolic@gmail.com", "nikola", "nikola",
-                     new System.DateTime(2021, 06, 10), null, new Specialty("General medicine"), 1);
+                     new System.DateTime(2021, 06, 10), null, "General medicine", 1);
 
             var doctor2 = new Doctor(2, "Marko", "Radic", "male", new System.DateTime(1986, 04, 06), 80000.0, "Bogoboja Atanackovica 5", "0697856665", "markoradic@gmail.com", "marko", "marko",
-                 new System.DateTime(2020, 06, 07), null, new Specialty("General medicine"), 2);
+                 new System.DateTime(2020, 06, 07), null, "General medicine", 2);
 
             doctors.Add(doctor1);
             doctors.Add(doctor2);

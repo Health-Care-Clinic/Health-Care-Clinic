@@ -41,8 +41,6 @@ namespace Hospital.Rooms_and_equipment.Service
             _transferRepository.RemoveById(id);
         }
 
-        
-
         public List<DateTime> checkFreeTransfers(Transfer transfer)
         {
 
@@ -177,7 +175,25 @@ namespace Hospital.Rooms_and_equipment.Service
                 seconds);
         }
 
+        public List<Transfer> GetRoomTransfers(int id)
+        {
+            List<Transfer> roomTransfers = new List<Transfer>();
+            foreach (Transfer transfer in GetAll()) 
+            {
+                if (transfer.SourceRoomId == id || transfer.DestinationRoomId == id)
+                    roomTransfers.Add(transfer);
+            }
+            return roomTransfers;
+        }
 
-
+        public bool CheckIfTransferCancellable(int id)
+        {
+            foreach (Transfer transfer in GetAll())
+            {
+                if (transfer.Id == id && DateTime.Now.AddHours(24) <= transfer.Date)
+                    return true;
+            }
+            return false;
+        }
     }
 }

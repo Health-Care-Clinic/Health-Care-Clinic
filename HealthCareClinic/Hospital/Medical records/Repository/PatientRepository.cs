@@ -40,13 +40,14 @@ namespace Hospital.Medical_records.Repository
 
         public List<Patient> GetAllSuspiciousPatients()
         {
+            //BlockPatientById(1);
             var allPatientsIds = (from patient in dbContext.Patients
                                        where patient.IsActive == true && patient.IsBlocked == false
                                        select patient.Id);
 
             IQueryable<CanceledAppointment> allCanceledAppsInLastMonths = dbContext.CanceledAppointments.Where(c => allPatientsIds.Contains(c.PatientId) && (DateTime.Now.Date - c.DateOfCancellation.Date).Days < 30);
 
-            var patientIdsWithNumberOfCanceledAppointments = dbContext.CanceledAppointments.GroupBy(c => c.PatientId).Select(a => new { patientId = a.Key, count = a.Count() });
+            var patientIdsWithNumberOfCanceledAppointments = allCanceledAppsInLastMonths.GroupBy(c => c.PatientId).Select(a => new { patientId = a.Key, count = a.Count() });
 
             var resultIds = (from idAndCount in patientIdsWithNumberOfCanceledAppointments
                              where idAndCount.count > 3

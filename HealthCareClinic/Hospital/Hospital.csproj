@@ -17,8 +17,7 @@
   <ItemGroup>
     <Folder Include="Graphical editor\Model\" />
     <Folder Include="Graphical editor\Repository\" />
-    <Folder Include="Rooms and equipment\Service\" />
-    <Folder Include="Rooms and equipment\Repository\" />
+    <Folder Include="Medical records\Model\" />
     <Folder Include="Schedule\Service\" />
     <Folder Include="Schedule\Repository\" />
   </ItemGroup>
@@ -36,7 +35,6 @@
     <PackageReference Include="MimeKit" Version="2.15.1" />
     <PackageReference Include="Npgsql" Version="5.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

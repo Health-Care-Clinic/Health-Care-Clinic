@@ -19,7 +19,7 @@ namespace Hospital.Medical_records.Repository
         }
         public List<Doctor> GetAvailableDoctors()
         {
-            IQueryable<Doctor> generalMedicineDoctors = dbContext.Doctors.Where(d => d.Specialty.Name.ToLower().Equals("general medicine"));
+            IQueryable<Doctor> generalMedicineDoctors = dbContext.Doctors.Where(d => d.Specialty.ToLower().Equals("general medicine"));
             int min = generalMedicineDoctors.Min(d => d.Patients.Where(p => p.IsActive && !p.IsBlocked).Count());
             List<Doctor> nonOverOccupiedDoctors = generalMedicineDoctors.Where(d => d.Patients.Where(p => p.IsActive && !p.IsBlocked).Count() <= min + 2).ToList();
             return nonOverOccupiedDoctors;

@@ -6,9 +6,9 @@ namespace Hospital_API.Adapter
 {
     public class AppointmentAdapter
     {
-        public static AppointmetDTO AppointmentToAppointmentDTO(Appointment appointment)
+        public static AppointmentDTO AppointmentToAppointmentDTO(Appointment appointment)
         {
-            AppointmetDTO dto = new AppointmetDTO();
+            AppointmentDTO dto = new AppointmentDTO();
 
             dto.Id = appointment.Id;
             dto.DoctorId = appointment.DoctorId;
@@ -20,6 +20,22 @@ namespace Hospital_API.Adapter
             dto.SurveyId = appointment.SurveyId;
 
             return dto;
+        }
+
+        public static Appointment AppointmentDtoToAppointment(AppointmentDTO appointmentDto)
+        {
+            Appointment app = new Appointment();
+
+            app.Id = appointmentDto.Id;
+            app.DoctorId = appointmentDto.DoctorId;
+            app.PatientId = appointmentDto.PatientId;
+            app.RoomId = appointmentDto.RoomId;
+            app.isCancelled = appointmentDto.isCancelled;
+            app.isDone = appointmentDto.isDone;
+            app.Date = PatientAdapter.ConvertToDate(appointmentDto.Date);
+            app.SurveyId = appointmentDto.SurveyId;
+
+            return app;
         }
 
         private static String ConvertToString(DateTime date)

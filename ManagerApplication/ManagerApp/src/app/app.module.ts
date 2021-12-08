@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,7 +53,8 @@ import { MedicineSpecificationsComponent } from './medicine-specifications/medic
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
 import { MaliciousPatientsComponent } from './component/malicious-patients/malicious-patients.component';
 
-
+import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
+import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -97,7 +98,9 @@ const MaterialComponents = [
     PharmacyPromotionsComponent,
     MedicineSpecificationsComponent,
     ConsumptionReportComponent,
-    MaliciousPatientsComponent
+    MaliciousPatientsComponent,
+    RenovationRoomsComponent,
+    RoomScheduleComponent
   ],
   imports: [
     BrowserModule,

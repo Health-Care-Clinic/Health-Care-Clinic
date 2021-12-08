@@ -12,7 +12,7 @@ using Xunit;
 using Shouldly;
 using Hospital_API.DTO;
 
-namespace HospitalIntegrationTests.Patient_Portal
+namespace HospitalIntegrationTests.Patient_portal
 {
     public class GetAppointmentTest
     {
@@ -30,7 +30,7 @@ namespace HospitalIntegrationTests.Patient_Portal
 
                 int PatientId = 10;
 
-                var response = appointmentController.getAppointmentsByPatientId(PatientId) as OkObjectResult;
+                var response = appointmentController.GetAppointmentsByPatientId(PatientId) as OkObjectResult;
 
                 foreach (Appointment appointment in context.Appointments)
                 {
@@ -38,12 +38,39 @@ namespace HospitalIntegrationTests.Patient_Portal
                     context.SaveChanges();
                 }
 
-                response.Value.ShouldBeAssignableTo<List<AppointmetDTO>>();
+                response.Value.ShouldBeAssignableTo<List<AppointmentDTO>>();
 
-                List<AppointmetDTO> appointmetDTOs = (List<AppointmetDTO>)response.Value;
+                List<AppointmentDTO> appointmentDTOs = (List<AppointmentDTO>)response.Value;
 
-                appointmetDTOs.Count.ShouldBeEquivalentTo(2);
+                appointmentDTOs.Count.ShouldBeEquivalentTo(2);
 
+            }
+        }
+        [Fact]
+        public void Cancel_appointment_success()
+        {
+            var options = CreateStubDatabase();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+
+                AppointmentController appointmentController = new AppointmentController(appointmentService);
+
+                int AppointmentId = 2;
+
+                var response = appointmentController.CancelAppointment(AppointmentId) as OkObjectResult;
+
+                foreach (Appointment appointment in context.Appointments)
+                {
+                    context.Appointments.Remove(appointment);
+                    context.SaveChanges();
+                }
+
+                response.Value.ShouldBeAssignableTo<AppointmentDTO>();
+                AppointmentDTO appointmentDTO = (AppointmentDTO)response.Value;
+                appointmentDTO.isCancelled.ShouldBe(true);
             }
         }
 

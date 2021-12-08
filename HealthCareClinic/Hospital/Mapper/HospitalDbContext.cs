@@ -40,8 +40,9 @@ namespace Hospital.Mapper
 
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
-        public DbSet<Specialty> Specialty { get; set; }
+        //public DbSet<Specialty> Specialty { get; set; }
 
+        public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Transfer> Transfer { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
@@ -49,9 +50,18 @@ namespace Hospital.Mapper
         // only for testing purposes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Renovation>().HasData(
+                new Renovation { Id = 1, FirstRoomId = 1, SecondRoomId = 2, Duration = 2, Date = new DateTime(2022, 02, 02, 14, 00, 00), Type = Renovation.RenovationType.Merge },
+                new Renovation { Id = 2, FirstRoomId = 1, SecondRoomId = 0, Duration = 3, Date = new DateTime(2022, 02, 05, 14, 00, 00), Type = Renovation.RenovationType.Divide },
+                new Renovation { Id = 3, FirstRoomId = 47, SecondRoomId = 62, Duration = 2, Date = new DateTime(2022, 02, 20, 14, 00, 00), Type = Renovation.RenovationType.Merge }
+                );
+
             modelBuilder.Entity<Transfer>().HasData(
                 new Transfer { Id = 1, Equipment = "Bed", Quantity = 2, SourceRoomId = 1, DestinationRoomId = 2,
                     Date = new DateTime(2021, 11, 25, 9, 30, 00), Duration = 60 },
+                new Transfer { Id = 6, Equipment = "Needle", Quantity = 5, SourceRoomId = 1, DestinationRoomId = 51,
+                    Date = new DateTime(2022, 08, 22, 9, 30, 00), Duration = 60 },
                 new Transfer { Id = 2, Equipment = "Bed", Quantity = 4, SourceRoomId = 50, DestinationRoomId = 60,
                     Date = new DateTime(2021, 11, 30, 12, 00, 00), Duration = 45 },
                 new Transfer {  Id = 3, Equipment = "TV", Quantity = 1, SourceRoomId = 45, DestinationRoomId = 52,
@@ -340,81 +350,123 @@ namespace Hospital.Mapper
             //   .HasForeignKey(p => p.DoctorId);
             //});
 
-            modelBuilder.Entity<Appointment>(entity =>
-            {
-                entity.ToTable("Appointment");
-            });
+            //modelBuilder.Entity<Appointment>(entity =>
+            //{
+            //    entity.ToTable("Appointment");
+            //});
 
-            modelBuilder.Entity<Survey>(entity =>
-            {
-                entity.ToTable("Survey");
+            //modelBuilder.Entity<Survey>(entity =>
+            //{
+            //    entity.ToTable("Survey");
 
-                entity.HasOne(d => d.Appointment)
-               .WithMany(p => p.Surveys)
-               .HasForeignKey(d => d.AppointmentId);
-            });
+            //    entity.HasOne(d => d.Appointment)
+            //   .WithMany(p => p.Surveys)
+            //   .HasForeignKey(d => d.AppointmentId);
+            //});
 
-            modelBuilder.Entity<SurveyCategory>(entity =>
-            {
-                entity.ToTable("SurveyCategory");
+            //modelBuilder.Entity<SurveyCategory>(entity =>
+            //{
+            //    entity.ToTable("SurveyCategory");
 
-                entity.HasOne(d => d.Survey)
-               .WithMany(p => p.SurveyCategories)
-               .HasForeignKey(d => d.SurveyId);
-            });
+            //    entity.HasOne(d => d.Survey)
+            //   .WithMany(p => p.SurveyCategories)
+            //   .HasForeignKey(d => d.SurveyId);
+            //});
 
-            modelBuilder.Entity<SurveyQuestion>(entity =>
-            {
-                entity.ToTable("SurveyQuestion");
+            //modelBuilder.Entity<SurveyQuestion>(entity =>
+            //{
+            //    entity.ToTable("SurveyQuestion");
 
-                entity.HasOne(d => d.SurveyCategory)
-               .WithMany(p => p.SurveyQuestions)
-               .HasForeignKey(d => d.SurveyCategoryId);
-            });
+            //    entity.HasOne(d => d.SurveyCategory)
+            //   .WithMany(p => p.SurveyQuestions)
+            //   .HasForeignKey(d => d.SurveyCategoryId);
+            //});
 
 
+            //modelBuilder.Entity<Appointment>().HasData(
+            //    new Appointment { Id = 1, DoctorId = 1, PatientId = 1, RoomId = 1, Surveys = new List<Survey>() });
             modelBuilder.Entity<Appointment>().HasData(
-                new Appointment { Id = 1, DoctorId = 1, PatientId = 1, RoomId = 1, Surveys = new List<Survey>() });
+                new Appointment(1, 1, 1, 1, false, false, new System.DateTime(2022, 2, 22, 7, 0, 0), 1),
+                new Appointment(2, 2, 1, 1, false, false, new System.DateTime(2022, 2, 22, 7, 30, 0), 2),
+                new Appointment(3, 3, 1, 1, false, false, new System.DateTime(2022, 2, 22, 8, 0, 0), 3),
+                new Appointment(4, 4, 1, 1, false, false, new System.DateTime(2022, 2, 22, 8, 30, 0), 4),
+                new Appointment(5, 5, 1, 1, false, false, new System.DateTime(2022, 2, 22, 9, 0, 0), 5),
+                new Appointment(6, 6, 1, 1, false, false, new System.DateTime(2022, 2, 22, 9, 30, 0), 6),
+                new Appointment(7, 7, 1, 1, false, false, new System.DateTime(2022, 2, 22, 10, 0, 0), 7),
+                new Appointment(8, 8, 1, 1, false, false, new System.DateTime(2022, 2, 22, 10, 30, 0), 8),
+                new Appointment(9, 1, 1, 1, false, false, new System.DateTime(2022, 2, 22, 11, 0, 0), 9),
+                new Appointment(10, 1, 2, 2, false, true, new System.DateTime(2021, 2, 22, 11, 30, 0), 10));
+
+            for (int i = 1; i <= 9; i++)
+            {
+                modelBuilder.Entity<Survey>().HasData(
+                new Survey { Id = i, Done = false, SurveyCategories = new List<SurveyCategory>(), AppointmentId = i });
+
+                modelBuilder.Entity<SurveyCategory>().HasData(
+                    new SurveyCategory { Id = i*3-2, Name = "Doctor", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i },
+                    new SurveyCategory { Id = i*3-1, Name = "Medical stuff", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i },
+                    new SurveyCategory { Id = i*3, Name = "Hospital", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i });
+
+                modelBuilder.Entity<SurveyQuestion>().HasData(
+                    new SurveyQuestion { Id = i*15-14, Content = "How careful did doctor listen you?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                    new SurveyQuestion { Id = i*15-13, Content = "Has doctor been polite?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                    new SurveyQuestion { Id = i*15-12, Content = "Has he explained you your condition enough that you can understand it?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                    new SurveyQuestion { Id = i*15-11, Content = "How would you rate doctors' professionalism?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                    new SurveyQuestion { Id = i*15-10, Content = "Your general grade for doctors' service", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+
+                    new SurveyQuestion { Id = i*15-9, Content = "How much our medical staff were polite?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                    new SurveyQuestion { Id = i*15-8, Content = "How would you rate time span that you spend waiting untill doctor attended you?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                    new SurveyQuestion { Id = i*15-7, Content = "How prepared were stuff for emergency situations?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                    new SurveyQuestion { Id = i*15-6, Content = "How good has stuff explained you our procedures?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                    new SurveyQuestion { Id = i*15-5, Content = "Your general grade for medical stuffs' service", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+
+                    new SurveyQuestion { Id = i*15-4, Content = "How would you rate our appointment organisation?", Grade = 0, SurveyCategoryId = i * 3 },
+                    new SurveyQuestion { Id = i*15-3, Content = "How would you rate hospitals' hygiene?", Grade = 0, SurveyCategoryId = i * 3 },
+                    new SurveyQuestion { Id = i*15-2, Content = "How good were procedure for booking appointment?", Grade = 0, SurveyCategoryId = i * 3 },
+                    new SurveyQuestion { Id = i*15-1, Content = "How easy was to use our application?", Grade = 0, SurveyCategoryId = i * 3 },
+                    new SurveyQuestion { Id = i*15, Content = "Your general grade for whole hospital' service", Grade = 0, SurveyCategoryId = i * 3 });
+            }
 
             modelBuilder.Entity<Survey>().HasData(
-                new Survey { Id = 1, Done = true, SurveyCategories = new List<SurveyCategory>(), AppointmentId = 1 });
+                new Survey { Id = 10, Done = true, SurveyCategories = new List<SurveyCategory>(), AppointmentId = 10 });
 
             modelBuilder.Entity<SurveyCategory>().HasData(
-                new SurveyCategory { Id = 1, Name = "Doctor", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 1 },
-                new SurveyCategory { Id = 2, Name = "Medical stuff", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 1 },
-                new SurveyCategory { Id = 3, Name = "Hospital", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 1 });
+                new SurveyCategory { Id = 28, Name = "Doctor", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 10 },
+                new SurveyCategory { Id = 29, Name = "Medical stuff", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 10 },
+                new SurveyCategory { Id = 30, Name = "Hospital", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = 10 });
 
             modelBuilder.Entity<SurveyQuestion>().HasData(
-                new SurveyQuestion { Id = 1, Content = "How careful did doctor listen you?", Grade = 1, SurveyCategoryId = 1 },
-                new SurveyQuestion { Id = 2, Content = "Has doctor been polite?", Grade = 3, SurveyCategoryId = 1 },
-                new SurveyQuestion { Id = 3, Content = "Has he explained you your condition enough that you can understand it?", Grade = 4, SurveyCategoryId = 1 },
-                new SurveyQuestion { Id = 4, Content = "How would you rate doctors' professionalism?", Grade = 5, SurveyCategoryId = 1 },
-                new SurveyQuestion { Id = 5, Content = "Your general grade for doctors' service", Grade = 3, SurveyCategoryId = 1 },
+                new SurveyQuestion { Id = 136, Content = "How careful did doctor listen you?", Grade = 1, SurveyCategoryId = 28 },
+                new SurveyQuestion { Id = 137, Content = "Has doctor been polite?", Grade = 3, SurveyCategoryId = 28 },
+                new SurveyQuestion { Id = 138, Content = "Has he explained you your condition enough that you can understand it?", Grade = 4, SurveyCategoryId = 28 },
+                new SurveyQuestion { Id = 139, Content = "How would you rate doctors' professionalism?", Grade = 5, SurveyCategoryId = 28 },
+                new SurveyQuestion { Id = 140, Content = "Your general grade for doctors' service", Grade = 3, SurveyCategoryId = 28 },
 
-                new SurveyQuestion { Id = 6, Content = "How much our medical staff were polite?", Grade = 2, SurveyCategoryId = 2 },
-                new SurveyQuestion { Id = 7, Content = "How would you rate time span that you spend waiting untill doctor attended you?", Grade = 3, SurveyCategoryId = 2 },
-                new SurveyQuestion { Id = 8, Content = "How prepared were stuff for emergency situations?", Grade = 4, SurveyCategoryId = 2 },
-                new SurveyQuestion { Id = 9, Content = "How good has stuff explained you our procedures?", Grade = 5, SurveyCategoryId = 2 },
-                new SurveyQuestion { Id = 10, Content = "Your general grade for medical stuffs' service", Grade = 3, SurveyCategoryId = 2 },
+                new SurveyQuestion { Id = 141, Content = "How much our medical staff were polite?", Grade = 2, SurveyCategoryId = 29 },
+                new SurveyQuestion { Id = 142, Content = "How would you rate time span that you spend waiting untill doctor attended you?", Grade = 3, SurveyCategoryId = 29 },
+                new SurveyQuestion { Id = 143, Content = "How prepared were stuff for emergency situations?", Grade = 4, SurveyCategoryId = 29 },
+                new SurveyQuestion { Id = 144, Content = "How good has stuff explained you our procedures?", Grade = 5, SurveyCategoryId = 29 },
+                new SurveyQuestion { Id = 145, Content = "Your general grade for medical stuffs' service", Grade = 3, SurveyCategoryId = 29 },
 
-                new SurveyQuestion { Id = 11, Content = "How would you rate our appointment organisation?", Grade = 1, SurveyCategoryId = 3 },
-                new SurveyQuestion { Id = 12, Content = "How would you rate hospitals' hygiene?", Grade = 4, SurveyCategoryId = 3 },
-                new SurveyQuestion { Id = 13, Content = "How good were procedure for booking appointment?", Grade = 4, SurveyCategoryId = 3 },
-                new SurveyQuestion { Id = 14, Content = "How easy was to use our application?", Grade = 5, SurveyCategoryId = 3 },
-                new SurveyQuestion { Id = 15, Content = "Your general grade for whole hospital' service", Grade = 3, SurveyCategoryId = 3 });
+                new SurveyQuestion { Id = 146, Content = "How would you rate our appointment organisation?", Grade = 1, SurveyCategoryId = 30 },
+                new SurveyQuestion { Id = 147, Content = "How would you rate hospitals' hygiene?", Grade = 4, SurveyCategoryId = 30 },
+                new SurveyQuestion { Id = 148, Content = "How good were procedure for booking appointment?", Grade = 4, SurveyCategoryId = 30 },
+                new SurveyQuestion { Id = 149, Content = "How easy was to use our application?", Grade = 5, SurveyCategoryId = 30 },
+                new SurveyQuestion { Id = 150, Content = "Your general grade for whole hospital' service", Grade = 3, SurveyCategoryId = 30 });
 
-            modelBuilder.Entity<Specialty>().HasData(
-               new Specialty()
-               {
-                   SpecialtyId = 1,
-                   Name = "General medicine"
-               },
-               new Specialty()
-               {
-                   SpecialtyId = 2,
-                   Name = "Surgery"
-               }
-               );
+
+            //modelBuilder.Entity<Specialty>().HasData(
+            //   new Specialty()
+            //   {
+            //       SpecialtyId = 1,
+            //       Name = "General medicine"
+            //   },
+            //   new Specialty()
+            //   {
+            //       SpecialtyId = 2,
+            //       Name = "Surgery"
+            //   }
+            //   );
 
             modelBuilder.Entity<Doctor>().HasData(
                new Doctor()
@@ -432,7 +484,7 @@ namespace Hospital.Mapper
                    Password = "nikola",
                    EmploymentDate = new System.DateTime(2021, 06, 10),
                    WorkDay = null,
-                   SpecialtyId = 1,
+                   Specialty = "General medicine",
                    PrimaryRoom = 1
                },
 
@@ -451,7 +503,7 @@ namespace Hospital.Mapper
                     Password = "marko",
                     EmploymentDate = new System.DateTime(2020, 06, 07),
                     WorkDay = null,
-                    SpecialtyId = 1,
+                    Specialty = "General medicine",
                     PrimaryRoom = 2
                 },
                 new Doctor()
@@ -469,7 +521,7 @@ namespace Hospital.Mapper
                     Password = "jozef",
                     EmploymentDate = new System.DateTime(2011, 03, 10),
                     WorkDay = null,
-                    SpecialtyId = 1,
+                    Specialty = "General medicine",
                     PrimaryRoom = 3
                 },
                 new Doctor()
@@ -487,7 +539,7 @@ namespace Hospital.Mapper
                     Password = "dragana",
                     EmploymentDate = new System.DateTime(2017, 03, 10),
                     WorkDay = null,
-                    SpecialtyId = 2,
+                    Specialty = "Surgery",
                     PrimaryRoom = 4
                 },
                 new Doctor()
@@ -505,7 +557,7 @@ namespace Hospital.Mapper
                     Password = "mile",
                     EmploymentDate = new System.DateTime(2007, 03, 10),
                     WorkDay = null,
-                    SpecialtyId = 2,
+                    Specialty = "Surgery",
                     PrimaryRoom = 4
                 },
                 new Doctor()
@@ -523,7 +575,7 @@ namespace Hospital.Mapper
                     Password = "misa",
                     EmploymentDate = new System.DateTime(2006, 03, 10),
                     WorkDay = null,
-                    SpecialtyId = 1,
+                    Specialty = "General medicine",
                     PrimaryRoom = 3
                 }
             );

@@ -48,6 +48,8 @@
             <button style="background-color: rgb(255, 255, 110);" (click)="changeRoom()">Change informations</button>
             <br>
             <button style="background-color: green;" (click)="editRoom()" *ngIf="changeSelected">Accept</button>
+            <br>
+            <button style="background-color: rgb(255, 255, 110);" [routerLink]="['/room-schedule', selectedRoom.id]">View schedule</button>
         </div>
         
         <b ><h3 style="text-align: center;">Equipments</h3></b>
