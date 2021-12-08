@@ -25,9 +25,9 @@ export class NotificationsComponent implements OnInit {
   
   seeNotifications(): void {
     this._notificationService.markAllNotificationsAsSeen().subscribe(res => {
-      for(let notification of this.notifications){
+      /*for(let notification of this.notifications){
         notification.seen = true;
-      }
+      }*/
     });
     this.unreadNotificationNumber = 0;
   }

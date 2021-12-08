@@ -10,7 +10,6 @@ namespace Integration.Service
     public class FileTransferService
     {
 
-        private readonly INotificationService _notificationService;
         public void UploadFile(String fileName)
         {
             var credentials = ServerCredentialsDTO.GetInstance();
@@ -42,6 +41,7 @@ namespace Integration.Service
             }
 
             client.Disconnect();
+            
         }
 
         public void CreatePdfDocument(string content, string fileName)

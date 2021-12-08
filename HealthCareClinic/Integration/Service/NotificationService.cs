@@ -60,7 +60,7 @@ namespace Integration.Service
 
         public void CreateNewFileNotification(string filename)
         {
-            Notification fileNotifiction = new Notification("New File Downloaded", "File " + filename + "has been downloded. It can be found in assets folder.");
+            Notification fileNotifiction = new Notification("New File Downloaded", "File " + filename + " has been downloded. It can be found in assets folder.");
             Add(fileNotifiction);
             SaveChanges();
         }

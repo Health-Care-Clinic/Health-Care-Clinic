@@ -1,7 +1,7 @@
 ﻿{
-  "SourceFolder": "C:\\Users\\PC\\OneDrive\\Desktop\\Health-Care-Clinic\\HealthCareClinic\\Integration API",
-  "ServerFolder": "C:\\Users\\PC\\OneDrive\\Desktop\\REBEX\\data",
-  "Ip": "192.168.0.13",
+  "SourceFolder": "E:\\Users\\graho\\Documents\\Health-Care-Clinic\\HealthCareClinic\\Integration API", //"C:\\Users\\PC\\OneDrive\\Desktop\\Health-Care-Clinic\\HealthCareClinic\\Integration API",
+  "ServerFolder": "E:\\Users\\graho\\Downloads\\RebexTinySftpServer-Binaries-Latest\\data", //"C:\\Users\\PC\\OneDrive\\Desktop\\REBEX\\data",
+  "Ip": "192.168.56.1",
   "Username": "tester",
   "Password": "password"
 }
