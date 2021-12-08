@@ -76,6 +76,9 @@ namespace Hospital_API
             //DUPLO DOKTORE
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<ITransferRepository, TransferRepository>();
+
+            services.AddScoped<IPrescriptionService, PrescriptionService>();
+            services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
