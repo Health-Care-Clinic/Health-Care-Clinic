@@ -17,5 +17,11 @@ namespace Hospital.Rooms_and_equipment.Repository
         {
             get { return Context as HospitalDbContext; }
         }
+
+        public void RemoveById(int id)
+        {
+            Context.Set<Renovation>().Remove(Context.Set<Renovation>().Find(id));
+            Context.SaveChanges();
+        }
     }
 }

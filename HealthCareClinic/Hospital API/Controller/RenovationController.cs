@@ -34,5 +34,14 @@ namespace Hospital_API.Controller
             Renovation renovation = RenovationAdapter.RenovationDTOToRenovation(renovationDTO);
             return Ok(renovationService.getFreeTermsForDivide(renovation));
         }
+
+        [HttpGet("getRoomRenovations/{id?}")]
+        public IActionResult GetRoomRenovations(int id)
+        {
+            List<RenovationDTO> roomRenovations = new List<RenovationDTO>();
+            renovationService.GetRoomRenovations(id).ToList().ForEach(Renovation
+                => roomRenovations.Add(RenovationAdapter.RenovationToRenovationDTO(Renovation)));
+            return Ok(roomRenovations);
+        }
     }
 }

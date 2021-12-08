@@ -13,6 +13,8 @@ export class RoomScheduleComponent implements OnInit {
 
   transfers: any;
   transfersCancellable: Boolean[] = [];
+  renovations: any;
+  selectedOption: string = 'Transfers';
 
   constructor(private _route: ActivatedRoute, private hospitalMapService: HospitalMapService) { }
 
@@ -28,6 +30,10 @@ export class RoomScheduleComponent implements OnInit {
         })
       }
     })
+
+    this.hospitalMapService.getRoomRenovations(roomId).subscribe(renovationsFromBack=>{
+      this.renovations = renovationsFromBack;
+    })
   }
 
   public cancelTransfer(transferId:number){
@@ -39,5 +45,9 @@ export class RoomScheduleComponent implements OnInit {
           break;
       }
     } 
+  }
+
+  public OnOptionSelected(event: any){
+    this.selectedOption = event.target.value;
   }
 }

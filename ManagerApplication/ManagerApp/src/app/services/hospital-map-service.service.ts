@@ -7,6 +7,7 @@ import { Floor } from '../model/floor';
 import { Room, TypeOfRoom } from '../model/room';
 import { Equipment } from '../model/equipment';
 import { Transfer } from '../model/transfer';
+import { Renovation } from '../model/renovation';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,13 @@ export class HospitalMapService {
   private checkFreeTransfersUrl: string;
   private checkRooms: string;
   private roomTransfersGet: string;
+  private roomRenovationsGet: string;
   private isTransferCancellable: string;
   private cancelTransfer: string
 
   constructor(private _http: HttpClient) {
     this.roomTransfersGet = '/api/transfer/getRoomTransfers'
+    this.roomRenovationsGet = '/api/renovation/getRoomRenovations'
     this.buildingGetById = '/api/building/getBuildingById';
     this.buildingsGet = '/api/building/getBuildings';
     this.floorsGet = '/api/floor/getFloors';
@@ -75,6 +78,12 @@ export class HospitalMapService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Transfer>>(this.roomTransfersGet + "/" + roomId, {headers: headers});
+  }
+
+  public getRoomRenovations(roomId: number): Observable<Array<Renovation>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Renovation>>(this.roomRenovationsGet + "/" + roomId, {headers: headers});
   }
 
   public getBuildings(): Observable<Array<Building>> {
