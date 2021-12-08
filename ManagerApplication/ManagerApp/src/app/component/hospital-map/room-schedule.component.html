@@ -48,6 +48,8 @@
                 <td *ngIf="renovation.type === 1" style="border: 1px solid black;"><b>{{renovation.secondRoomId}}</b></td>
                 <td style="border: 1px solid black;"><b>{{renovation.date | date:'dd.MM.yyyy hh:mm'}}</b></td>
                 <td style="border: 1px solid black;"><b>{{renovation.duration}} days</b></td>
+                <td *ngIf="renovationsCancellable[i]" (click)="cancelRenovation(renovation.id)" style="border: 1px solid black;"><b>Cancel</b></td>
+                <td *ngIf="!renovationsCancellable[i]" style="border: 1px solid black;"><b>-</b></td>
             </tr>
         </tbody>
     </table>

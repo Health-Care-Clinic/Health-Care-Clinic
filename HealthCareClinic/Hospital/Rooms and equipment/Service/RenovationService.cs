@@ -335,5 +335,20 @@ namespace Hospital.Rooms_and_equipment.Service
             }
             return roomRenovations;
         }
+
+        public bool CheckIfRenovationCancellable(int id)
+        {
+            foreach (Renovation renovation in GetAll())
+            {
+                if (renovation.Id == id && DateTime.Now.AddHours(24) <= renovation.Date)
+                    return true;
+            }
+            return false;
+        }
+
+        public void RemoveById(int id)
+        {
+            _renovationRepository.RemoveById(id);
+        }
     }
 }

@@ -35,6 +35,21 @@ namespace Hospital_API.Controller
             return Ok(renovationService.getFreeTermsForDivide(renovation));
         }
 
+        [HttpGet("checkIfRenovationCancellable/{id?}")]
+        public IActionResult CheckIfRenovationCancellable(int id)
+        {
+            bool isCancellable = renovationService.CheckIfRenovationCancellable(id);
+            return Ok(isCancellable);
+        }
+
+        [HttpPost("cancelRenovation")]
+        public IActionResult CancelRenovation(RenovationDTO renovationDTO)
+        {
+            Renovation renovation = RenovationAdapter.RenovationDTOToRenovation(renovationDTO);
+            renovationService.RemoveById(renovation.Id);
+            return Ok();
+        }
+
         [HttpGet("getRoomRenovations/{id?}")]
         public IActionResult GetRoomRenovations(int id)
         {

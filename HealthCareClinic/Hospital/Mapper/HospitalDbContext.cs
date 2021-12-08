@@ -58,6 +58,8 @@ namespace Hospital.Mapper
             modelBuilder.Entity<Transfer>().HasData(
                 new Transfer { Id = 1, Equipment = "Bed", Quantity = 2, SourceRoomId = 1, DestinationRoomId = 2,
                     Date = new DateTime(2021, 11, 25, 9, 30, 00), Duration = 60 },
+                new Transfer { Id = 6, Equipment = "Needle", Quantity = 5, SourceRoomId = 1, DestinationRoomId = 51,
+                    Date = new DateTime(2022, 08, 22, 9, 30, 00), Duration = 60 },
                 new Transfer { Id = 2, Equipment = "Bed", Quantity = 4, SourceRoomId = 50, DestinationRoomId = 60,
                     Date = new DateTime(2021, 11, 30, 12, 00, 00), Duration = 45 },
                 new Transfer {  Id = 3, Equipment = "TV", Quantity = 1, SourceRoomId = 45, DestinationRoomId = 52,
