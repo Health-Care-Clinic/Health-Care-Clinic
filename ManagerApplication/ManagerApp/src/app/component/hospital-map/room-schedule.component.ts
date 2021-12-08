@@ -13,6 +13,7 @@ export class RoomScheduleComponent implements OnInit {
 
   transfers: any;
   transfersCancellable: Boolean[] = [];
+  renovationsCancellable: Boolean[] = [];
   renovations: any;
   selectedOption: string = 'Transfers';
 
@@ -33,6 +34,13 @@ export class RoomScheduleComponent implements OnInit {
 
     this.hospitalMapService.getRoomRenovations(roomId).subscribe(renovationsFromBack=>{
       this.renovations = renovationsFromBack;
+      this.renovationsCancellable = new Array<Boolean>(this.renovations?.length);
+      for(let i=0; i < this.renovations.length; i++)
+      {
+        this.hospitalMapService.checkIfRenovationCancellable(this.renovations[i].id).subscribe(isCancellable=>{
+          this.renovationsCancellable[i] = isCancellable;
+        })
+      }
     })
   }
 
@@ -50,4 +58,16 @@ export class RoomScheduleComponent implements OnInit {
   public OnOptionSelected(event: any){
     this.selectedOption = event.target.value;
   }
+
+  public cancelRenovation(renovationId:number){
+    for(let i = 0; i < this.renovations.length; ++i){
+      if (this.renovations[i].id === renovationId) {
+          this.hospitalMapService.deleteCancelledRenovation(this.renovations[i]).subscribe(() =>  {});
+          this.renovations.splice(i,1);
+          this.renovationsCancellable.splice(i,1);
+          break;
+      }
+    } 
+  }
+
 }

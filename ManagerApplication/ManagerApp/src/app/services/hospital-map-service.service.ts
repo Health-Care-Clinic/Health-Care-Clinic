@@ -36,6 +36,8 @@ export class HospitalMapService {
   private roomRenovationsGet: string;
   private isTransferCancellable: string;
   private cancelTransfer: string
+  private isRenovationCancellable: string;
+  private cancelRenovation: string;
 
   constructor(private _http: HttpClient) {
     this.roomTransfersGet = '/api/transfer/getRoomTransfers'
@@ -59,7 +61,9 @@ export class HospitalMapService {
     this.checkFreeTransfersUrl = '/api/transfer/checkFreeTransfers';
     this.checkRooms = '/api/room/isFirstRoomNextToSecond';
     this.isTransferCancellable = '/api/transfer/checkIfTransferCancellable';
+    this.isRenovationCancellable = '/api/renovation/checkIfRenovationCancellable';
     this.cancelTransfer = '/api/transfer/cancelTransfer';
+    this.cancelRenovation = '/api/renovation/cancelRenovation';
   }
 
   public deleteCancelledTransfer(transfer: Transfer):Observable<Transfer> {
@@ -68,10 +72,22 @@ export class HospitalMapService {
     return this._http.post<Transfer>(this.cancelTransfer, transfer, {headers: headers});
   }
 
+  public deleteCancelledRenovation(renovation: Renovation):Observable<Renovation> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<Renovation>(this.cancelRenovation, renovation, {headers: headers});
+  }
+
   public checkIfTransferCancellable(transferId: number): Observable<Boolean> {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Boolean>(this.isTransferCancellable + "/" + transferId, {headers: headers});
+  }
+
+  public checkIfRenovationCancellable(renovationId: number): Observable<Boolean> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Boolean>(this.isRenovationCancellable + "/" + renovationId, {headers: headers});
   }
 
   public getRoomTransfers(roomId: number): Observable<Array<Transfer>> {
