@@ -51,6 +51,7 @@ namespace Integration_API
             services.AddScoped<IPharmacyPromotionService, PharmacyPromotionService>();
             services.AddScoped<IMedConsumptionRepository, MedConsumptionRepository>();
             services.AddScoped<IMedConsumptionService, MedConsumptionService>();
+            services.AddScoped<IPrescriptionService, PrescriptionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
