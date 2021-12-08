@@ -8,5 +8,6 @@ namespace Hospital.Rooms_and_equipment.Repository
 {
     public interface IRenovationRepository : IRepository<Renovation>
     {
+        public void RemoveById(int id);
     }
 }

@@ -10,5 +10,6 @@ namespace Hospital.Rooms_and_equipment.Service
     {
         public List<DateTime> getFreeTermsForMerge(Renovation renovation);
         public List<DateTime> getFreeTermsForDivide(Renovation renovation);
+        public List<Renovation> GetRoomRenovations(int id);
     }
 }

@@ -325,6 +325,15 @@ namespace Hospital.Rooms_and_equipment.Service
                 seconds);
         }
 
-       
+        public List<Renovation> GetRoomRenovations(int id)
+        {
+            List<Renovation> roomRenovations = new List<Renovation>();
+            foreach (Renovation renovation in GetAll())
+            {
+                if (renovation.SecondRoomId == id || renovation.FirstRoomId == id)
+                    roomRenovations.Add(renovation);
+            }
+            return roomRenovations;
+        }
     }
 }
