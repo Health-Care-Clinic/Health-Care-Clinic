@@ -72,6 +72,16 @@ namespace Hospital_API.Controller
 
             return Ok(availableTerms);
         }
+
+        [HttpPost("createAppointment")]
+        public IActionResult CreateAppointment(AppointmentDTO appDto)
+        {
+            Appointment app = AppointmentAdapter.AppointmentDtoToAppointment(appDto);
+
+            appointmentService.AddAppointment(app);
+
+            return Ok();
+        }
     }
 
 }

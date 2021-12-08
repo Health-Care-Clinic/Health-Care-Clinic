@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Hospital.Schedule.Model;
 
 namespace Hospital.Shared_model.Repository
 {
@@ -82,6 +83,15 @@ namespace Hospital.Shared_model.Repository
             }
 
             return allTerms;
+        }
+
+        public void AddAppointment(Appointment app)
+        {
+            Add(app);
+            Survey newSurvey = new Survey(app.Id);
+            Save();
+            app.SurveyId = newSurvey.Id;
+            Save();
         }
     }
 }

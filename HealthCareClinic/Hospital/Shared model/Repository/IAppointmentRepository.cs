@@ -11,5 +11,6 @@ namespace Hospital.Shared_model.Repository
         public List<Appointment> getAppointmentsByPatientId(int patinetId);
         public Appointment CancelAppointment(int appointmentId);
         public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate);
+        public void AddAppointment(Appointment app); 
     }
 }
