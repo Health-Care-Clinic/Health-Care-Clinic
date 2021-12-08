@@ -43,5 +43,10 @@ namespace Hospital.Shared_model.Service
         {
            return appointmentRepository.CancelAppointment(appointmentId);
         }
+
+        public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate)
+        {
+            return appointmentRepository.GetAvailableTermsForDoctor(doctor, fromDate, toDate);
+        }
     }
 }

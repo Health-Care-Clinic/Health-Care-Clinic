@@ -39,7 +39,7 @@ namespace Hospital.Mapper
 
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
-        public DbSet<Specialty> Specialty { get; set; }
+        //public DbSet<Specialty> Specialty { get; set; }
 
         public DbSet<Transfer> Transfer { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
@@ -401,18 +401,18 @@ namespace Hospital.Mapper
                 new SurveyQuestion { Id = 14, Content = "How easy was to use our application?", Grade = 5, SurveyCategoryId = 3 },
                 new SurveyQuestion { Id = 15, Content = "Your general grade for whole hospital' service", Grade = 3, SurveyCategoryId = 3 });
 
-            modelBuilder.Entity<Specialty>().HasData(
-               new Specialty()
-               {
-                   SpecialtyId = 1,
-                   Name = "General medicine"
-               },
-               new Specialty()
-               {
-                   SpecialtyId = 2,
-                   Name = "Surgery"
-               }
-               );
+            //modelBuilder.Entity<Specialty>().HasData(
+            //   new Specialty()
+            //   {
+            //       SpecialtyId = 1,
+            //       Name = "General medicine"
+            //   },
+            //   new Specialty()
+            //   {
+            //       SpecialtyId = 2,
+            //       Name = "Surgery"
+            //   }
+            //   );
 
             modelBuilder.Entity<Doctor>().HasData(
                new Doctor()
@@ -430,7 +430,7 @@ namespace Hospital.Mapper
                    Password = "nikola",
                    EmploymentDate = new System.DateTime(2021, 06, 10),
                    WorkDay = null,
-                   SpecialtyId = 1,
+                   Specialty = "General medicine",
                    PrimaryRoom = 1
                },
 
@@ -449,7 +449,7 @@ namespace Hospital.Mapper
                     Password = "marko",
                     EmploymentDate = new System.DateTime(2020, 06, 07),
                     WorkDay = null,
-                    SpecialtyId = 1,
+                    Specialty = "General medicine",
                     PrimaryRoom = 2
                 },
                 new Doctor()
@@ -467,7 +467,7 @@ namespace Hospital.Mapper
                     Password = "jozef",
                     EmploymentDate = new System.DateTime(2011, 03, 10),
                     WorkDay = null,
-                    SpecialtyId = 1,
+                    Specialty = "General medicine",
                     PrimaryRoom = 3
                 },
                 new Doctor()
@@ -485,7 +485,7 @@ namespace Hospital.Mapper
                     Password = "dragana",
                     EmploymentDate = new System.DateTime(2017, 03, 10),
                     WorkDay = null,
-                    SpecialtyId = 2,
+                    Specialty = "Surgery",
                     PrimaryRoom = 4
                 },
                 new Doctor()
@@ -503,7 +503,7 @@ namespace Hospital.Mapper
                     Password = "mile",
                     EmploymentDate = new System.DateTime(2007, 03, 10),
                     WorkDay = null,
-                    SpecialtyId = 2,
+                    Specialty = "Surgery",
                     PrimaryRoom = 4
                 },
                 new Doctor()
@@ -521,7 +521,7 @@ namespace Hospital.Mapper
                     Password = "misa",
                     EmploymentDate = new System.DateTime(2006, 03, 10),
                     WorkDay = null,
-                    SpecialtyId = 1,
+                    Specialty = "General medicine",
                     PrimaryRoom = 3
                 }
             );

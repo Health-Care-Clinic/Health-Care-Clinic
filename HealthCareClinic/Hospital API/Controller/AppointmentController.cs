@@ -18,10 +18,16 @@ namespace Hospital_API.Controller
     {
 
         private readonly IAppointmentService appointmentService;
+        private readonly IDoctorService doctorService;
 
         public AppointmentController(IAppointmentService _appointmentService)
         {
             this.appointmentService = _appointmentService;
+        }
+        public AppointmentController(IAppointmentService _appointmentService, IDoctorService _doctorService)
+        {
+            this.appointmentService = _appointmentService;
+            this.doctorService = _doctorService;
         }
 
         [HttpGet("getAppointmetsByPatientId/{id?}")]
@@ -48,6 +54,23 @@ namespace Hospital_API.Controller
 
             Appointment Appointment =  appointmentService.CancelAppointment(appointmentId);
             return Ok(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment));
+        }
+
+        [HttpPost("freeTermsForDoctor")]
+        public IActionResult GetAvailableTermsForDoctor(int doctorId, string from, string to)
+        {
+            DateTime fromDate = PatientAdapter.ConvertToDate(from);
+            DateTime toDate = PatientAdapter.ConvertToDate(to);
+            if (doctorId < 0)
+                return BadRequest();
+            if (toDate < fromDate)
+                return BadRequest();
+
+            List<string> availableTerms = new List<string>();
+            foreach (DateTime term in appointmentService.GetAvailableTermsForDoctor(doctorService.GetOneById(doctorId), fromDate, toDate))
+                availableTerms.Add(PatientAdapter.ConvertToString(term));
+
+            return Ok(availableTerms);
         }
     }
 

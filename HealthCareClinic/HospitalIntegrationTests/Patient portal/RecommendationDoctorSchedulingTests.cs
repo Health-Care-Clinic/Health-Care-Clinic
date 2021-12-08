@@ -4,6 +4,7 @@ using Hospital.Medical_records.Service;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
+using Hospital_API.Adapter;
 using Hospital_API.Controller;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -49,38 +50,41 @@ namespace HospitalIntegrationTests.Patient_portal
             }
         }
 
-        //[Fact]
-        //public void Get_all_doctors()
-        //{
-        //    var options = CreateStubDatabase();
+        [Fact]
+        public void Get_free_terms_for_doctor()
+        {
+            var options = CreateStubDatabase();
 
-        //    using (var context = new HospitalDbContext(options))
-        //    {
-        //        AppointmentRepository appointmentRepository = new AppointmentRepository(context);
-        //        AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+            using (var context = new HospitalDbContext(options))
+            {
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
 
-        //        AppointmentController appointmentController = new AppointmentController(appointmentService);
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                DoctorService doctorService = new DoctorService(doctorRepository);
 
-        //        OkObjectResult result = appointmentController.Get as OkObjectResult;
-        //        PatientDTO blockedPatient = result.Value as PatientDTO;
+                AppointmentController appointmentController = new AppointmentController(appointmentService, doctorService);
 
-        //        foreach (Doctor doctor in context.Doctors)
-        //        {
-        //            context.Doctors.Remove(doctor);
-        //            context.SaveChanges();
-        //        }
+                OkObjectResult result = appointmentController.GetAvailableTermsForDoctor(1, "2022-2-22T00:00:00", "2022-2-22T00:00:00") as OkObjectResult;
+                List<string> availableTerms = result.Value as List<string>;
 
-        //        foreach (Patient patient in context.Patients)
-        //        {
-        //            context.Patients.Remove(patient);
-        //            context.SaveChanges();
-        //        }
+                foreach (Doctor doctor in context.Doctors)
+                {
+                    context.Doctors.Remove(doctor);
+                    context.SaveChanges();
+                }
 
-        //        Assert.Equal(1, blockedPatient.Id);
-        //        Assert.IsType<PatientDTO>(blockedPatient);
-        //        Assert.True(blockedPatient.IsBlocked);
-        //    }
-        //}
+                foreach (Appointment appointment in context.Appointments)
+                {
+                    context.Appointments.Remove(appointment);
+                    context.SaveChanges();
+                }
+
+                Assert.Single(availableTerms);
+                Assert.IsType<List<string>>(availableTerms);
+                Assert.Equal(PatientAdapter.ConvertToString(new System.DateTime(2022, 2, 22, 11, 30, 0)), availableTerms[0]);
+            }
+        }
 
 
         private DbContextOptions<HospitalDbContext> CreateStubDatabase()
@@ -92,25 +96,25 @@ namespace HospitalIntegrationTests.Patient_portal
             using (var context = new HospitalDbContext(options))
             {
                 Doctor doctor1 = new Doctor(1, "Nikola", "Nikolic", "male", new System.DateTime(1981, 05, 06), 80000.0, "Brace Radica 15", "0697856665", "nikolanikolic@gmail.com", "nikola", "nikola",
-                     new System.DateTime(2021, 06, 10), null, new Specialty("General medicine"), 1);
+                     new System.DateTime(2021, 06, 10), null, "General medicine", 1);
 
                 Doctor doctor2 = new Doctor(2, "Marko", "Radic", "male", new System.DateTime(1986, 04, 06), 80000.0, "Bogoboja Atanackovica 5", "0697856665", "markoradic@gmail.com", "marko", "marko",
-                     new System.DateTime(2020, 06, 07), null, new Specialty("General medicine"), 2);
+                     new System.DateTime(2020, 06, 07), null, "General medicine", 2);
 
                 Doctor doctor3 = new Doctor(3, "Jozef", "Sivc", "male", new System.DateTime(1971, 06, 09), 80000.0, "Bulevar Oslobodjenja 45", "0697856665", "jozika@gmail.com", "jozef", "jozef",
-                     new System.DateTime(2011, 03, 10), null, new Specialty("General medicine"), 3);
+                     new System.DateTime(2011, 03, 10), null, "General medicine", 3);
 
                 Doctor doctor4 = new Doctor(4, "Dragana", "Zoric", "female", new System.DateTime(1968, 01, 08), 80000.0, "Mike Antice 5", "0697856665", "dragana@gmail.com", "dragana", "dragana",
-                     new System.DateTime(2015, 09, 11), null, new Specialty("Surgery"), 4);
+                     new System.DateTime(2015, 09, 11), null, "Surgery", 4);
 
                 Doctor doctor5 = new Doctor(5, "Mile", "Grandic", "male", new System.DateTime(1978, 11, 07), 80000.0, "Pariske Komune 35", "0697856665", "mile@gmail.com", "mile", "mile",
-                     new System.DateTime(2017, 08, 12), null, new Specialty("Surgery"), 5);
+                     new System.DateTime(2017, 08, 12), null, "Surgery", 5);
 
                 Doctor doctor6 = new Doctor(6, "Antonije", "Trkulja", "male", new System.DateTime(1978, 11, 07), 80000.0, "Pariske Komune 35", "0697856665", "antonije@gmail.com", "antonije", "mile",
-                     new System.DateTime(2017, 08, 12), null, new Specialty("Opftamology"), 6);
+                     new System.DateTime(2017, 08, 12), null, "Opftamology", 6);
 
                 Doctor doctor7 = new Doctor(7, "Sava", "Peric", "male", new System.DateTime(1978, 11, 07), 80000.0, "Pariske Komune 35", "0697856665", "sava@gmail.com", "sava", "mile",
-                     new System.DateTime(2017, 08, 12), null, new Specialty("Dermmatology"), 7);
+                     new System.DateTime(2017, 08, 12), null, "Dermmatology", 7);
 
 
                 context.Doctors.Add(doctor1);

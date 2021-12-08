@@ -59,7 +59,7 @@ namespace Hospital_API.Adapter
             dto.Id = doctor.Id;
             dto.Name = doctor.Name;
             dto.Surname = doctor.Surname;
-            dto.Specialty = doctor.Specialty.Name;
+            dto.Specialty = doctor.Specialty;
 
             return dto;
         }
