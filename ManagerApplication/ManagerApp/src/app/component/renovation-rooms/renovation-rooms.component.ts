@@ -18,10 +18,12 @@ export class RenovationRoomsComponent implements OnInit {
     secondRoom: number;
     divideRoom: number;
     selectedEndDate: any;
+    step1: Boolean = false;
+    step2: Boolean = false;
     step3: Boolean = false;
     step4: Boolean = false;
-    duration: number = 1;
     step5: Boolean = false;
+    duration: number = 1;
     newName: string = '';
     newType: any;
     newDescription: string = '';
@@ -41,12 +43,14 @@ export class RenovationRoomsComponent implements OnInit {
         this.allRooms = roomsFromBack;
       }); 
 
-      this.selectedEndDate = new Date()
+      this.selectedEndDate = new Date();
+      this.step1 = true;
     }
 
     onSubmit(): void {
       this.step1Disable();
       this.isMerged = true;
+      this.step2 = true;
     }
 
     onSubmit1(): void {
@@ -150,6 +154,22 @@ export class RenovationRoomsComponent implements OnInit {
     }
 
     onFinish(): void{
+      if(!this.radioInput){
+        alert('You must select date and time!');
+        return;
+      }
+
+      let term = this.freeTerms[this.radioInput]
+      this.showTerms = false;
+      this.step5 = false;
+      this.step4 = false;
+      this.step3 = false;
+      this.step2 = false;
+
+      let select1 = document.getElementById('select1') as HTMLButtonElement;
+      select1.disabled = false;
+      let next1 = document.getElementById('next1') as HTMLButtonElement;
+      next1.disabled = false;
     }
 
     backFromFinish(): void{
