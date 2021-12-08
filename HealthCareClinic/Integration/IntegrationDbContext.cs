@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Integration.ApiKeys.Model;
+using Integration.Notifications.Model;
 using Integration.Pharmacy.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ namespace Integration
         public DbSet<Integration.Model.Medicine> Medicines { get; set; }
         public DbSet<PharmacyPromotion> PharmacyPromotions { get; set; }
         public DbSet<MedicationConsumption> MedicationConsumptions { get; set; }
+        public DbSet<MedicationConsumption> Notifications { get; set; }
         public IntegrationDbContext(DbContextOptions<IntegrationDbContext> options) : base(options) {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +41,9 @@ namespace Integration
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<MedicationConsumption>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Notification>()
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
 

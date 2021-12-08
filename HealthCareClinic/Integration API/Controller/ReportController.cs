@@ -14,10 +14,13 @@ namespace Integration_API.Controller
     {
         private readonly FileTransferService _fileTransferService;
         private readonly IMedConsumptionService _medConsumptionService;
+        private readonly INotificationService _notificationService;
+        
 
-        public ReportController(IMedConsumptionService medConsumptionService)
+        public ReportController(IMedConsumptionService medConsumptionService, INotificationService notificationService)
         {
             _medConsumptionService = medConsumptionService;
+            _notificationService = notificationService;
             this._fileTransferService = new FileTransferService();
         }
 
@@ -32,6 +35,7 @@ namespace Integration_API.Controller
         public IActionResult DownloadFile(String fileName)
         {
             _fileTransferService.DownloadFile(fileName);
+            _notificationService.CreateNewFileNotification(fileName + ".pdf");
             return Ok();
         }
 

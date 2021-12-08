@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Integration.DTO;
+using Integration.Interface.Service;
 using Renci.SshNet;
 using SautinSoft.Document;
 
@@ -8,6 +9,7 @@ namespace Integration.Service
 {
     public class FileTransferService
     {
+
         public void UploadFile(String fileName)
         {
             var credentials = ServerCredentialsDTO.GetInstance();
@@ -37,7 +39,9 @@ namespace Integration.Service
             {
                  client.DownloadFile(fileName + ".pdf", fileStream);
             }
+
             client.Disconnect();
+            
         }
 
         public void CreatePdfDocument(string content, string fileName)

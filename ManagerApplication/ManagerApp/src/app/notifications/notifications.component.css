@@ -1,0 +1,14 @@
+h1 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    margin-left: 40px;
+    text-align: left;
+    font-size: 26px; 
+}
+
+.mat-list-icon {
+    color: rgba(0, 0, 0, 0.4);
+}
+.mat-expansion-panel-header > span.mat-content {
+    order: 2;    
+}
