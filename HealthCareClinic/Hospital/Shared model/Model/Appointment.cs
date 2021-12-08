@@ -26,7 +26,7 @@ namespace Hospital.Shared_model.Model
         //[ForeignKey("SurveyId")]
         //public virtual Survey Survey { get; set; }
 
-        public virtual ICollection<Survey> Surveys { get; set; } //Ovo teba skloniti
+        //public virtual ICollection<Survey> Surveys { get; set; } //Ovo teba skloniti
 
         public Appointment()
         {

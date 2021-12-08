@@ -22,6 +22,22 @@ namespace Hospital_API.Adapter
             return dto;
         }
 
+        public static Appointment AppointmentDtoToAppointment(AppointmentDTO appointmentDto)
+        {
+            Appointment app = new Appointment();
+
+            app.Id = appointmentDto.Id;
+            app.DoctorId = appointmentDto.DoctorId;
+            app.PatientId = appointmentDto.PatientId;
+            app.RoomId = appointmentDto.RoomId;
+            app.isCancelled = appointmentDto.isCancelled;
+            app.isDone = appointmentDto.isDone;
+            app.Date = PatientAdapter.ConvertToDate(appointmentDto.Date);
+            app.SurveyId = appointmentDto.SurveyId;
+
+            return app;
+        }
+
         private static String ConvertToString(DateTime date)
         {
             String dateAsString = date.ToString();

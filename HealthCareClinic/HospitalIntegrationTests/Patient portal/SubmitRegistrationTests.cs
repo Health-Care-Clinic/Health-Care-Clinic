@@ -118,10 +118,10 @@ namespace HospitalIntegrationTests.Patient_portal
                     Hashcode = ""
                 };
                 Doctor doctor4 = new Doctor(4, "Dragana", "Zoric", "female", new System.DateTime(1968, 01, 08), 80000.0, "Mike Antice 5", "0697856665", "dragana@gmail.com", "dragana", "dragana",
-                    new System.DateTime(2015, 09, 11), null, new Specialty("Surgery"), 4);
+                    new System.DateTime(2015, 09, 11), null, "Surgery", 4);
 
                 Doctor doctor5 = new Doctor(5, "Mile", "Grandic", "male", new System.DateTime(1978, 11, 07), 80000.0, "Pariske Komune 35", "0697856665", "mile@gmail.com", "mile", "mile",
-                     new System.DateTime(2017, 08, 12), null, new Specialty("Surgery"), 4);
+                     new System.DateTime(2017, 08, 12), null, "Surgery", 4);
 
 
                 context.Doctors.Add(doctor4);

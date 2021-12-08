@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211208212354_PatientPortalFourthMigration")]
+    partial class PatientPortalFourthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -716,62 +718,6 @@ namespace Hospital.Migrations
                             Width = 0f,
                             X = 0f,
                             Y = 0f
-                        });
-                });
-
-            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Renovation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FirstRoomId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SecondRoomId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Renovations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(2022, 2, 2, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Duration = 2,
-                            FirstRoomId = 1,
-                            SecondRoomId = 2,
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2022, 2, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Duration = 3,
-                            FirstRoomId = 1,
-                            SecondRoomId = 0,
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2022, 2, 20, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            Duration = 2,
-                            FirstRoomId = 47,
-                            SecondRoomId = 62,
-                            Type = 1
                         });
                 });
 
@@ -1691,16 +1637,6 @@ namespace Hospital.Migrations
                             Duration = 60,
                             Equipment = "Bed",
                             Quantity = 2,
-                            SourceRoomId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Date = new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
-                            DestinationRoomId = 51,
-                            Duration = 60,
-                            Equipment = "Needle",
-                            Quantity = 5,
                             SourceRoomId = 1
                         },
                         new
