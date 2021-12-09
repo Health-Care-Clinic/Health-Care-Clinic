@@ -73,6 +73,27 @@ namespace Hospital_API.Controller
             return Ok(availableTerms);
         }
 
+        [HttpPost("freeTermsForDateRange")]
+        public IActionResult GetAvailableTermsForDateRange(int doctorId, string beginningDateAsString, string endingDateAsString)
+        {
+            DateTime beginningDate = PatientAdapter.ConvertToDate(beginningDateAsString);
+            DateTime endingDate = PatientAdapter.ConvertToDate(endingDateAsString);
+
+            if (doctorId < 0)
+                return BadRequest();
+            if (DateTime.Compare(beginningDate, endingDate) > 0)
+                return BadRequest();
+
+            List<string> availableTerms = new List<string>();
+            string specialtyName = doctorService.GetOneById(doctorId).Specialty;
+            foreach (DateTime term in appointmentService.GetAvailableTermsForDateRange(doctorService.GetDoctorsWithSpecialty(specialtyName), beginningDate, endingDate))
+            {
+                availableTerms.Add(PatientAdapter.ConvertToString(term));
+            }
+
+            return Ok(availableTerms);
+        }
+
         [HttpPost("createAppointment")]
         public IActionResult CreateAppointment(AppointmentDTO appDto)
         {

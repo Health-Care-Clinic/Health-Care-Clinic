@@ -48,6 +48,24 @@ namespace Hospital.Shared_model.Repository
             }
         }
 
+        public List<DateTime> GetAvailableTermsForDateRange(List<Doctor> doctorsWithGivenSpecialty, DateTime beginningDate, DateTime endingDate)
+        {
+            List<DateTime> allTerms = GenerateAllTerms(beginningDate, endingDate);
+            List<DateTime> occupiedTerms;
+            List<DateTime> availableTerms;
+
+            foreach (Doctor doctor in doctorsWithGivenSpecialty)
+            {
+                occupiedTerms = GetOccupiedTerms(doctor, beginningDate, endingDate);
+                availableTerms = FindAvailableTerms(doctor, allTerms, occupiedTerms);
+
+                if (availableTerms.Count() > 0)
+                    return availableTerms;
+            }
+
+            return new List<DateTime>();
+        }
+
         private static List<DateTime> FindAvailableTerms(Doctor doctor, List<DateTime> allTerms, List<DateTime> occupiedTerms)
         {
             List<DateTime> availableTerms = new List<DateTime>();

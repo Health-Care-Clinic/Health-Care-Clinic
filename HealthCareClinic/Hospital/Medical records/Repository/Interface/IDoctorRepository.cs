@@ -8,5 +8,6 @@ namespace Hospital.Medical_records.Repository.Interface
     public interface IDoctorRepository : IRepository<Doctor>
     {
         List<Doctor> GetAvailableDoctors();
+        List<Doctor> GetDoctorsWithSpecialty(string specialtyName);
     }
 }

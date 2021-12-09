@@ -49,6 +49,11 @@ namespace Hospital.Shared_model.Service
             return appointmentRepository.GetAvailableTermsForDoctor(doctor, fromDate, toDate);
         }
 
+        public List<DateTime> GetAvailableTermsForDateRange(List<Doctor> doctorsWithGivenSpecialty, DateTime beginningDate, DateTime endingDate)
+        {
+            return appointmentRepository.GetAvailableTermsForDateRange(doctorsWithGivenSpecialty, beginningDate, endingDate);
+        }
+
         public void AddAppointment(Appointment app)
         {
             appointmentRepository.AddAppointment(app);

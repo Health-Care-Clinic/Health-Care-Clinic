@@ -9,5 +9,6 @@ namespace Hospital.Medical_records.Service
     public interface IDoctorService : IService<Doctor>
     {
         List<Doctor> GetAvailableDoctors();
+        List<Doctor> GetDoctorsWithSpecialty(string specialtyName);
     }
 }
