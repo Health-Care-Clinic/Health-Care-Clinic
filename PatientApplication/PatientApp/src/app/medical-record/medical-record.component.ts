@@ -34,7 +34,7 @@ export class MedicalRecordComponent implements OnInit {
   constructor(public _patientservice: PatientService) { }
 
   ngOnInit(): void {
-    this.getPatient(8);
+    this.getPatient(1);
   }
 
   getPatient(id: number) {

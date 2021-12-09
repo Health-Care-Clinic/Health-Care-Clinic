@@ -26,7 +26,7 @@ export class AppointmentsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getAppointmetsForPatient(8)
+    this.getAppointmetsForPatient(1)
   }
 
   getAppointmetsForPatient(id: number) {
@@ -46,7 +46,7 @@ export class AppointmentsComponent implements OnInit {
     this._appointmentService.cancelAppointment(appointment.id)
         .subscribe(data => this.appointment = data,
                    error => this.errorMessage = <any>error);
-    if(appointment != undefined)
+    if(this.appointment != undefined)
     {
       this.appointment.isCancelled = true;
       window.alert('Zakazani pregled je otkazan');
