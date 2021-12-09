@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20211125011533_ThirdMigrationPatientPortal")]
-    partial class ThirdMigrationPatientPortal
+    [Migration("20211209132828_FirstMigrationPatientPortal")]
+    partial class FirstMigrationPatientPortal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1599,6 +1599,172 @@ namespace Hospital.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Transfer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("DestinationRoomId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Equipment")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SourceRoomId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transfer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 2,
+                            Duration = 60,
+                            Equipment = "Bed",
+                            Quantity = 2,
+                            SourceRoomId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2021, 11, 30, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 60,
+                            Duration = 45,
+                            Equipment = "Bed",
+                            Quantity = 4,
+                            SourceRoomId = 50
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 52,
+                            Duration = 45,
+                            Equipment = "TV",
+                            Quantity = 1,
+                            SourceRoomId = 45
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2021, 11, 24, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 62,
+                            Duration = 15,
+                            Equipment = "Bandage",
+                            Quantity = 4,
+                            SourceRoomId = 47
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 23,
+                            Duration = 15,
+                            Equipment = "Blanket",
+                            Quantity = 10,
+                            SourceRoomId = 18
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Schedule.Model.CanceledAppointment", b =>
+                {
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DateOfCancellation")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("PatientId", "AppointmentId");
+
+                    b.ToTable("CanceledAppointments");
+
+                    b.HasData(
+                        new
+                        {
+                            PatientId = 1,
+                            AppointmentId = 1764,
+                            DateOfCancellation = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 1,
+                            AppointmentId = 1765,
+                            DateOfCancellation = new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 1,
+                            AppointmentId = 1763,
+                            DateOfCancellation = new DateTime(2021, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 1,
+                            AppointmentId = 1766,
+                            DateOfCancellation = new DateTime(2021, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 1,
+                            AppointmentId = 1777,
+                            DateOfCancellation = new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 16,
+                            AppointmentId = 1767,
+                            DateOfCancellation = new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 16,
+                            AppointmentId = 1768,
+                            DateOfCancellation = new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 16,
+                            AppointmentId = 1769,
+                            DateOfCancellation = new DateTime(2021, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 2,
+                            AppointmentId = 1799,
+                            DateOfCancellation = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 16,
+                            AppointmentId = 1780,
+                            DateOfCancellation = new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            PatientId = 1,
+                            AppointmentId = 1870,
+                            DateOfCancellation = new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
             modelBuilder.Entity("Hospital.Schedule.Model.FeedbackMessage", b =>
                 {
                     b.Property<int>("Id")
@@ -1726,16 +1892,17 @@ namespace Hospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId");
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
 
-                    b.ToTable("survey");
+                    b.ToTable("Surveys");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AppointmentId = 1,
-                            Done = true
+                            Done = false
                         });
                 });
 
@@ -1756,7 +1923,7 @@ namespace Hospital.Migrations
 
                     b.HasIndex("SurveyId");
 
-                    b.ToTable("surveyCategory");
+                    b.ToTable("SurveyCategories");
 
                     b.HasData(
                         new
@@ -1799,112 +1966,112 @@ namespace Hospital.Migrations
 
                     b.HasIndex("SurveyCategoryId");
 
-                    b.ToTable("surveyQuestion");
+                    b.ToTable("SurveyQuestions");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Content = "How careful did doctor listen you?",
-                            Grade = 1,
+                            Grade = 0,
                             SurveyCategoryId = 1
                         },
                         new
                         {
                             Id = 2,
                             Content = "Has doctor been polite?",
-                            Grade = 3,
+                            Grade = 0,
                             SurveyCategoryId = 1
                         },
                         new
                         {
                             Id = 3,
                             Content = "Has he explained you your condition enough that you can understand it?",
-                            Grade = 4,
+                            Grade = 0,
                             SurveyCategoryId = 1
                         },
                         new
                         {
                             Id = 4,
                             Content = "How would you rate doctors' professionalism?",
-                            Grade = 5,
+                            Grade = 0,
                             SurveyCategoryId = 1
                         },
                         new
                         {
                             Id = 5,
                             Content = "Your general grade for doctors' service",
-                            Grade = 3,
+                            Grade = 0,
                             SurveyCategoryId = 1
                         },
                         new
                         {
                             Id = 6,
                             Content = "How much our medical staff were polite?",
-                            Grade = 2,
+                            Grade = 0,
                             SurveyCategoryId = 2
                         },
                         new
                         {
                             Id = 7,
                             Content = "How would you rate time span that you spend waiting untill doctor attended you?",
-                            Grade = 3,
+                            Grade = 0,
                             SurveyCategoryId = 2
                         },
                         new
                         {
                             Id = 8,
                             Content = "How prepared were stuff for emergency situations?",
-                            Grade = 4,
+                            Grade = 0,
                             SurveyCategoryId = 2
                         },
                         new
                         {
                             Id = 9,
                             Content = "How good has stuff explained you our procedures?",
-                            Grade = 5,
+                            Grade = 0,
                             SurveyCategoryId = 2
                         },
                         new
                         {
                             Id = 10,
                             Content = "Your general grade for medical stuffs' service",
-                            Grade = 3,
+                            Grade = 0,
                             SurveyCategoryId = 2
                         },
                         new
                         {
                             Id = 11,
                             Content = "How would you rate our appointment organisation?",
-                            Grade = 1,
+                            Grade = 0,
                             SurveyCategoryId = 3
                         },
                         new
                         {
                             Id = 12,
                             Content = "How would you rate hospitals' hygiene?",
-                            Grade = 4,
+                            Grade = 0,
                             SurveyCategoryId = 3
                         },
                         new
                         {
                             Id = 13,
                             Content = "How good were procedure for booking appointment?",
-                            Grade = 4,
+                            Grade = 0,
                             SurveyCategoryId = 3
                         },
                         new
                         {
                             Id = 14,
                             Content = "How easy was to use our application?",
-                            Grade = 5,
+                            Grade = 0,
                             SurveyCategoryId = 3
                         },
                         new
                         {
                             Id = 15,
                             Content = "Your general grade for whole hospital' service",
-                            Grade = 3,
+                            Grade = 0,
                             SurveyCategoryId = 3
                         });
                 });
@@ -1999,6 +2166,9 @@ namespace Hospital.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
@@ -2008,17 +2178,30 @@ namespace Hospital.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("SurveyId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("isCancelled")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isDone")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
-                    b.ToTable("appointment");
+                    b.ToTable("Appointments");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            Date = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 1,
-                            PatientId = 1,
-                            RoomId = 1
+                            PatientId = 8,
+                            RoomId = 1,
+                            SurveyId = 1,
+                            isCancelled = false,
+                            isDone = false
                         });
                 });
 
@@ -2500,8 +2683,8 @@ namespace Hospital.Migrations
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
                 {
                     b.HasOne("Hospital.Shared_model.Model.Appointment", "Appointment")
-                        .WithMany("Surveys")
-                        .HasForeignKey("AppointmentId")
+                        .WithOne("Survey")
+                        .HasForeignKey("Hospital.Schedule.Model.Survey", "AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2589,7 +2772,7 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
                 {
-                    b.Navigation("Surveys");
+                    b.Navigation("Survey");
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>

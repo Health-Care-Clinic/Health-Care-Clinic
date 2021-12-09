@@ -1,0 +1,11 @@
+.mat-row {
+    height: auto;
+ }
+
+ .mat-cell {
+    padding: 6px 6px 6px 6px;
+ }
+
+ .mat-header-cell{
+    padding: 6px 6px 6px 6px;
+ }

@@ -17,7 +17,8 @@ namespace Hospital.Schedule.Repository
         double GetAverageGradeForQuestion(string questionContent);
         List<Survey> GetAllDoneByPatientId(int patientId);
         List<Survey> GetAllNotDoneByPatientId(int patientId);
-        Survey GenerateSurveyForAppointment();
+        Survey GenerateSurveyForAppointment(int id);
+        Survey GetSurveyForAppointment(int id);
         void ModifyGrade(int questionId, int newGrade);
     }
 }

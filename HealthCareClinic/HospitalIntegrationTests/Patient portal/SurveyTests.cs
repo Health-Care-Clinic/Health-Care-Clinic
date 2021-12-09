@@ -29,8 +29,9 @@ namespace HospitalIntegrationTests.Patient_portal
                 SurveyService surveyService = new SurveyService(surveyRepository);
 
                 SurveyController surveyController = new SurveyController(surveyService);
+                int appointmentId = 1;
 
-                OkObjectResult a = surveyController.GetEmptySurveyForAppointment() as OkObjectResult;
+                OkObjectResult a = surveyController.GetEmptySurveyForAppointment(appointmentId) as OkObjectResult;
                 SurveyDTO survey = a.Value as SurveyDTO;
                 foreach (Survey s in context.Surveys)
                 {
@@ -40,7 +41,7 @@ namespace HospitalIntegrationTests.Patient_portal
 
                 Assert.NotNull(survey);
                 Assert.Equal(1, survey.AppointmentId);
-                Assert.Equal(8, survey.Id);
+                Assert.Equal(1, survey.Id);
             }
 
         }
@@ -90,15 +91,21 @@ namespace HospitalIntegrationTests.Patient_portal
                 surveys[2].Appointment.PatientId = 4;
                 surveys[3].Appointment.PatientId = 3;
 
-                foreach (Survey s in surveys)
+                foreach (Survey survey in surveys)
                 {
                     SurveyCategory c1 = new SurveyCategory("Doctor");
                     SurveyCategory c2 = new SurveyCategory("Medical stuff");
                     SurveyCategory c3 = new SurveyCategory("Hospital");
 
-                    s.SurveyCategories.Add(c1);
-                    s.SurveyCategories.Add(c2);
-                    s.SurveyCategories.Add(c3);
+                    survey.SurveyCategories.Add(c1);
+                    survey.SurveyCategories.Add(c2);
+                    survey.SurveyCategories.Add(c3);
+
+                    foreach(SurveyCategory surveyCategory in survey.SurveyCategories)
+
+                    context.SurveyCategories.Add(c1);
+                    context.SurveyCategories.Add(c2);
+                    context.SurveyCategories.Add(c2);
                 }
 
                 FillOutGradesForEachQuestionDependingOnCategory(surveys);

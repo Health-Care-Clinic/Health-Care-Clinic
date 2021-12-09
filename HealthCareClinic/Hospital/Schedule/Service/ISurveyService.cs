@@ -17,10 +17,11 @@ namespace Hospital.Schedule.Service
             List<string> distinctQuestionsContentsForCategory);
         double GetAverageGradeForQuestionCategory(string categoryName);
         int GetNumberOfGradesForQuestion(string questionContent, int grade);
+        Survey GetSurveyForAppointment(int id);
         double GetAverageGradeForQuestion(string questionContent);
         List<Survey> GetAllDoneByPatientId(int patientId);
         List<Survey> GetAllNotDoneByPatientId(int patientId);
-        Survey GenerateSurveyForAppointment();
+        Survey GenerateSurveyForAppointment(int id);
         void ModifyGrade(int id, int grade);
     }
 }

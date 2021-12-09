@@ -6,3 +6,9 @@ export interface ISurvey {
     done: boolean;
     surveyCategories: ISurveyCategory[];
 }
+
+export interface ISurveyForAppointment{
+    id: number;
+    appointmentId: number;
+    done: boolean;
+}

@@ -1,5 +1,6 @@
 ﻿using Hospital.Mapper;
 using Hospital.Medical_records.Service;
+using Hospital.Schedule.Service;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
@@ -18,36 +19,42 @@ namespace Hospital_API.Controller
     {
 
         private readonly IAppointmentService appointmentService;
+        private ISurveyService surveyService;
+        private IDoctorService doctorService;
 
-        public AppointmentController(IAppointmentService _appointmentService)
+        public AppointmentController(IAppointmentService _appointmentService, ISurveyService _surveyService, IDoctorService _doctorService)
         {
             this.appointmentService = _appointmentService;
+            this.doctorService = _doctorService;
+            this.surveyService = _surveyService;
         }
 
-        [HttpGet("getAppointmetsByPatientId/{id?}")]
-        public IActionResult GetAppointmentsByPatientId(int patinetId)
+        [HttpGet("getAppointmentsByPatientId/{id?}")]
+        public IActionResult GetAppointmentsByPatientId(int id)
         {
-            if (patinetId < 0)
+            if (id < 0)
                 return BadRequest();
             //TODO PROVERA DA LI PACIJENT SA TI ID UOPSTE POSTOJI
             List<AppointmentDTO> allAppointments = new List<AppointmentDTO>();
-            appointmentService.getAppointmentsByPatientId(patinetId).ForEach(Appointment
-                => allAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment)));
+            appointmentService.getAppointmentsByPatientId(id).ForEach(Appointment
+                => allAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment, doctorService,surveyService)));
 
             return Ok(allAppointments);
         }
         
-        [HttpGet("cancelAppointment/{id?}")]
-        public IActionResult CancelAppointment(int appointmentId)
+        [HttpPut("cancelAppointment/{id?}")]
+        public IActionResult CancelAppointment(int id)
         {
-            if (appointmentId < 0)
-                return BadRequest();   
-            
-            if (appointmentService.GetOneById(appointmentId) == null)
+            if (id < 0)
+                return BadRequest();
+            Appointment appointment = appointmentService.GetOneById(id);
+            if (appointment == null)
                 return NotFound();
+            if (DateTime.Now > appointment.Date.AddDays(-2))
+                return BadRequest("Too late to cancel");
 
-            Appointment Appointment =  appointmentService.CancelAppointment(appointmentId);
-            return Ok(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment));
+            Appointment Appointment =  appointmentService.CancelAppointment(id);
+            return Ok(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment, doctorService,surveyService));
         }
     }
 

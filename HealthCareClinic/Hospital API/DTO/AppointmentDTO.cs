@@ -6,7 +6,7 @@
 
         public int PatientId { get; set; }
 
-        public int DoctorId { get; set; }
+        public DoctorDTO DoctorDTO { get; set; }
 
         public int RoomId { get; set; }
 
@@ -15,18 +15,18 @@
         public bool isDone { get; set; }
         public string Date { get; set; }
 
-        public int SurveyId { get; set; }
+        public SurveyDTOForAppointment SurveyDTO { get; set; }
 
-        public AppointmentDTO(int id, int patientId, int doctorId, int roomId, bool isCancelled, bool isDone, string date, int surveyId)
+        public AppointmentDTO(int id, int patientId, DoctorDTO doctoDTO, int roomId, bool isCancelled, bool isDone, string date, SurveyDTOForAppointment surveyDTO)
         {
             Id = id;
             PatientId = patientId;
-            DoctorId = doctorId;
+            DoctorDTO = doctoDTO;
             RoomId = roomId;
             this.isCancelled = isCancelled;
             this.isDone = isDone;
             Date = date;
-            SurveyId = surveyId;
+            SurveyDTO = surveyDTO;
         }
 
         public AppointmentDTO()
