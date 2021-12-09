@@ -27,7 +27,7 @@ namespace Hospital_API.Adapter
             return dto;
         }
 
-        public static AppointmentDTO AppointmentToAppointmentDTO(Appointment appointment, IDoctorService doctorService, ISurveyService surveyService)
+        public static AppointmentDTO AppointmentToAppointmentDTO(Appointment appointment)
         {
             AppointmentDTO dto = new AppointmentDTO();
 

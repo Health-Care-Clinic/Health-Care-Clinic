@@ -49,9 +49,9 @@ namespace HospitalIntegrationTests.Patient_portal
                     context.SaveChanges();
                 }
 
-                response.Value.ShouldBeAssignableTo<List<AppointmentDTO>>();
+                response.Value.ShouldBeAssignableTo<List<AppointmentDTOForMedicalRecord>>();
 
-                List<AppointmentDTO> appointmentDTOs = (List<AppointmentDTO>)response.Value;
+                List<AppointmentDTOForMedicalRecord> appointmentDTOs = (List<AppointmentDTOForMedicalRecord>)response.Value;
 
                 appointmentDTOs.Count.ShouldBeEquivalentTo(2);
 
@@ -85,8 +85,8 @@ namespace HospitalIntegrationTests.Patient_portal
                     context.SaveChanges();
                 }
 
-                response.Value.ShouldBeAssignableTo<AppointmentDTO>();
-                AppointmentDTO appointmentDTO = (AppointmentDTO)response.Value;
+                response.Value.ShouldBeAssignableTo<AppointmentDTOForMedicalRecord>();
+                AppointmentDTOForMedicalRecord appointmentDTO = (AppointmentDTOForMedicalRecord)response.Value;
                 appointmentDTO.isCancelled.ShouldBe(true);
             }
         }
