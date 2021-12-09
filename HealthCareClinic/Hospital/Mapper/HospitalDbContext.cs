@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using Hospital.Schedule.Model;
 using Hospital.Shared_model.Model;
 using Hospital.Rooms_and_equipment.Model;
@@ -493,7 +493,7 @@ namespace Hospital.Mapper
                     Id = 2,
                     Name = "Marko",
                     Surname = "Radic",
-                    Gender ="male",
+                    Gender = "male",
                     BirthDate = new System.DateTime(1986, 04, 06),
                     Salary = 80000.0,
                     Address = "Bogoboja Atanackovica 5",

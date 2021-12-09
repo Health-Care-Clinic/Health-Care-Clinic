@@ -11,11 +11,12 @@ import { ISurveyQuestion } from './survey-question';
 export class SurveyService{
     private _surveyUrl = '/api/survey/';
     private questions: ISurveyQuestion[] = []
+    public appointmentId!: number;
 
     constructor(private _http : HttpClient){}
 
-    getSurvey() : Observable<ISurvey>{
-        return this._http.get<ISurvey>(this._surveyUrl + 'new')
+    getSurvey(id: number) : Observable<ISurvey>{
+        return this._http.get<ISurvey>(this._surveyUrl + 'new/'+ id)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
     }
@@ -35,5 +36,4 @@ export class SurveyService{
         console.log(err.message);
         return throwError(err.message);
     }
-
 }

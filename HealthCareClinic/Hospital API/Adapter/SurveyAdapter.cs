@@ -18,14 +18,23 @@ namespace Hospital_API.Adapter
             dto.AppointmentId = survey.AppointmentId;
             dto.SurveyCategories = new List<SurveyCategoryDTO>();
 
-            List<SurveyCategory> cat = (List<SurveyCategory>)survey.SurveyCategories;
+            List<SurveyCategory> cat = survey.SurveyCategories.ToList();
             foreach (SurveyCategory c in cat)
                 dto.SurveyCategories.Add(SurveyCategoryToDto(c));
 
             return dto;
         }
+        public static SurveyDTOForAppointment SurveyToSurveyDtoForAppointment(Survey survey)
+        {
+            SurveyDTOForAppointment dto = new SurveyDTOForAppointment();
+            dto.Id = survey.Id;
+            dto.Done = survey.Done;
+            dto.AppointmentId = survey.AppointmentId;
 
-        public static SurveyCategoryDTO SurveyCategoryToDto(SurveyCategory category)
+            return dto;
+
+        }
+            public static SurveyCategoryDTO SurveyCategoryToDto(SurveyCategory category)
         {
             SurveyCategoryDTO dto = new SurveyCategoryDTO();
             dto.Id = category.Id;
@@ -33,7 +42,7 @@ namespace Hospital_API.Adapter
             dto.SurveyId = category.Survey.Id;
             dto.SurveyQuestions = new List<SurveyQuestionDTO>();
 
-            List<SurveyQuestion> ques = (List<SurveyQuestion>)category.SurveyQuestions;
+            List<SurveyQuestion> ques = category.SurveyQuestions.ToList();
             foreach (SurveyQuestion q in ques)
                 dto.SurveyQuestions.Add(SurveyQuestionToDto(q));
 

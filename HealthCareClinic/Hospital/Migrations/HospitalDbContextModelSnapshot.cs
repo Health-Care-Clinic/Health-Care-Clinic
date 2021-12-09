@@ -1956,7 +1956,8 @@ namespace Hospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId");
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
 
                     b.ToTable("Surveys");
 
@@ -3509,7 +3510,7 @@ namespace Hospital.Migrations
                             Id = 9,
                             Date = new DateTime(2022, 2, 22, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 1,
-                            PatientId = 1,
+                            PatientId = 8,
                             RoomId = 1,
                             SurveyId = 9,
                             isCancelled = false,

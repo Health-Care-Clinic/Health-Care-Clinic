@@ -11,8 +11,11 @@ using System.Text;
 using Xunit;
 using Shouldly;
 using Hospital_API.DTO;
+using Hospital.Schedule.Repository;
 using Hospital.Medical_records.Repository;
+using Hospital.Schedule.Service;
 using Hospital.Medical_records.Service;
+using Hospital.Schedule.Model;
 
 namespace HospitalIntegrationTests.Patient_portal
 {
@@ -31,9 +34,12 @@ namespace HospitalIntegrationTests.Patient_portal
                 DoctorRepository doctorRepository = new DoctorRepository(context);
                 DoctorService doctorService = new DoctorService(doctorRepository);
 
-                AppointmentController appointmentController = new AppointmentController(appointmentService, doctorService);
+                SurveyRepository surveyRepository = new SurveyRepository(context);
+                SurveyService surveyService = new SurveyService(surveyRepository);
 
-                int PatientId = 10;
+                AppointmentController appointmentController = new AppointmentController(appointmentService,surveyService, doctorService);
+
+                int PatientId = 8;
 
                 var response = appointmentController.GetAppointmentsByPatientId(PatientId) as OkObjectResult;
 
@@ -43,9 +49,9 @@ namespace HospitalIntegrationTests.Patient_portal
                     context.SaveChanges();
                 }
 
-                response.Value.ShouldBeAssignableTo<List<AppointmentDTO>>();
+                response.Value.ShouldBeAssignableTo<List<AppointmentDTOForMedicalRecord>>();
 
-                List<AppointmentDTO> appointmentDTOs = (List<AppointmentDTO>)response.Value;
+                List<AppointmentDTOForMedicalRecord> appointmentDTOs = (List<AppointmentDTOForMedicalRecord>)response.Value;
 
                 appointmentDTOs.Count.ShouldBeEquivalentTo(2);
 
@@ -64,7 +70,10 @@ namespace HospitalIntegrationTests.Patient_portal
                 DoctorRepository doctorRepository = new DoctorRepository(context);
                 DoctorService doctorService = new DoctorService(doctorRepository);
 
-                AppointmentController appointmentController = new AppointmentController(appointmentService, doctorService);
+                SurveyRepository surveyRepository = new SurveyRepository(context);
+                SurveyService surveyService = new SurveyService(surveyRepository);
+
+                AppointmentController appointmentController = new AppointmentController(appointmentService, surveyService, doctorService);
 
                 int AppointmentId = 2;
 
@@ -76,8 +85,8 @@ namespace HospitalIntegrationTests.Patient_portal
                     context.SaveChanges();
                 }
 
-                response.Value.ShouldBeAssignableTo<AppointmentDTO>();
-                AppointmentDTO appointmentDTO = (AppointmentDTO)response.Value;
+                response.Value.ShouldBeAssignableTo<AppointmentDTOForMedicalRecord>();
+                AppointmentDTOForMedicalRecord appointmentDTO = (AppointmentDTOForMedicalRecord)response.Value;
                 appointmentDTO.isCancelled.ShouldBe(true);
             }
         }
@@ -95,8 +104,8 @@ namespace HospitalIntegrationTests.Patient_portal
                 {
                     Id = 1,
                     DoctorId = 1,
-                    PatientId = 10,
-                    Date = new System.DateTime(2021, 07, 11, 10, 0, 0),
+                    PatientId = 8,
+                    Date = new System.DateTime(2022, 12, 10, 10, 0, 0),
                     SurveyId = 1,
                     RoomId = 1,
                     isCancelled = false,
@@ -106,16 +115,20 @@ namespace HospitalIntegrationTests.Patient_portal
                 {
                     Id = 2,
                     DoctorId = 2,
-                    PatientId = 10,
-                    Date = new System.DateTime(2021, 12, 11, 10, 0, 0),
+                    PatientId = 8,
+                    Date = new System.DateTime(2022, 12, 11, 10, 0, 0),
                     SurveyId = 2,
                     RoomId = 2,
                     isCancelled = false,
                     isDone = false
                 };
+                Survey survey1 = new Survey { Id = 1, Done = true, SurveyCategories = new List<SurveyCategory>(), AppointmentId = 1 };
+                Survey survey2 =  new Survey { Id = 2, Done = false, SurveyCategories = new List<SurveyCategory>(), AppointmentId = 2 };
 
                 context.Appointments.Add(appointment1);
                 context.Appointments.Add(appointment2);
+                context.Surveys.Add(survey1);
+                context.Surveys.Add(survey2);
 
                 context.SaveChanges();
             }
