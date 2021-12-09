@@ -11,6 +11,8 @@ using System.Text;
 using Xunit;
 using Shouldly;
 using Hospital_API.DTO;
+using Hospital.Medical_records.Repository;
+using Hospital.Medical_records.Service;
 
 namespace HospitalIntegrationTests.Patient_portal
 {
@@ -26,7 +28,10 @@ namespace HospitalIntegrationTests.Patient_portal
                 AppointmentRepository appointmentRepository = new AppointmentRepository(context);
                 AppointmentService appointmentService = new AppointmentService(appointmentRepository);
 
-                AppointmentController appointmentController = new AppointmentController(appointmentService);
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                DoctorService doctorService = new DoctorService(doctorRepository);
+
+                AppointmentController appointmentController = new AppointmentController(appointmentService, doctorService);
 
                 int PatientId = 10;
 
@@ -56,7 +61,10 @@ namespace HospitalIntegrationTests.Patient_portal
                 AppointmentRepository appointmentRepository = new AppointmentRepository(context);
                 AppointmentService appointmentService = new AppointmentService(appointmentRepository);
 
-                AppointmentController appointmentController = new AppointmentController(appointmentService);
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                DoctorService doctorService = new DoctorService(doctorRepository);
+
+                AppointmentController appointmentController = new AppointmentController(appointmentService, doctorService);
 
                 int AppointmentId = 2;
 

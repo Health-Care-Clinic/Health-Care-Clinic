@@ -7,8 +7,10 @@ using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Hospital_API.Controller
 {
@@ -20,10 +22,6 @@ namespace Hospital_API.Controller
         private readonly IAppointmentService appointmentService;
         private readonly IDoctorService doctorService;
 
-        public AppointmentController(IAppointmentService _appointmentService)
-        {
-            this.appointmentService = _appointmentService;
-        }
         public AppointmentController(IAppointmentService _appointmentService, IDoctorService _doctorService)
         {
             this.appointmentService = _appointmentService;
@@ -81,6 +79,15 @@ namespace Hospital_API.Controller
             appointmentService.AddAppointment(app);
 
             return Ok();
+        }
+
+        [HttpGet("getRoomAppointments/{id?}")]
+        public IActionResult GetRoomAppointments(int id)
+        {
+            List<AppointmentDTO> roomAppointments = new List<AppointmentDTO>();
+            appointmentService.GetRoomAppointments(id).ToList().ForEach(Appointment
+                => roomAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment)));
+            return Ok(roomAppointments);
         }
     }
 
