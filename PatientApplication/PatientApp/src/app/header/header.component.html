@@ -4,6 +4,11 @@
     <button mat-button [routerLink]="['survey']">Survey</button>
     <button mat-button (click)="goToFeedbackForm()">Create feedback</button>
     <button mat-button (click)="goToMedicalRecord()">Medical record</button>
+    <button mat-button [matMenuTriggerFor]="menu">Schedule appointment</button>
+        <mat-menu #menu="matMenu">
+        <button mat-menu-item >Standard scheduling</button>
+        <button mat-menu-item [routerLink]="['recommendation-scheduling']">Recommendation scheduling</button>
+        </mat-menu>
     <span class="example-spacer"></span>
     <button mat-button (click)="goToRegistrationForm()">Register</button>
     <button mat-raised-button>Log in</button>
