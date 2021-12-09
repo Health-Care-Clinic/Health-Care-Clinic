@@ -16,7 +16,7 @@ using Xunit;
 
 namespace HospitalIntegrationTests.Patient_portal
 {
-    public class RecommendationDoctorSchedulingTests
+    public class SchedulingByRecommendationTests
     {
         [Fact]
         public void Get_all_doctors()
@@ -86,6 +86,42 @@ namespace HospitalIntegrationTests.Patient_portal
             }
         }
 
+        [Fact]
+        public void Get_free_terms_for_date_range()
+        {
+            var options = CreateStubDatabase();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                DoctorService doctorService = new DoctorService(doctorRepository);
+
+                AppointmentController appointmentController = new AppointmentController(appointmentService, doctorService);
+
+                OkObjectResult result = appointmentController.GetAvailableTermsForDateRange(1, "2022-02-22T00:00:00", "2022-02-24T00:00:00") as OkObjectResult;
+                List<string> availableTerms = result.Value as List<string>;
+
+                foreach (Doctor doctor in context.Doctors)
+                {
+                    context.Doctors.Remove(doctor);
+                    context.SaveChanges();
+                }
+
+                foreach (Appointment appointment in context.Appointments)
+                {
+                    context.Appointments.Remove(appointment);
+                    context.SaveChanges();
+                }
+
+                Assert.IsType<List<string>>(availableTerms);
+                Assert.Equal(25, availableTerms.Count);
+                Assert.Equal(PatientAdapter.ConvertToString(new DateTime(2022, 2, 24, 12, 30, 0)), 
+                    availableTerms[availableTerms.Count - 1]);
+            }
+        }
 
         private DbContextOptions<HospitalDbContext> CreateStubDatabase()
         {
