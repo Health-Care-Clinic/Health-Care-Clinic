@@ -12,5 +12,6 @@ namespace Hospital.Shared_model.Service
         public Appointment CancelAppointment(int appointmentId);
         public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate);
         public void AddAppointment(Appointment app);
+        public List<Appointment> GetRoomAppointments(int id);
     }
 }

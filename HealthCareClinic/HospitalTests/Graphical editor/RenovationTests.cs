@@ -2,6 +2,8 @@
 using Hospital.Rooms_and_equipment.Model;
 using Hospital.Rooms_and_equipment.Repository;
 using Hospital.Rooms_and_equipment.Service;
+using Hospital_API.Controller;
+using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -95,11 +97,13 @@ namespace HospitalUnitTests.Graphical_editor
                 RenovationRepository renovationRepository = new RenovationRepository(context);
                 TransferRepository transferRepository = new TransferRepository(context);
                 RenovationService renovationService = new RenovationService(renovationRepository, transferRepository);
+                RenovationController renovationController = new RenovationController(renovationService);
 
-                List<Renovation> roomRenovations = renovationService.GetRoomRenovations(roomId);
+                OkObjectResult renovationsResponse = renovationController.GetRoomRenovations(roomId) as OkObjectResult;
+                List<RenovationDTO> renovations = renovationsResponse.Value as List<RenovationDTO>;
                 ClearStubRepository(context);
 
-                Assert.Equal(roomRenovationsCount, roomRenovations.Count);
+                Assert.Equal(roomRenovationsCount, renovations.Count);
             }
         }
 

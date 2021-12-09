@@ -8,12 +8,14 @@ import { Room, TypeOfRoom } from '../model/room';
 import { Equipment } from '../model/equipment';
 import { Transfer } from '../model/transfer';
 import { Renovation } from '../model/renovation';
+import { Appointment } from '../model/appointment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HospitalMapService {
 
+  private roomAppointmentsGet: string;
   private buildingsGet: string;
   private buildingGetById: string;
   private floorsGet: string;
@@ -42,6 +44,7 @@ export class HospitalMapService {
   constructor(private _http: HttpClient) {
     this.roomTransfersGet = '/api/transfer/getRoomTransfers'
     this.roomRenovationsGet = '/api/renovation/getRoomRenovations'
+    this.roomAppointmentsGet = '/api/appointment/getRoomAppointments'
     this.buildingGetById = '/api/building/getBuildingById';
     this.buildingsGet = '/api/building/getBuildings';
     this.floorsGet = '/api/floor/getFloors';
@@ -94,6 +97,12 @@ export class HospitalMapService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Transfer>>(this.roomTransfersGet + "/" + roomId, {headers: headers});
+  }
+
+  public getRoomAppointments(roomId: number): Observable<Array<Appointment>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Appointment>>(this.roomAppointmentsGet + "/" + roomId, {headers: headers});
   }
 
   public getRoomRenovations(roomId: number): Observable<Array<Renovation>> {
