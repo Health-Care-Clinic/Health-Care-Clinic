@@ -36,6 +36,7 @@ export class MedicineSpecificationsComponent implements OnInit {
   }
 
   openPdf(): void {
+    //window.open("../../../assets/" + this.fileName + ".pdf", '_blank');
     window.open("../../../assets/brufen.pdf", '_blank');
   }
 }

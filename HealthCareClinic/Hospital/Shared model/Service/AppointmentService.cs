@@ -15,13 +15,13 @@ namespace Hospital.Shared_model.Service
             this.appointmentRepository = _appointmentRepository;
         }
         public void Add(Appointment entity)
-        {
+        {            
             throw new NotImplementedException();
         }
 
         public IEnumerable<Appointment> GetAll()
         {
-            throw new NotImplementedException();
+            return appointmentRepository.GetAll();
         }
 
         public Appointment GetOneById(int id)
@@ -42,6 +42,27 @@ namespace Hospital.Shared_model.Service
         public Appointment CancelAppointment(int appointmentId)
         {
            return appointmentRepository.CancelAppointment(appointmentId);
+        }
+
+        public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate)
+        {
+            return appointmentRepository.GetAvailableTermsForDoctor(doctor, fromDate, toDate);
+        }
+
+        public void AddAppointment(Appointment app)
+        {
+            appointmentRepository.AddAppointment(app);
+        }
+
+        public List<Appointment> GetRoomAppointments(int id)
+        {
+            List<Appointment> roomAppointments = new List<Appointment>();
+            foreach (Appointment appointment in GetAll())
+            {
+                if (appointment.RoomId == id && !appointment.isDone)
+                    roomAppointments.Add(appointment);
+            }
+            return roomAppointments;
         }
     }
 }

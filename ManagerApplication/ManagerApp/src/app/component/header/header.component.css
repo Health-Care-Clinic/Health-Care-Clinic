@@ -6,8 +6,12 @@
 }
 
 .example-spacer {
-    flex: 1 1 auto;
-  }
+    flex: 1 1 1;
+}
+  
+.example-spacer-notification {
+    flex: auto 1 1;
+}
 
 span {
     padding-right: 1rem;

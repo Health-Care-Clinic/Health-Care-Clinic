@@ -7,12 +7,15 @@ import { Floor } from '../model/floor';
 import { Room, TypeOfRoom } from '../model/room';
 import { Equipment } from '../model/equipment';
 import { Transfer } from '../model/transfer';
+import { Renovation } from '../model/renovation';
+import { Appointment } from '../model/appointment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HospitalMapService {
 
+  private roomAppointmentsGet: string;
   private buildingsGet: string;
   private buildingGetById: string;
   private floorsGet: string;
@@ -30,8 +33,18 @@ export class HospitalMapService {
   private transfersGet: string;
   private addNewTransfer: string;
   private checkFreeTransfersUrl: string;
+  private checkRooms: string;
+  private roomTransfersGet: string;
+  private roomRenovationsGet: string;
+  private isTransferCancellable: string;
+  private cancelTransfer: string
+  private isRenovationCancellable: string;
+  private cancelRenovation: string;
 
   constructor(private _http: HttpClient) {
+    this.roomTransfersGet = '/api/transfer/getRoomTransfers'
+    this.roomRenovationsGet = '/api/renovation/getRoomRenovations'
+    this.roomAppointmentsGet = '/api/appointment/getRoomAppointments'
     this.buildingGetById = '/api/building/getBuildingById';
     this.buildingsGet = '/api/building/getBuildings';
     this.floorsGet = '/api/floor/getFloors';
@@ -49,6 +62,53 @@ export class HospitalMapService {
     this.transfersGet = '/api/transfer/getAllTransfers';
     this.addNewTransfer = '/api/transfer/addNewTransfer';
     this.checkFreeTransfersUrl = '/api/transfer/checkFreeTransfers';
+    this.checkRooms = '/api/room/isFirstRoomNextToSecond';
+    this.isTransferCancellable = '/api/transfer/checkIfTransferCancellable';
+    this.isRenovationCancellable = '/api/renovation/checkIfRenovationCancellable';
+    this.cancelTransfer = '/api/transfer/cancelTransfer';
+    this.cancelRenovation = '/api/renovation/cancelRenovation';
+  }
+
+  public deleteCancelledTransfer(transfer: Transfer):Observable<Transfer> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<Transfer>(this.cancelTransfer, transfer, {headers: headers});
+  }
+
+  public deleteCancelledRenovation(renovation: Renovation):Observable<Renovation> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<Renovation>(this.cancelRenovation, renovation, {headers: headers});
+  }
+
+  public checkIfTransferCancellable(transferId: number): Observable<Boolean> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Boolean>(this.isTransferCancellable + "/" + transferId, {headers: headers});
+  }
+
+  public checkIfRenovationCancellable(renovationId: number): Observable<Boolean> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Boolean>(this.isRenovationCancellable + "/" + renovationId, {headers: headers});
+  }
+
+  public getRoomTransfers(roomId: number): Observable<Array<Transfer>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Transfer>>(this.roomTransfersGet + "/" + roomId, {headers: headers});
+  }
+
+  public getRoomAppointments(roomId: number): Observable<Array<Appointment>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Appointment>>(this.roomAppointmentsGet + "/" + roomId, {headers: headers});
+  }
+
+  public getRoomRenovations(roomId: number): Observable<Array<Renovation>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Renovation>>(this.roomRenovationsGet + "/" + roomId, {headers: headers});
   }
 
   public getBuildings(): Observable<Array<Building>> {
@@ -149,5 +209,11 @@ export class HospitalMapService {
   public checkFreeTransfers(transfer:Transfer): Observable<Array<Date>> {
     return this._http.post<Array<Date>>(this.checkFreeTransfersUrl, transfer);
   } 
+
+  public IsFirstRoomNextToSecond(id1:number, id2:number): Observable<Boolean> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Boolean>(this.checkRooms + "/"+ id1 + "/" + id2, {headers: headers});
+  }
  
 }

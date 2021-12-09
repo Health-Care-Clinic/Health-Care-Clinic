@@ -8,8 +8,10 @@ using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Hospital_API.Controller
 {
@@ -35,9 +37,9 @@ namespace Hospital_API.Controller
             if (id < 0)
                 return BadRequest();
             //TODO PROVERA DA LI PACIJENT SA TI ID UOPSTE POSTOJI
-            List<AppointmentDTO> allAppointments = new List<AppointmentDTO>();
+            List<AppointmentDTOForMedicalRecord> allAppointments = new List<AppointmentDTOForMedicalRecord>();
             appointmentService.getAppointmentsByPatientId(id).ForEach(Appointment
-                => allAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment, doctorService,surveyService)));
+                => allAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTOForMedicalRecord(Appointment, doctorService,surveyService)));
 
             return Ok(allAppointments);
         }
@@ -54,7 +56,43 @@ namespace Hospital_API.Controller
                 return BadRequest("Too late to cancel");
 
             Appointment Appointment =  appointmentService.CancelAppointment(id);
-            return Ok(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment, doctorService,surveyService));
+            return Ok(AppointmentAdapter.AppointmentToAppointmentDTOForMedicalRecord(Appointment, doctorService,surveyService));
+        }
+
+        [HttpPost("freeTermsForDoctor")]
+        public IActionResult GetAvailableTermsForDoctor(int doctorId, string from, string to)
+        {
+            DateTime fromDate = PatientAdapter.ConvertToDate(from);
+            DateTime toDate = PatientAdapter.ConvertToDate(to);
+            if (doctorId < 0)
+                return BadRequest();
+            if (toDate < fromDate)
+                return BadRequest();
+
+            List<string> availableTerms = new List<string>();
+            foreach (DateTime term in appointmentService.GetAvailableTermsForDoctor(doctorService.GetOneById(doctorId), fromDate, toDate))
+                availableTerms.Add(PatientAdapter.ConvertToString(term));
+
+            return Ok(availableTerms);
+        }
+
+        [HttpPost("createAppointment")]
+        public IActionResult CreateAppointment(AppointmentDTO appDto)
+        {
+            Appointment app = AppointmentAdapter.AppointmentDtoToAppointment(appDto);
+
+            appointmentService.AddAppointment(app);
+
+            return Ok();
+        }
+
+        [HttpGet("getRoomAppointments/{id?}")]
+        public IActionResult GetRoomAppointments(int id)
+        {
+            List<AppointmentDTO> roomAppointments = new List<AppointmentDTO>();
+            appointmentService.GetRoomAppointments(id).ToList().ForEach(Appointment
+                => roomAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment)));
+            return Ok(roomAppointments);
         }
     }
 

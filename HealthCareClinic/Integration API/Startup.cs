@@ -51,6 +51,9 @@ namespace Integration_API
             services.AddScoped<IPharmacyPromotionService, PharmacyPromotionService>();
             services.AddScoped<IMedConsumptionRepository, MedConsumptionRepository>();
             services.AddScoped<IMedConsumptionService, MedConsumptionService>();
+            services.AddScoped<IPrescriptionService, PrescriptionService>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<INotificationService, NotificationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,7 +79,7 @@ namespace Integration_API
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .SetIsOriginAllowed(origin => true)
-                    .AllowCredentials()); 
+                    .AllowCredentials());
 
         }
     }

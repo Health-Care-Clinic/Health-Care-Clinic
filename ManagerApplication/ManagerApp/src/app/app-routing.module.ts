@@ -14,6 +14,8 @@ import { MedicineSpecificationsComponent } from './medicine-specifications/medic
 import { ConsumptionReportComponent } from './consumption-report/consumption-report.component';
 import { MaliciousPatientsComponent } from './component/malicious-patients/malicious-patients.component';
 import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
+import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -21,6 +23,7 @@ const routes: Routes = [
   { path: 'feedback-view', component: FeedbackViewComponent},
   { path: 'survey-observation', component: SurveyObservationComponent},
   { path: 'promotions', component: PharmacyPromotionsComponent},
+  { path: 'notifications', component: NotificationsComponent},
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
   { path: 'hospital-map', component: HospitalMapComponent },
@@ -33,7 +36,8 @@ const routes: Routes = [
   { path: 'specifications', component: MedicineSpecificationsComponent },
   { path: 'consumption-report', component: ConsumptionReportComponent },
   { path: 'malicious-patients', component: MaliciousPatientsComponent },
-  { path: 'renovation', component: RenovationRoomsComponent }
+  { path: 'renovation', component: RenovationRoomsComponent },
+  { path: 'room-schedule/:idr', component: RoomScheduleComponent }
 ];
 
 @NgModule({

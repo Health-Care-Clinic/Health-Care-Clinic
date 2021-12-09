@@ -104,6 +104,30 @@ namespace Integration.Migrations
                     b.ToTable("Medicines");
                 });
 
+            modelBuilder.Entity("Integration.Notifications.Model.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("Seen")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notification");
+                });
+
             modelBuilder.Entity("Integration.Pharmacy.Model.Feedback", b =>
                 {
                     b.Property<int>("Id")
@@ -154,38 +178,7 @@ namespace Integration.Migrations
 
                     b.ToTable("FeedbackReplies");
                 });
-            
-            modelBuilder.Entity("Integration.Pharmacy.Model.PharmacyPromotion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Content")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("PharmacyName")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("Posted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PharmacyPromotions");
-                });
-
-                
             modelBuilder.Entity("Integration.Pharmacy.Model.MedicationConsumption", b =>
                 {
                     b.Property<int>("Id")
@@ -204,7 +197,7 @@ namespace Integration.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MedicationConsumptions");
+                    b.ToTable("MedicationConsumption");
 
                     b.HasData(
                         new
@@ -249,6 +242,36 @@ namespace Integration.Migrations
                             Date = new DateTime(2021, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Andol"
                         });
+                });
+
+            modelBuilder.Entity("Integration.Pharmacy.Model.PharmacyPromotion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("PharmacyName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Posted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PharmacyPromotions");
                 });
 #pragma warning restore 612, 618
         }

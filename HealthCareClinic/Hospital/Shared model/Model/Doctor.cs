@@ -7,22 +7,25 @@ namespace Hospital.Shared_model.Model
 {
     public class Doctor : Employee
     {
-        public DateTime VacationTimeStart { get; set; }
-        public virtual WorkDayShift WorkShift { get; set; }
+        //public DateTime VacationTimeStart { get; set; }
+        //public virtual WorkDayShift WorkShift { get; set; }     //bolnica radi od 7h do 19h - prva smena je od 7h-13h, a druga od 13h-19h
+        public WorkDayShift WorkShift { get; set; }     //bolnica radi od 7h do 19h - prva smena je od 7h-13h, a druga od 13h-19h
 
-        [ForeignKey("Specialty")]
-        public int SpecialtyId { get; set; }
-        public virtual Specialty Specialty { get; set; }
+        //[ForeignKey("Specialty")]
+        //public int SpecialtyId { get; set; }
+        //public virtual Specialty Specialty { get; set; }
+        public String Specialty { get; set; }     //da ovo izmenimo
         public virtual ICollection<Day> DaysOff { get; set; } = new List<Day>();
+        //public virtual ICollection<DateTime> DaysOff { get; set; } = new List<DateTime>();      //ovo nam ne treba trenutno
         public int PrimaryRoom { get; set; }
         public Doctor()
         { }
 
         public Doctor(int id, string name, string surname, string gender, DateTime birthDate, double salary, string address, string phone,
-            string email, string username, string password, DateTime employmentDate, ICollection<WorkDay> workDay, Specialty spec, int primaryRoom) : base(id, name, surname, gender, birthDate, salary, address, phone,
+            string email, string username, string password, DateTime employmentDate, ICollection<WorkDay> workDay, string spec, int primaryRoom) : base(id, name, surname, gender, birthDate, salary, address, phone,
             email, username, password, employmentDate,  workDay)
         {
-            this.SpecialtyId = spec.SpecialtyId;
+            //this.SpecialtyId = spec.SpecialtyId;
             this.Specialty = spec;
             this.PrimaryRoom = primaryRoom;
         }

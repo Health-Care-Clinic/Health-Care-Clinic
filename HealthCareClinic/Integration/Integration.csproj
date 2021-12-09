@@ -24,6 +24,8 @@
   <ItemGroup>
     <Folder Include="ApiKeys\Repository\" />
     <Folder Include="ApiKeys\Service\" />
+    <Folder Include="Notifications\Repository\" />
+    <Folder Include="Notifications\Service\" />
     <Folder Include="Partnership\Model\" />
     <Folder Include="Partnership\Service\" />
     <Folder Include="Partnership\Repository\" />

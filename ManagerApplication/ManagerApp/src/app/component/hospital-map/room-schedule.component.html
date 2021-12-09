@@ -1,0 +1,72 @@
+<div id="tableDiv">
+    <select (change)='OnOptionSelected($event)'>
+        <option value="Transfers">Transfers</option>
+        <option value="Renovations">Renovations</option>
+        <option value="Appointments">Appointments</option>
+    </select>
+    <div style="height: 30px;"></div>
+    <table *ngIf="selectedOption === 'Transfers'" style="border: 1px solid black;width: 100%;">
+        <thead style="background-color: #d3955f;">
+            <tr>
+                <th style="border: 1px solid black;"><b>Equipment</b></th>
+                <th style="border: 1px solid black;"><b>Quantity</b></th>
+                <th style="border: 1px solid black;"><b>Source room</b></th>
+                <th style="border: 1px solid black;"><b>Destination room</b></th>
+                <th style="border: 1px solid black;"><b>Date</b></th>
+                <th style="border: 1px solid black;"><b>Duration</b></th>
+            </tr>
+        </thead>
+        <tbody style="background-color: #52DEE5;">
+            <tr *ngFor="let transfer of transfers;let i = index;">
+                <td style="border: 1px solid black;"><b>{{transfer.equipment}}</b></td>
+                <td style="border: 1px solid black;"><b>{{transfer.quantity}}</b></td>
+                <td style="border: 1px solid black;"><b>{{transfer.sourceRoomId}}</b></td>
+                <td style="border: 1px solid black;"><b>{{transfer.destinationRoomId}}</b></td>
+                <td style="border: 1px solid black;"><b>{{transfer.date | date:'dd.MM.yyyy hh:mm'}}</b></td>
+                <td style="border: 1px solid black;"><b>{{transfer.duration}} min</b></td>
+                <td *ngIf="transfersCancellable[i]" (click)="cancelTransfer(transfer.id)" style="border: 1px solid black;"><b>Cancel</b></td>
+                <td *ngIf="!transfersCancellable[i]" style="border: 1px solid black;"><b>-</b></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table *ngIf="selectedOption === 'Renovations'" style="border: 1px solid black;width: 100%;">
+        <thead style="background-color: #d3955f;">
+            <tr>
+                <th style="border: 1px solid black;"><b>Type</b></th>
+                <th style="border: 1px solid black;"><b>First room</b></th>
+                <th style="border: 1px solid black;"><b>Second room</b></th>
+                <th style="border: 1px solid black;"><b>Date</b></th>
+                <th style="border: 1px solid black;"><b>Duration</b></th>
+            </tr>
+        </thead>
+        <tbody style="background-color: #52DEE5;">
+            <tr *ngFor="let renovation of renovations;let i = index;">
+                <td *ngIf="renovation.type === 0" style="border: 1px solid black;"><b>Divide</b></td>
+                <td *ngIf="renovation.type === 1" style="border: 1px solid black;"><b>Merge</b></td>
+                <td style="border: 1px solid black;"><b>{{renovation.firstRoomId}}</b></td>
+                <td *ngIf="renovation.type === 0" style="border: 1px solid black;"><b>-</b></td>
+                <td *ngIf="renovation.type === 1" style="border: 1px solid black;"><b>{{renovation.secondRoomId}}</b></td>
+                <td style="border: 1px solid black;"><b>{{renovation.date | date:'dd.MM.yyyy hh:mm'}}</b></td>
+                <td style="border: 1px solid black;"><b>{{renovation.duration}} days</b></td>
+                <td *ngIf="renovationsCancellable[i]" (click)="cancelRenovation(renovation.id)" style="border: 1px solid black;"><b>Cancel</b></td>
+                <td *ngIf="!renovationsCancellable[i]" style="border: 1px solid black;"><b>-</b></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table *ngIf="selectedOption === 'Appointments'" style="border: 1px solid black;width: 100%;">
+        <thead style="background-color: #d3955f;">
+            <tr>
+                <th style="border: 1px solid black;"><b>Date</b></th>
+                <th style="border: 1px solid black;"><b>Duration</b></th>
+            </tr>
+        </thead>
+        <tbody style="background-color: #52DEE5;">
+            <tr *ngFor="let appointment of appointments;let i = index;">
+                <td style="border: 1px solid black;"><b>{{appointment.date | date:'dd.MM.yyyy hh:mm'}}</b></td>
+                <td style="border: 1px solid black;"><b>30 min</b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
