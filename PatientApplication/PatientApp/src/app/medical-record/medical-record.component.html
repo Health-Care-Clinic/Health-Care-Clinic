@@ -192,5 +192,14 @@
         </mat-list>
         
     </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">local_hospital</mat-icon>
+            Appointments info
+        </ng-template>
+        <app-appointments 
+            [id] = "patientModel.id"></app-appointments >      
+        
+    </mat-tab>
 </mat-tab-group>
 

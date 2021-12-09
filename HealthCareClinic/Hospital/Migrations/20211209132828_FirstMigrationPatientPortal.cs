@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
-    public partial class PatientPortalFirstMigration : Migration
+    public partial class FirstMigrationPatientPortal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,7 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Appointment",
+                name: "Appointments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -37,7 +37,7 @@ namespace Hospital.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Appointment", x => x.Id);
+                    table.PrimaryKey("PK_Appointments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,7 +175,7 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Survey",
+                name: "Surveys",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -185,11 +185,11 @@ namespace Hospital.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Survey", x => x.Id);
+                    table.PrimaryKey("PK_Surveys", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Survey_Appointment_AppointmentId",
+                        name: "FK_Surveys_Appointments_AppointmentId",
                         column: x => x.AppointmentId,
-                        principalTable: "Appointment",
+                        principalTable: "Appointments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -228,7 +228,7 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SurveyCategory",
+                name: "SurveyCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -238,11 +238,11 @@ namespace Hospital.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SurveyCategory", x => x.Id);
+                    table.PrimaryKey("PK_SurveyCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SurveyCategory_Survey_SurveyId",
+                        name: "FK_SurveyCategories_Surveys_SurveyId",
                         column: x => x.SurveyId,
-                        principalTable: "Survey",
+                        principalTable: "Surveys",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -325,7 +325,7 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SurveyQuestion",
+                name: "SurveyQuestions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -336,11 +336,11 @@ namespace Hospital.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SurveyQuestion", x => x.Id);
+                    table.PrimaryKey("PK_SurveyQuestions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SurveyQuestion_SurveyCategory_SurveyCategoryId",
+                        name: "FK_SurveyQuestions_SurveyCategories_SurveyCategoryId",
                         column: x => x.SurveyCategoryId,
-                        principalTable: "SurveyCategory",
+                        principalTable: "SurveyCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -382,9 +382,9 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Appointment",
+                table: "Appointments",
                 columns: new[] { "Id", "Date", "DoctorId", "PatientId", "RoomId", "SurveyId", "isCancelled", "isDone" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 0, false, false });
+                values: new object[] { 1, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 8, 1, 1, false, false });
 
             migrationBuilder.InsertData(
                 table: "Buildings",
@@ -624,9 +624,9 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Survey",
+                table: "Surveys",
                 columns: new[] { "Id", "AppointmentId", "Done" },
-                values: new object[] { 1, 1, true });
+                values: new object[] { 1, 1, false });
 
             migrationBuilder.InsertData(
                 table: "Patients",
@@ -644,7 +644,7 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "SurveyCategory",
+                table: "SurveyCategories",
                 columns: new[] { "Id", "Name", "SurveyId" },
                 values: new object[,]
                 {
@@ -654,25 +654,25 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "SurveyQuestion",
+                table: "SurveyQuestions",
                 columns: new[] { "Id", "Content", "Grade", "SurveyCategoryId" },
                 values: new object[,]
                 {
-                    { 1, "How careful did doctor listen you?", 1, 1 },
-                    { 2, "Has doctor been polite?", 3, 1 },
-                    { 3, "Has he explained you your condition enough that you can understand it?", 4, 1 },
-                    { 4, "How would you rate doctors' professionalism?", 5, 1 },
-                    { 5, "Your general grade for doctors' service", 3, 1 },
-                    { 6, "How much our medical staff were polite?", 2, 2 },
-                    { 7, "How would you rate time span that you spend waiting untill doctor attended you?", 3, 2 },
-                    { 8, "How prepared were stuff for emergency situations?", 4, 2 },
-                    { 9, "How good has stuff explained you our procedures?", 5, 2 },
-                    { 10, "Your general grade for medical stuffs' service", 3, 2 },
-                    { 11, "How would you rate our appointment organisation?", 1, 3 },
-                    { 12, "How would you rate hospitals' hygiene?", 4, 3 },
-                    { 13, "How good were procedure for booking appointment?", 4, 3 },
-                    { 14, "How easy was to use our application?", 5, 3 },
-                    { 15, "Your general grade for whole hospital' service", 3, 3 }
+                    { 1, "How careful did doctor listen you?", 0, 1 },
+                    { 2, "Has doctor been polite?", 0, 1 },
+                    { 3, "Has he explained you your condition enough that you can understand it?", 0, 1 },
+                    { 4, "How would you rate doctors' professionalism?", 0, 1 },
+                    { 5, "Your general grade for doctors' service", 0, 1 },
+                    { 6, "How much our medical staff were polite?", 0, 2 },
+                    { 7, "How would you rate time span that you spend waiting untill doctor attended you?", 0, 2 },
+                    { 8, "How prepared were stuff for emergency situations?", 0, 2 },
+                    { 9, "How good has stuff explained you our procedures?", 0, 2 },
+                    { 10, "Your general grade for medical stuffs' service", 0, 2 },
+                    { 11, "How would you rate our appointment organisation?", 0, 3 },
+                    { 12, "How would you rate hospitals' hygiene?", 0, 3 },
+                    { 13, "How good were procedure for booking appointment?", 0, 3 },
+                    { 14, "How easy was to use our application?", 0, 3 },
+                    { 15, "Your general grade for whole hospital' service", 0, 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -691,19 +691,20 @@ namespace Hospital.Migrations
                 column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Survey_AppointmentId",
-                table: "Survey",
-                column: "AppointmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SurveyCategory_SurveyId",
-                table: "SurveyCategory",
+                name: "IX_SurveyCategories_SurveyId",
+                table: "SurveyCategories",
                 column: "SurveyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SurveyQuestion_SurveyCategoryId",
-                table: "SurveyQuestion",
+                name: "IX_SurveyQuestions_SurveyCategoryId",
+                table: "SurveyQuestions",
                 column: "SurveyCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Surveys_AppointmentId",
+                table: "Surveys",
+                column: "AppointmentId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkDay_DoctorId",
@@ -741,7 +742,7 @@ namespace Hospital.Migrations
                 name: "Rooms");
 
             migrationBuilder.DropTable(
-                name: "SurveyQuestion");
+                name: "SurveyQuestions");
 
             migrationBuilder.DropTable(
                 name: "Transfer");
@@ -753,19 +754,19 @@ namespace Hospital.Migrations
                 name: "Patients");
 
             migrationBuilder.DropTable(
-                name: "SurveyCategory");
+                name: "SurveyCategories");
 
             migrationBuilder.DropTable(
                 name: "Doctors");
 
             migrationBuilder.DropTable(
-                name: "Survey");
+                name: "Surveys");
 
             migrationBuilder.DropTable(
                 name: "Specialty");
 
             migrationBuilder.DropTable(
-                name: "Appointment");
+                name: "Appointments");
         }
     }
 }

@@ -18,6 +18,7 @@ import { CarouselModule} from 'primeng/carousel';
 import { ButtonModule} from 'primeng/button';
 import { ToastModule} from 'primeng/toast';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatTableModule} from '@angular/material/table';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -52,6 +53,8 @@ import { PatientService } from './patient/patient.service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MedicalRecordComponent } from './medical-record/medical-record.component';
 import { RecommendationSchedulingComponent } from './recommendation-scheduling/recommendation-scheduling.component';
+import { AppointmentsComponent } from './appointments/appointments.component';
+import { AppointmentService } from './service/appointment.service';
 
 
 
@@ -77,7 +80,8 @@ const MaterialComponents = [
   MatSelectModule,
   MatSnackBarModule,
   MatTabsModule,
-  MatMenuModule
+  MatMenuModule,
+  MatTableModule
 ];
 
 @NgModule({
@@ -92,6 +96,7 @@ const MaterialComponents = [
     LoginPageComponent,
     MedicalRecordComponent,
     RecommendationSchedulingComponent,
+    AppointmentsComponent,
   ],
   imports: [
     HttpClientModule,
@@ -109,7 +114,7 @@ const MaterialComponents = [
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [FeedbackService, SurveyService, PatientService],
+  providers: [FeedbackService, SurveyService, PatientService, AppointmentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

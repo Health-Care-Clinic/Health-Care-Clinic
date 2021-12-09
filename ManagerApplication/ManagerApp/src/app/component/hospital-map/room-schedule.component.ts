@@ -15,6 +15,7 @@ export class RoomScheduleComponent implements OnInit {
   transfersCancellable: Boolean[] = [];
   renovationsCancellable: Boolean[] = [];
   renovations: any;
+  appointments: any;
   selectedOption: string = 'Transfers';
 
   constructor(private _route: ActivatedRoute, private hospitalMapService: HospitalMapService) { }
@@ -41,6 +42,10 @@ export class RoomScheduleComponent implements OnInit {
           this.renovationsCancellable[i] = isCancellable;
         })
       }
+    })
+
+    this.hospitalMapService.getRoomAppointments(roomId).subscribe(appointmentsFromBack=>{
+      this.appointments = appointmentsFromBack;
     })
   }
 

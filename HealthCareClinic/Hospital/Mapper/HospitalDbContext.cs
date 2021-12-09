@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using Hospital.Schedule.Model;
 using Hospital.Shared_model.Model;
 using Hospital.Rooms_and_equipment.Model;
@@ -7,6 +7,7 @@ using static Hospital.Rooms_and_equipment.Model.Building;
 using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
 using System.Collections.Generic;
+using Hospital.Medical_records.Model;
 using Hospital.Shared_model.Model;
 using static Hospital.Rooms_and_equipment.Model.Transfer;
 
@@ -43,6 +44,7 @@ namespace Hospital.Mapper
 
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Transfer> Transfer { get; set; }
+        public DbSet<Prescription> Prescriptions { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         // only for testing purposes
@@ -491,7 +493,7 @@ namespace Hospital.Mapper
                     Id = 2,
                     Name = "Marko",
                     Surname = "Radic",
-                    Gender ="male",
+                    Gender = "male",
                     BirthDate = new System.DateTime(1986, 04, 06),
                     Salary = 80000.0,
                     Address = "Bogoboja Atanackovica 5",

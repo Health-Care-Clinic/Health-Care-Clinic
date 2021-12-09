@@ -34,6 +34,15 @@ namespace HospitalUnitTests.Graphical_editor
             return options;
         }
 
+        private void ClearStubRepository(HospitalDbContext context)
+        {
+            foreach (Transfer t in context.Transfer)
+            {
+                context.Transfer.Remove(t);
+                context.SaveChanges();
+            }
+        }
+
         [Fact]
         public void Cancel_transfer()
         {
@@ -47,16 +56,10 @@ namespace HospitalUnitTests.Graphical_editor
                 EquipmentService equipmentService = new EquipmentService(equipmentRepository);
                 TransferController transferController = new TransferController(transferService, equipmentService);
 
-                OkObjectResult getRoomTransfersResponse = transferController.GetRoomTransfers(1) as OkObjectResult;
-                List<TransferDTO> roomTransfers = getRoomTransfersResponse.Value as List<TransferDTO>;
-                OkObjectResult transfersResponse = transferController.CancelTransfer(roomTransfers[0]) as OkObjectResult;
-                OkObjectResult getRoomTransfersAfterCancelResponse = transferController.GetRoomTransfers(1) as OkObjectResult;
-                List<TransferDTO> roomTransfersAfterCancel = getRoomTransfersAfterCancelResponse.Value as List<TransferDTO>;
-                foreach (Transfer t in context.Transfer)
-                {
-                    context.Transfer.Remove(t);
-                    context.SaveChanges();
-                }
+                List<Transfer> roomTransfers = transferService.GetRoomTransfers(1);
+                transferService.RemoveById(roomTransfers[0].Id);
+                List<Transfer> roomTransfersAfterCancel = transferService.GetRoomTransfers(1);
+                ClearStubRepository(context);
 
                 Assert.Single(roomTransfersAfterCancel);
             }
@@ -74,15 +77,9 @@ namespace HospitalUnitTests.Graphical_editor
                 EquipmentRepository equipmentRepository = new EquipmentRepository(context);
                 TransferService transferService = new TransferService(transferRepository);
                 EquipmentService equipmentService = new EquipmentService(equipmentRepository);
-                TransferController transferController = new TransferController(transferService, equipmentService);
 
-                OkObjectResult transfersResponse = transferController.CheckIfTransferCancellable(transferId) as OkObjectResult;
-                bool isCancellable = (bool)transfersResponse.Value;
-                foreach (Transfer t in context.Transfer)
-                {
-                    context.Transfer.Remove(t);
-                    context.SaveChanges();
-                }
+                bool isCancellable = transferService.CheckIfTransferCancellable(transferId);
+                ClearStubRepository(context);
 
                 Assert.Equal(cancellable, isCancellable);
             }
