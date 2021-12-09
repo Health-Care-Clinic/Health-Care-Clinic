@@ -2,6 +2,7 @@
 using Hospital.Rooms_and_equipment.Model;
 using Hospital.Rooms_and_equipment.Repository;
 using Hospital.Rooms_and_equipment.Service;
+using Hospital.Shared_model.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Shouldly;
@@ -27,7 +28,8 @@ namespace HospitalIntegrationTests.Graphical_editor
 
             TransferRepository transferRepository = new TransferRepository(_context);
             RenovationRepository renovationRepository = new RenovationRepository(_context);
-            RenovationService renovationService = new RenovationService(renovationRepository,transferRepository);
+            AppointmentRepository appointmentRepository = new AppointmentRepository(_context);
+            RenovationService renovationService = new RenovationService(renovationRepository,transferRepository, appointmentRepository);
 
             Renovation renovation = new Renovation(4, 1, 2, new DateTime(2021, 12, 06, 14, 30, 00), 1, Renovation.RenovationType.Merge);
             List<DateTime> freeTerms = renovationService.getFreeTermsForMerge(renovation);
@@ -46,7 +48,8 @@ namespace HospitalIntegrationTests.Graphical_editor
 
             RenovationRepository renovationRepository = new RenovationRepository(_context);
             TransferRepository transferRepository = new TransferRepository(_context);
-            RenovationService renovationService = new RenovationService(renovationRepository,transferRepository);
+            AppointmentRepository appointmentRepository = new AppointmentRepository(_context);
+            RenovationService renovationService = new RenovationService(renovationRepository,transferRepository,appointmentRepository);
 
             renovationService.Add(new Renovation(121,8,12,new DateTime(2023, 03, 12, 9, 0, 0),3,Renovation.RenovationType.Merge));
             int numberOfRenovations = renovationService.GetRoomRenovations(8).ToList().Count;
