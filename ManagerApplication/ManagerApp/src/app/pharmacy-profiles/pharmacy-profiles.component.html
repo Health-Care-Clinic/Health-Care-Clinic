@@ -1,0 +1,26 @@
+
+<div style="margin-left: 3%; margin-right: 3%;">
+    <h1>
+        Registered pharmacies
+    </h1>
+
+    <div>
+        <mat-accordion>
+            <div *ngFor="let pharmacy of pharmacies">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div>{{pharmacy.name}}</div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>{{pharmacy.name}}</p>
+                    <p>URL: {{pharmacy.baseUrl}}</p>
+                    <p>{{pharmacy.city}}</p>
+                    <p>{{pharmacy.imagePath}}</p>
+                    <p>{{pharmacy.note}}</p>
+                </mat-expansion-panel>
+            </div>
+
+        </mat-accordion>
+    </div>
+</div>
