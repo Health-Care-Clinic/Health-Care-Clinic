@@ -74,6 +74,7 @@ namespace Hospital_API.Controller
                 availableTerms.Add(PatientAdapter.ConvertToString(term));
 
             return Ok(availableTerms);
+            //return Ok(appointmentService.GetAvailableTermsForDoctor(doctorService.GetOneById(doctorId), fromDate, toDate));
         }
 
         [HttpPost("createAppointment")]
