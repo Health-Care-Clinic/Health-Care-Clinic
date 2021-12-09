@@ -28,7 +28,7 @@ namespace Hospital.Shared_model.Repository
             return appointment;
         }
 
-        public List<Appointment> getAppointmentsByPatientId(int patinetId)
+        public List<Appointment> GetAppointmentsByPatientId(int patinetId)
         {
             return dbContext.Appointments.Where(app => app.PatientId == patinetId).ToList();
         }
@@ -66,6 +66,11 @@ namespace Hospital.Shared_model.Repository
                                                                              .Select(a => a.Date).ToList();
         }
 
+        private List<DateTime> GetOccupiedTerms(Doctor doctor, DateTime date)
+        {
+            return dbContext.Appointments.Where(app => app.DoctorId == doctor.Id && app.Date.Date == date).Select(app => app.Date).ToList();
+        }
+
         private List<DateTime> GenerateAllTerms(DateTime fromDate, DateTime toDate)
         {
             List<DateTime> allTerms = new List<DateTime>();
@@ -81,6 +86,16 @@ namespace Hospital.Shared_model.Repository
             return allTerms;
         }
 
+        private List<DateTime> GenerateAllTerms(DateTime date)      // STANDARD VERZIJA
+        {
+            List<DateTime> allTerms = new List<DateTime>();
+
+            foreach (string term in terms)
+                allTerms.Add(new System.DateTime(date.Year, date.Month, date.Day, Convert.ToInt32(term.Split(":")[0]), Convert.ToInt32(term.Split(":")[1]), 0));
+
+            return allTerms;
+        }
+
         public void AddAppointment(Appointment app)
         {
             Add(app);
@@ -88,6 +103,15 @@ namespace Hospital.Shared_model.Repository
             Save();
             app.SurveyId = newSurvey.Id;
             Save();
+        }
+
+        public List<DateTime> GetAvailableTerms(Doctor doctor, DateTime date)
+        {
+            List<DateTime> allTerms = GenerateAllTerms(date);
+            List<DateTime> occupiedTerms = GetOccupiedTerms(doctor, date);
+            List<DateTime> availableTerms = FindAvailableTerms(doctor, allTerms, occupiedTerms);
+
+            return availableTerms;
         }
     }
 }

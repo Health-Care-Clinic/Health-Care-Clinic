@@ -38,7 +38,7 @@ namespace Hospital_API.Controller
                 return BadRequest();
             //TODO PROVERA DA LI PACIJENT SA TI ID UOPSTE POSTOJI
             List<AppointmentDTOForMedicalRecord> allAppointments = new List<AppointmentDTOForMedicalRecord>();
-            appointmentService.getAppointmentsByPatientId(id).ForEach(Appointment
+            appointmentService.GetAppointmentsByPatientId(id).ForEach(Appointment
                 => allAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTOForMedicalRecord(Appointment, doctorService,surveyService)));
 
             return Ok(allAppointments);
@@ -94,6 +94,35 @@ namespace Hospital_API.Controller
             appointmentService.GetRoomAppointments(id).ToList().ForEach(Appointment
                 => roomAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment)));
             return Ok(roomAppointments);
+        }
+
+        [HttpGet("getAllSpecialties")]
+        public IActionResult GetAllSpecialties()
+        {
+            return Ok(doctorService.GetAllSpecialties());
+        }
+
+        [HttpGet("getDoctorsBySpecialty/{specialty?}")]
+        public IActionResult GetDoctorsBySpecialty(string specialty)
+        {
+            if (specialty == "")
+                return BadRequest();
+
+            return Ok(DoctorAdapter.DoctorListToDoctorDTOList(doctorService.GetDoctorsBySpecialty(specialty)));
+        }
+
+        [HttpGet("getTermsForSelectedDoctor/{id?}/{date?}")]
+        public IActionResult GetTermsForSelectedDoctor(int doctorID, string date)
+        {
+            if (doctorID <= 0)
+                return BadRequest();
+            if (date == "")
+                return BadRequest();
+
+            Doctor selectedDoctor = doctorService.GetOneById(doctorID);
+            DateTime selectedDate = DateTime.Parse(date);
+
+            return Ok(appointmentService.GetAvailableTerms(selectedDoctor, selectedDate));
         }
     }
 

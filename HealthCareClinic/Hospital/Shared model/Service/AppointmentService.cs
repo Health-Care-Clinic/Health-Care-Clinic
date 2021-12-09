@@ -34,9 +34,9 @@ namespace Hospital.Shared_model.Service
             throw new NotImplementedException();
         }
 
-        public List<Appointment> getAppointmentsByPatientId(int patinetId)
+        public List<Appointment> GetAppointmentsByPatientId(int patinetId)
         {
-            return appointmentRepository.getAppointmentsByPatientId(patinetId);
+            return appointmentRepository.GetAppointmentsByPatientId(patinetId);
         }
 
         public Appointment CancelAppointment(int appointmentId)
@@ -63,6 +63,11 @@ namespace Hospital.Shared_model.Service
                     roomAppointments.Add(appointment);
             }
             return roomAppointments;
+        }
+
+        public List<DateTime> GetAvailableTerms(Doctor selectedDoctor, DateTime selectedDate)
+        {
+            return appointmentRepository.GetAvailableTerms(selectedDoctor, selectedDate);
         }
     }
 }
