@@ -44,6 +44,7 @@ import { MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { FeedbackService } from './service/feedback.service';
 import { SurveyService } from './survey/survey.service';
@@ -81,7 +82,8 @@ const MaterialComponents = [
   MatSnackBarModule,
   MatTabsModule,
   MatMenuModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule
 ];
 
 @NgModule({

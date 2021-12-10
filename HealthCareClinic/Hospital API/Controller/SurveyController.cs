@@ -23,9 +23,9 @@ namespace Hospital_API.Controller
         }
 
         [HttpGet("new/{id?}")]
-        public IActionResult GetEmptySurveyForAppointment(int id)
+        public IActionResult GetEmptySurveyForAppointment(int appId)
         {
-            Survey survey = surveyService.GetSurveyForAppointment(id); //promenio iz GenerateSurveyForAppointment u GetSurveyForAppointment
+            Survey survey = surveyService.GetSurveyForAppointment(appId); //promenio iz GenerateSurveyForAppointment u GetSurveyForAppointment
             SurveyDTO result = SurveyAdapter.SurveyToDto(survey);
 
             return Ok(result);

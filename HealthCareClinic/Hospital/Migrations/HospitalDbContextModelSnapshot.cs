@@ -19,6 +19,35 @@ namespace Hospital.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Diagnosis")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Medicine")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Prescriptions");
+                });
+
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
                 {
                     b.Property<int>("Id")
@@ -1956,8 +1985,7 @@ namespace Hospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId")
-                        .IsUnique();
+                    b.HasIndex("AppointmentId");
 
                     b.ToTable("Surveys");
 
@@ -3510,7 +3538,7 @@ namespace Hospital.Migrations
                             Id = 9,
                             Date = new DateTime(2022, 2, 22, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 1,
-                            PatientId = 8,
+                            PatientId = 1,
                             RoomId = 1,
                             SurveyId = 9,
                             isCancelled = false,
@@ -3673,7 +3701,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Zoric",
                             Username = "dragana",
-                            WorkShift = 0
+                            WorkShift = 1
                         },
                         new
                         {
@@ -3686,12 +3714,12 @@ namespace Hospital.Migrations
                             Name = "Mile",
                             Password = "mile",
                             Phone = "0697856665",
-                            PrimaryRoom = 4,
+                            PrimaryRoom = 5,
                             Salary = 80000.0,
                             Specialty = "Surgery",
                             Surname = "Grandic",
                             Username = "mile",
-                            WorkShift = 0
+                            WorkShift = 1
                         },
                         new
                         {
@@ -3704,12 +3732,12 @@ namespace Hospital.Migrations
                             Name = "Misa",
                             Password = "misa",
                             Phone = "0697856665",
-                            PrimaryRoom = 3,
+                            PrimaryRoom = 6,
                             Salary = 80000.0,
                             Specialty = "General medicine",
                             Surname = "Bradina",
                             Username = "misa",
-                            WorkShift = 0
+                            WorkShift = 1
                         });
                 });
 
@@ -3964,6 +3992,17 @@ namespace Hospital.Migrations
                     b.HasIndex("DoctorId");
 
                     b.ToTable("WorkDay");
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>

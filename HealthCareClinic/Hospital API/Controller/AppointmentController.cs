@@ -60,27 +60,28 @@ namespace Hospital_API.Controller
         }
 
         [HttpPost("freeTermsForDoctor")]
-        public IActionResult GetAvailableTermsForDoctor(int doctorId, string from, string to)
+        public IActionResult GetAvailableTermsForDoctor(DoctorIdDateFromDateToDTO dto)
         {
-            DateTime fromDate = PatientAdapter.ConvertToDate(from);
-            DateTime toDate = PatientAdapter.ConvertToDate(to);
-            if (doctorId < 0)
+            DateTime fromDate = PatientAdapter.ConvertToDate(dto.From);
+            DateTime toDate = PatientAdapter.ConvertToDate(dto.To);
+            if (dto.DoctorId < 0)
                 return BadRequest();
             if (toDate < fromDate)
                 return BadRequest();
 
             List<string> availableTerms = new List<string>();
-            foreach (DateTime term in appointmentService.GetAvailableTermsForDoctor(doctorService.GetOneById(doctorId), fromDate, toDate))
+            foreach (DateTime term in appointmentService.GetAvailableTermsForDoctor(doctorService.GetOneById(dto.DoctorId), fromDate, toDate))
                 availableTerms.Add(PatientAdapter.ConvertToString(term));
 
             return Ok(availableTerms);
-            //return Ok(appointmentService.GetAvailableTermsForDoctor(doctorService.GetOneById(doctorId), fromDate, toDate));
         }
 
         [HttpPost("createAppointment")]
         public IActionResult CreateAppointment(AppointmentDTO appDto)
         {
             Appointment app = AppointmentAdapter.AppointmentDtoToAppointment(appDto);
+
+            app.RoomId = doctorService.GetOneById(app.DoctorId).PrimaryRoom;
 
             appointmentService.AddAppointment(app);
 

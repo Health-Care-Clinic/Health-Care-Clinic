@@ -85,6 +85,7 @@ namespace Hospital.Shared_model.Repository
         {
             Add(app);
             Survey newSurvey = new Survey(app.Id);
+            dbContext.Surveys.Add(newSurvey);
             Save();
             app.SurveyId = newSurvey.Id;
             Save();

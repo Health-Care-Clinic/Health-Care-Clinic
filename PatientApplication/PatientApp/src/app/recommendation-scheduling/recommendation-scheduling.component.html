@@ -1,12 +1,10 @@
-<div>
-    <h2>Recommendation scheduling</h2>
-
-    <!-- <input matInput [matDatepicker]="picker" [(ngModel)]="fromDate" >
-    <input matInput [matDatepicker]="picker" [(ngModel)]="toDate" >
-
-    <mat-form-field appearance="fill">
+<div class="position">
+    <h1>Recommendation scheduling</h1>
+    
+    <div style="margin-top: 30px;">
+    <mat-form-field appearance="fill" style="width: 400px;">
         <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <mat-date-range-input [min]="minDate" [formGroup]="range" [rangePicker]="picker" >
           <input matStartDate formControlName="start" placeholder="Start date">
           <input matEndDate formControlName="end" placeholder="End date">
         </mat-date-range-input>
@@ -16,22 +14,36 @@
         <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
         <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
     </mat-form-field> 
-
-    <mat-select [(ngModel)]="doctorId" >
-        <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
-          {{doctor.name}} {{doctor.surname}} - {{doctor.specialty}}
-        </mat-option>
-    </mat-select>
-
+</div>
+<div style="margin-top: 20px;">
+    <mat-form-field appearance="fill" style="width: 400px;">
+        <mat-label>Preffered doctor</mat-label>
+        <mat-select [(ngModel)]="dto.doctorId" >
+            <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+            {{doctor.name}} {{doctor.surname}} - {{doctor.specialty}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div style="margin-top: 40px;">
     <mat-radio-group label-position="before" >
-        <mat-label>Priority</mat-label>
-        <mat-radio-button value="Doctor" (change)="getAvailableTerms(value)">Doctor</mat-radio-button>
-        <mat-radio-button value="Date" (change)="getAvailableTerms(value)">Date</mat-radio-button>
+        <mat-label><b>Priority:</b></mat-label>
+        <mat-radio-button  style="padding-left: 40px;" value="Doctor" (change)="getAvailableTerms('Doctor')">Doctor</mat-radio-button>
+        <mat-radio-button style="padding-left: 30px;" value="Date" (change)="getAvailableTerms('Date')">Date</mat-radio-button>
     </mat-radio-group>
+</div>
 
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let term of terms" (click)="schedule(term)">
-            {{term}}
-        </mat-list-item>
-    </mat-list> -->
+    <div  style="margin-top: 40px;">
+        <mat-label >List of available terms</mat-label>
+        <mat-list role="list">
+            <mat-list-item style="cursor: pointer" role="listitem" *ngFor="let term of terms" (click)="schedule(term)">
+                {{term}}
+            </mat-list-item>
+        </mat-list>
+    </div>
+   <!--  <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+    </mat-paginator> -->
 </div>
