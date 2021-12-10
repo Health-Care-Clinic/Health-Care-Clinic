@@ -86,5 +86,24 @@ namespace Hospital_API.Adapter
 
             return dateAsString;
         }
+
+        public static DateTime ConvertToDateForAppointment(String dateAsString)
+        {
+            String[] mainParts = dateAsString.Split();
+
+            String[] dateParts = mainParts[0].Split('-');
+            int day = int.Parse(dateParts[0]);
+            int month = int.Parse(dateParts[1]);
+            int year = int.Parse(dateParts[2]);
+
+            String[] timeParts = mainParts[1].Split(':');
+            int hour = int.Parse(timeParts[0]);
+            int minute = int.Parse(timeParts[1]);
+            int second = int.Parse(timeParts[2]);
+
+            DateTime date = new DateTime(year, month, day, hour, minute, second);
+
+            return date;
+        }
     }
 }

@@ -53,7 +53,7 @@ namespace Hospital_API.Adapter
             app.RoomId = appointmentDto.RoomId;
             app.isCancelled = appointmentDto.isCancelled;
             app.isDone = appointmentDto.isDone;
-            app.Date = PatientAdapter.ConvertToDate(appointmentDto.Date);
+            app.Date = DateTime.Parse(appointmentDto.Date);
             app.SurveyId = appointmentDto.SurveyId;
 
             return app;

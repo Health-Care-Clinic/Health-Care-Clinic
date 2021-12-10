@@ -100,18 +100,20 @@ namespace HospitalIntegrationTests.Patient_portal
                     survey.SurveyCategories.Add(c1);
                     survey.SurveyCategories.Add(c2);
                     survey.SurveyCategories.Add(c3);
-
-                    foreach(SurveyCategory surveyCategory in survey.SurveyCategories)
-
-                    context.SurveyCategories.Add(c1);
-                    context.SurveyCategories.Add(c2);
-                    context.SurveyCategories.Add(c2);
                 }
 
                 FillOutGradesForEachQuestionDependingOnCategory(surveys);
 
                 foreach (Survey survey in surveys)
+                {
+                    foreach (SurveyCategory surveyCategory in survey.SurveyCategories)
+                    {
+                        foreach (SurveyQuestion surveyQuestion in surveyCategory.SurveyQuestions)
+                            context.SurveyQuestions.Add(surveyQuestion);
+                        context.SurveyCategories.Add(surveyCategory);
+                    }
                     context.Surveys.Add(survey);
+                }
 
                 context.SaveChanges();
             }

@@ -86,9 +86,9 @@ namespace Hospital.Schedule.Repository
             Save();
         }
 
-        public Survey GetSurveyForAppointment(int id)
+        public Survey GetSurveyForAppointment(int appId)
         {
-            return dbContext.Surveys.FirstOrDefault(survey => survey.AppointmentId == id);
+            return dbContext.Surveys.FirstOrDefault(survey => survey.AppointmentId == appId);
         }
     }
 }

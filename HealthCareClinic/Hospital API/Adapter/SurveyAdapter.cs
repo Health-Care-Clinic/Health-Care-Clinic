@@ -18,9 +18,14 @@ namespace Hospital_API.Adapter
             dto.AppointmentId = survey.AppointmentId;
             dto.SurveyCategories = new List<SurveyCategoryDTO>();
 
-            List<SurveyCategory> cat = survey.SurveyCategories.ToList();
-            foreach (SurveyCategory c in cat)
-                dto.SurveyCategories.Add(SurveyCategoryToDto(c));
+            if (survey.SurveyCategories == null)
+                dto.SurveyCategories = null;
+            else
+            {
+                List<SurveyCategory> cat = survey.SurveyCategories.ToList();
+                foreach (SurveyCategory c in cat)
+                    dto.SurveyCategories.Add(SurveyCategoryToDto(c));
+            }           
 
             return dto;
         }
