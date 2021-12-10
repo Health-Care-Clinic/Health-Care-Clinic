@@ -17,6 +17,7 @@ import { RenovationRoomsComponent } from './component/renovation-rooms/renovatio
 import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
+import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -39,7 +40,8 @@ const routes: Routes = [
   { path: 'malicious-patients', component: MaliciousPatientsComponent },
   { path: 'renovation', component: RenovationRoomsComponent },
   { path: 'room-schedule/:idr', component: RoomScheduleComponent },
-  { path: 'pharmacy-profiles', component: PharmacyProfilesComponent }
+  { path: 'pharmacy-profiles', component: PharmacyProfilesComponent },
+  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent }
 ];
 
 @NgModule({

@@ -48,7 +48,7 @@ namespace Integration_API.Controller
             request.AddJsonBody(ApiKeyAdapter.ApiKeyToApiKeyDto(newApiKey));
             IRestResponse response = client.Post(request);
 
-            return Ok("Successfully registered!");
+            return Ok();
         }
 
         [HttpPost("receive")]

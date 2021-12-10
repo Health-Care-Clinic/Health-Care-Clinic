@@ -12,3 +12,17 @@ h1 {
 .mat-expansion-panel-header > span.mat-content {
     order: 2;    
 }
+
+.example-card {
+  max-width: 1800px;
+  padding-top: 30px;
+  padding-inline: 30px;
+}
+
+.example-header-image {
+  margin-inline: 20px;
+  
+  background-size: contain;
+  width: 100px;
+  height: 100px;
+}
