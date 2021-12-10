@@ -4,7 +4,7 @@
     <div style="margin-top: 30px;">
     <mat-form-field appearance="fill" style="width: 400px;">
         <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [formGroup]="range" [rangePicker]="picker" >
+        <mat-date-range-input [min]="minDate" [formGroup]="range" [rangePicker]="picker" >
           <input matStartDate formControlName="start" placeholder="Start date">
           <input matEndDate formControlName="end" placeholder="End date">
         </mat-date-range-input>

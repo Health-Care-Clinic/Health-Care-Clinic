@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class RecommendationSchedulingComponent implements OnInit {
 
+  minDate = new Date();
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
