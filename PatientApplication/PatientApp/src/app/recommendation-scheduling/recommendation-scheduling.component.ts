@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { DoctorWithSpecialty } from './doctor-with-specialty';
 import {FormGroup, FormControl} from '@angular/forms';
 import { AppointmentService } from '../service/appointment.service';
 import { GettingTermsDTO } from '../recommendation-scheduling/gettingTermsDTO';
+import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recommendation-scheduling',
@@ -26,7 +28,7 @@ export class RecommendationSchedulingComponent implements OnInit {
   }
   errorMessage : string  = '';
 
-  constructor(private _snackBar: MatSnackBar, public _appointmentService: AppointmentService) { }
+  constructor(private _snackBar: MatSnackBar, public _appointmentService: AppointmentService, private router: Router) { }
 
   ngOnInit(): void {
     this.getDoctors();
@@ -59,7 +61,8 @@ export class RecommendationSchedulingComponent implements OnInit {
       data => console.log('Success!', data),
       error => console.log('Error!', error)
     )
-
+    
+    this.router.navigateByUrl('/');
     console.log(term);
     this._snackBar.open('You have been successfully scheduled an appointment', 'Close', {duration: 3000});
   }

@@ -81,6 +81,8 @@ namespace Hospital_API.Controller
         {
             Appointment app = AppointmentAdapter.AppointmentDtoToAppointment(appDto);
 
+            app.RoomId = doctorService.GetOneById(app.DoctorId).PrimaryRoom;
+
             appointmentService.AddAppointment(app);
 
             return Ok();

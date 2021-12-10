@@ -1,8 +1,6 @@
 <div class="position">
     <h1>Recommendation scheduling</h1>
-
-    <!-- <input matInput [matDatepicker]="picker" [(ngModel)]="fromDate" >
-    <input matInput [matDatepicker]="picker" [(ngModel)]="toDate" > -->
+    
     <div style="margin-top: 30px;">
     <mat-form-field appearance="fill" style="width: 400px;">
         <mat-label>Enter a date range</mat-label>
@@ -34,12 +32,18 @@
         <mat-radio-button style="padding-left: 30px;" value="Date" (change)="getAvailableTerms('Date')">Date</mat-radio-button>
     </mat-radio-group>
 </div>
-<div  style="margin-top: 40px;">
-    <mat-label >List of available terms</mat-label>
-    <mat-list role="list">
-        <mat-list-item role="listitem" *ngFor="let term of terms" (click)="schedule(term)">
-            {{term}}
-        </mat-list-item>
-    </mat-list>
-</div>
+
+    <div  style="margin-top: 40px;">
+        <mat-label >List of available terms</mat-label>
+        <mat-list role="list">
+            <mat-list-item style="cursor: pointer" role="listitem" *ngFor="let term of terms" (click)="schedule(term)">
+                {{term}}
+            </mat-list-item>
+        </mat-list>
+    </div>
+   <!--  <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+    </mat-paginator> -->
 </div>

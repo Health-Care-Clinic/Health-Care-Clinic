@@ -33,7 +33,7 @@ namespace HospitalIntegrationTests.Patient_portal
                 PatientRepository patientRepository = new PatientRepository(context);
                 PatientService patientService = new PatientService(patientRepository);
 
-                PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
+                PatientController patientController = new PatientController(alergenService, doctorService, patientService);
 
                 var result = patientController.ActivatePatientsAccount("lazniIliKorisceniHashToken");
 
@@ -63,7 +63,7 @@ namespace HospitalIntegrationTests.Patient_portal
                 PatientRepository patientRepository = new PatientRepository(context);
                 PatientService patientService = new PatientService(patientRepository);
 
-                PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
+                PatientController patientController = new PatientController(alergenService, doctorService, patientService);
 
                 var result = patientController.ActivatePatientsAccount("praviHashToken");
                 
