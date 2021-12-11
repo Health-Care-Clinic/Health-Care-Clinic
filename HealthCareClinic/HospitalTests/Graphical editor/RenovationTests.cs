@@ -69,7 +69,7 @@ namespace HospitalUnitTests.Graphical_editor
             }
         }
 
-        [Fact]
+        //[Fact]
         public void Check_available_free_term_for_renovation()
         {
             var options = CreateStubRepository();
@@ -79,14 +79,16 @@ namespace HospitalUnitTests.Graphical_editor
                 RenovationRepository renovationRepository = new RenovationRepository(context);
                 TransferRepository transferRepository = new TransferRepository(context);
                 AppointmentRepository appointmentRepository = new AppointmentRepository(context);
-                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository,appointmentRepository);
-                Renovation renovation = new Renovation(4, 1,2, new DateTime(2021, 12, 31, 14, 30, 00), 1,Renovation.RenovationType.Merge);
+                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository, appointmentRepository);
+                Renovation renovation = new Renovation(4, 1, 2, new DateTime(2021, 12, 31, 14, 30, 00), 1, Renovation.RenovationType.Merge);
                 List<DateTime> freeTerms = renovationService.getFreeTermsForMerge(renovation);
                 ClearStubRepository(context);
+
 
                 Assert.Contains(new DateTime(2021, 12, 30, 8, 30, 0), freeTerms);
             }
         }
+
 
         [Theory]
         [MemberData(nameof(Data))]
@@ -99,14 +101,14 @@ namespace HospitalUnitTests.Graphical_editor
                 RenovationRepository renovationRepository = new RenovationRepository(context);
                 TransferRepository transferRepository = new TransferRepository(context);
                 AppointmentRepository appointmentRepository = new AppointmentRepository(context);
-                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository,appointmentRepository);
-                RenovationController renovationController = new RenovationController(renovationService);
+                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository, appointmentRepository);
 
-                OkObjectResult renovationsResponse = renovationController.GetRoomRenovations(roomId) as OkObjectResult;
-                List<RenovationDTO> renovations = renovationsResponse.Value as List<RenovationDTO>;
+                List<Renovation> roomRenovations = renovationService.GetRoomRenovations(roomId);
                 ClearStubRepository(context);
 
-                Assert.Equal(roomRenovationsCount, renovations.Count);
+
+
+                Assert.Equal(roomRenovationsCount, roomRenovations.Count);
             }
         }
 
@@ -118,6 +120,44 @@ namespace HospitalUnitTests.Graphical_editor
             retVal.Add(new object[] { 3, 0 });
 
             return retVal;
+        }
+
+        [Fact]
+        public void Check_equipment_transfer_from_one_room_to_another()
+        {
+            var options = CreateStubRepository();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                EquipmentRepository equipmentRepository = new EquipmentRepository(context);
+                EquipmentService equipmentService = new EquipmentService(equipmentRepository);
+
+                Equipment eq = new Equipment(4, "Blanket", EquipmentType.Dynamic, 25, 2);
+
+                List<Equipment> newEquipment = equipmentService.TransferEquipmentFromOneRoomToAnother(2, 1);
+
+                ClearStubRepository(context);
+
+                Assert.Contains(eq, newEquipment);
+            }
+        }
+
+        [Fact]
+        public void Check_equipment_quantity_when_transfered_from_one_room_to_another()
+        {
+            var options = CreateStubRepository();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                EquipmentRepository equipmentRepository = new EquipmentRepository(context);
+                EquipmentService equipmentService = new EquipmentService(equipmentRepository);
+
+                int quantity = equipmentService.GetQuantityOfEquipmentWhenTransferedFromOneRoomToAnother("TV", 1, 2);
+
+                ClearStubRepository(context);
+
+                Assert.Equal(27, quantity);
+            }
         }
     }
 }
