@@ -20,10 +20,11 @@ namespace Hospital.Shared_model.Repository
 
         public Appointment CancelAppointment(int appointmentId)
         {
-
             Appointment appointment = GetById(appointmentId);
             appointment.isCancelled = true;
+            dbContext.CanceledAppointments.Add(new CanceledAppointment(DateTime.Now, appointment.PatientId, appointment.Id));
             Save();
+
             return appointment;
         }
 
@@ -63,11 +64,6 @@ namespace Hospital.Shared_model.Repository
         {
             return dbContext.Appointments.Where(app => app.DoctorId == doctor.Id && app.Date.AddDays(1) > fromDate.Date && app.Date < toDate.Date.AddDays(1))
                                                                              .Select(a => a.Date).ToList();
-            //List<DateTime> occupiedTerms = (from app in dbContext.Appointments
-            //                                where app.DoctorId == doctor.Id && app.Date.AddDays(1) > fromDate && app.Date < toDate.AddDays(1)
-            //                                select app.Date).ToList();
-
-            //return occupiedTerms;
         }
 
         private List<DateTime> GenerateAllTerms(DateTime fromDate, DateTime toDate)
@@ -89,6 +85,7 @@ namespace Hospital.Shared_model.Repository
         {
             Add(app);
             Survey newSurvey = new Survey(app.Id);
+            dbContext.Surveys.Add(newSurvey);
             Save();
             app.SurveyId = newSurvey.Id;
             Save();

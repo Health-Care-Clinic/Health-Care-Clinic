@@ -22,9 +22,13 @@ namespace Hospital.Schedule.Service
             this.surveyRepository.Add(entity);
         }
 
-        public Survey GenerateSurveyForAppointment()
+        public Survey GenerateSurveyForAppointment(int id)
         {
-            return surveyRepository.GenerateSurveyForAppointment();
+            return surveyRepository.GenerateSurveyForAppointment(id);
+        }
+        public Survey GetSurveyForAppointment(int appId)
+        {
+            return surveyRepository.GetSurveyForAppointment(appId);
         }
 
         public IEnumerable<Survey> GetAll()

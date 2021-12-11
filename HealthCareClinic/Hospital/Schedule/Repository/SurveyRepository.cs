@@ -11,18 +11,15 @@ namespace Hospital.Schedule.Repository
 {
     public class SurveyRepository : Repository<Survey>, ISurveyRepository
     {
+        private readonly HospitalDbContext dbContext;
         public SurveyRepository(HospitalDbContext context) : base(context)
         {
+            dbContext = context;
         }
 
-        public HospitalDbContext HospitalDbContext
+        public Survey GenerateSurveyForAppointment(int id)
         {
-            get { return Context as HospitalDbContext; }
-        }
-
-        public Survey GenerateSurveyForAppointment()
-        {
-            Survey generatedSurvey = new Survey(1);
+            Survey generatedSurvey = new Survey(id);
             Add(generatedSurvey);
 
             return generatedSurvey;
@@ -30,23 +27,23 @@ namespace Hospital.Schedule.Repository
 
         public List<Survey> GetAllByPatientId(int patientId)
         {
-            return HospitalDbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId).ToList();
+            return dbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId).ToList();
         }
 
         public List<string> GetDistinctQuestionCategoriesNames()
         {
-            return HospitalDbContext.SurveyCategories.Select(category => category.Name).Distinct().ToList();
+            return dbContext.SurveyCategories.Select(category => category.Name).Distinct().ToList();
         }
 
         public List<string> GetDistinctQuestionContentsForCategory(string categoryName)
         {
-            return HospitalDbContext.SurveyQuestions.Where(question => 
+            return dbContext.SurveyQuestions.Where(question => 
                 question.SurveyCategory.Name.Equals(categoryName)).Select(question => question.Content).Distinct().ToList();
         }
 
         public double GetAverageGradeForQuestionCategory(string categoryName)
         {
-            double averageGradeForQuestionCategory = HospitalDbContext.SurveyQuestions.Where(question => 
+            double averageGradeForQuestionCategory = dbContext.SurveyQuestions.Where(question => 
                 question.SurveyCategory.Survey.Done == true && question.SurveyCategory.Name.Equals(categoryName))
                     .Average(q => q.Grade);
 
@@ -55,7 +52,7 @@ namespace Hospital.Schedule.Repository
 
         public int GetNumberOfGradesForQuestion(string questionContent, int grade)
         {
-            int numberOfGradesForQuestion = HospitalDbContext.SurveyQuestions.Where(question =>
+            int numberOfGradesForQuestion = dbContext.SurveyQuestions.Where(question =>
                 question.SurveyCategory.Survey.Done == true && question.Content.Equals(questionContent) && 
                 question.Grade == grade).Count();
 
@@ -64,7 +61,7 @@ namespace Hospital.Schedule.Repository
 
         public double GetAverageGradeForQuestion(string questionContent)
         {
-            double averageGradeForQuestion = HospitalDbContext.SurveyQuestions.Where(question =>
+            double averageGradeForQuestion = dbContext.SurveyQuestions.Where(question =>
                 question.SurveyCategory.Survey.Done == true && question.Content.Equals(questionContent)).Average(q => q.Grade);
 
             return averageGradeForQuestion;
@@ -72,21 +69,26 @@ namespace Hospital.Schedule.Repository
 
         public List<Survey> GetAllDoneByPatientId(int patientId)
         {
-            return HospitalDbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId && survey.Done == true).ToList();
+            return dbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId && survey.Done == true).ToList();
         }
 
         public List<Survey> GetAllNotDoneByPatientId(int patientId)
         {
-            return HospitalDbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId && survey.Done == false).ToList();
+            return dbContext.Surveys.Where(survey => survey.Appointment.PatientId == patientId && survey.Done == false).ToList();
         }
 
         public void ModifyGrade(int questionId, int newGrade)
         {
             List<SurveyQuestion> wantedQuestion = new List<SurveyQuestion>();
-            wantedQuestion = HospitalDbContext.SurveyQuestions.Where(question => question.Id == questionId).ToList();
+            wantedQuestion = dbContext.SurveyQuestions.Where(question => question.Id == questionId).ToList();
             wantedQuestion[0].Grade = newGrade;
             wantedQuestion[0].SurveyCategory.Survey.Done = true;
             Save();
+        }
+
+        public Survey GetSurveyForAppointment(int appId)
+        {
+            return dbContext.Surveys.FirstOrDefault(survey => survey.AppointmentId == appId);
         }
     }
 }

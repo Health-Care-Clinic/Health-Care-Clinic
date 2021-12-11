@@ -4,6 +4,7 @@ import { ISurveyQuestion } from './survey-question';
 import { ISurveyCategory } from './survey-category';
 import { SurveyService } from './survey.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AppointmentService } from '../service/appointment.service';
 
 @Component({
   selector: 'app-survey',
@@ -22,12 +23,13 @@ export class SurveyComponent implements OnInit {
   constructor(private _surveyService : SurveyService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.survey.appointmentId = this._surveyService.appointmentId;
     this.showSurvey();
   }
 
 
   showSurvey() {
-    this._surveyService.getSurvey()
+    this._surveyService.getSurvey(this.survey.appointmentId)
         .subscribe(survey => this.survey = survey,
                     error => this.errorMessage = <any>error); 
   }

@@ -2,6 +2,9 @@
 using Hospital.Rooms_and_equipment.Model;
 using Hospital.Rooms_and_equipment.Repository;
 using Hospital.Rooms_and_equipment.Service;
+using Hospital.Shared_model.Repository;
+using Hospital_API.Controller;
+using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -80,9 +83,11 @@ namespace HospitalUnitTests.Graphical_editor
         //        List<DateTime> freeTerms = renovationService.getFreeTermsForMerge(renovation);
         //        ClearStubRepository(context);
 
+
         //        Assert.Contains(new DateTime(2021, 12, 30, 8, 30, 0), freeTerms);
         //    }
         //}
+
 
         //[Theory]
         //[MemberData(nameof(Data))]
@@ -98,6 +103,8 @@ namespace HospitalUnitTests.Graphical_editor
 
         //        List<Renovation> roomRenovations = renovationService.GetRoomRenovations(roomId);
         //        ClearStubRepository(context);
+
+          
 
         //        Assert.Equal(roomRenovationsCount, roomRenovations.Count);
         //    }

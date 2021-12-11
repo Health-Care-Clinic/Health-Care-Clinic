@@ -1,7 +1,7 @@
 import { ReturnStatement, TypeScriptEmitter } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { IApiKey } from 'src/app/model/apikey';
 import { RegistrationService } from 'src/app/services/registration.service';
-import { IApiKey } from './apikey';
 
 @Component({
   selector: 'registration',
@@ -15,7 +15,7 @@ export class PharmacyRegistrationComponent implements OnInit {
   public errorText: string;
   public labelVisible: boolean = false;
   public name: string = "";
-  public apikey: IApiKey = { Name: "", Key: "", BaseUrl: "", Category: ""};
+  public apikey: IApiKey = {id: 0, name: "", key: "", baseUrl: "", city: "", category: "", imagePath: "", note: "", image:""};
   public url: string = "";
 
   constructor(private _registrationService : RegistrationService) {
@@ -42,9 +42,9 @@ export class PharmacyRegistrationComponent implements OnInit {
   
     this.errorText = ""
     this.isErrorLabelVisible = false;
-    this.apikey.Name = this.name;
-    this.apikey.BaseUrl = this.url;
-    this.apikey.Category = "Pharmacy";
+    this.apikey.name = this.name;
+    this.apikey.baseUrl = this.url;
+    this.apikey.category = "Pharmacy";
     this._registrationService.registerPharmacy(this.apikey).subscribe(res => {this.name = ""; this.url = "";}, error => {
         this.errorText = "Unsuccesful registration.";
         this.isErrorLabelVisible = true;}
