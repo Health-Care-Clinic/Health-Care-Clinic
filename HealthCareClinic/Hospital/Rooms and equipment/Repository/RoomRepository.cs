@@ -35,5 +35,13 @@ namespace Hospital.Rooms_and_equipment.Repository
         {
             return Context.Set<Room>().Where(c => c.Name.ToLower().StartsWith(searchText.ToLower())).OrderBy(x => x.Id).ToList();
         }
+
+        public void ChangeMergedDimensions(int roomId, float x, float width)
+        {
+            Context.Set<Room>().Find(roomId).X = x;
+            Context.Set<Room>().Find(roomId).Width = width;
+            Save();
+        }
+
     }
 }

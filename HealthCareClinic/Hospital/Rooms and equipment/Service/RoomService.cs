@@ -49,5 +49,40 @@ namespace Hospital.Rooms_and_equipment.Service
         {
             return _roomRepository.GetSearchedRooms(searchText);
         }
+
+        public Boolean checkRooms(Room room1, Room room2)
+        {
+            if (room1.FloorId != room2.FloorId)
+                return false;
+
+            if (room1.Y != room2.Y)
+                return false;
+            else {
+                if ((room1.X + room1.Width) != room2.X)
+                {
+                    if ((room2.X + room2.Width) != room1.X)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void ChangeRoomDimensions(int firstRoomId, int secondRoomId)
+        {
+            Room room1 = GetOneById(firstRoomId);
+            Room room2 = GetOneById(secondRoomId);
+
+            if ((room1.X + room1.Width) == room2.X)
+            {
+                _roomRepository.ChangeMergedDimensions(firstRoomId, room1.X, room1.Width + room2.Width);
+            }
+            else if ((room2.X + room2.Width) == room1.X)
+            {
+                _roomRepository.ChangeMergedDimensions(firstRoomId, room1.X - room2.Width, room1.Width + room2.Width);
+            }
+
+        }
+
     }
 }

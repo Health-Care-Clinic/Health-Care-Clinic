@@ -45,26 +45,9 @@ namespace Hospital_API.Controller
                     room2 = room;
             }
 
-            return checkRooms(room1, room2);
+            return roomService.checkRooms(RoomAdapter.RoomDTOToRoom(room1), RoomAdapter.RoomDTOToRoom(room2));
         }
 
-        private Boolean checkRooms(RoomDTO room1, RoomDTO room2)
-        {
-            if (room1.FloorId != room2.FloorId)
-                return false;
-
-            if (room1.Y != room2.Y)
-                return false;
-            else {
-                if ((room1.X + room1.Width) != room2.X)
-                {
-                    if ((room2.X + room2.Width) != room1.X)
-                        return false;
-                }
-            }
-
-            return true;
-        }
 
         [HttpGet("getRoomById/{id?}")]
         public IActionResult GetRoomById(int id)

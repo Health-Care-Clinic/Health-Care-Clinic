@@ -11,5 +11,7 @@ namespace Hospital.Rooms_and_equipment.Service
         public void RemoveById(int id);
         public List<Room> GetRoomsByFloorId(int id);
         public List<Room> GetSearchedRooms(string searchText);
+        public Boolean checkRooms(Room room1, Room room2);
+        public void ChangeRoomDimensions(int firstRoomId, int secondRoomId);
     }
 }
