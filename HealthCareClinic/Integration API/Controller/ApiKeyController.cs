@@ -6,7 +6,6 @@ using ClinicCore.DTOs;
 using Integration;
 using Integration.Adapter;
 using Integration.ApiKeys.Model;
-using Integration.ApiKeys.Model;
 using Integration.DTO;
 using Integration.Interface.Service;
 using Integration.Service;
@@ -49,7 +48,7 @@ namespace Integration_API.Controller
             request.AddJsonBody(ApiKeyAdapter.ApiKeyToApiKeyDto(newApiKey));
             IRestResponse response = client.Post(request);
 
-            return Ok("Successfully registered!");
+            return Ok();
         }
 
         [HttpPost("receive")]
@@ -75,6 +74,27 @@ namespace Integration_API.Controller
             List<PharmacyDTO> pharmacies = new List<PharmacyDTO>();
             _dbContext.ApiKeys.Where(apiKey => apiKey.Category.Equals("Pharmacy")).ToList().ForEach(apiKey => pharmacies.Add(ApiKeyAdapter.ApiKeyToPharmacyDto(apiKey)));
             return Ok(pharmacies);
+        }
+
+        [HttpGet("pharmacy-profiles")]
+        public IActionResult GetPharmacyProfiles()
+        {
+            var pharmacies = _apiKeyService.GetAll();
+            return Ok(pharmacies);
+        }
+
+        [HttpGet("pharmacy-profiles/{id?}")]
+        public IActionResult GetPharmacyProfile(int id)
+        {
+            var pharmacy = _apiKeyService.GetOneById(id);
+            return Ok(pharmacy);
+        }
+
+        [HttpPut("pharmacy-profiles")]
+        public IActionResult EditPharmacyProfile(ApiKey ak)
+        {
+            var pharmacy = _apiKeyService.EditPharmacyProfile(ak);
+            return Ok(pharmacy);
         }
     }
 }

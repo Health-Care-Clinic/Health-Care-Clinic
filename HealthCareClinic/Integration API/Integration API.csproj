@@ -56,6 +56,7 @@
   <ItemGroup>
     <Folder Include="MedSpecifications\" />
     <Folder Include="MedSpecifications\" />
+    <Folder Include="Images\" />
   </ItemGroup>
 
 

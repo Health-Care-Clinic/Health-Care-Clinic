@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IApiKey } from '../registration/pharmacy-registration/apikey';
+import { IApiKey } from '../model/apikey';
 
 @Injectable({
   providedIn: 'root'
