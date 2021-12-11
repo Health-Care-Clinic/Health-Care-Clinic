@@ -35,6 +35,11 @@ namespace Hospital.Rooms_and_equipment.Service
             _roomRepository.Remove(entity);
         }
 
+        public void RemoveById(int id)
+        {
+           _roomRepository.RemoveById(id);
+        }
+
         public List<Room> GetRoomsByFloorId(int id)
         {
             return _roomRepository.GetRoomsByFloorId(id);

@@ -72,6 +72,15 @@ namespace Hospital_API.Controller
                 }
             }
         }
+
+        [HttpGet("getMergedRoomEquipment/{roomId1?}/{roomId2?}")]
+        public IActionResult GetMergedRoomEquipment(int roomId1, int roomId2)
+        {
+            List<EquipmentDTO> allEquipment = new List<EquipmentDTO>();
+            equipmentService.TransferEquipmentFromOneRoomToAnother(roomId1, roomId2).ForEach(Equipment
+                => allEquipment.Add(EquipmentAdapter.EquipmentToEquipmentDTO(Equipment)));
+            return Ok(allEquipment);
+        }
     }
 
 }

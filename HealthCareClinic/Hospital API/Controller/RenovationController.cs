@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Hospital.Rooms_and_equipment.Model.Renovation;
 
 namespace Hospital_API.Controller
 {
@@ -15,10 +16,54 @@ namespace Hospital_API.Controller
     public class RenovationController: ControllerBase
     {
         private readonly IRenovationService renovationService;
+        private readonly IEquipmentService equipmentService;
+        private readonly IRoomService roomService;
 
-        public RenovationController(IRenovationService renovationService)
+        public RenovationController(IRenovationService renovationService, IEquipmentService equipmentService, IRoomService roomService)
         {
             this.renovationService = renovationService;
+            this.equipmentService = equipmentService;
+            this.roomService = roomService;
+        }
+
+        [HttpGet("getAllRenovations")]
+        public IActionResult GetAllRenovations()
+        {
+            checkRenovations();
+            List<RenovationDTO> allRenovations = new List<RenovationDTO>();
+            renovationService.GetAll().ToList().ForEach(Renovation
+                => allRenovations.Add(RenovationAdapter.RenovationToRenovationDTO(Renovation)));
+            return Ok(allRenovations);
+        }
+
+        private void checkRenovations()
+        {
+            DateTime today = DateTime.Now;
+            List<RenovationDTO> allRenovations = new List<RenovationDTO>();
+            renovationService.GetAll().ToList().ForEach(Renovation
+                => allRenovations.Add(RenovationAdapter.RenovationToRenovationDTO(Renovation)));
+            foreach (RenovationDTO renovation in allRenovations)
+            {
+                DateTime renovationEndDate = renovation.Date.AddDays(renovation.Duration);
+
+                if (DateTime.Compare(renovationEndDate, today) < 0)
+                {
+                    if (renovation.Type.Equals(RenovationType.Merge))
+                    {
+                        equipmentService.TransferEquipmentAfterReservation(renovation.FirstRoomId, renovation.SecondRoomId);
+                        //roomService.RemoveById(renovation.SecondRoomId);
+                    }
+                    renovationService.RemoveById(renovation.Id);
+                }
+            }
+        }
+
+        [HttpPost("addNewRenovation")]
+        public IActionResult AddNewRenovation(RenovationDTO renovationDTO)
+        {
+            Renovation renovation = RenovationAdapter.RenovationDTOToRenovation(renovationDTO);
+            renovationService.Add(renovation);
+            return Ok();
         }
 
         [HttpPost("getFreeTermsForMerge")]
