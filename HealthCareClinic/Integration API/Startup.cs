@@ -15,6 +15,10 @@ using Integration.Interface.Service;
 using Integration.Repository;
 using Integration.Service;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.Features;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
 
 namespace Integration_API
 {
@@ -38,6 +42,12 @@ namespace Integration_API
                     ConfigurationExtensions.GetConnectionString(Configuration, "IntegrationDbConnectionString")).UseLazyLoadingProxies());
 
             services.AddCors();
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
 
             services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
             services.AddScoped<IApiKeyService, ApiKeyService>();
@@ -83,6 +93,12 @@ namespace Integration_API
                     .SetIsOriginAllowed(origin => true)
                     .AllowCredentials());
 
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Images")),
+                RequestPath = new PathString("/Images")
+            });
         }
     }
 }

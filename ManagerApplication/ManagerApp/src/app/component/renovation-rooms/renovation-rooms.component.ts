@@ -1,4 +1,5 @@
 import { Component, NgModule, OnInit } from '@angular/core';
+import { Equipment } from 'src/app/model/equipment';
 import { Renovation, TypeOfRenovation } from 'src/app/model/renovation';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 import { RenovationService } from 'src/app/services/renovation.service';
@@ -45,6 +46,9 @@ export class RenovationRoomsComponent implements OnInit {
 
       this.selectedEndDate = new Date();
       this.step1 = true;
+      this.renovationService.getAllRenovations().subscribe(ret => {
+
+      })
     }
 
     onSubmit(): void {
@@ -165,6 +169,24 @@ export class RenovationRoomsComponent implements OnInit {
       this.step4 = false;
       this.step3 = false;
       this.step2 = false;
+
+      if (this.selectedType === 'Merge') {
+        this.renovationService.getAllRenovations().subscribe(ret => {
+          let newId = 0;
+          for (let r of ret) {
+            if (r.id > newId) {
+              newId = r.id;
+            }
+          }
+          //let date = new Date(2021, 10, 5, 10, 0, 0)
+          let renovation = new Renovation(newId + 1, this.firstRoom, this.secondRoom, TypeOfRenovation.Merge, term,this.duration);
+          this.renovationService.addRenovation(renovation).subscribe(ret =>{
+
+          })
+        })
+        
+        
+      }
 
       let select1 = document.getElementById('select1') as HTMLButtonElement;
       select1.disabled = false;
