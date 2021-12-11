@@ -97,7 +97,7 @@
                 
                 <tr *ngFor="let t of freeTerms; let indexOfelement = index; " [attr.data-index]="indexOfelement">
                     <td> <input type="radio" id="html" name="fav_language" value="{{indexOfelement}}" [(ngModel)]="radioInput"> </td>
-                    <td style="margin-right: 20px;"> {{t | date:'dd.MM.yyyy hh:mm'}} </td>
+                    <td style="margin-right: 20px;"> {{t | date:'dd.MM.yyyy HH:mm'}} </td>
                 </tr>
             </table>
 

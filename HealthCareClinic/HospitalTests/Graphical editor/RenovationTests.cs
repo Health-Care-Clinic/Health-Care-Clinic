@@ -2,6 +2,7 @@
 using Hospital.Rooms_and_equipment.Model;
 using Hospital.Rooms_and_equipment.Repository;
 using Hospital.Rooms_and_equipment.Service;
+using Hospital.Shared_model.Repository;
 using Hospital_API.Controller;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -77,7 +78,8 @@ namespace HospitalUnitTests.Graphical_editor
             {
                 RenovationRepository renovationRepository = new RenovationRepository(context);
                 TransferRepository transferRepository = new TransferRepository(context);
-                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository);
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository,appointmentRepository);
                 Renovation renovation = new Renovation(4, 1,2, new DateTime(2021, 12, 31, 14, 30, 00), 1,Renovation.RenovationType.Merge);
                 List<DateTime> freeTerms = renovationService.getFreeTermsForMerge(renovation);
                 ClearStubRepository(context);
@@ -96,7 +98,8 @@ namespace HospitalUnitTests.Graphical_editor
             {
                 RenovationRepository renovationRepository = new RenovationRepository(context);
                 TransferRepository transferRepository = new TransferRepository(context);
-                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository);
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository,appointmentRepository);
                 RenovationController renovationController = new RenovationController(renovationService);
 
                 OkObjectResult renovationsResponse = renovationController.GetRoomRenovations(roomId) as OkObjectResult;
