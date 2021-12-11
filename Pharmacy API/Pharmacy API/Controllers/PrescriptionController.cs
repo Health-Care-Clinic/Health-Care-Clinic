@@ -18,11 +18,13 @@ namespace Pharmacy_API.Controllers
     {
         private readonly IMedicineService _medicineService;
         private readonly IApiKeyService _apiKeyService;
+        private readonly IPrescriptionService _prescriptionService;
 
-        public PrescriptionController(IMedicineService medicineService, IApiKeyService apiKeyService)
+        public PrescriptionController(IMedicineService medicineService, IApiKeyService apiKeyService, IPrescriptionService prescriptionService)
         {
             _medicineService = medicineService;
             _apiKeyService = apiKeyService;
+            _prescriptionService = prescriptionService;
         }
 
         [HttpGet("doesExist")]
@@ -94,15 +96,7 @@ namespace Pharmacy_API.Controllers
         [HttpPost("qrPdf")]
         public IActionResult UploadQrPdf(Bitmap qr)
         {
-            qr.Save("image.bmp");
-            System.Drawing.Image image = System.Drawing.Image.FromFile("image.bmp");
-            Document doc = new Document(PageSize.A4);
-            iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream("image.pdf", FileMode.Create));
-            doc.Open();
-            iTextSharp.text.Image pdfImage = iTextSharp.text.Image.GetInstance(qr, System.Drawing.Imaging.ImageFormat.Bmp);
-            doc.Add(pdfImage);
-            doc.Close();
-
+            _prescriptionService.UploadPdf(qr);
             return Ok();
         }
 
