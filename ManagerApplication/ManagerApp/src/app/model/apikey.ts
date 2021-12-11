@@ -7,4 +7,5 @@ export interface IApiKey{
     category: string;
     imagePath: string;
     note: string;
+    image: any;
 }

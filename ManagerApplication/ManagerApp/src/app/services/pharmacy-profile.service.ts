@@ -7,7 +7,7 @@ import { IApiKey } from '../model/apikey';
   providedIn: 'root'
 })
 export class PharmacyProfileService {
-
+  
   constructor(private _http: HttpClient) { }
 
   getPharmacy(id: number): Observable<IApiKey> {
@@ -20,6 +20,15 @@ export class PharmacyProfileService {
 
   editPharmacyProfile(pharmacy: IApiKey): Observable<any> {
     return this._http.put<any>("http://localhost:65508/hospital/apikey/pharmacy-profiles", pharmacy);
+  }
+
+  /*uploadImage(formData: FormData): Observable<any> {
+    return this._http.post("http://localhost:65508/hospital/")
+  }*/
+  getPharmacyImage(imagePath: string): Observable<any> {
+
+    return this._http.get<any>('http://localhost:65508/hospital/pharmacyimage/'+imagePath);
+
   }
 
 }

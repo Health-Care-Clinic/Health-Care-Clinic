@@ -86,5 +86,14 @@ namespace Integration.Service
             Add(apikey);
             return apikey;
         }
+
+        public void EditPharmacyPicturePath(int id, string fileName)
+        {
+            ApiKey apikey = GetOneById(id);
+            Remove(apikey);
+            apikey.ImagePath = fileName;
+            Add(apikey);
+            return;
+        }
     }
 }

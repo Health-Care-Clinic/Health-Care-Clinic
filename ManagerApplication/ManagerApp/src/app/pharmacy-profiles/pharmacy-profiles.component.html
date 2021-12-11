@@ -6,9 +6,13 @@
 
         <div *ngIf="pharmacy.category === 'Pharmacy'">
             <mat-card class="example-card">
-                <mat-card-header >
-                    <div mat-card-avatar *ngIf="!pharmacy.imagePath" class="example-header-image" style.background-image=url({{imageUrl}}) ></div>
-                    <div mat-card-avatar *ngIf="pharmacy.imagePath" class="example-header-image" style.background-image=url({{pharmacy.imagePath}})></div>
+                <mat-card-header>
+                    <div mat-card-avatar *ngIf="!pharmacy.imagePath" class="example-header-image"
+                        style.background-image=url({{imageUrl}})></div>
+                    <div mat-card-avatar *ngIf="pharmacy.imagePath" class="example-header-image"
+                        style.background-image=pharmacy.image><img
+                            style="width: 100px; height: 100px; border-radius:50px;" [src]="pharmacy.image" /></div>
+
                     <mat-card-title>{{pharmacy.name}}</mat-card-title>
                     <mat-card-subtitle>{{pharmacy.city}}<br><br>{{pharmacy.baseUrl}}</mat-card-subtitle>
                 </mat-card-header>
@@ -16,9 +20,6 @@
                 <mat-card-content>
                     <p>
                         {{pharmacy.note}}
-                        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                        bred for hunting.
                     </p>
                 </mat-card-content>
                 <mat-card-actions>

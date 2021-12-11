@@ -16,5 +16,6 @@ namespace Integration.Interface.Service
         ApiKey GetByKey(string key);
 
         ApiKey EditPharmacyProfile(ApiKey ak);
+        void EditPharmacyPicturePath(int id, string fileName);
     }
 }

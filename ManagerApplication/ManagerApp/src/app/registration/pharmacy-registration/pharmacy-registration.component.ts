@@ -15,7 +15,7 @@ export class PharmacyRegistrationComponent implements OnInit {
   public errorText: string;
   public labelVisible: boolean = false;
   public name: string = "";
-  public apikey: IApiKey = {id: 0, name: "", key: "", baseUrl: "", city: "", category: "", imagePath: "", note: ""};
+  public apikey: IApiKey = {id: 0, name: "", key: "", baseUrl: "", city: "", category: "", imagePath: "", note: "", image:""};
   public url: string = "";
 
   constructor(private _registrationService : RegistrationService) {
