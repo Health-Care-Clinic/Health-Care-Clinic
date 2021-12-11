@@ -40,6 +40,14 @@
   <ItemGroup>
     <PackageReference Include="ClinicCore" Version="1.0.1" />
     <PackageReference Include="iTextSharp" Version="5.5.13.2" />
+    <PackageReference Include="Google.Protobuf" Version="3.19.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.41.0" />
+    <PackageReference Include="Grpc.Core" Version="2.42.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.42.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
