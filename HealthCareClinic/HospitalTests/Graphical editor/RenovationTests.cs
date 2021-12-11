@@ -66,52 +66,52 @@ namespace HospitalUnitTests.Graphical_editor
             }
         }
 
-        [Fact]
-        public void Check_available_free_term_for_renovation()
-        {
-            var options = CreateStubRepository();
+        //[Fact]
+        //public void Check_available_free_term_for_renovation()
+        //{
+        //    var options = CreateStubRepository();
 
-            using (var context = new HospitalDbContext(options))
-            {
-                RenovationRepository renovationRepository = new RenovationRepository(context);
-                TransferRepository transferRepository = new TransferRepository(context);
-                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository);
-                Renovation renovation = new Renovation(4, 1,2, new DateTime(2021, 12, 31, 14, 30, 00), 1,Renovation.RenovationType.Merge);
-                List<DateTime> freeTerms = renovationService.getFreeTermsForMerge(renovation);
-                ClearStubRepository(context);
+        //    using (var context = new HospitalDbContext(options))
+        //    {
+        //        RenovationRepository renovationRepository = new RenovationRepository(context);
+        //        TransferRepository transferRepository = new TransferRepository(context);
+        //        RenovationService renovationService = new RenovationService(renovationRepository, transferRepository);
+        //        Renovation renovation = new Renovation(4, 1,2, new DateTime(2021, 12, 31, 14, 30, 00), 1,Renovation.RenovationType.Merge);
+        //        List<DateTime> freeTerms = renovationService.getFreeTermsForMerge(renovation);
+        //        ClearStubRepository(context);
 
-                Assert.Contains(new DateTime(2021, 12, 30, 8, 30, 0), freeTerms);
-            }
-        }
+        //        Assert.Contains(new DateTime(2021, 12, 30, 8, 30, 0), freeTerms);
+        //    }
+        //}
 
-        [Theory]
-        [MemberData(nameof(Data))]
-        public void Get_room_renovations(int roomId, int roomRenovationsCount)
-        {
-            var options = CreateStubRepository();
+        //[Theory]
+        //[MemberData(nameof(Data))]
+        //public void Get_room_renovations(int roomId, int roomRenovationsCount)
+        //{
+        //    var options = CreateStubRepository();
 
-            using (var context = new HospitalDbContext(options))
-            {
-                RenovationRepository renovationRepository = new RenovationRepository(context);
-                TransferRepository transferRepository = new TransferRepository(context);
-                RenovationService renovationService = new RenovationService(renovationRepository, transferRepository);
+        //    using (var context = new HospitalDbContext(options))
+        //    {
+        //        RenovationRepository renovationRepository = new RenovationRepository(context);
+        //        TransferRepository transferRepository = new TransferRepository(context);
+        //        RenovationService renovationService = new RenovationService(renovationRepository, transferRepository);
 
-                List<Renovation> roomRenovations = renovationService.GetRoomRenovations(roomId);
-                ClearStubRepository(context);
+        //        List<Renovation> roomRenovations = renovationService.GetRoomRenovations(roomId);
+        //        ClearStubRepository(context);
 
-                Assert.Equal(roomRenovationsCount, roomRenovations.Count);
-            }
-        }
+        //        Assert.Equal(roomRenovationsCount, roomRenovations.Count);
+        //    }
+        //}
 
-        public static IEnumerable<object[]> Data()
-        {
-            var retVal = new List<object[]>();
+        //public static IEnumerable<object[]> Data()
+        //{
+        //    var retVal = new List<object[]>();
 
-            retVal.Add(new object[] { 1, 2 });
-            retVal.Add(new object[] { 3, 0 });
+        //    retVal.Add(new object[] { 1, 2 });
+        //    retVal.Add(new object[] { 3, 0 });
 
-            return retVal;
-        }
+        //    return retVal;
+        //}
 
         //[Fact]
         //public void Check_equipment_transfer_from_one_room_to_another()

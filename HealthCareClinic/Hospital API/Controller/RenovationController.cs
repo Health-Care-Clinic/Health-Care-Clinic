@@ -29,14 +29,14 @@ namespace Hospital_API.Controller
         [HttpGet("getAllRenovations")]
         public IActionResult GetAllRenovations()
         {
-            checkRenovations();
+            CheckRenovations();
             List<RenovationDTO> allRenovations = new List<RenovationDTO>();
             renovationService.GetAll().ToList().ForEach(Renovation
                 => allRenovations.Add(RenovationAdapter.RenovationToRenovationDTO(Renovation)));
             return Ok(allRenovations);
         }
 
-        private void checkRenovations()
+        private void CheckRenovations()
         {
             DateTime today = DateTime.Now;
             List<RenovationDTO> allRenovations = new List<RenovationDTO>();
