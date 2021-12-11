@@ -35,7 +35,7 @@ export class EditPharmacyProfileComponent implements OnInit {
   }
 
   uploadFile = (files) => {
-    if(files.length === 0 || this.pharmacy.imagePath === ""){
+    if(files.length === 0){
       return;
     }
 
@@ -43,7 +43,8 @@ export class EditPharmacyProfileComponent implements OnInit {
     this.pharmacy.imagePath = imageToUpload.name;
     const formData = new FormData();
     formData.append('file', imageToUpload, imageToUpload.name);
-    this._http.post("http://localhost:65508/hospital/pharmacyimage/upload-image/" + this.idp, formData, {reportProgress: false, observe: 'events'}).subscribe(event =>{
+    this._pharmacyProfileService.uploadImage(this.idp, formData).subscribe(event =>{
+    //this._http.post("http://localhost:65508/hospital/pharmacyimage/upload-image/" + this.idp, formData, {reportProgress: false, observe: 'events'}).subscribe(event =>{
       if(event.type === HttpEventType.Response){
         this.onUploadFinished.emit(event.body);
       }
