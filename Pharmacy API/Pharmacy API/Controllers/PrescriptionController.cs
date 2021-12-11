@@ -93,12 +93,7 @@ namespace Pharmacy_API.Controllers
             return Ok();
         }
 
-        [HttpPost("qrPdf")]
-        public IActionResult UploadQrPdf(Bitmap qr)
-        {
-            _prescriptionService.UploadPdf(qr);
-            return Ok();
-        }
+        
 
     }
 }

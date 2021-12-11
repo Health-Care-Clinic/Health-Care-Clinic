@@ -9,6 +9,7 @@ namespace Integration.Interface.Service
     public interface IPrescriptionService
     {
         void CreatePrescriptionFile(PrescriptionDTO prescriptionDto);
-        Bitmap GetPrescriptionQrPdf(PrescriptionDTO prescriptionDto);
+        void GetPrescriptionQr(PrescriptionDTO prescriptionDto);
+        void GetPrescriptionPdf();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Integration.ApiKeys.Model;
@@ -48,12 +49,11 @@ namespace Integration_API.Controller
         [HttpPost("qr")]
         public IActionResult CheckIfMedicineExistsQr(PrescriptionDTO prescriptionDto)
         {
-            Console.Beep();
             ApiKey apiKey = _apiKeyService.GetApiKeyByName(prescriptionDto.Pharmacy);
             string url = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
             ApiKey myApiKey = _apiKeyService.GetMyApiKey(url);
 
-            var qr = _prescriptionService.GetPrescriptionQrPdf(prescriptionDto);
+            _prescriptionService.GetPrescriptionQr(prescriptionDto);
 
             var client = new RestClient(apiKey.BaseUrl);
             var request = new RestRequest("benu/prescription/doesExistQr");
@@ -83,7 +83,7 @@ namespace Integration_API.Controller
         {
             if (response.Equals("yes"))
             {
-                fileTransferService.UploadFile("prescription");
+                _prescriptionService.GetPrescriptionPdf();
             }
 
             return Ok();

@@ -44,6 +44,7 @@ namespace Pharmacy_API
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IFeedbackReplyRepository, FeedbackReplyRepository>();
             services.AddScoped<IFeedbackReplyService, FeedbackReplyService>();
+            services.AddScoped<IPrescriptionService, PrescriptionService>();
 
             Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
             fileCompressionThread.Start();

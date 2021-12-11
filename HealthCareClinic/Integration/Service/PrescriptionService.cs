@@ -14,7 +14,7 @@ namespace Integration.Service
     public class PrescriptionService : IPrescriptionService
     {
         private FileTransferService fileTransferService;
-
+        private Bitmap qr;
         public PrescriptionService()
         {
             fileTransferService = new FileTransferService();
@@ -30,12 +30,32 @@ namespace Integration.Service
 
         }
 
-        public Bitmap GetPrescriptionQrPdf(PrescriptionDTO prescriptionDto)
+        public void GetPrescriptionQr(PrescriptionDTO prescriptionDto)
         {
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("A", QRCodeGenerator.ECCLevel.Q);
+            string content = prescriptionDto.Patient + "\n" + prescriptionDto.Diagnosis + "\n" +
+                             prescriptionDto.Medicine + prescriptionDto.Amount.ToString() +
+                             "\n" + prescriptionDto.Pharmacy;
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
-            return qrCode.GetGraphic(20);
+            qr = qrCode.GetGraphic(5);
+            qr.Save("image.bmp");
+            System.Drawing.Image image = System.Drawing.Image.FromFile("image.bmp");
+            Document doc = new Document(PageSize.A4);
+            iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream("image.pdf", FileMode.Create));
+            doc.Open();
+            iTextSharp.text.Image pdfImage = iTextSharp.text.Image.GetInstance(qr, System.Drawing.Imaging.ImageFormat.Bmp);
+            doc.Add(pdfImage);
+            doc.Close();
         }
+
+        public void GetPrescriptionPdf()
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("image.pdf")
+            {
+                UseShellExecute = true
+            });
+        }
+
     }
 }

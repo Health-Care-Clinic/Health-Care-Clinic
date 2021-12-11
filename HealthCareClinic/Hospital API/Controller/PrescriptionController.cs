@@ -37,13 +37,11 @@ namespace Hospital_API.Controller
         [HttpPost("qr")]
         public IActionResult SendPrescriptionQr(PrescriptionDTO prescriptionDto)
         {
-            Console.Beep();
             _prescriptionService.Add(PrescriptionAdadpter.PrescriptionDTOToPrescription(prescriptionDto));
 
             var client = new RestClient("http://localhost:65508");
             var request = new RestRequest("hospital/prescription/qr");
             request.AddJsonBody(prescriptionDto);
-            Console.Beep();
             IRestResponse response = client.Post(request);
 
             return Ok("Successfully sent!");
