@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package rs.ac.uns.ftn.grpc;
+option csharp_namespace = "UrgentMedicines.Protos";
+
+message MessageProto {
+  string message = 1;
+  string medicineName = 2;
+  int32 medicineQuantity = 3;
+}
+
+message MessageResponseProto {
+  string response = 1;
+  string status = 2;
+}
+
+
