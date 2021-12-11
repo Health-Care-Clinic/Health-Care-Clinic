@@ -120,42 +120,42 @@ namespace HospitalUnitTests.Graphical_editor
         //    return retVal;
         //}
 
-        //[Fact]
-        //public void Check_equipment_transfer_from_one_room_to_another()
-        //{
-        //    var options = CreateStubRepository();
+        [Fact]
+        public void Check_equipment_transfer_from_one_room_to_another()
+        {
+            var options = CreateStubRepository();
 
-        //    using (var context = new HospitalDbContext(options))
-        //    {
-        //        EquipmentRepository equipmentRepository = new EquipmentRepository(context);
-        //        EquipmentService equipmentService = new EquipmentService(equipmentRepository);
+            using (var context = new HospitalDbContext(options))
+            {
+                EquipmentRepository equipmentRepository = new EquipmentRepository(context);
+                EquipmentService equipmentService = new EquipmentService(equipmentRepository);
 
-        //        Equipment eq = new Equipment(4, "Blanket", EquipmentType.Dynamic, 25, 2);
+                Equipment eq = new Equipment(4, "Blanket", EquipmentType.Dynamic, 25, 2);
 
-        //        List<Equipment> newEquipment = equipmentService.TransferEquipmentFromOneRoomToAnother(2, 1);
+                List<Equipment> newEquipment = equipmentService.TransferEquipmentFromOneRoomToAnother(2, 1);
 
-        //        ClearStubRepository(context);
+                ClearStubRepository(context);
 
-        //        Assert.Contains(eq, newEquipment);
-        //    }
-        //}
+                Assert.Contains(eq, newEquipment);
+            }
+        }
 
-        //[Fact]
-        //public void Check_equipment_quantity_when_transfered_from_one_room_to_another()
-        //{
-        //    var options = CreateStubRepository();
+        [Fact]
+        public void Check_equipment_quantity_when_transfered_from_one_room_to_another()
+        {
+            var options = CreateStubRepository();
 
-        //    using (var context = new HospitalDbContext(options))
-        //    {
-        //        EquipmentRepository equipmentRepository = new EquipmentRepository(context);
-        //        EquipmentService equipmentService = new EquipmentService(equipmentRepository);
+            using (var context = new HospitalDbContext(options))
+            {
+                EquipmentRepository equipmentRepository = new EquipmentRepository(context);
+                EquipmentService equipmentService = new EquipmentService(equipmentRepository);
 
-        //        int quantity = equipmentService.GetQuantityOfEquipmentWhenTransferedFromOneRoomToAnother("TV", 1, 2);
+                int quantity = equipmentService.GetQuantityOfEquipmentWhenTransferedFromOneRoomToAnother("TV", 1, 2);
 
-        //        ClearStubRepository(context);
+                ClearStubRepository(context);
 
-        //        Assert.Equal(27, quantity);
-        //    }
-        //}
+                Assert.Equal(27, quantity);
+            }
+        }
     }
 }
