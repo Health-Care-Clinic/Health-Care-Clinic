@@ -69,7 +69,7 @@ namespace HospitalUnitTests.Graphical_editor
             }
         }
 
-        //[Fact]
+        [Fact]
         public void Check_available_free_term_for_renovation()
         {
             var options = CreateStubRepository();

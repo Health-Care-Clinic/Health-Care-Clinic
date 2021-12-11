@@ -46,6 +46,9 @@ export class RenovationRoomsComponent implements OnInit {
 
       this.selectedEndDate = new Date();
       this.step1 = true;
+      this.renovationService.getAllRenovations().subscribe(ret => {
+
+      })
     }
 
     onSubmit(): void {
@@ -168,9 +171,6 @@ export class RenovationRoomsComponent implements OnInit {
       this.step2 = false;
 
       if (this.selectedType === 'Merge') {
-        alert('Merging rooms: ' + this.firstRoom.toString() + ' and ' + this.secondRoom.toString());
-        alert('Date: ' + term.toString() + ', duration ' + this.duration.toString() + ' days');
-
         this.renovationService.getAllRenovations().subscribe(ret => {
           let newId = 0;
           for (let r of ret) {
