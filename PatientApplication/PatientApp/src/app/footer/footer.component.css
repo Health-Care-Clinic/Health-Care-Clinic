@@ -1,0 +1,11 @@
+.footer {
+    /* position: absolute;
+    bottom: 0; */
+    height: 150px;
+    margin-top: 7%;
+    clear: both;
+    position: relative;
+    /* position:fixed;
+    bottom:0px; */
+    
+}

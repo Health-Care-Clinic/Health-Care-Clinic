@@ -1,0 +1,109 @@
+<div style="display: flex; flex-direction: row;">
+    <div >
+        <div *ngIf="step1">
+            <h1>Step 1: Select the renovation type</h1>
+            <select id="select1">
+                <option value="Merge">Merge</option>
+                <option value="Divide">Divide</option>
+            </select>
+            <button (click)="onSubmit()" type="submit" id="next1">Next</button>
+        </div>
+        <div>
+            <div *ngIf="selectedType === 'Merge' && step2">
+                <h1>Step 2: Select the rooms which you want to merge</h1>
+                <select id="select2">
+                    <option *ngFor='let e of allRooms' value="{{e.id}}">Room: {{e.id}}</option>
+                </select>
+                <select id="select3">
+                    <option *ngFor='let e of allRooms' value="{{e.id}}">Room: {{e.id}}</option>
+                </select>
+                <button (click)="onSubmit1()" type="submit" id="next2">Next</button>
+                <button id="back1" (click)="back1()">Back to step 1</button>
+                <p *ngIf="errorMessage === false" style="color: red;"> The rooms are not next to each other </p>
+            </div>
+            <div *ngIf="selectedType === 'Divide' && step2">
+                <h1>Step 2: Select the room which you want to divide</h1>
+                <select id="select4">
+                    <option *ngFor='let e of allRooms' value="{{e.id}}">Room: {{e.id}}</option>
+                </select>
+                <button (click)="onSubmit2()" type="submit" id="next2">Next</button>
+                <button id="back1" (click)="back1()">Back to step 1</button>
+            </div>
+        </div>
+        <div>
+            <div *ngIf="step3">
+                <h1>Step 3: Select the time until which it needs to be renovated</h1>
+                <input type="date" id="date" name="dateofrenovation" [(ngModel)]="selectedEndDate">
+                <button (click)="onSubmit3()" type="submit" id="next3">Next</button>
+                <button id="back2" (click)="back2()">Back to step 2</button>
+            </div>
+        </div>
+        <div>
+            <div *ngIf="step4">
+                <h1>Step 4: Select duration(in days) which you need for renovation</h1>
+                <select id="select5">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                    <option value=9>9</option>
+                    <option value=10>10</option>
+                    <option value=15>15</option>
+                    <option value=20>20</option>
+                    <option value=30>30</option>
+                </select>
+                <button (click)="onSubmit4()" type="submit" id="next4">Next</button>
+                <button id="back3" (click)="back3()">Back to step 3</button>
+            </div>
+        </div>
+        <div>
+            <div *ngIf="step5">
+                <h1>Step 5: Choose the new informations for divided room</h1>
+                <div class="row">
+                    <label for="" id="nameLabel">Name: </label>
+                    <input type="name" id="newName" [(ngModel)]="newName">
+                </div>
+                <div class="row">
+                    <label for="" id="typeLabel">Type: </label>
+                    <select id="select6">
+                        <option value="RoomForAppointments">RoomForAppointments</option>
+                        <option value="OperationRoom">OperationRoom</option>
+                        <option value="WC">WC</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="" id="descriptionLabel">Description: </label>
+                    <input type="description" id="newDescription" [(ngModel)]="newDescription">
+                </div>
+                <div class="row">
+                    <button (click)="onSubmit5()" type="submit" id="next5">Next</button>
+                    <button id="back4" (click)="back4()">Back to step 4</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="showTerms">
+        <h1>Step 6: Select time when you want to start your process</h1>
+        <form (ngSubmit)="onFinish()" >
+            <table style="font-size: 20px;" id="tableRenovation">
+                <tr style="margin-bottom: 20px;">
+                <th></th>
+                <th>Time</th>
+                </tr>
+                
+                <tr *ngFor="let t of freeTerms; let indexOfelement = index; " [attr.data-index]="indexOfelement">
+                    <td> <input type="radio" id="html" name="fav_language" value="{{indexOfelement}}" [(ngModel)]="radioInput"> </td>
+                    <td style="margin-right: 20px;"> {{t | date:'dd.MM.yyyy HH:mm'}} </td>
+                </tr>
+            </table>
+
+            <button type="submit" id="finish" style="margin-top: 20px;">Finish</button>
+            <button id="backFromFinish" (click)="backFromFinish()">Back to step 5</button>
+        </form>
+    </div>
+
+</div>

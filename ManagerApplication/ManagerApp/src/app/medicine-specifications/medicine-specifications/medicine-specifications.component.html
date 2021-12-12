@@ -1,0 +1,16 @@
+<div class="d-flex flex-column align-items-center bg-ghostwhite flex-grow-1">
+    <h3 class="col-6 mt-5 px-5 lead" style="font-size: x-large">Medicine specifications</h3>
+    <div class="d-flex flex-column align-items-center w-50 p-4 mt-3 bg-white box-shadow">
+        <mat-form-field floatLabel="never">
+            <mat-label>Medicine Name</mat-label>
+            <input matInput [(ngModel)]='message' name="message" id="message">
+        </mat-form-field> <br/>
+        <mat-form-field floatLabel="never">
+            <mat-label>Pharmacy Name</mat-label>
+            <input matInput [(ngModel)]='to' name="to" id="to">
+        </mat-form-field> <br/>
+        <button mat-raised-button (click)='sendMessage()'>Send</button>
+    </div> <br/> <br/>
+    <button mat-raised-button (click)='download()'>Download specification</button> <br/> <br/>
+    <button mat-raised-button (click)='openPdf()'>Open</button>
+</div>

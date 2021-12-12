@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; width: 100%; }
+body { 
+  margin: 0;
+ /*  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: -164.5;
+  margin-right: -164.5; */
+   padding: 0; 
+   font-family: Roboto, 
+   "Helvetica Neue", sans-serif; 
+  }
+.box-shadow {
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.06);
+    -moz-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.06);
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.06);
+  }
+
+  .input-size {
+    width: 300px;
+    height: 30px
+  }
+
+  .bg-ghostwhite{
+    background-color: #F7F7FF; 
+  }
+
+  .bg-lightblue{
+    background-color: #BDD5EA; 
+  }
+
+  .bg-blue{
+    background-color: #577399; 
+  }
+  
+  .bg-gray{
+    background-color: #495867; 
+  }
+
+  .bg-brickred{
+    background-color: #C14953; 
+  }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

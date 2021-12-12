@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+ 
+  <PropertyGroup>
+    <PackageId>INTEGRATION.IS</PackageId>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Health-Care-Clinic/Health-Care-Clinic</RepositoryUrl>
+    <Description>This package is a base for implementing an informational system of a hospital.</Description>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ApiKeys\Repository\ApiKeyRepository.cs" />
+    <Compile Remove="ApiKeys\Repository\IApiKeyRepository.cs" />
+    <Compile Remove="ApiKeys\Service\ApiKeyService.cs" />
+    <Compile Remove="Class1.cs" />
+    <Compile Remove="DTO\PeriodDTO.cs" />
+    <Compile Remove="Interface\Service\IReportService.cs" />
+    <Compile Remove="Pharmacy\Service\ReportServicee.cs" />
+    <Compile Remove="Service\IFileTransferService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ApiKeys\Repository\" />
+    <Folder Include="ApiKeys\Service\" />
+    <Folder Include="Notifications\Repository\" />
+    <Folder Include="Notifications\Service\" />
+    <Folder Include="Partnership\Model\" />
+    <Folder Include="Partnership\Service\" />
+    <Folder Include="Partnership\Repository\" />
+    <Folder Include="Pharmacy\Repository\" />
+    <Folder Include="Pharmacy\Service\" />
+    <Folder Include="Shared model\" />
+    <Folder Include="Tendering\Model\" />
+    <Folder Include="Tendering\Service\" />
+    <Folder Include="Tendering\Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClinicCore" Version="1.0.1" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.2" />
+    <PackageReference Include="Google.Protobuf" Version="3.19.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.41.0" />
+    <PackageReference Include="Grpc.Core" Version="2.42.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.42.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Npgsql" Version="5.0.10" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="QRCoder" Version="1.4.2" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+    <PackageReference Include="RestSharp" Version="106.13.0" />
+    <PackageReference Include="sautinsoft.document" Version="5.4.12.1" />
+    <PackageReference Include="SSH.NET" Version="2020.0.1" />
+    <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="19.3.0.56" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
+  </ItemGroup>
+
+</Project>

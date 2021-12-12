@@ -1,0 +1,22 @@
+.navbar {
+    /* justify-content: space-between; */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.example-spacer {
+    flex: 1 1 1;
+}
+  
+.example-spacer-notification {
+    flex: auto 1 1;
+}
+
+span {
+    padding-right: 1rem;
+}
+
+mat-button {
+    color: primary;
+}

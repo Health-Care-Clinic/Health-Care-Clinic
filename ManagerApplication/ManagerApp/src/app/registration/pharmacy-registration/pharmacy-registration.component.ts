@@ -1,0 +1,66 @@
+import { ReturnStatement, TypeScriptEmitter } from '@angular/compiler';
+import { Component, OnInit } from '@angular/core';
+import { IApiKey } from 'src/app/model/apikey';
+import { RegistrationService } from 'src/app/services/registration.service';
+
+@Component({
+  selector: 'registration',
+  templateUrl: './pharmacy-registration.component.html',
+  styleUrls: ['./pharmacy-registration.component.css'],
+  providers: [ RegistrationService ]
+})
+export class PharmacyRegistrationComponent implements OnInit {
+
+  public isErrorLabelVisible: boolean;
+  public errorText: string;
+  public labelVisible: boolean = false;
+  public name: string = "";
+  public apikey: IApiKey = {id: 0, name: "", key: "", baseUrl: "", city: "", category: "", imagePath: "", note: "", image:""};
+  public url: string = "";
+
+  constructor(private _registrationService : RegistrationService) {
+    this.isErrorLabelVisible = true;
+    this.errorText = "no error";
+    this.apikey
+  }
+
+  ngOnInit(): void {
+  }
+
+  register(): void {
+    this.labelVisible = true;
+    if(this.name == "" || this.url == ""){
+      this.errorText = "Please fill out all fields."
+      this.isErrorLabelVisible = true;
+      return;
+    }
+    if(!this.isValidUrl(this.url)){
+      this.errorText = "Please enter valid URL."
+      this.isErrorLabelVisible = true;
+      return;
+    }
+  
+    this.errorText = ""
+    this.isErrorLabelVisible = false;
+    this.apikey.name = this.name;
+    this.apikey.baseUrl = this.url;
+    this.apikey.category = "Pharmacy";
+    this._registrationService.registerPharmacy(this.apikey).subscribe(res => {this.name = ""; this.url = "";}, error => {
+        this.errorText = "Unsuccesful registration.";
+        this.isErrorLabelVisible = true;}
+      );
+  
+  }
+
+  isValidUrl(inputUrl: string): boolean {
+    let pattern = new RegExp('(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}', 'i'); //preciznije?
+    /*'^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i');*/ // fragment locator
+    return pattern.test(inputUrl);
+  }
+
+}
