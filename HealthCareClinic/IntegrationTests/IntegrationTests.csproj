@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="INTEGRATION.IS" Version="1.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
@@ -28,7 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Hospital API\Hospital API.csproj" />
     <ProjectReference Include="..\Integration API\Integration API.csproj" />
-    <ProjectReference Include="..\Integration\Integration.csproj" />
   </ItemGroup>
 
 </Project>

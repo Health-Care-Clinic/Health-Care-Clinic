@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClinicCore" Version="1.0.1" />
     <PackageReference Include="Google.Protobuf" Version="3.19.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
     <PackageReference Include="Grpc.AspNetCore.Server" Version="2.41.0" />
@@ -42,6 +41,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="INTEGRATION.IS" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
@@ -54,11 +54,6 @@
     <PackageReference Include="sautinsoft.document" Version="5.4.12.1" />
     <PackageReference Include="SSH.NET" Version="2020.0.1" />
     <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="19.3.0.56" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
-    <ProjectReference Include="..\Integration\Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
