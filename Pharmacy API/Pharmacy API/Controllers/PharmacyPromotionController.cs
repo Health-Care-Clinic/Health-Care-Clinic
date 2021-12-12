@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pharmacy.ApiKeys.Model;
 
 namespace Pharmacy_API.Controllers
 {

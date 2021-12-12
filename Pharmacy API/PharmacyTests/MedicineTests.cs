@@ -4,6 +4,8 @@ using Pharmacy.Repository;
 using Pharmacy.Service;
 using System;
 using System.Collections.Generic;
+using Pharmacy.Prescriptions.Model;
+using Pharmacy.Prescriptions.Service;
 using Xunit;
 
 namespace PharmacyTests

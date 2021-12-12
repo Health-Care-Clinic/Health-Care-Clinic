@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy;
+using Pharmacy.ApiKeys.Model;
 using Pharmacy.DTO;
 using Pharmacy.Model;
 using Pharmacy.Service;

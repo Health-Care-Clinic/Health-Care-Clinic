@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Pharmacy.Service;
 using Pharmacy;
+using Pharmacy.Prescriptions.Model;
 using Pharmacy.Repository;
 using Pharmacy_API.DTO;
 using Pharmacy_API.Adapter;

@@ -2,6 +2,7 @@ using Pharmacy.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Pharmacy.Prescriptions.Model;
 
 namespace Pharmacy.Service
 {

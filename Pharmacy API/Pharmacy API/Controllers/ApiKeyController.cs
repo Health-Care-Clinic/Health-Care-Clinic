@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy;
 using Pharmacy.Adapter;
+using Pharmacy.ApiKeys.Model;
 using Pharmacy.DTO;
 using Pharmacy.Model;
 using Pharmacy.Service;

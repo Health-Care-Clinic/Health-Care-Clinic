@@ -11,6 +11,13 @@ using Pharmacy.Service;
 using Pharmacy.UrgentMedicines;
 using System;
 using System.Threading;
+using Pharmacy.ApiKeys.Repository;
+using Pharmacy.ApiKeys.Service;
+using Pharmacy.Feedbacks.Repository;
+using Pharmacy.Feedbacks.Service;
+using Pharmacy.FileCompression.Service;
+using Pharmacy.Prescriptions.Repository;
+using Pharmacy.Prescriptions.Service;
 using UrgentMedicines.Protos;
 
 namespace Pharmacy_API

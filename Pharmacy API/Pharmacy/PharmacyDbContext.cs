@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Pharmacy.ApiKeys.Model;
+using Pharmacy.Feedbacks.Model;
 using Pharmacy.Model;
+using Pharmacy.Prescriptions.Model;
 
 namespace Pharmacy
 {

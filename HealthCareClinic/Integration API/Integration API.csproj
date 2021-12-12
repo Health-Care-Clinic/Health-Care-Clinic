@@ -11,21 +11,25 @@
     <Compile Remove="DTO\**" />
     <Compile Remove="Mapper\**" />
     <Compile Remove="Service\**" />
+    <Compile Remove="UrgentMedicines\**" />
     <Content Remove="Adapter\**" />
     <Content Remove="Controllers\**" />
     <Content Remove="DTO\**" />
     <Content Remove="Mapper\**" />
     <Content Remove="Service\**" />
+    <Content Remove="UrgentMedicines\**" />
     <EmbeddedResource Remove="Adapter\**" />
     <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="DTO\**" />
     <EmbeddedResource Remove="Mapper\**" />
     <EmbeddedResource Remove="Service\**" />
+    <EmbeddedResource Remove="UrgentMedicines\**" />
     <None Remove="Adapter\**" />
     <None Remove="Controllers\**" />
     <None Remove="DTO\**" />
     <None Remove="Mapper\**" />
     <None Remove="Service\**" />
+    <None Remove="UrgentMedicines\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,11 +69,6 @@
     <Folder Include="MedSpecifications\" />
     <Folder Include="MedSpecifications\" />
     <Folder Include="Images\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="UrgentMedicines\Protos\model.proto" GrpcServices="None" ProtoRoot="UrgentMedicines\Protos\" />
-    <Protobuf Include="UrgentMedicines\Protos\netGrpcService.proto" GrpcServices="Client" />
   </ItemGroup>
 
 

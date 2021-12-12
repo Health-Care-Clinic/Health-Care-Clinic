@@ -13,12 +13,10 @@ namespace Integration_API.Controller
     [ApiController]
     public class MedicineController : ControllerBase
     {
-        private readonly IntegrationDbContext _dbContext;
         private readonly IMedicineService _medicineService;
 
-        public MedicineController(IntegrationDbContext integrationDbContext, IMedicineService medicineService)
+        public MedicineController(IMedicineService medicineService)
         {
-            _dbContext = integrationDbContext;
             _medicineService = medicineService;
         }
 

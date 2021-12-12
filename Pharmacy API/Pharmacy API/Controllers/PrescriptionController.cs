@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using iTextSharp.text;
 using Microsoft.AspNetCore.Mvc;
+using Pharmacy.ApiKeys.Model;
 using Pharmacy.Model;
 using Pharmacy.Service;
 using RestSharp;

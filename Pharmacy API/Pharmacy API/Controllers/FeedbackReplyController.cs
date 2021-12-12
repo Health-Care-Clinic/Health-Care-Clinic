@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pharmacy.Adapter;
+using Pharmacy.ApiKeys.Model;
 using Pharmacy.DTO;
+using Pharmacy.Feedbacks.Model;
 using Pharmacy.Service;
 
 namespace Pharmacy_API.Controllers
