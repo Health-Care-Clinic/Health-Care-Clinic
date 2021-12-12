@@ -5,12 +5,12 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "Pharmacy API/Pharmacy API/Pharmacy API.csproj" && \
-    dotnet build "Pharmacy API/Pharmacy API/Pharmacy API.csproj" -c Release
+RUN dotnet restore "Pharmacy API/Pharmacy API.csproj" && \
+    dotnet build "Pharmacy API/Pharmacy API.csproj" -c Release
  
 
 FROM build AS publish
-RUN dotnet publish "Pharmacy API/Pharmacy API/Pharmacy API.csproj" -c Release -o /app/publish 
+RUN dotnet publish "Pharmacy API/Pharmacy API.csproj" -c Release -o /app/publish 
 
 
 FROM base AS final

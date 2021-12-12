@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+  postgres-database:
+    image: postgres 
+    restart: always
+    networks: 
+      - database 
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: pharmacyDb
+    volumes:
+      - type: volume
+        source: database-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: /database.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  pharmacy:
+    #build: ../PharmacyApplication
+    image: nenadbecanovic/pharmacy-api:latest
+    depends_on:
+      - postgres-database
+    environment: 
+      DATABASE_HOST: postgres-database
+      DATABASE_PORT: 5432
+      DATABASE_SCHEMA: pharmacyDb
+      DATABASE_PASSWORD: password
+      DATABASE_USER: postgres
+    ports:
+      - "5002:80" 
+    restart: on-failure
+    networks:
+      - application
+      - database
+
+volumes:
+  database-data:
+
+networks:
+  public:
+    driver: bridge
+  application:
+    driver: bridge
+  database:
+    driver: bridge
