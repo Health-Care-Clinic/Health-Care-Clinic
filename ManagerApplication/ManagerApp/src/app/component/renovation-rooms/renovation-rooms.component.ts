@@ -1,6 +1,6 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { Equipment } from 'src/app/model/equipment';
+import { Component, OnInit } from '@angular/core';
 import { Renovation, TypeOfRenovation } from 'src/app/model/renovation';
+import { Room, TypeOfRoom } from 'src/app/model/room';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 import { RenovationService } from 'src/app/services/renovation.service';
 
@@ -163,7 +163,7 @@ export class RenovationRoomsComponent implements OnInit {
         return;
       }
 
-      let term = this.freeTerms[this.radioInput]
+      let term = this.freeTerms[this.radioInput];
       this.showTerms = false;
       this.step5 = false;
       this.step4 = false;
@@ -184,7 +184,47 @@ export class RenovationRoomsComponent implements OnInit {
 
           })
         })
-        
+      }
+      else if (this.selectedType === 'Divide') {
+        let newRoom: Room;
+
+        this.hospitalMapService.getRooms().subscribe(ret => {
+          let newId = 0;
+          for (let r of ret) {
+            if (r.id > newId) {
+              newId = r.id;
+            }
+          }
+          this.hospitalMapService.getRoomById(this.divideRoom).subscribe(ret => {
+            if (this.newType === 'RoomForAppointments') {
+              newRoom = new Room(newId + 1, this.newName, this.newDescription, TypeOfRoom.RoomForAppointments, ret.x, ret.y, 0, 0, ret.floorId);
+            } else if (this.newType === 'OperationRoom') {
+              newRoom = new Room(newId + 1, this.newName, this.newDescription, TypeOfRoom.OperationRoom, ret.x, ret.y, 0, 0, ret.floorId);
+            } else if (this.newType === 'WC') {
+              newRoom = new Room(newId + 1, this.newName, this.newDescription, TypeOfRoom.WC, ret.x, ret.y, 0, 0, ret.floorId);
+            }
+
+            this.hospitalMapService.addRoom(newRoom).subscribe(ret => {
+              
+              this.renovationService.getAllRenovations().subscribe(ret => {
+                let newId = 0;
+                for (let r of ret) {
+                  if (r.id > newId) {
+                    newId = r.id;
+                  }
+                }
+                //let date = new Date(2021, 8, 7, 14, 0, 0)
+                let renovation = new Renovation(newId + 1, this.divideRoom, newRoom.id, TypeOfRenovation.Divide, term, this.duration);
+                this.renovationService.addRenovation(renovation).subscribe(ret => {
+      
+                })
+              })
+            
+            })
+            
+          })
+        })
+
         
       }
 

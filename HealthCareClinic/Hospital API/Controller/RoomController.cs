@@ -1,4 +1,5 @@
 ﻿using Hospital.Mapper;
+using Hospital.Rooms_and_equipment.Model;
 using Hospital.Rooms_and_equipment.Repository;
 using Hospital.Rooms_and_equipment.Service;
 using Hospital_API.Adapter;
@@ -19,6 +20,13 @@ namespace Hospital_API.Controller
         public RoomController(IRoomService roomService)
         {
             this.roomService = roomService;
+        }
+
+        [HttpPost("addRoom")]
+        public IActionResult AddRoom(Room room)
+        {
+            roomService.Add(room);
+            return Ok();
         }
 
         [HttpGet("getRoomsByFloorId/{id?}")]

@@ -388,5 +388,37 @@ namespace Hospital.Rooms_and_equipment.Service
             }
             return isFree;
         }
+
+        public int FindAvailableId()
+        {
+            int id = 0;
+            List<Renovation> renovations = GetAll().ToList();
+
+            foreach (Renovation r in renovations)
+            {
+                if (r.Id > id)
+                {
+                    id = r.Id;
+                }
+            }
+
+            return id + 1;
+        }
+
+        public int FindAvailableYear()
+        {
+            int year = 2022;
+            List<Renovation> renovations = GetAll().ToList();
+
+            foreach (Renovation r in renovations)
+            {
+                if (r.Date.Year > year)
+                {
+                    year = r.Date.Year;
+                }
+            }
+
+            return year + 1;
+        }
     }
 }

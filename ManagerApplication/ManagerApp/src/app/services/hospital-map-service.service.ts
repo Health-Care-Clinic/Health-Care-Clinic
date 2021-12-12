@@ -40,6 +40,7 @@ export class HospitalMapService {
   private cancelTransfer: string
   private isRenovationCancellable: string;
   private cancelRenovation: string;
+  private addRoomUrl: string;
 
   constructor(private _http: HttpClient) {
     this.roomTransfersGet = '/api/transfer/getRoomTransfers'
@@ -67,6 +68,7 @@ export class HospitalMapService {
     this.isRenovationCancellable = '/api/renovation/checkIfRenovationCancellable';
     this.cancelTransfer = '/api/transfer/cancelTransfer';
     this.cancelRenovation = '/api/renovation/cancelRenovation';
+    this.addRoomUrl = '/api/room/addRoom';
   }
 
   public deleteCancelledTransfer(transfer: Transfer):Observable<Transfer> {
@@ -214,6 +216,12 @@ export class HospitalMapService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Boolean>(this.checkRooms + "/"+ id1 + "/" + id2, {headers: headers});
+  }
+
+  public addRoom(room: Room): Observable<Room> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<Room>(this.addRoomUrl, room, {headers: headers});
   }
  
 }
