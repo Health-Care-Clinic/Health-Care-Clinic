@@ -91,9 +91,9 @@ namespace Hospital_API.Controller
         [HttpGet("getRoomAppointments/{id?}")]
         public IActionResult GetRoomAppointments(int id)
         {
-            List<AppointmentDTO> roomAppointments = new List<AppointmentDTO>();
+            List<Appointment> roomAppointments = new List<Appointment>();
             appointmentService.GetRoomAppointments(id).ToList().ForEach(Appointment
-                => roomAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment)));
+                => roomAppointments.Add(Appointment));
             return Ok(roomAppointments);
         }
     }
