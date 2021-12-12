@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20211208212354_PatientPortalFourthMigration")]
-    partial class PatientPortalFourthMigration
+    [Migration("20211212123420_FirstMigrationPatientPortal")]
+    partial class FirstMigrationPatientPortal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,35 @@ namespace Hospital.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Diagnosis")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Medicine")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Prescriptions");
+                });
 
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
                 {
@@ -718,6 +747,62 @@ namespace Hospital.Migrations
                             Width = 0f,
                             X = 0f,
                             Y = 0f
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Renovation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FirstRoomId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SecondRoomId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Renovations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2022, 2, 2, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = 2,
+                            FirstRoomId = 1,
+                            SecondRoomId = 2,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2022, 2, 5, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = 3,
+                            FirstRoomId = 1,
+                            SecondRoomId = 0,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2022, 2, 20, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = 2,
+                            FirstRoomId = 47,
+                            SecondRoomId = 62,
+                            Type = 1
                         });
                 });
 
@@ -1637,6 +1722,16 @@ namespace Hospital.Migrations
                             Duration = 60,
                             Equipment = "Bed",
                             Quantity = 2,
+                            SourceRoomId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Date = new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DestinationRoomId = 51,
+                            Duration = 60,
+                            Equipment = "Needle",
+                            Quantity = 5,
                             SourceRoomId = 1
                         },
                         new
@@ -3899,6 +3994,17 @@ namespace Hospital.Migrations
                     b.HasIndex("DoctorId");
 
                     b.ToTable("WorkDay");
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
+                {
+                    b.HasOne("Hospital.Shared_model.Model.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>

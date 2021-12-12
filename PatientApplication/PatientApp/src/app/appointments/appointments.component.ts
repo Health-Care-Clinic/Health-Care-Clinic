@@ -5,6 +5,7 @@ import { SurveyService } from '../survey/survey.service';
 import { IAppointment } from '../service/IAppointment';
 import { ISurvey } from '../survey/survey';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-appointments',
@@ -42,23 +43,17 @@ export class AppointmentsComponent implements OnInit {
   }
 
   cancelAppointment(appointment :IAppointment){
-    this.appointment = appointment
     this._appointmentService.cancelAppointment(appointment.id)
         .subscribe(data => this.appointment = data,
                    error => this.errorMessage = <any>error);
-    if(this.appointment != undefined)
-    {
-      this.appointment.isCancelled = true;
-      window.alert('Zakazani pregled je otkazan');
-    }
-    else{
-      window.alert('Zakazani pregled ne moze biti otkazan manje od dva dana pre termina');
-    }
+    this.getAppointmetsForPatient(appointment.patientId);
+    window.alert('Your appointment is cancelled!');
   }
 
   compare(appointmentDate: Date, tempDate: Date)
   {
-    if(appointmentDate < tempDate)
+    var appointmentTime = new Date(appointmentDate);
+    if(appointmentTime.getTime() < tempDate.getTime())
     {
       return true;
     }

@@ -25,9 +25,10 @@ export class AppointmentService {
                            .catch(this.handleError);
     }
 
-    cancelAppointment(id : number):Observable<any>{
+    cancelAppointment(id : number):Observable<IAppointment>{
       const body = JSON.stringify(id);
-      return this._http.put<any>(this._cancelAppointment + id, body)
+      return this._http.put<IAppointment>(this._cancelAppointment + id, body)
+                       .catch(this.handleError);
   }
 
     private handleError(err : HttpErrorResponse) {
