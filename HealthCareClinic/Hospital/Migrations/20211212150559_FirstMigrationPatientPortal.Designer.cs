@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20211212123420_FirstMigrationPatientPortal")]
+    [Migration("20211212150559_FirstMigrationPatientPortal")]
     partial class FirstMigrationPatientPortal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -3703,7 +3703,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Zoric",
                             Username = "dragana",
-                            WorkShift = 0
+                            WorkShift = 1
                         },
                         new
                         {
@@ -3716,12 +3716,12 @@ namespace Hospital.Migrations
                             Name = "Mile",
                             Password = "mile",
                             Phone = "0697856665",
-                            PrimaryRoom = 4,
+                            PrimaryRoom = 5,
                             Salary = 80000.0,
                             Specialty = "Surgery",
                             Surname = "Grandic",
                             Username = "mile",
-                            WorkShift = 0
+                            WorkShift = 1
                         },
                         new
                         {
@@ -3734,12 +3734,12 @@ namespace Hospital.Migrations
                             Name = "Misa",
                             Password = "misa",
                             Phone = "0697856665",
-                            PrimaryRoom = 3,
+                            PrimaryRoom = 6,
                             Salary = 80000.0,
                             Specialty = "General medicine",
                             Surname = "Bradina",
                             Username = "misa",
-                            WorkShift = 0
+                            WorkShift = 1
                         });
                 });
 
