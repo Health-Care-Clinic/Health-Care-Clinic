@@ -51,8 +51,12 @@ namespace Hospital_API.Controller
                     if (renovation.Type.Equals(RenovationType.Merge))
                     {
                         equipmentService.TransferEquipmentAfterReservation(renovation.FirstRoomId, renovation.SecondRoomId);
-                        roomService.ChangeRoomDimensions(renovation.FirstRoomId, renovation.SecondRoomId);
+                        roomService.ChangeRoomDimensionsMerge(renovation.FirstRoomId, renovation.SecondRoomId);
                         roomService.RemoveById(renovation.SecondRoomId);
+                    }
+                    else if (renovation.Type.Equals(RenovationType.Divide))
+                    {
+                        roomService.ChangeRoomDimensionsDivide(renovation.FirstRoomId, renovation.SecondRoomId);
                     }
                     renovationService.RemoveById(renovation.Id);
                 }

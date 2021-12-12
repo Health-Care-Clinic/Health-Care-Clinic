@@ -54,9 +54,34 @@ namespace HospitalIntegrationTests.Graphical_editor
             renovationService.Add(new Renovation(121,8,12,new DateTime(2023, 03, 12, 9, 0, 0),3,Renovation.RenovationType.Merge));
             int numberOfRenovations = renovationService.GetRoomRenovations(8).ToList().Count;
             renovationService.RemoveById(121);
-            int numberOfRenovationsAfterRemovedRenovation = renovationService.GetRoomRenovations(1221).ToList().Count;
+            int numberOfRenovationsAfterRemovedRenovation = renovationService.GetRoomRenovations(8).ToList().Count;
 
             Assert.Equal(numberOfRenovationsAfterRemovedRenovation, numberOfRenovations - 1);
+        }
+
+        [Fact]
+        public void Add_renovation()
+        {
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
+            var _context = new HospitalDbContext(optionsBuilder.Options);
+
+            RenovationRepository renovationRepository = new RenovationRepository(_context);
+            TransferRepository transferRepository = new TransferRepository(_context);
+            AppointmentRepository appointmentRepository = new AppointmentRepository(_context);
+            RenovationService renovationService = new RenovationService(renovationRepository, transferRepository, appointmentRepository);
+
+            int numberOfRenovations = renovationService.GetRoomRenovations(5).ToList().Count;
+            int id = renovationService.FindAvailableId();
+            int year = renovationService.FindAvailableYear();
+            renovationService.Add(new Renovation(id, 5, 10, new DateTime(year, 1, 1, 10, 0, 0), 3, Renovation.RenovationType.Merge));
+            int numberOfRenovationsAfterRemovedRenovation = renovationService.GetRoomRenovations(5).ToList().Count;
+            renovationService.RemoveById(id);
+
+
+            Assert.Equal(numberOfRenovationsAfterRemovedRenovation, numberOfRenovations + 1);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace Hospital.Rooms_and_equipment.Service
             return true;
         }
 
-        public void ChangeRoomDimensions(int firstRoomId, int secondRoomId)
+        public void ChangeRoomDimensionsMerge(int firstRoomId, int secondRoomId)
         {
             Room room1 = GetOneById(firstRoomId);
             Room room2 = GetOneById(secondRoomId);
@@ -81,6 +81,19 @@ namespace Hospital.Rooms_and_equipment.Service
             {
                 _roomRepository.ChangeMergedDimensions(firstRoomId, room1.X - room2.Width, room1.Width + room2.Width);
             }
+
+        }
+
+        public void ChangeRoomDimensionsDivide(int firstRoomId, int secondRoomId)
+        {
+            Room room1 = GetOneById(firstRoomId);
+
+            float x = room1.X;
+            float y = room1.Y;
+            float width = room1.Width / 2;
+            float height = room1.Height;
+            _roomRepository.ChangeDividedDimensions(firstRoomId, x, y, width, height);
+            _roomRepository.ChangeDividedDimensions(secondRoomId, x + width, y, width, height);
 
         }
 

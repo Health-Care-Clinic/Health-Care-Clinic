@@ -12,6 +12,7 @@ namespace Hospital.Rooms_and_equipment.Service
         public List<Room> GetRoomsByFloorId(int id);
         public List<Room> GetSearchedRooms(string searchText);
         public Boolean checkRooms(Room room1, Room room2);
-        public void ChangeRoomDimensions(int firstRoomId, int secondRoomId);
+        public void ChangeRoomDimensionsMerge(int firstRoomId, int secondRoomId);
+        public void ChangeRoomDimensionsDivide(int firstRoomId, int secondRoomId);
     }
 }

@@ -43,5 +43,15 @@ namespace Hospital.Rooms_and_equipment.Repository
             Save();
         }
 
+        public void ChangeDividedDimensions(int roomId, float x, float y, float width, float height)
+        {
+            Context.Set<Room>().Find(roomId).X = x;
+            Context.Set<Room>().Find(roomId).Y = y;
+            Context.Set<Room>().Find(roomId).Width = width;
+            Context.Set<Room>().Find(roomId).Height = height;
+            Save();
+        }
+
+
     }
 }
