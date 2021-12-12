@@ -3,7 +3,7 @@ FROM node:15.14.0-alpine as build
 WORKDIR /app
 COPY ManagerApplication/ManagerApp/. .
 RUN npm install --force
-RUN npm run build
+RUN npm run build --prod
 
 FROM nginx:alpine
 EXPOSE 4200
