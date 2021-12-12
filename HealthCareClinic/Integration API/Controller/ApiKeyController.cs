@@ -71,8 +71,7 @@ namespace Integration_API.Controller
         [HttpGet("pharmacies")]
         public IActionResult GetPharmacies()
         {
-            List<PharmacyDTO> pharmacies = new List<PharmacyDTO>();
-            _dbContext.ApiKeys.Where(apiKey => apiKey.Category.Equals("Pharmacy")).ToList().ForEach(apiKey => pharmacies.Add(ApiKeyAdapter.ApiKeyToPharmacyDto(apiKey)));
+            List<PharmacyDTO> pharmacies = _apiKeyService.GetPharmacies();
             return Ok(pharmacies);
         }
 

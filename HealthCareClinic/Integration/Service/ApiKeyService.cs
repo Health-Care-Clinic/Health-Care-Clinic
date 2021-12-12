@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ClinicCore.Service;
 using Integration.Adapter;
@@ -94,6 +95,14 @@ namespace Integration.Service
             apikey.ImagePath = fileName;
             Add(apikey);
             return;
+        }
+
+        public List<PharmacyDTO> GetPharmacies()
+        {
+            List<PharmacyDTO> pharmacies = new List<PharmacyDTO>();
+            _apiKeyRepository.GetAll().Where(apiKey => apiKey.Category.Equals("Pharmacy")).ToList().ForEach(apiKey => pharmacies.Add(ApiKeyAdapter.ApiKeyToPharmacyDto(apiKey)));
+            return pharmacies;
+
         }
     }
 }
