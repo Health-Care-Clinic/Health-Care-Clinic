@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Pharmacy.Migrations
 {
-    public partial class NMigration : Migration
+    public partial class FifthMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<List<int>>(
+            migrationBuilder.AddColumn<string>(
                 name: "CompatibileMedicine",
                 table: "Medicines",
-                type: "integer[]",
+                type: "text",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
@@ -19,16 +18,16 @@ namespace Pharmacy.Migrations
                 type: "text",
                 nullable: true);
 
-            migrationBuilder.AddColumn<List<string>>(
+            migrationBuilder.AddColumn<string>(
                 name: "Reactions",
                 table: "Medicines",
-                type: "text[]",
+                type: "text",
                 nullable: true);
 
-            migrationBuilder.AddColumn<List<string>>(
+            migrationBuilder.AddColumn<string>(
                 name: "SideEffects",
                 table: "Medicines",
-                type: "text[]",
+                type: "text",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
@@ -48,8 +47,22 @@ namespace Pharmacy.Migrations
                 table: "Medicines",
                 keyColumn: "Id",
                 keyValue: 1,
-                columns: new[] { "Manufacturer", "Usage", "Weight" },
-                values: new object[] { "Bayer", "", 200 });
+                columns: new[] { "CompatibileMedicine", "Manufacturer", "Reactions", "SideEffects", "Usage", "Weight" },
+                values: new object[] { "Aspirin", "Bayer", "Headache", "Rash, Stomach pain", "Pain relief", 400 });
+
+            migrationBuilder.UpdateData(
+                table: "Medicines",
+                keyColumn: "Id",
+                keyValue: 2,
+                columns: new[] { "CompatibileMedicine", "Manufacturer", "Reactions", "SideEffects", "Usage", "Weight" },
+                values: new object[] { "Aspirin", "Bayer", "Headache, Swelling", "Rash, Unconsciousness", "Lung infections, Bronchitis", 500 });
+
+            migrationBuilder.UpdateData(
+                table: "Medicines",
+                keyColumn: "Id",
+                keyValue: 3,
+                columns: new[] { "CompatibileMedicine", "Manufacturer", "Reactions", "SideEffects", "Usage", "Weight" },
+                values: new object[] { "Aspirin", "Galenika", "None", "None", "Toothache, Headache", 500 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

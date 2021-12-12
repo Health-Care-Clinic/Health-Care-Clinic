@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Integration.ApiKeys.Model;
@@ -45,12 +46,44 @@ namespace Integration_API.Controller
             return Ok("Successfully sent");
         }
 
+        [HttpPost("qr")]
+        public IActionResult CheckIfMedicineExistsQr(PrescriptionDTO prescriptionDto)
+        {
+            ApiKey apiKey = _apiKeyService.GetApiKeyByName(prescriptionDto.Pharmacy);
+            string url = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+            ApiKey myApiKey = _apiKeyService.GetMyApiKey(url);
+
+            _prescriptionService.GetPrescriptionQr(prescriptionDto);
+
+            var client = new RestClient(apiKey.BaseUrl);
+            var request = new RestRequest("benu/prescription/doesExistQr");
+            request.AddQueryParameter("medicineName", prescriptionDto.Medicine);
+            request.AddQueryParameter("quantity", prescriptionDto.Amount.ToString());
+            request.AddHeader("ApiKey", myApiKey.Key);
+            IRestResponse response = client.Get(request);
+
+            return Ok("Successfully sent");
+        }
+
+
+
         [HttpGet("upload")]
         public IActionResult UploadPrescription(string response)
         {
             if (response.Equals("yes"))
             {
                 fileTransferService.UploadFile("prescription");
+            }
+
+            return Ok();
+        }
+
+        [HttpGet("uploadQr")]
+        public IActionResult UploadPrescriptionQr(string response)
+        {
+            if (response.Equals("yes"))
+            {
+                _prescriptionService.GetPrescriptionPdf();
             }
 
             return Ok();

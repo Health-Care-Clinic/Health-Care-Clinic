@@ -34,6 +34,14 @@
 
   <ItemGroup>
     <PackageReference Include="ClinicCore" Version="1.0.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.19.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.41.0" />
+    <PackageReference Include="Grpc.Core" Version="2.42.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.42.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.11">
@@ -57,6 +65,11 @@
     <Folder Include="MedSpecifications\" />
     <Folder Include="MedSpecifications\" />
     <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="UrgentMedicines\Protos\model.proto" GrpcServices="None" ProtoRoot="UrgentMedicines\Protos\" />
+    <Protobuf Include="UrgentMedicines\Protos\netGrpcService.proto" GrpcServices="Client" />
   </ItemGroup>
 
 
