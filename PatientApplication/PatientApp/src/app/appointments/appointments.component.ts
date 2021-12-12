@@ -5,7 +5,6 @@ import { SurveyService } from '../survey/survey.service';
 import { IAppointment } from '../service/IAppointment';
 import { ISurvey } from '../survey/survey';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-appointments',

@@ -75,6 +75,17 @@ namespace Hospital.Rooms_and_equipment.Repository
             }
         }
 
+        public void ChangeQuantity(int eqId, int newQuantity)
+        {
+            Context.Set<Equipment>().Find(eqId).Quantity = newQuantity;
+            Save();
+        }
+
+        public void ChangeRoom(int eqId, int newRoomId)
+        {
+            Context.Set<Equipment>().Find(eqId).RoomId = newRoomId;
+            Save();
+        }
     }
 
 

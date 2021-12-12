@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ClinicCore.Service;
 using Integration.Adapter;
@@ -21,12 +22,12 @@ namespace Integration.Service
 
         public void Add(ApiKey entity)
         {
-            throw new NotImplementedException();
+            _apiKeyRepository.Add(entity);
         }
 
         public void Remove(ApiKey entity)
         {
-            throw new NotImplementedException();
+            _apiKeyRepository.Remove(entity);
         }
 
         public ApiKey GetOneById(int id)
@@ -36,7 +37,7 @@ namespace Integration.Service
 
         public IEnumerable<ApiKey> GetAll()
         {
-            throw new NotImplementedException();
+            return _apiKeyRepository.GetAll();
         }
 
         public ApiKey CreateApiKey(ApiKeyDTO dto)
@@ -45,6 +46,9 @@ namespace Integration.Service
             Guid g = Guid.NewGuid();
             newApiKey.Key = g.ToString();
             newApiKey.Category = "Pharmacy";
+            newApiKey.City = "";
+            newApiKey.ImagePath = "";
+            newApiKey.Note = "";
             _apiKeyRepository.Add(newApiKey);
             _apiKeyRepository.Save();
 
@@ -71,6 +75,34 @@ namespace Integration.Service
         public ApiKey GetByKey(string key)
         {
             return _apiKeyRepository.GetByKey(key);
+        }
+
+        public ApiKey EditPharmacyProfile(ApiKey ak)
+        {
+            ApiKey apikey = GetOneById(ak.Id);
+            Remove(apikey);
+            apikey.City = ak.City;
+            apikey.ImagePath = ak.ImagePath;
+            apikey.Note = ak.Note;
+            Add(apikey);
+            return apikey;
+        }
+
+        public void EditPharmacyPicturePath(int id, string fileName)
+        {
+            ApiKey apikey = GetOneById(id);
+            Remove(apikey);
+            apikey.ImagePath = fileName;
+            Add(apikey);
+            return;
+        }
+
+        public List<PharmacyDTO> GetPharmacies()
+        {
+            List<PharmacyDTO> pharmacies = new List<PharmacyDTO>();
+            _apiKeyRepository.GetAll().Where(apiKey => apiKey.Category.Equals("Pharmacy")).ToList().ForEach(apiKey => pharmacies.Add(ApiKeyAdapter.ApiKeyToPharmacyDto(apiKey)));
+            return pharmacies;
+
         }
     }
 }

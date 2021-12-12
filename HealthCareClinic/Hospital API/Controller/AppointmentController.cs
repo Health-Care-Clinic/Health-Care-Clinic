@@ -60,17 +60,17 @@ namespace Hospital_API.Controller
         }
 
         [HttpPost("freeTermsForDoctor")]
-        public IActionResult GetAvailableTermsForDoctor(int doctorId, string from, string to)
+        public IActionResult GetAvailableTermsForDoctor(DoctorIdDateFromDateToDTO dto)
         {
-            DateTime fromDate = PatientAdapter.ConvertToDate(from);
-            DateTime toDate = PatientAdapter.ConvertToDate(to);
-            if (doctorId < 0)
+            DateTime fromDate = PatientAdapter.ConvertToDate(dto.From);
+            DateTime toDate = PatientAdapter.ConvertToDate(dto.To);
+            if (dto.DoctorId < 0)
                 return BadRequest();
             if (toDate < fromDate)
                 return BadRequest();
 
             List<string> availableTerms = new List<string>();
-            foreach (DateTime term in appointmentService.GetAvailableTermsForDoctor(doctorService.GetOneById(doctorId), fromDate, toDate))
+            foreach (DateTime term in appointmentService.GetAvailableTermsForDoctor(doctorService.GetOneById(dto.DoctorId), fromDate, toDate))
                 availableTerms.Add(PatientAdapter.ConvertToString(term));
 
             return Ok(availableTerms);
@@ -81,6 +81,8 @@ namespace Hospital_API.Controller
         {
             Appointment app = AppointmentAdapter.AppointmentDtoToAppointment(appDto);
 
+            app.RoomId = doctorService.GetOneById(app.DoctorId).PrimaryRoom;
+
             appointmentService.AddAppointment(app);
 
             return Ok();
@@ -89,9 +91,9 @@ namespace Hospital_API.Controller
         [HttpGet("getRoomAppointments/{id?}")]
         public IActionResult GetRoomAppointments(int id)
         {
-            List<AppointmentDTO> roomAppointments = new List<AppointmentDTO>();
+            List<Appointment> roomAppointments = new List<Appointment>();
             appointmentService.GetRoomAppointments(id).ToList().ForEach(Appointment
-                => roomAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTO(Appointment)));
+                => roomAppointments.Add(Appointment));
             return Ok(roomAppointments);
         }
     }

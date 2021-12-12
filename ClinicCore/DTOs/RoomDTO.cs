@@ -13,6 +13,11 @@ namespace ClinicCore.DTOs
         public int RoomFloor { get; set; }
         public bool IsUsable { get; set; }
         public string RoomTypeText { get; set; }
+        public object FloorId { get; set; }
+        public object Y { get; set; }
+        public int X { get; set; }
+        public int Width { get; set; }
+
         public RoomDTO(int roomNumber, int bedNumber, int roomId, RoomType type)
         {
             RoomNumber = roomNumber;

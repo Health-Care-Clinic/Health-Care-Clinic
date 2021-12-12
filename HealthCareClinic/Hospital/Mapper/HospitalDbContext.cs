@@ -40,7 +40,6 @@ namespace Hospital.Mapper
 
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
-        //public DbSet<Specialty> Specialty { get; set; }
 
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Transfer> Transfer { get; set; }
@@ -331,60 +330,7 @@ namespace Hospital.Mapper
                 new Allergen(9, "Jaja"),
                 new Allergen(10, "Školjke")
             );
-
-            //modelBuilder.Entity<Doctor>(entity =>
-            //{
-            //    entity.ToTable("Doctor");
-
-            //    entity.HasMany(d => d.Patients)
-            //   .WithOne(p => p.Doctor)
-            //   .HasForeignKey(p => p.DoctorId);
-            //});
-
-            //modelBuilder.Entity<Patient>(entity =>
-            //{
-            //    entity.ToTable("Patient");
-
-            //    entity.HasOne(p => p.Doctor)
-            //   .WithMany(d => d.Patients)
-            //   .HasForeignKey(p => p.DoctorId);
-            //});
-
-            //modelBuilder.Entity<Appointment>(entity =>
-            //{
-            //    entity.ToTable("Appointment");
-            //});
-
-            //modelBuilder.Entity<Survey>(entity =>
-            //{
-            //    entity.ToTable("Survey");
-
-            //    entity.HasOne(d => d.Appointment)
-            //   .WithMany(p => p.Surveys)
-            //   .HasForeignKey(d => d.AppointmentId);
-            //});
-
-            //modelBuilder.Entity<SurveyCategory>(entity =>
-            //{
-            //    entity.ToTable("SurveyCategory");
-
-            //    entity.HasOne(d => d.Survey)
-            //   .WithMany(p => p.SurveyCategories)
-            //   .HasForeignKey(d => d.SurveyId);
-            //});
-
-            //modelBuilder.Entity<SurveyQuestion>(entity =>
-            //{
-            //    entity.ToTable("SurveyQuestion");
-
-            //    entity.HasOne(d => d.SurveyCategory)
-            //   .WithMany(p => p.SurveyQuestions)
-            //   .HasForeignKey(d => d.SurveyCategoryId);
-            //});
-
-
-            //modelBuilder.Entity<Appointment>().HasData(
-            //    new Appointment { Id = 1, DoctorId = 1, PatientId = 1, RoomId = 1, Surveys = new List<Survey>() });
+           
             modelBuilder.Entity<Appointment>().HasData(
                 new Appointment(1, 1, 1, 1, false, false, new System.DateTime(2022, 2, 22, 7, 0, 0), 1),
                 new Appointment(2, 2, 1, 1, false, false, new System.DateTime(2022, 2, 22, 7, 30, 0), 2),
@@ -455,19 +401,6 @@ namespace Hospital.Mapper
                 new SurveyQuestion { Id = 150, Content = "Your general grade for whole hospital' service", Grade = 3, SurveyCategoryId = 30 });
 
 
-            //modelBuilder.Entity<Specialty>().HasData(
-            //   new Specialty()
-            //   {
-            //       SpecialtyId = 1,
-            //       Name = "General medicine"
-            //   },
-            //   new Specialty()
-            //   {
-            //       SpecialtyId = 2,
-            //       Name = "Surgery"
-            //   }
-            //   );
-
             modelBuilder.Entity<Doctor>().HasData(
                new Doctor()
                {
@@ -485,7 +418,8 @@ namespace Hospital.Mapper
                    EmploymentDate = new System.DateTime(2021, 06, 10),
                    WorkDay = null,
                    Specialty = "General medicine",
-                   PrimaryRoom = 1
+                   PrimaryRoom = 1,
+                   WorkShift = WorkDayShift.FirstShift
                },
 
                 new Doctor()
@@ -504,7 +438,8 @@ namespace Hospital.Mapper
                     EmploymentDate = new System.DateTime(2020, 06, 07),
                     WorkDay = null,
                     Specialty = "General medicine",
-                    PrimaryRoom = 2
+                    PrimaryRoom = 2,
+                    WorkShift = WorkDayShift.FirstShift
                 },
                 new Doctor()
                 {
@@ -522,7 +457,8 @@ namespace Hospital.Mapper
                     EmploymentDate = new System.DateTime(2011, 03, 10),
                     WorkDay = null,
                     Specialty = "General medicine",
-                    PrimaryRoom = 3
+                    PrimaryRoom = 3,
+                    WorkShift = WorkDayShift.FirstShift
                 },
                 new Doctor()
                 {
@@ -540,7 +476,8 @@ namespace Hospital.Mapper
                     EmploymentDate = new System.DateTime(2017, 03, 10),
                     WorkDay = null,
                     Specialty = "Surgery",
-                    PrimaryRoom = 4
+                    PrimaryRoom = 4,
+                    WorkShift = WorkDayShift.SecondShift
                 },
                 new Doctor()
                 {
@@ -558,7 +495,8 @@ namespace Hospital.Mapper
                     EmploymentDate = new System.DateTime(2007, 03, 10),
                     WorkDay = null,
                     Specialty = "Surgery",
-                    PrimaryRoom = 4
+                    PrimaryRoom = 5,
+                    WorkShift = WorkDayShift.SecondShift
                 },
                 new Doctor()
                 {
@@ -576,7 +514,8 @@ namespace Hospital.Mapper
                     EmploymentDate = new System.DateTime(2006, 03, 10),
                     WorkDay = null,
                     Specialty = "General medicine",
-                    PrimaryRoom = 3
+                    PrimaryRoom = 6,
+                    WorkShift = WorkDayShift.SecondShift
                 }
             );
             modelBuilder.Entity<Patient>().HasData(

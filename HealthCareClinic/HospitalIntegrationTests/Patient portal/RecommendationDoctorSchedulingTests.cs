@@ -70,7 +70,8 @@ namespace HospitalIntegrationTests.Patient_portal
 
                 AppointmentController appointmentController = new AppointmentController(appointmentService, surveyService, doctorService);
 
-                OkObjectResult result = appointmentController.GetAvailableTermsForDoctor(1, "2022-2-22T00:00:00", "2022-2-22T00:00:00") as OkObjectResult;
+                DoctorIdDateFromDateToDTO dtoInput = new DoctorIdDateFromDateToDTO(1, "2022-2-22T00:00:00", "2022-2-22T00:00:00");
+                OkObjectResult result = appointmentController.GetAvailableTermsForDoctor(dtoInput) as OkObjectResult;
                 List<string> availableTerms = result.Value as List<string>;
 
                 foreach (Doctor doctor in context.Doctors)

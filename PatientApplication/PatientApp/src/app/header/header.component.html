@@ -1,9 +1,14 @@
 <mat-toolbar color="primary" class="navbar">
     <button style="font-size : 25px" mat-button (click)="goToLandingPage()">Hospital</button>
     <button style="margin-left : 25px" mat-button (click)="goToLandingPage()">About us</button>
-    <button mat-button [routerLink]="['survey']">Survey</button>
+    <!-- <button mat-button [routerLink]="['survey']">Survey</button> -->
     <button mat-button (click)="goToFeedbackForm()">Create feedback</button>
     <button mat-button (click)="goToMedicalRecord()">Medical record</button>
+    <button mat-button [matMenuTriggerFor]="menu">Schedule appointment</button>
+        <mat-menu #menu="matMenu">
+        <button mat-menu-item >Standard scheduling</button>
+        <button mat-menu-item [routerLink]="['recommendation-scheduling']">Recommendation scheduling</button>
+        </mat-menu>
     <span class="example-spacer"></span>
     <button mat-button (click)="goToRegistrationForm()">Register</button>
     <button mat-raised-button>Log in</button>

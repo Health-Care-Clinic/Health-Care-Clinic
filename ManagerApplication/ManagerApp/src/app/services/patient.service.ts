@@ -10,7 +10,7 @@ import 'rxjs/add/operator/catch';
 })
 export class PatientService {
 
-  private _patientsUrl = '/api/patientRegistration';
+  private _patientsUrl = '/api/patient';
   private _allSuspicousPatientsUrl  = this._patientsUrl + '/allSuspiciousPatients';
 
 

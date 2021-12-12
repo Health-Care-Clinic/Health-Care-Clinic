@@ -1,0 +1,36 @@
+<div style="margin-left: 3%; margin-right: 3%;">
+    <mat-card class="example-card" style="margin-left: 25%; margin-right: 25%; margin-top: 5%;">
+        <div style="margin-left: 25%; margin-right: 25%;">
+            <mat-card-header>
+                <mat-card-title>{{pharmacy.name}}</mat-card-title>
+                <mat-card-subtitle>{{pharmacy.baseUrl}}</mat-card-subtitle>
+            </mat-card-header>
+            <br>
+            <mat-card-content style="margin-left: 1%; margin-right: 1%;">
+                <p>
+                    <mat-form-field appearance="legacy" style="width: 100%;">
+                        <mat-label>City</mat-label>
+                        <input matInput placeholder="City" [(ngModel)]="pharmacy.city">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="legacy" style="width: 100%;">
+                        <mat-label>Note</mat-label>
+                        <textarea matInput placeholder="Note" [(ngModel)]="pharmacy.note"></textarea>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <input type="file" #file placeholder="Image">
+                </p>
+                <br> <br> <br>
+                <button mat-raised-button color="primary" (click)="editPharmacyProfile(file.files)">
+                    Save changes
+                </button>
+                <button mat-button color="primary" (click)="cancel()" style="margin-left: 20px">
+                    Cancel
+                </button>
+            </mat-card-content>
+            <br>
+        </div>
+    </mat-card>
+</div>

@@ -43,6 +43,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { FeedbackService } from './service/feedback.service';
 import { SurveyService } from './survey/survey.service';
@@ -51,6 +53,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { PatientService } from './patient/patient.service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { MedicalRecordComponent } from './medical-record/medical-record.component';
+import { RecommendationSchedulingComponent } from './recommendation-scheduling/recommendation-scheduling.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentService } from './service/appointment.service';
 
@@ -78,7 +81,9 @@ const MaterialComponents = [
   MatSelectModule,
   MatSnackBarModule,
   MatTabsModule,
-  MatTableModule
+  MatMenuModule,
+  MatTableModule,
+  MatPaginatorModule
 ];
 
 @NgModule({
@@ -92,6 +97,7 @@ const MaterialComponents = [
     RegistrationFormComponent,
     LoginPageComponent,
     MedicalRecordComponent,
+    RecommendationSchedulingComponent,
     AppointmentsComponent,
   ],
   imports: [
