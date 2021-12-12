@@ -8,7 +8,7 @@ using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
 using System.Collections.Generic;
 using Hospital.Medical_records.Model;
-using Hospital.Shared_model.Model;
+using Hospital.Medicines.Model;
 using static Hospital.Rooms_and_equipment.Model.Transfer;
 
 
@@ -16,6 +16,7 @@ namespace Hospital.Mapper
 {
     public class HospitalDbContext : DbContext
     {
+        public DbSet<Medicine> Medicines { get; set; }
         public DbSet<FeedbackMessage> FeedbackMessages { get; set; }
 
         public DbSet<Building> Buildings { get; set; }
