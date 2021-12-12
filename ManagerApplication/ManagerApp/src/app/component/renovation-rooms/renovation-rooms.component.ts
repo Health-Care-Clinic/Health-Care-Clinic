@@ -213,8 +213,8 @@ export class RenovationRoomsComponent implements OnInit {
                     newId = r.id;
                   }
                 }
-                let date = new Date(2021, 8, 7, 14, 0, 0)
-                let renovation = new Renovation(newId + 1, this.divideRoom, newRoom.id, TypeOfRenovation.Divide, date, this.duration);
+                //let date = new Date(2021, 8, 7, 14, 0, 0)
+                let renovation = new Renovation(newId + 1, this.divideRoom, newRoom.id, TypeOfRenovation.Divide, term, this.duration);
                 this.renovationService.addRenovation(renovation).subscribe(ret => {
       
                 })
