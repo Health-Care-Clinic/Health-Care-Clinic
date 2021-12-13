@@ -27,7 +27,7 @@ namespace Integration.Service
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "127.0.0.1" };
             List<ApiKey> apiKeys;
             using (var scope = Services.CreateScope())
             {

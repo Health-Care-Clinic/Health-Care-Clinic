@@ -28,8 +28,8 @@ namespace Hospital_API.Controller.FeedbacksController
         {
             List<FeedbackMessage> feedbacks = (List<FeedbackMessage>)feedbackMessageService.GetAll();
             List<FeedbackMessageDTO> result = FeedbackMessageAdapter.FeedbackMessageListToFeedbackMessageDTOList(feedbacks);
-
-            return Ok(result);
+            
+            return Ok();
         }
 
         [HttpGet("published")]       // GET /api/feedbackMessage/published

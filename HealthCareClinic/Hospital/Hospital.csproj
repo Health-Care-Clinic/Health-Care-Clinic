@@ -38,7 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
+    <ProjectReference Include="..\ClinicCore\ClinicCore.csproj" />
   </ItemGroup>
+
 
 </Project>

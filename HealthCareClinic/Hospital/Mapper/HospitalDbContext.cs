@@ -8,7 +8,6 @@ using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
 using System.Collections.Generic;
 using Hospital.Medical_records.Model;
-using Hospital.Shared_model.Model;
 using static Hospital.Rooms_and_equipment.Model.Transfer;
 
 

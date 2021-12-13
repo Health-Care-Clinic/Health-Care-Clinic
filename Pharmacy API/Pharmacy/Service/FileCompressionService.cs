@@ -12,7 +12,7 @@ namespace Pharmacy.Service
         private static readonly int sevenDays = 7;
 
         public static void CompressFiles()
-        {
+        {/*
             string path = "..\\..\\Pharmacy API\\Pharmacy API\\";
 
             while(true)
@@ -30,7 +30,7 @@ namespace Pharmacy.Service
 
                 TimeSpan oldFilesLimit = new TimeSpan(sevenDaysInHours, 0, 0);
                 Thread.Sleep(oldFilesLimit);
-            }
+            }*/
         }
 
         private static void RemoveCompressedFiles(List<FileInfo> filesToCompress)

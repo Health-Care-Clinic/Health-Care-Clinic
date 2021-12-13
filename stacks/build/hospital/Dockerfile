@@ -6,12 +6,12 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj" && \
-    dotnet build "HealthCareClinic/Hospital API/Hospital API.csproj" -c Release
+RUN dotnet restore "Hospital API/Hospital API.csproj" && \
+    dotnet build "Hospital API/Hospital API.csproj" -c Release
  
 
 FROM build AS publish
-RUN dotnet publish "HealthCareClinic/Hospital API/Hospital API.csproj" -c Release -o /app/publish 
+RUN dotnet publish "Hospital API/Hospital API.csproj" -c Release -o /app/publish 
 
 
 FROM base AS final

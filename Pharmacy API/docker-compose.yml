@@ -13,19 +13,14 @@ services:
       - type: volume
         source: database-data
         target: /var/lib/postgresql/data
-#      - type: bind
-#        source: /database.sql
-#        target: /docker-entrypoint-initdb.d/init.sql
+      - type: bind
+        source: ./database.sql
+        target: /docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
 
   pharmacy:
-    #build: ../PharmacyApplication
-    #image: nenadbecanovic/pharmacy-api:latest
-    image: radi
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: nenadbecanovic/pharmacy-api:latest
     depends_on:
       - postgres-database
     environment: 

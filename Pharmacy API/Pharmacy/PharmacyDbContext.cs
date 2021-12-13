@@ -37,7 +37,7 @@ namespace Pharmacy
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
         }
-/*
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=PharmacyDatabase;User id=postgres;Password=admin").UseLazyLoadingProxies();
@@ -54,6 +54,6 @@ namespace Pharmacy
 
             return
                 $"Server={server};Port={port};Database={database};User ID={user};Password={password};";
-        }*/
+        }
     }
 }
