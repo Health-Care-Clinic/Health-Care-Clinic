@@ -1,5 +1,7 @@
 ﻿using Hospital.Rooms_and_equipment.Model;
 using Hospital.Rooms_and_equipment.Repository;
+using Hospital.Shared_model.Model;
+using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +13,13 @@ namespace Hospital.Rooms_and_equipment.Service
     {
         private IRenovationRepository _renovationRepository;
         private ITransferRepository _transferRepository;
+        private IAppointmentRepository _appointmentRepository;
 
-        public RenovationService(IRenovationRepository renovationRepository, ITransferRepository transferRepository)
+        public RenovationService(IRenovationRepository renovationRepository, ITransferRepository transferRepository, IAppointmentRepository appointmentRepository)
         {
             this._renovationRepository = renovationRepository;
             this._transferRepository = transferRepository;
+            this._appointmentRepository = appointmentRepository;
         }
 
         public void Add(Renovation entity)
@@ -42,6 +46,7 @@ namespace Hospital.Rooms_and_equipment.Service
 
             List<Transfer> allTransfersOfSourceAndDestinationRoom = getTransfersOfFirstAndSecond(renovation.FirstRoomId, renovation.SecondRoomId);
             List<Renovation> allRenovationsOfFirstAndSecond = getRenovationsOfFirstAndSecond(renovation.FirstRoomId, renovation.SecondRoomId);
+            List<Appointment> allAppointmentsOfFirstAndSecond = getAppointmentsOfFirstAndSecond(renovation.FirstRoomId, renovation.SecondRoomId);
             List<DateTime> allAvailableDates = new List<DateTime>();
             DateTime today = DateTime.Now;
             today = roundMinutes(today);
@@ -50,41 +55,10 @@ namespace Hospital.Rooms_and_equipment.Service
             {
                 Boolean isFree = true;
 
-                foreach (Transfer t in allTransfersOfSourceAndDestinationRoom)
-                {
-                    DateTime transferAndDuration = t.Date.AddHours(Convert.ToInt32(t.Duration) / 60);
-                    transferAndDuration = addDuration(transferAndDuration, t.Duration);
-                    if (t.Date <= today && today <= transferAndDuration)
-                    {
-                        isFree = false;
-                    }
-                    if (t.Date <= todayAndDuration && todayAndDuration <= transferAndDuration)
-                    {
-                        isFree = false;
-                    }
-                    if (today <= t.Date && t.Date <= todayAndDuration)
-                    {
-                        isFree = false;
-                    }
-
-                }
-                foreach (Renovation r in allRenovationsOfFirstAndSecond)
-                {
-                    DateTime renovationAndDuration = r.Date.AddDays(Convert.ToInt32(r.Duration));
-                    if (r.Date <= today && today <= renovationAndDuration)
-                    {
-                        isFree = false;
-                    }
-                    if (r.Date <= todayAndDuration && todayAndDuration <= renovationAndDuration)
-                    {
-                        isFree = false;
-                    }
-                    if (today <= r.Date && r.Date <= todayAndDuration)
-                    {
-                        isFree = false;
-                    }
-
-                }
+                isFree = CheckForTransfers(allTransfersOfSourceAndDestinationRoom, isFree, today, todayAndDuration);
+                isFree = CheckForRenovation(allRenovationsOfFirstAndSecond, isFree, today, todayAndDuration);
+                isFree = CheckForAppointment(allAppointmentsOfFirstAndSecond, isFree, today, todayAndDuration);
+               
 
                 if (isFree)
                 {
@@ -137,6 +111,7 @@ namespace Hospital.Rooms_and_equipment.Service
 
             List<Transfer> allTransfersOfSourceAndDestinationRoom = getTransfersOfFirstRoom(renovation.FirstRoomId);
             List<Renovation> allRenovationsOfFirstAndSecond = getRenovationsOfFirstRoom(renovation.FirstRoomId);
+            List<Appointment> allApointmentsOfFirst = getAppointmentsOfFirst(renovation.FirstRoomId);
             List<DateTime> allAvailableDates = new List<DateTime>();
             DateTime today = DateTime.Now;
             today = roundMinutes(today);
@@ -145,41 +120,9 @@ namespace Hospital.Rooms_and_equipment.Service
             {
                 Boolean isFree = true;
 
-                foreach (Transfer t in allTransfersOfSourceAndDestinationRoom)
-                {
-                    DateTime transferAndDuration = t.Date.AddHours(Convert.ToInt32(t.Duration) / 60);
-                    transferAndDuration = addDuration(transferAndDuration, t.Duration);
-                    if (t.Date <= today && today <= transferAndDuration)
-                    {
-                        isFree = false;
-                    }
-                    if (t.Date <= todayAndDuration && todayAndDuration <= transferAndDuration)
-                    {
-                        isFree = false;
-                    }
-                    if (today <= t.Date && t.Date <= todayAndDuration)
-                    {
-                        isFree = false;
-                    }
-
-                }
-                foreach (Renovation r in allRenovationsOfFirstAndSecond)
-                {
-                    DateTime renovationAndDuration = r.Date.AddDays(Convert.ToInt32(r.Duration));
-                    if (r.Date <= today && today <= renovationAndDuration)
-                    {
-                        isFree = false;
-                    }
-                    if (r.Date <= todayAndDuration && todayAndDuration <= renovationAndDuration)
-                    {
-                        isFree = false;
-                    }
-                    if (today <= r.Date && r.Date <= todayAndDuration)
-                    {
-                        isFree = false;
-                    }
-
-                }
+                isFree = CheckForTransfers(allTransfersOfSourceAndDestinationRoom, isFree, today, todayAndDuration);
+                isFree = CheckForRenovation(allRenovationsOfFirstAndSecond, isFree, today, todayAndDuration);
+                isFree = CheckForAppointment(allApointmentsOfFirst, isFree, today, todayAndDuration);
 
                 if (isFree)
                 {
@@ -224,6 +167,34 @@ namespace Hospital.Rooms_and_equipment.Service
             }
             return allAvailableDates;
 
+        }
+
+        private List<Appointment> getAppointmentsOfFirstAndSecond(int firstRoomId, int secondRoomId)
+        {
+            List<Appointment> existingAppointments = _appointmentRepository.GetAll().ToList();
+            List<Appointment> allAppointmentOfSourceAndDestinationRoom = new List<Appointment>();
+            foreach (Appointment tran in existingAppointments)
+            {
+                if (tran.RoomId == firstRoomId || tran.RoomId == secondRoomId)
+                {
+                    allAppointmentOfSourceAndDestinationRoom.Add(tran);
+                }
+            }
+            return allAppointmentOfSourceAndDestinationRoom;
+        }
+
+        private List<Appointment> getAppointmentsOfFirst(int firstRoomId)
+        {
+            List<Appointment> existingAppointments = _appointmentRepository.GetAll().ToList();
+            List<Appointment> allAppointmentOfSourceAndDestinationRoom = new List<Appointment>();
+            foreach (Appointment tran in existingAppointments)
+            {
+                if (tran.RoomId == firstRoomId)
+                {
+                    allAppointmentOfSourceAndDestinationRoom.Add(tran);
+                }
+            }
+            return allAppointmentOfSourceAndDestinationRoom;
         }
         private List<Transfer> getTransfersOfFirstAndSecond(int firstRoomId, int secondRoomId)
         {
@@ -349,6 +320,105 @@ namespace Hospital.Rooms_and_equipment.Service
         public void RemoveById(int id)
         {
             _renovationRepository.RemoveById(id);
+        }
+
+        public Boolean CheckForTransfers(List<Transfer> allTransfersOfSourceAndDestinationRoom, Boolean isFree, DateTime today, DateTime todayAndDuration)
+        {
+            foreach (Transfer t in allTransfersOfSourceAndDestinationRoom)
+            {
+                DateTime transferAndDuration = t.Date.AddHours(Convert.ToInt32(t.Duration) / 60);
+                transferAndDuration = addDuration(transferAndDuration, t.Duration);
+                if (t.Date <= today && today <= transferAndDuration)
+                {
+                    isFree = false;
+                }
+                if (t.Date <= todayAndDuration && todayAndDuration <= transferAndDuration)
+                {
+                    isFree = false;
+                }
+                if (today <= t.Date && t.Date <= todayAndDuration)
+                {
+                    isFree = false;
+                }
+
+            }
+            return isFree;
+        }
+
+        public Boolean CheckForRenovation(List<Renovation> allRenovationsOfFirstAndSecond,Boolean isFree, DateTime today, DateTime todayAndDuration)
+        {
+            foreach (Renovation r in allRenovationsOfFirstAndSecond)
+            {
+                DateTime renovationAndDuration = r.Date.AddDays(Convert.ToInt32(r.Duration));
+                if (r.Date <= today && today <= renovationAndDuration)
+                {
+                    isFree = false;
+                }
+                if (r.Date <= todayAndDuration && todayAndDuration <= renovationAndDuration)
+                {
+                    isFree = false;
+                }
+                if (today <= r.Date && r.Date <= todayAndDuration)
+                {
+                    isFree = false;
+                }
+
+            }
+            return isFree;
+        }
+
+        public Boolean CheckForAppointment(List<Appointment> allAppointmentsOfFirstAndSecond, Boolean isFree, DateTime today, DateTime todayAndDuration)
+        {
+            foreach (Appointment r in allAppointmentsOfFirstAndSecond)
+            {
+                DateTime appointmentAndDuration = addDuration(r.Date, 30);
+                if (r.Date <= today && today <= appointmentAndDuration)
+                {
+                    isFree = false;
+                }
+                if (r.Date <= todayAndDuration && todayAndDuration <= appointmentAndDuration)
+                {
+                    isFree = false;
+                }
+                if (today <= r.Date && r.Date <= todayAndDuration)
+                {
+                    isFree = false;
+                }
+
+            }
+            return isFree;
+        }
+
+        public int FindAvailableId()
+        {
+            int id = 0;
+            List<Renovation> renovations = GetAll().ToList();
+
+            foreach (Renovation r in renovations)
+            {
+                if (r.Id > id)
+                {
+                    id = r.Id;
+                }
+            }
+
+            return id + 1;
+        }
+
+        public int FindAvailableYear()
+        {
+            int year = 2022;
+            List<Renovation> renovations = GetAll().ToList();
+
+            foreach (Renovation r in renovations)
+            {
+                if (r.Date.Year > year)
+                {
+                    year = r.Date.Year;
+                }
+            }
+
+            return year + 1;
         }
     }
 }

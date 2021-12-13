@@ -14,7 +14,7 @@ import 'rxjs/add/operator/catch';
 
 export class PatientService {
 
-  private _patientRegistration = '/api/patientRegistration';
+  private _patientRegistration = '/api/patient';
   private _submitRegistration  = this._patientRegistration + '/submitPatientRegistrationRequest';
   private _getAvailableDoctors = this._patientRegistration + '/getAllAvailableDoctors';
   private _getAllAllergens     = this._patientRegistration + '/getAllAllergens';

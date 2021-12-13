@@ -7,14 +7,8 @@ namespace Hospital.Shared_model.Model
 {
     public class Doctor : Employee
     {
-        //public DateTime VacationTimeStart { get; set; }
-        //public virtual WorkDayShift WorkShift { get; set; }     //bolnica radi od 7h do 19h - prva smena je od 7h-13h, a druga od 13h-19h
         public WorkDayShift WorkShift { get; set; }     //bolnica radi od 7h do 19h - prva smena je od 7h-13h, a druga od 13h-19h
-
-        //[ForeignKey("Specialty")]
-        //public int SpecialtyId { get; set; }
-        //public virtual Specialty Specialty { get; set; }
-        public String Specialty { get; set; }     //da ovo izmenimo
+        public String Specialty { get; set; }  
         public virtual ICollection<Day> DaysOff { get; set; } = new List<Day>();
         //public virtual ICollection<DateTime> DaysOff { get; set; } = new List<DateTime>();      //ovo nam ne treba trenutno
         public int PrimaryRoom { get; set; }

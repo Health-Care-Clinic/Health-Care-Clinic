@@ -8,12 +8,14 @@ import { Room, TypeOfRoom } from '../model/room';
 import { Equipment } from '../model/equipment';
 import { Transfer } from '../model/transfer';
 import { Renovation } from '../model/renovation';
+import { Appointment } from '../model/appointment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HospitalMapService {
 
+  private roomAppointmentsGet: string;
   private buildingsGet: string;
   private buildingGetById: string;
   private floorsGet: string;
@@ -38,10 +40,12 @@ export class HospitalMapService {
   private cancelTransfer: string
   private isRenovationCancellable: string;
   private cancelRenovation: string;
+  private addRoomUrl: string;
 
   constructor(private _http: HttpClient) {
     this.roomTransfersGet = '/api/transfer/getRoomTransfers'
     this.roomRenovationsGet = '/api/renovation/getRoomRenovations'
+    this.roomAppointmentsGet = '/api/appointment/getRoomAppointments'
     this.buildingGetById = '/api/building/getBuildingById';
     this.buildingsGet = '/api/building/getBuildings';
     this.floorsGet = '/api/floor/getFloors';
@@ -64,6 +68,7 @@ export class HospitalMapService {
     this.isRenovationCancellable = '/api/renovation/checkIfRenovationCancellable';
     this.cancelTransfer = '/api/transfer/cancelTransfer';
     this.cancelRenovation = '/api/renovation/cancelRenovation';
+    this.addRoomUrl = '/api/room/addRoom';
   }
 
   public deleteCancelledTransfer(transfer: Transfer):Observable<Transfer> {
@@ -94,6 +99,12 @@ export class HospitalMapService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Transfer>>(this.roomTransfersGet + "/" + roomId, {headers: headers});
+  }
+
+  public getRoomAppointments(roomId: number): Observable<Array<Appointment>> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<Array<Appointment>>(this.roomAppointmentsGet + "/" + roomId, {headers: headers});
   }
 
   public getRoomRenovations(roomId: number): Observable<Array<Renovation>> {
@@ -205,6 +216,12 @@ export class HospitalMapService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Boolean>(this.checkRooms + "/"+ id1 + "/" + id2, {headers: headers});
+  }
+
+  public addRoom(room: Room): Observable<Room> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<Room>(this.addRoomUrl, room, {headers: headers});
   }
  
 }

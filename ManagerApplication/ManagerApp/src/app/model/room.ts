@@ -25,7 +25,7 @@ export class Room {
 }
 
 export enum TypeOfRoom{
-    RoomForAppointments = "Room for appointments",
-    OperationRoom = "Operation room",
-    WC = "WC"
+    RoomForAppointments,
+    OperationRoom,
+    WC
 }

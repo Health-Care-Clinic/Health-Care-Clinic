@@ -10,9 +10,10 @@ namespace Integration.ApiKeys.Model
         public String Name { get; set; }
         public String Key { get; set; }
         public String BaseUrl { get; set; }
-        public string City { get; set; }
-
+        public String City { get; set; }
         public String Category { get; set; }
+        public String ImagePath { get; set; }
+        public String Note { get; set; }
 
         public ApiKey() {}
 
@@ -22,6 +23,17 @@ namespace Integration.ApiKeys.Model
             Key = key;
             BaseUrl = baseUrl;
             Category = category;
+            ImagePath = "";
+            Note = "";
+        }
+        public ApiKey(string name, string key, string baseUrl, string category, string imagePath, string note)
+        {
+            Name = name;
+            Key = key;
+            BaseUrl = baseUrl;
+            Category = category;
+            ImagePath = imagePath;
+            Note = note;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace HospitalIntegrationTests.Patient_portal
                 PatientRepository patientRepository = new PatientRepository(context);
                 PatientService patientService = new PatientService(patientRepository);
 
-                PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
+                PatientController patientController = new PatientController(alergenService, doctorService, patientService);
 
                 OkObjectResult result = patientController.GetAvailableDoctors() as OkObjectResult;
                 List<DoctorDTO> doctors = result.Value as List<DoctorDTO>;

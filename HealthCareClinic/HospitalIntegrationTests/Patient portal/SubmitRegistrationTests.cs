@@ -34,7 +34,7 @@ namespace HospitalIntegrationTests.Patient_portal
                 PatientRepository patientRepository = new PatientRepository(context);
                 PatientService patientService = new PatientService(patientRepository);
 
-                PatientRegistrationController patientController = new PatientRegistrationController(alergenService, doctorService, patientService);
+                PatientController patientController = new PatientController(alergenService, doctorService, patientService);
 
                 List<AllergenDTO> alergens = new List<AllergenDTO>();
                 alergens.Add(new AllergenDTO(1, "Polen ambrozije"));

@@ -14,5 +14,9 @@ namespace Integration.Interface.Service
         ApiKey GetMyApiKey(string url);
         ApiKey GetApiKeyByName(string name);
         ApiKey GetByKey(string key);
+
+        ApiKey EditPharmacyProfile(ApiKey ak);
+        void EditPharmacyPicturePath(int id, string fileName);
+        List<PharmacyDTO> GetPharmacies();
     }
 }

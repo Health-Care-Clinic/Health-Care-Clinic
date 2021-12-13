@@ -56,6 +56,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 
 import { RenovationRoomsComponent } from './component/renovation-rooms/renovation-rooms.component';
 import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
+import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
+import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -102,7 +104,9 @@ const MaterialComponents = [
     MaliciousPatientsComponent,
     RenovationRoomsComponent,
     RoomScheduleComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    PharmacyProfilesComponent,
+    EditPharmacyProfileComponent
   ],
   imports: [
     BrowserModule,

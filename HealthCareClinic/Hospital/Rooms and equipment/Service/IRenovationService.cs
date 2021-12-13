@@ -14,5 +14,7 @@ namespace Hospital.Rooms_and_equipment.Service
 
         public bool CheckIfRenovationCancellable(int id);
         public void RemoveById(int id);
+        public int FindAvailableId();
+        public int FindAvailableYear();
     }
 }

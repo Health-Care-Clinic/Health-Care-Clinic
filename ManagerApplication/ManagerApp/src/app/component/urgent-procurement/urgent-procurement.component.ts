@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Pharmacy } from 'src/app/dto/Pharmacy';
+import { Medicine } from 'src/app/model/medicine';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { UrgentProcurementService } from 'src/app/services/urgent-procurement.service';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
@@ -35,6 +36,16 @@ export class UrgentProcurementComponent implements OnInit {
         alert("Does not exist.")
       }
     });
+  }
+
+  orderMedicine(pharmacyId: string) {
+    let medicine = new Medicine(this.medicineName, Number(this.medicineAmount));
+    this.urgentProcurementService.orderGrpc(medicine).subscribe(
+      (data) => {
+        alert(data);
+      }
+    )
+
   }
 
   openDialog() {

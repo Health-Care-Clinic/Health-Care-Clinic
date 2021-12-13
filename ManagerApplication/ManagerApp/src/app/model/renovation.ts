@@ -18,6 +18,6 @@ export class Renovation {
 }
 
 export enum TypeOfRenovation{
-    Merge,
-    Divide
+    Divide,
+    Merge
 }

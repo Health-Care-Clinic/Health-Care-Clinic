@@ -23,10 +23,6 @@ namespace Hospital.Shared_model.Model
         public DateTime Date { get; set; }
 
         public int SurveyId { get; set; }
-        //[ForeignKey("SurveyId")]
-        //public virtual Survey Survey { get; set; }
-
-        //public virtual ICollection<Survey> Surveys { get; set; } //Ovo teba skloniti
 
         public Appointment()
         {

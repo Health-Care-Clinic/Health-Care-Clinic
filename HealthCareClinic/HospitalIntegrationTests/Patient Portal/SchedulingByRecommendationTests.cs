@@ -1,6 +1,8 @@
 ﻿using Hospital.Mapper;
 using Hospital.Medical_records.Repository;
 using Hospital.Medical_records.Service;
+using Hospital.Schedule.Repository;
+using Hospital.Schedule.Service;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
@@ -63,9 +65,13 @@ namespace HospitalIntegrationTests.Patient_portal
                 DoctorRepository doctorRepository = new DoctorRepository(context);
                 DoctorService doctorService = new DoctorService(doctorRepository);
 
-                AppointmentController appointmentController = new AppointmentController(appointmentService, doctorService);
+                SurveyRepository surveyRepository = new SurveyRepository(context);
+                SurveyService surveyService = new SurveyService(surveyRepository);
 
-                OkObjectResult result = appointmentController.GetAvailableTermsForDoctor(1, "2022-2-22T00:00:00", "2022-2-22T00:00:00") as OkObjectResult;
+                AppointmentController appointmentController = new AppointmentController(appointmentService, surveyService, doctorService);
+
+                DoctorIdDateFromDateToDTO dtoInput = new DoctorIdDateFromDateToDTO(1, "2022-2-22T00:00:00", "2022-2-22T00:00:00");
+                OkObjectResult result = appointmentController.GetAvailableTermsForDoctor(dtoInput) as OkObjectResult;
                 List<string> availableTerms = result.Value as List<string>;
 
                 foreach (Doctor doctor in context.Doctors)

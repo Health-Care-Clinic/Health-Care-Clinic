@@ -1,3 +1,4 @@
+using Grpc.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,10 @@ using Microsoft.Extensions.Hosting;
 using Pharmacy;
 using Pharmacy.Repository;
 using Pharmacy.Service;
+using Pharmacy.UrgentMedicines;
+using System;
 using System.Threading;
+using UrgentMedicines.Protos;
 
 namespace Pharmacy_API
 {
@@ -19,6 +23,7 @@ namespace Pharmacy_API
         }
 
         public IConfiguration Configuration { get; }
+        private IMedicineService medicineService;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,13 +44,16 @@ namespace Pharmacy_API
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<IFeedbackReplyRepository, FeedbackReplyRepository>();
             services.AddScoped<IFeedbackReplyService, FeedbackReplyService>();
+            services.AddScoped<IPrescriptionService, PrescriptionService>();
 
-            //Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
-            //fileCompressionThread.Start();
+            Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
+            fileCompressionThread.Start();
         }
 
+        private Server server;
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -60,6 +68,25 @@ namespace Pharmacy_API
             {
                 endpoints.MapControllers();
             });
+
+            IServiceScope scope1 = app.ApplicationServices.CreateScope();
+            IServiceProvider sp1 = scope1.ServiceProvider;
+            server = new Server
+            {
+                Services = { NetGrpcService.BindService(new UrgentMedicinesService(sp1.GetService<IMedicineService>())) },
+                Ports = { new ServerPort("localhost", 8787, ServerCredentials.Insecure) }
+            };
+            server.Start();
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
+        }
+
+        private void OnShutdown()
+        {
+            if (server != null)
+            {
+                server.ShutdownAsync().Wait();
+            }
+
         }
     }
 }

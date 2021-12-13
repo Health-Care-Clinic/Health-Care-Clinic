@@ -1,0 +1,56 @@
+<div>
+  <table mat-table [dataSource]="appointments" class="mat-elevation-z8" style="width: 100%;">
+
+      <ng-container matColumnDef="AppointmentId">
+          <mat-header-cell *matHeaderCellDef> ApointmentId </mat-header-cell>
+              <mat-cell *matCellDef="let element" >
+                      {{element.id}} 
+                  </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Room">
+          <mat-header-cell *matHeaderCellDef> Room </mat-header-cell>
+              <mat-cell *matCellDef="let element" >
+                {{element.roomId}} 
+                  </mat-cell>
+        </ng-container>
+
+        <ng-container  matColumnDef="DoctorName">
+          <mat-header-cell *matHeaderCellDef> Doctor's Name </mat-header-cell>
+              <mat-cell *matCellDef="let element" >
+                      {{element.doctorDTO.name}}{{" "+element.doctorDTO.surname}} 
+                  </mat-cell>
+        </ng-container>
+
+        <ng-container style="width: 40%;" matColumnDef="Date">
+          <mat-header-cell *matHeaderCellDef> Date scheduled </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.date | date:'medium'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Cancelled">
+          <mat-header-cell *matHeaderCellDef> Cancelled </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.isCancelled}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SurveyId">
+          <mat-header-cell *matHeaderCellDef>Survey </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            <button mat-button *ngIf="!element.surveyDTO.done && !element.isCancelled && compare(element.date,currentDate) " (click)="goToSurvey(element)">
+              Survey
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Cancelation">
+          <mat-header-cell *matHeaderCellDef>Cancel </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            <button mat-button *ngIf="!element.isCancelled && !compare(element.date,currentDatePlusTwoDays) " (click)="cancelAppointment(element)">
+              Cancel
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
+</div>
