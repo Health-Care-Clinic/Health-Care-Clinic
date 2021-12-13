@@ -1,27 +1,35 @@
 version: '3.8' 
 
 services:
-  hospital-front:
-    image: nenadbecanovic/hospital-gateway:latest
+  patient-front:
+    #image: nenadbecanovic/patient-gateway:latest
+    image: patient
+    build:
+      dockerfile: ../../stacks/build/patient-gateway/Dockerfile
+      context: ../../
     depends_on:
       - "hospital-api"
-#    build:
-#      context: ../
-#      dockerfile: Dockerfile
     ports:
-      - "4200:3000"
+      - "3200:3200"
     networks: 
       - application
+
+  manager-front:
+    image: nenadbecanovic/manager-gateway:latest
+    depends_on:
+      - "hospital-api"
+    ports:
+      - "4200:4200"
+    networks: 
+      - application  
+      
 
   hospital-api:
     image: nenadbecanovic/hospital-api:latest
     depends_on:
       - "database"
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
     ports:
-      - "5000:80"     
+      - "52844:80"     
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
@@ -30,6 +38,7 @@ services:
       DATABASE_PASSWORD: password
     networks:
       - application
+      - database
   
   database: 
     image: postgres:latest
@@ -38,22 +47,23 @@ services:
     restart: always
     volumes:
       - type: volume
-        source: db_volume
+        source: hospital-data
         target: /var/lib/postgresql/data
-#      - type: bind
-#        source: ./dbscripts/seed.sql 
-#        target: /docker-entrypoint-initdb.d/seed.sql
+      - type: bind
+        source: ./database.sql 
+        target: /docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "hospitalDb"
     networks:
-      - application
+      - database
 volumes:
-  db_volume:
-    #name: database
+  hospital-data:
 
 networks:
   application:
     name: application
+    driver: bridge
+  database:
     driver: bridge
