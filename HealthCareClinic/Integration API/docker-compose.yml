@@ -1,4 +1,4 @@
-version: '3.8' 
+version: '3.2' 
 
 services:
   patient-front:
@@ -8,7 +8,7 @@ services:
       dockerfile: ../../stacks/build/patient-gateway/Dockerfile
       context: ../../
     depends_on:
-      - "hospital-api"
+      - "integration-api"
     ports:
       - "3200:3200"
     networks: 
@@ -17,7 +17,7 @@ services:
   manager-front:
     image: nenadbecanovic/manager-gateway:latest
     depends_on:
-      - "hospital-api"
+      - "integration-api"
     ports:
       - "4200:4200"
     networks: 
@@ -28,12 +28,13 @@ services:
     image: nenadbecanovic/integration-api:latest
     depends_on:
       - "database"
+      - "rabbitmq3"
     ports:
       - "52844:80"     
     environment:
       DATABASE_HOST: database
-      DATABASE_PORT: 5432
-      DATABASE_SCHEMA: hospitalDb
+      DATABASE_PORT: 5433
+      DATABASE_SCHEMA: integrationDb
       DATABASE_USER: postgres
       DATABASE_PASSWORD: password
     networks:
@@ -43,7 +44,7 @@ services:
   database: 
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - "5433:5432"
     restart: always
     volumes:
       - type: volume
@@ -58,6 +59,15 @@ services:
       POSTGRES_DB: "integrationDb"
     networks:
       - database
+
+  rabbitmq3:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'secret cookie here'
+    volumes:
+      - integration-data:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
 volumes:
   integration-data:
 
