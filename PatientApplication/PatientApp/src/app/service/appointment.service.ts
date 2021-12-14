@@ -31,7 +31,8 @@ export class AppointmentService {
   private _getAppointmentsForPatient = this._appointmentUrl + '/getAppointmentsByPatientId/';
   private _cancelAppointment = this._appointmentUrl + '/cancelAppointment/';
   private _getDoctors = '/api/doctor/allDoctors';
-  private _getAvailableTermsForPriority = this._appointmentUrl + '/freeTermsForDoctor';
+  private _getAvailableTermsForDoctorPriority = this._appointmentUrl + '/freeTermsForDoctor';
+  private _getAvailableTermsForDateRangePriority = this._appointmentUrl + '/freeTermsForDateRange';
   private _schedule = this._appointmentUrl + '/createAppointment';
 
   constructor(private _http : HttpClient){}
@@ -67,9 +68,14 @@ export class AppointmentService {
     dto.to = new Date(Date.UTC(dto.to.getFullYear(), dto.to.getMonth(), dto.to.getDate(), dto.to.getHours(), dto.to.getMinutes()));
     const body=JSON.stringify(dto).toLocaleString();
     console.log('GettingTermsDTO: ' + body)
-    /* if (priority == 'Doctor') */
-      return this._http.post(this._getAvailableTermsForPriority, body,{'headers':headers})
+    
+    var httpAnswer = new Observable<any>();
+    if (priority == 'Doctor')
+      httpAnswer = this._http.post(this._getAvailableTermsForDoctorPriority, body,{'headers':headers})
+    else if (priority == 'DateRange')
+      httpAnswer = this._http.post(this._getAvailableTermsForDateRangePriority, body, {'headers': headers});
 
+    return httpAnswer;
   }
 
   schedule(term: Date, doctorId: number, patientId: number): Observable<any> {

@@ -77,10 +77,11 @@ namespace Hospital_API.Controller
         }
 
         [HttpPost("freeTermsForDateRange")]
-        public IActionResult GetAvailableTermsForDateRange(int doctorId, string beginningDateAsString, string endingDateAsString)
+        public IActionResult GetAvailableTermsForDateRange(DoctorIdDateFromDateToDTO dto)
         {
-            DateTime beginningDate = PatientAdapter.ConvertToDate(beginningDateAsString);
-            DateTime endingDate = PatientAdapter.ConvertToDate(endingDateAsString);
+            int doctorId = dto.DoctorId;
+            DateTime beginningDate = PatientAdapter.ConvertToDate(dto.From);
+            DateTime endingDate = PatientAdapter.ConvertToDate(dto.To);
 
             if (doctorId < 0)
                 return BadRequest();

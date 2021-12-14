@@ -102,12 +102,16 @@ namespace HospitalIntegrationTests.Patient_portal
                 AppointmentRepository appointmentRepository = new AppointmentRepository(context);
                 AppointmentService appointmentService = new AppointmentService(appointmentRepository);
 
+                SurveyRepository surveyRepository = new SurveyRepository(context);
+                SurveyService surveyService = new SurveyService(surveyRepository);
+
                 DoctorRepository doctorRepository = new DoctorRepository(context);
                 DoctorService doctorService = new DoctorService(doctorRepository);
 
-                AppointmentController appointmentController = new AppointmentController(appointmentService, doctorService);
+                AppointmentController appointmentController = new AppointmentController(appointmentService, surveyService, doctorService);
 
-                OkObjectResult result = appointmentController.GetAvailableTermsForDateRange(1, "2022-02-22T00:00:00", "2022-02-24T00:00:00") as OkObjectResult;
+                DoctorIdDateFromDateToDTO dto = new DoctorIdDateFromDateToDTO(1, "2022-02-22T00:00:00", "2022-02-24T00:00:00");
+                OkObjectResult result = appointmentController.GetAvailableTermsForDateRange(dto) as OkObjectResult;
                 List<string> availableTerms = result.Value as List<string>;
 
                 foreach (Doctor doctor in context.Doctors)
