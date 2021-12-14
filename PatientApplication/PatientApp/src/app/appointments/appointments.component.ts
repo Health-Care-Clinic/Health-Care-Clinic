@@ -32,7 +32,7 @@ export class AppointmentsComponent implements OnInit {
   getAppointmetsForPatient(id: number) {
     this._appointmentService.getAppointmetsForPatient(id)
         .subscribe(data =>  this.appointments = data,
-                   error => this.errorMessage = <any>error);     
+                   error => this.errorMessage = <any>error);   
   }
 
   goToSurvey(appointment: IAppointment): void {
@@ -45,6 +45,7 @@ export class AppointmentsComponent implements OnInit {
     this._appointmentService.cancelAppointment(appointment.id)
         .subscribe(data => this.appointment = data,
                    error => this.errorMessage = <any>error);
+    appointment.isCancelled = true;
     this.getAppointmetsForPatient(appointment.patientId);
     window.alert('Your appointment is cancelled!');
   }

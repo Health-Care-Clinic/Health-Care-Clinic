@@ -54,6 +54,8 @@ namespace Hospital_API.Controller
                 return NotFound();
             if (DateTime.Now > appointment.Date.AddDays(-2))
                 return BadRequest("Too late to cancel");
+            if (appointment.isCancelled == true)
+                return BadRequest("Already cancelled");
 
             Appointment Appointment =  appointmentService.CancelAppointment(id);
             return Ok(AppointmentAdapter.AppointmentToAppointmentDTOForMedicalRecord(Appointment, doctorService,surveyService));
