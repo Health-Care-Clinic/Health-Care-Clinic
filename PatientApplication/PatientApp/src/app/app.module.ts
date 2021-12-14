@@ -55,6 +55,7 @@ import { MedicalRecordComponent } from './medical-record/medical-record.componen
 import { RecommendationSchedulingComponent } from './recommendation-scheduling/recommendation-scheduling.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentService } from './service/appointment.service';
+import { StandardSchedulingComponent } from './standard-scheduling/standard-scheduling.component';
 
 
 
@@ -97,6 +98,7 @@ const MaterialComponents = [
     MedicalRecordComponent,
     RecommendationSchedulingComponent,
     AppointmentsComponent,
+    StandardSchedulingComponent,
   ],
   imports: [
     HttpClientModule,

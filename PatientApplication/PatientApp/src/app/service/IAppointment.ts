@@ -8,7 +8,7 @@ export interface IAppointment {
 
         patientId : number;
 
-        doctorDTO : Doctor;
+        doctorId : number;
 
         roomId : number;
 
@@ -18,5 +18,5 @@ export interface IAppointment {
 
         date : Date;
 
-        surveyDTO : ISurveyForAppointment;
+        surveyId : number;
 }

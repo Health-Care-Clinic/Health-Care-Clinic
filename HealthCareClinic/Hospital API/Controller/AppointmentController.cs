@@ -105,6 +105,8 @@ namespace Hospital_API.Controller
         [HttpGet("getDoctorsBySpecialty/{specialty?}")]
         public IActionResult GetDoctorsBySpecialty(string specialty)
         {
+            specialty = specialty.Substring(1, specialty.Length - 2);
+
             if (specialty == "")
                 return BadRequest();
 
@@ -112,15 +114,17 @@ namespace Hospital_API.Controller
         }
 
         [HttpGet("getTermsForSelectedDoctor/{id?}/{date?}")]
-        public IActionResult GetTermsForSelectedDoctor(int doctorID, string date)
+        public IActionResult GetTermsForSelectedDoctor(int id, string date)
         {
-            if (doctorID <= 0)
+            date = date.Substring(1, date.Length - 2);
+
+            if (id <= 0)
                 return BadRequest();
             if (date == "")
                 return BadRequest();
 
-            Doctor selectedDoctor = doctorService.GetOneById(doctorID);
-            DateTime selectedDate = DateTime.Parse(date);
+            Doctor selectedDoctor = doctorService.GetOneById(id);
+            DateTime selectedDate = PatientAdapter.ConvertToDate(date);
 
             return Ok(appointmentService.GetAvailableTerms(selectedDoctor, selectedDate));
         }

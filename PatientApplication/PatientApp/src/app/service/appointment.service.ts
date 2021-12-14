@@ -16,6 +16,10 @@ export class AppointmentService {
   private _appointmentUrl = '/api/appointment';
   private _getAppointmentsForPatient = this._appointmentUrl + '/getAppointmentsByPatientId/';
   private _cancelAppointment = this._appointmentUrl + '/cancelAppointment/';
+  private _getAllSpecializations = this._appointmentUrl + '/getAllSpecialties';
+  private _getDoctorsBySpecialty = this._appointmentUrl + '/getDoctorsBySpecialty/';
+  private _getTermsForSelectedDoctor = this._appointmentUrl + '/getTermsForSelectedDoctor/';
+  private _createAppointment = this._appointmentUrl + '/createAppointment';
 
     constructor(private _http : HttpClient){}
 
@@ -29,6 +33,31 @@ export class AppointmentService {
       const body = JSON.stringify(id);
       return this._http.put<any>(this._cancelAppointment + id, body)
   }
+
+    getAllSpecialties(): Observable<string[]> {
+      return this._http.get<string[]>(this._getAllSpecializations)
+                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
+                          .catch(this.handleError);
+    }
+
+    getDoctorsBySpecialty(specialty: string): Observable<Doctor[]> {
+      return this._http.get<Doctor[]>(this._getDoctorsBySpecialty + JSON.stringify(specialty))
+                          .do(data => console.log('All: ' + JSON.stringify(data)))
+                          .catch(this.handleError);
+    }
+
+    getTermsForSelectedDoctor(doctorId: number, date: Date): Observable<string[]> {
+      return this._http.get<string[]>(this._getTermsForSelectedDoctor + doctorId + '/' + JSON.stringify(date))
+                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
+                          .catch(this.handleError);
+    }
+
+    createAppointment(appointment : IAppointment): Observable<any> {
+      const headers = { 'content-type': 'application/json'}
+      const body=JSON.stringify(appointment);
+      console.log(body)
+      return this._http.post(this._createAppointment, body,{'headers':headers})
+    }
 
     private handleError(err : HttpErrorResponse) {
         console.log(err.message);
