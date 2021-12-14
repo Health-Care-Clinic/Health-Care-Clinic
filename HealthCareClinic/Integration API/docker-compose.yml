@@ -2,11 +2,7 @@ version: '3.2'
 
 services:
   patient-front:
-    #image: nenadbecanovic/patient-gateway:latest
-    image: patient
-    build:
-      dockerfile: ../../stacks/build/patient-gateway/Dockerfile
-      context: ../../
+    image: nenadbecanovic/patient-gateway:latest
     depends_on:
       - "integration-api"
     ports:
@@ -73,7 +69,6 @@ volumes:
 
 networks:
   application:
-    name: application
     driver: bridge
   database:
     driver: bridge
