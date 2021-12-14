@@ -26,9 +26,9 @@ namespace Hospital.Schedule.Service
         {
             return surveyRepository.GenerateSurveyForAppointment(id);
         }
-        public Survey GetSurveyForAppointment(int appId)
+        public Survey GetSurveyForAppointment(int id)
         {
-            return surveyRepository.GetSurveyForAppointment(appId);
+            return surveyRepository.GetSurveyForAppointment(id);
         }
 
         public IEnumerable<Survey> GetAll()

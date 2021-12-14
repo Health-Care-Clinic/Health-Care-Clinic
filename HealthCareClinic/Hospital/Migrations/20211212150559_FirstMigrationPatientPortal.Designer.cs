@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20211210001317_PatientPortalFifthMigration")]
-    partial class PatientPortalFifthMigration
+    [Migration("20211212150559_FirstMigrationPatientPortal")]
+    partial class FirstMigrationPatientPortal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
