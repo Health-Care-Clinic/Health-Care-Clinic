@@ -62,8 +62,8 @@ namespace Hospital.Shared_model.Repository
 
         private List<DateTime> GetOccupiedTerms(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
-            return dbContext.Appointments.Where(app => app.DoctorId == doctor.Id && app.Date.AddDays(1) > fromDate.Date && app.Date < toDate.Date.AddDays(1))
-                                                                             .Select(a => a.Date).ToList();
+            return dbContext.Appointments.Where(app => app.DoctorId == doctor.Id && app.isCancelled == false && app.Date.AddDays(1) > fromDate.Date &&
+                                                        app.Date < toDate.Date.AddDays(1)).Select(a => a.Date).ToList();
         }
 
         private List<DateTime> GenerateAllTerms(DateTime fromDate, DateTime toDate)

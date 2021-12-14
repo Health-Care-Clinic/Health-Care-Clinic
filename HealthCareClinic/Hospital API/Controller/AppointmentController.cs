@@ -6,6 +6,7 @@ using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using Hospital_API.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,9 +67,8 @@ namespace Hospital_API.Controller
         {
             DateTime fromDate = PatientAdapter.ConvertToDate(dto.From);
             DateTime toDate = PatientAdapter.ConvertToDate(dto.To);
-            if (dto.DoctorId < 0)
-                return BadRequest();
-            if (toDate < fromDate)
+
+            if (!AppointmentValidation.ValidateInputDoctorIdDateFromDateToDTO(dto, fromDate, toDate))
                 return BadRequest();
 
             List<string> availableTerms = new List<string>();
