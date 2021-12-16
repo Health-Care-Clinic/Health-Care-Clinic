@@ -63,7 +63,7 @@ export class RecommendationSchedulingComponent implements OnInit {
       error => console.log('Error!', error)
     )
     
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/medical-record');
     console.log(term);
     this._snackBar.open('You have been successfully scheduled an appointment', 'Close', {duration: 3000});
   }

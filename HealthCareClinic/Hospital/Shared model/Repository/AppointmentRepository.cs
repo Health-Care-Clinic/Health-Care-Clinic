@@ -22,7 +22,8 @@ namespace Hospital.Shared_model.Repository
         {
             Appointment appointment = GetById(appointmentId);
             appointment.isCancelled = true;
-            dbContext.CanceledAppointments.Add(new CanceledAppointment(DateTime.Now, appointment.PatientId, appointment.Id));
+            dbContext.CanceledAppointments.Add(new CanceledAppointment(new System.DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day),
+                                                                        appointment.PatientId, appointment.Id));
             Save();
 
             return appointment;
@@ -89,6 +90,30 @@ namespace Hospital.Shared_model.Repository
             Save();
             app.SurveyId = newSurvey.Id;
             Save();
+        }
+
+        public List<DateTime> GetAvailableTerms(Doctor doctor, DateTime date)
+        {
+            List<DateTime> allTerms = GenerateAllTerms(date, date);
+            List<DateTime> occupiedTerms = GetOccupiedTerms(doctor, date, date);
+            List<DateTime> availableTerms = FindAvailableTerms(doctor, allTerms, occupiedTerms);
+
+            return availableTerms;
+        }
+
+        private List<DateTime> GenerateAllTerms(DateTime date)      // STANDARD VERZIJA
+        {
+            List<DateTime> allTerms = new List<DateTime>();
+
+            foreach (string term in terms)
+                allTerms.Add(new System.DateTime(date.Year, date.Month, date.Day, Convert.ToInt32(term.Split(":")[0]), Convert.ToInt32(term.Split(":")[1]), 0));
+
+            return allTerms;
+        }
+
+        private List<DateTime> GetOccupiedTerms(Doctor doctor, DateTime date)   // STANDARD VERZIJA
+        {
+            return dbContext.Appointments.Where(app => app.DoctorId == doctor.Id && app.Date.Date == date).Select(app => app.Date).ToList();
         }
     }
 }
