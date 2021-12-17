@@ -64,5 +64,10 @@ namespace Hospital.Shared_model.Service
             }
             return roomAppointments;
         }
+
+        public List<DateTime> GetAvailableTerms(Doctor selectedDoctor, DateTime selectedDate)
+        {
+            return appointmentRepository.GetAvailableTerms(selectedDoctor, selectedDate);
+        }
     }
 }

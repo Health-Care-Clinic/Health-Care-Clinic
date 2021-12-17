@@ -6,6 +6,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { MedicalRecordComponent } from './medical-record/medical-record.component';
 import { RecommendationSchedulingComponent } from './recommendation-scheduling/recommendation-scheduling.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { StandardSchedulingComponent } from './standard-scheduling/standard-scheduling.component';
 import { SurveyComponent } from './survey/survey.component';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'medical-record', component: MedicalRecordComponent },
   { path: 'recommendation-scheduling', component: RecommendationSchedulingComponent },
+  { path: 'standard-scheduling', component: StandardSchedulingComponent }
 ];
 
 @NgModule({

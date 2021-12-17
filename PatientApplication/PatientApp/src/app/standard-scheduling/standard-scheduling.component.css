@@ -1,0 +1,26 @@
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
+
+mat-stepper {
+    border: solid;
+    border-color:darkslateblue;
+    border-style: groove;
+    margin-top: 5%;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 400px;
+    background-color:azure;
+}
+
+body {
+    text-align: center;
+}
+
+form {
+    display: inline-block;
+}
+
+mat-form-field {
+    margin-top: 15%;
+}
