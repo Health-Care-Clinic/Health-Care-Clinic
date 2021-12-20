@@ -1,5 +1,6 @@
 export interface GettingTermsDTO {
     doctorId : number;
-    from : Date;
-    to : Date;
+    specialty : string;
+    beginningDateTime : Date;
+    endingDateTime : Date;
 }
