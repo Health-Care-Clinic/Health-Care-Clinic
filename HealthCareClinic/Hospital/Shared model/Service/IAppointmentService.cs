@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Interface;
+﻿using Hospital.Schedule.Model;
+using Hospital.Shared_model.Interface;
 using Hospital.Shared_model.Model;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Hospital.Shared_model.Service
         List<Appointment> getAppointmentsByPatientId(int patinetId);
         Appointment CancelAppointment(int appointmentId);
         List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate);
-        List<DateTime> GetAvailableTermsForDateRange(List<Doctor> doctorsWithGivenSpecialty, DateTime beginningDate, DateTime endingDate);
+        TermsInDateRange GetAvailableTermsForDateRange(TermsInDateRange initialObjectWithoutTerms, List<Doctor> doctorsWithSpecialty);
         void AddAppointment(Appointment app);
         public List<Appointment> GetRoomAppointments(int id);
     }
