@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClinicCore" Version="1.0.1" />
     <PackageReference Include="Google.Protobuf" Version="3.19.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
     <PackageReference Include="Grpc.AspNetCore.Server" Version="2.41.0" />
@@ -57,14 +56,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
-    <ProjectReference Include="..\Integration\Integration.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="MedSpecifications\" />
     <Folder Include="MedSpecifications\" />
     <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Integration\Integration.csproj" />
   </ItemGroup>
 
   <ItemGroup>

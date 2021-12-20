@@ -44,9 +44,15 @@ namespace Hospital.Medical_records.Service
             return availableDoctors;
         }
 
-        public List<Doctor> GetDoctorsWithSpecialty(string specialtyName)
+        public List<String> GetAllSpecialties()
         {
-            return doctorRepository.GetDoctorsWithSpecialty(specialtyName);
+            return doctorRepository.GetAllSpecialties();
         }
+
+        public List<Doctor> GetDoctorsBySpecialty(string specialty)
+        {
+            return doctorRepository.GetDoctorsBySpecialty(specialty);
+        }
+
     }
 }

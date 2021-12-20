@@ -9,10 +9,11 @@ namespace Hospital.Shared_model.Repository
 {
     public interface IAppointmentRepository : IRepository<Appointment>
     {
-        List<Appointment> getAppointmentsByPatientId(int patinetId);
-        Appointment CancelAppointment(int appointmentId);
-        List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate);
-        TermsInDateRange GetAvailableTermsForDateRange(TermsInDateRange initialObjectWithoutTerms, List<Doctor> doctorsWithSpecialty);
-        void AddAppointment(Appointment app);
+        public List<Appointment> getAppointmentsByPatientId(int patinetId);
+        public Appointment CancelAppointment(int appointmentId);
+        public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate);
+        public TermsInDateRange GetAvailableTermsForDateRange(TermsInDateRange initialObjectWithoutTerms, List<Doctor> doctorsWithSpecialty);
+        public void AddAppointment(Appointment app);
+        public List<DateTime> GetAvailableTerms(Doctor doctor, DateTime date);
     }
 }

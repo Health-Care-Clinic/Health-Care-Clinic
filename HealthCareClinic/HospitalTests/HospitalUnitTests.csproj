@@ -23,9 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
     <ProjectReference Include="..\Hospital API\Hospital API.csproj" />
-    <ProjectReference Include="..\Hospital\Hospital.csproj" />
   </ItemGroup>
 
 </Project>

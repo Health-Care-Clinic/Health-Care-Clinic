@@ -7,6 +7,7 @@ using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using Hospital_API.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,6 +56,8 @@ namespace Hospital_API.Controller
                 return NotFound();
             if (DateTime.Now > appointment.Date.AddDays(-2))
                 return BadRequest("Too late to cancel");
+            if (appointment.isCancelled == true)
+                return BadRequest("Already cancelled");
 
             Appointment Appointment =  appointmentService.CancelAppointment(id);
             return Ok(AppointmentAdapter.AppointmentToAppointmentDTOForMedicalRecord(Appointment, doctorService,surveyService));
@@ -65,9 +68,8 @@ namespace Hospital_API.Controller
         {
             DateTime fromDate = PatientAdapter.ConvertToDate(dto.BeginningDateTime);
             DateTime toDate = PatientAdapter.ConvertToDate(dto.EndingDateTime);
-            if (dto.DoctorId < 0)
-                return BadRequest();
-            if (toDate < fromDate)
+
+            if (!AppointmentValidation.ValidateInputDoctorIdDateFromDateToDTO(dto, fromDate, toDate))
                 return BadRequest();
 
             List<string> availableTerms = new List<string>();
@@ -118,6 +120,40 @@ namespace Hospital_API.Controller
                 => roomAppointments.Add(Appointment));
             return Ok(roomAppointments);
         }
+
+        [HttpGet("getAllSpecialties")]
+        public IActionResult GetAllSpecialties()
+        {
+            return Ok(doctorService.GetAllSpecialties());
+        }
+
+        [HttpGet("getDoctorsBySpecialty/{specialty?}")]
+        public IActionResult GetDoctorsBySpecialty(string specialty)
+        {
+            specialty = specialty.Substring(1, specialty.Length - 2);
+
+            if (specialty == "")
+                return BadRequest();
+
+            return Ok(DoctorAdapter.DoctorListToDoctorDTOList(doctorService.GetDoctorsBySpecialty(specialty)));
+        }
+
+        [HttpGet("getTermsForSelectedDoctor/{id?}/{date?}")]
+        public IActionResult GetTermsForSelectedDoctor(int id, string date)
+        {
+            date = date.Substring(1, date.Length - 2);
+
+            if (id <= 0)
+                return BadRequest();
+            if (date == "")
+                return BadRequest();
+
+            Doctor selectedDoctor = doctorService.GetOneById(id);
+            DateTime selectedDate = PatientAdapter.ConvertToDate(date);
+
+            return Ok(appointmentService.GetAvailableTerms(selectedDoctor, selectedDate));
+        }
+
     }
 
 }

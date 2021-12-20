@@ -15,5 +15,6 @@ namespace Hospital.Shared_model.Service
         TermsInDateRange GetAvailableTermsForDateRange(TermsInDateRange initialObjectWithoutTerms, List<Doctor> doctorsWithSpecialty);
         void AddAppointment(Appointment app);
         public List<Appointment> GetRoomAppointments(int id);
+        public List<DateTime> GetAvailableTerms(Doctor selectedDoctor, DateTime selectedDate);
     }
 }
