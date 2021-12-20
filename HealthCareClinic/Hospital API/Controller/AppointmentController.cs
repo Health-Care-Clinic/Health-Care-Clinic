@@ -92,7 +92,7 @@ namespace Hospital_API.Controller
 
             TermsInDateRange initialObjectWithoutTerms = 
                 AppointmentSchedulingAdapter.CreateTermsInDateRangeObject(dto, doctorService);
-            List<Doctor> doctorsWithSpecialty = doctorService.GetDoctorsWithSpecialty(dto.Specialty);
+            List<Doctor> doctorsWithSpecialty = doctorService.GetDoctorsBySpecialty(dto.Specialty);
 
             TermsInDateRange availableTerms = 
                 appointmentService.GetAvailableTermsForDateRange(initialObjectWithoutTerms, doctorsWithSpecialty);

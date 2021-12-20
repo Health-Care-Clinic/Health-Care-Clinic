@@ -17,7 +17,7 @@ namespace HospitalUnitTests.Patient_portal
         public void Get_all_doctors_with_specialty(string specialtyName)
         {
             DoctorService doctorService = new DoctorService(CreateStubDoctorRepository());
-            List<Doctor> doctorsWithSpecialty = doctorService.GetDoctorsWithSpecialty(specialtyName);
+            List<Doctor> doctorsWithSpecialty = doctorService.GetDoctorsBySpecialty(specialtyName);
 
             switch (specialtyName)
             {
@@ -92,13 +92,13 @@ namespace HospitalUnitTests.Patient_portal
             stubDoctorRepository.Setup(m => m.GetAll()).Returns(doctors);
             stubDoctorRepository.Setup(m => m.GetById(1)).Returns(doctors[0]);
 
-            stubDoctorRepository.Setup(m => m.GetDoctorsWithSpecialty("General medicine"))
+            stubDoctorRepository.Setup(m => m.GetDoctorsBySpecialty("General medicine"))
                 .Returns(new List<Doctor>() {doctor1, doctor2, doctor3});
-            stubDoctorRepository.Setup(m => m.GetDoctorsWithSpecialty("Surgery"))
+            stubDoctorRepository.Setup(m => m.GetDoctorsBySpecialty("Surgery"))
                 .Returns(new List<Doctor>() { doctor4, doctor5 });
-            stubDoctorRepository.Setup(m => m.GetDoctorsWithSpecialty("Opftamology"))
+            stubDoctorRepository.Setup(m => m.GetDoctorsBySpecialty("Opftamology"))
                 .Returns(new List<Doctor>() { doctor6 });
-            stubDoctorRepository.Setup(m => m.GetDoctorsWithSpecialty("Dermmatology"))
+            stubDoctorRepository.Setup(m => m.GetDoctorsBySpecialty("Dermmatology"))
                 .Returns(new List<Doctor>() { doctor7 });
 
             return stubDoctorRepository.Object;

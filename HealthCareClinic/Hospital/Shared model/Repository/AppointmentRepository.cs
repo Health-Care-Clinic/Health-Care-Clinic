@@ -164,6 +164,17 @@ namespace Hospital.Shared_model.Repository
             return availableTerms;
         }
 
+        private List<DateTime> FindAvailableTerms(Doctor doctor, List<DateTime> allTerms, List<DateTime> occupiedTerms)
+        {
+            List<DateTime> availableTerms = new List<DateTime>();
+
+            if (doctor.WorkShift == WorkDayShift.FirstShift)
+                availableTerms = allTerms.Where(t => !occupiedTerms.Contains(t) && t.Hour < 13).ToList();
+            else
+                availableTerms = allTerms.Where(t => !occupiedTerms.Contains(t) && t.Hour >= 13).ToList();
+            return availableTerms;
+        }
+
         private List<DateTime> GenerateAllTerms(DateTime date)      // STANDARD VERZIJA
         {
             List<DateTime> allTerms = new List<DateTime>();
