@@ -159,35 +159,9 @@ namespace Hospital.Shared_model.Repository
         {
             List<DateTime> allTerms = GenerateAllTerms(date, date);
             List<DateTime> occupiedTerms = GetOccupiedTerms(doctor, date, date);
-            List<DateTime> availableTerms = FindAvailableTerms(doctor, allTerms, occupiedTerms);
+            List<DateTime> availableTerms = FindAvailableTermsWithDoctorAsPriority(doctor, allTerms, occupiedTerms);
 
             return availableTerms;
-        }
-
-        private List<DateTime> FindAvailableTerms(Doctor doctor, List<DateTime> allTerms, List<DateTime> occupiedTerms)
-        {
-            List<DateTime> availableTerms = new List<DateTime>();
-
-            if (doctor.WorkShift == WorkDayShift.FirstShift)
-                availableTerms = allTerms.Where(t => !occupiedTerms.Contains(t) && t.Hour < 13).ToList();
-            else
-                availableTerms = allTerms.Where(t => !occupiedTerms.Contains(t) && t.Hour >= 13).ToList();
-            return availableTerms;
-        }
-
-        private List<DateTime> GenerateAllTerms(DateTime date)      // STANDARD VERZIJA
-        {
-            List<DateTime> allTerms = new List<DateTime>();
-
-            foreach (string term in terms)
-                allTerms.Add(new System.DateTime(date.Year, date.Month, date.Day, Convert.ToInt32(term.Split(":")[0]), Convert.ToInt32(term.Split(":")[1]), 0));
-
-            return allTerms;
-        }
-
-        private List<DateTime> GetOccupiedTerms(Doctor doctor, DateTime date)   // STANDARD VERZIJA
-        {
-            return dbContext.Appointments.Where(app => app.DoctorId == doctor.Id && app.Date.Date == date).Select(app => app.Date).ToList();
         }
     }
 }
