@@ -1,11 +1,14 @@
 ﻿using Moq;
 using Pharmacy.Model;
-using Pharmacy.Repository;
-using Pharmacy.Service;
 using Pharmacy_API.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Pharmacy.Interfaces.Repository;
+using Pharmacy.Interfaces.Service;
+using Pharmacy.Prescriptions.Model;
+using Pharmacy.Prescriptions.Service;
+using Pharmacy.Tendering.Model;
 using Xunit;
 
 namespace PharmacyTests

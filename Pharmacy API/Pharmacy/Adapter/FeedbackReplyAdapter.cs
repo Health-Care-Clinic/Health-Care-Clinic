@@ -1,4 +1,5 @@
 ﻿using Pharmacy.DTO;
+using Pharmacy.Feedbacks.Model;
 using Pharmacy.Model;
 
 namespace Pharmacy.Adapter

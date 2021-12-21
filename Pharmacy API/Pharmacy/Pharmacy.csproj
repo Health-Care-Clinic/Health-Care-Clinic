@@ -5,6 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repository\**" />
+    <Compile Remove="Service\**" />
+    <Compile Remove="Ten\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <EmbeddedResource Remove="Service\**" />
+    <EmbeddedResource Remove="Ten\**" />
+    <None Remove="Repository\**" />
+    <None Remove="Service\**" />
+    <None Remove="Ten\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="ApiKeyService.cs" />
     <Compile Remove="Class1.cs" />
     <Compile Remove="Migrations\20211119230133_FifthMigration.cs" />
