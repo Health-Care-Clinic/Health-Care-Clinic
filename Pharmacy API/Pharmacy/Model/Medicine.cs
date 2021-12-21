@@ -15,6 +15,7 @@ namespace Pharmacy.Model
         public String SideEffects { get; set; }
         public String Reactions { get; set; }
         public String CompatibileMedicine { get; set; }
+        public double Price { get; set; }
 
         public Medicine(int id, string name, int quantity)
         {
@@ -33,8 +34,31 @@ namespace Pharmacy.Model
             CompatibileMedicine = compatibileMedicine;
         }
 
+        public Medicine(int id, string name, int quantity, string manufacturer, string usage, int weight, String sideEffects, String reactions, String compatibileMedicine, double price) : this(id, name, quantity)
+        {
+            Manufacturer = manufacturer;
+            Usage = usage;
+            Weight = weight;
+            SideEffects = sideEffects;
+            Reactions = reactions;
+            CompatibileMedicine = compatibileMedicine;
+            Price = price;
+        }
+
+
+
         public Medicine() { }
 
+
+        public Boolean CheckQuantity(int quantiity)
+        {
+            bool result = false;
+            if(quantiity <= Quantity)
+            {
+                result = true;
+            }
+            return result;
+        }
 
     }
 }

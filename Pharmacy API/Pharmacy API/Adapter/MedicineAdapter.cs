@@ -19,6 +19,7 @@ namespace Pharmacy_API.Adapter
             medicine.SideEffects = dto.SideEffects;
             medicine.Usage = dto.Usage;
             medicine.Weight = dto.Weight;
+            medicine.Price = dto.Price;
 
             return medicine;
         }
@@ -33,6 +34,7 @@ namespace Pharmacy_API.Adapter
             medicineDTO.SideEffects = medicine.SideEffects;
             medicineDTO.Usage = medicine.Usage;
             medicineDTO.Weight = medicine.Weight;
+            medicineDTO.Price = medicine.Price;
 
             return medicineDTO;
         }

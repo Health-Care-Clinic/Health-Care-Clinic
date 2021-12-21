@@ -21,9 +21,6 @@ namespace Pharmacy_API.Controllers
     public class MedicineController : Controller
     {
         private readonly IMedicineService medicineService;
-
-
-        
         public MedicineController(IMedicineService medicineService)
         {
             this.medicineService = medicineService;
@@ -51,28 +48,28 @@ namespace Pharmacy_API.Controllers
             }
 
             [HttpGet]
-        public IActionResult SearchMedicine()
-        {
-            try
+            public IActionResult SearchMedicine()
             {
-                string name = HttpContext.Request.Query["name"].ToString().ToLower();
-                string manufacturer = HttpContext.Request.Query["manufacturer"].ToString().ToLower();
-                string weight = HttpContext.Request.Query["weight"].ToString().ToLower();
-                int weightInt = 0;
-                if(weight != "")
+                try
                 {
-                    weightInt = int.Parse(weight);
+                    string name = HttpContext.Request.Query["name"].ToString().ToLower();
+                    string manufacturer = HttpContext.Request.Query["manufacturer"].ToString().ToLower();
+                    string weight = HttpContext.Request.Query["weight"].ToString().ToLower();
+                    int weightInt = 0;
+                    if(weight != "")
+                    {
+                        weightInt = int.Parse(weight);
+                    }
+
+                    List<Medicine> medicines = medicineService.SearchMedicine(name, manufacturer, weightInt).ToList();
+
+                    return Ok(medicines);
                 }
-
-                List<Medicine> medicines = medicineService.SearchMedicine(name, manufacturer, weightInt).ToList();
-
-                return Ok(medicines);
+                catch
+                {
+                    return BadRequest();
+                }
             }
-            catch
-            {
-                return BadRequest();
-            }
-        }
 
 
         [HttpGet("{id?}")]
