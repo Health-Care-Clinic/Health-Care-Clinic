@@ -332,45 +332,64 @@ namespace Hospital.Mapper
             );
            
             modelBuilder.Entity<Appointment>().HasData(
-                new Appointment(1, 1, 1, 1, false, false, new System.DateTime(2022, 2, 22, 7, 0, 0), 1),
-                new Appointment(2, 2, 1, 1, false, false, new System.DateTime(2022, 2, 22, 7, 30, 0), 2),
-                new Appointment(3, 3, 1, 1, false, false, new System.DateTime(2022, 2, 22, 8, 0, 0), 3),
-                new Appointment(4, 4, 1, 1, false, false, new System.DateTime(2022, 2, 22, 8, 30, 0), 4),
-                new Appointment(5, 5, 1, 1, false, false, new System.DateTime(2022, 2, 22, 9, 0, 0), 5),
-                new Appointment(6, 6, 1, 1, false, false, new System.DateTime(2022, 2, 22, 9, 30, 0), 6),
-                new Appointment(7, 7, 1, 1, false, false, new System.DateTime(2022, 2, 22, 10, 0, 0), 7),
-                new Appointment(8, 8, 1, 1, false, false, new System.DateTime(2022, 2, 22, 10, 30, 0), 8),
-                new Appointment(9, 1, 1, 1, false, false, new System.DateTime(2022, 2, 22, 11, 0, 0), 9),
-                new Appointment(10, 1, 2, 2, false, true, new System.DateTime(2021, 2, 22, 11, 30, 0), 10));
+                new Appointment(1, 1, 1, 1, false, false, new DateTime(2022, 2, 22, 7, 0, 0), 1),
+                new Appointment(2, 2, 1, 1, false, false, new DateTime(2022, 2, 22, 7, 30, 0), 2),
+                new Appointment(3, 3, 1, 1, false, false, new DateTime(2022, 2, 22, 8, 0, 0), 3),
+                new Appointment(4, 4, 1, 1, false, false, new DateTime(2022, 2, 22, 8, 30, 0), 4),
+                new Appointment(5, 5, 1, 1, false, false, new DateTime(2022, 2, 22, 9, 0, 0), 5),
+                new Appointment(6, 6, 1, 1, false, false, new DateTime(2022, 2, 22, 9, 30, 0), 6),
+                new Appointment(7, 7, 1, 1, false, false, new DateTime(2022, 2, 22, 10, 0, 0), 7),
+                new Appointment(8, 8, 1, 1, false, false, new DateTime(2022, 2, 22, 10, 30, 0), 8),
+                new Appointment(9, 1, 1, 1, false, false, new DateTime(2022, 2, 22, 11, 0, 0), 9),
+                new Appointment(10, 1, 2, 2, false, true, new DateTime(2021, 2, 22, 11, 30, 0), 10),
 
-            for (int i = 1; i <= 9; i++)
+                new Appointment(11, 1, 1, 1, false, false, new DateTime(2022, 2, 22, 12, 0, 0), 11),
+                new Appointment(12, 1, 1, 1, false, false, new DateTime(2022, 2, 22, 12, 30, 0), 12),
+                new Appointment(13, 9, 3, 3, false, false, new DateTime(2022, 2, 22, 7, 0, 0), 13),
+                new Appointment(14, 10, 3, 3, false, false, new DateTime(2022, 2, 22, 7, 30, 0), 14),
+                new Appointment(15, 11, 3, 3, false, false, new DateTime(2022, 2, 22, 8, 0, 0), 15),
+                new Appointment(16, 12, 3, 3, false, false, new DateTime(2022, 2, 22, 8, 30, 0), 16),
+                new Appointment(17, 13, 3, 3, false, false, new DateTime(2022, 2, 22, 9, 0, 0), 17),
+                new Appointment(18, 14, 3, 3, false, false, new DateTime(2022, 2, 22, 9, 30, 0), 18),
+                new Appointment(19, 15, 3, 3, false, false, new DateTime(2022, 2, 22, 10, 0, 0), 19),
+                new Appointment(20, 16, 3, 3, false, false, new DateTime(2022, 2, 22, 10, 30, 0), 20),
+                new Appointment(21, 17, 3, 3, false, false, new DateTime(2022, 2, 22, 11, 0, 0), 21),
+                new Appointment(22, 18, 3, 3, false, false, new DateTime(2022, 2, 22, 11, 30, 0), 22),
+                new Appointment(23, 19, 3, 3, false, false, new DateTime(2022, 2, 22, 12, 0, 0), 23),
+                new Appointment(24, 20, 3, 3, false, false, new DateTime(2022, 2, 22, 12, 30, 0), 24)
+            );
+
+            for (int i = 1; i <= 24; i++)
             {
-                modelBuilder.Entity<Survey>().HasData(
-                new Survey { Id = i, Done = false, SurveyCategories = new List<SurveyCategory>(), AppointmentId = i });
+                if (i != 10)
+                {
+                    modelBuilder.Entity<Survey>().HasData(
+                    new Survey { Id = i, Done = false, SurveyCategories = new List<SurveyCategory>(), AppointmentId = i });
 
-                modelBuilder.Entity<SurveyCategory>().HasData(
-                    new SurveyCategory { Id = i*3-2, Name = "Doctor", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i },
-                    new SurveyCategory { Id = i*3-1, Name = "Medical stuff", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i },
-                    new SurveyCategory { Id = i*3, Name = "Hospital", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i });
+                    modelBuilder.Entity<SurveyCategory>().HasData(
+                        new SurveyCategory { Id = i * 3 - 2, Name = "Doctor", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i },
+                        new SurveyCategory { Id = i * 3 - 1, Name = "Medical stuff", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i },
+                        new SurveyCategory { Id = i * 3, Name = "Hospital", SurveyQuestions = new List<SurveyQuestion>(), SurveyId = i });
 
-                modelBuilder.Entity<SurveyQuestion>().HasData(
-                    new SurveyQuestion { Id = i*15-14, Content = "How careful did doctor listen you?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
-                    new SurveyQuestion { Id = i*15-13, Content = "Has doctor been polite?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
-                    new SurveyQuestion { Id = i*15-12, Content = "Has he explained you your condition enough that you can understand it?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
-                    new SurveyQuestion { Id = i*15-11, Content = "How would you rate doctors' professionalism?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
-                    new SurveyQuestion { Id = i*15-10, Content = "Your general grade for doctors' service", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                    modelBuilder.Entity<SurveyQuestion>().HasData(
+                        new SurveyQuestion { Id = i * 15 - 14, Content = "How careful did doctor listen you?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                        new SurveyQuestion { Id = i * 15 - 13, Content = "Has doctor been polite?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                        new SurveyQuestion { Id = i * 15 - 12, Content = "Has he explained you your condition enough that you can understand it?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                        new SurveyQuestion { Id = i * 15 - 11, Content = "How would you rate doctors' professionalism?", Grade = 0, SurveyCategoryId = i * 3 - 2 },
+                        new SurveyQuestion { Id = i * 15 - 10, Content = "Your general grade for doctors' service", Grade = 0, SurveyCategoryId = i * 3 - 2 },
 
-                    new SurveyQuestion { Id = i*15-9, Content = "How much our medical staff were polite?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
-                    new SurveyQuestion { Id = i*15-8, Content = "How would you rate time span that you spend waiting untill doctor attended you?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
-                    new SurveyQuestion { Id = i*15-7, Content = "How prepared were stuff for emergency situations?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
-                    new SurveyQuestion { Id = i*15-6, Content = "How good has stuff explained you our procedures?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
-                    new SurveyQuestion { Id = i*15-5, Content = "Your general grade for medical stuffs' service", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                        new SurveyQuestion { Id = i * 15 - 9, Content = "How much our medical staff were polite?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                        new SurveyQuestion { Id = i * 15 - 8, Content = "How would you rate time span that you spend waiting untill doctor attended you?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                        new SurveyQuestion { Id = i * 15 - 7, Content = "How prepared were stuff for emergency situations?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                        new SurveyQuestion { Id = i * 15 - 6, Content = "How good has stuff explained you our procedures?", Grade = 0, SurveyCategoryId = i * 3 - 1 },
+                        new SurveyQuestion { Id = i * 15 - 5, Content = "Your general grade for medical stuffs' service", Grade = 0, SurveyCategoryId = i * 3 - 1 },
 
-                    new SurveyQuestion { Id = i*15-4, Content = "How would you rate our appointment organisation?", Grade = 0, SurveyCategoryId = i * 3 },
-                    new SurveyQuestion { Id = i*15-3, Content = "How would you rate hospitals' hygiene?", Grade = 0, SurveyCategoryId = i * 3 },
-                    new SurveyQuestion { Id = i*15-2, Content = "How good were procedure for booking appointment?", Grade = 0, SurveyCategoryId = i * 3 },
-                    new SurveyQuestion { Id = i*15-1, Content = "How easy was to use our application?", Grade = 0, SurveyCategoryId = i * 3 },
-                    new SurveyQuestion { Id = i*15, Content = "Your general grade for whole hospital' service", Grade = 0, SurveyCategoryId = i * 3 });
+                        new SurveyQuestion { Id = i * 15 - 4, Content = "How would you rate our appointment organisation?", Grade = 0, SurveyCategoryId = i * 3 },
+                        new SurveyQuestion { Id = i * 15 - 3, Content = "How would you rate hospitals' hygiene?", Grade = 0, SurveyCategoryId = i * 3 },
+                        new SurveyQuestion { Id = i * 15 - 2, Content = "How good were procedure for booking appointment?", Grade = 0, SurveyCategoryId = i * 3 },
+                        new SurveyQuestion { Id = i * 15 - 1, Content = "How easy was to use our application?", Grade = 0, SurveyCategoryId = i * 3 },
+                        new SurveyQuestion { Id = i * 15, Content = "Your general grade for whole hospital' service", Grade = 0, SurveyCategoryId = i * 3 });
+                }
             }
 
             modelBuilder.Entity<Survey>().HasData(

@@ -24,7 +24,7 @@ namespace Hospital.Medical_records.Repository
             List<Doctor> nonOverOccupiedDoctors = generalMedicineDoctors.Where(d => d.Patients.Where(p => p.IsActive && !p.IsBlocked).Count() <= min + 2).ToList();
             return nonOverOccupiedDoctors;
         }
-
+        
         public List<String> GetAllSpecialties()
         {
             IQueryable<String> specialtyNames = dbContext.Doctors.Select(d => d.Specialty).Distinct();

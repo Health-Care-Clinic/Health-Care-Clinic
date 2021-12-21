@@ -1,5 +1,6 @@
 ﻿using Hospital.Mapper;
 using Hospital.Medical_records.Service;
+using Hospital.Schedule.Model;
 using Hospital.Schedule.Service;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
@@ -63,10 +64,10 @@ namespace Hospital_API.Controller
         }
 
         [HttpPost("freeTermsForDoctor")]
-        public IActionResult GetAvailableTermsForDoctor(DoctorIdDateFromDateToDTO dto)
+        public IActionResult GetAvailableTermsForDoctor(DoctorAndDateRangeDataDTO dto)
         {
-            DateTime fromDate = PatientAdapter.ConvertToDate(dto.From);
-            DateTime toDate = PatientAdapter.ConvertToDate(dto.To);
+            DateTime fromDate = PatientAdapter.ConvertToDate(dto.BeginningDateTime);
+            DateTime toDate = PatientAdapter.ConvertToDate(dto.EndingDateTime);
 
             if (!AppointmentValidation.ValidateInputDoctorIdDateFromDateToDTO(dto, fromDate, toDate))
                 return BadRequest();
@@ -76,6 +77,27 @@ namespace Hospital_API.Controller
                 availableTerms.Add(PatientAdapter.ConvertToString(term));
 
             return Ok(availableTerms);
+        }
+
+        [HttpPost("freeTermsForDateRange")]
+        public IActionResult GetAvailableTermsForDateRange(DoctorAndDateRangeDataDTO dto)
+        {
+            DateTime beginningDateTime = PatientAdapter.ConvertToDate(dto.BeginningDateTime);
+            DateTime endingDateTime = PatientAdapter.ConvertToDate(dto.EndingDateTime);
+
+            if (dto.DoctorId <= 0)
+                return BadRequest("Doctor's id is not a positive integer!");
+            if (DateTime.Compare(beginningDateTime, endingDateTime) > 0)
+                return BadRequest("Beginning date is not preceding or equal to ending date!");
+
+            TermsInDateRange initialObjectWithoutTerms = 
+                AppointmentSchedulingAdapter.CreateTermsInDateRangeObject(dto, doctorService);
+            List<Doctor> doctorsWithSpecialty = doctorService.GetDoctorsBySpecialty(dto.Specialty);
+
+            TermsInDateRange availableTerms = 
+                appointmentService.GetAvailableTermsForDateRange(initialObjectWithoutTerms, doctorsWithSpecialty);
+
+            return Ok(AppointmentSchedulingAdapter.TermsInDateRangeToDTO(availableTerms));
         }
 
         [HttpPost("createAppointment")]

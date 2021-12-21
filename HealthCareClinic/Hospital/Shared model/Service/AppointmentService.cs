@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Model;
+﻿using Hospital.Schedule.Model;
+using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,11 @@ namespace Hospital.Shared_model.Service
         public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
             return appointmentRepository.GetAvailableTermsForDoctor(doctor, fromDate, toDate);
+        }
+
+        public TermsInDateRange GetAvailableTermsForDateRange(TermsInDateRange initialObjectWithoutTerms, List<Doctor> doctorsWithSpecialty)
+        {
+            return appointmentRepository.GetAvailableTermsForDateRange(initialObjectWithoutTerms, doctorsWithSpecialty);
         }
 
         public void AddAppointment(Appointment app)

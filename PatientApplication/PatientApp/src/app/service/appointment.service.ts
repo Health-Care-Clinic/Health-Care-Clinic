@@ -31,7 +31,8 @@ export class AppointmentService {
   private _getAppointmentsForPatient = this._appointmentUrl + '/getAppointmentsByPatientId/';
   private _cancelAppointment = this._appointmentUrl + '/cancelAppointment/';
   private _getDoctors = '/api/doctor/allDoctors';
-  private _getAvailableTermsForPriority = this._appointmentUrl + '/freeTermsForDoctor';
+  private _getAvailableTermsForDoctorPriority = this._appointmentUrl + '/freeTermsForDoctor';
+  private _getAvailableTermsForDateRangePriority = this._appointmentUrl + '/freeTermsForDateRange';
   private _schedule = this._appointmentUrl + '/createAppointment';
   private _getAllSpecializations = this._appointmentUrl + '/getAllSpecialties';
   private _getDoctorsBySpecialty = this._appointmentUrl + '/getDoctorsBySpecialty/';
@@ -54,7 +55,6 @@ export class AppointmentService {
   private handleError(err : HttpErrorResponse) {
     console.log(err.message);
     return Observable.throw(err.message);
-    throw new Error('Method not implemented.');
   } 
 
   getDoctors(): Observable<DoctorWithSpecialty[]> {
@@ -64,15 +64,25 @@ export class AppointmentService {
   }
 
   getAvailableTermsForPriority(priority: string, dto: GettingTermsDTO) : Observable<any> {
-    
-    const headers = { 'content-type': 'application/json'}  
-    dto.from = new Date(Date.UTC(dto.from.getFullYear(), dto.from.getMonth(), dto.from.getDate(), dto.from.getHours(), dto.from.getMinutes()));
-    dto.to = new Date(Date.UTC(dto.to.getFullYear(), dto.to.getMonth(), dto.to.getDate(), dto.to.getHours(), dto.to.getMinutes()));
-    const body=JSON.stringify(dto).toLocaleString();
-    console.log('GettingTermsDTO: ' + body)
-    /* if (priority == 'Doctor') */
-      return this._http.post(this._getAvailableTermsForPriority, body,{'headers':headers})
+    const headers = {'content-type': 'application/json'}
 
+    dto.beginningDateTime = new Date(Date.UTC(dto.beginningDateTime.getFullYear(), 
+      dto.beginningDateTime.getMonth(), dto.beginningDateTime.getDate(), 
+      dto.beginningDateTime.getHours(), dto.beginningDateTime.getMinutes()));
+    dto.endingDateTime = new Date(Date.UTC(dto.endingDateTime.getFullYear(), 
+      dto.endingDateTime.getMonth(), dto.endingDateTime.getDate(), dto.endingDateTime.getHours(), 
+      dto.endingDateTime.getMinutes()));
+      
+    const body = JSON.stringify(dto).toLocaleString();
+    console.log('GettingTermsDTO: ' + body)
+    
+    var httpAnswer = new Observable<any>();
+    if (priority == 'Doctor')
+      httpAnswer = this._http.post(this._getAvailableTermsForDoctorPriority, body, {'headers': headers})
+    else if (priority == 'DateRange')
+      httpAnswer = this._http.post(this._getAvailableTermsForDateRangePriority, body, {'headers': headers});
+
+    return httpAnswer;
   }
 
   schedule(term: Date, doctorId: number, patientId: number): Observable<any> {
