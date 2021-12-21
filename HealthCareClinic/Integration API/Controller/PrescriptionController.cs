@@ -73,9 +73,10 @@ namespace Integration_API.Controller
             if (response.Equals("yes"))
             {
                 fileTransferService.UploadFile("prescription");
+                return Ok();
             }
 
-            return Ok();
+            return Ok("U apoteci nema trazene kolicine leka!");
         }
 
         [HttpGet("uploadQr")]

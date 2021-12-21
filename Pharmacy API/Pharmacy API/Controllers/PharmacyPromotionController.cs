@@ -18,12 +18,10 @@ namespace Pharmacy_API.Controllers
     [ApiController]
     public class PharmacyPromotionController : ControllerBase
     {
-        private readonly PharmacyDbContext _dbContext;
         private readonly IApiKeyService _apiKeyService;
 
-        public PharmacyPromotionController(PharmacyDbContext dbContext, IApiKeyService apiKeyService)
+        public PharmacyPromotionController(IApiKeyService apiKeyService)
         {
-            _dbContext = dbContext;
             _apiKeyService = apiKeyService;
         }
 
