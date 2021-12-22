@@ -18,6 +18,8 @@ import { RoomScheduleComponent } from './component/hospital-map/room-schedule.co
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { TendersComponent } from './tenders/tenders.component';
+import { CreateTenderComponent } from './create-tender/create-tender.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -41,7 +43,9 @@ const routes: Routes = [
   { path: 'renovation', component: RenovationRoomsComponent },
   { path: 'room-schedule/:idr', component: RoomScheduleComponent },
   { path: 'pharmacy-profiles', component: PharmacyProfilesComponent },
-  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent }
+  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
+  { path: 'tenders', component: TendersComponent },
+  { path: 'create-tender', component: CreateTenderComponent }
 ];
 
 @NgModule({
