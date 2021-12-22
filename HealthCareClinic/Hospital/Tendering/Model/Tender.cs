@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
-using Pharmacy.Prescriptions.Model;
+using System.Text;
 
-namespace Pharmacy.Tendering.Model
+namespace Hospital.Tendering.Model
 {
     public class Tender
     {
@@ -11,7 +12,7 @@ namespace Pharmacy.Tendering.Model
         public DateRange DateRange { get; set; }
         public List<Medicine> Medicines { get; set; }
         public Price TotalPrice { get; set; }
-        public String TenderResponseDescription {get;set;}
+        public String TenderResponseDescription { get; set; }
         public bool IsWinningBidChosen { get; set; }
 
         public Tender(List<Medicine> medicines, Price totalPrice, DateRange dateRange, string tenderResponseDescription)
