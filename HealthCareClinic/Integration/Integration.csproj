@@ -25,6 +25,7 @@
     <Compile Remove="Class1.cs" />
     <Compile Remove="DTO\PeriodDTO.cs" />
     <Compile Remove="Interface\Service\IReportService.cs" />
+    <Compile Remove="Pharmacy\Service\MedSpecificationService.cs" />
     <Compile Remove="Pharmacy\Service\ReportServicee.cs" />
     <Compile Remove="Service\IFileTransferService.cs" />
   </ItemGroup>
