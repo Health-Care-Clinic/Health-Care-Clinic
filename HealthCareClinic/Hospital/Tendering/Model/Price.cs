@@ -25,5 +25,10 @@ namespace Hospital.Tendering.Model
         {
             return new Price(amount);
         }
+
+        public Price()
+        {
+
+        }
     }
 }

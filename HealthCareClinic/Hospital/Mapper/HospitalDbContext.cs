@@ -54,6 +54,16 @@ namespace Hospital.Mapper
             modelBuilder.Entity<Tender>()
                .Property(p => p.Id)
                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Tender>()
+                .OwnsOne(p => p.DateRange).WithOwner();
+            modelBuilder.Entity<Tender>()
+                .OwnsOne(p => p.TotalPrice).WithOwner();
+
+            DateRange dateRange = new DateRange(new DateTime(2022, 1, 1), new DateTime(2022, 2, 1));
+            var tender = new Tender(null, 1000, dateRange, "");
+            modelBuilder.Entity<Tender>().HasData(
+               tender
+                );
 
             modelBuilder.Entity<Renovation>().HasData(
                 new Renovation { Id = 1, FirstRoomId = 1, SecondRoomId = 2, Duration = 2, Date = new DateTime(2022, 02, 02, 14, 00, 00), Type = Renovation.RenovationType.Merge },
