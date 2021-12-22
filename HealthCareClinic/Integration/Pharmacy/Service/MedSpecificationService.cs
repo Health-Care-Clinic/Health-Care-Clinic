@@ -12,13 +12,5 @@ namespace Integration.Pharmacy.Service
         {
             _dbContext = dbContext;
         }
-
-        public void SendSpecificationRequest(string to, string medicine, string url)
-        {
-            MessageDTO toSend = new MessageDTO(medicine);
-            ApiKey apiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.Name.Equals(to));
-            ApiKey myApiKey = _dbContext.ApiKeys.FirstOrDefault(apiKey => apiKey.BaseUrl.Equals(url));
-
-        }
     }
 }

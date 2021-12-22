@@ -14,15 +14,13 @@ namespace Integration.Pharmacy.Service
 
         public void AddMedicine(string medicineName, int quantity)
         {
-            foreach (var medicine in _dbContext.Medicines.ToList())
+
+            foreach (var medicine in _dbContext.Medicines.ToList().Where(x => x.Name.Equals(medicineName)))
             {
-                if (medicine.Name.Equals(medicineName))
-                {
-                    medicine.Quantity += quantity;
-                    _dbContext.Medicines.Update(medicine);
-                    _dbContext.SaveChanges();
-                    return;
-                }
+                medicine.Quantity += quantity;
+                _dbContext.Medicines.Update(medicine);
+                _dbContext.SaveChanges();
+                return;
             }
 
             _dbContext.Medicines.Add(new Integration.Model.Medicine(medicineName, quantity));

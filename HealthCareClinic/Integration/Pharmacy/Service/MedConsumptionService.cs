@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Integration.Interface.Repository;
 using Integration.Interface.Service;
 using Integration.Pharmacy.Model;
@@ -11,12 +12,12 @@ namespace Integration.Pharmacy.Service
     public class MedConsumptionService : IMedConsumptionService
     {
         private readonly IMedConsumptionRepository _medConsumptionRepository;
-        private FileTransferService fileTransferService;
+        private readonly FileTransferService _fileTransferService;
 
         public MedConsumptionService(IMedConsumptionRepository medConsumptionRepository)
         {
             _medConsumptionRepository = medConsumptionRepository;
-            fileTransferService = new FileTransferService();
+            _fileTransferService = new FileTransferService();
         }
 
         public void Add(MedicationConsumption entity)
@@ -43,13 +44,15 @@ namespace Integration.Pharmacy.Service
         {
             List<string> output = GetConsumptionData(start, end);
             string filename = "Report";
-            string content = "";
-            foreach (string o in output)
+            StringBuilder bld = new StringBuilder();
+            for (int i = 0; i < output.Count; ++i)
             {
-                content += o + "\n";
+                bld.Append(output[i]);
             }
-            fileTransferService.CreatePdfDocument(content, filename);
-            fileTransferService.UploadFile(filename);
+            string content = bld.ToString();
+
+            _fileTransferService.CreatePdfDocument(content, filename);
+            _fileTransferService.UploadFile(filename);
         }
 
         public List<string> GetConsumptionData(string start, string end)
@@ -73,7 +76,6 @@ namespace Integration.Pharmacy.Service
 
         public List<MedicationConsumption> GetConsumedMedicine(DateTime startDate, DateTime endDate)
         {
-            List<MedicationConsumption> consumptions = _medConsumptionRepository.GetAll().ToList();
             List<MedicationConsumption> consumptionsForPeriod = new List<MedicationConsumption>();
 
             foreach (MedicationConsumption consumption in _medConsumptionRepository.GetAll())

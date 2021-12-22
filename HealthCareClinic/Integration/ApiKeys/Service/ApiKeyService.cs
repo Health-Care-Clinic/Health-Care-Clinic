@@ -92,7 +92,6 @@ namespace Integration.ApiKeys.Service
             Remove(apikey);
             apikey.ImagePath = fileName;
             Add(apikey);
-            return;
         }
 
         public List<PharmacyDTO> GetPharmacies()

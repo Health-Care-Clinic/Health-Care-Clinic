@@ -11,11 +11,10 @@ namespace Integration.Pharmacy.Service
 {
     public class PrescriptionService : IPrescriptionService
     {
-        private FileTransferService fileTransferService;
-        private Bitmap qr;
+        private readonly FileTransferService _fileTransferService;
         public PrescriptionService()
         {
-            fileTransferService = new FileTransferService();
+            _fileTransferService = new FileTransferService();
         }
 
         public void CreatePrescriptionFile(PrescriptionDTO prescriptionDto)
@@ -23,8 +22,7 @@ namespace Integration.Pharmacy.Service
             string content = prescriptionDto.Patient + "\n" + prescriptionDto.Diagnosis + "\n" +
                              prescriptionDto.Medicine + prescriptionDto.Amount.ToString() +
                              "\n" + prescriptionDto.Pharmacy;
-            string fileName = "prescription " + prescriptionDto.Patient;
-            fileTransferService.CreatePdfDocument(content, "prescription");
+            _fileTransferService.CreatePdfDocument(content, "prescription");
 
         }
 
