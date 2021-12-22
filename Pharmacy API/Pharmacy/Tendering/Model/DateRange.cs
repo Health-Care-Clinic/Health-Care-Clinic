@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Pharmacy.Tendering.Model
 {
+    [Owned]
     public class DateRange
     {
         public DateTime Start { get; }

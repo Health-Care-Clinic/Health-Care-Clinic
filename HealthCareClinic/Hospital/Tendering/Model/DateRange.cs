@@ -15,5 +15,10 @@ namespace Hospital.Tendering.Model
             Start = start;
             End = end;
         }
+
+        public DateRange()
+        {
+
+        }
     }
 }

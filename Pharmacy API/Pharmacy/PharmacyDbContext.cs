@@ -30,14 +30,24 @@ namespace Pharmacy
                 new Medicine { Id = 3, Name = "Paracetamol", Quantity = 250, Manufacturer = "Galenika", Usage = "Toothache, Headache", Weight = 500, SideEffects = "None", Reactions = "None", CompatibileMedicine = "Aspirin", Price = 5.25 }
             );
 
-            List<Medicine> medicinesToOrder = new List<Medicine>();
-            medicinesToOrder.Add(new Medicine { Id = 1, Name = "Brufen", Quantity = 10, Manufacturer = "Bayer", Usage = "Pain relief", Weight = 400, SideEffects = "Rash, Stomach pain", Reactions = "Headache", CompatibileMedicine = "Aspirin", Price = 4.50 });
-            medicinesToOrder.Add(new Medicine { Id = 3, Name = "Paracetamol", Quantity = 10, Manufacturer = "Galenika", Usage = "Toothache, Headache", Weight = 500, SideEffects = "None", Reactions = "None", CompatibileMedicine = "Aspirin", Price = 5.25 });
+            modelBuilder.Entity<Tender>()
+              .Property(p => p.Id)
+              .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Tender>()
+                .OwnsOne(p => p.DateRange).WithOwner();
+            modelBuilder.Entity<Tender>()
+                .OwnsOne(p => p.TotalPrice).WithOwner();
+
+            //List<Medicine> medicinesToOrder = new List<Medicine>();
+            //medicinesToOrder.Add(new Medicine { Id = 1, Name = "Brufen", Quantity = 10, Manufacturer = "Bayer", Usage = "Pain relief", Weight = 400, SideEffects = "Rash, Stomach pain", Reactions = "Headache", CompatibileMedicine = "Aspirin", Price = 4.50 });
+            //medicinesToOrder.Add(new Medicine { Id = 3, Name = "Paracetamol", Quantity = 10, Manufacturer = "Galenika", Usage = "Toothache, Headache", Weight = 500, SideEffects = "None", Reactions = "None", CompatibileMedicine = "Aspirin", Price = 5.25 });
             DateRange dateRange = new DateRange(new DateTime(2022, 1, 1), new DateTime(2022, 2, 1));
 
             modelBuilder.Entity<Tender>().HasData(
-               new Tender(medicinesToOrder, 1000, dateRange, "")
+               new Tender(null, 1000, dateRange, "")
                 );
+
+
 
             modelBuilder.Entity<ApiKey>()
                 .Property(p => p.Id)
