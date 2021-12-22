@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using Integration.DTO;
 using Integration.Interface.Service;
@@ -29,7 +30,7 @@ namespace Integration.Pharmacy.Service
 
         public void GetPrescriptionQr(PrescriptionDTO prescriptionDto)
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            /*QRCodeGenerator qrGenerator = new QRCodeGenerator();
             string content = prescriptionDto.Patient + "\n" + prescriptionDto.Diagnosis + "\n" +
                              prescriptionDto.Medicine + prescriptionDto.Amount.ToString() +
                              "\n" + prescriptionDto.Pharmacy;
@@ -43,15 +44,17 @@ namespace Integration.Pharmacy.Service
             doc.Open();
             iTextSharp.text.Image pdfImage = iTextSharp.text.Image.GetInstance(qr, System.Drawing.Imaging.ImageFormat.Bmp);
             doc.Add(pdfImage);
-            doc.Close();
+            doc.Close();*/
+            throw new NotImplementedException();
         }
 
         public void GetPrescriptionPdf()
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("image.pdf")
+            /*System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("image.pdf")
             {
                 UseShellExecute = true
-            });
+            });*/
+            throw new NotImplementedException();
         }
 
     }
