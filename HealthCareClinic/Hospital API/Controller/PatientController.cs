@@ -6,6 +6,7 @@ using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Hospital_API.Validation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,6 +30,7 @@ namespace Hospital_API.Controller
             this.patientService = patientService;
         }
 
+        [Authorize(Roles = "patient")]
         [HttpGet("getAllAvailableDoctors")]
         public IActionResult GetAvailableDoctors()
         {
@@ -37,12 +39,14 @@ namespace Hospital_API.Controller
             return Ok(result);
         }
 
+        [Authorize(Roles = "patient")]
         [HttpGet("getPatient/{id?}")]
         public IActionResult GetPatient(int id)
         {
             return Ok(PatientAdapter.PatientToPatientDTO(patientService.GetOneById(id)));
         }
 
+        [Authorize(Roles = "patient")]
         [HttpGet("getAllAllergens")]       // GET /api/getAllAllergens
         public IActionResult GetAllAllergens()
         {
@@ -51,12 +55,14 @@ namespace Hospital_API.Controller
             return Ok(AllergenAdapter.AllergenListToDtoList(result));
         }
 
+        [Authorize(Roles = "patient")]
         [HttpGet("getAllUsernames")]       // GET /api/getAllUsernames
         public IActionResult GetAllUsernames()
         {
             return Ok(patientService.GetAllUsernames());
         }
 
+        [Authorize(Roles = "patient")]
         [HttpPost("submitPatientRegistrationRequest")]
         public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
         {
@@ -94,6 +100,7 @@ namespace Hospital_API.Controller
             return Redirect("http://localhost:4200/login");
         }
 
+        [Authorize(Roles = "manager")]
         [HttpPut("{id?}")]
         public IActionResult BlockPatientById(int id)
         {
@@ -109,6 +116,7 @@ namespace Hospital_API.Controller
             }
         }
 
+        [Authorize(Roles = "manager")]
         [HttpGet("allSuspiciousPatients")]
         public IActionResult GetAllSuspiciousPatients()
         {
@@ -119,6 +127,20 @@ namespace Hospital_API.Controller
                 patientsDto.Add(PatientAdapter.PatientToPatientDTO(patient));
 
             return Ok(patientsDto);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(UserCredentials credentials)
+        {
+            Patient patient = patientService.FindByUsernameAndPassword(credentials.Username, credentials.Password);
+            if (patient != null)
+            {
+                string token = patientService.GenerateJwtToken(patient);
+                return Ok(token);
+            }
+            else
+                return Unauthorized();
         }
     }
 }

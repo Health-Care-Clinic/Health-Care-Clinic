@@ -1,9 +1,14 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IFeedback } from './IFeedback';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+
+
+const headers= new HttpHeaders()
+  .set('content-type', 'application/json')
+  .set('Authorization', 'Bearer ' + localStorage.getItem('jwtToken'));
 
 @Injectable()
 export class FeedbackService{
@@ -12,7 +17,7 @@ export class FeedbackService{
     constructor(private _http : HttpClient){}
 
     getPublishedFeedbacks() : Observable<IFeedback[]>{
-        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published')
+        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published',  { 'headers': headers })
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
     }

@@ -28,7 +28,7 @@ namespace Hospital.Shared_model.Repository
             return appointment;
         }
 
-        public List<Appointment> getAppointmentsByPatientId(int patinetId)
+        public List<Appointment> GetAppointmentsByPatientId(int patinetId)
         {
             return dbContext.Appointments.Where(app => app.PatientId == patinetId).ToList();
         }

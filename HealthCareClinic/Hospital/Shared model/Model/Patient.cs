@@ -30,15 +30,17 @@ namespace Hospital.Shared_model.Model
         public string EmploymentStatus { get; set; }
 
         public string Hashcode { get; set; }
-        //[ForeignKey("TrollMechanism")]
-        //public AntiTroll TrollMechanismId { get; set; }
-        //public virtual AntiTroll TrollMechanism { get; set; } = new AntiTroll();
-        //public ICollection<PatientNote> PatientNotes { get; set; } = new List<PatientNote>();
+
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
+
+        private Doctor doctor;
 
         public Patient()
         { }
 
-        public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, string address, string phone, string email, string username, string password, String ParentName, List<AllergenForPatient> alergies, string employmentStatus,bool isActive)
+        public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, string address, string phone, string email, string username,
+            string password, String ParentName, List<AllergenForPatient> alergies, string employmentStatus,bool isActive)
         {
             this.Id = id;
             this.Name = name;
@@ -57,7 +59,8 @@ namespace Hospital.Shared_model.Model
             this.IsActive = isActive;
             this.IsBlocked = false;
         }
-        public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, string address, string phone, string email, string username, string password, String ParentName, List<AllergenForPatient> alergies, string employmentStatus,Doctor doctor)
+        public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, string address, string phone, string email, string username,
+            string password, String ParentName, List<AllergenForPatient> alergies, string employmentStatus,Doctor doctor)
         {
             this.Id = id;
             this.Name = name;
@@ -79,10 +82,11 @@ namespace Hospital.Shared_model.Model
             this.Doctor = doctor;
         }
 
-        [ForeignKey("Doctor")]
-        public int DoctorId { get; set; }
-
-        private Doctor doctor;
+        public Patient(string username, string password)
+        {
+            Username = username;
+            Password = password;
+        }
 
         public virtual Doctor Doctor
         {

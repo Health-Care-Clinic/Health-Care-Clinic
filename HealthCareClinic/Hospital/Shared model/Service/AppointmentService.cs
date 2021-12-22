@@ -34,9 +34,9 @@ namespace Hospital.Shared_model.Service
             throw new NotImplementedException();
         }
 
-        public List<Appointment> getAppointmentsByPatientId(int patinetId)
+        public List<Appointment> GetAppointmentsByPatientId(int patinetId)
         {
-            return appointmentRepository.getAppointmentsByPatientId(patinetId);
+            return appointmentRepository.GetAppointmentsByPatientId(patinetId);
         }
 
         public Appointment CancelAppointment(int appointmentId)

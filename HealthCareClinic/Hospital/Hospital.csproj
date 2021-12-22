@@ -35,6 +35,7 @@
     <PackageReference Include="MimeKit" Version="2.15.1" />
     <PackageReference Include="Npgsql" Version="5.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
   </ItemGroup>
 
   <ItemGroup>

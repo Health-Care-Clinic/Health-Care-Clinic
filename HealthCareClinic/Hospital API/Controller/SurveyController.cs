@@ -2,6 +2,7 @@
 using Hospital.Schedule.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,6 +23,7 @@ namespace Hospital_API.Controller
             this.surveyService = surveyService;
         }
 
+        [Authorize(Roles = "patient")]
         [HttpGet("new/{id?}")]
         public IActionResult GetEmptySurveyForAppointment(int id)
         {
@@ -31,6 +33,7 @@ namespace Hospital_API.Controller
             return Ok(result);
         }
 
+        [Authorize(Roles = "patient")]
         [HttpPut("{id?}")]
         public IActionResult SubmitSurvey(List<SurveyQuestionDTO> questionDto)
         {
@@ -43,6 +46,7 @@ namespace Hospital_API.Controller
             return Ok();
         }
 
+        [Authorize(Roles = "manager")]
         [HttpGet("statistics")]
         public IActionResult GetStatistics()
         {

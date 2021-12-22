@@ -17,6 +17,9 @@ using Hospital.Medical_records.Service;
 using Hospital.Medical_records.Repository.Interface;
 using Hospital.Medical_records.Repository;
 using Hospital.Shared_model.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Hospital_API
 {
@@ -37,6 +40,26 @@ namespace Hospital_API
                 options.UseNpgsql(
                         ConfigurationExtensions.GetConnectionString(Configuration, "HospitalDbConnectionString"))
                     .UseLazyLoadingProxies());
+
+
+            string key = "Nisam to sto mislis, samo jedna plavusa";
+
+            services.AddAuthentication(x =>         
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));     //za slanje mejlova
             services.AddTransient<IPatientService, PatientService>();
@@ -68,12 +91,6 @@ namespace Hospital_API
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IPatientRepository, PatientRepository>();
 
-            services.AddScoped<IAllergenService, AllergenService>();
-            services.AddScoped<IAllergenRepository, AllergenRepository>();
-            //DUPLO ALERGENE
-            services.AddScoped<IDoctorService, DoctorService>();
-            services.AddScoped<IDoctorRepository, DoctorRepository>();
-            //DUPLO DOKTORE
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<ITransferRepository, TransferRepository>();
 
@@ -95,8 +112,10 @@ namespace Hospital_API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
             app.UseRouting();
-
+            
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

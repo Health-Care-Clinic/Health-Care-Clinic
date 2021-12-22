@@ -113,7 +113,6 @@ const MaterialComponents = [
     ToastModule,
     NgbModule,
     MaterialComponents,
-    HttpClientModule,
     ReactiveFormsModule,
   ],
   providers: [FeedbackService, SurveyService, PatientService, AppointmentService],
