@@ -7,15 +7,16 @@ import { MedicalRecordComponent } from './medical-record/medical-record.componen
 import { RecommendationSchedulingComponent } from './recommendation-scheduling/recommendation-scheduling.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { SurveyComponent } from './survey/survey.component';
+import { AuthGuard } from './service/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
-  { path: 'feedback-form', component: FeedbackFormComponent },
-  { path: 'survey', component: SurveyComponent },
+  { path: 'feedback-form', component: FeedbackFormComponent, canActivate: [AuthGuard] },
+  { path: 'survey', component: SurveyComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegistrationFormComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'medical-record', component: MedicalRecordComponent },
-  { path: 'recommendation-scheduling', component: RecommendationSchedulingComponent },
+  { path: 'medical-record', component: MedicalRecordComponent, canActivate: [AuthGuard] },
+  { path: 'recommendation-scheduling', component: RecommendationSchedulingComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

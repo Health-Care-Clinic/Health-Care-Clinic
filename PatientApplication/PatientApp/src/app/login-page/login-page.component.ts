@@ -34,9 +34,9 @@ export class LoginPageComponent implements OnInit {
         localStorage.setItem('id', tokeninfo.id)
         localStorage.setItem('role', tokeninfo.role)
         console.log('Dobio: ', data)
-        this.router.navigateByUrl('/medical-record');
-        /* location.reload()
-        this.router.navigateByUrl('/medical-record'); */
+        this.router.navigateByUrl('/medical-record').then(() => {
+          window.location.reload();
+        });
       },
       error => console.log('Error!', error),
     )

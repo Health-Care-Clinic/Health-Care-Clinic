@@ -59,11 +59,13 @@ export class RecommendationSchedulingComponent implements OnInit {
   schedule(term: Date) {
     this._appointmentService.schedule(term, this.dto.doctorId, this.patientId)
     .subscribe(
-      data => console.log('Success!', data),
-      error => console.log('Error!', error)
+      data => {
+        console.log('Success!', data)
+        this.router.navigateByUrl('/medical-record')
+      },
+      error => console.log('Error!', error)      
     )
     
-    this.router.navigateByUrl('/medical-record');
     console.log(term);
     this._snackBar.open('You have been successfully scheduled an appointment', 'Close', {duration: 3000});
   }

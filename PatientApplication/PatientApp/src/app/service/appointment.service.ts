@@ -12,10 +12,6 @@ import { DoctorWithSpecialty } from '../recommendation-scheduling/doctor-with-sp
 import { AppointmentWithDoctorId } from '../recommendation-scheduling/appointment-doctorId';
 
 
-const headers= new HttpHeaders()
-  .set('content-type', 'application/json')
-  .set('Authorization', 'Bearer ' + localStorage.getItem('jwtToken'));
-
 @Injectable({
   providedIn: 'root'
 })
@@ -42,12 +38,16 @@ export class AppointmentService {
   constructor(private _http : HttpClient){}
 
   getAppointmetsForPatient(id: number): Observable<IAppointment[]> {
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
       return this._http.get<IAppointment[]>(this._getAppointmentsForPatient+id, { 'headers': headers })
                            .do(data =>  console.log('Iz service-a: ' + JSON.stringify(data)))
                            .catch(this.handleError);
     }
 
   cancelAppointment(id : number):Observable<IAppointment>{
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
       const body = JSON.stringify(id);
       return this._http.put<IAppointment>(this._cancelAppointment + id, body, { 'headers': headers })
                        .catch(this.handleError);
@@ -60,13 +60,14 @@ export class AppointmentService {
   } 
 
   getDoctors(): Observable<DoctorWithSpecialty[]> {
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
     return this._http.get<DoctorWithSpecialty[]>(this._getDoctors, { 'headers': headers })
                            .do(data =>  console.log('Doctors: ' + JSON.stringify(data)))
                            .catch(this.handleError);
   }
 
-  getAvailableTermsForPriority(priority: string, dto: GettingTermsDTO) : Observable<any> {
-    
+  getAvailableTermsForPriority(priority: string, dto: GettingTermsDTO) : Observable<any> {    
     const headers = { 'content-type': 'application/json',
     'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
     dto.from = new Date(Date.UTC(dto.from.getFullYear(), dto.from.getMonth(), dto.from.getDate(), dto.from.getHours(), dto.from.getMinutes()));
@@ -79,7 +80,6 @@ export class AppointmentService {
   }
 
   schedule(term: Date, doctorId: number, patientId: number): Observable<any> {
-
     this.appDto.date = term;
     this.appDto.doctorId = doctorId;
     this.appDto.patientId = patientId;

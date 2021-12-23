@@ -9,10 +9,8 @@ import 'rxjs/add/operator/catch';
 import { Credentials } from './credentials';
 
 
-const headers= new HttpHeaders()
-  .set('content-type', 'application/json')
-  .set('Authorization', 'Bearer ' + localStorage.getItem('jwtToken'));
-
+const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
 
 @Injectable({
   providedIn: 'root'
@@ -32,31 +30,37 @@ export class PatientService {
   constructor(private _http: HttpClient) { }
 
   getAvailableDoctors(): Observable<Doctor[]> {
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
     return this._http.get<Doctor[]>(this._getAvailableDoctors, { 'headers': headers })
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
   getAllAllergens(): Observable<IAllergen[]> {
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
     return this._http.get<IAllergen[]>(this._getAllAllergens, { 'headers': headers })
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
   getAllUsernames(): Observable<string[]> {
+    const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
     return this._http.get<string[]>(this._getAllUsernames, { 'headers': headers })
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
   getPatient(id: number): Observable<IPatient> {
+    
     return this._http.get<IPatient>(this._getPatient+id, { 'headers': headers })
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
   submitRequest(patient:IPatient): Observable<any> {
-
     const headers = { 'content-type': 'application/json',
                       'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')}  
     const body=JSON.stringify(patient);

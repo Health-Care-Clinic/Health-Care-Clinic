@@ -7,9 +7,6 @@ import 'rxjs/add/operator/catch';
 import { throwError } from 'rxjs';
 import { ISurveyQuestion } from './survey-question';
 
-const headers= new HttpHeaders()
-  .set('content-type', 'application/json')
-  .set('Authorization', 'Bearer ' + localStorage.getItem('jwtToken'));
 
 @Injectable()
 export class SurveyService{
@@ -20,6 +17,8 @@ export class SurveyService{
     constructor(private _http : HttpClient){}
 
     getSurvey(id: number) : Observable<ISurvey>{
+        const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
         return this._http.get<ISurvey>(this._surveyUrl + 'new/'+ id, { 'headers': headers })
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
