@@ -8,6 +8,9 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { throwError } from 'rxjs';
 
+const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')}
+
 @Injectable()
 export class SurveyObservationService {
     private _surveyUrl = '/api/survey/';
@@ -16,7 +19,7 @@ export class SurveyObservationService {
     constructor(private _http : HttpClient){}
 
     getSurveyStatistics() : Observable<ISurveyStatistics>{
-        return this._http.get<ISurveyStatistics>(this._surveyUrl + 'statistics')
+        return this._http.get<ISurveyStatistics>(this._surveyUrl + 'statistics', {'headers' : headers})
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
     }

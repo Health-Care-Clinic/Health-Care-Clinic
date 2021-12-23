@@ -1,18 +1,18 @@
 <mat-toolbar color="warn" class="navbar">
     <button style="font-size : 25px" mat-button [routerLink]="['']">Hospital</button>
 
-    <button mat-button [matMenuTriggerFor]="facility">Our Facility</button>
+    <button *ngIf="role == 'manager'" mat-button [matMenuTriggerFor]="facility">Our Facility</button>
     <mat-menu #facility="matMenu">
         <button mat-menu-item [routerLink]="['hospital-map']">Hospital map</button>
         <button mat-menu-item [routerLink]="['moving-equipment']">Move equipment</button>
         <button mat-menu-item [routerLink]="['renovation']">Renovation</button>
     </mat-menu>
     
-    <button mat-button  [routerLink]="['feedback-view']">All feedbacks</button>
-    <button mat-button  [routerLink]="['survey-observation']">Survey statistics</button>
-    <button mat-button  [routerLink]="['malicious-patients']">Block patient</button>
+    <button *ngIf="role == 'manager'" mat-button  [routerLink]="['feedback-view']">All feedbacks</button>
+    <button *ngIf="role == 'manager'" mat-button  [routerLink]="['survey-observation']">Survey statistics</button>
+    <button *ngIf="role == 'manager'" mat-button  [routerLink]="['malicious-patients']">Block patient</button>
 
-    <button mat-button [matMenuTriggerFor]="pharmacies">Pharmacies</button>
+    <button *ngIf="role == 'manager'" mat-button [matMenuTriggerFor]="pharmacies">Pharmacies</button>
     <mat-menu #pharmacies="matMenu">
         <button mat-menu-item [routerLink]="['registration']">Register pharmacy</button>
         <button mat-menu-item [routerLink]="['pharmacy-profiles']">All pharmacies</button>
@@ -20,15 +20,16 @@
         <button mat-menu-item [routerLink]="['specifications']">Medicine specification</button>
     </mat-menu>
     
-    <button mat-button [matMenuTriggerFor]="medicineProcurement">Medicine Procurement</button>
+    <button *ngIf="role == 'manager'" mat-button [matMenuTriggerFor]="medicineProcurement">Medicine Procurement</button>
     <mat-menu #medicineProcurement="matMenu">
         <button mat-menu-item [routerLink]="['urgent-procurement']">Urgent procurement</button>
         <button mat-menu-item [routerLink]="['consumption-report']">Medicine consumption</button>
     </mat-menu>
     <span class="example-spacer-notification"></span>
-    <button mat-icon-button [routerLink]="['notifications']" (click)='seeNotifications()' [matBadge]='unreadNotificationNumber' [matBadgeHidden]="unreadNotificationNumber === 0">
+    <button *ngIf="role == 'manager'" mat-icon-button [routerLink]="['notifications']" (click)='seeNotifications()' [matBadge]='unreadNotificationNumber' [matBadgeHidden]="unreadNotificationNumber === 0">
         <mat-icon>notifications</mat-icon>
     </button> 
     <span class="example-spacer"></span>
-    <button mat-button>Log in</button>
+    <button *ngIf="role != 'manager'" mat-button [routerLink]="['login']" >Log in</button>
+    <button *ngIf="role == 'manager'" mat-button (click)="logout()">Log out</button>
 </mat-toolbar>

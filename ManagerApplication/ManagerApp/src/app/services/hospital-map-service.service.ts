@@ -10,6 +10,9 @@ import { Transfer } from '../model/transfer';
 import { Renovation } from '../model/renovation';
 import { Appointment } from '../model/appointment';
 
+const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -72,155 +75,107 @@ export class HospitalMapService {
   }
 
   public deleteCancelledTransfer(transfer: Transfer):Observable<Transfer> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.post<Transfer>(this.cancelTransfer, transfer, {headers: headers});
   }
 
   public deleteCancelledRenovation(renovation: Renovation):Observable<Renovation> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.post<Renovation>(this.cancelRenovation, renovation, {headers: headers});
   }
 
   public checkIfTransferCancellable(transferId: number): Observable<Boolean> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Boolean>(this.isTransferCancellable + "/" + transferId, {headers: headers});
   }
 
   public checkIfRenovationCancellable(renovationId: number): Observable<Boolean> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Boolean>(this.isRenovationCancellable + "/" + renovationId, {headers: headers});
   }
 
   public getRoomTransfers(roomId: number): Observable<Array<Transfer>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Transfer>>(this.roomTransfersGet + "/" + roomId, {headers: headers});
   }
 
   public getRoomAppointments(roomId: number): Observable<Array<Appointment>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Appointment>>(this.roomAppointmentsGet + "/" + roomId, {headers: headers});
   }
 
   public getRoomRenovations(roomId: number): Observable<Array<Renovation>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Renovation>>(this.roomRenovationsGet + "/" + roomId, {headers: headers});
   }
 
   public getBuildings(): Observable<Array<Building>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Building>>(this.buildingsGet, {headers: headers});
   }
 
   public getSearchedBuildings(searchText:string): Observable<Array<Building>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Building>>(this.searchedBuildings + "/" + searchText, {headers: headers});
   }
 
   public getSearchedRooms(searchText:string): Observable<Array<Room>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Room>>(this.searchedRooms + "/" + searchText, {headers: headers});
   }
 
   public getBuildingById(buildingId:number): Observable<Building> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Building>(this.buildingGetById + "/"+buildingId.toString(), {headers: headers});
   }
 
   public changeBuildingName(building:Building): Observable<any> {
-    return this._http.put<any>(this.changeBuildingNamePut, building);
+    return this._http.put<any>(this.changeBuildingNamePut, building,  {headers : headers});
   }
 
   public getRoomById(Id:number): Observable<Room> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Room>(this.roomGetById + "/"+Id.toString(), {headers: headers});
   }
 
   public getRoomsByFloorId(floorId:number): Observable<Array<Room>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Room>>(this.roomsGetByFloorId + "/"+floorId.toString(), {headers: headers});
   }
 
   public getAllEquipment(): Observable<Array<Equipment>>{
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Equipment>>(this.equipmentGet, {headers: headers});
   }
 
   public getEquipmentByRoomId(roomId:number): Observable<Array<Equipment>>{
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Equipment>>(this.equipmentGetByRoomId + "/"+roomId.toString(), {headers: headers});
   }
 
   public getEquipmentByName(name:string): Observable<Array<Equipment>>{
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Equipment>>(this.equipmentGetByName + "/"+name.toString(), {headers: headers});
   }
   
 
   public getFloorsByBuildingId(buildingId:number): Observable<Array<Floor>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Floor>>(this.floorsGetByBuildingId + "/"+buildingId.toString(), {headers: headers});
     
   }
 
   public getFloorById(Id:number): Observable<Floor> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Floor>(this.floorGetById + "/"+Id.toString(), {headers: headers});
   }
 
   public getRooms(): Observable<Array<Room>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Room>>(this.roomsGet, {headers: headers});
   }
 
   public getFloors(): Observable<Array<Floor>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Floor>>(this.floorsGet, {headers: headers});
   }
 
   public getTransfers(): Observable<Array<Transfer>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Transfer>>(this.transfersGet, {headers: headers});
   }
 
   public addTransfer(transfer:Transfer): Observable<Transfer> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.post<Transfer>(this.addNewTransfer, transfer, {headers: headers});
   } 
   public checkFreeTransfers(transfer:Transfer): Observable<Array<Date>> {
-    return this._http.post<Array<Date>>(this.checkFreeTransfersUrl, transfer);
+    return this._http.post<Array<Date>>(this.checkFreeTransfersUrl, transfer,  {headers : headers});
   } 
 
   public IsFirstRoomNextToSecond(id1:number, id2:number): Observable<Boolean> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Boolean>(this.checkRooms + "/"+ id1 + "/" + id2, {headers: headers});
   }
 
   public addRoom(room: Room): Observable<Room> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.post<Room>(this.addRoomUrl, room, {headers: headers});
   }
  

@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { Equipment } from '../model/equipment';
 import { Renovation } from '../model/renovation';
 
+const headers = { 'content-type': 'application/json',
+                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,28 +26,22 @@ export class RenovationService {
   }
 
   public getAllRenovations(): Observable<Array<Renovation>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Renovation>>(this.getAllRenovationsUrl, {headers: headers});
   }
 
   public addRenovation(renovation: Renovation): Observable<Renovation> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.post<Renovation>(this.addNewRenovationUrl, renovation, {headers: headers});
   } 
 
   public getFreeTermsForMerge(renovation:Renovation): Observable<Array<Date>> {
-    return this._http.post<Array<Date>>(this.getFreeTermsForMergeUrl, renovation);
+    return this._http.post<Array<Date>>(this.getFreeTermsForMergeUrl, renovation, {headers : headers});
   }
 
   public getFreeTermsForDivide(renovation:Renovation): Observable<Array<Date>> {
-    return this._http.post<Array<Date>>(this.getFreeTermsForDivideUrl, renovation);
+    return this._http.post<Array<Date>>(this.getFreeTermsForDivideUrl, renovation, {headers : headers});
   }
 
   public getMergedRoomEquipment(roomId1: number, roomId2: number): Observable<Array<Equipment>> {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
     return this._http.get<Array<Equipment>>(this.getMergedRoomEquipmentUrl + "/" + roomId1 + "/" + roomId2, {headers: headers});
   }
 
