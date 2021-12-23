@@ -5,7 +5,9 @@ export interface ITender{
     startDate: Date;
     endDate: Date;
     description: string;
-    isWinningBidChosen: string;
+    isWinningBidChosen: boolean;
     price: any;
     medicines: Medicine[];
+    isOpen: boolean;
+    offersNumber: number;
 }
