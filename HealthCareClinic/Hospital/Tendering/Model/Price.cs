@@ -8,7 +8,7 @@ namespace Hospital.Tendering.Model
     [Owned]
     public class Price
     {
-        public double Amount { get; }
+        public double Amount { get; set; }
         public Price(double amount)
         {
             if (amount >= 0)

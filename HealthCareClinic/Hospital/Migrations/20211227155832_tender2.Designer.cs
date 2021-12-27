@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211227155832_tender2")]
+    partial class tender2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -6096,36 +6098,7 @@ namespace Hospital.Migrations
                                 .HasForeignKey("TenderId");
                         });
 
-                    b.OwnsMany("Model.Medicine", "Medicines", b1 =>
-                        {
-                            b1.Property<int>("TenderId")
-                                .HasColumnType("integer");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer")
-                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("SideEffects")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("Usage")
-                                .HasColumnType("text");
-
-                            b1.HasKey("TenderId", "Id");
-
-                            b1.ToTable("Medicine");
-
-                            b1.WithOwner()
-                                .HasForeignKey("TenderId");
-                        });
-
                     b.Navigation("DateRange");
-
-                    b.Navigation("Medicines");
 
                     b.Navigation("TotalPrice");
                 });
