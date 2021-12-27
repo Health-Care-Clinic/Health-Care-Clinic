@@ -1,4 +1,5 @@
 ﻿using Hospital.Tendering.Model;
+using Hospital.Tendering.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,20 +9,21 @@ namespace Hospital.Tendering.Service
     public class TenderService : ITenderService
     {
 
-        private readonly TenderService _tenderService;
+        private readonly TenderRepository _tenderRepository;
 
-        public TenderService(TenderService tenderService)
+        public TenderService(TenderRepository tenderRepository)
         {
-            _tenderService = tenderService;
+            _tenderRepository = tenderRepository;
         }
         public void Add(Tender entity)
         {
-            throw new NotImplementedException();
+            _tenderRepository.Add(entity);
+            _tenderRepository.Save();
         }
 
         public IEnumerable<Tender> GetAll()
         {
-            throw new NotImplementedException();
+            return _tenderRepository.GetAll();
         }
 
         public Tender GetOneById(int id)

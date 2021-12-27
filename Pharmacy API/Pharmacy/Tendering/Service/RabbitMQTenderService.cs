@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Pharmacy.ApiKeys.Model;
 using Pharmacy.Interfaces.Repository;
+using Pharmacy.Interfaces.Service;
 using Pharmacy.Tendering.Model;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -45,16 +46,17 @@ namespace Pharmacy.Tendering.Service
                 Tender tender;
                 tender = JsonConvert.DeserializeObject<Tender>(jsonMessage);
 
-                Console.WriteLine(" [x] Received {0}", tender.TenderResponseDescription);
-                /*using (var scope = Services.CreateScope())
+                Console.WriteLine(" [x] Received \n\tPrice: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.TotalPrice.Amount, tender.DateRange.Start.ToShortDateString(),
+                                    tender.DateRange.End.ToShortDateString(), tender.TenderResponseDescription);
+                using (var scope = Services.CreateScope())
                 {
-                    var pharmacyPromotionRepository =
+                    var tenderRepository =
                         scope.ServiceProvider
-                            .GetRequiredService<IPharmacyPromotionRepository>();
+                            .GetRequiredService<ITenderRepository>();
 
-                    pharmacyPromotionRepository.Add(pharmacyPromotion);
-                    pharmacyPromotionRepository.Save();
-                }*/
+                    tenderRepository.Add(tender);
+                    tenderRepository.Save();
+                }
             };
             channel.BasicConsume(queue: "tender",
                                     autoAck: true,

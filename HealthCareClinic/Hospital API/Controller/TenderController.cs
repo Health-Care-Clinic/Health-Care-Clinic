@@ -16,15 +16,22 @@ namespace Hospital_API.Controller
     [ApiController]
     public class TenderController : ControllerBase
     {
-        private readonly ITenderService tenderService;
+        private readonly ITenderService _tenderService;
 
         public TenderController(ITenderService tenderService)
         {
-            this.tenderService = tenderService;
+            _tenderService = tenderService;
+        }
+
+        [HttpGet]
+        public IActionResult GetAllTenders()
+        {
+            List<Tender> tenders = (List<Tender>)_tenderService.GetAll();
+            return Ok(tenders);
         }
 
         [HttpPost]
-        public IActionResult ReceiveFeedback(Tender tender)
+        public IActionResult SendTender(Tender tender)
         {
             tender = new Tender(null, new Price(500), new DateRange(DateTime.Now, DateTime.Now.AddDays(7)), "Test slanja tendera.");
             var factory = new ConnectionFactory() { HostName = "localhost" };
@@ -44,7 +51,9 @@ namespace Hospital_API.Controller
                                         routingKey: "tender",
                                         basicProperties: null,
                                         body: body);
-                Console.WriteLine(" [x] Sent {0}", tender.TenderResponseDescription);
+                Console.WriteLine(" [x] Sent \n\tPrice: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.TotalPrice.Amount, tender.DateRange.Start.ToShortDateString(),
+                    tender.DateRange.End.ToShortDateString(), tender.TenderResponseDescription);
+                _tenderService.Add(tender);
             }
             return Ok("success");
         }
