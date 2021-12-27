@@ -83,6 +83,9 @@ namespace Hospital_API
             services.AddScoped<IRenovationService, RenovationService>();
             services.AddScoped<IRenovationRepository, RenovationRepository>();
 
+            services.AddScoped<IOnCallShiftService, OnCallShiftService>();
+            services.AddScoped<IOnCallShiftRepository, OnCallShiftRepository>();
+
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         }
