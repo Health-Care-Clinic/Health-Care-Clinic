@@ -1,4 +1,5 @@
 ﻿using Hospital.Tendering.Model;
+using Hospital.Tendering.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -15,6 +16,13 @@ namespace Hospital_API.Controller
     [ApiController]
     public class TenderController : ControllerBase
     {
+        private readonly ITenderService tenderService;
+
+        public TenderController(ITenderService tenderService)
+        {
+            this.tenderService = tenderService;
+        }
+
         [HttpPost]
         public IActionResult ReceiveFeedback(Tender tender)
         {
