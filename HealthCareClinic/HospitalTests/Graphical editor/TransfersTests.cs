@@ -27,7 +27,7 @@ namespace HospitalUnitTests.Graphical_editor
             {
                 context.Transfer.Add(new Transfer { Id = 1, Equipment = "Bed", Quantity = 5, SourceRoomId = 1, DestinationRoomId = 2, Date = new DateTime(2021, 12, 31, 9, 0 ,0), Duration = 60 });
                 context.Transfer.Add(new Transfer { Id = 2, Equipment = "TV", Quantity = 2, SourceRoomId = 1, DestinationRoomId = 2, Date = new DateTime(2021, 11, 28, 11, 0, 0), Duration = 30 });
-                context.Transfer.Add(new Transfer { Id = 3, Equipment = "Blanket", Quantity = 7, SourceRoomId = 1, DestinationRoomId = 2, Date = new DateTime(2021, 12, 25, 15, 30, 0), Duration = 45 });
+                context.Transfer.Add(new Transfer { Id = 3, Equipment = "Blanket", Quantity = 7, SourceRoomId = 1, DestinationRoomId = 2, Date = new DateTime(2021, 12, 30, 15, 30, 0), Duration = 45 });
                 context.Transfer.Add(new Transfer { Id = 4, Equipment = "Needle", Quantity = 25, SourceRoomId = 1, DestinationRoomId = 2, Date = new DateTime(2021, 10, 25, 15, 30, 0), Duration = 45 });
                 context.Rooms.Add(new Room { Id = 1, Name = "Operation room 1", Type = Room.RoomType.OperationRoom, X = 10, Y = 100, Width = 100, Height = 200, FloorId = 1 });
                 context.Rooms.Add(new Room { Id = 2, Name = "Operation room 2", Type = Room.RoomType.OperationRoom, X = 110, Y = 100, Width = 190, Height = 110, FloorId = 1 });

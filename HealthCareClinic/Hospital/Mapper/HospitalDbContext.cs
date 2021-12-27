@@ -24,6 +24,8 @@ namespace Hospital.Mapper
 
         public DbSet<Room> Rooms { get; set; }
 
+        public DbSet<OnCallShift> OnCallShifts { get; set; }
+
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<SurveyCategory> SurveyCategories { get; set; }
         public DbSet<SurveyQuestion> SurveyQuestions { get; set; }
@@ -49,6 +51,15 @@ namespace Hospital.Mapper
         // only for testing purposes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<OnCallShift>().HasData(
+               new OnCallShift { Id = 1, DoctorId = 1, Date = new DateTime(2022, 02, 02, 14, 00, 00)},
+               new OnCallShift { Id = 2, DoctorId = 2, Date = new DateTime(2021, 11, 25, 9, 30, 00) },
+               new OnCallShift { Id = 3, DoctorId = 1, Date = new DateTime(2022, 08, 22, 9, 30, 00) },
+               new OnCallShift { Id = 4, DoctorId = 2, Date = new DateTime(2021, 11, 24, 10, 00, 00) },
+               new OnCallShift { Id = 5, DoctorId = 1, Date = new DateTime(2021, 11, 23, 10, 00, 00) },
+               new OnCallShift { Id = 6, DoctorId = 2, Date = new DateTime(2021, 11, 28, 14, 00, 00) }
+               );
 
             modelBuilder.Entity<Renovation>().HasData(
                 new Renovation { Id = 1, FirstRoomId = 1, SecondRoomId = 2, Duration = 2, Date = new DateTime(2022, 02, 02, 14, 00, 00), Type = Renovation.RenovationType.Merge },

@@ -58,6 +58,8 @@ import { RenovationRoomsComponent } from './component/renovation-rooms/renovatio
 import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { DoctorsComponent } from './component/doctors/doctors.component';
+import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -106,7 +108,9 @@ const MaterialComponents = [
     RoomScheduleComponent,
     NotificationsComponent,
     PharmacyProfilesComponent,
-    EditPharmacyProfileComponent
+    EditPharmacyProfileComponent,
+    DoctorsComponent,
+    OnCallShiftComponent
   ],
   imports: [
     BrowserModule,
