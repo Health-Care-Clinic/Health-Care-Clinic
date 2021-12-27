@@ -15,7 +15,7 @@ namespace Hospital.Shared_model.Repository
 
         public HospitalDbContext HospitalDbContext
         {
-            get { return Context as HospitalDbContext; }
+            get { return Context; }
         }
 
         public List<OnCallShift> GetOnCallShiftByDoctorId(int id)

@@ -8,7 +8,7 @@ namespace Hospital.Shared_model.Service
 {
     public class OnCallShiftService : IOnCallShiftService
     {
-        private IOnCallShiftRepository _onCallShiftRepository;
+        private readonly IOnCallShiftRepository _onCallShiftRepository;
 
         public OnCallShiftService(IOnCallShiftRepository onCallShiftRepository)
         {
