@@ -60,6 +60,7 @@ import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
 import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
+import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -110,7 +111,8 @@ const MaterialComponents = [
     PharmacyProfilesComponent,
     EditPharmacyProfileComponent,
     DoctorsComponent,
-    OnCallShiftComponent
+    OnCallShiftComponent,
+    NewOnCallShiftComponent
   ],
   imports: [
     BrowserModule,

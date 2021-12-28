@@ -11,12 +11,13 @@ import { OnCallShiftService } from 'src/app/services/on-call-shift.service';
 export class OnCallShiftComponent implements OnInit {
 
   onCallShifts: Array<OnCallShift>
+  OnCallShiftId: any;
 
   constructor(private _route: ActivatedRoute,private onCallShiftService: OnCallShiftService ) { }
 
   ngOnInit(): void {
-    var OnCallShiftId = +this._route.snapshot.paramMap.get('ido');  
-    this.onCallShiftService.getAllDoctorsOnCallShifts(OnCallShiftId).subscribe(ret => {
+    this.OnCallShiftId = +this._route.snapshot.paramMap.get('ido');  
+    this.onCallShiftService.getAllDoctorsOnCallShifts(this.OnCallShiftId).subscribe(ret => {
       this.onCallShifts = ret;
     })
   }
