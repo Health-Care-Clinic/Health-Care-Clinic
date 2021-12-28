@@ -19,6 +19,8 @@ using Hospital.Medical_records.Repository;
 using Hospital.Shared_model.Model;
 using Hospital.Tendering.Service;
 using Hospital.Tendering.Repository;
+using Hospital.Medicines.Service;
+using Hospital.Medicines.Repository;
 
 namespace Hospital_API
 {
@@ -90,6 +92,9 @@ namespace Hospital_API
 
             services.AddScoped<ITenderService, TenderService>();
             services.AddScoped<ITenderRepository, TenderRepository>();
+
+            services.AddScoped<IMedicineService, MedicineService>();
+            services.AddScoped<IMedicineRepository, MedicineRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
