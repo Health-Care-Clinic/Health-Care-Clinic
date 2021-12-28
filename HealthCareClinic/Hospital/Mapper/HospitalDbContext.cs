@@ -42,6 +42,7 @@ namespace Hospital.Mapper
         public DbSet<Equipment> Equipments { get; set; }
 
         public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<WorkDayShift> WorkDayShift { get; set; }
         public DbSet<Patient> Patients { get; set; }
 
         public DbSet<Renovation> Renovations { get; set; }
@@ -483,7 +484,7 @@ namespace Hospital.Mapper
                    WorkDay = null,
                    Specialty = "General medicine",
                    PrimaryRoom = 1,
-                   WorkShift = WorkDayShift.FirstShift
+                   WorkShiftId = -1
                },
 
                 new Doctor()
@@ -503,7 +504,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 2,
-                    WorkShift = WorkDayShift.FirstShift
+                    WorkShiftId = -1
                 },
                 new Doctor()
                 {
@@ -522,7 +523,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 3,
-                    WorkShift = WorkDayShift.FirstShift
+                    WorkShiftId = -1
                 },
                 new Doctor()
                 {
@@ -541,7 +542,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "Surgery",
                     PrimaryRoom = 4,
-                    WorkShift = WorkDayShift.SecondShift
+                    WorkShiftId = -1
                 },
                 new Doctor()
                 {
@@ -560,7 +561,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "Surgery",
                     PrimaryRoom = 5,
-                    WorkShift = WorkDayShift.SecondShift
+                    WorkShiftId = -1
                 },
                 new Doctor()
                 {
@@ -579,9 +580,14 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 6,
-                    WorkShift = WorkDayShift.SecondShift
+                    WorkShiftId = -1
                 }
             );
+
+            modelBuilder.Entity<WorkDayShift>().HasData(
+                new WorkDayShift { Id = 1, Name = "First", StartTime = new DateTime(2022, 2, 22, 7, 0, 0), EndTime = new DateTime(2022, 2, 22, 13, 0, 0) },
+                new WorkDayShift { Id = 2, Name = "Second", StartTime = new DateTime(2022, 2, 22, 13, 0, 0), EndTime = new DateTime(2022, 2, 22, 19, 0, 0) });
+
             modelBuilder.Entity<Patient>().HasData(
                 new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petar", "miki", null, "Employed", true)
                 { DoctorId = 1 },
