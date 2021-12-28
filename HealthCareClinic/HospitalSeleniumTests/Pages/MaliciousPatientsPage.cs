@@ -14,9 +14,6 @@ namespace HospitalSeleniumTests.Pages
         private IWebElement Table => driver.FindElement(By.Id("maliciousPatients"));
         //private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table[@id='maliciousPatients']/tbody/tr"));
 
-        //private IWebElement LastRowName => driver.FindElement(By.XPath("//table[@id='maliciousPatients']/tbody/tr[last()]/td[1]"));
-        //private IWebElement LastRowColor => driver.FindElement(By.XPath("//table[@id='maliciousPatients']/tbody/tr[last()]/td[2]"));
-        //private IWebElement LastRowPrice => driver.FindElement(By.XPath("//table[@id='maliciousPatients']/tbody/tr[last()]/td[3]"));
         private IWebElement ButtonBlock => driver.FindElement(By.Id("1"));
         public string Title => driver.Title;
         public void EnsureButtonIsDisplayed()
@@ -46,8 +43,8 @@ namespace HospitalSeleniumTests.Pages
             {
                 try
                 {
-                    IWebElement ButtonBlockVanished = driver.FindElement(By.Id("1"));
-                    return !ButtonBlockVanished.Displayed;
+                    IWebElement ButtonBlock = driver.FindElement(By.Id("1"));
+                    return ButtonBlock.Displayed;
                 }
                 catch (StaleElementReferenceException)
                 {
@@ -60,15 +57,16 @@ namespace HospitalSeleniumTests.Pages
             });
         }
 
-        //public bool LinkUndisplayed()
-        //{
-        //    IWebElement ButtonBlockVanished = driver.FindElement(By.Id("1"));
-        //    return ButtonBlockVanished.Displayed;
-        //}
-
         public bool LinkDisplayed()
         {
-            return ButtonBlock.Displayed;
+            try 
+            {
+                return ButtonBlock.Displayed;
+            }
+            catch
+            {
+                return false;
+            }                     
         }
         public void ClickLink()
         {
@@ -85,21 +83,6 @@ namespace HospitalSeleniumTests.Pages
             //return Rows.Count;
             return 0;
         }
-
-        //public string GetLastRowName()
-        //{
-        //    return LastRowName.Text;
-        //}
-
-        //public string GetLastRowColor()
-        //{
-        //    return LastRowColor.Text;
-        //}
-
-        //public string GetLastRowPrice()
-        //{
-        //    return LastRowPrice.Text;
-        //}
 
         public void Navigate() => driver.Navigate().GoToUrl(URI);
     }
