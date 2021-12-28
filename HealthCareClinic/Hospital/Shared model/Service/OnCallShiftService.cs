@@ -43,9 +43,8 @@ namespace Hospital.Shared_model.Service
         {
             int id = 0;
             IEnumerable<OnCallShift> onCallShifts = _onCallShiftRepository.GetAll();
-            foreach (OnCallShift s in onCallShifts) {
+            foreach (OnCallShift s in onCallShifts) 
                 id++;
-            }
 
             return (id + 1);
         }
@@ -61,10 +60,8 @@ namespace Hospital.Shared_model.Service
         {
             IEnumerable<OnCallShift> onCallShifts = _onCallShiftRepository.GetAll();
             foreach (OnCallShift shift in onCallShifts)
-            {
                 if (shift.Date.Year == date.Year && shift.Date.Month == date.Month && shift.Date.Day == date.Day)
                     return false;
-            }
 
             return true;
         }
