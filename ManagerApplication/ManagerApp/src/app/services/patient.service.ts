@@ -5,8 +5,6 @@ import { IPatient } from './../model/patient/patient';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')}
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +18,14 @@ export class PatientService {
   constructor(private _http: HttpClient) { }
 
   getAllSuspiciousPatients(): Observable<IPatient[]> {
-    return this._http.get<IPatient[]>(this._allSuspicousPatientsUrl, {'headers' : headers})
+    return this._http.get<IPatient[]>(this._allSuspicousPatientsUrl)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
   blockPatient(patient: IPatient):Observable<any> {
     const body = JSON.stringify(patient);
-    return this._http.put<any>(this._patientsUrl + '/' + patient.id, body, {'headers' : headers})
+    return this._http.put<any>(this._patientsUrl + '/' + patient.id, body)
   }
 
   private handleError(err : HttpErrorResponse) {

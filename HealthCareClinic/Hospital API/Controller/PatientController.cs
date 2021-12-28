@@ -100,8 +100,7 @@ namespace Hospital_API.Controller
             return Redirect("http://localhost:4200/login");
         }
 
-        //[Authorize(Roles = "manager")]
-        [AllowAnonymous]
+        [Authorize(Roles = "manager")]
         [HttpPut("{id?}")]
         public IActionResult BlockPatientById(int id)
         {
@@ -117,8 +116,7 @@ namespace Hospital_API.Controller
             }
         }
 
-        //[Authorize(Roles = "manager")]
-        [AllowAnonymous]
+        [Authorize(Roles = "manager")]
         [HttpGet("allSuspiciousPatients")]
         public IActionResult GetAllSuspiciousPatients()
         {

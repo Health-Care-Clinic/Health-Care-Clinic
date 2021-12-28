@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@auth0/angular-jwt": "^5.0.2",
     "@mui/material": "^5.1.1",
     "@mui/styled-engine-sc": "^5.1.0",
     "angular-material-expansion-panel": "^0.7.2",

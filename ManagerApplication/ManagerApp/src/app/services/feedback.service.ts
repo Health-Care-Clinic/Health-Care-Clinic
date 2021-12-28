@@ -5,8 +5,6 @@ import { IFeedback } from '../model/feedback/IFeedback';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
-const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')}
 
 @Injectable()
 export class FeedbackService{
@@ -16,18 +14,18 @@ export class FeedbackService{
     constructor(private _http : HttpClient){}
 
     getFeedbacks() : Observable<IFeedback[]>{
-        return this._http.get<IFeedback[]>(this._feedbackUrl, {'headers' : headers})
+        return this._http.get<IFeedback[]>(this._feedbackUrl)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
     }
 
     editFeedback(feedback : IFeedback):Observable<any>{
         const body = JSON.stringify(feedback);
-        return this._http.put<any>(this._feedbackUrl + '/' + feedback.id, body, {'headers' : headers})
+        return this._http.put<any>(this._feedbackUrl + '/' + feedback.id, body)
     }
 
     getPublishedFeedbacks() : Observable<IFeedback[]>{
-        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published', {'headers' : headers})
+        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published')
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
     }
