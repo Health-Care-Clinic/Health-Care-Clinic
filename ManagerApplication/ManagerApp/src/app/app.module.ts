@@ -2,7 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -58,6 +58,9 @@ import { RenovationRoomsComponent } from './component/renovation-rooms/renovatio
 import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { TokenInterceptor } from './services/token-interceptor.service';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 const MaterialComponents = [
   MatTableModule,
@@ -106,7 +109,8 @@ const MaterialComponents = [
     RoomScheduleComponent,
     NotificationsComponent,
     PharmacyProfilesComponent,
-    EditPharmacyProfileComponent
+    EditPharmacyProfileComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +124,9 @@ const MaterialComponents = [
     IvyCarouselModule,
     MaterialComponents
   ],
-  providers: [FeedbackService, SurveyObservationService],
+  providers: [FeedbackService, SurveyObservationService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [OrderDialogComponent]
 })
