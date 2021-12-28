@@ -70,7 +70,7 @@ namespace Hospital.Shared_model.Service
 
         private List<DateTime> returnDates(int month)
         {
-            List<DateTime> dates = new List<DateTime>();
+            List<DateTime> dates;
 
             if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
                 dates = returnDatesWith31Days(month);
