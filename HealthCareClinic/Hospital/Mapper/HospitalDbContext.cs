@@ -8,7 +8,6 @@ using static Hospital.Rooms_and_equipment.Model.Equipment;
 using static Hospital.Rooms_and_equipment.Model.Room;
 using System.Collections.Generic;
 using Hospital.Medical_records.Model;
-using Hospital.Shared_model.Model;
 using static Hospital.Rooms_and_equipment.Model.Transfer;
 
 
@@ -25,6 +24,8 @@ namespace Hospital.Mapper
         public DbSet<Room> Rooms { get; set; }
 
         public DbSet<OnCallShift> OnCallShifts { get; set; }
+
+        public DbSet<Vacation> Vacations { get; set; }
 
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<SurveyCategory> SurveyCategories { get; set; }
@@ -60,6 +61,39 @@ namespace Hospital.Mapper
                new OnCallShift { Id = 4, DoctorId = 2, Date = new DateTime(2021, 11, 24, 10, 00, 00) },
                new OnCallShift { Id = 5, DoctorId = 1, Date = new DateTime(2021, 11, 23, 10, 00, 00) },
                new OnCallShift { Id = 6, DoctorId = 2, Date = new DateTime(2021, 11, 28, 14, 00, 00) }
+               );
+
+            modelBuilder.Entity<Vacation>().HasData(
+               new Vacation { Id = 1, Description = "Description...", StartTime = new DateTime(2020, 01, 15, 00, 00, 00), EndTime = new DateTime(2020, 02, 01, 23, 00, 00), DoctorId = 1 },
+               new Vacation { Id = 2, Description = "Description...", StartTime = new DateTime(2020, 02, 14, 00, 00, 00), EndTime = new DateTime(2020, 02, 20, 23, 00, 00), DoctorId = 2 },
+               new Vacation { Id = 3, Description = "Description...", StartTime = new DateTime(2020, 03, 13, 00, 00, 00), EndTime = new DateTime(2020, 03, 21, 23, 00, 00), DoctorId = 3 },
+               new Vacation { Id = 4, Description = "Description...", StartTime = new DateTime(2020, 04, 12, 00, 00, 00), EndTime = new DateTime(2020, 04, 22, 23, 00, 00), DoctorId = 4 },
+               new Vacation { Id = 5, Description = "Description...", StartTime = new DateTime(2020, 05, 11, 00, 00, 00), EndTime = new DateTime(2020, 05, 23, 23, 00, 00), DoctorId = 5 },
+               new Vacation { Id = 6, Description = "Description...", StartTime = new DateTime(2020, 06, 10, 00, 00, 00), EndTime = new DateTime(2020, 07, 07, 23, 00, 00), DoctorId = 6 },
+               new Vacation { Id = 7, Description = "Description...", StartTime = new DateTime(2020, 07, 09, 00, 00, 00), EndTime = new DateTime(2020, 07, 20, 23, 00, 00), DoctorId = 1 },
+               new Vacation { Id = 8, Description = "Description...", StartTime = new DateTime(2020, 08, 08, 00, 00, 00), EndTime = new DateTime(2020, 08, 28, 23, 00, 00), DoctorId = 2 },
+               new Vacation { Id = 9, Description = "Description...", StartTime = new DateTime(2020, 09, 07, 00, 00, 00), EndTime = new DateTime(2020, 09, 15, 23, 00, 00), DoctorId = 3 },
+               new Vacation { Id = 10, Description = "Description...", StartTime = new DateTime(2020, 10, 06, 00, 00, 00), EndTime = new DateTime(2020, 10, 17, 23, 00, 00), DoctorId = 4 },
+               new Vacation { Id = 11, Description = "Description...", StartTime = new DateTime(2021, 11, 05, 00, 00, 00), EndTime = new DateTime(2021, 11, 19, 23, 00, 00), DoctorId = 5 },
+               new Vacation { Id = 12, Description = "Description...", StartTime = new DateTime(2021, 12, 04, 00, 00, 00), EndTime = new DateTime(2021, 12, 18, 23, 00, 00), DoctorId = 6 },
+               new Vacation { Id = 13, Description = "Description...", StartTime = new DateTime(2021, 01, 03, 00, 00, 00), EndTime = new DateTime(2021, 02, 10, 23, 00, 00), DoctorId = 1 },
+               new Vacation { Id = 14, Description = "Description...", StartTime = new DateTime(2021, 02, 02, 00, 00, 00), EndTime = new DateTime(2021, 02, 12, 23, 00, 00), DoctorId = 2 },
+               new Vacation { Id = 15, Description = "Description...", StartTime = new DateTime(2021, 03, 01, 00, 00, 00), EndTime = new DateTime(2021, 03, 18, 23, 00, 00), DoctorId = 3 },
+               new Vacation { Id = 16, Description = "Description...", StartTime = new DateTime(2021, 04, 30, 00, 00, 00), EndTime = new DateTime(2021, 05, 05, 23, 00, 00), DoctorId = 4 },
+               new Vacation { Id = 17, Description = "Description...", StartTime = new DateTime(2021, 05, 29, 00, 00, 00), EndTime = new DateTime(2021, 06, 06, 23, 00, 00), DoctorId = 5 },
+               new Vacation { Id = 18, Description = "Description...", StartTime = new DateTime(2021, 06, 28, 00, 00, 00), EndTime = new DateTime(2021, 07, 07, 23, 00, 00), DoctorId = 6 },
+               new Vacation { Id = 19, Description = "Description...", StartTime = new DateTime(2021, 07, 27, 00, 00, 00), EndTime = new DateTime(2021, 08, 08, 23, 00, 00), DoctorId = 1 },
+               new Vacation { Id = 20, Description = "Description...", StartTime = new DateTime(2021, 08, 26, 00, 00, 00), EndTime = new DateTime(2021, 09, 09, 23, 00, 00), DoctorId = 2 },
+               new Vacation { Id = 21, Description = "Description...", StartTime = new DateTime(2022, 09, 25, 00, 00, 00), EndTime = new DateTime(2022, 10, 10, 23, 00, 00), DoctorId = 3 },
+               new Vacation { Id = 22, Description = "Description...", StartTime = new DateTime(2022, 10, 24, 00, 00, 00), EndTime = new DateTime(2022, 11, 11, 23, 00, 00), DoctorId = 4 },
+               new Vacation { Id = 23, Description = "Description...", StartTime = new DateTime(2022, 11, 23, 00, 00, 00), EndTime = new DateTime(2022, 12, 12, 23, 00, 00), DoctorId = 5 },
+               new Vacation { Id = 24, Description = "Description...", StartTime = new DateTime(2022, 12, 22, 00, 00, 00), EndTime = new DateTime(2022, 12, 29, 23, 00, 00), DoctorId = 6 },
+               new Vacation { Id = 25, Description = "Description...", StartTime = new DateTime(2022, 01, 21, 00, 00, 00), EndTime = new DateTime(2022, 02, 02, 23, 00, 00), DoctorId = 1 },
+               new Vacation { Id = 26, Description = "Description...", StartTime = new DateTime(2022, 02, 20, 00, 00, 00), EndTime = new DateTime(2022, 03, 03, 23, 00, 00), DoctorId = 2 },
+               new Vacation { Id = 27, Description = "Description...", StartTime = new DateTime(2022, 03, 19, 00, 00, 00), EndTime = new DateTime(2022, 04, 04, 23, 00, 00), DoctorId = 3 },
+               new Vacation { Id = 28, Description = "Description...", StartTime = new DateTime(2022, 04, 18, 00, 00, 00), EndTime = new DateTime(2022, 05, 05, 23, 00, 00), DoctorId = 4 },
+               new Vacation { Id = 29, Description = "Description...", StartTime = new DateTime(2022, 05, 17, 00, 00, 00), EndTime = new DateTime(2022, 06, 05, 23, 00, 00), DoctorId = 5 },
+               new Vacation { Id = 30, Description = "Description...", StartTime = new DateTime(2022, 06, 16, 00, 00, 00), EndTime = new DateTime(2022, 07, 06, 23, 00, 00), DoctorId = 6 }
                );
 
             modelBuilder.Entity<Renovation>().HasData(
