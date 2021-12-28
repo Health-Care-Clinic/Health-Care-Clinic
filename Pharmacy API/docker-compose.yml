@@ -4,7 +4,7 @@ services:
     image: postgres 
     restart: always
     networks: 
-      - database 
+      - pharmacy-database 
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
@@ -17,10 +17,14 @@ services:
         source: ./database.sql
         target: /docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"
+      - "5434:5432"
 
   pharmacy:
-    image: nenadbecanovic/pharmacy-api:latest
+    #image: nenadbecanovic/pharmacy-api:latest
+    image: pharmacyapi
+    build:
+      context: ../
+      dockerfile: stacks/build/pharmacy/Dockerfile
     depends_on:
       - postgres-database
     environment: 
@@ -33,16 +37,14 @@ services:
       - "5002:80" 
     restart: on-failure
     networks:
-      - application
-      - database
+      - hospitalapi_application
+      - pharmacy-database
 
 volumes:
   database-data:
 
 networks:
-  public:
-    driver: bridge
-  application:
-    driver: bridge
-  database:
+  hospitalapi_application:
+    external: true
+  pharmacy-database:
     driver: bridge

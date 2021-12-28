@@ -6,8 +6,8 @@ RUN npm install --force
 RUN npm run build --prod
 
 FROM nginx:alpine
-EXPOSE 3200
+#EXPOSE 80
 COPY --from=build /app/dist/PatientApp /usr/share/nginx/html
-COPY ./PatientApplication/PatientApp/nginx.conf /etc/nginx/nginx.conf
+#COPY ./PatientApplication/PatientApp/nginx.conf /etc/nginx/nginx.conf
 
-ENTRYPOINT ["nginx","-g","daemon off;"]
+#ENTRYPOINT ["nginx","-g","daemon off;"]

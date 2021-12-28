@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:3.1-focal AS base
 WORKDIR /app
-EXPOSE 80
+#EXPOSE 80
 
 ENV ASPNETCORE_URLS=http://+:$PORT
 

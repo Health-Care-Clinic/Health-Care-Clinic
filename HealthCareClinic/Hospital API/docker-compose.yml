@@ -1,31 +1,40 @@
 version: '3.2' 
 
 services:
+
+  proxy:
+    build: 
+      context: ./Proxy
+      dockerfile: Dockerfile
+    ports: 
+      - "81:80"
+    restart: always
+    networks:
+      - application
+        
   patient-front:
-    image: nenadbecanovic/patient-gateway:latest
+    #image: nenadbecanovic/patient-gateway:latest
+    image: patient
+    build:
+      context: ../../
+      dockerfile: stacks/build/patient-gateway/Dockerfile
     depends_on:
       - "hospital-api"
     ports:
-      - "3200:3200"
+      - "3200:80"
     networks: 
       - application
 
-  manager-front:
-    image: nenadbecanovic/manager-gateway:latest
-    depends_on:
-      - "hospital-api"
-    ports:
-      - "4200:4200"
-    networks: 
-      - application  
-      
-
   hospital-api:
-    image: nenadbecanovic/hospital-api:latest
+    #image: nenadbecanovic/hospital-api:latest
+    image: hospitalapi
+    build:
+      context: ../
+      dockerfile: ../stacks/build/hospital/Dockerfile
     depends_on:
       - "database"
     ports:
-      - "52844:80"     
+      - "5000:80"
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
@@ -34,12 +43,12 @@ services:
       DATABASE_PASSWORD: password
     networks:
       - application
-      - database
+      - hospital-database
   
   database: 
     image: postgres:latest
     ports:
-      - "5432:5432"
+      - "5433:5432"
     restart: always
     volumes:
       - type: volume
@@ -53,12 +62,12 @@ services:
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "hospitalDb"
     networks:
-      - database
+      - hospital-database
 volumes:
   hospital-data:
 
 networks:
   application:
     driver: bridge
-  database:
+  hospital-database:
     driver: bridge
