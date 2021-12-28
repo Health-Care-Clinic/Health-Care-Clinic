@@ -2,6 +2,7 @@
 using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Hospital.Shared_model.Service
@@ -59,9 +60,10 @@ namespace Hospital.Shared_model.Service
         private Boolean isDateFree(DateTime date)
         {
             IEnumerable<OnCallShift> onCallShifts = _onCallShiftRepository.GetAll();
-            foreach (OnCallShift shift in onCallShifts)
-                if (shift.Date.Year == date.Year && shift.Date.Month == date.Month && shift.Date.Day == date.Day)
-                    return false;
+            foreach (var element in onCallShifts.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month && x.Date.Day == date.Day)) 
+            {
+                return false;
+            }          
 
             return true;
         }
@@ -69,37 +71,73 @@ namespace Hospital.Shared_model.Service
         private List<DateTime> returnDates(int month)
         {
             List<DateTime> dates = new List<DateTime>();
+
             if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
-                for (int i = 1; i <= 31; i++)
-                {
-                    DateTime checkDate = new DateTime(DateTime.Now.Year, month, i);
-                    if (isDateFree(checkDate))
-                        dates.Add(checkDate);
-                }
+                dates = returnDatesWith31Days(month);
             else if (month == 4 || month == 6 || month == 9 || month == 11)
-                for (int i = 1; i <= 30; i++) 
-                {
-                    DateTime checkDate = new DateTime(DateTime.Now.Year, month, i);
-                    if (isDateFree(checkDate))
-                        dates.Add(checkDate);
-                }         
+                dates = returnDatesWith30Days(month);
             else
+            {
                 if (DateTime.Now.Year % 4 == 0)
-                for (int i = 1; i <= 29; i++)
-                {
-                    DateTime checkDate = new DateTime(DateTime.Now.Year, month, i);
-                    if (isDateFree(checkDate))
-                        dates.Add(checkDate);
-                }
-            else
-                for (int i = 1; i <= 28; i++)
-                {
-                    DateTime checkDate = new DateTime(DateTime.Now.Year, month, i);
-                    if (isDateFree(checkDate))
-                        dates.Add(checkDate);
-                }
+                    dates = returnDatesWith29Days(month);
+                else
+                    dates = returnDatesWith28Days(month);
+            }
 
             return dates;
         }
+
+        private List<DateTime> returnDatesWith31Days(int month) 
+        {
+            List<DateTime> dates = new List<DateTime>();
+            for (int i = 1; i <= 31; i++)
+            {
+                DateTime checkDate = new DateTime(DateTime.Now.Year, month, i);
+                if (isDateFree(checkDate))
+                    dates.Add(checkDate);
+            }
+
+            return dates;
+        }
+
+        private List<DateTime> returnDatesWith30Days(int month)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            for (int i = 1; i <= 30; i++)
+            {
+                DateTime checkDate = new DateTime(DateTime.Now.Year, month, i);
+                if (isDateFree(checkDate))
+                    dates.Add(checkDate);
+            }
+
+            return dates;
+        }
+
+        private List<DateTime> returnDatesWith29Days(int month)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            for (int i = 1; i <= 29; i++)
+            {
+                DateTime checkDate = new DateTime(DateTime.Now.Year, month, i);
+                if (isDateFree(checkDate))
+                    dates.Add(checkDate);
+            }
+
+            return dates;
+        }
+
+        private List<DateTime> returnDatesWith28Days(int month)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            for (int i = 1; i <= 28; i++)
+            {
+                DateTime checkDate = new DateTime(DateTime.Now.Year, month, i);
+                if (isDateFree(checkDate))
+                    dates.Add(checkDate);
+            }
+
+            return dates;
+        }
+
     }
 }
