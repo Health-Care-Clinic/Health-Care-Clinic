@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211227221049_GraphicalEditorVacationMigration")]
+    partial class GraphicalEditorVacationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5583,7 +5585,7 @@ namespace Hospital.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("text");
 
-                    b.Property<int>("WorkShiftId")
+                    b.Property<int>("WorkShift")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -5607,7 +5609,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Nikolic",
                             Username = "nikola",
-                            WorkShiftId = -1
+                            WorkShift = 0
                         },
                         new
                         {
@@ -5625,7 +5627,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Radic",
                             Username = "marko",
-                            WorkShiftId = -1
+                            WorkShift = 0
                         },
                         new
                         {
@@ -5643,7 +5645,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Sivc",
                             Username = "jozef",
-                            WorkShiftId = -1
+                            WorkShift = 0
                         },
                         new
                         {
@@ -5661,7 +5663,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Zoric",
                             Username = "dragana",
-                            WorkShiftId = -1
+                            WorkShift = 1
                         },
                         new
                         {
@@ -5679,7 +5681,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Grandic",
                             Username = "mile",
-                            WorkShiftId = -1
+                            WorkShift = 1
                         },
                         new
                         {
@@ -5697,7 +5699,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Bradina",
                             Username = "misa",
-                            WorkShiftId = -1
+                            WorkShift = 1
                         });
                 });
 
@@ -6274,43 +6276,6 @@ namespace Hospital.Migrations
                     b.HasIndex("DoctorId");
 
                     b.ToTable("WorkDay");
-                });
-
-            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDayShift", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WorkDayShift");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "First",
-                            StartTime = new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EndTime = new DateTime(2022, 2, 22, 19, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Second",
-                            StartTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>

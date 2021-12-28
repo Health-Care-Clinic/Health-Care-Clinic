@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Hospital.Shared_model.Model
+namespace Hospital_API.DTO
 {
-    public class WorkDayShift
+    public class WorkDayShiftDTO
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public String Name { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        public WorkDayShift(int id, String name, DateTime startTime, DateTime endTime)
+        public WorkDayShiftDTO(int id, String name, DateTime startTime, DateTime endTime)
         {
             Id = id;
             Name = name;
@@ -19,6 +20,6 @@ namespace Hospital.Shared_model.Model
             EndTime = endTime;
         }
 
-        public WorkDayShift() { }
+        public WorkDayShiftDTO() { }
     }
 }
