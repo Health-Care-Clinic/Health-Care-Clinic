@@ -88,6 +88,9 @@ namespace Hospital_API
 
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
+            services.AddScoped<IWorkDayShiftService, WorkDayShiftService>();
+            services.AddScoped<IWorkDayShiftRepository, WorkDayShiftRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

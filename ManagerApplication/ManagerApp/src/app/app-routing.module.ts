@@ -20,6 +20,7 @@ import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
 import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
+import { ShiftsComponent } from './shifts/shifts.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'consumption-report', component: ConsumptionReportComponent },
   { path: 'malicious-patients', component: MaliciousPatientsComponent },
   { path: 'renovation', component: RenovationRoomsComponent },
+  { path: 'shifts', component: ShiftsComponent },
   { path: 'room-schedule/:idr', component: RoomScheduleComponent },
   { path: 'pharmacy-profiles', component: PharmacyProfilesComponent },
   { path: 'doctors', component: DoctorsComponent },
