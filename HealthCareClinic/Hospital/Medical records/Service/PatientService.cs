@@ -133,35 +133,25 @@ namespace Hospital.Medical_records.Service
 
         public string GenerateJwtToken(Patient patient)
         {
+            string id = patient.Id.ToString();
+            string role = "patient";
+            if (patient.Username.Equals("admin") && patient.Password.Equals("admin"))
+                role = "manager";
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes("Nisam to sto mislis, samo jedna plavusa");
-            SecurityTokenDescriptor tokenDescriptor;
-            if (patient.Username.Equals("admin") && patient.Password.Equals("admin"))
+            SecurityTokenDescriptor tokenDescriptor;            
+
+            tokenDescriptor = new SecurityTokenDescriptor
             {
-                tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
+                Subject = new ClaimsIdentity(new[]
                     {
-                        new Claim("id", "0"),
-                        new Claim("role", "manager")
+                        new Claim("id", id),
+                        new Claim("role", role)
                     }),
-                    Expires = DateTime.UtcNow.AddMinutes(30),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
-            }
-            else
-            {
-                tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]
-                    {
-                        new Claim("id", patient.Id.ToString()),
-                        new Claim("role", "patient")
-                    }),
-                    Expires = DateTime.UtcNow.AddMinutes(30),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
-            }
+                Expires = DateTime.UtcNow.AddMinutes(30),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }

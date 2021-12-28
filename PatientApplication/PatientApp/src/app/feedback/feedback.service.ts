@@ -15,11 +15,9 @@ export class FeedbackService {
   addFeedback(feedback:Feedback): Observable<any> {
 
     feedback.date = new Date();
-    const headers = { 'content-type': 'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')}  
     const body=JSON.stringify(feedback);
     console.log(body)
-    return this._http.post(this._feedbackUrl, body,{'headers':headers})
+    return this._http.post(this._feedbackUrl, body)
   }
 
 }

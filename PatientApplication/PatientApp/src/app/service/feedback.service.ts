@@ -13,9 +13,7 @@ export class FeedbackService{
     constructor(private _http : HttpClient){}
 
     getPublishedFeedbacks() : Observable<IFeedback[]>{
-        const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
-        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published',  { 'headers': headers })
+        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published')
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
     }

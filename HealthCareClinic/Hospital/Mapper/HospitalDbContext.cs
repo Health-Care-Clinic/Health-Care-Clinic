@@ -545,17 +545,17 @@ namespace Hospital.Mapper
                 .HasKey(c => new { c.PatientId, c.AppointmentId });
 
             modelBuilder.Entity<CanceledAppointment>().HasData(
-                new CanceledAppointment { AppointmentId = 1764, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 11) },
-                new CanceledAppointment { AppointmentId = 1765, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 21) },
-                new CanceledAppointment { AppointmentId = 1763, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 30) },
-                new CanceledAppointment { AppointmentId = 1766, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 1) },
-                new CanceledAppointment { AppointmentId = 1777, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 22) },
-                new CanceledAppointment { AppointmentId = 1767, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 8) },
-                new CanceledAppointment { AppointmentId = 1768, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 6) },
-                new CanceledAppointment { AppointmentId = 1769, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 7) },
-                new CanceledAppointment { AppointmentId = 1799, PatientId = 2, DateOfCancellation = new System.DateTime(2021, 11, 11) },
-                new CanceledAppointment { AppointmentId = 1780, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 11, 21) },
-                new CanceledAppointment { AppointmentId = 1870, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 22) });
+                new CanceledAppointment { AppointmentId = 1764, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 11) },
+                new CanceledAppointment { AppointmentId = 1765, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 21) },
+                new CanceledAppointment { AppointmentId = 1763, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 30) },
+                new CanceledAppointment { AppointmentId = 1766, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 19) },
+                new CanceledAppointment { AppointmentId = 1777, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 22) },
+                new CanceledAppointment { AppointmentId = 1767, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 8) },
+                new CanceledAppointment { AppointmentId = 1768, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 6) },
+                new CanceledAppointment { AppointmentId = 1769, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 7) },
+                new CanceledAppointment { AppointmentId = 1799, PatientId = 2, DateOfCancellation = new System.DateTime(2021, 12, 11) },
+                new CanceledAppointment { AppointmentId = 1780, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 21) },
+                new CanceledAppointment { AppointmentId = 1870, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 22) });
         }
     }
 }

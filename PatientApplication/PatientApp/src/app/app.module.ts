@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { FeedbackFormComponent } from './feedback/feedback-form/feedback-form.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -56,7 +56,8 @@ import { MedicalRecordComponent } from './medical-record/medical-record.componen
 import { RecommendationSchedulingComponent } from './recommendation-scheduling/recommendation-scheduling.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentService } from './service/appointment.service';
-
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { TokenInterceptor } from './service/token-interceptor.service';
 
 
 const MaterialComponents = [
@@ -115,7 +116,9 @@ const MaterialComponents = [
     MaterialComponents,
     ReactiveFormsModule,
   ],
-  providers: [FeedbackService, SurveyService, PatientService, AppointmentService],
+  providers: [FeedbackService, SurveyService, PatientService, AppointmentService,
+               { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService,
+               { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

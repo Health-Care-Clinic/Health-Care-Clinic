@@ -38,18 +38,14 @@ export class AppointmentService {
   constructor(private _http : HttpClient){}
 
   getAppointmetsForPatient(id: number): Observable<IAppointment[]> {
-    const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
-      return this._http.get<IAppointment[]>(this._getAppointmentsForPatient+id, { 'headers': headers })
+      return this._http.get<IAppointment[]>(this._getAppointmentsForPatient+id)
                            .do(data =>  console.log('Iz service-a: ' + JSON.stringify(data)))
                            .catch(this.handleError);
     }
 
   cancelAppointment(id : number):Observable<IAppointment>{
-    const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
       const body = JSON.stringify(id);
-      return this._http.put<IAppointment>(this._cancelAppointment + id, body, { 'headers': headers })
+      return this._http.put<IAppointment>(this._cancelAppointment + id, body)
                        .catch(this.handleError);
   }
 
@@ -60,22 +56,18 @@ export class AppointmentService {
   } 
 
   getDoctors(): Observable<DoctorWithSpecialty[]> {
-    const headers = { 'content-type': 'application/json',
-                      'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
-    return this._http.get<DoctorWithSpecialty[]>(this._getDoctors, { 'headers': headers })
+    return this._http.get<DoctorWithSpecialty[]>(this._getDoctors)
                            .do(data =>  console.log('Doctors: ' + JSON.stringify(data)))
                            .catch(this.handleError);
   }
 
   getAvailableTermsForPriority(priority: string, dto: GettingTermsDTO) : Observable<any> {    
-    const headers = { 'content-type': 'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')} 
     dto.from = new Date(Date.UTC(dto.from.getFullYear(), dto.from.getMonth(), dto.from.getDate(), dto.from.getHours(), dto.from.getMinutes()));
     dto.to = new Date(Date.UTC(dto.to.getFullYear(), dto.to.getMonth(), dto.to.getDate(), dto.to.getHours(), dto.to.getMinutes()));
     const body=JSON.stringify(dto).toLocaleString();
     console.log('GettingTermsDTO: ' + body)
     /* if (priority == 'Doctor') */
-      return this._http.post(this._getAvailableTermsForPriority, body,{'headers':headers})
+      return this._http.post(this._getAvailableTermsForPriority, body)
 
   }
 
@@ -83,10 +75,8 @@ export class AppointmentService {
     this.appDto.date = term;
     this.appDto.doctorId = doctorId;
     this.appDto.patientId = patientId;
-    const headers = { 'content-type': 'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')}  
     const body=JSON.stringify(this.appDto);
     console.log('appDto: ' + body)
-    return this._http.post(this._schedule, body,{'headers':headers})
+    return this._http.post(this._schedule, body)
   }
 }

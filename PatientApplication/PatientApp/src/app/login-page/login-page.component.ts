@@ -20,7 +20,7 @@ export class LoginPageComponent implements OnInit {
 
   token: string = '';
 
-  constructor(public _patientservice: PatientService, private router: Router) { }
+  constructor(public _patientservice: PatientService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -33,12 +33,16 @@ export class LoginPageComponent implements OnInit {
         let tokeninfo = this.getDecodedAccessToken(data)
         localStorage.setItem('id', tokeninfo.id)
         localStorage.setItem('role', tokeninfo.role)
+        localStorage.setItem('exp', tokeninfo.exp)
         console.log('Dobio: ', data)
         this.router.navigateByUrl('/medical-record').then(() => {
           window.location.reload();
         });
       },
-      error => console.log('Error!', error),
+      error => {
+        console.log('Error!', error)
+        this._snackBar.open('Invalid username or password', 'Close', {duration: 3000});
+      }
     )
   }
 
