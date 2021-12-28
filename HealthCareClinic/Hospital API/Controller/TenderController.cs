@@ -33,7 +33,6 @@ namespace Hospital_API.Controller
         [HttpPost]
         public IActionResult SendTender(Tender tender)
         {
-            tender = new Tender(null, new Price(500), new DateRange(DateTime.Now, DateTime.Now.AddDays(7)), "Test slanja tendera.");
             var factory = new ConnectionFactory() { HostName = "localhost" };
 
             using (var connection = factory.CreateConnection())

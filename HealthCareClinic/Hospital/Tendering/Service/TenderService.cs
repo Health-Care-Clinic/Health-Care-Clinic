@@ -9,9 +9,9 @@ namespace Hospital.Tendering.Service
     public class TenderService : ITenderService
     {
 
-        private readonly TenderRepository _tenderRepository;
+        private readonly ITenderRepository _tenderRepository;
 
-        public TenderService(TenderRepository tenderRepository)
+        public TenderService(ITenderRepository tenderRepository)
         {
             _tenderRepository = tenderRepository;
         }

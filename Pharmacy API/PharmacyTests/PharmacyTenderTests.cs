@@ -21,7 +21,7 @@ namespace PharmacyTests
         { 
             MedicineService medicineService = new MedicineService(CreateStubRepository());
 
-            TenderService tenderService = new TenderService(medicineService);
+            TenderService tenderService = new TenderService(medicineService, new Mock<ITenderRepository>().Object);
             Tender tender = new Tender
             {
                 Medicines = GetTestEntry()

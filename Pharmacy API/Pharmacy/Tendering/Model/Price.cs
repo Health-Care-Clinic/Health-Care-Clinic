@@ -25,5 +25,10 @@ namespace Pharmacy.Tendering.Model
         {
             return new Price(amount);
         }
+
+        public Price()
+        {
+
+        }
     }
 }

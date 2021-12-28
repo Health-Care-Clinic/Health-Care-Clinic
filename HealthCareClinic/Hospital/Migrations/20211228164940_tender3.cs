@@ -11,12 +11,18 @@ namespace Hospital.Migrations
                 name: "Medicine",
                 columns: table => new
                 {
-                    TenderId = table.Column<int>(type: "integer", nullable: false),
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TenderId = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Manufacturer = table.Column<string>(type: "text", nullable: true),
+                    Usage = table.Column<string>(type: "text", nullable: true),
+                    Weight = table.Column<int>(type: "integer", nullable: false),
                     SideEffects = table.Column<string>(type: "text", nullable: true),
-                    Usage = table.Column<string>(type: "text", nullable: true)
+                    Reactions = table.Column<string>(type: "text", nullable: true),
+                    CompatibileMedicine = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {

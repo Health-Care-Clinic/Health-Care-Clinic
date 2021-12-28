@@ -15,5 +15,10 @@ namespace Pharmacy.Tendering.Model
             Start = start;
             End = end;
         }
+
+        public DateRange()
+        {
+
+        }
     }
 }

@@ -6078,6 +6078,51 @@ namespace Hospital.Migrations
                                 .HasForeignKey("TenderId");
                         });
 
+                    b.OwnsMany("Hospital.Tendering.Model.Medicine", "Medicines", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("CompatibileMedicine")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Manufacturer")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<double>("Price")
+                                .HasColumnType("double precision");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("Reactions")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("SideEffects")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Usage")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Weight")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderId", "Id");
+
+                            b1.ToTable("Medicine");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
                     b.OwnsOne("Hospital.Tendering.Model.Price", "TotalPrice", b1 =>
                         {
                             b1.Property<int>("TenderId")
@@ -6091,33 +6136,6 @@ namespace Hospital.Migrations
                             b1.HasKey("TenderId");
 
                             b1.ToTable("Tenders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("TenderId");
-                        });
-
-                    b.OwnsMany("Model.Medicine", "Medicines", b1 =>
-                        {
-                            b1.Property<int>("TenderId")
-                                .HasColumnType("integer");
-
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer")
-                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("SideEffects")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("Usage")
-                                .HasColumnType("text");
-
-                            b1.HasKey("TenderId", "Id");
-
-                            b1.ToTable("Medicine");
 
                             b1.WithOwner()
                                 .HasForeignKey("TenderId");

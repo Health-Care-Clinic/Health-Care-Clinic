@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ClinicCore.Storages;
+using Hospital.Tendering.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Hospital.Tendering.Repository
 {
-    public interface ITenderRepository
+    public interface ITenderRepository : IRepository<Tender>
     {
     }
 }
