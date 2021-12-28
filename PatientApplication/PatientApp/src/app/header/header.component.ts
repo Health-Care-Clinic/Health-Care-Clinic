@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  role: any = localStorage.getItem('role')
+  role: any
 
   constructor(private router: Router) { }
 
@@ -35,10 +35,11 @@ export class HeaderComponent implements OnInit {
   logOut() {
     localStorage.removeItem('id')
     localStorage.removeItem('jwtToken')
-    localStorage.setItem('role', 'none')
+    localStorage.removeItem('role')
+
+    this.role = ''
 
     this.goToLandingPage()
-    /* location.reload() */
   }
 
 }

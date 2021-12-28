@@ -41,6 +41,8 @@ export class MedicalRecordComponent implements OnInit {
     this._patientservice.getPatient(id)
         .subscribe(patientModel => this.patientModel = patientModel,
                     error => this.errorMessage = <any>error);     
+
+    /* location.reload() */
   }
 
 }

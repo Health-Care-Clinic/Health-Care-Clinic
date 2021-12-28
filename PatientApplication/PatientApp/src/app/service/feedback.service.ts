@@ -6,10 +6,6 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
 
-const headers= new HttpHeaders()
-  .set('content-type', 'application/json')
-  .set('Authorization', 'Bearer ' + localStorage.getItem('jwtToken'));
-
 @Injectable()
 export class FeedbackService{
     private _feedbackUrl = '/api/feedbackMessage/';
@@ -17,7 +13,7 @@ export class FeedbackService{
     constructor(private _http : HttpClient){}
 
     getPublishedFeedbacks() : Observable<IFeedback[]>{
-        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published',  { 'headers': headers })
+        return this._http.get<IFeedback[]>(this._feedbackUrl + 'published')
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
     }

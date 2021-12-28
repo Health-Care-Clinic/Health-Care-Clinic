@@ -10,7 +10,7 @@
         <button mat-menu-item [routerLink]="['recommendation-scheduling']">Recommendation scheduling</button>
         </mat-menu>
     <span class="example-spacer"></span>
-    <button *ngIf="role == 'none'" mat-button (click)="goToRegistrationForm()">Register</button>
-    <button *ngIf="role == 'none'" mat-raised-button [routerLink]="['login']">Log in</button>
+    <button *ngIf="role != 'patient'" mat-button (click)="goToRegistrationForm()">Register</button>
+    <button *ngIf="role != 'patient'" mat-raised-button [routerLink]="['login']">Log in</button>
     <button *ngIf="role == 'patient'" mat-raised-button mat-button (click)="logOut()">Log out</button>
 </mat-toolbar>
