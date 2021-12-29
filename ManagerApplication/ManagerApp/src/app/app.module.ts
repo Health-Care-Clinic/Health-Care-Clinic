@@ -115,7 +115,7 @@ const MaterialComponents = [
     PharmacyProfilesComponent,
     EditPharmacyProfileComponent,
     TendersComponent,
-    CreateTenderComponent
+    CreateTenderComponent,
     DoctorsComponent,
     OnCallShiftComponent,
     NewOnCallShiftComponent,

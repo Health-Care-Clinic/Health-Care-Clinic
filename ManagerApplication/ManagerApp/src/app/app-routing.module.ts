@@ -51,7 +51,7 @@ const routes: Routes = [
   { path: 'pharmacy-profiles', component: PharmacyProfilesComponent },
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'tenders', component: TendersComponent },
-  { path: 'create-tender', component: CreateTenderComponent }
+  { path: 'create-tender', component: CreateTenderComponent },
   { path: 'doctors', component: DoctorsComponent },
   { path: 'on-call-shifts/:ido', component: OnCallShiftComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
