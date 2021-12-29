@@ -29,7 +29,9 @@ namespace Hospital_API.Controller
         public IActionResult GetAllTenders()
         {
             List<Tender> tenders = (List<Tender>)_tenderService.GetAll();
-            return Ok(tenders);
+            List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO(tenders);
+
+            return Ok(tendersDTO);
         }
 
         [HttpPost]
