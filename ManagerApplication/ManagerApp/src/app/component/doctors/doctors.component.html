@@ -1,0 +1,23 @@
+<div id="tableDiv">
+    <div style="height: 30px;"></div>
+    <table style="border: 1px solid black;width: 100%;">
+        <thead style="background-color: #d3955f;">
+            <tr>
+                <th style="border: 1px solid black;"><b>First name</b></th>
+                <th style="border: 1px solid black;"><b>Last name</b></th>
+                <th style="border: 1px solid black;"><b>Shift</b></th>
+                <th style="border: 1px solid black;"><b></b></th>
+                <th style="border: 1px solid black;"><b></b></th>
+            </tr>
+        </thead>
+        <tbody style="background-color: #52DEE5;">
+            <tr *ngFor="let doctor of doctors;let i = index;">
+                <td style="border: 1px solid black;"><b>{{doctor.name}}</b></td>
+                <td style="border: 1px solid black;"><b>{{doctor.surname}}</b></td>
+                <td style="border: 1px solid black;"><b>{{returnShift(doctor.workShiftId)}}</b></td>
+                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/on-call-shifts', doctor.id]">On call shifts</button></b></td>
+                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/doctor-vacations', doctor.id]">Vacations</button></b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

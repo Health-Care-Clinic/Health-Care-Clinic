@@ -60,9 +60,9 @@ namespace Hospital.Shared_model.Repository
         {
             List<DateTime> availableTerms = new List<DateTime>();
 
-            if (doctor.WorkShift == WorkDayShift.FirstShift)
+            if (doctor.WorkShiftId == 1)
                 availableTerms = allTerms.Where(t => !occupiedTerms.Contains(t) && t.Hour < 13).ToList();
-            else
+            else if (doctor.WorkShiftId == 2)
                 availableTerms = allTerms.Where(t => !occupiedTerms.Contains(t) && t.Hour >= 13).ToList();
             return availableTerms;
         }
@@ -137,9 +137,9 @@ namespace Hospital.Shared_model.Repository
         {
             TermsInDateRangeForDoctor availableTerms = new TermsInDateRangeForDoctor(doctor, null);
 
-            if (doctor.WorkShift == WorkDayShift.FirstShift)
+            if (doctor.WorkShiftId == 1)
                 availableTerms.Terms = allTerms.Where(t => !occupiedTerms.Terms.Contains(t) && t.Hour < 13).ToList();
-            else
+            else if (doctor.WorkShiftId == 2)
                 availableTerms.Terms = allTerms.Where(t => !occupiedTerms.Terms.Contains(t) && t.Hour >= 13).ToList();
 
             return availableTerms;
