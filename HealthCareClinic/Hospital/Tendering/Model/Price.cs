@@ -9,6 +9,12 @@ namespace Hospital.Tendering.Model
     public class Price
     {
         public double Amount { get; set; }
+
+        public Price()
+        {
+
+        }
+
         public Price(double amount)
         {
             if (amount >= 0)
@@ -17,18 +23,13 @@ namespace Hospital.Tendering.Model
             }
             else
             {
-                throw new Exception();
+                throw new ArgumentException("Amount can't be negative value.");
             }
         }
 
         public static implicit operator Price(double amount)
         {
             return new Price(amount);
-        }
-
-        public Price()
-        {
-
         }
     }
 }

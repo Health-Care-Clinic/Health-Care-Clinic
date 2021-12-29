@@ -2,13 +2,14 @@
 using Hospital.Tendering.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Hospital.Medicines.Service
 {
     public class MedicineService : IMedicineService
     {
-        private IMedicineRepository _medicineRepository;
+        private readonly IMedicineRepository _medicineRepository;
 
         public MedicineService(IMedicineRepository medicineRepository)
         {
@@ -23,18 +24,15 @@ namespace Hospital.Medicines.Service
         public void AddMedicine(string medicineName, string quantityString)
         {
             int quantity = Int32.Parse(quantityString);
-            foreach (var medicine in _medicineRepository.GetAll())
+            foreach (var medicine in _medicineRepository.GetAll().Where(medicine => medicine.Name.Equals(medicineName)))
             {
-                if (medicine.Name.Equals(medicineName))
-                {
-                    var newMedicine = medicine;
-                    newMedicine.Quantity += quantity;
+                var newMedicine = medicine;
+                newMedicine.Quantity += quantity;
 
-                    _medicineRepository.Remove(medicine);
-                    _medicineRepository.Add(newMedicine);
-                    _medicineRepository.Save();
-                    return;
-                }
+                _medicineRepository.Remove(medicine);
+                _medicineRepository.Add(newMedicine);
+                _medicineRepository.Save();
+                return;
             }
             _medicineRepository.Add(new Medicine(-1, medicineName, quantity));
             _medicineRepository.Save();

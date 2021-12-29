@@ -8,6 +8,6 @@ namespace Hospital.Medicines.Service
 {
     public interface IMedicineService : IService<Medicine>
     {
-        void AddMedicine(string medicineName, string quantity);
+        void AddMedicine(string medicineName, string quantityString);
     }
 }
