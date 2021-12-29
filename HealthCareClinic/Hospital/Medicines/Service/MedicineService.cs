@@ -24,7 +24,8 @@ namespace Hospital.Medicines.Service
         public void AddMedicine(string medicineName, string quantityString)
         {
             int quantity = Int32.Parse(quantityString);
-            foreach (var medicine in _medicineRepository.GetAll().Where(medicine => medicine.Name.Equals(medicineName)))
+            var medicine = _medicineRepository.GetAll().FirstOrDefault(m => m.Name.Equals(medicineName));
+            if (medicine != null)
             {
                 var newMedicine = medicine;
                 newMedicine.Quantity += quantity;
