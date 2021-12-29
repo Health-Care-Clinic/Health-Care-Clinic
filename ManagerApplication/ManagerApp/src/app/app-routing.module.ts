@@ -20,6 +20,7 @@ import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
 import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
+import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 
@@ -48,9 +49,10 @@ const routes: Routes = [
   { path: 'pharmacy-profiles', component: PharmacyProfilesComponent },
   { path: 'doctors', component: DoctorsComponent },
   { path: 'on-call-shifts/:ido', component: OnCallShiftComponent},
+  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
+  { path: 'new-on-call-shift/:ide', component: NewOnCallShiftComponent },
   { path: 'doctor-vacations/:iddv', component: DoctorVacationsComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent }
- 
 ];
 
 @NgModule({

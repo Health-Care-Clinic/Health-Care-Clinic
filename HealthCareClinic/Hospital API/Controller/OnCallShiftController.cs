@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Service;
+﻿using Hospital.Shared_model.Model;
+using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,22 @@ namespace Hospital_API.Controller
             onCallShiftService.GetOnCallShiftByDoctorId(id).ForEach(OnCallShift
                 => allOnCallShifts.Add(OnCallShiftAdapter.OnCallShiftToOnCallShiftDTO(OnCallShift)));
             return Ok(allOnCallShifts);
+        }
+
+        [HttpGet("getFreeDatesForOnCallShift/{month?}")]
+        public IActionResult GetFreeDaysForOnCallShifts(int month) 
+        {
+            List<DateTime> freeDates = onCallShiftService.GetFreeDates(month);
+            return Ok(freeDates);
+        }
+
+        [HttpPost("addNewOnCallShift")]
+        public IActionResult AddNewOnCallShift(OnCallShiftDTO onCallShiftDTO )
+        {
+            OnCallShift onCallShift = OnCallShiftAdapter.OnCallShiftDTOToOnCallShift(onCallShiftDTO);
+            onCallShift.Id = onCallShiftService.returnKey();
+            onCallShiftService.Add(onCallShift);
+            return Ok();
         }
     }
 }

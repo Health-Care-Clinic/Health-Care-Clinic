@@ -10,6 +10,9 @@
             <tr *ngFor="let onCallShift of onCallShifts;let i = index;">
                 <td style="border: 1px solid black;"><b>{{onCallShift.date | date:'dd.MM.yyyy'}}</b></td>
             </tr>
+            <tr>
+                <td> <button [routerLink]="['/new-on-call-shift', OnCallShiftId]">Add on call shift</button> </td>
+            </tr>
         </tbody>
     </table>
 </div>
