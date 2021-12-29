@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hospital_API.Adapter;
+using Hospital_API.DTO;
 
 namespace Hospital_API.Controller
 {
@@ -31,8 +33,9 @@ namespace Hospital_API.Controller
         }
 
         [HttpPost]
-        public IActionResult SendTender(Tender tender)
+        public IActionResult SendTender(TenderDTO dto)
         {
+            Tender tender = TenderAdapter.TenderDTOToTender(dto);
             var factory = new ConnectionFactory() { HostName = "localhost" };
 
             using (var connection = factory.CreateConnection())

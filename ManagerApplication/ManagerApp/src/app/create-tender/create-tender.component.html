@@ -10,19 +10,19 @@
                 <p>
                     <mat-form-field appearance="legacy" style="width: 100%;">
                         <mat-label>Start Date</mat-label>
-                        <input type="date" matInput placeholder="Start Date">
+                        <input type="date" matInput placeholder="Start Date" [(ngModel)]='startDate'>
                     </mat-form-field>
                 </p> 
                 <p>
                     <mat-form-field appearance="legacy" style="width: 100%;">
                         <mat-label>End Date</mat-label>
-                        <input type="date" matInput placeholder="End Date">
+                        <input type="date" matInput placeholder="End Date" [(ngModel)]='endDate'>
                     </mat-form-field>
                 </p>
                 <p>
                     <mat-form-field appearance="legacy" style="width: 100%;">
                         <mat-label>Description</mat-label>
-                        <textarea matInput placeholder="Note"></textarea>
+                        <textarea matInput placeholder="Note" [(ngModel)]='description'></textarea>
                     </mat-form-field>
                 </p>
                 Requirements:
@@ -52,7 +52,7 @@
                     </button>
                 </p>
                 <br> <br> <br>
-                <button mat-raised-button color="primary">
+                <button mat-raised-button color="primary" (click)='createTender()'>
                     Create tender
                 </button>
                 <button mat-button color="primary" style="margin-left: 20px">
