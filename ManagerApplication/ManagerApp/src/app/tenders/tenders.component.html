@@ -1,0 +1,40 @@
+<div style="margin-left: 3%; margin-right: 3%;">
+    <h1>
+        Tenders
+    </h1>
+    <button mat-raised-button color="primary" style="margin-left: 90%; margin-bottom: 12px;" (click)="openCreateTenderComponent()">New Tender</button>
+    
+    <div *ngFor="let tender of tenders">
+        <div>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Tender {{tender.id+1}}</mat-card-title>
+                    <mat-card-subtitle>
+                        {{tender.startDate | date : 'dd.MM.yyyy.'}} - {{tender.endDate | date : 'dd.MM.yyyy.'}}
+                        <br>
+                        {{tender.isOpen ? "Open": "Closed"}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        {{tender.description}}
+                    </p>
+                    Requirements:
+                    <ul>
+                        <li *ngFor="let medicine of tender.medicines">
+                            {{medicine.quantity}} {{medicine.name}}
+                        </li>
+                    </ul>
+                    <br>
+                </mat-card-content>
+                <mat-card-actions *ngIf="tender.offersNumber">
+                    <button mat-button [matBadge]='tender.offersNumber'>
+                        SEE OFFERS
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+            <br>
+        </div>
+    </div>
+
+</div>

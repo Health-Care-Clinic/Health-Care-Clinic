@@ -4,6 +4,7 @@ using Grpc.Core;
 using Integration.Interface.Service;
 using Integration.Model;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using UrgentMedicines.Protos;
 
 namespace Integration_API.Controller.UrgentMedicines
@@ -30,7 +31,11 @@ namespace Integration_API.Controller.UrgentMedicines
             Console.WriteLine(response.Response + " | " + response.Status);
             if (response.Status == "STATUS OK")
             {
-                _medicineService.AddMedicine(medicine.Name, medicine.Quantity);
+                var restClient = new RestClient("http://localhost:52844");
+                var request = new RestRequest("api/medicine/add");
+                request.AddQueryParameter("medicineName", medicine.Name);
+                request.AddQueryParameter("quantity", medicine.Quantity.ToString());
+                IRestResponse restResponse = restClient.Post(request);
             }
 
             return Ok(response.Response);

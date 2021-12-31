@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Pharmacy.Interfaces.Repository;
 using Pharmacy.Prescriptions.Model;
 using Pharmacy.Tendering.Model;
 
@@ -10,14 +11,17 @@ namespace Pharmacy.Interfaces.Service
     {
 
         private readonly IMedicineService _medicineService;
+        private readonly ITenderRepository _tenderRepository;
 
-        public TenderService(IMedicineService medicineService)
+        public TenderService(IMedicineService medicineService, ITenderRepository tenderRepository)
         {
             _medicineService = medicineService;
+            _tenderRepository = tenderRepository;
         }
         public void Add(Tender entity)
         {
-            throw new NotImplementedException();
+            _tenderRepository.Add(entity);
+            _tenderRepository.Save();
         }
 
         public IEnumerable<Tender> GetAll()

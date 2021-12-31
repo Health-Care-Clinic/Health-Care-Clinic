@@ -9,7 +9,7 @@ using static Hospital.Rooms_and_equipment.Model.Room;
 using System.Collections.Generic;
 using Hospital.Medical_records.Model;
 using static Hospital.Rooms_and_equipment.Model.Transfer;
-
+using Hospital.Tendering.Model;
 
 namespace Hospital.Mapper
 {
@@ -48,11 +48,22 @@ namespace Hospital.Mapper
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Transfer> Transfer { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
+        public DbSet<Tender> Tenders { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         // only for testing purposes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Tender>()
+               .Property(p => p.Id)
+               .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Tender>()
+                .OwnsOne(p => p.DateRange);
+            modelBuilder.Entity<Tender>()
+                .OwnsOne(p => p.TotalPrice);
+            modelBuilder.Entity<Tender>()
+                .OwnsMany(p => p.Medicines);
 
             modelBuilder.Entity<OnCallShift>().HasData(
                new OnCallShift { Id = 1, DoctorId = 1, Date = new DateTime(2022, 02, 02, 14, 00, 00)},

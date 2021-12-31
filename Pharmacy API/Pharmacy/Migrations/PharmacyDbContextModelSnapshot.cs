@@ -19,7 +19,7 @@ namespace Pharmacy.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("Pharmacy.Model.ApiKey", b =>
+            modelBuilder.Entity("Pharmacy.ApiKeys.Model.ApiKey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,28 @@ namespace Pharmacy.Migrations
                     b.ToTable("ApiKeys");
                 });
 
-            modelBuilder.Entity("Pharmacy.Model.Feedback", b =>
+            modelBuilder.Entity("Pharmacy.ApiKeys.Model.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("MessageText")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Receiver")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Sender")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Pharmacy.Feedbacks.Model.Feedback", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +88,7 @@ namespace Pharmacy.Migrations
                     b.ToTable("Feedbacks");
                 });
 
-            modelBuilder.Entity("Pharmacy.Model.FeedbackReply", b =>
+            modelBuilder.Entity("Pharmacy.Feedbacks.Model.FeedbackReply", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,7 +115,7 @@ namespace Pharmacy.Migrations
                     b.ToTable("FeedbackReplies");
                 });
 
-            modelBuilder.Entity("Pharmacy.Model.Medicine", b =>
+            modelBuilder.Entity("Pharmacy.Prescriptions.Model.Medicine", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,6 +143,9 @@ namespace Pharmacy.Migrations
                     b.Property<string>("SideEffects")
                         .HasColumnType("text");
 
+                    b.Property<int?>("TenderId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Usage")
                         .HasColumnType("text");
 
@@ -129,6 +153,8 @@ namespace Pharmacy.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TenderId");
 
                     b.ToTable("Medicines");
 
@@ -174,25 +200,74 @@ namespace Pharmacy.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Pharmacy.Model.Message", b =>
+            modelBuilder.Entity("Pharmacy.Tendering.Model.Tender", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("MessageText")
-                        .HasColumnType("text");
+                    b.Property<int>("ForeignId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Receiver")
-                        .HasColumnType("text");
+                    b.Property<bool>("IsWinningBidChosen")
+                        .HasColumnType("boolean");
 
-                    b.Property<string>("Sender")
+                    b.Property<string>("TenderResponseDescription")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Tenders");
+                });
+
+            modelBuilder.Entity("Pharmacy.Prescriptions.Model.Medicine", b =>
+                {
+                    b.HasOne("Pharmacy.Tendering.Model.Tender", null)
+                        .WithMany("Medicines")
+                        .HasForeignKey("TenderId");
+                });
+
+            modelBuilder.Entity("Pharmacy.Tendering.Model.Tender", b =>
+                {
+                    b.OwnsOne("Pharmacy.Tendering.Model.DateRange", "DateRange", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.OwnsOne("Pharmacy.Tendering.Model.Price", "TotalPrice", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.Navigation("DateRange");
+
+                    b.Navigation("TotalPrice");
+                });
+
+            modelBuilder.Entity("Pharmacy.Tendering.Model.Tender", b =>
+                {
+                    b.Navigation("Medicines");
                 });
 #pragma warning restore 612, 618
         }

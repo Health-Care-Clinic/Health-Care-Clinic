@@ -1,6 +1,6 @@
 export class Medicine {
     constructor(
-        private name: string,
-        private quantity: number
+        public name: string,
+        public quantity: number
     ) {}
 }

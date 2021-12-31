@@ -58,6 +58,8 @@ import { RenovationRoomsComponent } from './component/renovation-rooms/renovatio
 import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { TendersComponent } from './tenders/tenders.component';
+import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
 import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
@@ -112,6 +114,8 @@ const MaterialComponents = [
     NotificationsComponent,
     PharmacyProfilesComponent,
     EditPharmacyProfileComponent,
+    TendersComponent,
+    CreateTenderComponent,
     DoctorsComponent,
     OnCallShiftComponent,
     NewOnCallShiftComponent,
