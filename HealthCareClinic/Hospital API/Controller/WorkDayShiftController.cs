@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Service;
+﻿using Hospital.Shared_model.Model;
+using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,14 @@ namespace Hospital_API.Controller
             workDayShiftService.GetAll().ToList().ForEach(WorkDayShift
                 => allWorkDayShifts.Add(WorkDayShiftAdapter.WorkDayShiftToWorkDayShiftDTO(WorkDayShift)));
             return Ok(allWorkDayShifts);
+        }
+
+        [HttpPost("addWorkDayShift")]
+        public IActionResult AddWorkDayShift(WorkDayShiftDTO workDayShiftDTO)
+        {
+            WorkDayShift workDayShift = WorkDayShiftAdapter.WorkDayShiftDTOToWorkDayShift(workDayShiftDTO);
+            bool workDayShiftAdded = workDayShiftService.AddWorkDayShift(workDayShift);
+            return Ok(workDayShiftAdded);
         }
     }
 }

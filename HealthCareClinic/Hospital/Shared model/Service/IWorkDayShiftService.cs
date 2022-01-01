@@ -8,6 +8,6 @@ namespace Hospital.Shared_model.Service
 {
     public interface IWorkDayShiftService : IService<WorkDayShift>
     {
-
+        public bool AddWorkDayShift(WorkDayShift workDayShift);
     }
 }
