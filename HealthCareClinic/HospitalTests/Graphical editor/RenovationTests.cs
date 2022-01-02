@@ -80,12 +80,12 @@ namespace HospitalUnitTests.Graphical_editor
                 TransferRepository transferRepository = new TransferRepository(context);
                 AppointmentRepository appointmentRepository = new AppointmentRepository(context);
                 RenovationService renovationService = new RenovationService(renovationRepository, transferRepository, appointmentRepository);
-                Renovation renovation = new Renovation(4, 1, 2, new DateTime(2021, 12, 31, 14, 30, 00), 1, Renovation.RenovationType.Merge);
+                Renovation renovation = new Renovation(4, 1, 2, new DateTime(2022, 2, 23, 14, 30, 00), 1, Renovation.RenovationType.Merge);
                 List<DateTime> freeTerms = renovationService.getFreeTermsForMerge(renovation);
                 ClearStubRepository(context);
 
 
-                Assert.Contains(new DateTime(2021, 12, 30, 8, 30, 0), freeTerms);
+                Assert.Contains(new DateTime(2022, 2, 22, 8, 30, 0), freeTerms);
             }
         }
 

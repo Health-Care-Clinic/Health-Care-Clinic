@@ -24,7 +24,8 @@ import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
 import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
-import { ShiftsComponent } from './shifts/shifts.component';
+import { ShiftsComponent } from './component/shifts/shifts.component';
+import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
   { path: 'hospital-map', component: HospitalMapComponent },
+  { path: 'add-shift', component: AddShiftComponent },
   { path: 'floor/:idb/:idf/:idr', component: FloorComponent },
   { path: 'urgent-procurement', component: UrgentProcurementComponent },
   { path: 'hospital-map', component: HospitalMapComponent },
