@@ -143,12 +143,9 @@ namespace Hospital.Shared_model.Service
         {
             List<OnCallShift> onCallShifts = _onCallShiftRepository.GetOnCallShiftByDoctorId(id);
             int number = 0;
-            foreach (OnCallShift ocf in onCallShifts)
+            foreach (OnCallShift ocf in onCallShifts.Where(x=> x.Date.Date.Year.Equals(year) && x.Date.Date.Month.Equals(month)))
             {
-                if (ocf.Date.Date.Year.Equals(year) && ocf.Date.Date.Month.Equals(month))
-                {
-                    number = number + 1;
-                }
+                number = number + 1;
             }
             return number;
         }

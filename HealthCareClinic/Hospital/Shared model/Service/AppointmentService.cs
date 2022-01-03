@@ -3,6 +3,7 @@ using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Hospital.Shared_model.Service
@@ -80,12 +81,9 @@ namespace Hospital.Shared_model.Service
         {
            List<Appointment> allAppointments = appointmentRepository.getAppointmentsByDoctorId(id);
             int number = 0;
-           foreach(Appointment ap in allAppointments)
+           foreach(Appointment ap in allAppointments.Where(x=> (x.Date.Date.Year.Equals(year) && x.Date.Date.Month.Equals(month))))
             {
-                if (ap.Date.Date.Year.Equals(year) && ap.Date.Date.Month.Equals(month))
-                {
-                    number = number + 1;
-                }
+                    number = number + 1;  
             }
             return number;
         }
@@ -94,13 +92,10 @@ namespace Hospital.Shared_model.Service
             List<Appointment> allAppointments = appointmentRepository.getAppointmentsByDoctorId(id);
             List<int> idOfPatients = new List<int>();
             int number = 0;
-            foreach (Appointment ap in allAppointments)
+            foreach (Appointment ap in allAppointments.Where(x=> x.Date.Date.Year.Equals(year) && x.Date.Date.Month.Equals(month) && !idOfPatients.Contains(x.PatientId)))
             {
-                if (ap.Date.Date.Year.Equals(year) && ap.Date.Date.Month.Equals(month) && !idOfPatients.Contains(ap.PatientId))
-                {
                     number = number + 1;
                     idOfPatients.Add(ap.PatientId);
-                }
             }
             return number;
         }
