@@ -16,5 +16,11 @@ namespace Hospital.Shared_model.Repository
         {
             get { return Context; }
         }
+
+        public void RemoveById(int id)
+        {
+            Context.Set<WorkDayShift>().Remove(Context.Set<WorkDayShift>().Find(id));
+            Context.SaveChanges();
+        }
     }
 }

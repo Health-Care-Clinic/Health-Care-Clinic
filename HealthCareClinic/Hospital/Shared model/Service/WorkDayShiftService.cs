@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Model;
+﻿using Hospital.Medical_records.Repository.Interface;
+using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,22 @@ namespace Hospital.Shared_model.Service
     public class WorkDayShiftService : IWorkDayShiftService
     {
         private readonly IWorkDayShiftRepository _workDayShiftRepository;
+        private readonly IDoctorRepository _doctorRepository;
 
-        public WorkDayShiftService(IWorkDayShiftRepository workDayShiftRepository)
+        public WorkDayShiftService(IWorkDayShiftRepository workDayShiftRepository, IDoctorRepository doctorRepository)
         {
             _workDayShiftRepository = workDayShiftRepository;
+            _doctorRepository = doctorRepository;
         }
 
         public void Add(WorkDayShift entity)
         {
             _workDayShiftRepository.Add(entity);
+        }
+
+        public void RemoveById(int id)
+        {
+            _workDayShiftRepository.RemoveById(id);
         }
 
         public bool AddWorkDayShift(WorkDayShift workDayShift)
@@ -87,6 +95,40 @@ namespace Hospital.Shared_model.Service
         public void Remove(WorkDayShift entity)
         {
             _workDayShiftRepository.Remove(entity);
+        }
+
+        public void RemoveWorkDayShift(int workDayShiftToRemove)
+        {
+            int availableWorkDayShift = GetAvailableWorkDayShiftAfterRemove(workDayShiftToRemove);
+            ChangeDoctorWorkDayShifts(workDayShiftToRemove, availableWorkDayShift);
+            RemoveById(workDayShiftToRemove);
+        }
+
+        private int GetAvailableWorkDayShiftAfterRemove(int workDayShiftToRemove) 
+        {
+            int availableWorkDayShift = 0;
+            foreach (Doctor d in _doctorRepository.GetAll())
+            {
+                if (d.WorkShiftId != -1 && d.WorkShiftId != workDayShiftToRemove)
+                {
+                    availableWorkDayShift = d.WorkShiftId;
+                    break;
+                }
+            }
+
+            return availableWorkDayShift;
+        }
+
+        private void ChangeDoctorWorkDayShifts(int workDayShiftToRemove, int availableWorkDayShift)
+        {
+            foreach (Doctor d in _doctorRepository.GetAll())
+            {
+                if (d.WorkShiftId == workDayShiftToRemove)
+                {
+                    d.WorkShiftId = availableWorkDayShift;
+                    _doctorRepository.ChangeWorkDayShift(d);
+                }
+            }
         }
     }
 }

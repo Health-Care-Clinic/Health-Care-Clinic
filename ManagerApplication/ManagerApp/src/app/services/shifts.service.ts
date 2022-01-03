@@ -10,10 +10,12 @@ export class ShiftsService {
 
   private getAllShiftsUrl: string;
   private addShiftUrl: string;
+  private removeShiftUrl: string;
 
   constructor(private _http: HttpClient) { 
-    this.getAllShiftsUrl = '/api/workDayShift/getWorkDayShifts'
-    this.addShiftUrl = '/api/workDayShift/addWorkDayShift'
+    this.getAllShiftsUrl = '/api/workDayShift/getWorkDayShifts';
+    this.addShiftUrl = '/api/workDayShift/addWorkDayShift';
+    this.removeShiftUrl = '/api/workDayShift/removeWorkDayShift';
   }
 
   public getAllShifts(): Observable<Array<Shift>> {
@@ -26,5 +28,11 @@ export class ShiftsService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.post<Boolean>(this.addShiftUrl, shift, {headers: headers});
+  }
+
+  public removeShift(shift: Shift):Observable<Shift> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<Shift>(this.removeShiftUrl, shift, {headers: headers});
   }
 }
