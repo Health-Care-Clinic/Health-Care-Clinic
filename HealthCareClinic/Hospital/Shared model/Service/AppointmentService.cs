@@ -82,12 +82,9 @@ namespace Hospital.Shared_model.Service
             int number = 0;
            foreach(Appointment ap in allAppointments)
             {
-                if (ap.Date.Date.Year.Equals(year))
+                if (ap.Date.Date.Year.Equals(year) && ap.Date.Date.Month.Equals(month))
                 {
-                    if (ap.Date.Date.Month.Equals(month))
-                    {
-                        number = number + 1;
-                    }
+                    number = number + 1;
                 }
             }
             return number;
@@ -99,16 +96,10 @@ namespace Hospital.Shared_model.Service
             int number = 0;
             foreach (Appointment ap in allAppointments)
             {
-                if (ap.Date.Date.Year.Equals(year))
+                if (ap.Date.Date.Year.Equals(year) && ap.Date.Date.Month.Equals(month) && !idOfPatients.Contains(ap.PatientId))
                 {
-                    if (ap.Date.Date.Month.Equals(month))
-                    {
-                        if (!idOfPatients.Contains(ap.PatientId))
-                        {
-                            number = number + 1;
-                            idOfPatients.Add(ap.PatientId);
-                        }
-                    }
+                    number = number + 1;
+                    idOfPatients.Add(ap.PatientId);
                 }
             }
             return number;

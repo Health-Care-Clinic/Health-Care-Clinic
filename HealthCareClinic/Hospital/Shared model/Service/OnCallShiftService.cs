@@ -145,12 +145,9 @@ namespace Hospital.Shared_model.Service
             int number = 0;
             foreach (OnCallShift ocf in onCallShifts)
             {
-                if (ocf.Date.Date.Year.Equals(year))
+                if (ocf.Date.Date.Year.Equals(year) && ocf.Date.Date.Month.Equals(month))
                 {
-                    if (ocf.Date.Date.Month.Equals(month))
-                    {
-                        number = number + 1;
-                    }
+                    number = number + 1;
                 }
             }
             return number;
