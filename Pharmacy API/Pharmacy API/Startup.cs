@@ -19,6 +19,7 @@ using Pharmacy.Interfaces.Service;
 using Pharmacy.Prescriptions.Repository;
 using Pharmacy.Prescriptions.Service;
 using UrgentMedicines.Protos;
+using Pharmacy.Tendering.Repository;
 
 namespace Pharmacy_API
 {
@@ -52,6 +53,8 @@ namespace Pharmacy_API
             services.AddScoped<IFeedbackReplyRepository, FeedbackReplyRepository>();
             services.AddScoped<IFeedbackReplyService, FeedbackReplyService>();
             services.AddScoped<IPrescriptionService, PrescriptionService>();
+
+            services.AddScoped<ITenderRepository, TenderRepository>();
 
             Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
             fileCompressionThread.Start();

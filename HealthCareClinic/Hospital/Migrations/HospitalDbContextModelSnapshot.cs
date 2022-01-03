@@ -6276,6 +6276,27 @@ namespace Hospital.Migrations
                     b.ToTable("WorkDay");
                 });
 
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ForeignId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsWinningBidChosen")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("TenderResponseDescription")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenders");
+                });
+                
             modelBuilder.Entity("Hospital.Shared_model.Model.WorkDayShift", b =>
                 {
                     b.Property<int>("Id")
@@ -6311,7 +6332,7 @@ namespace Hospital.Migrations
                             Name = "Second",
                             StartTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                });
+            });
 
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {
@@ -6391,6 +6412,99 @@ namespace Hospital.Migrations
                     b.HasOne("Hospital.Shared_model.Model.Doctor", null)
                         .WithMany("WorkDay")
                         .HasForeignKey("DoctorId");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.OwnsOne("Hospital.Tendering.Model.DateRange", "DateRange", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("End")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.Property<DateTime>("Start")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.OwnsMany("Hospital.Tendering.Model.Medicine", "Medicines", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("CompatibileMedicine")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Manufacturer")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<double>("Price")
+                                .HasColumnType("double precision");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("Reactions")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("SideEffects")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Usage")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Weight")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderId", "Id");
+
+                            b1.ToTable("Medicine");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.OwnsOne("Hospital.Tendering.Model.Price", "TotalPrice", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<double>("Amount")
+                                .HasColumnType("double precision");
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.Navigation("DateRange");
+
+                    b.Navigation("Medicines");
+
+                    b.Navigation("TotalPrice");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
