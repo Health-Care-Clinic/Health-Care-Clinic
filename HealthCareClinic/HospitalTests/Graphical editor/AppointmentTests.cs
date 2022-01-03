@@ -66,5 +66,41 @@ namespace HospitalUnitTests.Graphical_editor
 
             return retVal;
         }
+
+        [Fact]
+        public void Get_doctor_appointments_by_month()
+        {
+            var options = CreateStubRepository();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+
+                int allAppointments = appointmentService.GetNumOfAppointments(1, 2, 2022);
+
+                ClearStubRepository(context);
+
+                Assert.Equal(2, allAppointments);
+            }
+        }
+
+        [Fact]
+        public void Get_doctor_patients_by_month()
+        {
+            var options = CreateStubRepository();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+
+                int allAppointments = appointmentService.GetNumOfPatients(1, 2, 2022);
+
+                ClearStubRepository(context);
+
+                Assert.Equal(2, allAppointments);
+            }
+        }
     }
 }

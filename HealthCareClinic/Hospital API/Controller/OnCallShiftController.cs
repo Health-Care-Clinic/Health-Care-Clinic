@@ -44,5 +44,11 @@ namespace Hospital_API.Controller
             onCallShiftService.Add(onCallShift);
             return Ok();
         }
+
+        [HttpGet("getNumOfOnCallShift/{id?}/{month?}/{year?}")]
+        public IActionResult GetNumOfOnCallShift(int id, int month, int year)
+        {
+            return Ok(onCallShiftService.GetNumOfOnCallShift(id, month, year));
+        }
     }
 }

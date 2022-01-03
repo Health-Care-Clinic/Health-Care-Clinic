@@ -66,6 +66,7 @@ import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-ca
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+import { WorkloadComponent } from './component/workload/workload.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -122,7 +123,8 @@ const MaterialComponents = [
     NewOnCallShiftComponent,
     DoctorVacationsComponent,
     ShiftsComponent,
-    AddShiftComponent
+    AddShiftComponent,
+    WorkloadComponent
   ],
   imports: [
     BrowserModule,

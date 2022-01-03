@@ -75,5 +75,43 @@ namespace Hospital.Shared_model.Service
         {
             return appointmentRepository.GetAvailableTerms(selectedDoctor, selectedDate);
         }
+
+        public int GetNumOfAppointments(int id, int month, int year)
+        {
+           List<Appointment> allAppointments = appointmentRepository.getAppointmentsByDoctorId(id);
+            int number = 0;
+           foreach(Appointment ap in allAppointments)
+            {
+                if (ap.Date.Date.Year.Equals(year))
+                {
+                    if (ap.Date.Date.Month.Equals(month))
+                    {
+                        number = number + 1;
+                    }
+                }
+            }
+            return number;
+        }
+        public int GetNumOfPatients(int id, int month, int year)
+        {
+            List<Appointment> allAppointments = appointmentRepository.getAppointmentsByDoctorId(id);
+            List<int> idOfPatients = new List<int>();
+            int number = 0;
+            foreach (Appointment ap in allAppointments)
+            {
+                if (ap.Date.Date.Year.Equals(year))
+                {
+                    if (ap.Date.Date.Month.Equals(month))
+                    {
+                        if (!idOfPatients.Contains(ap.PatientId))
+                        {
+                            number = number + 1;
+                            idOfPatients.Add(ap.PatientId);
+                        }
+                    }
+                }
+            }
+            return number;
+        }
     }
 }

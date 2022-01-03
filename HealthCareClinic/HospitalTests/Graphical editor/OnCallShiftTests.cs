@@ -65,5 +65,23 @@ namespace HospitalUnitTests.Graphical_editor
                 Assert.Equal(2, allCallShifts.Count);
             }
         }
+
+        [Fact]
+        public void Get_doctor_call_shifts_by_month()
+        {
+            var options = CreateStubRepository();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                OnCallShiftRepository onCallShiftRepository = new OnCallShiftRepository(context);
+                OnCallShiftService onCallShiftService = new OnCallShiftService(onCallShiftRepository);
+
+                int allCallShifts = onCallShiftService.GetNumOfOnCallShift(1,2,2022);
+
+                ClearStubRepository(context);
+
+                Assert.Equal(1, allCallShifts);
+            }
+        }
     }
 }

@@ -139,5 +139,22 @@ namespace Hospital.Shared_model.Service
             return dates;
         }
 
+        public int GetNumOfOnCallShift(int id, int month, int year)
+        {
+            List<OnCallShift> onCallShifts = _onCallShiftRepository.GetOnCallShiftByDoctorId(id);
+            int number = 0;
+            foreach (OnCallShift ocf in onCallShifts)
+            {
+                if (ocf.Date.Date.Year.Equals(year))
+                {
+                    if (ocf.Date.Date.Month.Equals(month))
+                    {
+                        number = number + 1;
+                    }
+                }
+            }
+            return number;
+        }
+
     }
 }
