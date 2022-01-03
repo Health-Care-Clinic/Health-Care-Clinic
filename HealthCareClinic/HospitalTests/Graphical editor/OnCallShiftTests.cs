@@ -65,5 +65,7 @@ namespace HospitalUnitTests.Graphical_editor
                 Assert.Equal(2, allCallShifts.Count);
             }
         }
+
+        
     }
 }
