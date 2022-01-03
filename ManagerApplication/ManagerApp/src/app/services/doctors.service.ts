@@ -9,9 +9,11 @@ import { IDoctor } from '../model/patient/doctor';
 export class DoctorsService {
 
   private getAllDoctorsUrl: string;
+  private addShiftToDoctor: string;
 
   constructor(private _http: HttpClient) { 
     this.getAllDoctorsUrl = '/api/doctor/allDoctors'
+    this.addShiftToDoctor = '/api/doctor/addShiftToDoctor'
   }
 
 
@@ -19,5 +21,12 @@ export class DoctorsService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.get<Array<IDoctor>>(this.getAllDoctorsUrl, {headers: headers});
+  }
+
+  public addShift(doctor: IDoctor, shiftId: number): Observable<IDoctor> {
+    doctor.workShiftId = shiftId;
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.post<IDoctor>(this.addShiftToDoctor, doctor, {headers: headers});
   }
 }
