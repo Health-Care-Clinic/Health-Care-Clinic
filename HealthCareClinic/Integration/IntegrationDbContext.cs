@@ -4,6 +4,7 @@ using System.Text;
 using Integration.ApiKeys.Model;
 using Integration.Notifications.Model;
 using Integration.Pharmacy.Model;
+using Integration.Promotions.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Integration

@@ -16,7 +16,9 @@ namespace Pharmacy_API.DTO
         public String Reactions { get; set; }
         public String CompatibileMedicine { get; set; }
 
-        public MedicineDTO(string name, int quantity, string manufacturer, string usage, int weight, string sideEffects, string reactions, string compatibileMedicine)
+        public Double Price { get; set; }
+
+        public MedicineDTO(string name, int quantity, string manufacturer, string usage, int weight, string sideEffects, string reactions, string compatibileMedicine, double price)
         {
          
             Name = name;
@@ -27,6 +29,7 @@ namespace Pharmacy_API.DTO
             SideEffects = sideEffects;
             Reactions = reactions;
             CompatibileMedicine = compatibileMedicine;
+            Price = price;
         }
 
         public MedicineDTO() { }

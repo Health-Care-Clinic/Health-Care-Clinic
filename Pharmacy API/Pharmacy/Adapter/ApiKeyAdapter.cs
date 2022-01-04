@@ -1,4 +1,5 @@
-﻿using Pharmacy.DTO;
+﻿using Pharmacy.ApiKeys.Model;
+using Pharmacy.DTO;
 using Pharmacy.Model;
 
 namespace Pharmacy.Adapter

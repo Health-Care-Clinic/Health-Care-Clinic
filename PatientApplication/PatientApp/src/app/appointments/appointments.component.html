@@ -32,15 +32,10 @@
           <mat-cell *matCellDef="let element"> {{element.isCancelled}} </mat-cell>
         </ng-container>
 
- <!--        <ng-container matColumnDef="Done">
-          <mat-header-cell *matHeaderCellDef> Done </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.isDone}} </mat-cell>
-        </ng-container> -->
-
         <ng-container matColumnDef="SurveyId">
           <mat-header-cell *matHeaderCellDef>Survey </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <button mat-button *ngIf="!element.surveyDTO.done && !element.isCancelled && compare(element.date,currentDate) " (click)="goToSurvey(element.id)">
+            <button mat-button *ngIf="!element.surveyDTO.done && !element.isCancelled && compare(element.date,currentDate) " (click)="goToSurvey(element)">
               Survey
             </button>
           </mat-cell>

@@ -44,7 +44,6 @@ export class EditPharmacyProfileComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', imageToUpload, imageToUpload.name);
     this._pharmacyProfileService.uploadImage(this.idp, formData).subscribe(event =>{
-    //this._http.post("http://localhost:65508/hospital/pharmacyimage/upload-image/" + this.idp, formData, {reportProgress: false, observe: 'events'}).subscribe(event =>{
       if(event.type === HttpEventType.Response){
         this.onUploadFinished.emit(event.body);
       }

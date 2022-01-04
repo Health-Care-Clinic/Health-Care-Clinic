@@ -7,25 +7,45 @@
 
   <ItemGroup>
     <Compile Remove="Adapter\**" />
+    <Compile Remove="ApiKeys\**" />
     <Compile Remove="Controllers\**" />
     <Compile Remove="DTO\**" />
     <Compile Remove="Mapper\**" />
+    <Compile Remove="Notifications\**" />
+    <Compile Remove="Pharmacy\**" />
+    <Compile Remove="Promotions\**" />
     <Compile Remove="Service\**" />
+    <Compile Remove="UrgentMedicines\**" />
     <Content Remove="Adapter\**" />
+    <Content Remove="ApiKeys\**" />
     <Content Remove="Controllers\**" />
     <Content Remove="DTO\**" />
     <Content Remove="Mapper\**" />
+    <Content Remove="Notifications\**" />
+    <Content Remove="Pharmacy\**" />
+    <Content Remove="Promotions\**" />
     <Content Remove="Service\**" />
+    <Content Remove="UrgentMedicines\**" />
     <EmbeddedResource Remove="Adapter\**" />
+    <EmbeddedResource Remove="ApiKeys\**" />
     <EmbeddedResource Remove="Controllers\**" />
     <EmbeddedResource Remove="DTO\**" />
     <EmbeddedResource Remove="Mapper\**" />
+    <EmbeddedResource Remove="Notifications\**" />
+    <EmbeddedResource Remove="Pharmacy\**" />
+    <EmbeddedResource Remove="Promotions\**" />
     <EmbeddedResource Remove="Service\**" />
+    <EmbeddedResource Remove="UrgentMedicines\**" />
     <None Remove="Adapter\**" />
+    <None Remove="ApiKeys\**" />
     <None Remove="Controllers\**" />
     <None Remove="DTO\**" />
     <None Remove="Mapper\**" />
+    <None Remove="Notifications\**" />
+    <None Remove="Pharmacy\**" />
+    <None Remove="Promotions\**" />
     <None Remove="Service\**" />
+    <None Remove="UrgentMedicines\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,11 +83,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Integration\Integration.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="UrgentMedicines\Protos\model.proto" GrpcServices="None"/>
-    <Protobuf Include="UrgentMedicines\Protos\netGrpcService.proto" GrpcServices="Client" />
   </ItemGroup>
 
 

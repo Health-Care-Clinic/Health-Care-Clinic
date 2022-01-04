@@ -7,7 +7,7 @@ namespace Hospital.Shared_model.Model
 {
     public class Doctor : Employee
     {
-        public WorkDayShift WorkShift { get; set; }     //bolnica radi od 7h do 19h - prva smena je od 7h-13h, a druga od 13h-19h
+        public int WorkShiftId { get; set; }     //bolnica radi od 7h do 19h - prva smena je od 7h-13h, a druga od 13h-19h
         public String Specialty { get; set; }  
         public virtual ICollection<Day> DaysOff { get; set; } = new List<Day>();
         //public virtual ICollection<DateTime> DaysOff { get; set; } = new List<DateTime>();      //ovo nam ne treba trenutno
@@ -22,6 +22,7 @@ namespace Hospital.Shared_model.Model
             //this.SpecialtyId = spec.SpecialtyId;
             this.Specialty = spec;
             this.PrimaryRoom = primaryRoom;
+            this.WorkShiftId = -1;
         }
 
         private ICollection<Patient> patients;

@@ -32,7 +32,7 @@ export class AppointmentsComponent implements OnInit {
   getAppointmetsForPatient(id: number) {
     this._appointmentService.getAppointmetsForPatient(id)
         .subscribe(data =>  this.appointments = data,
-                   error => this.errorMessage = <any>error);     
+                   error => this.errorMessage = <any>error);   
   }
 
   goToSurvey(appointment: IAppointment): void {
@@ -42,23 +42,18 @@ export class AppointmentsComponent implements OnInit {
   }
 
   cancelAppointment(appointment :IAppointment){
-    this.appointment = appointment
     this._appointmentService.cancelAppointment(appointment.id)
         .subscribe(data => this.appointment = data,
                    error => this.errorMessage = <any>error);
-    if(this.appointment != undefined)
-    {
-      this.appointment.isCancelled = true;
-      window.alert('Zakazani pregled je otkazan');
-    }
-    else{
-      window.alert('Zakazani pregled ne moze biti otkazan manje od dva dana pre termina');
-    }
+    appointment.isCancelled = true;
+    this.getAppointmetsForPatient(appointment.patientId);
+    window.alert('Your appointment is cancelled!');
   }
 
   compare(appointmentDate: Date, tempDate: Date)
   {
-    if(appointmentDate < tempDate)
+    var appointmentTime = new Date(appointmentDate);
+    if(appointmentTime.getTime() < tempDate.getTime())
     {
       return true;
     }

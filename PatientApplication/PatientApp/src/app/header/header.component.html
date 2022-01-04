@@ -6,7 +6,7 @@
     <button mat-button (click)="goToMedicalRecord()">Medical record</button>
     <button mat-button [matMenuTriggerFor]="menu">Schedule appointment</button>
         <mat-menu #menu="matMenu">
-        <button mat-menu-item >Standard scheduling</button>
+        <button mat-menu-item [routerLink]="['standard-scheduling']" >Standard scheduling</button>
         <button mat-menu-item [routerLink]="['recommendation-scheduling']">Recommendation scheduling</button>
         </mat-menu>
     <span class="example-spacer"></span>

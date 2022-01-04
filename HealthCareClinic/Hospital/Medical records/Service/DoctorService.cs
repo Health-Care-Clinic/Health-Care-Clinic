@@ -44,5 +44,21 @@ namespace Hospital.Medical_records.Service
             return availableDoctors;
         }
 
+        public List<String> GetAllSpecialties()
+        {
+            return doctorRepository.GetAllSpecialties();
+        }
+
+        public List<Doctor> GetDoctorsBySpecialty(string specialty)
+        {
+            return doctorRepository.GetDoctorsBySpecialty(specialty);
+        }
+
+        public void addShiftToDoctor(Doctor doctor) 
+        {
+            Doctor d = doctorRepository.GetById(doctor.Id);
+            d.WorkShiftId = doctor.WorkShiftId;
+            doctorRepository.Save();
+        }
     }
 }

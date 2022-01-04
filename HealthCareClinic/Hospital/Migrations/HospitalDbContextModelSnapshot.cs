@@ -2046,6 +2046,90 @@ namespace Hospital.Migrations
                         },
                         new
                         {
+                            Id = 11,
+                            AppointmentId = 11,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AppointmentId = 12,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AppointmentId = 13,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AppointmentId = 14,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AppointmentId = 15,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AppointmentId = 16,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AppointmentId = 17,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 18,
+                            AppointmentId = 18,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 19,
+                            AppointmentId = 19,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 20,
+                            AppointmentId = 20,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 21,
+                            AppointmentId = 21,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 22,
+                            AppointmentId = 22,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 23,
+                            AppointmentId = 23,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 24,
+                            AppointmentId = 24,
+                            Done = false
+                        },
+                        new
+                        {
                             Id = 10,
                             AppointmentId = 10,
                             Done = true
@@ -2233,6 +2317,258 @@ namespace Hospital.Migrations
                             Id = 27,
                             Name = "Hospital",
                             SurveyId = 9
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Name = "Doctor",
+                            SurveyId = 11
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Name = "Medical stuff",
+                            SurveyId = 11
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Name = "Hospital",
+                            SurveyId = 11
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Name = "Doctor",
+                            SurveyId = 12
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Name = "Medical stuff",
+                            SurveyId = 12
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Name = "Hospital",
+                            SurveyId = 12
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Name = "Doctor",
+                            SurveyId = 13
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Name = "Medical stuff",
+                            SurveyId = 13
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Name = "Hospital",
+                            SurveyId = 13
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Name = "Doctor",
+                            SurveyId = 14
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Name = "Medical stuff",
+                            SurveyId = 14
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Name = "Hospital",
+                            SurveyId = 14
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Name = "Doctor",
+                            SurveyId = 15
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Name = "Medical stuff",
+                            SurveyId = 15
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Name = "Hospital",
+                            SurveyId = 15
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Name = "Doctor",
+                            SurveyId = 16
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Name = "Medical stuff",
+                            SurveyId = 16
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Name = "Hospital",
+                            SurveyId = 16
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Name = "Doctor",
+                            SurveyId = 17
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Name = "Medical stuff",
+                            SurveyId = 17
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Name = "Hospital",
+                            SurveyId = 17
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Name = "Doctor",
+                            SurveyId = 18
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Name = "Medical stuff",
+                            SurveyId = 18
+                        },
+                        new
+                        {
+                            Id = 54,
+                            Name = "Hospital",
+                            SurveyId = 18
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Name = "Doctor",
+                            SurveyId = 19
+                        },
+                        new
+                        {
+                            Id = 56,
+                            Name = "Medical stuff",
+                            SurveyId = 19
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Name = "Hospital",
+                            SurveyId = 19
+                        },
+                        new
+                        {
+                            Id = 58,
+                            Name = "Doctor",
+                            SurveyId = 20
+                        },
+                        new
+                        {
+                            Id = 59,
+                            Name = "Medical stuff",
+                            SurveyId = 20
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Name = "Hospital",
+                            SurveyId = 20
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Name = "Doctor",
+                            SurveyId = 21
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Name = "Medical stuff",
+                            SurveyId = 21
+                        },
+                        new
+                        {
+                            Id = 63,
+                            Name = "Hospital",
+                            SurveyId = 21
+                        },
+                        new
+                        {
+                            Id = 64,
+                            Name = "Doctor",
+                            SurveyId = 22
+                        },
+                        new
+                        {
+                            Id = 65,
+                            Name = "Medical stuff",
+                            SurveyId = 22
+                        },
+                        new
+                        {
+                            Id = 66,
+                            Name = "Hospital",
+                            SurveyId = 22
+                        },
+                        new
+                        {
+                            Id = 67,
+                            Name = "Doctor",
+                            SurveyId = 23
+                        },
+                        new
+                        {
+                            Id = 68,
+                            Name = "Medical stuff",
+                            SurveyId = 23
+                        },
+                        new
+                        {
+                            Id = 69,
+                            Name = "Hospital",
+                            SurveyId = 23
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Name = "Doctor",
+                            SurveyId = 24
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Name = "Medical stuff",
+                            SurveyId = 24
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Name = "Hospital",
+                            SurveyId = 24
                         },
                         new
                         {
@@ -3224,6 +3560,1476 @@ namespace Hospital.Migrations
                         },
                         new
                         {
+                            Id = 151,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 152,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 153,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 154,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 155,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 156,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 157,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 158,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 159,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 160,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 161,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 162,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 163,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 164,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 165,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 166,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 167,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 168,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 169,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 170,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 171,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 172,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 173,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 174,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 175,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 176,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 177,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 178,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 179,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 180,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 181,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 182,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 183,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 184,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 185,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 186,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 187,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 188,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 189,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 190,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 191,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 192,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 193,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 194,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 195,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 196,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 197,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 198,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 199,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 200,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 201,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 202,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 203,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 204,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 205,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 206,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 207,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 208,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 209,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 210,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 211,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 212,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 213,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 214,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 215,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 216,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 217,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 218,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 219,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 220,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 221,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 222,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 223,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 224,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 225,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 226,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 227,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 228,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 229,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 230,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 231,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 232,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 233,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 234,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 235,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 236,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 237,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 238,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 239,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 240,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 241,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 242,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 243,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 244,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 245,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 246,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 247,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 248,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 249,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 250,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 251,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 252,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 253,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 254,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 255,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 256,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 257,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 258,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 259,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 260,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 261,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 262,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 263,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 264,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 265,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 266,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 267,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 268,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 269,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 270,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 271,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 272,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 273,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 274,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 275,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 276,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 277,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 278,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 279,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 280,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 281,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 282,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 283,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 284,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 285,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 286,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 287,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 288,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 289,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 290,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 291,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 292,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 293,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 294,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 295,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 296,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 297,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 298,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 299,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 300,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 301,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 302,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 303,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 304,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 305,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 306,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 307,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 308,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 309,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 310,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 311,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 312,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 313,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 314,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 315,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 316,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 317,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 318,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 319,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 320,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 321,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 322,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 323,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 324,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 325,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 326,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 327,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 328,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 329,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 330,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 331,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 332,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 333,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 334,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 335,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 336,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 337,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 338,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 339,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 340,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 341,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 342,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 343,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 344,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 345,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 346,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 347,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 348,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 349,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 350,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 351,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 352,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 353,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 354,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 355,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 356,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 357,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 358,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 359,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 360,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
                             Id = 136,
                             Content = "How careful did doctor listen you?",
                             Grade = 1,
@@ -3554,6 +5360,160 @@ namespace Hospital.Migrations
                             SurveyId = 10,
                             isCancelled = false,
                             isDone = true
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Date = new DateTime(2022, 2, 22, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1,
+                            PatientId = 1,
+                            RoomId = 1,
+                            SurveyId = 11,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Date = new DateTime(2022, 2, 22, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1,
+                            PatientId = 1,
+                            RoomId = 1,
+                            SurveyId = 12,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Date = new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 9,
+                            RoomId = 3,
+                            SurveyId = 13,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Date = new DateTime(2022, 2, 22, 7, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 10,
+                            RoomId = 3,
+                            SurveyId = 14,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Date = new DateTime(2022, 2, 22, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 11,
+                            RoomId = 3,
+                            SurveyId = 15,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Date = new DateTime(2022, 2, 22, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 12,
+                            RoomId = 3,
+                            SurveyId = 16,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Date = new DateTime(2022, 2, 22, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 13,
+                            RoomId = 3,
+                            SurveyId = 17,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Date = new DateTime(2022, 2, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 14,
+                            RoomId = 3,
+                            SurveyId = 18,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Date = new DateTime(2022, 2, 22, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 15,
+                            RoomId = 3,
+                            SurveyId = 19,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Date = new DateTime(2022, 2, 22, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 16,
+                            RoomId = 3,
+                            SurveyId = 20,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Date = new DateTime(2022, 2, 22, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 17,
+                            RoomId = 3,
+                            SurveyId = 21,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Date = new DateTime(2022, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 18,
+                            RoomId = 3,
+                            SurveyId = 22,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Date = new DateTime(2022, 2, 22, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 19,
+                            RoomId = 3,
+                            SurveyId = 23,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Date = new DateTime(2022, 2, 22, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 20,
+                            RoomId = 3,
+                            SurveyId = 24,
+                            isCancelled = false,
+                            isDone = false
                         });
                 });
 
@@ -3623,7 +5583,7 @@ namespace Hospital.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("text");
 
-                    b.Property<int>("WorkShift")
+                    b.Property<int>("WorkShiftId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -3647,7 +5607,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Nikolic",
                             Username = "nikola",
-                            WorkShift = 0
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -3665,7 +5625,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Radic",
                             Username = "marko",
-                            WorkShift = 0
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -3683,7 +5643,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Sivc",
                             Username = "jozef",
-                            WorkShift = 0
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -3701,7 +5661,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Zoric",
                             Username = "dragana",
-                            WorkShift = 1
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -3719,7 +5679,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Grandic",
                             Username = "mile",
-                            WorkShift = 1
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -3737,7 +5697,63 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Bradina",
                             Username = "misa",
-                            WorkShift = 1
+                            WorkShiftId = -1
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.OnCallShift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OnCallShifts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2022, 2, 2, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(2021, 11, 23, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Date = new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2
                         });
                 });
 
@@ -3968,6 +5984,272 @@ namespace Hospital.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hospital.Shared_model.Model.Vacation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vacations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Description...",
+                            DoctorId = 1,
+                            EndTime = new DateTime(2020, 2, 1, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Description...",
+                            DoctorId = 2,
+                            EndTime = new DateTime(2020, 2, 20, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Description...",
+                            DoctorId = 3,
+                            EndTime = new DateTime(2020, 3, 21, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 3, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Description...",
+                            DoctorId = 4,
+                            EndTime = new DateTime(2020, 4, 22, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Description...",
+                            DoctorId = 5,
+                            EndTime = new DateTime(2020, 5, 23, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Description...",
+                            DoctorId = 6,
+                            EndTime = new DateTime(2020, 7, 7, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Description...",
+                            DoctorId = 1,
+                            EndTime = new DateTime(2020, 7, 20, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Description...",
+                            DoctorId = 2,
+                            EndTime = new DateTime(2020, 8, 28, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Description...",
+                            DoctorId = 3,
+                            EndTime = new DateTime(2020, 9, 15, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 9, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Description...",
+                            DoctorId = 4,
+                            EndTime = new DateTime(2020, 10, 17, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2020, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Description...",
+                            DoctorId = 5,
+                            EndTime = new DateTime(2021, 11, 19, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Description...",
+                            DoctorId = 6,
+                            EndTime = new DateTime(2021, 12, 18, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Description...",
+                            DoctorId = 1,
+                            EndTime = new DateTime(2021, 2, 10, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "Description...",
+                            DoctorId = 2,
+                            EndTime = new DateTime(2021, 2, 12, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "Description...",
+                            DoctorId = 3,
+                            EndTime = new DateTime(2021, 3, 18, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "Description...",
+                            DoctorId = 4,
+                            EndTime = new DateTime(2021, 5, 5, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "Description...",
+                            DoctorId = 5,
+                            EndTime = new DateTime(2021, 6, 6, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "Description...",
+                            DoctorId = 6,
+                            EndTime = new DateTime(2021, 7, 7, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 6, 28, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "Description...",
+                            DoctorId = 1,
+                            EndTime = new DateTime(2021, 8, 8, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "Description...",
+                            DoctorId = 2,
+                            EndTime = new DateTime(2021, 9, 9, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "Description...",
+                            DoctorId = 3,
+                            EndTime = new DateTime(2022, 10, 10, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "Description...",
+                            DoctorId = 4,
+                            EndTime = new DateTime(2022, 11, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "Description...",
+                            DoctorId = 5,
+                            EndTime = new DateTime(2022, 12, 12, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 11, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "Description...",
+                            DoctorId = 6,
+                            EndTime = new DateTime(2022, 12, 29, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "Description...",
+                            DoctorId = 1,
+                            EndTime = new DateTime(2022, 2, 2, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 1, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Description = "Description...",
+                            DoctorId = 2,
+                            EndTime = new DateTime(2022, 3, 3, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Description = "Description...",
+                            DoctorId = 3,
+                            EndTime = new DateTime(2022, 4, 4, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Description = "Description...",
+                            DoctorId = 4,
+                            EndTime = new DateTime(2022, 5, 5, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Description = "Description...",
+                            DoctorId = 5,
+                            EndTime = new DateTime(2022, 6, 5, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Description = "Description...",
+                            DoctorId = 6,
+                            EndTime = new DateTime(2022, 7, 6, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(2022, 6, 16, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
             modelBuilder.Entity("Hospital.Shared_model.Model.WorkDay", b =>
                 {
                     b.Property<int>("Id")
@@ -3993,6 +6275,64 @@ namespace Hospital.Migrations
 
                     b.ToTable("WorkDay");
                 });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ForeignId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsWinningBidChosen")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("TenderResponseDescription")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenders");
+                });
+                
+            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDayShift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkDayShift");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EndTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "First",
+                            StartTime = new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EndTime = new DateTime(2022, 2, 22, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Second",
+                            StartTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+            });
 
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {
@@ -4072,6 +6412,99 @@ namespace Hospital.Migrations
                     b.HasOne("Hospital.Shared_model.Model.Doctor", null)
                         .WithMany("WorkDay")
                         .HasForeignKey("DoctorId");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.OwnsOne("Hospital.Tendering.Model.DateRange", "DateRange", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("End")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.Property<DateTime>("Start")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.OwnsMany("Hospital.Tendering.Model.Medicine", "Medicines", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("CompatibileMedicine")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Manufacturer")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<double>("Price")
+                                .HasColumnType("double precision");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("Reactions")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("SideEffects")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Usage")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Weight")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderId", "Id");
+
+                            b1.ToTable("Medicine");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.OwnsOne("Hospital.Tendering.Model.Price", "TotalPrice", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<double>("Amount")
+                                .HasColumnType("double precision");
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.Navigation("DateRange");
+
+                    b.Navigation("Medicines");
+
+                    b.Navigation("TotalPrice");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>

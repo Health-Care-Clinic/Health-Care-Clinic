@@ -18,6 +18,16 @@ import { RoomScheduleComponent } from './component/hospital-map/room-schedule.co
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { TendersComponent } from './tenders/tenders.component';
+import { CreateTenderComponent } from './create-tender/create-tender.component';
+import { DoctorsComponent } from './component/doctors/doctors.component';
+import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
+import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
+import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
+import { ShiftsComponent } from './shifts/shifts.component';
+import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
+import { ShiftsComponent } from './component/shifts/shifts.component';
+import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -29,6 +39,7 @@ const routes: Routes = [
   { path: 'registration', component: PharmacyRegistrationComponent},
   { path: 'floor/:idb/:idf', component: FloorComponent },
   { path: 'hospital-map', component: HospitalMapComponent },
+  { path: 'add-shift', component: AddShiftComponent },
   { path: 'floor/:idb/:idf/:idr', component: FloorComponent },
   { path: 'urgent-procurement', component: UrgentProcurementComponent },
   { path: 'hospital-map', component: HospitalMapComponent },
@@ -39,9 +50,19 @@ const routes: Routes = [
   { path: 'consumption-report', component: ConsumptionReportComponent },
   { path: 'malicious-patients', component: MaliciousPatientsComponent },
   { path: 'renovation', component: RenovationRoomsComponent },
+  { path: 'shifts', component: ShiftsComponent },
   { path: 'room-schedule/:idr', component: RoomScheduleComponent },
   { path: 'pharmacy-profiles', component: PharmacyProfilesComponent },
-  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent }
+  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
+  { path: 'tenders', component: TendersComponent },
+  { path: 'create-tender', component: CreateTenderComponent },
+  { path: 'doctors', component: DoctorsComponent },
+  { path: 'on-call-shifts/:ido', component: OnCallShiftComponent},
+  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
+  { path: 'new-on-call-shift/:ide', component: NewOnCallShiftComponent },
+  { path: 'doctor-vacations/:iddv', component: DoctorVacationsComponent},
+  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
+  { path: 'add-new-shift/:ida', component: AddingShiftComponent }
 ];
 
 @NgModule({
