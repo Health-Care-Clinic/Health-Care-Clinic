@@ -107,11 +107,11 @@ namespace Hospital.Shared_model.Service
         private int GetAvailableWorkDayShiftAfterRemove(int workDayShiftToRemove) 
         {
             int availableWorkDayShift = 0;
-            foreach (WorkDayShift wds in _workDayShiftRepository.GetAll())
+            foreach (int workDayShiftId in _workDayShiftRepository.GetAll().Select(wds => wds.Id))
             {
-                if (wds.Id != workDayShiftToRemove)
+                if (workDayShiftId != workDayShiftToRemove)
                 {
-                    availableWorkDayShift = wds.Id;
+                    availableWorkDayShift = workDayShiftId;
                     break;
                 }
             }
