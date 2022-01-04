@@ -33,8 +33,9 @@ services:
       - "database"
       - "rabbitmq3"
     ports:
-      - "65508:80"     
+      - "5001:80"     
     environment:
+      DATABASE_HOST: database
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: integrationDb
       DATABASE_USER: postgres
