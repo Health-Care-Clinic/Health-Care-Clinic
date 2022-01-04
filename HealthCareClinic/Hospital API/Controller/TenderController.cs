@@ -28,8 +28,33 @@ namespace Hospital_API.Controller
         [HttpGet]
         public IActionResult GetAllTenders()
         {
-            List<Tender> tenders = (List<Tender>)_tenderService.GetAll();
+            List<Tender> tenders = new List<Tender>();
+            foreach (var tender in (List<Tender>)_tenderService.GetAll())
+            {
+                if(tender.TenderResponseDescription == null)
+                {
+                    tenders.Add(tender);
+                }
+            }
+
             List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO(tenders);
+
+            return Ok(tendersDTO);
+        }
+
+        [HttpGet("responses")]
+        public IActionResult GetAllResponses()
+        {
+            List<Tender> responses = new List<Tender>();
+            foreach (var tender in (List<Tender>)_tenderService.GetAll())
+            {
+                if (tender.TenderResponseDescription != null)
+                {
+                    responses.Add(tender);
+                }
+            }
+
+            List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO(responses);
 
             return Ok(tendersDTO);
         }
