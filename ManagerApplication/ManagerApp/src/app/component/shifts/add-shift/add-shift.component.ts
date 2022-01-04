@@ -15,7 +15,6 @@ export class AddShiftComponent implements OnInit {
   stringShiftEndTime: any;
   shiftStartTime: any;
   shiftEndTime: any;
-  shiftAdded: Boolean;
   errorRequired: boolean = false;
   error: boolean = false;
 
@@ -30,11 +29,15 @@ export class AddShiftComponent implements OnInit {
     let hoursShiftEndTime = Number(this.stringShiftEndTime.split(":", 2)[0]);
     let minutesShiftEndTime = Number(this.stringShiftEndTime.split(":", 2)[1]);
     this.shiftStartTime = new Date();
-    this.shiftStartTime.setHours(hoursShiftStartTime);
+    this.shiftStartTime.setHours(hoursShiftStartTime + 1);
     this.shiftStartTime.setMinutes(minutesShiftStartTime);
+    this.shiftStartTime.setSeconds(0);
+    this.shiftStartTime.setMilliseconds(0);
     this.shiftEndTime = new Date();
-    this.shiftEndTime.setHours(hoursShiftEndTime);
+    this.shiftEndTime.setHours(hoursShiftEndTime + 1);
     this.shiftEndTime.setMinutes(minutesShiftEndTime);
+    this.shiftEndTime.setSeconds(0);
+    this.shiftEndTime.setMilliseconds(0);
   }
 
   onSubmit(): void{
@@ -58,15 +61,11 @@ export class AddShiftComponent implements OnInit {
 
       let shift = new Shift(newId + 1, this.shiftName, this.shiftStartTime, this.shiftEndTime);
       this.shiftsService.addShift(shift).subscribe(shiftAdded =>{
-        this.shiftAdded = shiftAdded;
+        if(!shiftAdded)
+          this.error = true;
+        else
+          this._router.navigate(["shifts"])
       })
     })
-
-    if(!this.shiftAdded){
-      this.error = true;
-      return;
-    }
-    else
-      this._router.navigate(["shifts"])
   }
 }
