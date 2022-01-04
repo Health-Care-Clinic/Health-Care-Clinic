@@ -26,7 +26,7 @@ namespace Pharmacy.Interfaces.Service
 
         public IEnumerable<Tender> GetAll()
         {
-            throw new NotImplementedException();
+            return _tenderRepository.GetAll();
         }
 
         public Tender GetOneById(int id)
