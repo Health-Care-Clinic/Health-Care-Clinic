@@ -27,6 +27,7 @@ services:
       dockerfile: stacks/build/pharmacy/Dockerfile
     depends_on:
       - postgres-database
+      - rabbitmq3
     environment: 
       DATABASE_HOST: postgres-database
       DATABASE_PORT: 5432
@@ -40,6 +41,15 @@ services:
       - hospitalapi_application
       - pharmacy-database
 
+  rabbitmq3:
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'secret cookie here'
+    volumes:
+      - database-data:/var/lib/rabbitmq
+    ports:
+      - 5672:5672
 volumes:
   database-data:
 

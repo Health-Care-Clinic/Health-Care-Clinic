@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/aspnet:3.1-focal AS base
+FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
 WORKDIR /app
 #EXPOSE 80
 
@@ -9,7 +9,7 @@ ENV ASPNETCORE_URLS=http://+:$PORT
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-FROM mcr.microsoft.com/dotnet/sdk:3.1-focal AS build
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY ["Pharmacy API/Pharmacy API/Pharmacy API.csproj", "Pharmacy API/Pharmacy API/"]
 RUN dotnet restore "Pharmacy API/Pharmacy API/Pharmacy API.csproj"

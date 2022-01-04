@@ -28,7 +28,7 @@ namespace Pharmacy.Tendering.Service
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "rabbitmq" };
 
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
