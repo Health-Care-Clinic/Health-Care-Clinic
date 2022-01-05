@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       config: Release
-      PROJECT: "Pharmacy API/Pharmacy/Pharmacy.csproj"
-      TEST: "Pharmacy API/PharmacyTests/PharmacyTests.csproj"
+      PROJECT: '"Pharmacy API/Pharmacy/Pharmacy.csproj"'
+      TEST: '"Pharmacy API/PharmacyTests/PharmacyTests.csproj"'
     # Map a step output to a job output
     steps:
       - uses: actions/checkout@v2
