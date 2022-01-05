@@ -1,10 +1,13 @@
 <div>
-    <div style="width: 100%; float: left; margin: auto; text-align: center;  margin-top: 2%;">
+    <div style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%;">
         <h1>
             Doctor:
             {{doctor.name}}
             {{doctor.surname}}
         </h1>
+    </div>
+    <div style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%;">
+        <button style="background-color: rgb(255, 255, 110); cursor: pointer; min-height: 50px;" [routerLink]="['/schedule-a-vacation', doctor.id]"><b>Schedule a vacation</b></button>
     </div>
     <div style="width: 100%;">
         <table style="border: 1px solid black; width: 25%; float: left; margin-right: 5%; margin-left: 7%; margin-top: 2%; margin-bottom: 6%;">
