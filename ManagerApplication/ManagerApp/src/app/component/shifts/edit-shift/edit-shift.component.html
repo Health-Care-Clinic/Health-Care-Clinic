@@ -1,0 +1,21 @@
+<div>
+    <h3 style="margin-bottom: 0px;">Name</h3>
+    <input type="text" style="margin-bottom: 10px;" [(ngModel)]="shiftName"/>
+</div>
+<div>
+    <h3 style="margin-bottom: 0px;">Start time</h3>
+    <input type="time" style="margin-bottom: 10px;" [(ngModel)]="stringShiftStartTime"/>
+</div>
+<div>
+    <h3 style="margin-bottom: 0px;">End time</h3>
+    <input type="time" style="margin-bottom: 20px;" [(ngModel)]="stringShiftEndTime"/>
+</div>
+<div *ngIf="errorRequired">
+    <p style="color: red;">All fields are required!</p>
+</div>
+<div *ngIf="error">
+    <p style="color: red;">There was an error!</p>
+</div>
+<div>
+    <button (click)="onSubmit()" style="background-color: #BDD5EA;">Edit shift</button>
+</div>
