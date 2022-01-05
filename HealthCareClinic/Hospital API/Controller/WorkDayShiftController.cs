@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Service;
+﻿using Hospital.Shared_model.Model;
+using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,36 @@ namespace Hospital_API.Controller
             workDayShiftService.GetAll().ToList().ForEach(WorkDayShift
                 => allWorkDayShifts.Add(WorkDayShiftAdapter.WorkDayShiftToWorkDayShiftDTO(WorkDayShift)));
             return Ok(allWorkDayShifts);
+        }
+
+        [HttpGet("getWorkDayShift/{id?}")]
+        public IActionResult GetWorkDayShift(int id)
+        {
+            return Ok(WorkDayShiftAdapter.WorkDayShiftToWorkDayShiftDTO(workDayShiftService.GetOneById(id)));
+        }
+
+        [HttpPost("editWorkDayShift")]
+        public IActionResult EditWorkDayShift(WorkDayShiftDTO workDayShiftDTO)
+        {
+            WorkDayShift workDayShift = WorkDayShiftAdapter.WorkDayShiftDTOToWorkDayShift(workDayShiftDTO);
+            bool workDayShiftEdited = workDayShiftService.EditWorkDayShift(workDayShift);
+            return Ok(workDayShiftEdited);
+        }
+
+        [HttpPost("removeWorkDayShift")]
+        public IActionResult RemoveWorkDayShift(WorkDayShiftDTO workDayShiftDTO)
+        {
+            WorkDayShift workDayShift = WorkDayShiftAdapter.WorkDayShiftDTOToWorkDayShift(workDayShiftDTO);
+            workDayShiftService.RemoveWorkDayShift(workDayShift.Id);
+            return Ok();
+        }
+
+        [HttpPost("addWorkDayShift")]
+        public IActionResult AddWorkDayShift(WorkDayShiftDTO workDayShiftDTO)
+        {
+            WorkDayShift workDayShift = WorkDayShiftAdapter.WorkDayShiftDTOToWorkDayShift(workDayShiftDTO);
+            bool workDayShiftAdded = workDayShiftService.AddWorkDayShift(workDayShift);
+            return Ok(workDayShiftAdded);
         }
     }
 }

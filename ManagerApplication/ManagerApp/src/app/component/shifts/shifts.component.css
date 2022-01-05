@@ -1,20 +1,20 @@
-#tableDiv {
+div {
     width: 500px;
-    margin-top: 6%;
-    margin-bottom: 6%;
+    margin-top: 3%;
+    margin-bottom: 3%;
     margin-left: auto;
     margin-right: auto;
 }
 
-#tableDiv table {
+div table {
     width: 100%;
 }
 
-#tableDiv table thead tr th {
+div table thead tr th {
     text-align: center;
 }
 
-#tableDiv table tbody tr td {
+div table tbody tr td {
     text-align: center;
     cursor: pointer;
 }

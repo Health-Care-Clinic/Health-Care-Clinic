@@ -9,5 +9,6 @@ namespace Hospital.Shared_model.Repository
     public interface IOnCallShiftRepository : IRepository<OnCallShift>
     {
         public List<OnCallShift> GetOnCallShiftByDoctorId(int id);
+        public void RemoveById(int id);
     }
 }

@@ -31,5 +31,13 @@ namespace Hospital_API.Controller
 
             return Ok(doctorsDto);
         }
+
+        [HttpPost("addShiftToDoctor")]
+        public IActionResult AddShiftToDoctor(DoctorDTO doctorDTO) 
+        {
+            Doctor doctor = DoctorAdapter.DoctorDTOToDoctor(doctorDTO);
+            doctorService.addShiftToDoctor(doctor);
+            return Ok();
+        }
     }
 }

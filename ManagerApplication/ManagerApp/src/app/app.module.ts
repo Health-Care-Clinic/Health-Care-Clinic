@@ -58,11 +58,18 @@ import { RenovationRoomsComponent } from './component/renovation-rooms/renovatio
 import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { TendersComponent } from './tenders/tenders.component';
+import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
+import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
 import { ShiftsComponent } from './shifts/shifts.component';
 import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vacation/schedule-doctor-vacation.component';
+import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
+import { ShiftsComponent } from './component/shifts/shifts.component';
+import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -112,11 +119,17 @@ const MaterialComponents = [
     NotificationsComponent,
     PharmacyProfilesComponent,
     EditPharmacyProfileComponent,
+    TendersComponent,
+    CreateTenderComponent,
     DoctorsComponent,
     OnCallShiftComponent,
+    NewOnCallShiftComponent,
     DoctorVacationsComponent,
     ShiftsComponent,
-    ScheduleDoctorVacationComponent
+    ScheduleDoctorVacationComponent,
+    AddingShiftComponent,
+    AddShiftComponent,
+    EditShiftComponent
   ],
   imports: [
     BrowserModule,

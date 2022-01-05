@@ -1,4 +1,7 @@
-<div id="tableDiv">
+<div>
+    <button style="background-color: #BDD5EA;" [routerLink]="['/add-shift']">Add shift</button>
+</div>
+<div>
     <table style="border: 1px solid black;width: 100%;">
         <thead style="background-color: #d3955f;">
             <tr>
@@ -12,6 +15,9 @@
                 <td style="border: 1px solid black;"><b>{{shift.name}}</b></td>
                 <td style="border: 1px solid black;"><b>{{shift.startTime | date:'HH:mm'}}</b></td>
                 <td style="border: 1px solid black;"><b>{{shift.endTime | date:'HH:mm'}}</b></td>
+                <td [routerLink]="['/edit-shift', shift.id]" style="border: 1px solid black;"><b>Edit</b></td>
+                <td *ngIf="shifts.length !== 1" (click)="removeShift(shift.id)" style="border: 1px solid black;"><b>Remove</b></td>
+                <td *ngIf="shifts.length === 1" style="border: 1px solid black;"><b>-</b></td>
             </tr>
         </tbody>
     </table>

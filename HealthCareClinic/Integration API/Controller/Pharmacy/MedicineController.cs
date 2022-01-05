@@ -1,6 +1,7 @@
 ﻿using Integration;
 using Integration.Interface.Service;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 
 namespace Integration_API.Controller.Pharmacy
 {
@@ -20,7 +21,12 @@ namespace Integration_API.Controller.Pharmacy
         [HttpGet("addMedicine")]
         public IActionResult AddMedicine(string medicineName, int quantity)
         {
-            _medicineService.AddMedicine(medicineName, quantity);
+            var client = new RestClient("http://localhost:52844");
+            var request = new RestRequest("api/medicine/add");
+            request.AddQueryParameter("medicineName", medicineName);
+            request.AddQueryParameter("quantity", quantity.ToString());
+            IRestResponse response = client.Post(request);
+
             return Ok("successfully sent");
         }
     }

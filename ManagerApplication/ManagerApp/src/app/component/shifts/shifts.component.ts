@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShiftsService } from '../services/shifts.service';
+import { ShiftsService } from '../../services/shifts.service';
 
 @Component({
   selector: 'app-shifts',
@@ -18,4 +18,13 @@ export class ShiftsComponent implements OnInit {
     })
   }
 
+  public removeShift(shiftId:number){
+    for(let i = 0; i < this.shifts.length; ++i){
+      if (this.shifts[i].id === shiftId) {
+          this.shiftsService.removeShift(this.shifts[i]).subscribe(() =>  {});
+          this.shifts.splice(i,1);
+          break;
+      }
+    } 
+  }
 }
