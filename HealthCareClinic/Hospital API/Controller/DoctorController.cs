@@ -1,5 +1,6 @@
 ﻿using Hospital.Medical_records.Service;
 using Hospital.Shared_model.Model;
+using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Http;
@@ -16,10 +17,12 @@ namespace Hospital_API.Controller
     public class DoctorController : ControllerBase
     {
         private readonly IDoctorService doctorService;
+        private readonly IAppointmentService appointmentService;
 
-        public DoctorController(IDoctorService _doctorService)
+        public DoctorController(IDoctorService _doctorService, IAppointmentService _appointmentService)
         {
             this.doctorService = _doctorService;
+            this.appointmentService = _appointmentService;
         }
 
 
@@ -32,6 +35,18 @@ namespace Hospital_API.Controller
             return Ok(doctorsDto);
         }
 
+
+        [HttpGet("getNumOfAppointments/{id?}/{month?}/{year?}")]
+        public IActionResult GetNumOfAppointments(int id, int month,int year)
+        {
+            return Ok(appointmentService.GetNumOfAppointments(id, month, year));
+        }
+
+        [HttpGet("getNumOfPatients/{id?}/{month?}/{year?}")]
+        public IActionResult GetNumOfPatients(int id, int month, int year)
+        {
+            return Ok(appointmentService.GetNumOfPatients(id, month, year));
+        }
         [HttpPost("addShiftToDoctor")]
         public IActionResult AddShiftToDoctor(DoctorDTO doctorDTO) 
         {

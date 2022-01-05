@@ -30,6 +30,21 @@ namespace HospitalIntegrationTests.Graphical_editor
             Assert.True(numberOfCallShifts > 0);
         }
 
+        [Fact]
+        public void Get_on_call_shift_by_month()
+        {
+          var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
+            var _context = new HospitalDbContext(optionsBuilder.Options);
+            OnCallShiftRepository onCallShiftRepository = new OnCallShiftRepository(_context);
+            OnCallShiftService onCallShiftService = new OnCallShiftService(onCallShiftRepository);
+          
+          int numberOfCallShifts = onCallShiftService.GetNumOfOnCallShift(1,2,2022);
+
+            Assert.True(1 <= numberOfCallShifts);
+        }
 
         [Fact]
         public void Change_on_call_shift()
@@ -48,6 +63,7 @@ namespace HospitalIntegrationTests.Graphical_editor
             onCallShiftService.ChangeById(shift);
 
             Assert.True(shift.Date != shift2.Date);
+
         }
 
 

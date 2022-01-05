@@ -27,7 +27,9 @@ import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-va
 import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
+
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -58,6 +60,7 @@ const routes: Routes = [
   { path: 'create-tender', component: CreateTenderComponent },
   { path: 'doctors', component: DoctorsComponent },
   { path: 'on-call-shifts/:ido', component: OnCallShiftComponent},
+  { path: 'workload/:ido', component: WorkloadComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'new-on-call-shift/:ide', component: NewOnCallShiftComponent },
   { path: 'doctor-vacations/:iddv', component: DoctorVacationsComponent},
