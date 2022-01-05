@@ -14,12 +14,9 @@ namespace Hospital_API.Adapter
         {
             Tender tender = new Tender();
             DateRange dateRange = new DateRange();
-            tender.TenderResponseDescription = dto.Description;
-            tender.IsWinningBidChosen = dto.IsWinningBidChosen;
-            tender.Medicines = dto.Medicines;
-            tender.TotalPrice = new Price();
+            tender.Description = dto.Description;
+            tender.TenderItems = dto.TenderItems;
             tender.DateRange = dateRange;
-            tender.TotalPrice.Amount = dto.Price;
             tender.DateRange.Start = StringToDate(dto.StartDate);
             tender.DateRange.End = StringToDate(dto.EndDate);
             return tender;
@@ -29,17 +26,15 @@ namespace Hospital_API.Adapter
         {
             TenderDTO dto = new TenderDTO();
             dto.Id = tender.Id;
-            dto.Description = tender.TenderResponseDescription;
-            dto.IsWinningBidChosen = tender.IsWinningBidChosen;
-            dto.Medicines = tender.Medicines;
-            dto.Price = tender.TotalPrice.Amount;
+            dto.Description = tender.Description;
+            dto.TenderItems = tender.TenderItems;
             var formatSpecifier = "o";
             var culture = CultureInfo.GetCultureInfo("en-US");
             dto.StartDate = tender.DateRange.Start.ToString(formatSpecifier, culture);
             dto.EndDate = tender.DateRange.End.ToString(formatSpecifier, culture);
             dto.IsOpen = true;
             DateTime currentDate = DateTime.Now;
-            if(tender.DateRange.Start > currentDate || tender.DateRange.End < currentDate || tender.IsWinningBidChosen == true)
+            //if(tender.DateRange.Start > currentDate || tender.DateRange.End < currentDate || tender.IsWinningBidChosen == true)
             {
                 dto.IsOpen = false;
             }

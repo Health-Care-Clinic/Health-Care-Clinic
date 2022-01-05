@@ -16,45 +16,26 @@ namespace Pharmacy_API.Controllers.Tendering
     public class TenderController: ControllerBase
     {
         private readonly ITenderService _tenderService;
-       
-        public TenderController(ITenderService tenderService)
+        private readonly ITenderResponseService _tenderResponseService;
+
+        public TenderController(ITenderService tenderService, ITenderResponseService tenderResponseService)
         {
             _tenderService = tenderService;
-          
+            _tenderResponseService = tenderResponseService;
+
+
         }
 
         [HttpGet]
         public IActionResult GetAllTenders()
         {
-            List<Tender> tenders = new List<Tender>();
-            foreach (var tender in (List<Tender>)_tenderService.GetAll())
-            {
-                if (tender.TenderResponseDescription == null)
-                {
-                    tenders.Add(tender);
-                }
-            }
-
-            //List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO(tenders);
-
-            return Ok(tenders);
+            return Ok((List<Tender>)_tenderService.GetAll());
         }
 
         [HttpGet("responses")]
         public IActionResult GetAllResponses()
         {
-            List<Tender> responses = new List<Tender>();
-            foreach (var tender in (List<Tender>)_tenderService.GetAll())
-            {
-                if (tender.TenderResponseDescription != null)
-                {
-                    responses.Add(tender);
-                }
-            }
-
-            //List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO(responses);
-
-            return Ok(responses);
+            return Ok((List<Tender>)_tenderResponseService.GetAll());
         }
 
         [HttpPost]
@@ -79,7 +60,7 @@ namespace Pharmacy_API.Controllers.Tendering
                                         routingKey: "tenderResponse",
                                         basicProperties: null,
                                         body: body);
-                Console.WriteLine(" [x] Sent \n\tDescription: {0}", tenderResponse.TenderResponseDescription);
+                Console.WriteLine(" [x] Sent \n\tDescription: {0}", tenderResponse.Description);
                 _tenderService.Add(tenderResponse);
             }
             return Ok("success");

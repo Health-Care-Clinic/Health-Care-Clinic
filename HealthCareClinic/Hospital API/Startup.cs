@@ -71,12 +71,12 @@ namespace Hospital_API
 
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IPatientRepository, PatientRepository>();
-
             services.AddScoped<IAllergenService, AllergenService>();
             services.AddScoped<IAllergenRepository, AllergenRepository>();
             //DUPLO ALERGENE
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
+
             //DUPLO DOKTORE
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<ITransferRepository, TransferRepository>();
@@ -98,6 +98,9 @@ namespace Hospital_API
 
             services.AddScoped<ITenderService, TenderService>();
             services.AddScoped<ITenderRepository, TenderRepository>();
+
+            services.AddScoped<ITenderResponseService, TenderResponseService>();
+            services.AddScoped<ITenderResponseRepository, TenderResponseRepository>();
 
             services.AddScoped<IMedicineService, MedicineService>();
             services.AddScoped<IMedicineRepository, MedicineRepository>();

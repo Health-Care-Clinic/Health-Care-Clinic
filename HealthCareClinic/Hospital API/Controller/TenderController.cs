@@ -19,25 +19,18 @@ namespace Hospital_API.Controller
     public class TenderController : ControllerBase
     {
         private readonly ITenderService _tenderService;
+        private readonly ITenderResponseService _tenderResponseService;
 
-        public TenderController(ITenderService tenderService)
+        public TenderController(ITenderService tenderService, ITenderResponseService tenderResponseService)
         {
             _tenderService = tenderService;
+            _tenderResponseService = tenderResponseService;
         }
 
         [HttpGet]
         public IActionResult GetAllTenders()
         {
-            List<Tender> tenders = new List<Tender>();
-            foreach (var tender in (List<Tender>)_tenderService.GetAll())
-            {
-                if(tender.TenderResponseDescription == null)
-                {
-                    tenders.Add(tender);
-                }
-            }
-
-            List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO(tenders);
+            List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO((List<Tender>)_tenderService.GetAll());
 
             return Ok(tendersDTO);
         }
@@ -45,18 +38,7 @@ namespace Hospital_API.Controller
         [HttpGet("responses")]
         public IActionResult GetAllResponses()
         {
-            List<Tender> responses = new List<Tender>();
-            foreach (var tender in (List<Tender>)_tenderService.GetAll())
-            {
-                if (tender.TenderResponseDescription != null)
-                {
-                    responses.Add(tender);
-                }
-            }
-
-            List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO(responses);
-
-            return Ok(tendersDTO);
+            return Ok(_tenderResponseService.GetAll());
         }
 
         [HttpPost]
@@ -80,9 +62,11 @@ namespace Hospital_API.Controller
                                         routingKey: "tender",
                                         basicProperties: null,
                                         body: body);
+                /*
                 Console.WriteLine(" [x] Sent \n\tPrice: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.TotalPrice.Amount, tender.DateRange.Start.ToShortDateString(),
                     tender.DateRange.End.ToShortDateString(), tender.TenderResponseDescription);
                 _tenderService.Add(tender);
+                */
             }
             return Ok("success");
         }

@@ -19,6 +19,7 @@ namespace Pharmacy
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<FeedbackReply> FeedbackReplies { get; set; }
         public DbSet<Tender> Tenders { get; set; }
+        public DbSet<TenderResponse> TenderResponses { get; set; }
 
         public PharmacyDbContext(DbContextOptions<PharmacyDbContext> options) : base(options) { }
 
@@ -31,12 +32,21 @@ namespace Pharmacy
             );
 
             modelBuilder.Entity<Tender>()
-              .Property(p => p.Id)
-              .ValueGeneratedOnAdd();
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
             modelBuilder.Entity<Tender>()
                 .OwnsOne(p => p.DateRange).WithOwner();
             modelBuilder.Entity<Tender>()
+                .OwnsMany(p => p.TenderItems);
+
+
+            modelBuilder.Entity<TenderResponse>()
+               .Property(p => p.Id)
+               .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TenderResponse>()
                 .OwnsOne(p => p.TotalPrice).WithOwner();
+            modelBuilder.Entity<TenderResponse>()
+                .OwnsMany(p => p.TenderItems);
 
             //List<Medicine> medicinesToOrder = new List<Medicine>();
             //medicinesToOrder.Add(new Medicine { Id = 1, Name = "Brufen", Quantity = 10, Manufacturer = "Bayer", Usage = "Pain relief", Weight = 400, SideEffects = "Rash, Stomach pain", Reactions = "Headache", CompatibileMedicine = "Aspirin", Price = 4.50 });

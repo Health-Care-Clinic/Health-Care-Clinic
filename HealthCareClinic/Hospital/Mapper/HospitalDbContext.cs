@@ -49,6 +49,7 @@ namespace Hospital.Mapper
         public DbSet<Transfer> Transfer { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Tender> Tenders { get; set; }
+        public DbSet<TenderResponse> TenderResponses { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         // only for testing purposes
@@ -61,9 +62,16 @@ namespace Hospital.Mapper
             modelBuilder.Entity<Tender>()
                 .OwnsOne(p => p.DateRange);
             modelBuilder.Entity<Tender>()
+                .OwnsMany(p => p.TenderItems);
+
+
+            modelBuilder.Entity<TenderResponse>()
+               .Property(p => p.Id)
+               .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TenderResponse>()
                 .OwnsOne(p => p.TotalPrice);
-            modelBuilder.Entity<Tender>()
-                .OwnsMany(p => p.Medicines);
+            modelBuilder.Entity<TenderResponse>()
+                .OwnsMany(p => p.TenderItems);
 
             modelBuilder.Entity<OnCallShift>().HasData(
                new OnCallShift { Id = 1, DoctorId = 1, Date = new DateTime(2022, 02, 02, 14, 00, 00)},

@@ -57,6 +57,7 @@ namespace Pharmacy_API
             services.AddScoped<ITenderRepository, TenderRepository>();
             services.AddScoped<ITenderService, TenderService>();
 
+
             Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
             fileCompressionThread.Start();
         }

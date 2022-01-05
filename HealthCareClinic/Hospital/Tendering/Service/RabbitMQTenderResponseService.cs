@@ -44,7 +44,7 @@ namespace Hospital.Tendering.Service
                 Tender tenderResponse;
                 tenderResponse = JsonConvert.DeserializeObject<Tender>(jsonMessage);
 
-                Console.WriteLine(" [x] Received \n\tDescription: {0}", tenderResponse.TenderResponseDescription);
+                Console.WriteLine(" [x] Received \n\tDescription: {0}", tenderResponse.Description);
                 using (var scope = Services.CreateScope())
                 {
                     var tenderRepository =

@@ -10,12 +10,10 @@ namespace Pharmacy.Interfaces.Service
     public class TenderService : ITenderService
     {
 
-        private readonly IMedicineService _medicineService;
         private readonly ITenderRepository _tenderRepository;
 
-        public TenderService(IMedicineService medicineService, ITenderRepository tenderRepository)
+        public TenderService(ITenderRepository tenderRepository)
         {
-            _medicineService = medicineService;
             _tenderRepository = tenderRepository;
         }
         public void Add(Tender entity)
@@ -29,6 +27,11 @@ namespace Pharmacy.Interfaces.Service
             return _tenderRepository.GetAll();
         }
 
+        public Tender GetDataForTender(Tender tender)
+        {
+            throw new NotImplementedException();
+        }
+
         public Tender GetOneById(int id)
         {
             throw new NotImplementedException();
@@ -38,7 +41,7 @@ namespace Pharmacy.Interfaces.Service
         {
             throw new NotImplementedException();
         }
-
+        /*
         public Tender GetDataForTender(Tender tenderRequest)
         {
             List<Medicine> medicineRequested = tenderRequest.Medicines;
@@ -112,6 +115,6 @@ namespace Pharmacy.Interfaces.Service
             {
                 availableMedicines.Add(medicines[0]);
             }
-        }
+        }*/
     }
 }

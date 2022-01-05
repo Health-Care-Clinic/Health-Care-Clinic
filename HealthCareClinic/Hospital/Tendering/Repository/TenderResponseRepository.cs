@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Hospital.Tendering.Repository
 {
-    public class TenderRepository : Repository<Tender>, ITenderRepository
+    public class TenderResponseRepository : Repository<TenderResponse>, ITenderResponseRepository
     {
-        public TenderRepository(HospitalDbContext context) : base(context)
+        public TenderResponseRepository(HospitalDbContext context) : base(context)
         {
         }
 
