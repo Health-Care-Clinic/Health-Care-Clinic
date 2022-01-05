@@ -38,5 +38,11 @@ namespace Hospital.Medical_records.Repository
 
             return doctorsWithSpecialty.ToList();
         }
+
+        public void ChangeWorkDayShift(Doctor entity)
+        {
+            Context.Set<Doctor>().Find(entity.Id).WorkShiftId = entity.WorkShiftId;
+            Save();
+        }
     }
 }

@@ -68,6 +68,13 @@ namespace Hospital.Shared_model.Service
             return true;
         }
 
+        public void ChangeById(OnCallShift onCallShift)
+        {
+
+            _onCallShiftRepository.RemoveById(onCallShift.Id);
+            _onCallShiftRepository.Add(onCallShift);
+        }
+
         private List<DateTime> returnDates(int month)
         {
             List<DateTime> dates;

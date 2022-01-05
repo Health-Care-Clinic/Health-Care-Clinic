@@ -10,5 +10,6 @@ namespace Hospital.Medical_records.Repository.Interface
         public List<Doctor> GetAvailableDoctors();
         public List<string> GetAllSpecialties();
         public List<Doctor> GetDoctorsBySpecialty(string specialty);
+        public void ChangeWorkDayShift(Doctor entity);
     }
 }

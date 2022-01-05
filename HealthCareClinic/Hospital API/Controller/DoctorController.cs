@@ -35,6 +35,7 @@ namespace Hospital_API.Controller
             return Ok(doctorsDto);
         }
 
+
         [HttpGet("getNumOfAppointments/{id?}/{month?}/{year?}")]
         public IActionResult GetNumOfAppointments(int id, int month,int year)
         {
@@ -45,6 +46,13 @@ namespace Hospital_API.Controller
         public IActionResult GetNumOfPatients(int id, int month, int year)
         {
             return Ok(appointmentService.GetNumOfPatients(id, month, year));
+        }
+        [HttpPost("addShiftToDoctor")]
+        public IActionResult AddShiftToDoctor(DoctorDTO doctorDTO) 
+        {
+            Doctor doctor = DoctorAdapter.DoctorDTOToDoctor(doctorDTO);
+            doctorService.addShiftToDoctor(doctor);
+            return Ok();
         }
     }
 }

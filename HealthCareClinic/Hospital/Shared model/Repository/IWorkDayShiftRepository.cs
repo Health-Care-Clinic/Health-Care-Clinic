@@ -8,6 +8,6 @@ namespace Hospital.Shared_model.Repository
 {
     public interface IWorkDayShiftRepository : IRepository<WorkDayShift>
     {
-
+        public void RemoveById(int id);
     }
 }

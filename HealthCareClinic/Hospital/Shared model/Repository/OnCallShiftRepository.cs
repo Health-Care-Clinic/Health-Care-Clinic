@@ -22,5 +22,11 @@ namespace Hospital.Shared_model.Repository
         {
             return Context.Set<OnCallShift>().Where(c => c.DoctorId == id).ToList();
         }
+
+        public void RemoveById(int id)
+        {
+            Context.Set<OnCallShift>().Remove(Context.Set<OnCallShift>().Find(id));
+            Context.SaveChanges();
+        }
     }
 }

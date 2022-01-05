@@ -29,6 +29,14 @@ namespace Hospital_API.Controller
             return Ok(allOnCallShifts);
         }
 
+        [HttpPut("changeOnCallShift")]
+        public IActionResult ChangeOnCallShift(OnCallShiftDTO onCallShiftDTO)
+        {
+            OnCallShift onCallShift = OnCallShiftAdapter.OnCallShiftDTOToOnCallShift(onCallShiftDTO);
+            onCallShiftService.ChangeById(onCallShift);
+            return Ok();
+        }
+
         [HttpGet("getFreeDatesForOnCallShift/{month?}")]
         public IActionResult GetFreeDaysForOnCallShifts(int month) 
         {
