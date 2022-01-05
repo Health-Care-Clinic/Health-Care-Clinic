@@ -11,5 +11,6 @@ namespace Hospital.Shared_model.Service
         List<OnCallShift> GetOnCallShiftByDoctorId(int doctorId);
         public List<DateTime> GetFreeDates(int month);
         public int returnKey();
+        public void ChangeById(OnCallShift onCallShift);
     }
 }
