@@ -1,0 +1,6 @@
+rules:
+- paths: # required - pathnames passed to git diff
+  - Pharmacy API/Pharmacy API/
+  - Pharmacy API/PharmacyIntegrationTests/
+  - Pharmacy API/PharmacyTests/
+  - Pharmacy API/Pharmacy/
