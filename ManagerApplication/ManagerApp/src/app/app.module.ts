@@ -68,6 +68,7 @@ import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vac
 import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 
 const MaterialComponents = [
@@ -126,6 +127,8 @@ const MaterialComponents = [
     DoctorVacationsComponent,
     ShiftsComponent,
     ScheduleDoctorVacationComponent,
+    AddShiftComponent,
+    WorkloadComponent,
     AddingShiftComponent,
     AddShiftComponent,
     EditShiftComponent

@@ -11,12 +11,14 @@ export class OnCallShiftService {
   private getAllDoctorsOnCallShiftsUrl: string;
   private getFreeDatesForOnCallShift: string;
   private addNewOnCallShift: string;
+  private getNumOfOnCallShiftUrl: string;
   private changeOnCallShiftUrl: string;
 
   constructor(private _http: HttpClient) { 
     this.getAllDoctorsOnCallShiftsUrl = '/api/onCallShift/getOnCallShiftByDoctorId'
     this.getFreeDatesForOnCallShift = '/api/onCallShift/getFreeDatesForOnCallShift'
     this.addNewOnCallShift = '/api/onCallShift/addNewOnCallShift'
+    this.getNumOfOnCallShiftUrl = '/api/onCallShift/getNumOfOnCallShift'
     this.changeOnCallShiftUrl = '/api/onCallShift/changeOnCallShift'
   }
 
@@ -37,6 +39,12 @@ export class OnCallShiftService {
     headers.append('Content-Type', 'application/json');
     return this._http.post<OnCallShift>(this.addNewOnCallShift, onCallShift, {headers: headers});
   } 
+
+  public getNumOfOnCallShift(id:number,month:number,year:number): Observable<number> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<number>(this.getNumOfOnCallShiftUrl + "/"+ id + "/" + month + "/" + year, {headers: headers});
+  }
 
   public changeOnCallShift(onCallShift:OnCallShift): Observable<void> {
     let headers = new HttpHeaders();
