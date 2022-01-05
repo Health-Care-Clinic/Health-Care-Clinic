@@ -64,9 +64,7 @@ export class ScheduleDoctorVacationComponent implements OnInit {
     }
 
     this.startTime = startDate.valueAsDate;
-    this.startTime.setHours(0);
     this.endTime = endDate.valueAsDate;
-    this.endTime.setHours(23);
     this.description = descriptionInput.value;
 
     this.vacationService.getAllVacations().subscribe(ret => {
