@@ -82,6 +82,24 @@ namespace Hospital.Shared_model.Service
             return true;
         }
 
+        private bool CheckIfShiftDoesntOverlapWithOtherShiftsEdit(WorkDayShift workDayShift)
+        {
+            List<WorkDayShift> allWorkDayShifts = GetAll().ToList();
+
+            foreach (WorkDayShift wds in allWorkDayShifts)
+            {
+                if (wds.Id == workDayShift.Id)
+                    continue;
+
+                if (!(workDayShift.StartTime >= wds.EndTime || workDayShift.EndTime <= wds.StartTime))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public IEnumerable<WorkDayShift> GetAll()
         {
             return _workDayShiftRepository.GetAll();
@@ -129,6 +147,23 @@ namespace Hospital.Shared_model.Service
                     _doctorRepository.ChangeWorkDayShift(d);
                 }
             }
+        }
+
+        public bool EditWorkDayShift(WorkDayShift workDayShift)
+        {
+            AdjustStartAndEndTime(workDayShift);
+            if (CheckIfStartTimeIsBeforeEndTime(workDayShift) && CheckIfShiftDoesntOverlapWithOnCallShift(workDayShift) && CheckIfShiftDoesntOverlapWithOtherShiftsEdit(workDayShift))
+            {
+                Edit(workDayShift);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public void Edit(WorkDayShift workDayShift)
+        {
+            _workDayShiftRepository.Edit(workDayShift);
         }
     }
 }
