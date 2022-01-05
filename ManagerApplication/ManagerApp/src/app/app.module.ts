@@ -62,6 +62,7 @@ import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
 import { ShiftsComponent } from './shifts/shifts.component';
+import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vacation/schedule-doctor-vacation.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -114,7 +115,8 @@ const MaterialComponents = [
     DoctorsComponent,
     OnCallShiftComponent,
     DoctorVacationsComponent,
-    ShiftsComponent
+    ShiftsComponent,
+    ScheduleDoctorVacationComponent
   ],
   imports: [
     BrowserModule,

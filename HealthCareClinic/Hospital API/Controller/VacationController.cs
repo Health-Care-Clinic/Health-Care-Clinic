@@ -20,6 +20,15 @@ namespace Hospital_API.Controller
             this.vacationService = vacationService;
         }
 
+        [HttpGet("getAllVacations")]
+        public IActionResult GetAllVacations()
+        {
+            List<VacationDTO> allVacations = new List<VacationDTO>();
+            vacationService.GetAll().ToList().ForEach(Vacation
+                => allVacations.Add(VacationAdapter.VacationToVacationDTO(Vacation)));
+            return Ok(allVacations);
+        }
+
         [HttpGet("getVacationsByDoctorId/{id?}")]
         public IActionResult GetVacationsByDoctorId(int id)
         {
@@ -79,6 +88,15 @@ namespace Hospital_API.Controller
             vacationService.RemoveById(vacation.Id);
             return Ok();
         }
+
+        [HttpPost("getVacationAvailability")]
+        public IActionResult GetVacationAvailability(VacationDTO vacationDTO)
+        {
+            Vacation vacation = VacationAdapter.VacationDTOToVacation(vacationDTO);
+            bool available = vacationService.GetVacationAvailability(vacation.DoctorId, vacation.StartTime, vacation.EndTime);
+            return Ok(available);
+        }
+
 
     }
 }
