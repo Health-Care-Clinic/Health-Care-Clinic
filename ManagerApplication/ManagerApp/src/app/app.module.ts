@@ -64,11 +64,11 @@ import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
 import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
-import { ShiftsComponent } from './shifts/shifts.component';
 import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
 import { WorkloadComponent } from './component/workload/workload.component';
+import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -128,7 +128,8 @@ const MaterialComponents = [
     AddShiftComponent,
     WorkloadComponent,
     AddingShiftComponent,
-    AddShiftComponent
+    AddShiftComponent,
+    EditShiftComponent
   ],
   imports: [
     BrowserModule,

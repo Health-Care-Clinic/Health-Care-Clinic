@@ -24,11 +24,12 @@ import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
 import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
-import { ShiftsComponent } from './shifts/shifts.component';
 import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
 import { WorkloadComponent } from './component/workload/workload.component';
+import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
+
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -64,7 +65,8 @@ const routes: Routes = [
   { path: 'new-on-call-shift/:ide', component: NewOnCallShiftComponent },
   { path: 'doctor-vacations/:iddv', component: DoctorVacationsComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
-  { path: 'add-new-shift/:ida', component: AddingShiftComponent }
+  { path: 'add-new-shift/:ida', component: AddingShiftComponent },
+  { path: 'edit-shift/:ids', component: EditShiftComponent }
 ];
 
 @NgModule({

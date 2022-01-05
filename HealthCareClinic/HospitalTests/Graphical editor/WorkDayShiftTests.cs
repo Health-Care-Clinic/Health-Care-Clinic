@@ -140,5 +140,41 @@ namespace HospitalUnitTests.Graphical_editor
 
             return retVal;
         }
+
+        [Theory]
+        [MemberData(nameof(DataForEdit))]
+        public void Edit_work_day_shift(DateTime shiftStartTime, DateTime shiftEndTime, bool edited)
+        {
+            var options = CreateStubRepository();
+
+            using (var context = new HospitalDbContext(options))
+            {
+                WorkDayShiftRepository workDayShiftRepository = new WorkDayShiftRepository(context);
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                WorkDayShiftService workDayShiftService = new WorkDayShiftService(workDayShiftRepository, doctorRepository);
+
+                bool shiftEdited = workDayShiftService.EditWorkDayShift(new WorkDayShift { Id = 1, Name = "Third", StartTime = shiftStartTime, EndTime = shiftEndTime });
+                ClearStubRepository(context);
+
+                Assert.Equal(shiftEdited, edited);
+            }
+        }
+
+        public static IEnumerable<object[]> DataForEdit()
+        {
+            var retVal = new List<object[]>();
+
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 9, 0, 0), new DateTime(2022, 2, 22, 11, 0, 0), true });
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 7, 0, 0), new DateTime(2022, 2, 22, 13, 0, 0), true });
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 10, 0, 0), new DateTime(2022, 2, 22, 12, 0, 0), true });
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 9, 30, 0), new DateTime(2022, 2, 22, 10, 30, 0), true });
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 6, 30, 0), new DateTime(2022, 2, 22, 13, 0, 0), false });
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 12, 0, 0), new DateTime(2022, 2, 22, 14, 0, 0), false });
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 14, 0, 0), new DateTime(2022, 2, 22, 15, 0, 0), false });
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 18, 0, 0), new DateTime(2022, 2, 22, 20, 0, 0), false });
+            retVal.Add(new object[] { new DateTime(2022, 2, 22, 12, 0, 0), new DateTime(2022, 2, 22, 11, 0, 0), false });
+
+            return retVal;
+        }
     }
 }
