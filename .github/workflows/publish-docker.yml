@@ -1,7 +1,7 @@
 name: Publish docker images
 on:
   push:
-    branches: [develop]
+    branches: [feat(d)/deploy-to-server ]
 
 jobs:
   build:
