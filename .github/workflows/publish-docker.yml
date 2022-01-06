@@ -74,6 +74,6 @@ jobs:
          cd Health-Care-Clinic
          git checkout master
          git pull origin "feat(d)/docker-secrets"
-         docker stack deploy --compose-file="HealthCareClinic/Hospital API/docker-compose.yml"
-         docker stack deploy --compose-file="HealthCareClinic/Integration API/docker-compose.yml"
-         docker stack deploy --compose-file="Pharmacy API/Pharmacy API/docker-compose.yml"
+         docker stack deploy --compose-file="HealthCareClinic/Hospital API/docker-compose.yml" hospital-api
+         docker stack deploy --compose-file="HealthCareClinic/Integration API/docker-compose.yml" integration-api
+         docker stack deploy --compose-file="Pharmacy API/Pharmacy API/docker-compose.yml" pharmacy-api
