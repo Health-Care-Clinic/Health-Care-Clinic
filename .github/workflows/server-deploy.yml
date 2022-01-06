@@ -8,7 +8,7 @@ jobs:
    name: Deploy
    runs-on: ubuntu-latest
    steps:
-    - uses: .github/workflows/publish-docker
+    - uses: /.github/workflows/publish-docker.yml
     - uses: appleboy/ssh-action@master
       with:
        host: 79.101.34.218 
