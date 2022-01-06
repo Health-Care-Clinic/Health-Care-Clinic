@@ -47,7 +47,7 @@ jobs:
         name: Build and push patient-gateway image
         uses: docker/build-push-action@v2
         with:
-          context: './PatientApplication/PatientApp'
+          context: './PatientApplication/PatientApp/'
           file: ./stacks/build/patient-gateway/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/patient-gateway:latest
@@ -55,7 +55,7 @@ jobs:
         name: Build and push manager-gateway image
         uses: docker/build-push-action@v2
         with:
-          context: './ManagerApplication/ManagerApp'
+          context: './ManagerApplication/ManagerApp/'
           file: ./stacks/build/manager-gateway/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/manager-gateway:latest

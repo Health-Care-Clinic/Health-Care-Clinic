@@ -1,7 +1,7 @@
 
 FROM node:15.14.0-alpine as build 
 WORKDIR /app
-COPY ManagerApplication/ManagerApp/. .
+COPY . .
 RUN npm install --force
 RUN npm run build --prod
 

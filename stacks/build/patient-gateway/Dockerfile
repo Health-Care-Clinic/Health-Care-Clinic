@@ -1,7 +1,7 @@
 
 FROM node:14.17.1-alpine as build 
 WORKDIR /app
-COPY PatientApplication/PatientApp/. .
+COPY . .
 RUN npm install --force
 RUN npm run build --prod
 
