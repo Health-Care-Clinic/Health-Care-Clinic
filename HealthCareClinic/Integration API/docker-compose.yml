@@ -38,9 +38,12 @@ services:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: integrationDb
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: password
+      DATABASE_USER: /run/secrets/db-user
+      DATABASE_PASSWORD: /run/secrets/db-password
       RABBITMQ_HOST: rabbitmq
+    secrets:
+      - db-password
+      - db-user
     networks:
       - hospitalapi_application
       - database
@@ -59,11 +62,12 @@ services:
         source: ./database.sql 
         target: /docker-entrypoint-initdb.d/init.sql
     environment:
-      POSTGRES_USER: "postgres"
+      POSTGRES_USER: /run/secrets/db-user
       POSTGRES_PASSWORD: /run/secrets/db-password
       POSTGRES_DB: "integrationDb"
     secrets:
       - db-password
+      - db-user
     networks:
       - database
 
@@ -91,3 +95,5 @@ networks:
 secrets:
   db-password:
    external: database_password
+  db-user:
+   external: database_user
