@@ -121,15 +121,13 @@ namespace Hospital.Shared_model.Service
 
             foreach (Vacation v in allVacations)
             {
-                if (!vacation.Id.Equals(v.Id))
-                {
-                    if ((vacation.StartTime.CompareTo(v.StartTime) > 0 && vacation.StartTime.CompareTo(v.EndTime) < 0)
-                    || (vacation.EndTime.CompareTo(v.StartTime) > 0 && vacation.EndTime.CompareTo(v.EndTime) < 0)
-                    || (vacation.StartTime.CompareTo(v.StartTime) < 0 && vacation.EndTime.CompareTo(v.EndTime) > 0))
-                    {
-                        return false;
-                    }
-                }
+				if (!vacation.Id.Equals(v.Id) && 
+					((vacation.StartTime.CompareTo(v.StartTime) > 0 && vacation.StartTime.CompareTo(v.EndTime) < 0)
+					|| (vacation.EndTime.CompareTo(v.StartTime) > 0 && vacation.EndTime.CompareTo(v.EndTime) < 0)
+					|| (vacation.StartTime.CompareTo(v.StartTime) < 0 && vacation.EndTime.CompareTo(v.EndTime) > 0)))
+				{
+					return false;
+				}
             }
 
             return true;
