@@ -46,12 +46,15 @@ services:
     networks:
       - hospital_application
       - pharmacy-database
+      - integrationapi_rabbit
 
 volumes:
   database-data:
 
 networks:
   hospital_application:
+    external: true
+  integrationapi_rabbit:
     external: true
   pharmacy-database:
     driver: bridge
