@@ -8,8 +8,8 @@ jobs:
    name: Deploy
    runs-on: ubuntu-latest
    steps:
-    - name: Testing server ssh connection
-      uses: appleboy/ssh-action@master
+    - uses: appleboy/ssh-action@master
+    - uses: ./pusblish-docker
       with:
        host: 79.101.34.218 
        username: student
