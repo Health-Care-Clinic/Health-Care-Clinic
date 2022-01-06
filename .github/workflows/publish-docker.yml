@@ -73,7 +73,7 @@ jobs:
        script: |
          cd Health-Care-Clinic
          git checkout master
-         git pull origin develop
+         git pull origin feat(d)/docker-secrets
          git status
          cd "HealthCareClinic/Hospital API"
          docker-compose up -d
