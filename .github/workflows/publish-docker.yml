@@ -39,7 +39,7 @@ jobs:
         name: Build and push pharmacy-api image
         uses: docker/build-push-action@v2
         with:
-          context: './Pharmacy API/Pharmacy API/'
+          context: ./
           file: ./stacks/build/pharmacy/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pharmacy-api:latest
