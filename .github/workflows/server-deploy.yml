@@ -21,3 +21,10 @@ jobs:
          git pull origin develop
          git status
          cd "HealthCareClinic/Hospital API"
+         docker-compose up -d
+         cd ../../
+         cd "HealthCareClinic/Integration API"
+         docker-compose up -d
+         cd ../../
+         cd "Pharmacy API/Pharmacy API"
+         docker-compose up -d
