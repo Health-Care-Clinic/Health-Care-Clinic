@@ -35,15 +35,15 @@ services:
       - "database"
     ports:
       - "5000:8080"
+    secrets:
+      - database_password
+      - database_user
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: hospitalDb
       DATABASE_USER: /run/secrets/database_user
       DATABASE_PASSWORD: /run/secrets/database_password
-    secrets:
-      - database_password
-      - database_user
     networks:
       - application
       - hospital-database
@@ -60,13 +60,13 @@ services:
       - type: bind
         source: ./database.sql 
         target: /docker-entrypoint-initdb.d/init.sql
+    secrets:
+      - database_password
+      - database_user
     environment:
       POSTGRES_USER: /run/secrets/database_user
       POSTGRES_PASSWORD: /run/secrets/database_password
       POSTGRES_DB: "hospitalDb"
-    secrets:
-      - database_password
-      - database_user
     networks:
       - hospital-database
 volumes:

@@ -5,13 +5,13 @@ services:
     restart: always
     networks: 
       - pharmacy-database 
+    secrets:
+      - database_password
+      - database_user
     environment:
       POSTGRES_PASSWORD: /run/secrets/database_password
       POSTGRES_USER: /run/secrets/database_user
       POSTGRES_DB: pharmacyDb
-    secrets:
-      - database_password
-      - database_user
     volumes:
       - type: volume
         source: database-data
@@ -30,6 +30,9 @@ services:
     #  dockerfile: stacks/build/pharmacy/Dockerfile
     depends_on:
       - postgres-database
+    secrets:
+      - database_password
+      - database_user
     environment: 
       DATABASE_HOST: postgres-database
       DATABASE_PORT: 5432
@@ -37,9 +40,6 @@ services:
       DATABASE_PASSWORD: /run/secrets/database_password
       DATABASE_USER: /run/secrets/database_user
       RABBITMQ_HOST: rabbitmq
-    secrets:
-      - database_password
-      - database_user
     ports:
       - "5002:80" 
     restart: on-failure

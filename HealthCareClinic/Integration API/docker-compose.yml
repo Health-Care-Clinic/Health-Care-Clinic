@@ -34,6 +34,9 @@ services:
       - "rabbitmq3"
     ports:
       - "5001:8080"     
+    secrets:
+      - database_password
+      - database_user
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
@@ -41,9 +44,6 @@ services:
       DATABASE_USER: /run/secrets/database_user
       DATABASE_PASSWORD: /run/secrets/database_password
       RABBITMQ_HOST: rabbitmq
-    secrets:
-      - database_password
-      - database_user
     networks:
       - hospital_application
       - database
@@ -61,13 +61,13 @@ services:
       - type: bind
         source: ./database.sql 
         target: /docker-entrypoint-initdb.d/init.sql
+    secrets:
+      - database_password
+      - database_user
     environment:
       POSTGRES_USER: /run/secrets/database_user
       POSTGRES_PASSWORD: /run/secrets/database_password
       POSTGRES_DB: "integrationDb"
-    secrets:
-      - database_password
-      - database_user
     networks:
       - database
 
