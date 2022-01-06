@@ -13,11 +13,11 @@ services:
       - hospitalapi_application
 
   manager-front:
-    #image: nenadbecanovic/manager-gateway:latest
-    image: manager
-    build:
-      context: ../../
-      dockerfile: stacks/build/manager-gateway/Dockerfile
+    image: nenadbecanovic/manager-gateway:latest
+    # image: manager
+    # build:
+    #   context: ../../
+    #   dockerfile: stacks/build/manager-gateway/Dockerfile
     ports:
       - "4200:8080"
     networks: 
