@@ -77,4 +77,4 @@ jobs:
          git status
          docker stack deploy --compose-file="HealthCareClinic/Hospital API/docker-compose.yml" hospital-api
          docker stack deploy --compose-file="HealthCareClinic/Integration API/docker-compose.yml" integration-api
-         docker stack deploy --compose-file="Pharmacy API/Pharmacy API/docker-compose.yml" pharmacy-api
+         docker stack deploy --compose-file="Pharmacy API/docker-compose.yml" pharmacy-api
