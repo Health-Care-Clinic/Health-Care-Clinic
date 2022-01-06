@@ -13,22 +13,22 @@ services:
       - hospitalapi_application
 
   manager-front:
-    #image: nenadbecanovic/manager-gateway:latest
-    image: manager
-    build:
-      context: ../../
-      dockerfile: stacks/build/manager-gateway/Dockerfile
+    image: nenadbecanovic/manager-gateway:latest
+    #image: manager
+    #build:
+    #  context: ../../
+    #  dockerfile: stacks/build/manager-gateway/Dockerfile
     ports:
       - "4200:8080"
     networks: 
       - hospitalapi_application
 
   integration-api:
-    #image: nenadbecanovic/integration-api:latest
-    image: integrationapi
-    build:
-      context: ../
-      dockerfile: ../stacks/build/integration/Dockerfile
+    image: nenadbecanovic/integration-api:latest
+    #image: integrationapi
+    #build:
+    #  context: ../
+    #  dockerfile: ../stacks/build/integration/Dockerfile
     depends_on:
       - "database"
       - "rabbitmq3"

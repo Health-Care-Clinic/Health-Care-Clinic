@@ -13,11 +13,11 @@ services:
       - application
         
   patient-front:
-    #image: nenadbecanovic/patient-gateway:latest
-    image: patient
-    build:
-      context: ../../
-      dockerfile: stacks/build/patient-gateway/Dockerfile
+    image: nenadbecanovic/patient-gateway:latest
+    #image: patient
+    #build:
+    #  context: ../../
+    #  dockerfile: stacks/build/patient-gateway/Dockerfile
     depends_on:
       - "hospital-api"
     ports:
@@ -26,11 +26,11 @@ services:
       - application
 
   hospital-api:
-    #image: nenadbecanovic/hospital-api:latest
-    image: hospitalapi
-    build:
-      context: ../
-      dockerfile: ../stacks/build/hospital/Dockerfile
+    image: nenadbecanovic/hospital-api:latest
+    #image: hospitalapi
+    #build:
+    #  context: ../
+    #  dockerfile: ../stacks/build/hospital/Dockerfile
     depends_on:
       - "database"
     ports:

@@ -20,11 +20,11 @@ services:
       - "5434:5432"
 
   pharmacy:
-    #image: nenadbecanovic/pharmacy-api:latest
-    image: pharmacyapi
-    build:
-      context: ../
-      dockerfile: stacks/build/pharmacy/Dockerfile
+    image: nenadbecanovic/pharmacy-api:latest
+    #image: pharmacyapi
+    #build:
+    #  context: ../
+    #  dockerfile: stacks/build/pharmacy/Dockerfile
     depends_on:
       - postgres-database
     environment: 
