@@ -94,6 +94,6 @@ networks:
 
 secrets:
   db-password:
-   external: database_password
+   external: true
   db-user:
-   external: database_user
+   external: true
