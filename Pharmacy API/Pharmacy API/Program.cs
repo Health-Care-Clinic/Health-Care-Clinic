@@ -27,7 +27,7 @@ namespace Pharmacy_API
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                //    services.AddHostedService<RabbitMQTenderService>();
+                    services.AddHostedService<RabbitMQTenderService>();
                 });
     }
 }
