@@ -31,9 +31,11 @@ services:
       DATABASE_HOST: postgres-database
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: pharmacyDb
-      DATABASE_PASSWORD: password
+      DATABASE_PASSWORD: /run/secrets/db-password
       DATABASE_USER: postgres
       RABBITMQ_HOST: rabbitmq
+    secrets:
+      - db-password
     ports:
       - "5002:80" 
     restart: on-failure
@@ -52,3 +54,7 @@ networks:
     external: true
   pharmacy-database:
     driver: bridge
+
+secrets:
+  db-password:
+   external: database_password

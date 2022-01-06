@@ -1,7 +1,7 @@
 name: Publish docker images
 on:
   push:
-    branches: [master ]
+    branches: [feat(d)/docker-secrets ]
 
 jobs:
   build:
