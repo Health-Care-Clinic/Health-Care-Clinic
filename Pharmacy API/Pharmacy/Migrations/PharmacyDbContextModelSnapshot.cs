@@ -243,6 +243,14 @@ namespace Pharmacy.Migrations
                                 .HasColumnType("integer")
                                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                            b1.Property<DateTime>("End")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("DateRange_End");
+
+                            b1.Property<DateTime>("Start")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("DateRange_Start");
+
                             b1.HasKey("TenderId");
 
                             b1.ToTable("Tenders");
@@ -288,6 +296,10 @@ namespace Pharmacy.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("integer")
                                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<double>("Amount")
+                                .HasColumnType("double precision")
+                                .HasColumnName("TotalPrice_Amount");
 
                             b1.HasKey("TenderResponseId");
 

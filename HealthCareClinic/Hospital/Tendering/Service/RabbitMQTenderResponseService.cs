@@ -41,18 +41,18 @@ namespace Hospital.Tendering.Service
             {
                 byte[] body = ea.Body.ToArray();
                 var jsonMessage = Encoding.UTF8.GetString(body);
-                Tender tenderResponse;
-                tenderResponse = JsonConvert.DeserializeObject<Tender>(jsonMessage);
+                TenderResponse tenderResponse;
+                tenderResponse = JsonConvert.DeserializeObject<TenderResponse>(jsonMessage);
 
                 Console.WriteLine(" [x] Received \n\tDescription: {0}", tenderResponse.Description);
                 using (var scope = Services.CreateScope())
                 {
-                    var tenderRepository =
+                    var tenderResponseRepository =
                         scope.ServiceProvider
-                            .GetRequiredService<ITenderRepository>();
+                            .GetRequiredService<ITenderResponseRepository>();
 
-                    tenderRepository.Add(tenderResponse);
-                    tenderRepository.Save();
+                    tenderResponseRepository.Add(tenderResponse);
+                    tenderResponseRepository.Save();
                 }
             };
             channel.BasicConsume(queue: "tenderResponse",

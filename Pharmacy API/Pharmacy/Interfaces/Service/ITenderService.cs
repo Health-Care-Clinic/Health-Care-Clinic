@@ -4,6 +4,6 @@ namespace Pharmacy.Interfaces.Service
 {
     public interface ITenderService: IService<Tender>
     {
-        public Tender GetDataForTender(Tender tender);
+        public TenderResponse GetDataForTender(Tender tender);
     }
 }

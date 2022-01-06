@@ -62,11 +62,11 @@ namespace Hospital_API.Controller
                                         routingKey: "tender",
                                         basicProperties: null,
                                         body: body);
-                /*
-                Console.WriteLine(" [x] Sent \n\tPrice: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.TotalPrice.Amount, tender.DateRange.Start.ToShortDateString(),
-                    tender.DateRange.End.ToShortDateString(), tender.TenderResponseDescription);
+                
+                Console.WriteLine(" [x] Sent \n\tDate Range: {0} - {1}\n\tDescription: {2}", tender.DateRange.Start.ToShortDateString(),
+                    tender.DateRange.End.ToShortDateString(), tender.Description);
                 _tenderService.Add(tender);
-                */
+                
             }
             return Ok("success");
         }

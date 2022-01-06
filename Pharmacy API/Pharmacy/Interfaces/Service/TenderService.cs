@@ -27,7 +27,7 @@ namespace Pharmacy.Interfaces.Service
             return _tenderRepository.GetAll();
         }
 
-        public Tender GetDataForTender(Tender tender)
+        public TenderResponse GetDataForTender(Tender tender)
         {
             throw new NotImplementedException();
         }

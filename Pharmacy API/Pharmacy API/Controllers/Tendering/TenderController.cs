@@ -41,7 +41,7 @@ namespace Pharmacy_API.Controllers.Tendering
         [HttpPost]
         public IActionResult HospitalTenderRequest(Tender tender)
         {
-            Tender tenderResponse = _tenderService.GetDataForTender(tender);
+            TenderResponse tenderResponse = _tenderService.GetDataForTender(tender);
 
             var factory = new ConnectionFactory() { HostName = "localhost" };
 
@@ -61,7 +61,7 @@ namespace Pharmacy_API.Controllers.Tendering
                                         basicProperties: null,
                                         body: body);
                 Console.WriteLine(" [x] Sent \n\tDescription: {0}", tenderResponse.Description);
-                _tenderService.Add(tenderResponse);
+                _tenderResponseService.Add(tenderResponse);
             }
             return Ok("success");
         }

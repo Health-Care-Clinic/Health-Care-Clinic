@@ -45,7 +45,7 @@ namespace Pharmacy.Tendering.Service
                 var jsonMessage = Encoding.UTF8.GetString(body);
                 Tender tender;
                 tender = JsonConvert.DeserializeObject<Tender>(jsonMessage);
-                Console.WriteLine(" [x] Received \nId: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.Id, tender.DateRange.Start.ToShortDateString(),
+                Console.WriteLine(" [x] Received \n\tId: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.Id, tender.DateRange.Start.ToShortDateString(),
                                     tender.DateRange.End.ToShortDateString(), tender.Description);
 
                 using (var scope = Services.CreateScope())

@@ -17,6 +17,12 @@ namespace Hospital.Tendering.Model
         public String CompatibileMedicine { get; set; }
         public double Price { get; set; }
 
+        public Medicine(string name, int quantity)
+        {
+            Name = name;
+            Quantity = quantity;
+        }
+
         public Medicine(int id, string name, int quantity)
         {
             Id = id;

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
-    public partial class GraphicalEditorOnCallShiftMigration : Migration
+    public partial class AllMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -77,7 +77,7 @@ namespace Hospital.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    WorkShift = table.Column<int>(type: "integer", nullable: false),
+                    WorkShiftId = table.Column<int>(type: "integer", nullable: false),
                     Specialty = table.Column<string>(type: "text", nullable: true),
                     PrimaryRoom = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
@@ -150,6 +150,27 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Medicines",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Manufacturer = table.Column<string>(type: "text", nullable: true),
+                    Usage = table.Column<string>(type: "text", nullable: true),
+                    Weight = table.Column<int>(type: "integer", nullable: false),
+                    SideEffects = table.Column<string>(type: "text", nullable: true),
+                    Reactions = table.Column<string>(type: "text", nullable: true),
+                    CompatibileMedicine = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<double>(type: "double precision", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medicines", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OnCallShifts",
                 columns: table => new
                 {
@@ -201,6 +222,38 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TenderResponses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TenderId = table.Column<int>(type: "integer", nullable: false),
+                    PharmacyName = table.Column<string>(type: "text", nullable: true),
+                    TotalPrice_Amount = table.Column<double>(type: "double precision", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsWinningBid = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenderResponses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tenders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DateRange_Start = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DateRange_End = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tenders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transfer",
                 columns: table => new
                 {
@@ -216,6 +269,37 @@ namespace Hospital.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transfer", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vacations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    StartTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DoctorId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vacations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkDayShift",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    StartTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkDayShift", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -316,6 +400,48 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TenderResponses_TenderItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TenderResponseId = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenderResponses_TenderItems", x => new { x.TenderResponseId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_TenderResponses_TenderItems_TenderResponses_TenderResponseId",
+                        column: x => x.TenderResponseId,
+                        principalTable: "TenderResponses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tenders_TenderItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TenderId = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tenders_TenderItems", x => new { x.TenderId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Tenders_TenderItems_Tenders_TenderId",
+                        column: x => x.TenderId,
+                        principalTable: "Tenders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SurveyCategories",
                 columns: table => new
                 {
@@ -403,16 +529,16 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
+                    { 1, "Polen ambrozije" },
                     { 10, "Školjke" },
                     { 9, "Jaja" },
                     { 8, "Kravlje mleko" },
                     { 7, "Kikiriki" },
-                    { 6, "Lateks" },
+                    { 2, "Ibuprofen" },
                     { 5, "Mačija dlaka" },
                     { 4, "Penicilin" },
                     { 3, "Aspirin" },
-                    { 2, "Ibuprofen" },
-                    { 1, "Polen ambrozije" }
+                    { 6, "Lateks" }
                 });
 
             migrationBuilder.InsertData(
@@ -420,14 +546,6 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "Date", "DoctorId", "PatientId", "RoomId", "SurveyId", "isCancelled", "isDone" },
                 values: new object[,]
                 {
-                    { 14, new DateTime(2022, 2, 22, 7, 30, 0, 0, DateTimeKind.Unspecified), 3, 10, 3, 14, false, false },
-                    { 6, new DateTime(2022, 2, 22, 9, 30, 0, 0, DateTimeKind.Unspecified), 1, 6, 1, 6, false, false },
-                    { 5, new DateTime(2022, 2, 22, 9, 0, 0, 0, DateTimeKind.Unspecified), 1, 5, 1, 5, false, false },
-                    { 4, new DateTime(2022, 2, 22, 8, 30, 0, 0, DateTimeKind.Unspecified), 1, 4, 1, 4, false, false },
-                    { 3, new DateTime(2022, 2, 22, 8, 0, 0, 0, DateTimeKind.Unspecified), 1, 3, 1, 3, false, false },
-                    { 2, new DateTime(2022, 2, 22, 7, 30, 0, 0, DateTimeKind.Unspecified), 1, 2, 1, 2, false, false },
-                    { 1, new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 1, false, false },
-                    { 24, new DateTime(2022, 2, 22, 12, 30, 0, 0, DateTimeKind.Unspecified), 3, 20, 3, 24, false, false },
                     { 23, new DateTime(2022, 2, 22, 12, 0, 0, 0, DateTimeKind.Unspecified), 3, 19, 3, 23, false, false },
                     { 22, new DateTime(2022, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified), 3, 18, 3, 22, false, false },
                     { 21, new DateTime(2022, 2, 22, 11, 0, 0, 0, DateTimeKind.Unspecified), 3, 17, 3, 21, false, false },
@@ -436,13 +554,21 @@ namespace Hospital.Migrations
                     { 18, new DateTime(2022, 2, 22, 9, 30, 0, 0, DateTimeKind.Unspecified), 3, 14, 3, 18, false, false },
                     { 17, new DateTime(2022, 2, 22, 9, 0, 0, 0, DateTimeKind.Unspecified), 3, 13, 3, 17, false, false },
                     { 16, new DateTime(2022, 2, 22, 8, 30, 0, 0, DateTimeKind.Unspecified), 3, 12, 3, 16, false, false },
-                    { 7, new DateTime(2022, 2, 22, 10, 0, 0, 0, DateTimeKind.Unspecified), 1, 7, 1, 7, false, false },
-                    { 9, new DateTime(2022, 2, 22, 11, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 9, false, false },
-                    { 10, new DateTime(2021, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified), 2, 1, 2, 10, false, true },
-                    { 11, new DateTime(2022, 2, 22, 12, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 11, false, false },
-                    { 12, new DateTime(2022, 2, 22, 12, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 12, false, false },
-                    { 13, new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified), 3, 9, 3, 13, false, false },
                     { 15, new DateTime(2022, 2, 22, 8, 0, 0, 0, DateTimeKind.Unspecified), 3, 11, 3, 15, false, false },
+                    { 14, new DateTime(2022, 2, 22, 7, 30, 0, 0, DateTimeKind.Unspecified), 3, 10, 3, 14, false, false },
+                    { 13, new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified), 3, 9, 3, 13, false, false },
+                    { 11, new DateTime(2022, 2, 22, 12, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 11, false, false },
+                    { 10, new DateTime(2021, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified), 2, 1, 2, 10, false, true },
+                    { 9, new DateTime(2022, 2, 22, 11, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 9, false, false },
+                    { 24, new DateTime(2022, 2, 22, 12, 30, 0, 0, DateTimeKind.Unspecified), 3, 20, 3, 24, false, false },
+                    { 7, new DateTime(2022, 2, 22, 10, 0, 0, 0, DateTimeKind.Unspecified), 1, 7, 1, 7, false, false },
+                    { 6, new DateTime(2022, 2, 22, 9, 30, 0, 0, DateTimeKind.Unspecified), 1, 6, 1, 6, false, false },
+                    { 5, new DateTime(2022, 2, 22, 9, 0, 0, 0, DateTimeKind.Unspecified), 1, 5, 1, 5, false, false },
+                    { 4, new DateTime(2022, 2, 22, 8, 30, 0, 0, DateTimeKind.Unspecified), 1, 4, 1, 4, false, false },
+                    { 3, new DateTime(2022, 2, 22, 8, 0, 0, 0, DateTimeKind.Unspecified), 1, 3, 1, 3, false, false },
+                    { 2, new DateTime(2022, 2, 22, 7, 30, 0, 0, DateTimeKind.Unspecified), 1, 2, 1, 2, false, false },
+                    { 1, new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 1, false, false },
+                    { 12, new DateTime(2022, 2, 22, 12, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, 12, false, false },
                     { 8, new DateTime(2022, 2, 22, 10, 30, 0, 0, DateTimeKind.Unspecified), 1, 8, 1, 8, false, false }
                 });
 
@@ -452,12 +578,12 @@ namespace Hospital.Migrations
                 values: new object[,]
                 {
                     { 1, 140f, "Building1", 0, 400f, 260f, 30f },
-                    { 7, 70f, "Parking3", 1, 200f, 800f, 130f },
-                    { 6, 70f, "Parking2", 1, 200f, 800f, 30f },
-                    { 5, 70f, "Parking1", 1, 200f, 30f, 30f },
-                    { 4, 140f, "Building4", 0, 300f, 700f, 230f },
+                    { 2, 140f, "Building2", 0, 400f, 260f, 230f },
                     { 3, 240f, "Building3", 0, 180f, 30f, 130f },
-                    { 2, 140f, "Building2", 0, 400f, 260f, 230f }
+                    { 4, 140f, "Building4", 0, 300f, 700f, 230f },
+                    { 5, 70f, "Parking1", 1, 200f, 30f, 30f },
+                    { 6, 70f, "Parking2", 1, 200f, 800f, 30f },
+                    { 7, 70f, "Parking3", 1, 200f, 800f, 130f }
                 });
 
             migrationBuilder.InsertData(
@@ -465,30 +591,30 @@ namespace Hospital.Migrations
                 columns: new[] { "AppointmentId", "PatientId", "DateOfCancellation" },
                 values: new object[,]
                 {
-                    { 1780, 16, new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1765, 1, new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 1799, 2, new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1764, 1, new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 1769, 16, new DateTime(2021, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 1768, 16, new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1767, 16, new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1777, 1, new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 1766, 1, new DateTime(2021, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1777, 1, new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1780, 16, new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
                     { 1763, 1, new DateTime(2021, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1870, 1, new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1765, 1, new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1764, 1, new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1767, 16, new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1870, 1, new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Doctors",
-                columns: new[] { "Id", "Address", "BirthDate", "Email", "EmploymentDate", "Gender", "Name", "Password", "Phone", "PrimaryRoom", "Salary", "Specialty", "Surname", "Username", "WorkShift" },
+                columns: new[] { "Id", "Address", "BirthDate", "Email", "EmploymentDate", "Gender", "Name", "Password", "Phone", "PrimaryRoom", "Salary", "Specialty", "Surname", "Username", "WorkShiftId" },
                 values: new object[,]
                 {
-                    { 1, "Brace Radica 15", new DateTime(1981, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "nikolanikolic@gmail.com", new DateTime(2021, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Nikola", "nikola", "0697856665", 1, 80000.0, "General medicine", "Nikolic", "nikola", 0 },
-                    { 6, "Pariske Komune 85", new DateTime(1968, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "misa@gmail.com", new DateTime(2006, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Misa", "misa", "0697856665", 6, 80000.0, "General medicine", "Bradina", "misa", 1 },
-                    { 5, "Pariske Komune 35", new DateTime(1978, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "mile@gmail.com", new DateTime(2007, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Mile", "mile", "0697856665", 5, 80000.0, "Surgery", "Grandic", "mile", 1 },
-                    { 4, "Mike Antice 5", new DateTime(1968, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "dragana@gmail.com", new DateTime(2017, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "female", "Dragana", "dragana", "0697856665", 4, 80000.0, "Surgery", "Zoric", "dragana", 1 },
-                    { 3, "Bulevar Oslobodjenja 5", new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "jozika@gmail.com", new DateTime(2011, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Jozef", "jozef", "0697856665", 3, 80000.0, "General medicine", "Sivc", "jozef", 0 },
-                    { 2, "Bogoboja Atanackovica 5", new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "markoradic@gmail.com", new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Marko", "marko", "0697856665", 2, 80000.0, "General medicine", "Radic", "marko", 0 }
+                    { 4, "Mike Antice 5", new DateTime(1968, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "dragana@gmail.com", new DateTime(2017, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "female", "Dragana", "dragana", "0697856665", 4, 80000.0, "Surgery", "Zoric", "dragana", -1 },
+                    { 3, "Bulevar Oslobodjenja 5", new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "jozika@gmail.com", new DateTime(2011, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Jozef", "jozef", "0697856665", 3, 80000.0, "General medicine", "Sivc", "jozef", -1 },
+                    { 1, "Brace Radica 15", new DateTime(1981, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "nikolanikolic@gmail.com", new DateTime(2021, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Nikola", "nikola", "0697856665", 1, 80000.0, "General medicine", "Nikolic", "nikola", -1 },
+                    { 2, "Bogoboja Atanackovica 5", new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "markoradic@gmail.com", new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Marko", "marko", "0697856665", 2, 80000.0, "General medicine", "Radic", "marko", -1 },
+                    { 6, "Pariske Komune 85", new DateTime(1968, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "misa@gmail.com", new DateTime(2006, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Misa", "misa", "0697856665", 6, 80000.0, "General medicine", "Bradina", "misa", -1 },
+                    { 5, "Pariske Komune 35", new DateTime(1978, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "mile@gmail.com", new DateTime(2007, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Mile", "mile", "0697856665", 5, 80000.0, "Surgery", "Grandic", "mile", -1 }
                 });
 
             migrationBuilder.InsertData(
@@ -497,20 +623,13 @@ namespace Hospital.Migrations
                 values: new object[,]
                 {
                     { 22, "Needle", 1, 22, 1 },
-                    { 23, "TV", 1, 22, 0 },
-                    { 21, "Bed", 1, 20, 0 },
-                    { 46, "Bed", 13, 60, 0 },
+                    { 24, "Bandage", 1, 23, 1 },
                     { 25, "Blanket", 1, 23, 0 },
                     { 26, "Bed", 3, 26, 0 },
-                    { 27, "Needle", 2, 26, 1 },
-                    { 28, "TV", 2, 29, 0 },
-                    { 29, "Bandage", 4, 30, 1 },
-                    { 30, "Blanket", 4, 30, 0 },
-                    { 31, "Bed", 7, 36, 0 },
-                    { 24, "Bandage", 1, 23, 1 },
-                    { 20, "Blanket", 52, 18, 0 },
-                    { 19, "Bandage", 120, 17, 1 },
+                    { 21, "Bed", 1, 20, 0 },
+                    { 23, "TV", 1, 22, 0 },
                     { 18, "TV", 1, 17, 0 },
+                    { 19, "Bandage", 120, 17, 1 },
                     { 1, "Bed", 5, 1, 0 },
                     { 2, "Needle", 25, 1, 1 },
                     { 3, "TV", 1, 1, 0 },
@@ -528,28 +647,35 @@ namespace Hospital.Migrations
                     { 15, "Blanket", 5, 11, 0 },
                     { 16, "Bed", 26, 15, 0 },
                     { 17, "Needle", 23, 17, 1 },
+                    { 20, "Blanket", 52, 18, 0 },
+                    { 29, "Bandage", 4, 30, 1 },
+                    { 54, "Bandage", 17, 69, 1 },
                     { 45, "Blanket", 15, 55, 0 },
+                    { 38, "TV", 3, 45, 0 },
+                    { 39, "Bandage", 9, 47, 1 },
+                    { 40, "Blanket", 9, 47, 0 },
+                    { 41, "Bed", 7, 50, 0 },
+                    { 42, "Needle", 4, 51, 1 },
+                    { 43, "TV", 1, 52, 0 },
+                    { 44, "Bandage", 11, 55, 1 },
+                    { 35, "Blanket", 9, 40, 0 },
+                    { 46, "Bed", 13, 60, 0 },
+                    { 47, "Needle", 13, 60, 1 },
+                    { 48, "TV", 2, 62, 0 },
+                    { 37, "Needle", 9, 43, 1 },
+                    { 49, "Bandage", 13, 62, 1 },
+                    { 51, "Bed", 17, 65, 0 },
+                    { 52, "Needle", 17, 66, 1 },
+                    { 53, "TV", 2, 68, 0 },
+                    { 27, "Needle", 2, 26, 1 },
+                    { 55, "Blanket", 17, 69, 0 },
+                    { 34, "Bandage", 1, 40, 1 },
                     { 33, "TV", 3, 40, 0 },
                     { 32, "Needle", 4, 36, 1 },
-                    { 35, "Blanket", 9, 40, 0 },
-                    { 34, "Bandage", 1, 40, 1 },
-                    { 55, "Blanket", 17, 69, 0 },
-                    { 44, "Bandage", 11, 55, 1 },
-                    { 54, "Bandage", 17, 69, 1 },
-                    { 53, "TV", 2, 68, 0 },
-                    { 52, "Needle", 17, 66, 1 },
+                    { 31, "Bed", 7, 36, 0 },
+                    { 28, "TV", 2, 29, 0 },
+                    { 30, "Blanket", 4, 30, 0 },
                     { 50, "Blanket", 13, 65, 0 },
-                    { 49, "Bandage", 13, 62, 1 },
-                    { 48, "TV", 2, 62, 0 },
-                    { 51, "Bed", 17, 65, 0 },
-                    { 43, "TV", 1, 52, 0 },
-                    { 42, "Needle", 4, 51, 1 },
-                    { 41, "Bed", 7, 50, 0 },
-                    { 40, "Blanket", 9, 47, 0 },
-                    { 39, "Bandage", 9, 47, 1 },
-                    { 38, "TV", 3, 45, 0 },
-                    { 37, "Needle", 9, 43, 1 },
-                    { 47, "Needle", 13, 60, 1 },
                     { 36, "Bed", 9, 43, 0 }
                 });
 
@@ -558,14 +684,14 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "CanBePublished", "Date", "Identity", "IsAnonymous", "IsPublished", "Text" },
                 values: new object[,]
                 {
-                    { 6, true, new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified), "IvanJovanovic", false, true, "Savremena bolnica koju bih preporučio ljudima." },
                     { 7, true, new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified), "JovanaGugl", false, true, "Savremena bolnica koju bih preporučio ljudima." },
-                    { 8, true, new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified), "RatkoVarda8", false, true, "Savremena bolnica koju bih preporučio ljudima." },
                     { 1, true, new DateTime(2021, 4, 29, 18, 34, 21, 0, DateTimeKind.Unspecified), "acaNikolic", false, false, "Zadovoljan sam uslugom." },
                     { 2, true, new DateTime(2021, 6, 21, 14, 21, 56, 0, DateTimeKind.Unspecified), "NikolaTodorovic94", true, false, "Čekanje je moglo biti kraće." },
-                    { 5, true, new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified), "MladenAlicic1", false, true, "Savremena bolnica koju bih preporučio ljudima." },
                     { 3, false, new DateTime(2021, 2, 16, 11, 8, 47, 0, DateTimeKind.Unspecified), "MarijaPopovic", false, false, "Informacionom sistemu potrebne su određene popravke." },
-                    { 4, true, new DateTime(2021, 5, 20, 9, 10, 21, 0, DateTimeKind.Unspecified), "UrosDevic0", false, false, "Odlični lekari." }
+                    { 4, true, new DateTime(2021, 5, 20, 9, 10, 21, 0, DateTimeKind.Unspecified), "UrosDevic0", false, false, "Odlični lekari." },
+                    { 6, true, new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified), "IvanJovanovic", false, true, "Savremena bolnica koju bih preporučio ljudima." },
+                    { 8, true, new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified), "RatkoVarda8", false, true, "Savremena bolnica koju bih preporučio ljudima." },
+                    { 5, true, new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified), "MladenAlicic1", false, true, "Savremena bolnica koju bih preporučio ljudima." }
                 });
 
             migrationBuilder.InsertData(
@@ -573,16 +699,16 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "BuildingId", "Height", "Name", "Width", "X", "Y" },
                 values: new object[,]
                 {
-                    { 3, 1, 0f, "Floor 3", 0f, 0f, 0f },
-                    { 2, 1, 0f, "Floor 2", 0f, 0f, 0f },
-                    { 4, 2, 0f, "Floor 1", 0f, 0f, 0f },
-                    { 5, 2, 0f, "Floor 2", 0f, 0f, 0f },
-                    { 7, 3, 0f, "Floor 2", 0f, 0f, 0f },
-                    { 8, 3, 0f, "Floor 3", 0f, 0f, 0f },
                     { 9, 4, 0f, "Floor 1", 0f, 0f, 0f },
                     { 10, 4, 0f, "Floor 2", 0f, 0f, 0f },
-                    { 1, 1, 0f, "Floor 1", 0f, 0f, 0f },
-                    { 6, 3, 0f, "Floor 1", 0f, 0f, 0f }
+                    { 3, 1, 0f, "Floor 3", 0f, 0f, 0f },
+                    { 4, 2, 0f, "Floor 1", 0f, 0f, 0f },
+                    { 5, 2, 0f, "Floor 2", 0f, 0f, 0f },
+                    { 6, 3, 0f, "Floor 1", 0f, 0f, 0f },
+                    { 7, 3, 0f, "Floor 2", 0f, 0f, 0f },
+                    { 8, 3, 0f, "Floor 3", 0f, 0f, 0f },
+                    { 2, 1, 0f, "Floor 2", 0f, 0f, 0f },
+                    { 1, 1, 0f, "Floor 1", 0f, 0f, 0f }
                 });
 
             migrationBuilder.InsertData(
@@ -590,12 +716,12 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "Date", "DoctorId" },
                 values: new object[,]
                 {
-                    { 4, new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified), 2 },
-                    { 3, new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { 2, new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified), 2 },
                     { 1, new DateTime(2022, 2, 2, 14, 0, 0, 0, DateTimeKind.Unspecified), 1 },
                     { 6, new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified), 2 },
-                    { 5, new DateTime(2021, 11, 23, 10, 0, 0, 0, DateTimeKind.Unspecified), 1 }
+                    { 5, new DateTime(2021, 11, 23, 10, 0, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 4, new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified), 2 },
+                    { 3, new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified), 1 },
+                    { 2, new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified), 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -603,9 +729,9 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "Date", "Duration", "FirstRoomId", "SecondRoomId", "Type" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 2, 2, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, 2, 1 },
                     { 2, new DateTime(2022, 2, 5, 14, 0, 0, 0, DateTimeKind.Unspecified), 3, 1, 0, 0 },
-                    { 3, new DateTime(2022, 2, 20, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 47, 62, 1 }
+                    { 3, new DateTime(2022, 2, 20, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 47, 62, 1 },
+                    { 1, new DateTime(2022, 2, 2, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, 2, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -613,24 +739,29 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "Description", "FloorId", "Height", "Name", "Type", "Width", "X", "Y" },
                 values: new object[,]
                 {
-                    { 62, "Room description...", 9, 140f, "Room for appointments", 0, 280f, 720f, 30f },
+                    { 70, "Room description...", 10, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 69, "Room description...", 10, 140f, "Room for appointments", 0, 280f, 720f, 30f },
+                    { 49, "Room description...", 7, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 67, "Room description...", 10, 140f, "Room for appointments", 0, 300f, 700f, 260f },
                     { 20, "Room description...", 3, 140f, "Room for appointments", 0, 280f, 720f, 30f },
-                    { 21, "Room description...", 3, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 68, "Room description...", 10, 140f, "Room for appointments", 0, 270f, 50f, 30f },
                     { 22, "Room description...", 4, 140f, "Operation room", 1, 400f, 320f, 30f },
                     { 23, "Room description...", 4, 140f, "Room for appointments", 0, 380f, 320f, 260f },
                     { 24, "Room description...", 4, 140f, "Room for appointments", 0, 270f, 50f, 260f },
                     { 25, "Room description...", 4, 140f, "Room for appointments", 0, 300f, 700f, 260f },
-                    { 28, "Room description...", 4, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 26, "Room description...", 4, 140f, "Room for appointments", 0, 270f, 50f, 30f },
                     { 27, "Room description...", 4, 140f, "Room for appointments", 0, 280f, 720f, 30f },
-                    { 19, "Room description...", 3, 140f, "Room for appointments", 0, 270f, 50f, 30f },
+                    { 28, "Room description...", 4, 90f, "WC", 2, 150f, 50f, 170f },
                     { 29, "Room description...", 5, 140f, "Operation room", 1, 400f, 320f, 30f },
                     { 30, "Room description...", 5, 140f, "Room for appointments", 0, 380f, 320f, 260f },
                     { 31, "Room description...", 5, 140f, "Room for appointments", 0, 270f, 50f, 260f },
                     { 32, "Room description...", 5, 140f, "Room for appointments", 0, 300f, 700f, 260f },
-                    { 26, "Room description...", 4, 140f, "Room for appointments", 0, 270f, 50f, 30f },
+                    { 33, "Room description...", 5, 140f, "Room for appointments", 0, 270f, 50f, 30f },
+                    { 34, "Room description...", 5, 140f, "Room for appointments", 0, 280f, 720f, 30f },
+                    { 19, "Room description...", 3, 140f, "Room for appointments", 0, 270f, 50f, 30f },
+                    { 35, "Room description...", 5, 90f, "WC", 2, 150f, 50f, 170f },
                     { 18, "Room description...", 3, 140f, "Room for appointments", 0, 300f, 700f, 260f },
                     { 16, "Room description...", 3, 140f, "Room for appointments", 0, 380f, 320f, 260f },
-                    { 34, "Room description...", 5, 140f, "Room for appointments", 0, 280f, 720f, 30f },
                     { 1, "Room description...", 1, 140f, "Operation room", 1, 400f, 320f, 30f },
                     { 2, "Room description...", 1, 140f, "Room for appointments", 0, 380f, 320f, 260f },
                     { 3, "Room description...", 1, 140f, "Room for appointments", 0, 270f, 50f, 260f },
@@ -647,42 +778,37 @@ namespace Hospital.Migrations
                     { 14, "Room description...", 2, 90f, "WC", 2, 150f, 50f, 170f },
                     { 15, "Room description...", 3, 140f, "Operation room", 1, 400f, 320f, 30f },
                     { 17, "Room description...", 3, 140f, "Room for appointments", 0, 270f, 50f, 260f },
-                    { 35, "Room description...", 5, 90f, "WC", 2, 150f, 50f, 170f },
                     { 36, "Room description...", 6, 140f, "Operation room", 1, 400f, 320f, 30f },
+                    { 21, "Room description...", 3, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 38, "Room description...", 6, 140f, "Room for appointments", 0, 270f, 50f, 260f },
                     { 37, "Room description...", 6, 140f, "Room for appointments", 0, 380f, 320f, 260f },
-                    { 63, "Room description...", 9, 90f, "WC", 2, 150f, 50f, 170f },
-                    { 64, "Room description...", 10, 140f, "Operation room", 1, 400f, 320f, 30f },
                     { 65, "Room description...", 10, 140f, "Room for appointments", 0, 380f, 320f, 260f },
-                    { 66, "Room description...", 10, 140f, "Room for appointments", 0, 270f, 50f, 260f },
-                    { 67, "Room description...", 10, 140f, "Room for appointments", 0, 300f, 700f, 260f },
-                    { 68, "Room description...", 10, 140f, "Room for appointments", 0, 270f, 50f, 30f },
-                    { 69, "Room description...", 10, 140f, "Room for appointments", 0, 280f, 720f, 30f },
-                    { 70, "Room description...", 10, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 64, "Room description...", 10, 140f, "Operation room", 1, 400f, 320f, 30f },
+                    { 63, "Room description...", 9, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 62, "Room description...", 9, 140f, "Room for appointments", 0, 280f, 720f, 30f },
+                    { 61, "Room description...", 9, 140f, "Room for appointments", 0, 270f, 50f, 30f },
                     { 60, "Room description...", 9, 140f, "Room for appointments", 0, 300f, 700f, 260f },
                     { 59, "Room description...", 9, 140f, "Room for appointments", 0, 270f, 50f, 260f },
                     { 58, "Room description...", 9, 140f, "Room for appointments", 0, 380f, 320f, 260f },
                     { 57, "Room description...", 9, 140f, "Operation room", 1, 400f, 320f, 30f },
-                    { 61, "Room description...", 9, 140f, "Room for appointments", 0, 270f, 50f, 30f },
+                    { 56, "Room description...", 8, 90f, "WC", 2, 150f, 50f, 170f },
                     { 55, "Room description...", 8, 140f, "Room for appointments", 0, 280f, 720f, 30f },
                     { 54, "Room description...", 8, 140f, "Room for appointments", 0, 270f, 50f, 30f },
-                    { 56, "Room description...", 8, 90f, "WC", 2, 150f, 50f, 170f },
-                    { 52, "Room description...", 8, 140f, "Room for appointments", 0, 270f, 50f, 260f },
-                    { 38, "Room description...", 6, 140f, "Room for appointments", 0, 270f, 50f, 260f },
-                    { 39, "Room description...", 6, 140f, "Room for appointments", 0, 300f, 700f, 260f },
-                    { 40, "Room description...", 6, 140f, "Room for appointments", 0, 270f, 50f, 30f },
-                    { 41, "Room description...", 6, 140f, "Room for appointments", 0, 280f, 720f, 30f },
-                    { 42, "Room description...", 6, 90f, "WC", 2, 150f, 50f, 170f },
-                    { 43, "Room description...", 7, 140f, "Operation room", 1, 400f, 320f, 30f },
-                    { 44, "Room description...", 7, 140f, "Room for appointments", 0, 380f, 320f, 260f },
-                    { 45, "Room description...", 7, 140f, "Room for appointments", 0, 270f, 50f, 260f },
                     { 53, "Room description...", 8, 140f, "Room for appointments", 0, 300f, 700f, 260f },
-                    { 33, "Room description...", 5, 140f, "Room for appointments", 0, 270f, 50f, 30f },
-                    { 46, "Room description...", 7, 140f, "Room for appointments", 0, 300f, 700f, 260f },
-                    { 47, "Room description...", 7, 140f, "Room for appointments", 0, 270f, 50f, 30f },
-                    { 48, "Room description...", 7, 140f, "Room for appointments", 0, 280f, 720f, 30f },
-                    { 49, "Room description...", 7, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 51, "Room description...", 8, 140f, "Room for appointments", 0, 380f, 320f, 260f },
                     { 50, "Room description...", 8, 140f, "Operation room", 1, 400f, 320f, 30f },
-                    { 51, "Room description...", 8, 140f, "Room for appointments", 0, 380f, 320f, 260f }
+                    { 66, "Room description...", 10, 140f, "Room for appointments", 0, 270f, 50f, 260f },
+                    { 48, "Room description...", 7, 140f, "Room for appointments", 0, 280f, 720f, 30f },
+                    { 47, "Room description...", 7, 140f, "Room for appointments", 0, 270f, 50f, 30f },
+                    { 46, "Room description...", 7, 140f, "Room for appointments", 0, 300f, 700f, 260f },
+                    { 45, "Room description...", 7, 140f, "Room for appointments", 0, 270f, 50f, 260f },
+                    { 44, "Room description...", 7, 140f, "Room for appointments", 0, 380f, 320f, 260f },
+                    { 43, "Room description...", 7, 140f, "Operation room", 1, 400f, 320f, 30f },
+                    { 42, "Room description...", 6, 90f, "WC", 2, 150f, 50f, 170f },
+                    { 41, "Room description...", 6, 140f, "Room for appointments", 0, 280f, 720f, 30f },
+                    { 40, "Room description...", 6, 140f, "Room for appointments", 0, 270f, 50f, 30f },
+                    { 39, "Room description...", 6, 140f, "Room for appointments", 0, 300f, 700f, 260f },
+                    { 52, "Room description...", 8, 140f, "Room for appointments", 0, 270f, 50f, 260f }
                 });
 
             migrationBuilder.InsertData(
@@ -690,12 +816,58 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "Date", "DestinationRoomId", "Duration", "Equipment", "Quantity", "SourceRoomId" },
                 values: new object[,]
                 {
-                    { 3, new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified), 52, 45, "TV", 1, 45 },
+                    { 6, new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified), 51, 60, "Needle", 5, 1 },
+                    { 2, new DateTime(2021, 11, 30, 12, 0, 0, 0, DateTimeKind.Unspecified), 60, 45, "Bed", 4, 50 },
                     { 1, new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified), 2, 60, "Bed", 2, 1 },
                     { 4, new DateTime(2021, 11, 24, 9, 30, 0, 0, DateTimeKind.Unspecified), 62, 15, "Bandage", 4, 47 },
-                    { 5, new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified), 23, 15, "Blanket", 10, 18 },
-                    { 2, new DateTime(2021, 11, 30, 12, 0, 0, 0, DateTimeKind.Unspecified), 60, 45, "Bed", 4, 50 },
-                    { 6, new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified), 51, 60, "Needle", 5, 1 }
+                    { 3, new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified), 52, 45, "TV", 1, 45 },
+                    { 5, new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified), 23, 15, "Blanket", 10, 18 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Vacations",
+                columns: new[] { "Id", "Description", "DoctorId", "EndTime", "StartTime" },
+                values: new object[,]
+                {
+                    { 30, "Description...", 6, new DateTime(2022, 7, 6, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 6, 16, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 29, "Description...", 5, new DateTime(2022, 6, 5, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 28, "Description...", 4, new DateTime(2022, 5, 5, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 27, "Description...", 3, new DateTime(2022, 4, 4, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 26, "Description...", 2, new DateTime(2022, 3, 3, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 25, "Description...", 1, new DateTime(2022, 2, 2, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 1, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 16, "Description...", 4, new DateTime(2021, 5, 5, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 23, "Description...", 5, new DateTime(2022, 12, 12, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 11, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 22, "Description...", 4, new DateTime(2022, 11, 11, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 21, "Description...", 3, new DateTime(2022, 10, 10, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 20, "Description...", 2, new DateTime(2021, 9, 9, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 19, "Description...", 1, new DateTime(2021, 8, 8, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 18, "Description...", 6, new DateTime(2021, 7, 7, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 6, 28, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 17, "Description...", 5, new DateTime(2021, 6, 6, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 24, "Description...", 6, new DateTime(2022, 12, 29, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 15, "Description...", 3, new DateTime(2021, 3, 18, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 13, "Description...", 1, new DateTime(2021, 2, 10, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 12, "Description...", 6, new DateTime(2021, 12, 18, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 11, "Description...", 5, new DateTime(2021, 11, 19, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 10, "Description...", 4, new DateTime(2020, 10, 17, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 9, "Description...", 3, new DateTime(2020, 9, 15, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 9, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 8, "Description...", 2, new DateTime(2020, 8, 28, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7, "Description...", 1, new DateTime(2020, 7, 20, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6, "Description...", 6, new DateTime(2020, 7, 7, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, "Description...", 5, new DateTime(2020, 5, 23, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, "Description...", 4, new DateTime(2020, 4, 22, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, "Description...", 3, new DateTime(2020, 3, 21, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 3, 13, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "Description...", 2, new DateTime(2020, 2, 20, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1, "Description...", 1, new DateTime(2020, 2, 1, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 14, "Description...", 2, new DateTime(2021, 2, 12, 23, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2021, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "WorkDayShift",
+                columns: new[] { "Id", "EndTime", "Name", "StartTime" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified), "First", new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2022, 2, 22, 19, 0, 0, 0, DateTimeKind.Unspecified), "Second", new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -1253,6 +1425,9 @@ namespace Hospital.Migrations
                 name: "Floors");
 
             migrationBuilder.DropTable(
+                name: "Medicines");
+
+            migrationBuilder.DropTable(
                 name: "OnCallShifts");
 
             migrationBuilder.DropTable(
@@ -1268,16 +1443,34 @@ namespace Hospital.Migrations
                 name: "SurveyQuestions");
 
             migrationBuilder.DropTable(
+                name: "TenderResponses_TenderItems");
+
+            migrationBuilder.DropTable(
+                name: "Tenders_TenderItems");
+
+            migrationBuilder.DropTable(
                 name: "Transfer");
 
             migrationBuilder.DropTable(
+                name: "Vacations");
+
+            migrationBuilder.DropTable(
                 name: "WorkDay");
+
+            migrationBuilder.DropTable(
+                name: "WorkDayShift");
 
             migrationBuilder.DropTable(
                 name: "Patients");
 
             migrationBuilder.DropTable(
                 name: "SurveyCategories");
+
+            migrationBuilder.DropTable(
+                name: "TenderResponses");
+
+            migrationBuilder.DropTable(
+                name: "Tenders");
 
             migrationBuilder.DropTable(
                 name: "Doctors");

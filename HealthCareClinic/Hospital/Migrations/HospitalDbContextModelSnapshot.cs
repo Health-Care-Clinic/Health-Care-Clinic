@@ -6313,6 +6313,45 @@ namespace Hospital.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hospital.Tendering.Model.Medicine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("CompatibileMedicine")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Reactions")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SideEffects")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Usage")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Medicines");
+                });
+
             modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
                 {
                     b.Property<int>("Id")

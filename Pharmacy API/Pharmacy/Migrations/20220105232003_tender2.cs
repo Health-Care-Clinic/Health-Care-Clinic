@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Hospital.Migrations
+namespace Pharmacy.Migrations
 {
     public partial class tender2 : Migration
     {
@@ -21,7 +21,7 @@ namespace Hospital.Migrations
 
             migrationBuilder.AddColumn<double>(
                 name: "TotalPrice_Amount",
-                table: "Tenders",
+                table: "TenderResponses",
                 type: "double precision",
                 nullable: true);
         }
@@ -38,7 +38,7 @@ namespace Hospital.Migrations
 
             migrationBuilder.DropColumn(
                 name: "TotalPrice_Amount",
-                table: "Tenders");
+                table: "TenderResponses");
         }
     }
 }
