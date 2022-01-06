@@ -1,0 +1,21 @@
+name: Deploy To Server
+on:
+  push:
+   branches: [ feat(d)/deploy-to-server ]
+
+jobs:
+  deploy:
+   name: Deploy
+   runs-on: ubuntu-latest
+   steps:
+    - name: Testing server ssh connection
+      uses: appleboy/ssh-action@master
+      with:
+       host: 79.101.34.218 
+       username: bot
+       key: ${{ secrets.BOT_KEY}}
+       port: 22210
+       script: |
+         cd Health-Care-Clinic
+         git pull develop
+         git status
