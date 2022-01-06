@@ -59,3 +59,27 @@ jobs:
           file: ./stacks/build/patient-gateway/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/patient-gateway:latest
+  deploy:
+   name: Deploy
+   needs: build
+   runs-on: ubuntu-latest
+   steps:
+    - uses: appleboy/ssh-action@master
+      with:
+       host: 79.101.34.218 
+       username: student
+       key: ${{ secrets.STUDENT_KEY}}
+       port: 22210
+       script: |
+         cd Health-Care-Clinic
+         git checkout master
+         git pull origin develop
+         git status
+         cd "HealthCareClinic/Hospital API"
+         docker-compose up -d
+         cd ../../
+         cd "HealthCareClinic/Integration API"
+         docker-compose up -d
+         cd ../../
+         cd "Pharmacy API/Pharmacy API"
+         docker-compose up -d
