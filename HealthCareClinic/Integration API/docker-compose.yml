@@ -88,9 +88,9 @@ networks:
   hospital_application:
     external: true
   database:
-    driver: bridge
+    external: true
   rabbit:
-    driver: bridge
+    external: true
 
 secrets:
   database_password:

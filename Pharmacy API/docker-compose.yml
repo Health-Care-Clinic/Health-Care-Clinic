@@ -57,7 +57,7 @@ networks:
   integrationapi_rabbit:
     external: true
   pharmacy-database:
-    driver: bridge
+    external: true
 
 secrets:
   database_password:

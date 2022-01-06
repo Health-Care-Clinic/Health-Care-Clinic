@@ -74,9 +74,9 @@ volumes:
 
 networks:
   application:
-    driver: bridge
+    external: true
   hospital-database:
-    driver: bridge
+    external: true
 
 secrets:
   database_password:
