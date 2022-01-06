@@ -12,11 +12,12 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
        host: 79.101.34.218 
-       username: bot
-       key: ${{ secrets.BOT_KEY}}
+       username: student
+       key: ${{ secrets.STUDENT_KEY}}
        port: 22210
        script: |
          cd Health-Care-Clinic
          git checkout master
          git pull origin develop
          git status
+         cd "HealthCareClinic/Hospital API"
