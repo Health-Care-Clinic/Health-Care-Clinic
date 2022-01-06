@@ -79,7 +79,7 @@ networks:
     driver: bridge
 
 secrets:
-  database_assword:
+  database_password:
    external: true
   database_user:
    external: true
