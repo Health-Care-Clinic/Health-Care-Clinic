@@ -59,8 +59,10 @@ services:
         target: /docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_PASSWORD: /run/secrets/db-password
       POSTGRES_DB: "hospitalDb"
+    secrets:
+      - db-password
     networks:
       - hospital-database
 volumes:
@@ -71,3 +73,7 @@ networks:
     driver: bridge
   hospital-database:
     driver: bridge
+
+secrets:
+  db-password:
+   external: database_password
