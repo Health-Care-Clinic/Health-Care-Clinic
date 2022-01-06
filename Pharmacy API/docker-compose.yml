@@ -27,34 +27,28 @@ services:
       dockerfile: stacks/build/pharmacy/Dockerfile
     depends_on:
       - postgres-database
-      - rabbitmq3
     environment: 
       DATABASE_HOST: postgres-database
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: pharmacyDb
       DATABASE_PASSWORD: password
       DATABASE_USER: postgres
+      RABBITMQ_HOST: rabbitmq
     ports:
       - "5002:80" 
     restart: on-failure
     networks:
       - hospitalapi_application
       - pharmacy-database
+      - integrationapi_rabbit
 
-  rabbitmq3:
-    image: rabbitmq:3-management
-    hostname: "rabbitmq"
-    environment:
-      RABBITMQ_ERLANG_COOKIE: 'secret cookie here'
-    volumes:
-      - database-data:/var/lib/rabbitmq
-    ports:
-      - 5672:5672
 volumes:
   database-data:
 
 networks:
   hospitalapi_application:
+    external: true
+  integrationapi_rabbit:
     external: true
   pharmacy-database:
     driver: bridge

@@ -27,7 +27,7 @@ namespace Integration.RabbitMQ.Service
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            var factory = new ConnectionFactory() { HostName = "rabbitmq" };
+            var factory = new ConnectionFactory() { HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost" };
             List<ApiKey> apiKeys;
             using (var scope = Services.CreateScope())
             {
