@@ -83,3 +83,6 @@ jobs:
          cd ../../
          cd "Pharmacy API/Pharmacy API"
          docker-compose up -d
+         cd ../../
+         dotnet test "Pharmacy API/PharmacyIntegrationTests/PharmacyIntegrationTests.csproj" --verbosity quiet
+         dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj" --verbosity quiet
