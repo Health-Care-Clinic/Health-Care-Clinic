@@ -17,5 +17,6 @@ jobs:
        port: 22210
        script: |
          cd Health-Care-Clinic
-         git pull develop
+         git checkout master
+         git pull origin develop
          git status
