@@ -10,7 +10,7 @@ services:
       - "8082:8080"
     restart: always
     networks:
-      - hospitalapi_application
+      - hospital_application
 
   manager-front:
     image: nenadbecanovic/manager-gateway:latest
@@ -21,7 +21,7 @@ services:
     ports:
       - "4200:8080"
     networks: 
-      - hospitalapi_application
+      - hospital_application
 
   integration-api:
     image: nenadbecanovic/integration-api:latest
@@ -45,7 +45,7 @@ services:
       - db-password
       - db-user
     networks:
-      - hospitalapi_application
+      - hospital_application
       - database
       - rabbit
   
@@ -85,7 +85,7 @@ volumes:
   integration-data:
 
 networks:
-  hospitalapi_application:
+  hospital_application:
     external: true
   database:
     driver: bridge
