@@ -6,12 +6,12 @@ services:
     networks: 
       - pharmacy-database 
     environment:
-      POSTGRES_PASSWORD: /run/secrets/db-password
-      POSTGRES_USER: /run/secrets/db-user
+      POSTGRES_PASSWORD: /run/secrets/database_password
+      POSTGRES_USER: /run/secrets/database_user
       POSTGRES_DB: pharmacyDb
     secrets:
-      - db-password
-      - db-user
+      - database_password
+      - database_user
     volumes:
       - type: volume
         source: database-data
@@ -34,12 +34,12 @@ services:
       DATABASE_HOST: postgres-database
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: pharmacyDb
-      DATABASE_PASSWORD: /run/secrets/db-password
-      DATABASE_USER: /run/secrets/db-user
+      DATABASE_PASSWORD: /run/secrets/database_password
+      DATABASE_USER: /run/secrets/database_user
       RABBITMQ_HOST: rabbitmq
     secrets:
-      - db-password
-      - db-user
+      - database_password
+      - database_user
     ports:
       - "5002:80" 
     restart: on-failure
@@ -60,7 +60,7 @@ networks:
     driver: bridge
 
 secrets:
-  db-password:
+  database_password:
    external: true
-  db-user:
+  database_user:
    external: true
