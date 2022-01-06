@@ -1,5 +1,5 @@
 
-FROM node:15.14.0-alpine as build 
+FROM node:14.17.1-alpine as build 
 WORKDIR /app
 COPY . .
 RUN npm install --force
