@@ -1,0 +1,87 @@
+version: '3.2' 
+
+services:
+
+  proxy:
+    build: 
+      context: ./Proxy
+      dockerfile: Dockerfile
+    ports: 
+      - "8082:8080"
+    restart: always
+    networks:
+      - hospitalapi_application
+
+  manager-front:
+    #image: nenadbecanovic/manager-gateway:latest
+    image: manager
+    build:
+      context: ../../
+      dockerfile: stacks/build/manager-gateway/Dockerfile
+    ports:
+      - "4200:8080"
+    networks: 
+      - hospitalapi_application
+
+  integration-api:
+    image: nenadbecanovic/integration-api:latest
+    #image: integrationapi
+    #build:
+    #  context: ../
+    #  dockerfile: ../stacks/build/integration/Dockerfile
+    depends_on:
+      - "database"
+      - "rabbitmq3"
+    ports:
+      - "5001:8080"     
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_SCHEMA: integrationDb
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      RABBITMQ_HOST: rabbitmq
+    networks:
+      - hospitalapi_application
+      - database
+      - rabbit
+  
+  database: 
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - type: volume
+        source: integration-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./database.sql 
+        target: /docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "integrationDb"
+    networks:
+      - database
+
+  rabbitmq3:
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'secret cookie here'
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - rabbit
+volumes:
+  integration-data:
+
+networks:
+  hospitalapi_application:
+    external: true
+  database:
+    driver: bridge
+  rabbit:
+    driver: bridge
