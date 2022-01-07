@@ -68,6 +68,13 @@ namespace Hospital.Shared_model.Service
             return true;
         }
 
+        public void ChangeById(OnCallShift onCallShift)
+        {
+
+            _onCallShiftRepository.RemoveById(onCallShift.Id);
+            _onCallShiftRepository.Add(onCallShift);
+        }
+
         private List<DateTime> returnDates(int month)
         {
             List<DateTime> dates;
@@ -137,6 +144,17 @@ namespace Hospital.Shared_model.Service
             }
 
             return dates;
+        }
+
+        public int GetNumOfOnCallShift(int id, int month, int year)
+        {
+            List<OnCallShift> onCallShifts = _onCallShiftRepository.GetOnCallShiftByDoctorId(id);
+            int number = 0;
+            foreach (OnCallShift ocf in onCallShifts.Where(x=> x.Date.Date.Year.Equals(year) && x.Date.Date.Month.Equals(month)))
+            {
+                number = number + 1;
+            }
+            return number;
         }
 
     }

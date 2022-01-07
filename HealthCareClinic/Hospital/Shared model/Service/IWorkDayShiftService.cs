@@ -9,5 +9,9 @@ namespace Hospital.Shared_model.Service
     public interface IWorkDayShiftService : IService<WorkDayShift>
     {
         public bool AddWorkDayShift(WorkDayShift workDayShift);
+        public bool EditWorkDayShift(WorkDayShift workDayShift);
+        public void RemoveWorkDayShift(int workDayShiftToRemove);
+        public void RemoveById(int id);
+        public void Edit(WorkDayShift workDayShift);
     }
 }

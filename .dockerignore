@@ -1,5 +1,2 @@
-LICENSE
-.gitignore
-.git
-bin\
-obj\
+**/bin/
+**/obj/

@@ -1,0 +1,35 @@
+<div class="year-header"> 
+    <span class="left-button" id="prev" (click)="prev()"> &lang; </span> 
+    <span class="year" >{{monthYear}}</span> 
+    <span class="right-button" id="next" (click)="next()"> &rang; </span>
+</div>
+<ul>
+    <li>Number of appointments: {{ numOfApp }}</li>
+    <li>Number of patients: {{ numOfPat }}</li>
+    <li>Number of on call shifts: {{ numOfOnc }}</li>
+</ul>
+<div class="grafico">
+    <div class="content">
+        <div class="bars">
+            <span>{{numOfApp}}</span>
+            <div class="bar" style = "background-color:blue;" [style.height]='numOfAppSize'></div>
+            
+        </div>
+        <div class="bars">
+            <span>{{numOfPat}}</span>
+            <div class="bar" style = "background-color:red;" [style.height]='numOfPatSize'></div>
+            
+        </div>
+        <div class="bars">
+            <span>{{numOfOnc}}</span>
+            <div class="bar" style = "background-color:green;" [style.height]='numOfOncSize'></div>
+            
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="legends">
+        <span>Number of appointments</span>
+        <span>Number of patients</span>
+        <span>Number of on call shifts</span>
+    </div>
+</div>

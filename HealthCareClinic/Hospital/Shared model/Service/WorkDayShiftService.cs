@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Model;
+﻿using Hospital.Medical_records.Repository.Interface;
+using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,22 @@ namespace Hospital.Shared_model.Service
     public class WorkDayShiftService : IWorkDayShiftService
     {
         private readonly IWorkDayShiftRepository _workDayShiftRepository;
+        private readonly IDoctorRepository _doctorRepository;
 
-        public WorkDayShiftService(IWorkDayShiftRepository workDayShiftRepository)
+        public WorkDayShiftService(IWorkDayShiftRepository workDayShiftRepository, IDoctorRepository doctorRepository)
         {
             _workDayShiftRepository = workDayShiftRepository;
+            _doctorRepository = doctorRepository;
         }
 
         public void Add(WorkDayShift entity)
         {
             _workDayShiftRepository.Add(entity);
+        }
+
+        public void RemoveById(int id)
+        {
+            _workDayShiftRepository.RemoveById(id);
         }
 
         public bool AddWorkDayShift(WorkDayShift workDayShift)
@@ -74,6 +82,24 @@ namespace Hospital.Shared_model.Service
             return true;
         }
 
+        private bool CheckIfShiftDoesntOverlapWithOtherShiftsEdit(WorkDayShift workDayShift)
+        {
+            List<WorkDayShift> allWorkDayShifts = GetAll().ToList();
+
+            foreach (WorkDayShift wds in allWorkDayShifts)
+            {
+                if (wds.Id == workDayShift.Id)
+                    continue;
+
+                if (!(workDayShift.StartTime >= wds.EndTime || workDayShift.EndTime <= wds.StartTime))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public IEnumerable<WorkDayShift> GetAll()
         {
             return _workDayShiftRepository.GetAll();
@@ -87,6 +113,57 @@ namespace Hospital.Shared_model.Service
         public void Remove(WorkDayShift entity)
         {
             _workDayShiftRepository.Remove(entity);
+        }
+
+        public void RemoveWorkDayShift(int workDayShiftToRemove)
+        {
+            int availableWorkDayShift = GetAvailableWorkDayShiftAfterRemove(workDayShiftToRemove);
+            ChangeDoctorWorkDayShifts(workDayShiftToRemove, availableWorkDayShift);
+            RemoveById(workDayShiftToRemove);
+        }
+
+        private int GetAvailableWorkDayShiftAfterRemove(int workDayShiftToRemove) 
+        {
+            int availableWorkDayShift = 0;
+            foreach (int workDayShiftId in _workDayShiftRepository.GetAll().Select(wds => wds.Id))
+            {
+                if (workDayShiftId != workDayShiftToRemove)
+                {
+                    availableWorkDayShift = workDayShiftId;
+                    break;
+                }
+            }
+
+            return availableWorkDayShift;
+        }
+
+        private void ChangeDoctorWorkDayShifts(int workDayShiftToRemove, int availableWorkDayShift)
+        {
+            foreach (Doctor d in _doctorRepository.GetAll())
+            {
+                if (d.WorkShiftId == workDayShiftToRemove)
+                {
+                    d.WorkShiftId = availableWorkDayShift;
+                    _doctorRepository.ChangeWorkDayShift(d);
+                }
+            }
+        }
+
+        public bool EditWorkDayShift(WorkDayShift workDayShift)
+        {
+            AdjustStartAndEndTime(workDayShift);
+            if (CheckIfStartTimeIsBeforeEndTime(workDayShift) && CheckIfShiftDoesntOverlapWithOnCallShift(workDayShift) && CheckIfShiftDoesntOverlapWithOtherShiftsEdit(workDayShift))
+            {
+                Edit(workDayShift);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public void Edit(WorkDayShift workDayShift)
+        {
+            _workDayShiftRepository.Edit(workDayShift);
         }
     }
 }

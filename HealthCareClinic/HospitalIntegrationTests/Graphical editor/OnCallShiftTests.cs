@@ -1,4 +1,5 @@
 ﻿using Hospital.Mapper;
+using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,42 @@ namespace HospitalIntegrationTests.Graphical_editor
             Assert.True(numberOfCallShifts > 0);
         }
 
-        
+        [Fact]
+        public void Get_on_call_shift_by_month()
+        {
+          var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
+            var _context = new HospitalDbContext(optionsBuilder.Options);
+            OnCallShiftRepository onCallShiftRepository = new OnCallShiftRepository(_context);
+            OnCallShiftService onCallShiftService = new OnCallShiftService(onCallShiftRepository);
+          
+          int numberOfCallShifts = onCallShiftService.GetNumOfOnCallShift(1,2,2022);
+
+            Assert.True(1 <= numberOfCallShifts);
+        }
+
+        [Fact]
+        public void Change_on_call_shift()
+        {
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
+            var _context = new HospitalDbContext(optionsBuilder.Options);
+            OnCallShiftRepository onCallShiftRepository = new OnCallShiftRepository(_context);
+            OnCallShiftService onCallShiftService = new OnCallShiftService(onCallShiftRepository);
+
+            OnCallShift shift = onCallShiftService.GetOneById(1);
+            onCallShiftService.ChangeById(new OnCallShift(1,new DateTime(),1));
+            OnCallShift shift2 = onCallShiftService.GetOneById(1);
+            onCallShiftService.ChangeById(shift);
+
+            Assert.True(shift.Date != shift2.Date);
+
+        }
+
+
     }
 }

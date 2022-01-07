@@ -8,6 +8,7 @@
                 <th style="border: 1px solid black;"><b>Shift</b></th>
                 <th style="border: 1px solid black;"><b></b></th>
                 <th style="border: 1px solid black;"><b></b></th>
+                <th style="border: 1px solid black;"><b></b></th>
             </tr>
         </thead>
         <tbody style="background-color: #52DEE5;">
@@ -23,6 +24,7 @@
                 </div>
                 <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/on-call-shifts', doctor.id]">On call shifts</button></b></td>
                 <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/doctor-vacations', doctor.id]">Vacations</button></b></td>
+                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/workload', doctor.id]">Workload</button></b></td>
             </tr>
         </tbody>
     </table>

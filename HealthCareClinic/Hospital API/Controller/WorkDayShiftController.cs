@@ -29,6 +29,28 @@ namespace Hospital_API.Controller
             return Ok(allWorkDayShifts);
         }
 
+        [HttpGet("getWorkDayShift/{id?}")]
+        public IActionResult GetWorkDayShift(int id)
+        {
+            return Ok(WorkDayShiftAdapter.WorkDayShiftToWorkDayShiftDTO(workDayShiftService.GetOneById(id)));
+        }
+
+        [HttpPost("editWorkDayShift")]
+        public IActionResult EditWorkDayShift(WorkDayShiftDTO workDayShiftDTO)
+        {
+            WorkDayShift workDayShift = WorkDayShiftAdapter.WorkDayShiftDTOToWorkDayShift(workDayShiftDTO);
+            bool workDayShiftEdited = workDayShiftService.EditWorkDayShift(workDayShift);
+            return Ok(workDayShiftEdited);
+        }
+
+        [HttpPost("removeWorkDayShift")]
+        public IActionResult RemoveWorkDayShift(WorkDayShiftDTO workDayShiftDTO)
+        {
+            WorkDayShift workDayShift = WorkDayShiftAdapter.WorkDayShiftDTOToWorkDayShift(workDayShiftDTO);
+            workDayShiftService.RemoveWorkDayShift(workDayShift.Id);
+            return Ok();
+        }
+
         [HttpPost("addWorkDayShift")]
         public IActionResult AddWorkDayShift(WorkDayShiftDTO workDayShiftDTO)
         {

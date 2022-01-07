@@ -14,5 +14,6 @@ namespace Hospital.Shared_model.Service
         public List<Vacation> GetPastVacationsByDoctorId(int doctorId);
         public List<Vacation> GetCurrentVacationsByDoctorId(int doctorId);
         public List<Vacation> GetFutureVacationsByDoctorId(int doctorId);
+        public bool GetVacationAvailability(int doctorId, DateTime vacationStart, DateTime vacationEnd);
     }
 }

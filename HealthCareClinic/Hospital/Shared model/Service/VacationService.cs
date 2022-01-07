@@ -97,5 +97,22 @@ namespace Hospital.Shared_model.Service
 
             return futureVacations;
         }
+
+        public bool GetVacationAvailability(int doctorId, DateTime vacationStart, DateTime vacationEnd)
+        {
+            List<Vacation> allVacations = _vacationRepository.GetVacationsByDoctorId(doctorId);
+
+            foreach (Vacation v in allVacations)
+            {
+                if ((vacationStart.CompareTo(v.StartTime) > 0 && vacationStart.CompareTo(v.EndTime) < 0) 
+                    || (vacationEnd.CompareTo(v.StartTime) > 0 && vacationEnd.CompareTo(v.EndTime) < 0)
+                    || (vacationStart.CompareTo(v.StartTime) < 0 && vacationEnd.CompareTo(v.EndTime) > 0))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
