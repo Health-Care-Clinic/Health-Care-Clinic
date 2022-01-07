@@ -44,7 +44,7 @@ services:
       - "5002:8080" 
     restart: on-failure
     networks:
-      - hospital_application
+      - hospitalapi_application
       - pharmacy-database
       - integrationapi_rabbit
 
@@ -52,12 +52,12 @@ volumes:
   database-data:
 
 networks:
-  hospital_application:
+  hospitalapi_application:
     external: true
   integrationapi_rabbit:
     external: true
   pharmacy-database:
-    external: true
+    driver: overlay
 
 secrets:
   database_password:

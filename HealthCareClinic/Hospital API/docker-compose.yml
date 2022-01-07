@@ -75,9 +75,9 @@ volumes:
 
 networks:
   application:
-    external: true
+    driver: overlay
   hospital-database:
-    external: true
+    driver: overlay
 
 secrets:
   database_password:
