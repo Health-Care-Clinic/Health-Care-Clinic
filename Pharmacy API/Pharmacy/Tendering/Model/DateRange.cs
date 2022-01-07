@@ -15,8 +15,15 @@ namespace Pharmacy.Tendering.Model
         public DateTime End { get; private set; }
         public DateRange(DateTime start, DateTime end)
         {
-            Start = start;
-            End = end;
+            if (start <= end)
+            {
+                Start = start;
+                End = end;
+            }
+            else
+            {
+                throw new ArgumentException("Start date can't be after end date.");
+            }
         }
 
         public DateRange()

@@ -35,7 +35,7 @@ namespace Pharmacy_API.Controllers.Tendering
         [HttpGet("responses")]
         public IActionResult GetAllResponses()
         {
-            return Ok((List<Tender>)_tenderResponseService.GetAll());
+            return Ok((List<TenderResponse>)_tenderResponseService.GetAll());
         }
 
         [HttpPost]

@@ -13,12 +13,11 @@ namespace Hospital_API.Adapter
         public static Tender TenderDTOToTender(TenderDTO dto)
         {
             Tender tender = new Tender();
-            DateRange dateRange = new DateRange();
+            
             tender.Description = dto.Description;
             tender.TenderItems = dto.TenderItems;
+            DateRange dateRange = new DateRange(StringToDate(dto.StartDate), StringToDate(dto.EndDate));
             tender.DateRange = dateRange;
-            tender.DateRange.Start = StringToDate(dto.StartDate);
-            tender.DateRange.End = StringToDate(dto.EndDate);
             return tender;
         }
 
