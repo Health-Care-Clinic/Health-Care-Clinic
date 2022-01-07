@@ -16,7 +16,6 @@ RUN dotnet restore "Hospital API/Hospital API.csproj" && \
 
 FROM build AS publish
 RUN dotnet publish "Hospital API/Hospital API.csproj" -c Release -o /app/publish 
-RUN dotnet test "HospitalIntegrationTests/HospitalIntegrationTests.csproj" -c Release
 
 
 FROM base AS final
