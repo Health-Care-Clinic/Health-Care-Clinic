@@ -3,9 +3,10 @@ version: '3.2'
 services:
 
   proxy:
-    build: 
-      context: ./Proxy
-      dockerfile: Dockerfile
+    image: nenadbecanovic/integration-api-proxy:latest
+    # build: 
+    #   context: ./Proxy
+    #   dockerfile: Dockerfile
     ports: 
       - "8082:8080"
     restart: always

@@ -3,9 +3,10 @@ version: '3.2'
 services:
 
   proxy:
-    build: 
-      context: ./Proxy
-      dockerfile: Dockerfile
+    image: nenadbecanovic/hospital-api-proxy:latest
+    # build: 
+    #   context: ./Proxy
+    #   dockerfile: Dockerfile
     ports: 
       - "8081:8080"
     restart: always
