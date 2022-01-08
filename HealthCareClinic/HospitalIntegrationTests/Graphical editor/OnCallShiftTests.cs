@@ -66,6 +66,26 @@ namespace HospitalIntegrationTests.Graphical_editor
 
         }
 
+        [Fact]
+        public void Add_on_call_shift_to_doctor()
+        {
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var configuration = builder.Build();
+            var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
+            var _context = new HospitalDbContext(optionsBuilder.Options);
+
+            OnCallShiftRepository onCallShiftRepository = new OnCallShiftRepository(_context);
+            OnCallShiftService onCallShiftService = new OnCallShiftService(onCallShiftRepository);
+            
+            OnCallShift newShift = new OnCallShift(13, new DateTime(2022, 1, 1), 1);
+            onCallShiftService.Add(newShift);
+            List<OnCallShift> onCallShifts = (List<OnCallShift>)onCallShiftRepository.GetAll();
+            onCallShiftService.Remove(newShift);
+
+            Assert.Equal(13, onCallShifts.Count);
+        }
+
 
     }
 }
