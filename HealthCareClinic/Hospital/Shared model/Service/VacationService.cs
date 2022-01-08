@@ -114,5 +114,23 @@ namespace Hospital.Shared_model.Service
 
             return true;
         }
+
+        public bool GetChangedVacationAvailability(Vacation vacation)
+        {
+            List<Vacation> allVacations = _vacationRepository.GetVacationsByDoctorId(vacation.DoctorId);
+
+            foreach (Vacation v in allVacations)
+            {
+				if (!vacation.Id.Equals(v.Id) && 
+					((vacation.StartTime.CompareTo(v.StartTime) > 0 && vacation.StartTime.CompareTo(v.EndTime) < 0)
+					|| (vacation.EndTime.CompareTo(v.StartTime) > 0 && vacation.EndTime.CompareTo(v.EndTime) < 0)
+					|| (vacation.StartTime.CompareTo(v.StartTime) < 0 && vacation.EndTime.CompareTo(v.EndTime) > 0)))
+				{
+					return false;
+				}
+            }
+
+            return true;
+        }
     }
 }

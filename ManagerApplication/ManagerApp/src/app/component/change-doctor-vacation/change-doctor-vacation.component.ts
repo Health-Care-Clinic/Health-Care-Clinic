@@ -2,50 +2,44 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IDoctor } from 'src/app/model/patient/doctor';
 import { Vacation } from 'src/app/model/vacation';
-import { VacationService } from 'src/app/services/vacation.service';
 import { DoctorsService } from 'src/app/services/doctors.service';
+import { VacationService } from 'src/app/services/vacation.service';
 
 @Component({
-  selector: 'app-schedule-doctor-vacation',
-  templateUrl: './schedule-doctor-vacation.component.html',
-  styleUrls: ['./schedule-doctor-vacation.component.css']
+  selector: 'app-change-doctor-vacation',
+  templateUrl: './change-doctor-vacation.component.html',
+  styleUrls: ['./change-doctor-vacation.component.css']
 })
-export class ScheduleDoctorVacationComponent implements OnInit {
+export class ChangeDoctorVacationComponent implements OnInit {
 
+  oldVacation: Vacation;
+  oldStartTime: string;
+  oldEndTime: string;
   doctor: IDoctor;
   startTime: Date;
   endTime: Date;
   description: string;
-  doctorVacations: Array<Vacation>;
-  vacations: Array<Vacation>;
 
   constructor(private _route: ActivatedRoute, private vacationService: VacationService, private doctorService: DoctorsService) { }
 
   ngOnInit(): void {
-    var doctorId = +this._route.snapshot.paramMap.get('iddc');
-    this.doctorService.getAllDoctors().subscribe(ret => {
-      for (let d of ret) {
-        if (d.id == doctorId) {
-          this.doctor = d;
+    var vacationId = +this._route.snapshot.paramMap.get('idvc');
+    this.vacationService.getAllVacations().subscribe(ret => {
+      for (let v of ret) {
+        if (v.id == vacationId) {
+          this.oldVacation = v;
+          let today = this.getTodayStringDate();
+          let startDate = document.getElementById('startDate') as HTMLInputElement;
+          startDate.min = today;
+          let endDate = document.getElementById('endDate') as HTMLInputElement;
+          endDate.min = today;
+          this.oldStartTime = v.startTime.toString().split('T')[0];
+          this.oldEndTime = v.endTime.toString().split('T')[0];
           break;
         }
       }
     });
-
-    this.vacationService.getAllDoctorVacations(doctorId).subscribe(ret => {
-      this.doctorVacations = ret;
-    });
-
-    this.vacationService.getAllVacations().subscribe(ret => {
-      this.vacations = ret;
-    });
-
-    let today = this.getTodayStringDate();
     
-    let startDate = document.getElementById('startDate') as HTMLInputElement;
-    startDate.min = today;
-    let endDate = document.getElementById('endDate') as HTMLInputElement;
-    endDate.min = today;
   }
 
   onSubmit() : void {
@@ -67,26 +61,17 @@ export class ScheduleDoctorVacationComponent implements OnInit {
       this.description = descriptionInput.value;
   
       this.vacationService.getAllVacations().subscribe(ret => {
-        let maxId = 0;
-        for (let v of ret) {
-          if (v.id > maxId) {
-            maxId = v.id;
-          }
-        }
-        maxId += 1;
-  
-        let vacation = new Vacation(maxId, this.description, this.startTime, this.endTime, this.doctor.id);
-        this.vacationService.getVacationAvailability(vacation).subscribe(ret => {
+        let vacation = new Vacation(this.oldVacation.id, this.description, this.startTime, this.endTime, this.oldVacation.doctorId);
+        this.vacationService.getChangedVacationAvailability(vacation).subscribe(ret => {
           if (!ret) {
             alert('Doctor has already had a scheduled vacation in period that you entered!');
           } else {
-            this.vacationService.addVacation(vacation).subscribe(ret => {
+            this.vacationService.changeVacation(vacation).subscribe(ret => {
               document.location.href = 'http://localhost:4200/doctor-vacations/' + vacation.doctorId.toString();
             });
           }
         });
       });
-  
     }
 
   }
@@ -107,4 +92,5 @@ export class ScheduleDoctorVacationComponent implements OnInit {
     let todayString = year + '-' + monthString + '-' + dayString;
     return todayString;
   }
+
 }

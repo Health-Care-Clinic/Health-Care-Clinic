@@ -70,6 +70,7 @@ import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
 import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
+import { ChangeDoctorVacationComponent } from './component/change-doctor-vacation/change-doctor-vacation.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -131,7 +132,8 @@ const MaterialComponents = [
     WorkloadComponent,
     AddingShiftComponent,
     AddShiftComponent,
-    EditShiftComponent
+    EditShiftComponent,
+    ChangeDoctorVacationComponent
   ],
   imports: [
     BrowserModule,
