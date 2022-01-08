@@ -14,9 +14,9 @@ namespace Hospital.Mapper
 
         public EventsDbContext(DbContextOptions<EventsDbContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelbuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelbuilder.Entity<Event>().HasData(
+            modelBuilder.Entity<Event>().HasData(
                 new Event { Id = 1, Timestamp = new DateTime(2022, 01, 03, 12, 35, 42), Content = "", UserId = 1 },
                 new Event { Id = 2, Timestamp = new DateTime(2022, 01, 03, 13, 32, 17), Content = "", UserId = 1 },
                 new Event { Id = 3, Timestamp = new DateTime(2022, 01, 04, 18, 21, 8), Content = "", UserId = 2 },
