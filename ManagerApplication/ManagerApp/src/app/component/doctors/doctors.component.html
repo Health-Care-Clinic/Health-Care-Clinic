@@ -16,14 +16,14 @@
                 <td style="border: 1px solid black;"><b>{{doctor.name}}</b></td>
                 <td style="border: 1px solid black;"><b>{{doctor.surname}}</b></td>
                 <div *ngIf = "returnShift(doctor.workShiftId) === ''">
-                    <button style="margin-left: 37px;" [routerLink]="['/add-new-shift', doctor.id]"> Add shift</button>
+                    <button style="margin-left: 37px; cursor: pointer;" [routerLink]="['/add-new-shift', doctor.id]"> Add shift</button>
                 </div>
                 <div *ngIf = "returnShift(doctor.workShiftId) !== ''">
                     <td ><b>{{returnShift(doctor.workShiftId)}}</b></td>
                 </div>
-                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/on-call-shifts', doctor.id]">On call shifts</button></b></td>
-                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/doctor-vacations', doctor.id]">Vacations</button></b></td>
-                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/workload', doctor.id]">Workload</button></b></td>
+                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/on-call-shifts', doctor.id]">On call shifts</button></b></td>
+                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/doctor-vacations', doctor.id]">Vacations</button></b></td>
+                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/workload', doctor.id]">Workload</button></b></td>
             </tr>
         </tbody>
     </table>

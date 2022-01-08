@@ -13,12 +13,13 @@
         <table style="border: 1px solid black; width: 27%; float: left; margin-right: 5%; margin-left: 7%; margin-top: 2%; margin-bottom: 6%;">
             <thead style="background-color: #d3955f;">
                 <tr>
-                    <th colspan="3">Past vacations</th>
+                    <th colspan="4">Past vacations</th>
                 </tr>
                 <tr>
                     <th style="border: 1px solid black;"><b>Start date</b></th>
                     <th style="border: 1px solid black;"><b>End date</b></th>
                     <th style="border: 1px solid black;"><b>Description</b></th>
+                    <th style="border: 1px solid black;"></th>
                 </tr>
             </thead>
             <tbody style="background-color: #52DEE5;">
@@ -26,6 +27,7 @@
                     <td style="border: 1px solid black;"><b>{{vacation.startTime | date:'dd.MM.yyyy'}}</b></td>
                     <td style="border: 1px solid black;"><b>{{vacation.endTime | date:'dd.MM.yyyy'}}</b></td>
                     <td style="border: 1px solid black;"><b>{{vacation.description}}</b></td>
+                    <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/delete-a-vacation', vacation.id]">Delete</button></b></td>
                 </tr>
             </tbody>
         </table>
@@ -65,7 +67,7 @@
                     <td style="border: 1px solid black;"><b>{{vacation.startTime | date:'dd.MM.yyyy'}}</b></td>
                     <td style="border: 1px solid black;"><b>{{vacation.endTime | date:'dd.MM.yyyy'}}</b></td>
                     <td style="border: 1px solid black;"><b>{{vacation.description}}</b></td>
-                    <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/change-a-vacation', vacation.id]">Change</button></b></td>
+                    <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/change-a-vacation', vacation.id]">Change</button></b></td>
                 </tr>
             </tbody>
         </table>

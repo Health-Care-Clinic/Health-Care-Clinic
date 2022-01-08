@@ -19,22 +19,30 @@ export class ChangeDoctorVacationComponent implements OnInit {
   startTime: Date;
   endTime: Date;
   description: string;
+  today: string;
+  found: boolean;
 
   constructor(private _route: ActivatedRoute, private vacationService: VacationService, private doctorService: DoctorsService) { }
 
   ngOnInit(): void {
+    this.found = false;
+
     var vacationId = +this._route.snapshot.paramMap.get('idvc');
     this.vacationService.getAllVacations().subscribe(ret => {
       for (let v of ret) {
         if (v.id == vacationId) {
           this.oldVacation = v;
-          let today = this.getTodayStringDate();
-          let startDate = document.getElementById('startDate') as HTMLInputElement;
-          startDate.min = today;
-          let endDate = document.getElementById('endDate') as HTMLInputElement;
-          endDate.min = today;
+          this.doctorService.findById(v.doctorId).subscribe(ret => {
+            this.doctor = ret;
+          });
+
+          this.found = true;
+          
           this.oldStartTime = v.startTime.toString().split('T')[0];
           this.oldEndTime = v.endTime.toString().split('T')[0];
+
+          this.today = this.getTodayStringDate();
+
           break;
         }
       }
