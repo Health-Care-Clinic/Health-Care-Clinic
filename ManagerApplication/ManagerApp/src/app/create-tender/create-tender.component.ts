@@ -37,8 +37,8 @@ export class CreateTenderComponent implements OnInit {
   }
 
   createTender(): void {
-    this.tender.startDate = this.datepipe.transform(this.startDate, 'yyyy-MM-dd');
-    this.tender.endDate = this.datepipe.transform(this.endDate, 'yyyy-MM-dd');
+    this.tender.startDate = this.datepipe.transform(this.startDate, 'yyyy/MM/dd');
+    this.tender.endDate = this.datepipe.transform(this.endDate, 'yyyy/MM/dd');
     this.tender.description = this.description;
     this.tender.isOpen = true;
     this.tender.isWinningBidChosen = false;

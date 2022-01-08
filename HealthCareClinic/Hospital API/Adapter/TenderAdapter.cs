@@ -55,7 +55,7 @@ namespace Hospital_API.Adapter
         private static DateTime StringToDate(string date)
         {
             string[] parts = date.Split("/");
-            DateTime newDate = new DateTime(int.Parse(parts[2]), int.Parse(parts[0]), int.Parse(parts[1]));
+            DateTime newDate = new DateTime(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]));
             return newDate;
         }
     }
