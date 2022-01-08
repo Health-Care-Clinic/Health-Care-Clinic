@@ -1,0 +1,28 @@
+<div style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%; margin-bottom: 2%; font-size: large;">
+    <h1>
+        Old vacation:<br>
+    </h1>
+        Start time: {{oldVacation.startTime}}<br>
+        End time: {{oldVacation.endTime}}<br>
+        Description: {{oldVacation.description}}<br>
+</div>
+<div style="width: 100%; float: left; margin: auto; text-align: center; font-size: large;">
+    <h1>New vacation:</h1>
+    <form id="scheduleVacation" (ngSubmit)="onSubmit()" ngNativeValidate>
+        <div>
+            <label style="margin-right: 2%;">Start date:</label>
+            <input type="date" id="startDate" value="{{oldStartTime}}" required style="min-width: 20%;">
+        </div>
+        <div>
+            <label style="margin-right: 2%;">End date:</label>
+            <input type="date" id="endDate" value="{{oldEndTime}}" required style="min-width: 20%;">
+        </div>
+        <div>
+            <label style="margin-right: 2%;">Description:</label>
+            <input type="text" id="description" value="{{oldVacation.description}}" required style="min-width: 20%;">
+        </div>
+        <div style="margin-top: 2%; margin-bottom: 2%;">
+            <button id="finish" type="submit" style="background-color: rgb(255, 255, 110); cursor: pointer; min-width: 100px; min-height: 30px;">Finish</button>
+        </div>
+    </form>
+</div>

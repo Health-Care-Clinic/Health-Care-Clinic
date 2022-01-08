@@ -97,6 +97,13 @@ namespace Hospital_API.Controller
             return Ok(available);
         }
 
+        [HttpPost("getChangedVacationAvailability")]
+        public IActionResult GetChangedVacationAvailability(VacationDTO vacationDTO)
+        {
+            Vacation vacation = VacationAdapter.VacationDTOToVacation(vacationDTO);
+            bool available = vacationService.GetChangedVacationAvailability(vacation);
+            return Ok(available);
+        }
 
     }
 }
