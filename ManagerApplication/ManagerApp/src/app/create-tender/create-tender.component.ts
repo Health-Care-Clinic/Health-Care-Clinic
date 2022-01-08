@@ -18,7 +18,7 @@ export class CreateTenderComponent implements OnInit {
   public startDate = new Date();
   public endDate = new Date();
   public description: string = "";
-  public tender: ITenderDTO = { id: 0, startDate: "", endDate: "", description: "", isWinningBidChosen: false, price: null, medicines: null, isOpen: true, offersNumber: 0 }
+  public tender: ITenderDTO = { id: 0, startDate: "", endDate: "", description: "", isWinningBidChosen: false, price: null, tenderItems: null, isOpen: true, offersNumber: 0 }
 
   constructor(private _tenderingService : TenderingServiceService, public datepipe: DatePipe) { 
     this.tender;
@@ -43,7 +43,7 @@ export class CreateTenderComponent implements OnInit {
     this.tender.isOpen = true;
     this.tender.isWinningBidChosen = false;
     this.tender.price = 0;
-    this.tender.medicines = this.medicines;
+    this.tender.tenderItems = this.medicines;
     this.tender.offersNumber = 0;
     console.log(this.tender)
     this._tenderingService.createTender(this.tender).subscribe();
