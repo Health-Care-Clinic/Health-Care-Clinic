@@ -29,9 +29,6 @@ import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
 import { EditDoctorShiftComponent } from './component/edit-doctor-shift/edit-doctor-shift.component';
 import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vacation/schedule-doctor-vacation.component';
-import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
-import { ShiftsComponent } from './component/shifts/shifts.component';
-import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
 import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 
@@ -74,7 +71,6 @@ const routes: Routes = [
   { path: 'schedule-a-vacation/:iddc', component: ScheduleDoctorVacationComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
-  { path: 'add-new-shift/:ida', component: AddingShiftComponent },
   { path: 'edit-shift/:ids', component: EditShiftComponent }
 ];
 
