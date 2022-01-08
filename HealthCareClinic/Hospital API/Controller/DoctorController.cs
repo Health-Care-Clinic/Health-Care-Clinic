@@ -3,12 +3,8 @@ using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hospital_API.Controller
 {
@@ -53,6 +49,12 @@ namespace Hospital_API.Controller
             Doctor doctor = DoctorAdapter.DoctorDTOToDoctor(doctorDTO);
             doctorService.addShiftToDoctor(doctor);
             return Ok();
+        }
+
+        [HttpGet("findById/{id?}")]
+        public IActionResult FindById(int id)
+        {
+            return Ok(DoctorAdapter.DoctorToDoctorDTO(doctorService.findById(id)));
         }
     }
 }

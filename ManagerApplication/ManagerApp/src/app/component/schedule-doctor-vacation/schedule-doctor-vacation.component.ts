@@ -18,15 +18,20 @@ export class ScheduleDoctorVacationComponent implements OnInit {
   description: string;
   doctorVacations: Array<Vacation>;
   vacations: Array<Vacation>;
+  today: string;
+  found: boolean;
 
   constructor(private _route: ActivatedRoute, private vacationService: VacationService, private doctorService: DoctorsService) { }
 
   ngOnInit(): void {
+    this.found = false;
+
     var doctorId = +this._route.snapshot.paramMap.get('iddc');
     this.doctorService.getAllDoctors().subscribe(ret => {
       for (let d of ret) {
         if (d.id == doctorId) {
           this.doctor = d;
+          this.found = true;
           break;
         }
       }
@@ -40,12 +45,7 @@ export class ScheduleDoctorVacationComponent implements OnInit {
       this.vacations = ret;
     });
 
-    let today = this.getTodayStringDate();
-    
-    let startDate = document.getElementById('startDate') as HTMLInputElement;
-    startDate.min = today;
-    let endDate = document.getElementById('endDate') as HTMLInputElement;
-    endDate.min = today;
+    this.today = this.getTodayStringDate();
   }
 
   onSubmit() : void {

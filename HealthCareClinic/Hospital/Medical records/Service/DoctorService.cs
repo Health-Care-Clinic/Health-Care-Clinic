@@ -60,5 +60,10 @@ namespace Hospital.Medical_records.Service
             d.WorkShiftId = doctor.WorkShiftId;
             doctorRepository.Save();
         }
+
+        public Doctor findById(int id)
+        {
+            return doctorRepository.GetById(id);
+        }
     }
 }

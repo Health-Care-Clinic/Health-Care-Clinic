@@ -32,6 +32,7 @@ import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vac
 import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 import { ChangeDoctorVacationComponent } from './component/change-doctor-vacation/change-doctor-vacation.component';
+import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacation/delete-doctor-vacation.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -71,6 +72,7 @@ const routes: Routes = [
   { path: 'edit-doctor-shift/:idu', component: EditDoctorShiftComponent },
   { path: 'schedule-a-vacation/:iddc', component: ScheduleDoctorVacationComponent},
   { path: 'change-a-vacation/:idvc', component: ChangeDoctorVacationComponent},
+  { path: 'delete-a-vacation/:idvd', component: DeleteDoctorVacationComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'edit-shift/:ids', component: EditShiftComponent }

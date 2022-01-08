@@ -1,5 +1,5 @@
 #tableDiv {
-    width: 500px;
+    width: 50%;
     margin-top: 6%;
     margin-bottom: 6%;
     margin-left: auto;
@@ -16,5 +16,4 @@
 
 #tableDiv table tbody tr td {
     text-align: center;
-    cursor: pointer;
 }

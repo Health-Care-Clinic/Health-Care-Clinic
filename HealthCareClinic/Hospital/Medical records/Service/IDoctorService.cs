@@ -12,5 +12,6 @@ namespace Hospital.Medical_records.Service
         public List<String> GetAllSpecialties();
         public List<Doctor> GetDoctorsBySpecialty(string specialty);
         public void addShiftToDoctor(Doctor doctor);
+        public Doctor findById(int id);
     }
 }

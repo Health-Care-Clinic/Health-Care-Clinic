@@ -12,6 +12,8 @@ export class DoctorsService {
   private addShiftToDoctor: string;
   private getNumOfAppUrl: string;
   private getNumOfPatUrl: string;
+  private addShiftToDoctor: string;
+  private findByIdUrl: string;
   
   
   constructor(private _http: HttpClient) { 
@@ -19,6 +21,7 @@ export class DoctorsService {
     this.getNumOfAppUrl = '/api/doctor/getNumOfAppointments'
     this.getNumOfPatUrl = '/api/doctor/getNumOfPatients'
     this.addShiftToDoctor = '/api/doctor/addShiftToDoctor'
+    this.findByIdUrl = '/api/doctor/findById'
   }
 
 
@@ -45,5 +48,11 @@ export class DoctorsService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this._http.post<IDoctor>(this.addShiftToDoctor, doctor, {headers: headers});
+  }
+
+  public findById(id: number): Observable<IDoctor> {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this._http.get<IDoctor>(this.findByIdUrl + "/" + id.toString(), {headers: headers});
   }
 }
