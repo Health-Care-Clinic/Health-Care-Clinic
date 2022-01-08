@@ -31,7 +31,6 @@ namespace Hospital_API.Controller
             return Ok(doctorsDto);
         }
 
-
         [HttpGet("getNumOfAppointments/{id?}/{month?}/{year?}")]
         public IActionResult GetNumOfAppointments(int id, int month,int year)
         {

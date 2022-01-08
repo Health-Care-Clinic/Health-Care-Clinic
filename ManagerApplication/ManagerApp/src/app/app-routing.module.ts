@@ -24,15 +24,15 @@ import { DoctorsComponent } from './component/doctors/doctors.component';
 import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
 import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
-import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vacation/schedule-doctor-vacation.component';
 import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+import { EditDoctorShiftComponent } from './component/edit-doctor-shift/edit-doctor-shift.component';
+import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vacation/schedule-doctor-vacation.component';
 import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 import { ChangeDoctorVacationComponent } from './component/change-doctor-vacation/change-doctor-vacation.component';
 import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacation/delete-doctor-vacation.component';
-
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -67,12 +67,14 @@ const routes: Routes = [
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'new-on-call-shift/:ide', component: NewOnCallShiftComponent },
   { path: 'doctor-vacations/:iddv', component: DoctorVacationsComponent},
+  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
+  { path: 'add-new-shift/:ida', component: AddingShiftComponent },
+  { path: 'edit-doctor-shift/:idu', component: EditDoctorShiftComponent },
   { path: 'schedule-a-vacation/:iddc', component: ScheduleDoctorVacationComponent},
   { path: 'change-a-vacation/:idvc', component: ChangeDoctorVacationComponent},
   { path: 'delete-a-vacation/:idvd', component: DeleteDoctorVacationComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
-  { path: 'add-new-shift/:ida', component: AddingShiftComponent },
   { path: 'edit-shift/:ids', component: EditShiftComponent }
 ];
 
