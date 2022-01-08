@@ -16,10 +16,11 @@
                 <td style="border: 1px solid black;"><b>{{doctor.name}}</b></td>
                 <td style="border: 1px solid black;"><b>{{doctor.surname}}</b></td>
                 <div *ngIf = "returnShift(doctor.workShiftId) === ''">
-                    <button style="margin-left: 37px;" [routerLink]="['/add-new-shift', doctor.id]"> Add shift</button>
+                    <button style="margin-left: 25px; margin-top: 10px;" [routerLink]="['/add-new-shift', doctor.id]"> Add shift</button>
                 </div>
                 <div *ngIf = "returnShift(doctor.workShiftId) !== ''">
                     <td ><b>{{returnShift(doctor.workShiftId)}}</b></td>
+                    <button style="margin-left: 25px;" [routerLink]="['/edit-doctor-shift', doctor.id]"> Edit shift </button>
                 </div>
                 <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/on-call-shifts', doctor.id]">On call shifts</button></b></td>
                 <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110);" [routerLink]="['/doctor-vacations', doctor.id]">Vacations</button></b></td>

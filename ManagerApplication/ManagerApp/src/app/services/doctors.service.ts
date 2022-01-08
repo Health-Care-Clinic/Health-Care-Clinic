@@ -9,9 +9,9 @@ import { IDoctor } from '../model/patient/doctor';
 export class DoctorsService {
 
   private getAllDoctorsUrl: string;
+  private addShiftToDoctor: string;
   private getNumOfAppUrl: string;
   private getNumOfPatUrl: string;
- private addShiftToDoctor: string;
   
   
   constructor(private _http: HttpClient) { 
@@ -19,7 +19,6 @@ export class DoctorsService {
     this.getNumOfAppUrl = '/api/doctor/getNumOfAppointments'
     this.getNumOfPatUrl = '/api/doctor/getNumOfPatients'
     this.addShiftToDoctor = '/api/doctor/addShiftToDoctor'
-
   }
 
 
