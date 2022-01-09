@@ -16,16 +16,16 @@ services:
       entrypoint: ["/bin/sh","-c"]
       command:
       - |
-        dotnet new tool-manifest --force && 
-        dotnet tool install --local dotnet-ef --version 5.0.11 && 
-        dotnet restore "Pharmacy API/Pharmacy API/Pharmacy API.csproj" && 
-        cd "Pharmacy API/Pharmacy" &&
-        ls 
+        dotnet new tool-manifest --force --name name
+        dotnet tool install --local dotnet-ef --version 5.0.11
+        dotnet restore "Pharmacy API/Pharmacy API/Pharmacy API.csproj"
+        cd "Pharmacy API/Pharmacy"
+        ls
         rm -r Migrations 
         cd ../ 
         cd ../ 
-        dotnet dotnet-ef migrations add TestingMigration --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "Pharmacy API/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext &&
-        dotnet dotnet-ef database update --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "HealthCareClinic/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext &&
+        dotnet dotnet-ef migrations add TestingMigration --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "Pharmacy API/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext
+        dotnet dotnet-ef database update --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "HealthCareClinic/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext
         dotnet test "Pharmacy API/PharmacyIntegrationTests/PharmacyIntegrationTests.csproj"
       depends_on:
         - database  
