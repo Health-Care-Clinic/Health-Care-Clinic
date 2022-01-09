@@ -13,9 +13,9 @@ RUN dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj" && \
     dotnet build "HealthCareClinic/Hospital API/Hospital API.csproj" -c Release
 
 
-RUN dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext && \
-    dotnet dotnet-ef database update --project "HealthCareClinic/Hospital API/Hospital API.csproj" && \
-    dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
+RUN dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext
+RUN dotnet dotnet-ef database update --project "HealthCareClinic/Hospital API/Hospital API.csproj"
+RUN dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
 
 FROM base AS final
 ENV ASPNETCORE_URLS=http://*:$PORT
