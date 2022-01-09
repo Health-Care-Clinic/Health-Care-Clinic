@@ -30,7 +30,7 @@ services:
         source: hospital-data
         target: /var/lib/postgresql/data
       - type: bind
-        source: ./database.sql 
+        source: ./HealthCareClinic/Hospital API/database.sql 
         target: /docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: "postgres"
