@@ -19,7 +19,7 @@ namespace Pharmacy.Tendering.Model
             }
             else
             {
-                throw new Exception();
+                throw new ArgumentException();
             }
         }
 
