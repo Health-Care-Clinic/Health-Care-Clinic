@@ -11,8 +11,8 @@ RUN dotnet new tool-manifest --force --name manifest
 RUN dotnet tool install --local dotnet-ef --version 5.0.11
 
 
-RUN dotnet dotnet-ef migrations add TestingMigration --startup-project "HealthCareClinic/Hospital/Hospital.csproj" --context HospitalDbContext
-RUN dotnet dotnet-ef database update --startup-project "HealthCareClinic/Hospital/Hospital.csproj"
+RUN dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital/Hospital.csproj" -Context HospitalDbContext
+RUN dotnet dotnet-ef database update --project "HealthCareClinic/Hospital/Hospital.csproj"
 RUN dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
 
 FROM base AS final
