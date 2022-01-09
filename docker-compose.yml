@@ -23,6 +23,7 @@ services:
         dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj" &&
         echo "$PATH" &&
         cd HealthCareClinic/Hospital &&
+        ls 
         rm -r Migrations 
         cd ~
         dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext &&
