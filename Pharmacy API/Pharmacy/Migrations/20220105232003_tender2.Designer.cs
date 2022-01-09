@@ -10,8 +10,8 @@ using Pharmacy;
 namespace Pharmacy.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    [Migration("20211228170503_Tender2")]
-    partial class Tender2
+    [Migration("20220105232003_tender2")]
+    partial class tender2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -145,9 +145,6 @@ namespace Pharmacy.Migrations
                     b.Property<string>("SideEffects")
                         .HasColumnType("text");
 
-                    b.Property<int?>("TenderId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Usage")
                         .HasColumnType("text");
 
@@ -155,8 +152,6 @@ namespace Pharmacy.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TenderId");
 
                     b.ToTable("Medicines");
 
@@ -209,13 +204,7 @@ namespace Pharmacy.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("ForeignId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsWinningBidChosen")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("TenderResponseDescription")
+                    b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -223,11 +212,28 @@ namespace Pharmacy.Migrations
                     b.ToTable("Tenders");
                 });
 
-            modelBuilder.Entity("Pharmacy.Prescriptions.Model.Medicine", b =>
+            modelBuilder.Entity("Pharmacy.Tendering.Model.TenderResponse", b =>
                 {
-                    b.HasOne("Pharmacy.Tendering.Model.Tender", null)
-                        .WithMany("Medicines")
-                        .HasForeignKey("TenderId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsWinningBid")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PharmacyName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("TenderId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TenderResponses");
                 });
 
             modelBuilder.Entity("Pharmacy.Tendering.Model.Tender", b =>
@@ -239,6 +245,14 @@ namespace Pharmacy.Migrations
                                 .HasColumnType("integer")
                                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                            b1.Property<DateTime>("End")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("DateRange_End");
+
+                            b1.Property<DateTime>("Start")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("DateRange_Start");
+
                             b1.HasKey("TenderId");
 
                             b1.ToTable("Tenders");
@@ -247,16 +261,25 @@ namespace Pharmacy.Migrations
                                 .HasForeignKey("TenderId");
                         });
 
-                    b.OwnsOne("Pharmacy.Tendering.Model.Price", "TotalPrice", b1 =>
+                    b.OwnsMany("Pharmacy.Tendering.Model.TenderItem", "TenderItems", b1 =>
                         {
                             b1.Property<int>("TenderId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("integer")
                                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                            b1.HasKey("TenderId");
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
 
-                            b1.ToTable("Tenders");
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderId", "Id");
+
+                            b1.ToTable("Tenders_TenderItems");
 
                             b1.WithOwner()
                                 .HasForeignKey("TenderId");
@@ -264,12 +287,57 @@ namespace Pharmacy.Migrations
 
                     b.Navigation("DateRange");
 
-                    b.Navigation("TotalPrice");
+                    b.Navigation("TenderItems");
                 });
 
-            modelBuilder.Entity("Pharmacy.Tendering.Model.Tender", b =>
+            modelBuilder.Entity("Pharmacy.Tendering.Model.TenderResponse", b =>
                 {
-                    b.Navigation("Medicines");
+                    b.OwnsOne("Pharmacy.Tendering.Model.Price", "TotalPrice", b1 =>
+                        {
+                            b1.Property<int>("TenderResponseId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<double>("Amount")
+                                .HasColumnType("double precision")
+                                .HasColumnName("TotalPrice_Amount");
+
+                            b1.HasKey("TenderResponseId");
+
+                            b1.ToTable("TenderResponses");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderResponseId");
+                        });
+
+                    b.OwnsMany("Pharmacy.Tendering.Model.TenderItem", "TenderItems", b1 =>
+                        {
+                            b1.Property<int>("TenderResponseId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderResponseId", "Id");
+
+                            b1.ToTable("TenderResponses_TenderItems");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderResponseId");
+                        });
+
+                    b.Navigation("TenderItems");
+
+                    b.Navigation("TotalPrice");
                 });
 #pragma warning restore 612, 618
         }

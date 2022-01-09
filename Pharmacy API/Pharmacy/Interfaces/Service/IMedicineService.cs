@@ -12,6 +12,8 @@ namespace Pharmacy.Interfaces.Service
         public bool RaiseMedicineQuantity(int id, int quantity);
         public bool MedicineExistsInQuantity(string medicineName, int quantity);
         public void ReduceMedicineQuantity(string medicineName, int quantity);
+        int GetMedicineQuantity(string medicineName);
+        double GetMedicinePrice(string medicineName);
         Medicine GetByName(string name);
     }
 }

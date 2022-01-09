@@ -11,6 +11,7 @@ namespace Pharmacy_API.Adapter
 {
     public class TenderAdapter
     {
+        /*
         public static Tender TenderRequestDTOToTender(TenderRequestDTO dto)
         {
             Tender tender = new Tender();
@@ -53,5 +54,6 @@ namespace Pharmacy_API.Adapter
             
             return tenderResponseDTO;
         }
+        */
     }
 }

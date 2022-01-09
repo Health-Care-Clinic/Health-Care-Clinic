@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using RestSharp;
+using Hospital.Medicines.Service;
 
 namespace Hospital_API.Controller
 {
@@ -19,19 +21,28 @@ namespace Hospital_API.Controller
     public class TenderController : ControllerBase
     {
         private readonly ITenderService _tenderService;
+        private readonly ITenderResponseService _tenderResponseService;
+        private readonly IMedicineService _medicineService;
 
-        public TenderController(ITenderService tenderService)
+        public TenderController(ITenderService tenderService, ITenderResponseService tenderResponseService, IMedicineService medicineService)
         {
             _tenderService = tenderService;
+            _tenderResponseService = tenderResponseService;
+            _medicineService = medicineService;
         }
 
         [HttpGet]
         public IActionResult GetAllTenders()
         {
-            List<Tender> tenders = (List<Tender>)_tenderService.GetAll();
-            List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO(tenders);
+            List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO((List<Tender>)_tenderService.GetAll());
 
             return Ok(tendersDTO);
+        }
+
+        [HttpGet("responses")]
+        public IActionResult GetAllResponses()
+        {
+            return Ok(_tenderResponseService.GetAll());
         }
 
         [HttpPost]
@@ -55,11 +66,47 @@ namespace Hospital_API.Controller
                                         routingKey: "tender",
                                         basicProperties: null,
                                         body: body);
-                Console.WriteLine(" [x] Sent \n\tPrice: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.TotalPrice.Amount, tender.DateRange.Start.ToShortDateString(),
-                    tender.DateRange.End.ToShortDateString(), tender.TenderResponseDescription);
+                
+                Console.WriteLine(" [x] Sent \n\tDate Range: {0} - {1}\n\tDescription: {2}", tender.DateRange.Start.ToShortDateString(),
+                    tender.DateRange.End.ToShortDateString(), tender.Description);
                 _tenderService.Add(tender);
+                
+            }
+            return Ok();
+        }
+
+        [HttpPost("{tenderResponseId?}")]
+        public IActionResult ChooseTenderResponse(int tenderResponseId)
+        {
+            TenderResponse winningTenderResponse = _tenderResponseService.GetOneById(tenderResponseId);
+            winningTenderResponse.IsWinningBid = true;
+            _tenderResponseService.Update(winningTenderResponse);
+            ICollection<TenderResponse> tenderResponses = _tenderResponseService.GetTenderResponsesByTenderId(winningTenderResponse.TenderId);
+            foreach(TenderResponse tenderResponse in tenderResponses)
+            {
+                if (tenderResponse.Id == winningTenderResponse.Id)
+                {
+                    var client = new RestClient(GetPharmacyUrl(tenderResponse.PharmacyName));
+                    var request = new RestRequest("benu/tender/outcome");
+                    request.AddJsonBody(tenderResponse);
+                    IRestResponse response = client.Post(request);
+                    foreach (TenderItem tenderItem in tenderResponse.TenderItems)
+                        _medicineService.AddMedicine(tenderItem.Name, tenderItem.Quantity.ToString());
+                }
+                else
+                {
+                    var client = new RestClient(GetPharmacyUrl(tenderResponse.PharmacyName));
+                    var request = new RestRequest("benu/tender/outcome");
+                    request.AddJsonBody(tenderResponse);
+                    IRestResponse response = client.Post(request);
+                }
             }
             return Ok("success");
+        }
+
+        private string GetPharmacyUrl(string pharmacyName)
+        {
+            return "http://localhost:18089";
         }
     }
 }

@@ -122,6 +122,9 @@ namespace Hospital_API
             services.AddScoped<ITenderService, TenderService>();
             services.AddScoped<ITenderRepository, TenderRepository>();
 
+            services.AddScoped<ITenderResponseService, TenderResponseService>();
+            services.AddScoped<ITenderResponseRepository, TenderResponseRepository>();
+
             services.AddScoped<IMedicineService, MedicineService>();
             services.AddScoped<IMedicineRepository, MedicineRepository>();
 

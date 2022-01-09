@@ -16,11 +16,11 @@ namespace Hospital_API.DTO
         public bool IsOpen { get; set; }
         public int OffersNumber { get; set; }
         public double Price { get; set; }
-        public ICollection<Medicine> Medicines { get; set; }
+        public ICollection<TenderItem> TenderItems { get; set; }
 
         public TenderDTO() { }
 
-        public TenderDTO(int id, string startDate, string endDate, string description, bool isWinningBidChosen, bool isOpen, int offersNumber, double price, ICollection<Medicine> medicines)
+        public TenderDTO(int id, string startDate, string endDate, string description, bool isWinningBidChosen, bool isOpen, int offersNumber, double price, ICollection<TenderItem> tenderItems)
         {
             Id = id;
             StartDate = startDate;
@@ -30,7 +30,7 @@ namespace Hospital_API.DTO
             IsOpen = isOpen;
             OffersNumber = offersNumber;
             Price = price;
-            Medicines = medicines;
+            TenderItems = tenderItems;
         }
     }
 }
