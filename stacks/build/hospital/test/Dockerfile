@@ -9,8 +9,8 @@ RUN dotnet tool install --local dotnet-ef --version 5.0.11
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "Hospital API/Hospital API.csproj" && \
-    dotnet build "Hospital API/Hospital API.csproj" -c Release
+RUN dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj" && \
+    dotnet build "HealthCareClinic/Hospital API/Hospital API.csproj" -c Release
 
 
 RUN dotnet dotnet-ef migrations add TestingMigration --project "Hospital API/Hospital API.csproj" --context HospitalDbContext && \
