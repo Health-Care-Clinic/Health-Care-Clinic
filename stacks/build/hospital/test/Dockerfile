@@ -4,7 +4,7 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS test
 RUN dotnet new tool-manifest --force && \
-    dotnet tool install --global dotnet-ef --version 5.0.11
+    dotnet tool install --local dotnet-ef --version 5.0.11
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
