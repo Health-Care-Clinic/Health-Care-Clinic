@@ -16,11 +16,11 @@ services:
       - .:/HealthCareClinic
       command: bash -c "
         dotnet new tool-manifest --force && 
-        dotnet tool install --local dotnet-ef --version 3.1.0 &&
+        dotnet tool install --local dotnet-ef --version 5.11.0 &&
         echo "$PATH"
         dotnet restore "/Hospital\ API/Hospital\ API.csproj" &&
-        dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital API" &&
-        dotnet dotnet-ef database update --project "HealthCareClinic/Hospital API" &&
+        dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital\ API" --context HospitalDbContext &&
+        dotnet dotnet-ef database update --project "HealthCareClinic/Hospital\ API" &&
         dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj" "
       depends_on:
         - database  
