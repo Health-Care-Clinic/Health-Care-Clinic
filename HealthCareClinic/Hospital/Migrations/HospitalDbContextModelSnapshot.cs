@@ -5607,7 +5607,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Nikolic",
                             Username = "nikola",
-                            WorkShiftId = -1
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -5625,7 +5625,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Radic",
                             Username = "marko",
-                            WorkShiftId = -1
+                            WorkShiftId = 1
                         },
                         new
                         {
@@ -5643,7 +5643,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Sivc",
                             Username = "jozef",
-                            WorkShiftId = -1
+                            WorkShiftId = 1
                         },
                         new
                         {
@@ -5661,7 +5661,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Zoric",
                             Username = "dragana",
-                            WorkShiftId = -1
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -5679,7 +5679,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Grandic",
                             Username = "mile",
-                            WorkShiftId = -1
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -5697,7 +5697,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Bradina",
                             Username = "misa",
-                            WorkShiftId = -1
+                            WorkShiftId = 1
                         });
                 });
 
@@ -6276,27 +6276,6 @@ namespace Hospital.Migrations
                     b.ToTable("WorkDay");
                 });
 
-            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("ForeignId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsWinningBidChosen")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("TenderResponseDescription")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tenders");
-                });
-                
             modelBuilder.Entity("Hospital.Shared_model.Model.WorkDayShift", b =>
                 {
                     b.Property<int>("Id")
@@ -6332,7 +6311,28 @@ namespace Hospital.Migrations
                             Name = "Second",
                             StartTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-            });
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ForeignId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsWinningBidChosen")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("TenderResponseDescription")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenders");
+                });
 
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {

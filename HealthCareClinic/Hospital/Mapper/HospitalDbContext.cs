@@ -495,7 +495,7 @@ namespace Hospital.Mapper
                    WorkDay = null,
                    Specialty = "General medicine",
                    PrimaryRoom = 1,
-                   WorkShiftId = -1
+                   WorkShiftId = 2
                },
 
                 new Doctor()
@@ -515,7 +515,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 2,
-                    WorkShiftId = -1
+                    WorkShiftId = 1
                 },
                 new Doctor()
                 {
@@ -534,7 +534,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 3,
-                    WorkShiftId = -1
+                    WorkShiftId = 1
                 },
                 new Doctor()
                 {
@@ -553,7 +553,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "Surgery",
                     PrimaryRoom = 4,
-                    WorkShiftId = -1
+                    WorkShiftId = 2
                 },
                 new Doctor()
                 {
@@ -572,7 +572,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "Surgery",
                     PrimaryRoom = 5,
-                    WorkShiftId = -1
+                    WorkShiftId = 2
                 },
                 new Doctor()
                 {
@@ -591,7 +591,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 6,
-                    WorkShiftId = -1
+                    WorkShiftId = 1
                 }
             );
 

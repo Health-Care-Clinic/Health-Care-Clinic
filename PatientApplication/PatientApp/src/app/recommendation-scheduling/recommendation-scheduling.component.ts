@@ -67,6 +67,14 @@ export class RecommendationSchedulingComponent implements OnInit {
   }
 
   getAvailableTerms(priority: string) {
+    /* dto.from = new Date(Date.UTC(dto.from.getFullYear(), dto.from.getMonth(), dto.from.getDate(), dto.from.getHours(), dto.from.getMinutes()));
+    dto.to = new Date(Date.UTC(dto.to.getFullYear(), dto.to.getMonth(), dto.to.getDate(), dto.to.getHours(), dto.to.getMinutes()));
+    const body=JSON.stringify(dto).toLocaleString();
+    console.log('GettingTermsDTO: ' + body)
+     if (priority == 'Doctor') 
+      return this._http.post(this._getAvailableTermsForPriority, body) */
+
+
     this.chosenPriority = priority;
 
     this.dto.beginningDateTime = this.range.value.start;
