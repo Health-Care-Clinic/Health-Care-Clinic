@@ -35,7 +35,7 @@ namespace Hospital.Medicines.Service
                 _medicineRepository.Save();
                 return;
             }
-            _medicineRepository.Add(new Medicine(-1, medicineName, quantity));
+            _medicineRepository.Add(new Medicine(medicineName, quantity));
             _medicineRepository.Save();
         }
 

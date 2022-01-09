@@ -3,11 +3,14 @@ using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace Hospital_API.Controller
 {
+    [Authorize(Roles = "patient")]
     [Route("api/[controller]")]
     [ApiController]
     public class DoctorController : ControllerBase

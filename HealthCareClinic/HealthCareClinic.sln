@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalSeleniumTests", "HospitalSeleniumTests\HospitalSeleniumTests.csproj", "{70F9E884-7DCF-4906-A027-FD33800AB066}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{EDF6615F-9859-4F3C-A19A-E19DEDEC431D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDF6615F-9859-4F3C-A19A-E19DEDEC431D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDF6615F-9859-4F3C-A19A-E19DEDEC431D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70F9E884-7DCF-4906-A027-FD33800AB066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F9E884-7DCF-4906-A027-FD33800AB066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F9E884-7DCF-4906-A027-FD33800AB066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F9E884-7DCF-4906-A027-FD33800AB066}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

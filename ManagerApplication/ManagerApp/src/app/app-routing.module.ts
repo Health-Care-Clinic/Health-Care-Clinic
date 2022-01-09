@@ -18,6 +18,8 @@ import { RoomScheduleComponent } from './component/hospital-map/room-schedule.co
 import { NotificationsComponent } from './notifications/notifications.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { AuthGuard } from './services/auth.guard';
+import { LoginPageComponent } from './login-page/login-page.component';
 import { TendersComponent } from './tenders/tenders.component';
 import { CreateTenderComponent } from './create-tender/create-tender.component';
 import { DoctorsComponent } from './component/doctors/doctors.component';
@@ -27,6 +29,7 @@ import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-va
 import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+//import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
 import { EditDoctorShiftComponent } from './component/edit-doctor-shift/edit-doctor-shift.component';
 import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vacation/schedule-doctor-vacation.component';
 import { WorkloadComponent } from './component/workload/workload.component';
@@ -37,30 +40,31 @@ import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacatio
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
   { path: 'registration',  component: PharmacyRegistrationComponent },
-  { path: 'feedback-view', component: FeedbackViewComponent},
-  { path: 'survey-observation', component: SurveyObservationComponent},
-  { path: 'promotions', component: PharmacyPromotionsComponent},
-  { path: 'notifications', component: NotificationsComponent},
-  { path: 'registration', component: PharmacyRegistrationComponent},
-  { path: 'floor/:idb/:idf', component: FloorComponent },
-  { path: 'hospital-map', component: HospitalMapComponent },
+  { path: 'login',  component: LoginPageComponent },
+  { path: 'feedback-view', component: FeedbackViewComponent, canActivate:[AuthGuard]},
+  { path: 'survey-observation', component: SurveyObservationComponent, canActivate:[AuthGuard]},
+  { path: 'promotions', component: PharmacyPromotionsComponent, canActivate:[AuthGuard]},
+  { path: 'notifications', component: NotificationsComponent, canActivate:[AuthGuard]},
+  { path: 'registration', component: PharmacyRegistrationComponent, canActivate:[AuthGuard]},
+  { path: 'floor/:idb/:idf', component: FloorComponent, canActivate:[AuthGuard] },
+  { path: 'hospital-map', component: HospitalMapComponent, canActivate:[AuthGuard] },
+  { path: 'floor/:idb/:idf/:idr', component: FloorComponent, canActivate:[AuthGuard] },
+  { path: 'urgent-procurement', component: UrgentProcurementComponent, canActivate:[AuthGuard] },
+  { path: 'hospital-map', component: HospitalMapComponent, canActivate:[AuthGuard] },
+  { path: 'room-search-result/:searchText', component: RoomSearchComponent, canActivate:[AuthGuard] },
+  { path: 'moving-equipment', component: EquipmentListComponent, canActivate:[AuthGuard] },
+  { path: 'specifications', component: MedicineSpecificationsComponent, canActivate:[AuthGuard] },
+  { path: 'consumption-report', component: ConsumptionReportComponent, canActivate:[AuthGuard] },
+  { path: 'malicious-patients', component: MaliciousPatientsComponent, canActivate:[AuthGuard] },
+  { path: 'renovation', component: RenovationRoomsComponent, canActivate:[AuthGuard] },
+  { path: 'room-schedule/:idr', component: RoomScheduleComponent, canActivate:[AuthGuard] },
+  { path: 'pharmacy-profiles', component: PharmacyProfilesComponent, canActivate:[AuthGuard] },
+  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent, canActivate:[AuthGuard] },
   { path: 'add-shift', component: AddShiftComponent },
-  { path: 'floor/:idb/:idf/:idr', component: FloorComponent },
-  { path: 'urgent-procurement', component: UrgentProcurementComponent },
-  { path: 'hospital-map', component: HospitalMapComponent },
-  { path: 'hospital-map', component: HospitalMapComponent },
-  { path: 'room-search-result/:searchText', component: RoomSearchComponent },
-  { path: 'moving-equipment', component: EquipmentListComponent },
-  { path: 'specifications', component: MedicineSpecificationsComponent },
-  { path: 'consumption-report', component: ConsumptionReportComponent },
-  { path: 'malicious-patients', component: MaliciousPatientsComponent },
-  { path: 'renovation', component: RenovationRoomsComponent },
   { path: 'shifts', component: ShiftsComponent },
-  { path: 'room-schedule/:idr', component: RoomScheduleComponent },
-  { path: 'pharmacy-profiles', component: PharmacyProfilesComponent },
-  { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'tenders', component: TendersComponent },
   { path: 'create-tender', component: CreateTenderComponent },
+  //{ path: 'tender-statistics', component: TenderStatisticsComponent},
   { path: 'doctors', component: DoctorsComponent },
   { path: 'on-call-shifts/:ido', component: OnCallShiftComponent},
   { path: 'workload/:ido', component: WorkloadComponent},

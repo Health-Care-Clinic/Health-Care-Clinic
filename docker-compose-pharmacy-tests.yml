@@ -1,0 +1,48 @@
+version: "3.2"
+services:
+  pharmacy-integration-tests:
+      container_name: pharmacy-integration-tests
+      environment:
+        DATABASE_HOST: database
+        DATABASE_PORT: 5432
+        DATABASE_SCHEMA: pharmacyDb
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: password
+      networks:
+      - database_net
+      image: mcr.microsoft.com/dotnet/sdk:3.1
+      volumes:
+      - .:/Pharmacy
+      entrypoint: ["/bin/sh","-c"]
+      command:
+      - |
+        dotnet new tool-manifest --force --name name
+        dotnet tool install --local dotnet-ef --version 5.0.11
+        cd Pharmacy
+        dotnet restore "Pharmacy API/Pharmacy API/Pharmacy API.csproj"
+        cd "Pharmacy API/Pharmacy"
+        rm -r Migrations 
+        cd ../ 
+        cd ../ 
+        dotnet dotnet-ef migrations add TestingMigration --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "Pharmacy API/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext
+        dotnet dotnet-ef database update --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "HealthCareClinic/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext
+        dotnet test "Pharmacy API/PharmacyIntegrationTests/PharmacyIntegrationTests.csproj"
+      depends_on:
+        - database  
+  database:
+    image: postgres:latest
+    restart: always
+    container_name: database
+    networks:
+      - database_net
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "pharmacyDb"
+    ports:
+      - "5433:5432"
+
+networks:
+  database_net:
+    name: database_net
+    driver: bridge 

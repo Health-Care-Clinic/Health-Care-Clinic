@@ -2,7 +2,9 @@
     <h1>
         Tenders
     </h1>
-    <button mat-raised-button color="primary" style="margin-left: 90%; margin-bottom: 12px;" (click)="openCreateTenderComponent()">New Tender</button>
+    <button mat-raised-button color="primary" style="margin-left: 75%; margin-bottom: 12px;" (click)="openCreateTenderComponent()">New Tender</button>
+    
+    <button mat-button color="primary" style="margin-left: 1%; margin-bottom: 12px;" (click)="openTenderStatisticsComponent()">Show Tender Statistic</button>
     
     <div *ngFor="let tender of tenders">
         <div>
@@ -21,8 +23,8 @@
                     </p>
                     Requirements:
                     <ul>
-                        <li *ngFor="let medicine of tender.medicines">
-                            {{medicine.quantity}} {{medicine.name}}
+                        <li *ngFor="let tenderItem of tender.tenderItems">
+                            {{tenderItem.quantity}} {{tenderItem.name}}
                         </li>
                     </ul>
                     <br>

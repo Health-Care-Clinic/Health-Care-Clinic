@@ -1,0 +1,14 @@
+name: Pharmacy Integration Tests
+
+on:
+  pull_request:
+    branches: [ develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execute tests 
+        run: docker-compose -f docker-compose-pharmacy-tests.yml up --exit-code-from pharmacy-integration-tests pharmacy-integration-tests

@@ -8,6 +8,7 @@ using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Hospital_API.Validation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ using System.Linq;
 
 namespace Hospital_API.Controller
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AppointmentController : ControllerBase
@@ -40,7 +42,7 @@ namespace Hospital_API.Controller
                 return BadRequest();
             //TODO PROVERA DA LI PACIJENT SA TI ID UOPSTE POSTOJI
             List<AppointmentDTOForMedicalRecord> allAppointments = new List<AppointmentDTOForMedicalRecord>();
-            appointmentService.getAppointmentsByPatientId(id).ForEach(Appointment
+            appointmentService.GetAppointmentsByPatientId(id).ForEach(Appointment
                 => allAppointments.Add(AppointmentAdapter.AppointmentToAppointmentDTOForMedicalRecord(Appointment, doctorService,surveyService)));
 
             return Ok(allAppointments);

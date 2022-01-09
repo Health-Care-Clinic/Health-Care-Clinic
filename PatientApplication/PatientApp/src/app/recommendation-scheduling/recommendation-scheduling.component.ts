@@ -21,6 +21,8 @@ export class RecommendationSchedulingComponent implements OnInit {
     end: new FormControl(),
   });
   doctors: DoctorWithSpecialty[] = [];
+  terms: Date[] = [];
+  patientId: number = Number(localStorage.getItem('id'));
   chosenPriority: string = '';
   termsForDoctorAsPriority: Date[] = [];
   termsForDateRangeAsPriority: TermsInDateRange = {
@@ -35,7 +37,6 @@ export class RecommendationSchedulingComponent implements OnInit {
     endingDateTime: new Date(),
     termsInDateRangeForDoctors: []
   };
-  patientId: number = 1;
   dto: GettingTermsDTO = {
     doctorId: 0,
     specialty: '',
@@ -66,6 +67,14 @@ export class RecommendationSchedulingComponent implements OnInit {
   }
 
   getAvailableTerms(priority: string) {
+    /* dto.from = new Date(Date.UTC(dto.from.getFullYear(), dto.from.getMonth(), dto.from.getDate(), dto.from.getHours(), dto.from.getMinutes()));
+    dto.to = new Date(Date.UTC(dto.to.getFullYear(), dto.to.getMonth(), dto.to.getDate(), dto.to.getHours(), dto.to.getMinutes()));
+    const body=JSON.stringify(dto).toLocaleString();
+    console.log('GettingTermsDTO: ' + body)
+     if (priority == 'Doctor') 
+      return this._http.post(this._getAvailableTermsForPriority, body) */
+
+
     this.chosenPriority = priority;
 
     this.dto.beginningDateTime = this.range.value.start;
@@ -117,8 +126,11 @@ export class RecommendationSchedulingComponent implements OnInit {
   schedule(term: Date) {
     this._appointmentService.schedule(term, this.dto.doctorId, this.patientId)
     .subscribe(
-      data => console.log('Success!', data),
-      error => console.log('Error!', error)
+      data => {
+        console.log('Success!', data)
+        this.router.navigateByUrl('/medical-record')
+      },
+      error => console.log('Error!', error)      
     )
     
     this.router.navigateByUrl('/medical-record');
