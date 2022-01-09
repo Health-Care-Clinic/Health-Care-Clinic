@@ -1,6 +1,6 @@
 version: "3.2"
 services:
-  integration-tests:
+  hospital-integration-tests:
       container_name: hospital-integration-tests
       environment:
         DATABASE_HOST: database
