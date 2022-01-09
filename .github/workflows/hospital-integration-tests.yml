@@ -1,8 +1,8 @@
 name: Hospital Integration Tests
 
 on:
-  push:
-    branches: [ feat(d)/integration-testing]
+  pull_request:
+    branches: [ develop]
 
 jobs:
   test:

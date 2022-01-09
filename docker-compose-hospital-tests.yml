@@ -21,7 +21,6 @@ services:
         dotnet tool install --local dotnet-ef --version 5.0.11
         dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj"
         cd HealthCareClinic/Hospital
-        ls 
         rm -r Migrations 
         cd ../ 
         cd ../ 
