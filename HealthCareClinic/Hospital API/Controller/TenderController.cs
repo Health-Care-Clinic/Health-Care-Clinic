@@ -72,7 +72,7 @@ namespace Hospital_API.Controller
                 _tenderService.Add(tender);
                 
             }
-            return Ok("success");
+            return Ok();
         }
 
         [HttpPost("{tenderResponseId?}")]

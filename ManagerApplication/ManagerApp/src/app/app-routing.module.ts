@@ -26,6 +26,7 @@ import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-ca
 import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+//import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'tenders', component: TendersComponent },
   { path: 'create-tender', component: CreateTenderComponent },
+  //{ path: 'tender-statistics', component: TenderStatisticsComponent},
   { path: 'doctors', component: DoctorsComponent },
   { path: 'on-call-shifts/:ido', component: OnCallShiftComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },

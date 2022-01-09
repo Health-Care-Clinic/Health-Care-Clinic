@@ -3,12 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Medicine } from '../model/medicine';
 import { ITenderDTO } from '../dto/TenderDTO';
 import { TenderingServiceService } from '../services/tendering-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-tender',
   templateUrl: './create-tender.component.html',
   styleUrls: ['./create-tender.component.css'],
-  providers: [ TenderingServiceService, DatePipe ]
+  providers: [TenderingServiceService, DatePipe]
 })
 export class CreateTenderComponent implements OnInit {
 
@@ -20,7 +21,7 @@ export class CreateTenderComponent implements OnInit {
   public description: string = "";
   public tender: ITenderDTO = { id: 0, startDate: "", endDate: "", description: "", isWinningBidChosen: false, price: null, tenderItems: null, isOpen: true, offersNumber: 0 }
 
-  constructor(private _tenderingService : TenderingServiceService, public datepipe: DatePipe) { 
+  constructor(private _router: Router, private _tenderingService: TenderingServiceService, public datepipe: DatePipe) {
     this.tender;
   }
 
@@ -29,7 +30,7 @@ export class CreateTenderComponent implements OnInit {
 
   addMedicine(): void {
     if (this.newMedicine != "" && this.newQuantity > 0) {
-      let medicine = {"name": this.newMedicine, "quantity": this.newQuantity}
+      let medicine = { "name": this.newMedicine, "quantity": this.newQuantity }
       this.medicines.push(medicine);
       this.newMedicine = "";
       this.newQuantity = null;
@@ -46,7 +47,14 @@ export class CreateTenderComponent implements OnInit {
     this.tender.tenderItems = this.medicines;
     this.tender.offersNumber = 0;
     console.log(this.tender)
-    this._tenderingService.createTender(this.tender).subscribe();
+    this._tenderingService.createTender(this.tender).subscribe(res => {
+      this.openTendersComponent();
+    }
+    );
+  }
+
+  openTendersComponent(): void {
+    this._router.navigate(['tenders']);
   }
 
 }
