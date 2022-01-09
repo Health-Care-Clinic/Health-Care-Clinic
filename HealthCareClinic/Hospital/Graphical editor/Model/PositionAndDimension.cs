@@ -11,19 +11,19 @@ namespace Hospital.Graphical_editor.Model
     {
         public float X
         {
-            get; 
+            get; set;
         }
         public float Y
         {
-            get; 
+            get; set;
         }
         public float Width
         {
-            get; 
+            get; set;
         }
         public float Height
         {
-            get; 
+            get; set;
         }
 
         public PositionAndDimension() { }

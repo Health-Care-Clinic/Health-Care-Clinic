@@ -8,8 +8,8 @@ namespace Hospital.Shared_model.Model
     [Owned]
     public class DateSpan
     {
-        public DateTime StartTime { get;}
-        public DateTime EndTime { get;}
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         public DateSpan(DateTime startTime, DateTime endTime)
         {
