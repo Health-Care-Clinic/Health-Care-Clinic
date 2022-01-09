@@ -11,7 +11,6 @@ services:
       networks:
       - database_net
       image: mcr.microsoft.com/dotnet/sdk:3.1
-      working_dir: /HealthCareClinic
       volumes:
       - .:/HealthCareClinic
       entrypoint: ["/bin/sh","-c"]
@@ -20,7 +19,7 @@ services:
         dotnet new tool-manifest --force
         dotnet tool install --local dotnet-ef --version 5.0.11
         echo "$PATH"
-        dotnet restore "Hospital API/Hospital API.csproj"
+        dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj"
         dotnet dotnet-ef migrations add TestingMigration --project "Hospital API/Hospital API.csproj" --context HospitalDbContext
         dotnet dotnet-ef database update --project "Hospital API/Hospital API.csproj"
         dotnet test "/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
