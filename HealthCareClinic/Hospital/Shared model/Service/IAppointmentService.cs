@@ -9,7 +9,7 @@ namespace Hospital.Shared_model.Service
 {
     public interface IAppointmentService : IService<Appointment>
     {
-        List<Appointment> getAppointmentsByPatientId(int patinetId);
+        List<Appointment> GetAppointmentsByPatientId(int patinetId);
         Appointment CancelAppointment(int appointmentId);
         List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate);
         TermsInDateRange GetAvailableTermsForDateRange(TermsInDateRange initialObjectWithoutTerms, List<Doctor> doctorsWithSpecialty);

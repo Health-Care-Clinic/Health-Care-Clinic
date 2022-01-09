@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IAppointment } from './IAppointment';
 import 'rxjs/add/operator/do';
@@ -10,6 +10,7 @@ import { AppointmentsComponent } from '../appointments/appointments.component';
 import { GettingTermsDTO } from '../recommendation-scheduling/gettingTermsDTO';
 import { DoctorWithSpecialty } from '../recommendation-scheduling/doctor-with-specialty';
 import { AppointmentWithDoctorId } from '../recommendation-scheduling/appointment-doctorId';
+
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class AppointmentService {
                            .catch(this.handleError);
     }
 
-    cancelAppointment(id : number):Observable<IAppointment>{
+  cancelAppointment(id : number):Observable<IAppointment>{
       const body = JSON.stringify(id);
       return this._http.put<IAppointment>(this._cancelAppointment + id, body)
                        .catch(this.handleError);
@@ -86,14 +87,12 @@ export class AppointmentService {
   }
 
   schedule(term: Date, doctorId: number, patientId: number): Observable<any> {
-
     this.appDto.date = term;
     this.appDto.doctorId = doctorId;
     this.appDto.patientId = patientId;
-    const headers = { 'content-type': 'application/json'}  
     const body=JSON.stringify(this.appDto);
     console.log('appDto: ' + body)
-    return this._http.post(this._schedule, body,{'headers':headers})
+    return this._http.post(this._schedule, body)
   }
 
   getAllSpecialties(): Observable<string[]> {

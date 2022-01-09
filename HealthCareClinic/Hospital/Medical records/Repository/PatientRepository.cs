@@ -38,6 +38,11 @@ namespace Hospital.Medical_records.Repository
             return dbContext.Patients.SingleOrDefault(p => p.Hashcode.Equals(token));
         }
 
+        public Patient FindByUsernameAndPassword(string username, string password)
+        {
+            return dbContext.Patients.SingleOrDefault(p => p.Username == username && p.Password == password);
+        }
+
         public List<Patient> GetAllSuspiciousPatients()
         {
             //BlockPatientById(1);

@@ -26,7 +26,7 @@ export class AppointmentsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getAppointmetsForPatient(1)
+    this.getAppointmetsForPatient(Number(localStorage.getItem('id')))
   }
 
   getAppointmetsForPatient(id: number) {

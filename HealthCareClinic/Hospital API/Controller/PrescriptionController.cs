@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Hospital.Medical_records.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 
 namespace Hospital_API.Controller
 {
+    [Authorize(Roles = "manager")]
     [Route("api/[controller]")]
     [ApiController]
     public class PrescriptionController : ControllerBase

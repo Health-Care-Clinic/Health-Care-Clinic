@@ -508,7 +508,7 @@ namespace Hospital.Mapper
                    WorkDay = null,
                    Specialty = "General medicine",
                    PrimaryRoom = 1,
-                   WorkShiftId = -1
+                   WorkShiftId = 2
                },
 
                 new Doctor()
@@ -528,7 +528,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 2,
-                    WorkShiftId = -1
+                    WorkShiftId = 1
                 },
                 new Doctor()
                 {
@@ -547,7 +547,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 3,
-                    WorkShiftId = -1
+                    WorkShiftId = 1
                 },
                 new Doctor()
                 {
@@ -566,7 +566,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "Surgery",
                     PrimaryRoom = 4,
-                    WorkShiftId = -1
+                    WorkShiftId = 2
                 },
                 new Doctor()
                 {
@@ -585,7 +585,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "Surgery",
                     PrimaryRoom = 5,
-                    WorkShiftId = -1
+                    WorkShiftId = 2
                 },
                 new Doctor()
                 {
@@ -604,7 +604,7 @@ namespace Hospital.Mapper
                     WorkDay = null,
                     Specialty = "General medicine",
                     PrimaryRoom = 6,
-                    WorkShiftId = -1
+                    WorkShiftId = 1
                 }
             );
 
@@ -615,15 +615,15 @@ namespace Hospital.Mapper
             modelBuilder.Entity<Patient>().HasData(
                 new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petar", "miki", null, "Employed", true)
                 { DoctorId = 1 },
-                new Patient(2, "Jovan", "Zoric", "male", "A", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
+                new Patient(2, "Jovan", "Zoric", "male", "A", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "jovan", "jovan", "miki", null, "Employed", true)
                 { DoctorId = 2 },
-                new Patient(3, "Zorana", "Bilic", "male", "A", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
+                new Patient(3, "Zorana", "Bilic", "male", "A", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "zorana", "zorana", "miki", null, "Employed", true)
                 { DoctorId = 2 },
-                new Patient(4, "Milica", "Maric", "male", "A", new System.DateTime(1969, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
+                new Patient(4, "Milica", "Maric", "male", "A", new System.DateTime(1969, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "milica", "milica", "miki", null, "Employed", true)
                 { DoctorId = 3 },
-                new Patient(5, "Igor", "Caric", "male", "A", new System.DateTime(1936, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
+                new Patient(5, "Igor", "Caric", "male", "A", new System.DateTime(1936, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "igor", "igor", "miki", null, "Employed", true)
                 { DoctorId = 3 },
-                new Patient(6, "Predrag", "Zaric", "male", "A", new System.DateTime(1975, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
+                new Patient(6, "Predrag", "Zaric", "male", "A", new System.DateTime(1975, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "predrag", "predrag", "miki", null, "Employed", true)
                 { DoctorId = 3 },
                 new Patient(7, "Miki", "Nikolic", "male", "A", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
                 { DoctorId = 3 },
@@ -639,17 +639,17 @@ namespace Hospital.Mapper
                 .HasKey(c => new { c.PatientId, c.AppointmentId });
 
             modelBuilder.Entity<CanceledAppointment>().HasData(
-                new CanceledAppointment { AppointmentId = 1764, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 11) },
-                new CanceledAppointment { AppointmentId = 1765, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 21) },
-                new CanceledAppointment { AppointmentId = 1763, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 30) },
-                new CanceledAppointment { AppointmentId = 1766, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 1) },
-                new CanceledAppointment { AppointmentId = 1777, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 22) },
-                new CanceledAppointment { AppointmentId = 1767, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 8) },
-                new CanceledAppointment { AppointmentId = 1768, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 6) },
-                new CanceledAppointment { AppointmentId = 1769, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 12, 7) },
-                new CanceledAppointment { AppointmentId = 1799, PatientId = 2, DateOfCancellation = new System.DateTime(2021, 11, 11) },
-                new CanceledAppointment { AppointmentId = 1780, PatientId = 16, DateOfCancellation = new System.DateTime(2021, 11, 21) },
-                new CanceledAppointment { AppointmentId = 1870, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 11, 22) });
+                new CanceledAppointment { AppointmentId = 1764, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 11) },
+                new CanceledAppointment { AppointmentId = 1765, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 21) },
+                new CanceledAppointment { AppointmentId = 1763, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 30) },
+                new CanceledAppointment { AppointmentId = 1766, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 19) },
+                new CanceledAppointment { AppointmentId = 1777, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 22) },
+                new CanceledAppointment { AppointmentId = 1767, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 8) },
+                new CanceledAppointment { AppointmentId = 1768, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 6) },
+                new CanceledAppointment { AppointmentId = 1769, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 7) },
+                new CanceledAppointment { AppointmentId = 1799, PatientId = 2, DateOfCancellation = new System.DateTime(2021, 12, 11) },
+                new CanceledAppointment { AppointmentId = 1780, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 21) },
+                new CanceledAppointment { AppointmentId = 1870, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 22) });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

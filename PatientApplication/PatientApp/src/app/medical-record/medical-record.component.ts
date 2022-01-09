@@ -34,13 +34,15 @@ export class MedicalRecordComponent implements OnInit {
   constructor(public _patientservice: PatientService) { }
 
   ngOnInit(): void {
-    this.getPatient(1);
+    this.getPatient(Number(localStorage.getItem('id')));
   }
 
   getPatient(id: number) {
     this._patientservice.getPatient(id)
         .subscribe(patientModel => this.patientModel = patientModel,
                     error => this.errorMessage = <any>error);     
+
+    /* location.reload() */
   }
 
 }
