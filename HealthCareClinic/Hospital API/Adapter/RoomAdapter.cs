@@ -1,4 +1,5 @@
-﻿using Hospital.Rooms_and_equipment.Model;
+﻿using Hospital.Graphical_editor.Model;
+using Hospital.Rooms_and_equipment.Model;
 using Hospital_API.DTO;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,7 @@ namespace Hospital_API.Adapter
             room.Type = dto.Type;
             room.FloorId = dto.FloorId;
             room.Description = dto.Description;
-            room.Width = dto.Width;
-            room.Height = dto.Height;
-            room.X = dto.X;
-            room.Y = dto.Y;
+            room.PositionAndDimension = new PositionAndDimension(dto.X, dto.Y, dto.Width, dto.Height);
 
             return room;
         }
@@ -35,10 +33,10 @@ namespace Hospital_API.Adapter
             dto.Type = room.Type;
             dto.Description = room.Description;
             dto.FloorId = room.FloorId;
-            dto.Width = room.Width;
-            dto.Height = room.Height;
-            dto.X = room.X;
-            dto.Y = room.Y;
+            dto.Width = room.PositionAndDimension.Width;
+            dto.Height = room.PositionAndDimension.Height;
+            dto.X = room.PositionAndDimension.X;
+            dto.Y = room.PositionAndDimension.Y;
 
             return dto;
         }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Hospital.Medical_records.Model;
 using static Hospital.Rooms_and_equipment.Model.Transfer;
 using Hospital.Tendering.Model;
+using Hospital.Graphical_editor.Model;
 
 namespace Hospital.Mapper
 {
@@ -55,6 +56,21 @@ namespace Hospital.Mapper
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            //modelBuilder.Entity<Room>().HasKey(o => o.Id);
+
+            modelBuilder.Entity<Room>()
+                .OwnsOne(r => r.PositionAndDimension)
+                .Property(p => p.X).HasColumnName("X");
+            modelBuilder.Entity<Room>()
+                .OwnsOne(r => r.PositionAndDimension)
+                .Property(p => p.Y).HasColumnName("Y");
+            modelBuilder.Entity<Room>()
+                .OwnsOne(r => r.PositionAndDimension)
+                .Property(p => p.Width).HasColumnName("Width");
+            modelBuilder.Entity<Room>()
+                .OwnsOne(r => r.PositionAndDimension)
+                .Property(p => p.Height).HasColumnName("Height");
+
             modelBuilder.Entity<Tender>()
                .Property(p => p.Id)
                .ValueGeneratedOnAdd();
@@ -66,7 +82,7 @@ namespace Hospital.Mapper
                 .OwnsMany(p => p.Medicines);
 
             modelBuilder.Entity<OnCallShift>().HasData(
-               new OnCallShift { Id = 1, DoctorId = 1, Date = new DateTime(2022, 02, 02, 14, 00, 00)},
+               new OnCallShift { Id = 1, DoctorId = 1, Date = new DateTime(2022, 02, 02, 14, 00, 00) },
                new OnCallShift { Id = 2, DoctorId = 2, Date = new DateTime(2021, 11, 25, 9, 30, 00) },
                new OnCallShift { Id = 3, DoctorId = 1, Date = new DateTime(2022, 08, 22, 9, 30, 00) },
                new OnCallShift { Id = 4, DoctorId = 2, Date = new DateTime(2021, 11, 24, 10, 00, 00) },
@@ -120,13 +136,13 @@ namespace Hospital.Mapper
                     Date = new DateTime(2022, 08, 22, 9, 30, 00), Duration = 60 },
                 new Transfer { Id = 2, Equipment = "Bed", Quantity = 4, SourceRoomId = 50, DestinationRoomId = 60,
                     Date = new DateTime(2021, 11, 30, 12, 00, 00), Duration = 45 },
-                new Transfer {  Id = 3, Equipment = "TV", Quantity = 1, SourceRoomId = 45, DestinationRoomId = 52,
+                new Transfer { Id = 3, Equipment = "TV", Quantity = 1, SourceRoomId = 45, DestinationRoomId = 52,
                     Date = new DateTime(2021, 11, 24, 10, 00, 00), Duration = 45 },
                 new Transfer { Id = 4, Equipment = "Bandage", Quantity = 4, SourceRoomId = 47, DestinationRoomId = 62,
                     Date = new DateTime(2021, 11, 24, 9, 30, 00), Duration = 15 },
                 new Transfer { Id = 5, Equipment = "Blanket", Quantity = 10, SourceRoomId = 18, DestinationRoomId = 23,
                     Date = new DateTime(2021, 11, 28, 14, 00, 00), Duration = 15 }
-                ) ;
+                );
 
             modelBuilder.Entity<Equipment>().HasData(
                 new Equipment { Id = 1, Name = "Bed", Type = EquipmentType.Static, Quantity = 5, RoomId = 1 },
@@ -196,81 +212,1483 @@ namespace Hospital.Mapper
                 new Equipment { Id = 55, Name = "Blanket", Type = EquipmentType.Static, Quantity = 17, RoomId = 69 }
                 );
 
-            modelBuilder.Entity<Room>().HasData(
-                new Room { Id = 1, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 1 },
-                new Room { Id = 2, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 1 },
-                new Room { Id = 3, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 1 },
-                new Room { Id = 4, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 1 },
-                new Room { Id = 5, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 1 },
-                new Room { Id = 6, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 1 },
-                new Room { Id = 7, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 1 },
-                new Room { Id = 8, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 2 },
-                new Room { Id = 9, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 2 },
-                new Room { Id = 10, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 2 },
-                new Room { Id = 11, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 2 },
-                new Room { Id = 12, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 2 },
-                new Room { Id = 13, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 2 },
-                new Room { Id = 14, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 2 },
-                new Room { Id = 15, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 3 },
-                new Room { Id = 16, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 3 },
-                new Room { Id = 17, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 3 },
-                new Room { Id = 18, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 3 },
-                new Room { Id = 19, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 3 },
-                new Room { Id = 20, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 3 },
-                new Room { Id = 21, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 3 },
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 1,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...", 
+                    FloorId = 1
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 1,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
 
-                new Room { Id = 22, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 4 },
-                new Room { Id = 23, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 4 },
-                new Room { Id = 24, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 4 },
-                new Room { Id = 25, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 4 },
-                new Room { Id = 26, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 4 },
-                new Room { Id = 27, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 4 },
-                new Room { Id = 28, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 4 },
-                new Room { Id = 29, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 5 },
-                new Room { Id = 30, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 5 },
-                new Room { Id = 31, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 5 },
-                new Room { Id = 32, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 5 },
-                new Room { Id = 33, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 5 },
-                new Room { Id = 34, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 5 },
-                new Room { Id = 35, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 5 },
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 2,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 1
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 2,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
 
-                new Room { Id = 36, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 6 },
-                new Room { Id = 37, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 6 },
-                new Room { Id = 38, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 6 },
-                new Room { Id = 39, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 6 },
-                new Room { Id = 40, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 6 },
-                new Room { Id = 41, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 6 },
-                new Room { Id = 42, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 6 },
-                new Room { Id = 43, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 7 },
-                new Room { Id = 44, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 7 },
-                new Room { Id = 45, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 7 },
-                new Room { Id = 46, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 7 },
-                new Room { Id = 47, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 7 },
-                new Room { Id = 48, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 7 },
-                new Room { Id = 49, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 7 },
-                new Room { Id = 50, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 8 },
-                new Room { Id = 51, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 8 },
-                new Room { Id = 52, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 8 },
-                new Room { Id = 53, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 8 },
-                new Room { Id = 54, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 8 },
-                new Room { Id = 55, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 8 },
-                new Room { Id = 56, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 8 },
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 3,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 1
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 3,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
 
-                new Room { Id = 57, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 9 },
-                new Room { Id = 58, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 9 },
-                new Room { Id = 59, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 9 },
-                new Room { Id = 60, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 9 },
-                new Room { Id = 61, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 9 },
-                new Room { Id = 62, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 9 },
-                new Room { Id = 63, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 9 },
-                new Room { Id = 64, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", X = 320f, Y = 30f, Width = 400f, Height = 140f, FloorId = 10 },
-                new Room { Id = 65, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 320, Y = 260, Width = 380, Height = 140, FloorId = 10 },
-                new Room { Id = 66, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 260, Width = 270, Height = 140, FloorId = 10 },
-                new Room { Id = 67, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 700, Y = 260, Width = 300, Height = 140, FloorId = 10 },
-                new Room { Id = 68, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 50, Y = 30, Width = 270, Height = 140, FloorId = 10 },
-                new Room { Id = 69, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", X = 720, Y = 30, Width = 280, Height = 140, FloorId = 10 },
-                new Room { Id = 70, Type = RoomType.WC, Name = "WC", Description = "Room description...", X = 50, Y = 170, Width = 150, Height = 90, FloorId = 10 });
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 4,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 1
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 4,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
 
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 5,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 1
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 5,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 6,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 1
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 6,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 7,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 1
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 7,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 8,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 2
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 8,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 9,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 2
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 9,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 10,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 2
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 10,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 11,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 2
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 11,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 12,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 2
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 12,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 13,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 2
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 13,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 14,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 2
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 14,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 15,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 3
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 15,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 16,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 3
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 16,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 17,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 3
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 17,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 18,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 3
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 18,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 19,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 3
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 19,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 20,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 3
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 20,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 21,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 3
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 21,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 22,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 4
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 22,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 23,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 4
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 23,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 24,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 4
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 24,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 25,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 4
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 25,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 26,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 4
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 26,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 27,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 4
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 27,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 28,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 4
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 28,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 29,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 5
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 29,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 30,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 5
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 30,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 31,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 5
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 31,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 32,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 5
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 32,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 33,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 5
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 33,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 34,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 5
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 34,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 35,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 5
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 35,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 36,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 6
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 36,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 37,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 6
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 37,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 38,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 6
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 38,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 39,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 6
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 39,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 40,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 6
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 40,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 41,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 6
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 41,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 42,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 6
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 42,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 43,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 7
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 43,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 44,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 7
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 44,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 45,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 7
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 45,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 46,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 7
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 46,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 47,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 7
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 47,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 48,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 7
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 48,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 49,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 7
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 49,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 50,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 8
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 50,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 51,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 8
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 51,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 52,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 8
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 52,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 53,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 8
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 53,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 54,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 8
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 54,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 55,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 8
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 55,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 56,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 8
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 56,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 57,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 9
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 57,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 58,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 9
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 58,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 59,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 9
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 59,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 60,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 9
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 60,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 61,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 9
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 61,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 62,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 9
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 62,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 63,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 9
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 63,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 64,
+                    Type = RoomType.OperationRoom,
+                    Name = "Operation room",
+                    Description = "Room description...",
+                    FloorId = 10
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 64,
+                    X = 320f,
+                    Y = 30f,
+                    Width = 400f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 65,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 10
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 65,
+                    X = 320f,
+                    Y = 260f,
+                    Width = 380f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 66,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 10
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 66,
+                    X = 50f,
+                    Y = 260f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 67,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 10
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 67,
+                    X = 700f,
+                    Y = 260f,
+                    Width = 300f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 68,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 10
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 68,
+                    X = 50f,
+                    Y = 30f,
+                    Width = 270f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 69,
+                    Type = RoomType.RoomForAppointments,
+                    Name = "Room for appointments",
+                    Description = "Room description...",
+                    FloorId = 10
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 69,
+                    X = 720f,
+                    Y = 30f,
+                    Width = 280f,
+                    Height = 140f
+                });
+            });
+
+            modelBuilder.Entity<Room>(b =>
+            {
+                b.HasData(new Room
+                {
+                    Id = 70,
+                    Type = RoomType.WC,
+                    Name = "WC",
+                    Description = "Room description...",
+                    FloorId = 10
+                });
+                b.OwnsOne(e => e.PositionAndDimension).HasData(new
+                {
+                    RoomId = 70,
+                    X = 50f,
+                    Y = 170f,
+                    Width = 150f,
+                    Height = 90f
+                });
+            });
+
+            /*modelBuilder.Entity<Room>()
+                .OwnsOne(r => r.PositionAndDimension)
+                .HasData(
+                new Room { Id = 1, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new { X = 320f, Y = 30f, Width = 400f, Height = 140f }, FloorId = 1 },
+                new Room { Id = 2, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 320f, Y = 260f, Width = 380f, Height = 140f }, FloorId = 1 },
+                new Room { Id = 3, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 50f, Y = 260f, Width = 270f, Height = 140f }, FloorId = 1 },
+                new Room { Id = 4, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 700f, Y = 260f, Width = 300f, Height = 140f }, FloorId = 1 },
+                new Room { Id = 5, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 50f, Y = 30f, Width = 270f, Height = 140f }, FloorId = 1 },
+                new Room { Id = 6, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 720f, Y = 30f, Width = 280f, Height = 140f }, FloorId = 1 },
+                new Room { Id = 7, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new { X = 50f, Y = 170f, Width = 150f, Height = 90f }, FloorId = 1 },
+                new Room { Id = 8, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 2 },
+                new Room { Id = 9, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 2 },
+                new Room { Id = 10, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 2 },
+                new Room { Id = 11, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 2 },
+                new Room { Id = 12, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 2 },
+                new Room { Id = 13, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 2 },
+                new Room { Id = 14, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 2 },
+                new Room { Id = 15, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 3 },
+                new Room { Id = 16, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 3 },
+                new Room { Id = 17, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 3 },
+                new Room { Id = 18, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 3 },
+                new Room { Id = 19, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 3 },
+                new Room { Id = 20, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 3 },
+                new Room { Id = 21, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 3 },
+
+                new Room { Id = 22, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 4 },
+                new Room { Id = 23, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 4 },
+                new Room { Id = 24, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 4 },
+                new Room { Id = 25, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 4 },
+                new Room { Id = 26, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 4 },
+                new Room { Id = 27, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 4 },
+                new Room { Id = 28, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 4 },
+                new Room { Id = 29, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 5 },
+                new Room { Id = 30, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 5 },
+                new Room { Id = 31, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 5 },
+                new Room { Id = 32, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 5 },
+                new Room { Id = 33, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 5 },
+                new Room { Id = 34, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 5 },
+                new Room { Id = 35, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 5 },
+
+                new Room { Id = 36, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 6 },
+                new Room { Id = 37, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 6 },
+                new Room { Id = 38, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 6 },
+                new Room { Id = 39, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 6 },
+                new Room { Id = 40, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 6 },
+                new Room { Id = 41, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 6 },
+                new Room { Id = 42, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 6 },
+                new Room { Id = 43, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 7 },
+                new Room { Id = 44, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 7 },
+                new Room { Id = 45, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 7 },
+                new Room { Id = 46, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 7 },
+                new Room { Id = 47, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 7 },
+                new Room { Id = 48, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 7 },
+                new Room { Id = 49, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 7 },
+                new Room { Id = 50, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 8 },
+                new Room { Id = 51, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 8 },
+                new Room { Id = 52, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 8 },
+                new Room { Id = 53, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 8 },
+                new Room { Id = 54, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 8 },
+                new Room { Id = 55, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 8 },
+                new Room { Id = 56, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 8 },
+
+                new Room { Id = 57, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 9 },
+                new Room { Id = 58, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 9 },
+                new Room { Id = 59, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 9 },
+                new Room { Id = 60, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 9 },
+                new Room { Id = 61, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 9 },
+                new Room { Id = 62, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 9 },
+                new Room { Id = 63, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 9 },
+                new Room { Id = 64, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 10 },
+                new Room { Id = 65, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 10 },
+                new Room { Id = 66, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 10 },
+                new Room { Id = 67, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 10 },
+                new Room { Id = 68, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 10 },
+                new Room { Id = 69, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 10 },
+                new Room { Id = 70, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 10 });
+            */
             modelBuilder.Entity<Floor>().HasData(
                 new Floor { Id = 1, Name = "Floor 1", BuildingId = 1 },
                 new Floor { Id = 2, Name = "Floor 2", BuildingId = 1 },

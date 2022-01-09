@@ -12,7 +12,6 @@ export class DoctorsService {
   private addShiftToDoctor: string;
   private getNumOfAppUrl: string;
   private getNumOfPatUrl: string;
-  private addShiftToDoctor: string;
   private findByIdUrl: string;
   
   
