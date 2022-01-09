@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
-    public partial class AllMigrations : Migration
+    public partial class InitMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -150,27 +150,6 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medicines",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    Manufacturer = table.Column<string>(type: "text", nullable: true),
-                    Usage = table.Column<string>(type: "text", nullable: true),
-                    Weight = table.Column<int>(type: "integer", nullable: false),
-                    SideEffects = table.Column<string>(type: "text", nullable: true),
-                    Reactions = table.Column<string>(type: "text", nullable: true),
-                    CompatibileMedicine = table.Column<string>(type: "text", nullable: true),
-                    Price = table.Column<double>(type: "double precision", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Medicines", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OnCallShifts",
                 columns: table => new
                 {
@@ -222,31 +201,17 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenderResponses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TenderId = table.Column<int>(type: "integer", nullable: false),
-                    PharmacyName = table.Column<string>(type: "text", nullable: true),
-                    TotalPrice_Amount = table.Column<double>(type: "double precision", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    IsWinningBid = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenderResponses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tenders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ForeignId = table.Column<int>(type: "integer", nullable: false),
                     DateRange_Start = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     DateRange_End = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true)
+                    TotalPrice_Amount = table.Column<double>(type: "double precision", nullable: true),
+                    TenderResponseDescription = table.Column<string>(type: "text", nullable: true),
+                    IsWinningBidChosen = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -400,41 +365,27 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenderResponses_TenderItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TenderResponseId = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenderResponses_TenderItems", x => new { x.TenderResponseId, x.Id });
-                    table.ForeignKey(
-                        name: "FK_TenderResponses_TenderItems_TenderResponses_TenderResponseId",
-                        column: x => x.TenderResponseId,
-                        principalTable: "TenderResponses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tenders_TenderItems",
+                name: "Medicine",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TenderId = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Manufacturer = table.Column<string>(type: "text", nullable: true),
+                    Usage = table.Column<string>(type: "text", nullable: true),
+                    Weight = table.Column<int>(type: "integer", nullable: false),
+                    SideEffects = table.Column<string>(type: "text", nullable: true),
+                    Reactions = table.Column<string>(type: "text", nullable: true),
+                    CompatibileMedicine = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tenders_TenderItems", x => new { x.TenderId, x.Id });
+                    table.PrimaryKey("PK_Medicine", x => new { x.TenderId, x.Id });
                     table.ForeignKey(
-                        name: "FK_Tenders_TenderItems_Tenders_TenderId",
+                        name: "FK_Medicine_Tenders_TenderId",
                         column: x => x.TenderId,
                         principalTable: "Tenders",
                         principalColumn: "Id",
@@ -1425,7 +1376,7 @@ namespace Hospital.Migrations
                 name: "Floors");
 
             migrationBuilder.DropTable(
-                name: "Medicines");
+                name: "Medicine");
 
             migrationBuilder.DropTable(
                 name: "OnCallShifts");
@@ -1443,12 +1394,6 @@ namespace Hospital.Migrations
                 name: "SurveyQuestions");
 
             migrationBuilder.DropTable(
-                name: "TenderResponses_TenderItems");
-
-            migrationBuilder.DropTable(
-                name: "Tenders_TenderItems");
-
-            migrationBuilder.DropTable(
                 name: "Transfer");
 
             migrationBuilder.DropTable(
@@ -1461,16 +1406,13 @@ namespace Hospital.Migrations
                 name: "WorkDayShift");
 
             migrationBuilder.DropTable(
+                name: "Tenders");
+
+            migrationBuilder.DropTable(
                 name: "Patients");
 
             migrationBuilder.DropTable(
                 name: "SurveyCategories");
-
-            migrationBuilder.DropTable(
-                name: "TenderResponses");
-
-            migrationBuilder.DropTable(
-                name: "Tenders");
 
             migrationBuilder.DropTable(
                 name: "Doctors");

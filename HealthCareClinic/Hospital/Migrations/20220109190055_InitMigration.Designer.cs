@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20220109152554_PatientPortalSecondMigration")]
-    partial class PatientPortalSecondMigration
+    [Migration("20220109190055_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1796,47 +1796,47 @@ namespace Hospital.Migrations
                         {
                             PatientId = 1,
                             AppointmentId = 1764,
-                            DateOfCancellation = new DateTime(2021, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1765,
-                            DateOfCancellation = new DateTime(2021, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1763,
-                            DateOfCancellation = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1766,
-                            DateOfCancellation = new DateTime(2021, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1777,
-                            DateOfCancellation = new DateTime(2021, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 6,
+                            PatientId = 16,
                             AppointmentId = 1767,
                             DateOfCancellation = new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 6,
+                            PatientId = 16,
                             AppointmentId = 1768,
                             DateOfCancellation = new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 6,
+                            PatientId = 16,
                             AppointmentId = 1769,
                             DateOfCancellation = new DateTime(2021, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -1844,19 +1844,19 @@ namespace Hospital.Migrations
                         {
                             PatientId = 2,
                             AppointmentId = 1799,
-                            DateOfCancellation = new DateTime(2021, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 6,
+                            PatientId = 16,
                             AppointmentId = 1780,
-                            DateOfCancellation = new DateTime(2021, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1870,
-                            DateOfCancellation = new DateTime(2021, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -5609,7 +5609,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Nikolic",
                             Username = "nikola",
-                            WorkShiftId = 2
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -5627,7 +5627,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Radic",
                             Username = "marko",
-                            WorkShiftId = 1
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -5645,7 +5645,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Sivc",
                             Username = "jozef",
-                            WorkShiftId = 1
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -5663,7 +5663,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Zoric",
                             Username = "dragana",
-                            WorkShiftId = 2
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -5681,7 +5681,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Grandic",
                             Username = "mile",
-                            WorkShiftId = 2
+                            WorkShiftId = -1
                         },
                         new
                         {
@@ -5699,7 +5699,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Bradina",
                             Username = "misa",
-                            WorkShiftId = 1
+                            WorkShiftId = -1
                         });
                 });
 
@@ -5859,10 +5859,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Jovan",
                             ParentName = "miki",
-                            Password = "jovan",
+                            Password = "miki",
                             Phone = "0697856665",
                             Surname = "Zoric",
-                            Username = "jovan"
+                            Username = "miki"
                         },
                         new
                         {
@@ -5879,10 +5879,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Zorana",
                             ParentName = "miki",
-                            Password = "zorana",
+                            Password = "miki",
                             Phone = "0697856665",
                             Surname = "Bilic",
-                            Username = "zorana"
+                            Username = "miki"
                         },
                         new
                         {
@@ -5899,10 +5899,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Milica",
                             ParentName = "miki",
-                            Password = "milica",
+                            Password = "miki",
                             Phone = "0697856665",
                             Surname = "Maric",
-                            Username = "milica"
+                            Username = "miki"
                         },
                         new
                         {
@@ -5919,10 +5919,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Igor",
                             ParentName = "miki",
-                            Password = "igor",
+                            Password = "miki",
                             Phone = "0697856665",
                             Surname = "Caric",
-                            Username = "igor"
+                            Username = "miki"
                         },
                         new
                         {
@@ -5939,10 +5939,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Predrag",
                             ParentName = "miki",
-                            Password = "predrag",
+                            Password = "miki",
                             Phone = "0697856665",
                             Surname = "Zaric",
-                            Username = "predrag"
+                            Username = "miki"
                         },
                         new
                         {
