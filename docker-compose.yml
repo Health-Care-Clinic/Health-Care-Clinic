@@ -14,14 +14,16 @@ services:
       working_dir: /HealthCareClinic
       volumes:
       - .:/HealthCareClinic
-      command: bash -c "
+      entrypoint: ["/bin/sh","-c"]
+      command:
+      - |
         dotnet new tool-manifest --force && 
         dotnet tool install --local dotnet-ef --version 5.0.11 &&
-        dotnet restore 'Hospital API/Hospital API.csproj' &&
+        `dotnet restore "Hospital API/Hospital API.csproj"` &&
         echo "$PATH" &&
         dotnet dotnet-ef migrations add TestingMigration --project "/Hospital\ API/Hospital\ API.csproj" --context HospitalDbContext &&
         dotnet dotnet-ef database update --project "/Hospital\ API/Hospital\ API.csproj" &&
-        dotnet test "/HospitalIntegrationTests/HospitalIntegrationTests.csproj" "
+        dotnet test "/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
       depends_on:
         - database  
   database:
