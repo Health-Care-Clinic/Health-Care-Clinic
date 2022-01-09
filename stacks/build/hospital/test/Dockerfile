@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
 WORKDIR /app
 
 RUN dotnet new tool-manifest --force && \
-    dotnet tool install --local dotnet-ef --version 5.0.11
+    dotnet tool install --global dotnet-ef --version 5.0.11
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-dotnet-configure-containers
