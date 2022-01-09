@@ -16,6 +16,7 @@ namespace Hospital.Shared_model.Model
             Id = id;
             Name = name;
             WorkHour = new WorkHour(startTime, endTime);
+            Validate();
         }
 
         public WorkDayShift(int id, string name, WorkHour workHour)
@@ -23,6 +24,13 @@ namespace Hospital.Shared_model.Model
             Id = id;
             Name = name;
             WorkHour = workHour;
+            Validate();
+        }
+
+        private void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(this.Name))
+                throw new ArgumentNullException("Name can not be null");
         }
 
         public WorkDayShift() { }

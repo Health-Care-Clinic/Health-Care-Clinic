@@ -18,6 +18,7 @@ namespace Hospital.Shared_model.Model
             Description = description;
             DateSpan = new DateSpan(startTime, endTime);
             DoctorId = doctorId;
+            Validate();
         }
 
         public Vacation(int id, string description, DateSpan dateSpan, int doctorId)
@@ -26,9 +27,16 @@ namespace Hospital.Shared_model.Model
             Description = description;
             DateSpan = dateSpan;
             DoctorId = doctorId;
+            Validate();
         }
 
-
+        private void Validate()
+        {
+            if (string.IsNullOrWhiteSpace(this.Description))
+                throw new ArgumentNullException("Description can not be null");
+            if (this.DoctorId == null)
+                throw new ArgumentNullException("Doctor id can not be null");
+        }
         public bool GetVacationAvailability(List<Vacation> allVacations)
         { 
             foreach (Vacation v in allVacations)
