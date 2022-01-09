@@ -1,4 +1,4 @@
-name: Hospital Integration Tests
+name: Pharmacy Integration Tests
 
 on:
   push:
@@ -11,4 +11,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Execute tests 
-        run: docker-compose up --file docker-compose-hospital-tests.yml --exit-code-from hospital-integration-tests hospital-integration-tests
+        run: docker-compose up --file docker-compose-pharmacy-tests.yml --exit-code-from pharmacy-integration-tests pharmacy-integration-tests

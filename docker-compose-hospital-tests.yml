@@ -18,19 +18,13 @@ services:
       command:
       - |
         dotnet new tool-manifest --force && 
-        dotnet tool install --local dotnet-ef --version 5.0.11 &&
-        echo "Tu sam stigao" && 
-        dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj" &&
-        echo "$PATH" &&
+        dotnet tool install --local dotnet-ef --version 5.0.11 && 
+        dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj" && 
         cd HealthCareClinic/Hospital &&
         ls 
         rm -r Migrations 
-        echo "REMOVE DONE"
-        cd ../
-        pwd
-        cd ../
-        pwd
-        echo "CD TO HOME"
+        cd ../ 
+        cd ../ 
         dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext &&
         dotnet dotnet-ef database update --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext &&
         dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
