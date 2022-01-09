@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using RestSharp;
+using Hospital.Medicines.Service;
 
 namespace Hospital_API.Controller
 {
@@ -20,11 +22,13 @@ namespace Hospital_API.Controller
     {
         private readonly ITenderService _tenderService;
         private readonly ITenderResponseService _tenderResponseService;
+        private readonly IMedicineService _medicineService;
 
-        public TenderController(ITenderService tenderService, ITenderResponseService tenderResponseService)
+        public TenderController(ITenderService tenderService, ITenderResponseService tenderResponseService, IMedicineService medicineService)
         {
             _tenderService = tenderService;
             _tenderResponseService = tenderResponseService;
+            _medicineService = medicineService;
         }
 
         [HttpGet]
@@ -69,6 +73,40 @@ namespace Hospital_API.Controller
                 
             }
             return Ok("success");
+        }
+
+        [HttpPost("{tenderResponseId?}")]
+        public IActionResult ChooseTenderResponse(int tenderResponseId)
+        {
+            TenderResponse winningTenderResponse = _tenderResponseService.GetOneById(tenderResponseId);
+            winningTenderResponse.IsWinningBid = true;
+            _tenderResponseService.Update(winningTenderResponse);
+            ICollection<TenderResponse> tenderResponses = _tenderResponseService.GetTenderResponsesByTenderId(winningTenderResponse.TenderId);
+            foreach(TenderResponse tenderResponse in tenderResponses)
+            {
+                if (tenderResponse.Id == winningTenderResponse.Id)
+                {
+                    var client = new RestClient(GetPharmacyUrl(tenderResponse.PharmacyName));
+                    var request = new RestRequest("benu/tender/outcome");
+                    request.AddJsonBody(tenderResponse);
+                    IRestResponse response = client.Post(request);
+                    foreach (TenderItem tenderItem in tenderResponse.TenderItems)
+                        _medicineService.AddMedicine(tenderItem.Name, tenderItem.Quantity.ToString());
+                }
+                else
+                {
+                    var client = new RestClient(GetPharmacyUrl(tenderResponse.PharmacyName));
+                    var request = new RestRequest("benu/tender/outcome");
+                    request.AddJsonBody(tenderResponse);
+                    IRestResponse response = client.Post(request);
+                }
+            }
+            return Ok("success");
+        }
+
+        private string GetPharmacyUrl(string pharmacyName)
+        {
+            return "http://localhost:18089";
         }
     }
 }

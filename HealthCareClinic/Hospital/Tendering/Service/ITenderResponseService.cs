@@ -8,5 +8,8 @@ namespace Hospital.Tendering.Service
 {
     public interface ITenderResponseService : IService<TenderResponse>
     {
+        ICollection<TenderResponse> GetTenderResponsesByTenderId(int tenderId);
+
+        void Update(TenderResponse entity);
     }
 }

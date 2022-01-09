@@ -8,5 +8,6 @@ namespace Hospital.Tendering.Repository
 {
     public interface ITenderResponseRepository : IRepository<TenderResponse>
     {
+        void Update(TenderResponse entity);
     }
 }

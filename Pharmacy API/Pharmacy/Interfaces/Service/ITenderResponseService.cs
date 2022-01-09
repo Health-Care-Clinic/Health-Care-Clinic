@@ -7,5 +7,7 @@ namespace Pharmacy.Interfaces.Service
 {
     public interface ITenderResponseService : IService<TenderResponse>
     {
+        TenderResponse CreateResponseFromTender(Tender tender);
+        void UpdateByTenderId(TenderResponse tenderResponse);
     }
 }

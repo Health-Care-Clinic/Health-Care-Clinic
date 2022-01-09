@@ -13,7 +13,7 @@ namespace Pharmacy_API.Controllers.Tendering
 {
     [ApiController]
     [Route("benu/[controller]")]
-    public class TenderController: ControllerBase
+    public class TenderController : ControllerBase
     {
         private readonly ITenderService _tenderService;
         private readonly ITenderResponseService _tenderResponseService;
@@ -22,8 +22,6 @@ namespace Pharmacy_API.Controllers.Tendering
         {
             _tenderService = tenderService;
             _tenderResponseService = tenderResponseService;
-
-
         }
 
         [HttpGet]
@@ -41,7 +39,7 @@ namespace Pharmacy_API.Controllers.Tendering
         [HttpPost]
         public IActionResult HospitalTenderRequest(Tender tender)
         {
-            TenderResponse tenderResponse = _tenderService.GetDataForTender(tender);
+            TenderResponse tenderResponse = _tenderResponseService.CreateResponseFromTender(tender);
 
             var factory = new ConnectionFactory() { HostName = "localhost" };
 
@@ -62,6 +60,20 @@ namespace Pharmacy_API.Controllers.Tendering
                                         body: body);
                 Console.WriteLine(" [x] Sent \n\tDescription: {0}", tenderResponse.Description);
                 _tenderResponseService.Add(tenderResponse);
+            }
+            return Ok("success");
+        }
+
+        [HttpPost("outcome")]
+        public IActionResult TenderOutcome([FromBody] TenderResponse tenderResponse)
+        {
+            if (tenderResponse.IsWinningBid)
+            {
+                _tenderResponseService.UpdateByTenderId(tenderResponse);
+            }
+            else
+            {
+                Console.WriteLine("Nazalost ste izgubili.");
             }
             return Ok("success");
         }

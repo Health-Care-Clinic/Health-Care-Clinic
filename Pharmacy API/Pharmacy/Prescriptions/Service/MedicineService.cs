@@ -52,6 +52,8 @@ namespace Pharmacy.Prescriptions.Service
         public void ReduceMedicineQuantity(string medicineName, int quantity)
         {
             var medicine = GetOneByName(medicineName);
+            if (medicine == null)
+                return;
             medicine.Quantity -= quantity;
             Update(medicine);
         }
@@ -137,6 +139,26 @@ namespace Pharmacy.Prescriptions.Service
                 return false;
             }
             return medicine.Quantity >= quantity;
+        }
+
+        public int GetMedicineQuantity(string medicineName)
+        {
+            var medicine = this.GetOneByName(medicineName);
+            if (medicine == null)
+            {
+                return 0;
+            }
+            return medicine.Quantity;
+        }
+
+        public double GetMedicinePrice(string medicineName)
+        {
+            var medicine = this.GetOneByName(medicineName);
+            if (medicine == null)
+            {
+                return 0;
+            }
+            return medicine.Price;
         }
     }
 }

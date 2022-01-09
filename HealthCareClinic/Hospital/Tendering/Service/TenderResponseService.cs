@@ -3,6 +3,7 @@ using Hospital.Tendering.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Hospital.Tendering.Service
 {
@@ -28,12 +29,22 @@ namespace Hospital.Tendering.Service
 
         public TenderResponse GetOneById(int id)
         {
-            throw new NotImplementedException();
+            return _tenderResponseRepository.GetById(id);
+        }
+
+        public ICollection<TenderResponse> GetTenderResponsesByTenderId(int tenderId)
+        {
+            return _tenderResponseRepository.GetAll().Where(x => x.TenderId == tenderId).ToList();
         }
 
         public void Remove(TenderResponse entity)
         {
             throw new NotImplementedException();
+        }
+
+        public void Update(TenderResponse entity)
+        {
+            _tenderResponseRepository.Update(entity);
         }
     }
 }

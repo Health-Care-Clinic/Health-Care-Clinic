@@ -56,6 +56,7 @@ namespace Pharmacy.Tendering.Service
 
                     tenderRepository.Add(tender);
                     tenderRepository.Save();
+                    SendTenderResponse(tender);
                 }
             };
             channel.BasicConsume(queue: "tender",
@@ -75,6 +76,39 @@ namespace Pharmacy.Tendering.Service
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             return Task.CompletedTask;
+        }
+
+        private void SendTenderResponse(Tender tender)
+        {
+            TenderResponse tenderResponse;
+            using (var scope = Services.CreateScope())
+            {
+                var tenderResponseService = scope.ServiceProvider
+                            .GetRequiredService<ITenderResponseService>();
+                tenderResponse = tenderResponseService.CreateResponseFromTender(tender);
+                tenderResponseService.Add(tenderResponse);
+            }
+
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queue: "tenderResponse",
+                                        durable: false,
+                                        exclusive: false,
+                                        autoDelete: false,
+                                        arguments: null);
+
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(tenderResponse));
+
+                channel.BasicPublish(exchange: "",
+                                        routingKey: "tenderResponse",
+                                        basicProperties: null,
+                                        body: body);
+                Console.WriteLine(" [x] Sent \n\tDescription: {0}", tenderResponse.Description);
+                
+            }
         }
     }
 }

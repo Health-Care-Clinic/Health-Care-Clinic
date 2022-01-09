@@ -17,5 +17,11 @@ namespace Hospital.Tendering.Repository
         {
             get { return Context as HospitalDbContext; }
         }
+
+        public void Update(TenderResponse entity)
+        {
+            HospitalDbContext.TenderResponses.Update(entity);
+            HospitalDbContext.SaveChanges();
+        }
     }
 }
