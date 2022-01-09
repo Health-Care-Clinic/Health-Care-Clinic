@@ -18,7 +18,7 @@ services:
         dotnet new tool-manifest --force && 
         dotnet tool install --local dotnet-ef --version 5.0.11 &&
         echo "$PATH"
-        dotnet restore "/Hospital API/Hospital API.csproj" &&
+        dotnet restore "/Hospital\ API/Hospital\ API.csproj" &&
         dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital API" &&
         dotnet dotnet-ef database update --project "HealthCareClinic/Hospital API" &&
         dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj" "
