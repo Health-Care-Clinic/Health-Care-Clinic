@@ -22,8 +22,9 @@ services:
         echo "Tu sam stigao" && 
         dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj" &&
         echo "$PATH" &&
-        cd HealthCareClinic/Hospital/Migrations && configs:
-        pwd
+        cd HealthCareClinic/Hospital &&
+        rm -r Migrations 
+        cd ~
         dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext &&
         dotnet dotnet-ef database update --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext &&
         dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
