@@ -26,7 +26,7 @@ namespace HospitalIntegrationTests.Graphical_editor
             DoctorRepository doctorRepository = new DoctorRepository(_context);
             DoctorService doctorService = new DoctorService(doctorRepository);
 
-            Doctor doctor = doctorRepository.GetById(1);
+            Doctor doctor = doctorRepository.GetById(3);
 
             Assert.NotEqual(-1, doctor.WorkShiftId);
         }

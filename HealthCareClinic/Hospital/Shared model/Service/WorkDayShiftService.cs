@@ -31,8 +31,8 @@ namespace Hospital.Shared_model.Service
 
         public bool AddWorkDayShift(WorkDayShift workDayShift)
         {
-            AdjustStartAndEndTime(workDayShift);
-            if (CheckIfStartTimeIsBeforeEndTime(workDayShift) && CheckIfShiftDoesntOverlapWithOnCallShift(workDayShift) && CheckIfShiftDoesntOverlapWithOtherShifts(workDayShift))
+            List<WorkDayShift> allWorkDayShifts = GetAll().ToList();
+            if (workDayShift.CheckIfShiftDoesntOverlapWithOtherShifts(allWorkDayShifts))
             {
                 Add(workDayShift);
                 return true;
@@ -41,64 +41,7 @@ namespace Hospital.Shared_model.Service
                 return false;
         }
 
-        private void AdjustStartAndEndTime(WorkDayShift workDayShift)
-        {
-            DateTime newStartTime = new DateTime(2022, 2, 22) + workDayShift.StartTime.TimeOfDay;
-            DateTime newEndTime = new DateTime(2022, 2, 22) + workDayShift.EndTime.TimeOfDay;
-            workDayShift.StartTime = newStartTime;
-            workDayShift.EndTime = newEndTime;
-        }
-
-        private bool CheckIfStartTimeIsBeforeEndTime(WorkDayShift workDayShift) 
-        {
-            if (workDayShift.StartTime < workDayShift.EndTime)
-                return true;
-            else
-                return false;
-        }
-
-        private bool CheckIfShiftDoesntOverlapWithOnCallShift(WorkDayShift workDayShift)
-        {
-            DateTime earliestShiftStartTime = new DateTime(2022, 2, 22, 7, 0, 0);
-            DateTime latestShiftEndTime = new DateTime(2022, 2, 22, 19, 0, 0);
-            if (workDayShift.StartTime >= earliestShiftStartTime && workDayShift.EndTime <= latestShiftEndTime)
-                return true;
-            else
-                return false;
-        }
-
-        private bool CheckIfShiftDoesntOverlapWithOtherShifts(WorkDayShift workDayShift)
-        {
-            List<WorkDayShift> allWorkDayShifts = GetAll().ToList();
-
-            foreach (WorkDayShift wds in allWorkDayShifts) 
-            {
-                if (!(workDayShift.StartTime >= wds.EndTime || workDayShift.EndTime <= wds.StartTime))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private bool CheckIfShiftDoesntOverlapWithOtherShiftsEdit(WorkDayShift workDayShift)
-        {
-            List<WorkDayShift> allWorkDayShifts = GetAll().ToList();
-
-            foreach (WorkDayShift wds in allWorkDayShifts)
-            {
-                if (wds.Id == workDayShift.Id)
-                    continue;
-
-                if (!(workDayShift.StartTime >= wds.EndTime || workDayShift.EndTime <= wds.StartTime))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
+       
 
         public IEnumerable<WorkDayShift> GetAll()
         {
@@ -151,8 +94,8 @@ namespace Hospital.Shared_model.Service
 
         public bool EditWorkDayShift(WorkDayShift workDayShift)
         {
-            AdjustStartAndEndTime(workDayShift);
-            if (CheckIfStartTimeIsBeforeEndTime(workDayShift) && CheckIfShiftDoesntOverlapWithOnCallShift(workDayShift) && CheckIfShiftDoesntOverlapWithOtherShiftsEdit(workDayShift))
+            List<WorkDayShift> allWorkDayShifts = GetAll().ToList();
+            if (workDayShift.CheckIfShiftDoesntOverlapWithOtherShiftsEdit(allWorkDayShifts))
             {
                 Edit(workDayShift);
                 return true;

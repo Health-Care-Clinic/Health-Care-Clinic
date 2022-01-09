@@ -15,8 +15,8 @@ namespace Hospital_API.Adapter
 
             workDayShift.Id = dto.Id;
             workDayShift.Name = dto.Name;
-            workDayShift.StartTime = dto.StartTime;
-            workDayShift.EndTime = dto.EndTime;
+            workDayShift.WorkHour= new WorkHour(dto.StartTime, dto.EndTime);
+
 
             return workDayShift;
         }
@@ -27,8 +27,8 @@ namespace Hospital_API.Adapter
 
             dto.Id = workDayShift.Id;
             dto.Name = workDayShift.Name;
-            dto.StartTime = workDayShift.StartTime;
-            dto.EndTime = workDayShift.EndTime;
+            dto.StartTime = workDayShift.WorkHour.StartTime;
+            dto.EndTime = workDayShift.WorkHour.EndTime;
 
             return dto;
         }

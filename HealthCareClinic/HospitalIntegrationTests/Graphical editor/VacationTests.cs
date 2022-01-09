@@ -64,10 +64,10 @@ namespace HospitalIntegrationTests.Graphical_editor
             VacationService vacationService = new VacationService(vacationRepository);
 
             Vacation vacation1 = vacationService.GetOneById(1);
-            Vacation oldVacation = new Vacation(vacation1.Id, vacation1.Description, vacation1.StartTime, vacation1.EndTime, vacation1.DoctorId);
+            Vacation oldVacation = new Vacation(vacation1.Id, vacation1.Description, vacation1.DateSpan.StartTime, vacation1.DateSpan.EndTime, vacation1.DoctorId);
             Vacation vacation = new Vacation(1, "Test description", new DateTime(2020, 01, 15, 00, 00, 00), new DateTime(2020, 02, 01, 23, 00, 00), 1);
             vacationService.Change(vacation);
-            Vacation changedVacation = new Vacation(vacation1.Id, vacation1.Description, vacation1.StartTime, vacation1.EndTime, vacation1.DoctorId);
+            Vacation changedVacation = new Vacation(vacation1.Id, vacation1.Description, vacation1.DateSpan.StartTime, vacation1.DateSpan.EndTime, vacation1.DoctorId);
             vacationService.Change(oldVacation);
 
             Assert.Equal("Test description", changedVacation.Description);

@@ -78,12 +78,13 @@ namespace HospitalIntegrationTests.Graphical_editor
             OnCallShiftRepository onCallShiftRepository = new OnCallShiftRepository(_context);
             OnCallShiftService onCallShiftService = new OnCallShiftService(onCallShiftRepository);
             
+            List<OnCallShift> previousOnCallShifts = (List<OnCallShift>)onCallShiftRepository.GetAll();
             OnCallShift newShift = new OnCallShift(13, new DateTime(2022, 1, 1), 1);
             onCallShiftService.Add(newShift);
             List<OnCallShift> onCallShifts = (List<OnCallShift>)onCallShiftRepository.GetAll();
             onCallShiftService.Remove(newShift);
 
-            Assert.Equal(13, onCallShifts.Count);
+            Assert.Equal(previousOnCallShifts.Count+1, onCallShifts.Count);
         }
 
 

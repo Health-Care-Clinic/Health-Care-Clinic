@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220109164629_DateSpan1")]
+    partial class DateSpan1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5708,68 +5710,6 @@ namespace Hospital.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vacations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Description...",
-                            DoctorId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Description...",
-                            DoctorId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Description...",
-                            DoctorId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Description...",
-                            DoctorId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Description...",
-                            DoctorId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Description...",
-                            DoctorId = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Description...",
-                            DoctorId = 1
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Description...",
-                            DoctorId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Description...",
-                            DoctorId = 1
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "Description...",
-                            DoctorId = 2
-                        });
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.WorkDay", b =>
@@ -6540,68 +6480,6 @@ namespace Hospital.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("VacationId");
-
-                            b1.HasData(
-                                new
-                                {
-                                    VacationId = 1,
-                                    EndTime = new DateTime(2020, 5, 27, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 2,
-                                    EndTime = new DateTime(2020, 7, 3, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2020, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 3,
-                                    EndTime = new DateTime(2020, 10, 18, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2020, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 4,
-                                    EndTime = new DateTime(2020, 10, 21, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2020, 10, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 5,
-                                    EndTime = new DateTime(2021, 3, 20, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2021, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 6,
-                                    EndTime = new DateTime(2021, 8, 22, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 7,
-                                    EndTime = new DateTime(2022, 1, 13, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2022, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 8,
-                                    EndTime = new DateTime(2022, 1, 21, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 9,
-                                    EndTime = new DateTime(2022, 5, 7, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2022, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                },
-                                new
-                                {
-                                    VacationId = 10,
-                                    EndTime = new DateTime(2022, 8, 26, 23, 0, 0, 0, DateTimeKind.Unspecified),
-                                    StartTime = new DateTime(2022, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                                });
                         });
 
                     b.Navigation("DateSpan");

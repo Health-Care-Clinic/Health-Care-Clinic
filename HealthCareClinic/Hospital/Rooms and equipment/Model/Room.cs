@@ -53,6 +53,16 @@ namespace Hospital.Rooms_and_equipment.Model
             PositionAndDimension = new PositionAndDimension(x, y, width, height);
         }
 
+        public Room(int id, RoomType type, string name, string description, int floorId, PositionAndDimension positionAndDimension)
+        {
+            Id = id;
+            Type = type;
+            Name = name;
+            Description = description;
+            FloorId = floorId;
+            PositionAndDimension = positionAndDimension;
+        }
+
         public Room()
         {
             

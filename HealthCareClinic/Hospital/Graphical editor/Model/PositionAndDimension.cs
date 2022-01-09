@@ -34,6 +34,18 @@ namespace Hospital.Graphical_editor.Model
             Y = y;
             Width = width;
             Height = height;
+            Validate();
+
+        }
+
+
+
+        private void Validate()
+        {
+            if(this.X < 0 || this.Y < 0 || this.Width < 0 || this.Height < 0)
+            {
+                throw new ArgumentException("Amount can't be negative value.");
+            }
         }
     }
 }

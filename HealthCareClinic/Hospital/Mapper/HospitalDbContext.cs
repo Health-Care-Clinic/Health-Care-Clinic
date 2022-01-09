@@ -58,6 +58,13 @@ namespace Hospital.Mapper
 
             //modelBuilder.Entity<Room>().HasKey(o => o.Id);
 
+            modelBuilder.Entity<Vacation>()
+               .OwnsOne(r => r.DateSpan)
+               .Property(p => p.StartTime).HasColumnName("StartTime");
+            modelBuilder.Entity<Vacation>()
+                .OwnsOne(r => r.DateSpan)
+                .Property(p => p.EndTime).HasColumnName("EndTime");
+
             modelBuilder.Entity<Room>()
                 .OwnsOne(r => r.PositionAndDimension)
                 .Property(p => p.X).HasColumnName("X");
@@ -70,6 +77,16 @@ namespace Hospital.Mapper
             modelBuilder.Entity<Room>()
                 .OwnsOne(r => r.PositionAndDimension)
                 .Property(p => p.Height).HasColumnName("Height");
+
+            modelBuilder.Entity<WorkDayShift>()
+               .OwnsOne(r => r.WorkHour)
+               .Property(p => p.StartTime).HasColumnName("StartTime");
+            modelBuilder.Entity<WorkDayShift>()
+                .OwnsOne(r => r.WorkHour)
+                .Property(p => p.EndTime).HasColumnName("EndTime");
+
+            
+
 
             modelBuilder.Entity<Tender>()
                .Property(p => p.Id)
@@ -90,38 +107,10 @@ namespace Hospital.Mapper
                new OnCallShift { Id = 6, DoctorId = 2, Date = new DateTime(2021, 11, 28, 14, 00, 00) }
                );
 
-            modelBuilder.Entity<Vacation>().HasData(
-               new Vacation { Id = 1, Description = "Description...", StartTime = new DateTime(2020, 01, 15, 00, 00, 00), EndTime = new DateTime(2020, 02, 01, 23, 00, 00), DoctorId = 1 },
-               new Vacation { Id = 2, Description = "Description...", StartTime = new DateTime(2020, 02, 14, 00, 00, 00), EndTime = new DateTime(2020, 02, 20, 23, 00, 00), DoctorId = 2 },
-               new Vacation { Id = 3, Description = "Description...", StartTime = new DateTime(2020, 03, 13, 00, 00, 00), EndTime = new DateTime(2020, 03, 21, 23, 00, 00), DoctorId = 3 },
-               new Vacation { Id = 4, Description = "Description...", StartTime = new DateTime(2020, 04, 12, 00, 00, 00), EndTime = new DateTime(2020, 04, 22, 23, 00, 00), DoctorId = 4 },
-               new Vacation { Id = 5, Description = "Description...", StartTime = new DateTime(2020, 05, 11, 00, 00, 00), EndTime = new DateTime(2020, 05, 23, 23, 00, 00), DoctorId = 5 },
-               new Vacation { Id = 6, Description = "Description...", StartTime = new DateTime(2020, 06, 10, 00, 00, 00), EndTime = new DateTime(2020, 07, 07, 23, 00, 00), DoctorId = 6 },
-               new Vacation { Id = 7, Description = "Description...", StartTime = new DateTime(2020, 07, 09, 00, 00, 00), EndTime = new DateTime(2020, 07, 20, 23, 00, 00), DoctorId = 1 },
-               new Vacation { Id = 8, Description = "Description...", StartTime = new DateTime(2020, 08, 08, 00, 00, 00), EndTime = new DateTime(2020, 08, 28, 23, 00, 00), DoctorId = 2 },
-               new Vacation { Id = 9, Description = "Description...", StartTime = new DateTime(2020, 09, 07, 00, 00, 00), EndTime = new DateTime(2020, 09, 15, 23, 00, 00), DoctorId = 3 },
-               new Vacation { Id = 10, Description = "Description...", StartTime = new DateTime(2020, 10, 06, 00, 00, 00), EndTime = new DateTime(2020, 10, 17, 23, 00, 00), DoctorId = 4 },
-               new Vacation { Id = 11, Description = "Description...", StartTime = new DateTime(2021, 11, 05, 00, 00, 00), EndTime = new DateTime(2021, 11, 19, 23, 00, 00), DoctorId = 5 },
-               new Vacation { Id = 12, Description = "Description...", StartTime = new DateTime(2021, 12, 04, 00, 00, 00), EndTime = new DateTime(2021, 12, 18, 23, 00, 00), DoctorId = 6 },
-               new Vacation { Id = 13, Description = "Description...", StartTime = new DateTime(2021, 01, 03, 00, 00, 00), EndTime = new DateTime(2021, 02, 10, 23, 00, 00), DoctorId = 1 },
-               new Vacation { Id = 14, Description = "Description...", StartTime = new DateTime(2021, 02, 02, 00, 00, 00), EndTime = new DateTime(2021, 02, 12, 23, 00, 00), DoctorId = 2 },
-               new Vacation { Id = 15, Description = "Description...", StartTime = new DateTime(2021, 03, 01, 00, 00, 00), EndTime = new DateTime(2021, 03, 18, 23, 00, 00), DoctorId = 3 },
-               new Vacation { Id = 16, Description = "Description...", StartTime = new DateTime(2021, 04, 30, 00, 00, 00), EndTime = new DateTime(2021, 05, 05, 23, 00, 00), DoctorId = 4 },
-               new Vacation { Id = 17, Description = "Description...", StartTime = new DateTime(2021, 05, 29, 00, 00, 00), EndTime = new DateTime(2021, 06, 06, 23, 00, 00), DoctorId = 5 },
-               new Vacation { Id = 18, Description = "Description...", StartTime = new DateTime(2021, 06, 28, 00, 00, 00), EndTime = new DateTime(2021, 07, 07, 23, 00, 00), DoctorId = 6 },
-               new Vacation { Id = 19, Description = "Description...", StartTime = new DateTime(2021, 07, 27, 00, 00, 00), EndTime = new DateTime(2021, 08, 08, 23, 00, 00), DoctorId = 1 },
-               new Vacation { Id = 20, Description = "Description...", StartTime = new DateTime(2021, 08, 26, 00, 00, 00), EndTime = new DateTime(2021, 09, 09, 23, 00, 00), DoctorId = 2 },
-               new Vacation { Id = 21, Description = "Description...", StartTime = new DateTime(2022, 09, 25, 00, 00, 00), EndTime = new DateTime(2022, 10, 10, 23, 00, 00), DoctorId = 3 },
-               new Vacation { Id = 22, Description = "Description...", StartTime = new DateTime(2022, 10, 24, 00, 00, 00), EndTime = new DateTime(2022, 11, 11, 23, 00, 00), DoctorId = 4 },
-               new Vacation { Id = 23, Description = "Description...", StartTime = new DateTime(2022, 11, 23, 00, 00, 00), EndTime = new DateTime(2022, 12, 12, 23, 00, 00), DoctorId = 5 },
-               new Vacation { Id = 24, Description = "Description...", StartTime = new DateTime(2022, 12, 22, 00, 00, 00), EndTime = new DateTime(2022, 12, 29, 23, 00, 00), DoctorId = 6 },
-               new Vacation { Id = 25, Description = "Description...", StartTime = new DateTime(2022, 01, 21, 00, 00, 00), EndTime = new DateTime(2022, 02, 02, 23, 00, 00), DoctorId = 1 },
-               new Vacation { Id = 26, Description = "Description...", StartTime = new DateTime(2022, 02, 20, 00, 00, 00), EndTime = new DateTime(2022, 03, 03, 23, 00, 00), DoctorId = 2 },
-               new Vacation { Id = 27, Description = "Description...", StartTime = new DateTime(2022, 03, 19, 00, 00, 00), EndTime = new DateTime(2022, 04, 04, 23, 00, 00), DoctorId = 3 },
-               new Vacation { Id = 28, Description = "Description...", StartTime = new DateTime(2022, 04, 18, 00, 00, 00), EndTime = new DateTime(2022, 05, 05, 23, 00, 00), DoctorId = 4 },
-               new Vacation { Id = 29, Description = "Description...", StartTime = new DateTime(2022, 05, 17, 00, 00, 00), EndTime = new DateTime(2022, 06, 05, 23, 00, 00), DoctorId = 5 },
-               new Vacation { Id = 30, Description = "Description...", StartTime = new DateTime(2022, 06, 16, 00, 00, 00), EndTime = new DateTime(2022, 07, 06, 23, 00, 00), DoctorId = 6 }
-               );
+
+
+
+
 
             modelBuilder.Entity<Renovation>().HasData(
                 new Renovation { Id = 1, FirstRoomId = 1, SecondRoomId = 2, Duration = 2, Date = new DateTime(2022, 02, 02, 14, 00, 00), Type = Renovation.RenovationType.Merge },
@@ -1592,6 +1581,166 @@ namespace Hospital.Mapper
                 });
             });
 
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 1,
+                    Description = "Description...",
+                    DoctorId = 1
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 1,
+                    StartTime = new DateTime(2020, 05, 20, 00, 00, 00),
+                    EndTime = new DateTime(2020, 05, 27, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 2,
+                    Description = "Description...",
+                    DoctorId = 2
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 2,
+                    StartTime = new DateTime(2020, 06, 20, 00, 00, 00),
+                    EndTime = new DateTime(2020, 07, 03, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 3,
+                    Description = "Description...",
+                    DoctorId = 1
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 3,
+                    StartTime = new DateTime(2020, 09, 22, 00, 00, 00),
+                    EndTime = new DateTime(2020, 10, 18, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 4,
+                    Description = "Description...",
+                    DoctorId = 2
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 4,
+                    StartTime = new DateTime(2020, 10, 13, 00, 00, 00),
+                    EndTime = new DateTime(2020, 10, 21, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 5,
+                    Description = "Description...",
+                    DoctorId = 1
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 5,
+                    StartTime = new DateTime(2021, 03, 02, 00, 00, 00),
+                    EndTime = new DateTime(2021, 03, 20, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 6,
+                    Description = "Description...",
+                    DoctorId = 2
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 6,
+                    StartTime = new DateTime(2021, 08, 11, 00, 00, 00),
+                    EndTime = new DateTime(2021, 08, 22, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 7,
+                    Description = "Description...",
+                    DoctorId = 1
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 7,
+                    StartTime = new DateTime(2022, 01, 07, 00, 00, 00),
+                    EndTime = new DateTime(2022, 01, 13, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 8,
+                    Description = "Description...",
+                    DoctorId = 2
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 8,
+                    StartTime = new DateTime(2022, 01, 01, 00, 00, 00),
+                    EndTime = new DateTime(2022, 01, 21, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 9,
+                    Description = "Description...",
+                    DoctorId = 1
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 9,
+                    StartTime = new DateTime(2022, 04, 23, 00, 00, 00),
+                    EndTime = new DateTime(2022, 05, 07, 23, 00, 00)
+                });
+            });
+
+            modelBuilder.Entity<Vacation>(b =>
+            {
+                b.HasData(new Vacation
+                {
+                    Id = 10,
+                    Description = "Description...",
+                    DoctorId = 2
+                });
+                b.OwnsOne(e => e.DateSpan).HasData(new
+                {
+                    VacationId = 10,
+                    StartTime = new DateTime(2022, 08, 22, 00, 00, 00),
+                    EndTime = new DateTime(2022, 08, 26, 23, 00, 00)
+                });
+            });
+
             modelBuilder.Entity<Room>(b =>
             {
                 b.HasData(new Room
@@ -1612,83 +1761,6 @@ namespace Hospital.Mapper
                 });
             });
 
-            /*modelBuilder.Entity<Room>()
-                .OwnsOne(r => r.PositionAndDimension)
-                .HasData(
-                new Room { Id = 1, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new { X = 320f, Y = 30f, Width = 400f, Height = 140f }, FloorId = 1 },
-                new Room { Id = 2, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 320f, Y = 260f, Width = 380f, Height = 140f }, FloorId = 1 },
-                new Room { Id = 3, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 50f, Y = 260f, Width = 270f, Height = 140f }, FloorId = 1 },
-                new Room { Id = 4, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 700f, Y = 260f, Width = 300f, Height = 140f }, FloorId = 1 },
-                new Room { Id = 5, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 50f, Y = 30f, Width = 270f, Height = 140f }, FloorId = 1 },
-                new Room { Id = 6, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new { X = 720f, Y = 30f, Width = 280f, Height = 140f }, FloorId = 1 },
-                new Room { Id = 7, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new { X = 50f, Y = 170f, Width = 150f, Height = 90f }, FloorId = 1 },
-                new Room { Id = 8, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 2 },
-                new Room { Id = 9, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 2 },
-                new Room { Id = 10, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 2 },
-                new Room { Id = 11, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 2 },
-                new Room { Id = 12, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 2 },
-                new Room { Id = 13, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 2 },
-                new Room { Id = 14, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 2 },
-                new Room { Id = 15, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 3 },
-                new Room { Id = 16, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 3 },
-                new Room { Id = 17, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 3 },
-                new Room { Id = 18, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 3 },
-                new Room { Id = 19, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 3 },
-                new Room { Id = 20, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 3 },
-                new Room { Id = 21, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 3 },
-
-                new Room { Id = 22, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 4 },
-                new Room { Id = 23, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 4 },
-                new Room { Id = 24, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 4 },
-                new Room { Id = 25, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 4 },
-                new Room { Id = 26, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 4 },
-                new Room { Id = 27, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 4 },
-                new Room { Id = 28, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 4 },
-                new Room { Id = 29, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 5 },
-                new Room { Id = 30, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 5 },
-                new Room { Id = 31, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 5 },
-                new Room { Id = 32, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 5 },
-                new Room { Id = 33, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 5 },
-                new Room { Id = 34, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 5 },
-                new Room { Id = 35, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 5 },
-
-                new Room { Id = 36, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 6 },
-                new Room { Id = 37, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 6 },
-                new Room { Id = 38, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 6 },
-                new Room { Id = 39, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 6 },
-                new Room { Id = 40, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 6 },
-                new Room { Id = 41, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 6 },
-                new Room { Id = 42, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 6 },
-                new Room { Id = 43, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 7 },
-                new Room { Id = 44, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 7 },
-                new Room { Id = 45, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 7 },
-                new Room { Id = 46, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 7 },
-                new Room { Id = 47, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 7 },
-                new Room { Id = 48, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 7 },
-                new Room { Id = 49, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 7 },
-                new Room { Id = 50, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 8 },
-                new Room { Id = 51, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 8 },
-                new Room { Id = 52, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 8 },
-                new Room { Id = 53, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 8 },
-                new Room { Id = 54, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 8 },
-                new Room { Id = 55, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 8 },
-                new Room { Id = 56, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 8 },
-
-                new Room { Id = 57, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 9 },
-                new Room { Id = 58, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 9 },
-                new Room { Id = 59, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 9 },
-                new Room { Id = 60, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 9 },
-                new Room { Id = 61, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 9 },
-                new Room { Id = 62, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 9 },
-                new Room { Id = 63, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 9 },
-                new Room { Id = 64, Type = RoomType.OperationRoom, Name = "Operation room", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 30f, 400f, 140f), FloorId = 10 },
-                new Room { Id = 65, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(320f, 260f, 380f, 140f), FloorId = 10 },
-                new Room { Id = 66, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 260f, 270f, 140f), FloorId = 10 },
-                new Room { Id = 67, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(700f, 260f, 300f, 140f), FloorId = 10 },
-                new Room { Id = 68, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 30f, 270f, 140f), FloorId = 10 },
-                new Room { Id = 69, Type = RoomType.RoomForAppointments, Name = "Room for appointments", Description = "Room description...", PositionAndDimension = new PositionAndDimension(720f, 30f, 280f, 140f), FloorId = 10 },
-                new Room { Id = 70, Type = RoomType.WC, Name = "WC", Description = "Room description...", PositionAndDimension = new PositionAndDimension(50f, 170f, 150f, 90f), FloorId = 10 });
-            */
             modelBuilder.Entity<Floor>().HasData(
                 new Floor { Id = 1, Name = "Floor 1", BuildingId = 1 },
                 new Floor { Id = 2, Name = "Floor 2", BuildingId = 1 },
@@ -1792,6 +1864,8 @@ namespace Hospital.Mapper
                     IsPublished = true
                 }
             );
+
+            
 
             modelBuilder.Entity<Allergen>().HasData(
                 new Allergen(1, "Polen ambrozije"),
@@ -2013,9 +2087,35 @@ namespace Hospital.Mapper
                 }
             );
 
-            modelBuilder.Entity<WorkDayShift>().HasData(
-                new WorkDayShift { Id = 1, Name = "First", StartTime = new DateTime(2022, 2, 22, 7, 0, 0), EndTime = new DateTime(2022, 2, 22, 13, 0, 0) },
-                new WorkDayShift { Id = 2, Name = "Second", StartTime = new DateTime(2022, 2, 22, 13, 0, 0), EndTime = new DateTime(2022, 2, 22, 19, 0, 0) });
+            modelBuilder.Entity<WorkDayShift>(b =>
+            {
+                b.HasData(new WorkDayShift
+                {
+                    Id = 1,
+                    Name = "First"
+                });
+                b.OwnsOne(e => e.WorkHour).HasData(new
+                {
+                    WorkDayShiftId = 1,
+                    StartTime = new DateTime(2022, 2, 22, 7, 0, 0),
+                    EndTime = new DateTime(2022, 2, 22, 13, 0, 0)
+                });
+            });
+
+            modelBuilder.Entity<WorkDayShift>(b =>
+            {
+                b.HasData(new WorkDayShift
+                {
+                    Id = 2,
+                    Name = "Second"
+                });
+                b.OwnsOne(e => e.WorkHour).HasData(new
+                {
+                    WorkDayShiftId = 2,
+                    StartTime = new DateTime(2022, 2, 22, 13, 0, 0),
+                    EndTime = new DateTime(2022, 2, 22, 19, 0, 0)
+                });
+            });
 
             modelBuilder.Entity<Patient>().HasData(
                 new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petar", "miki", null, "Employed", true)

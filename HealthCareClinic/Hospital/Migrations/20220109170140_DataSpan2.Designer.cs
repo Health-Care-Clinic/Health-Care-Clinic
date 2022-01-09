@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220109170140_DataSpan2")]
+    partial class DataSpan2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -6569,19 +6571,19 @@ namespace Hospital.Migrations
                                 new
                                 {
                                     VacationId = 5,
-                                    EndTime = new DateTime(2021, 3, 20, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EndTime = new DateTime(2020, 3, 20, 23, 0, 0, 0, DateTimeKind.Unspecified),
                                     StartTime = new DateTime(2021, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
                                 },
                                 new
                                 {
                                     VacationId = 6,
-                                    EndTime = new DateTime(2021, 8, 22, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EndTime = new DateTime(2020, 8, 22, 23, 0, 0, 0, DateTimeKind.Unspecified),
                                     StartTime = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                                 },
                                 new
                                 {
                                     VacationId = 7,
-                                    EndTime = new DateTime(2022, 1, 13, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EndTime = new DateTime(2020, 1, 13, 23, 0, 0, 0, DateTimeKind.Unspecified),
                                     StartTime = new DateTime(2022, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
                                 },
                                 new
