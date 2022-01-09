@@ -11,4 +11,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Execute tests 
-        run: docker-compose up --file docker-compose-pharmacy-tests.yml --exit-code-from pharmacy-integration-tests pharmacy-integration-tests
+        run: docker-compose -f docker-compose-pharmacy-tests.yml up --exit-code-from pharmacy-integration-tests pharmacy-integration-tests
