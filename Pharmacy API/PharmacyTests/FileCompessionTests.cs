@@ -11,7 +11,7 @@ namespace PharmacyTests
         [Fact]
         public void Checks_if_directory_exists()
         {
-            string path = "..\\..\\..\\..\\Pharmacy API\\";
+            string path = GetPath();
 
             DirectoryInfo d = new DirectoryInfo(@path);
 
@@ -21,13 +21,22 @@ namespace PharmacyTests
         [Fact]
         public void Checks_if_directory_has_files()
         {
-            string path = "..\\..\\..\\..\\Pharmacy API\\";
+            string path = GetPath();
 
             DirectoryInfo d = new DirectoryInfo(@path);
 
             FileInfo[] files = d.GetFiles();
 
             Assert.NotEmpty(files);
+        }
+
+        private string GetPath()
+        {
+            string folderName = Path.Combine("Pharmacy API");
+            string rootDirectory = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName).FullName;
+            string path = Path.Combine(rootDirectory, folderName);
+
+            return path;
         }
     }
 }
