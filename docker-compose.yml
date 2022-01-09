@@ -16,9 +16,9 @@ services:
       - .:/HealthCareClinic
       command: bash -c "
         dotnet new tool-manifest --force && 
-        dotnet tool install --local dotnet-ef --version 5.11.0 &&
-        echo "$PATH"
+        dotnet tool install --local dotnet-ef --version 5.0.11 &&
         dotnet restore "/Hospital\ API/Hospital\ API.csproj" &&
+        echo "$PATH" &&
         dotnet dotnet-ef migrations add TestingMigration --project "/Hospital\ API/Hospital\ API.csproj" --context HospitalDbContext &&
         dotnet dotnet-ef database update --project "/Hospital\ API/Hospital\ API.csproj" &&
         dotnet test "/HospitalIntegrationTests/HospitalIntegrationTests.csproj" "
