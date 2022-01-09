@@ -19,6 +19,11 @@ services:
         dotnet new tool-manifest --force --name name
         dotnet tool install --local dotnet-ef --version 5.0.11
         dotnet restore "Pharmacy API/Pharmacy API/Pharmacy API.csproj"
+        echo "PWD:"
+        pwd
+        echo "LS:"
+        ls
+        echo "CD:"
         cd "Pharmacy API/Pharmacy"
         ls
         rm -r Migrations 
