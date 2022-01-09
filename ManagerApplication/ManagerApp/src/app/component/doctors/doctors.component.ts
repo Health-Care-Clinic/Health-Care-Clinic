@@ -14,8 +14,8 @@ export class DoctorsComponent implements OnInit {
 
   constructor(private doctorService: DoctorsService,private _route: ActivatedRoute,private router: Router, private shiftService: ShiftsService) { }
 
-  doctors: Array<IDoctor>
-  shifts: Array<Shift>
+  doctors: Array<IDoctor>;
+  shifts: Array<Shift>;
 
   ngOnInit(): void {
     this.doctorService.getAllDoctors().subscribe(ret =>{

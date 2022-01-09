@@ -36,6 +36,7 @@ namespace Hospital_API.Adapter
             doctor.Id = dto.Id;
             doctor.Name = dto.Name;
             doctor.Surname = dto.Surname;
+            doctor.WorkShiftId = dto.WorkShiftId;
 
             return doctor;
         }

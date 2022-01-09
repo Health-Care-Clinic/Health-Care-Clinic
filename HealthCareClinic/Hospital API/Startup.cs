@@ -21,6 +21,8 @@ using Hospital.Tendering.Service;
 using Hospital.Tendering.Repository;
 using Hospital.Medicines.Service;
 using Hospital.Medicines.Repository;
+using Hospital.Events.Service;
+using Hospital.Events.Repository;
 
 namespace Hospital_API
 {
@@ -41,6 +43,11 @@ namespace Hospital_API
                 options.UseNpgsql(
                         ConfigurationExtensions.GetConnectionString(Configuration, "HospitalDbConnectionString"))
                     .UseLazyLoadingProxies());
+
+            services.AddDbContext<EventsDbContext>(options =>
+              options.UseNpgsql(
+                      ConfigurationExtensions.GetConnectionString(Configuration, "EventsDbConnectionString"))
+                  .UseLazyLoadingProxies());
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));     //za slanje mejlova
             services.AddTransient<IPatientService, PatientService>();
@@ -107,6 +114,9 @@ namespace Hospital_API
 
             services.AddScoped<IWorkDayShiftService, WorkDayShiftService>();
             services.AddScoped<IWorkDayShiftRepository, WorkDayShiftRepository>();
+
+            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventRepository, EventRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

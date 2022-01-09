@@ -1,0 +1,23 @@
+<div *ngIf="found" style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%; margin-bottom: 2%; font-size: large;">
+    <h1>
+        Doctor:
+        {{doctor.name}}
+        {{doctor.surname}}
+    </h1>
+    <br>
+    <h1>
+        Vacation:<br>
+    </h1>
+    Start time: {{vacation.startTime | date:'dd.MM.yyyy'}}<br>
+    End time: {{vacation.endTime | date:'dd.MM.yyyy'}}<br>
+    Description: {{vacation.description}}<br><br>
+    <button (click)="deleteVacation()" style="background-color: rgb(50, 180, 50); cursor: pointer; min-width: 100px; min-height: 30px;" [routerLink]="['/doctor-vacations', vacation.doctorId]">
+        Confirm
+    </button>
+    <button style="background-color: rgb(255, 255, 110); cursor: pointer; min-width: 100px; min-height: 30px; margin-left: 1%;" [routerLink]="['/doctor-vacations', vacation.doctorId]">
+        Back
+    </button>
+</div>
+<div *ngIf="!found" style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%; margin-bottom: 2%; font-size: large;">
+    This vacation does not exist!
+</div>

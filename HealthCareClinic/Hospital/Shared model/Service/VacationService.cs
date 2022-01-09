@@ -2,7 +2,6 @@
 using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Hospital.Shared_model.Service
 {
@@ -96,6 +95,41 @@ namespace Hospital.Shared_model.Service
             }
 
             return futureVacations;
+        }
+
+        public bool GetVacationAvailability(int doctorId, DateTime vacationStart, DateTime vacationEnd)
+        {
+            List<Vacation> allVacations = _vacationRepository.GetVacationsByDoctorId(doctorId);
+
+            foreach (Vacation v in allVacations)
+            {
+                if ((vacationStart.CompareTo(v.StartTime) > 0 && vacationStart.CompareTo(v.EndTime) < 0) 
+                    || (vacationEnd.CompareTo(v.StartTime) > 0 && vacationEnd.CompareTo(v.EndTime) < 0)
+                    || (vacationStart.CompareTo(v.StartTime) < 0 && vacationEnd.CompareTo(v.EndTime) > 0))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool GetChangedVacationAvailability(Vacation vacation)
+        {
+            List<Vacation> allVacations = _vacationRepository.GetVacationsByDoctorId(vacation.DoctorId);
+
+            foreach (Vacation v in allVacations)
+            {
+				if (!vacation.Id.Equals(v.Id) && 
+					((vacation.StartTime.CompareTo(v.StartTime) > 0 && vacation.StartTime.CompareTo(v.EndTime) < 0)
+					|| (vacation.EndTime.CompareTo(v.StartTime) > 0 && vacation.EndTime.CompareTo(v.EndTime) < 0)
+					|| (vacation.StartTime.CompareTo(v.StartTime) < 0 && vacation.EndTime.CompareTo(v.EndTime) > 0)))
+				{
+					return false;
+				}
+            }
+
+            return true;
         }
     }
 }

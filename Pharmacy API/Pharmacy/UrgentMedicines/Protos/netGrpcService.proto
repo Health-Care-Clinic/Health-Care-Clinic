@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 option csharp_namespace = "UrgentMedicines.Protos";
 import "UrgentMedicines/Protos/model.proto";
 

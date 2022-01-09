@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
+    <ProjectReference Include="..\ClinicCore\ClinicCore.csproj" />
     <ProjectReference Include="..\Hospital\Hospital.csproj" />
     <ProjectReference Include="..\Integration\Integration.csproj" />
   </ItemGroup>

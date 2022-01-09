@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hospital", "Hospital\Hospit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integration", "Integration\Integration.csproj", "{B9F0A170-1B41-4764-9E54-AB8FB12BF01E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClinicCore", "..\ClinicCore\ClinicCore.csproj", "{66BD74E7-FCEA-4508-8092-F55FB76EBDDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClinicCore", "ClinicCore\ClinicCore.csproj", "{66BD74E7-FCEA-4508-8092-F55FB76EBDDD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{0BA1D6E7-A030-40C9-9179-5E004B694692}"
 EndProject

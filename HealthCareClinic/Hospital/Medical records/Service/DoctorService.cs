@@ -54,5 +54,16 @@ namespace Hospital.Medical_records.Service
             return doctorRepository.GetDoctorsBySpecialty(specialty);
         }
 
+        public void addShiftToDoctor(Doctor doctor) 
+        {
+            Doctor d = doctorRepository.GetById(doctor.Id);
+            d.WorkShiftId = doctor.WorkShiftId;
+            doctorRepository.Save();
+        }
+
+        public Doctor findById(int id)
+        {
+            return doctorRepository.GetById(id);
+        }
     }
 }

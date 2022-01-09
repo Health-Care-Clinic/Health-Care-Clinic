@@ -3,10 +3,8 @@ using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hospital_API.Controller
 {
@@ -18,6 +16,15 @@ namespace Hospital_API.Controller
         public VacationController(IVacationService vacationService)
         {
             this.vacationService = vacationService;
+        }
+
+        [HttpGet("getAllVacations")]
+        public IActionResult GetAllVacations()
+        {
+            List<VacationDTO> allVacations = new List<VacationDTO>();
+            vacationService.GetAll().ToList().ForEach(Vacation
+                => allVacations.Add(VacationAdapter.VacationToVacationDTO(Vacation)));
+            return Ok(allVacations);
         }
 
         [HttpGet("getVacationsByDoctorId/{id?}")]
@@ -78,6 +85,22 @@ namespace Hospital_API.Controller
             Vacation vacation = VacationAdapter.VacationDTOToVacation(vacationDTO);
             vacationService.RemoveById(vacation.Id);
             return Ok();
+        }
+
+        [HttpPost("getVacationAvailability")]
+        public IActionResult GetVacationAvailability(VacationDTO vacationDTO)
+        {
+            Vacation vacation = VacationAdapter.VacationDTOToVacation(vacationDTO);
+            bool available = vacationService.GetVacationAvailability(vacation.DoctorId, vacation.StartTime, vacation.EndTime);
+            return Ok(available);
+        }
+
+        [HttpPost("getChangedVacationAvailability")]
+        public IActionResult GetChangedVacationAvailability(VacationDTO vacationDTO)
+        {
+            Vacation vacation = VacationAdapter.VacationDTOToVacation(vacationDTO);
+            bool available = vacationService.GetChangedVacationAvailability(vacation);
+            return Ok(available);
         }
 
     }

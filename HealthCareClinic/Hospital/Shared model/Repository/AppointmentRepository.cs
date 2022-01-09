@@ -34,6 +34,10 @@ namespace Hospital.Shared_model.Repository
             return dbContext.Appointments.Where(app => app.PatientId == patinetId).ToList();
         }
 
+        public List<Appointment> getAppointmentsByDoctorId(int doctorId)
+        {
+            return dbContext.Appointments.Where(app => app.DoctorId == doctorId).ToList();
+        }
         public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
             List<DateTime> allTerms = GenerateAllTerms(fromDate, toDate);
