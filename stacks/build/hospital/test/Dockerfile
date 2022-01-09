@@ -2,6 +2,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
 WORKDIR /app
 
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS test
 RUN dotnet new tool-manifest --force && \
     dotnet tool install --global dotnet-ef --version 5.0.11
 
