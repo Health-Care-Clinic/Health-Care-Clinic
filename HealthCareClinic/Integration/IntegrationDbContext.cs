@@ -4,6 +4,7 @@ using System.Text;
 using Integration.ApiKeys.Model;
 using Integration.Notifications.Model;
 using Integration.Pharmacy.Model;
+using Integration.Promotions.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Integration
@@ -55,6 +56,24 @@ namespace Integration
                 new MedicationConsumption { Id = 5, Name = "Robenan", Amount = 15, Date = new DateTime(2021, 11, 9) },
                 new MedicationConsumption { Id = 6, Name = "Andol", Amount = 10, Date = new DateTime(2021, 11, 13) }
                 );
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=PharmacyDatabase;User id=postgres;Password=admin").UseLazyLoadingProxies();
+            //optionsBuilder.UseNpgsql("Server=postgres-database;Port=5432;Database=PharmacyDatabase;User id=postgres;Password=admin").UseLazyLoadingProxies();
+            optionsBuilder.UseNpgsql(CreateConnectionStringFromEnvironment()).UseLazyLoadingProxies();
+        }
+        private static string CreateConnectionStringFromEnvironment()
+        {
+            var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";
+            var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "integrationDb";
+            var user = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? "postgres";
+            var password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "password";
+
+            return
+                $"Server={server};Port={port};Database={database};User ID={user};Password={password};";
         }
     }
 }

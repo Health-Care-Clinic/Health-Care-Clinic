@@ -6,6 +6,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { MedicalRecordComponent } from './medical-record/medical-record.component';
 import { RecommendationSchedulingComponent } from './recommendation-scheduling/recommendation-scheduling.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { StandardSchedulingComponent } from './standard-scheduling/standard-scheduling.component';
 import { SurveyComponent } from './survey/survey.component';
 import { AuthGuard } from './service/auth.guard';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'medical-record', component: MedicalRecordComponent, canActivate: [AuthGuard] },
   { path: 'recommendation-scheduling', component: RecommendationSchedulingComponent, canActivate: [AuthGuard] },
+  { path: 'standard-scheduling', component: StandardSchedulingComponent }
 ];
 
 @NgModule({

@@ -1,0 +1,85 @@
+name: Publish docker images
+on:
+  push:
+    branches: [master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout 
+        uses: actions/checkout@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Build and push manager-gateway image
+        uses: docker/build-push-action@v2
+        with:
+          context: './ManagerApplication/ManagerApp/'
+          file: ./stacks/build/manager-gateway/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/manager-gateway:latest
+      -
+        name: Build and push hospital-api image
+        uses: docker/build-push-action@v2
+        with:
+          context: './HealthCareClinic/'
+          file: ./stacks/build/hospital/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/hospital-api:latest
+      -
+        name: Build and push integration-api image
+        uses: docker/build-push-action@v2
+        with:
+          context: './HealthCareClinic/'
+          file: ./stacks/build/integration/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/integration-api:latest
+      -
+        name: Build and push pharmacy-api image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./stacks/build/pharmacy/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/pharmacy-api:latest
+      -
+        name: Build and push patient-gateway image
+        uses: docker/build-push-action@v2
+        with:
+          context: './PatientApplication/PatientApp/'
+          file: ./stacks/build/patient-gateway/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/patient-gateway:latest
+  deploy:
+   name: Deploy
+   needs: build
+   runs-on: ubuntu-latest
+   steps:
+    - uses: appleboy/ssh-action@master
+      with:
+       host: 79.101.34.218 
+       username: student
+       key: ${{ secrets.STUDENT_KEY}}
+       port: 22210
+       script: |
+         cd Health-Care-Clinic
+         git checkout master
+         git pull origin develop
+         git status
+         cd "HealthCareClinic/Hospital API"
+         docker-compose up -d
+         cd ../../
+         cd "HealthCareClinic/Integration API"
+         docker-compose up -d
+         cd ../../
+         cd "Pharmacy API/Pharmacy API"
+         docker-compose up -d

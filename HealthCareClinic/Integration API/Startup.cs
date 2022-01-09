@@ -12,11 +12,18 @@ using System.Threading.Tasks;
 using Integration;
 using Integration.Interface.Repository;
 using Integration.Interface.Service;
-using Integration.Repository;
 using Integration.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.Features;
 using System.IO;
+using Integration.ApiKeys.Repository;
+using Integration.ApiKeys.Service;
+using Integration.Notifications.Repository;
+using Integration.Notifications.Service;
+using Integration.Pharmacy.Repository;
+using Integration.Pharmacy.Service;
+using Integration.Promotions.Repository;
+using Integration.Promotions.Service;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Http;
 
@@ -92,13 +99,13 @@ namespace Integration_API
                     .AllowAnyHeader()
                     .SetIsOriginAllowed(origin => true)
                     .AllowCredentials());
-
+/*
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Images")),
                 RequestPath = new PathString("/Images")
-            });
+            });*/
         }
     }
 }

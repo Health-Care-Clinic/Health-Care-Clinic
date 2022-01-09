@@ -1,0 +1,34 @@
+<div *ngIf="found" style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%; margin-bottom: 2%;">
+    <h1>
+        Doctor:
+        {{doctor.name}}
+        {{doctor.surname}}
+    </h1>
+</div>
+<div *ngIf="found" style="width: 100%; float: left; margin: auto; text-align: center; font-size: large;">
+    <form id="scheduleVacation" (ngSubmit)="onSubmit()" ngNativeValidate>
+        <div>
+            <label style="margin-right: 2%;">Start date:</label>
+            <input type="date" id="startDate" min="{{today}}" required style="min-width: 20%;">
+        </div>
+        <div>
+            <label style="margin-right: 2%;">End date:</label>
+            <input type="date" id="endDate" min="{{today}}" required style="min-width: 20%;">
+        </div>
+        <div>
+            <label style="margin-right: 2%;">Description:</label>
+            <input type="text" id="description" required style="min-width: 20%;">
+        </div>
+        <div style="margin-top: 2%; margin-bottom: 2%;">
+            <button id="finish" type="submit" style="background-color: rgb(50, 180, 50); cursor: pointer; min-width: 100px; min-height: 30px;">
+                Finish
+            </button>
+            <button type="button" style="background-color: rgb(255, 255, 110); cursor: pointer; min-width: 100px; min-height: 30px; margin-left: 1%;" [routerLink]="['/doctor-vacations', doctor.id]">
+                Back
+            </button>
+        </div>
+    </form>
+</div>
+<div *ngIf="!found" style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%; margin-bottom: 2%; font-size: large;">
+    This doctor does not exist!
+</div>

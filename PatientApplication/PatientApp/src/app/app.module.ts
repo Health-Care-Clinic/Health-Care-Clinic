@@ -58,6 +58,8 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { AppointmentService } from './service/appointment.service';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptor } from './service/token-interceptor.service';
+import { StandardSchedulingComponent } from './standard-scheduling/standard-scheduling.component';
+
 
 
 const MaterialComponents = [
@@ -100,6 +102,7 @@ const MaterialComponents = [
     MedicalRecordComponent,
     RecommendationSchedulingComponent,
     AppointmentsComponent,
+    StandardSchedulingComponent,
   ],
   imports: [
     HttpClientModule,

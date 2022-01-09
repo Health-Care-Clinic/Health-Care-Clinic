@@ -11,6 +11,7 @@ namespace Hospital_API.DTO
         public String Name { get; set; }
         public String Surname { get; set; }
         public String Specialty { get; set; }
+        public int WorkShiftId { get; set; }
 
         public DoctorWithSpecialtyDTO(int id, string name, string surname, string specialty) : this(id, name, surname)
         {

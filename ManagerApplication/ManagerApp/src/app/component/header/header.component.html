@@ -6,6 +6,8 @@
         <button mat-menu-item [routerLink]="['hospital-map']">Hospital map</button>
         <button mat-menu-item [routerLink]="['moving-equipment']">Move equipment</button>
         <button mat-menu-item [routerLink]="['renovation']">Renovation</button>
+        <button mat-menu-item [routerLink]="['shifts']">Shifts</button>
+        <button mat-menu-item [routerLink]="['doctors']">Doctors</button>
     </mat-menu>
     
     <button *ngIf="role == 'manager'" mat-button  [routerLink]="['feedback-view']">All feedbacks</button>
@@ -23,6 +25,7 @@
     <button *ngIf="role == 'manager'" mat-button [matMenuTriggerFor]="medicineProcurement">Medicine Procurement</button>
     <mat-menu #medicineProcurement="matMenu">
         <button mat-menu-item [routerLink]="['urgent-procurement']">Urgent procurement</button>
+        <button mat-menu-item [routerLink]="['tenders']">Tenders</button>
         <button mat-menu-item [routerLink]="['consumption-report']">Medicine consumption</button>
     </mat-menu>
     <span class="example-spacer-notification"></span>

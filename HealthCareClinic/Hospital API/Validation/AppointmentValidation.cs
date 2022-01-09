@@ -12,7 +12,7 @@ namespace Hospital_API.Validation
         {
         }
 
-        public static bool ValidateInputDoctorIdDateFromDateToDTO(DoctorIdDateFromDateToDTO dto, DateTime fromDate, DateTime toDate)
+        public static bool ValidateInputDoctorIdDateFromDateToDTO(DoctorAndDateRangeDataDTO dto, DateTime fromDate, DateTime toDate)
         {
             if (dto.DoctorId < 0)
                 return false;

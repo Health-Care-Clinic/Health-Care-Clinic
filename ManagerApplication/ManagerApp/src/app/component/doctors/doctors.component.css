@@ -1,0 +1,19 @@
+#tableDiv {
+    width: 50%;
+    margin-top: 6%;
+    margin-bottom: 6%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tableDiv table {
+    width: 100%;
+}
+
+#tableDiv table thead tr th {
+    text-align: center;
+}
+
+#tableDiv table tbody tr td {
+    text-align: center;
+}

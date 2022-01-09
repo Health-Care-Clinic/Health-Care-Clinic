@@ -1,0 +1,124 @@
+
+@media (max-width:575px) {
+    .display-4 {
+        font-size: 1.5rem;
+    }
+    .day h5 {
+        background-color: #f8f9fa;
+        padding: 3px 5px 5px;
+        margin: -8px -8px 8px -8px;
+    }
+    .date {
+        padding-left: 4px;
+    }
+}
+
+@media (min-width: 576px) {
+    .day {
+        height: 14.2857vw;
+    }
+}
+
+.year-header span { 
+    display:inline-block; 
+    font-size: 20px;
+    line-height:40px; 
+}
+.left-button, .right-button { 
+    cursor: pointer;
+    width:28px; 
+    text-align:center; 
+    position:absolute; 
+} 
+.left-button { 
+    left:0; 
+    -webkit-border-top-left-radius: 5px; 
+    -moz-border-radius-topleft: 5px; 
+    border-top-left-radius: 5px; 
+} 
+.right-button { 
+    right:0; 
+    top:0; 
+    -webkit-border-top-right-radius: 5px; 
+    -moz-border-radius-topright: 5px; 
+    border-top-right-radius: 5px; 
+} 
+.left-button:hover {
+    background: #3FADFF;
+}
+.right-button:hover { 
+    background: #00C1FF;
+}
+
+.year-header { 
+    background: #52A0FD;
+    background: -moz-linear-gradient(left,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);
+    background: -webkit-linear-gradient(left,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);
+    background: linear-gradient(to right,  #52A0FD 0%, #00C9FB 80%, #00C9FB 100%);    
+    font-family: Helvetica;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    height: 40px; 
+    text-align: center;
+    position: relative; 
+    color:#fff; 
+    border-top-left-radius: 3px;
+} 
+
+
+.grafico .content{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+}
+
+.grafico .content span{
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: #707070;
+}
+
+.grafico .line{
+    background-color: #CCCCCC;
+    width: 100%;
+    height: 1px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.grafico .legends{
+    display: flex;
+    flex-direction: row;
+    color: #707070;
+    font-family: 'Roboto';
+    font-size: 12px;
+    text-align: center;
+}
+
+.grafico .legends span{
+    width: 160px;
+    margin:0 15px;
+}
+
+.grafico .bars{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.grafico .bar{
+    width: 160px;
+    min-height: 2px;
+    margin:0 15px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.grafico .bar:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.20);
+}

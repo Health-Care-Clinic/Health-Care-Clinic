@@ -28,13 +28,15 @@
     </PackageReference>
     <PackageReference Include="Npgsql" Version="5.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
     <PackageReference Include="RestSharp" Version="106.13.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
+    <ProjectReference Include="..\ClinicCore\ClinicCore.csproj" />
     <ProjectReference Include="..\Hospital\Hospital.csproj" />
+    <ProjectReference Include="..\Integration\Integration.csproj" />
   </ItemGroup>
 
 

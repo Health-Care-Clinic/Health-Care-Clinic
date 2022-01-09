@@ -8,6 +8,8 @@ using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Integration.Promotions.Model;
+using Integration.Promotions.Service;
 using Xunit;
 
 namespace IntegrationTests.UnitTests
