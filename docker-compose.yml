@@ -26,7 +26,10 @@ services:
         ls 
         rm -r Migrations 
         echo "REMOVE DONE"
-        cd ~
+        cd ../
+        pwd
+        cd ../
+        pwd
         echo "CD TO HOME"
         dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext &&
         dotnet dotnet-ef database update --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext &&
