@@ -12,7 +12,7 @@
     
     <button *ngIf="role == 'manager'" mat-button  [routerLink]="['feedback-view']">All feedbacks</button>
     <button *ngIf="role == 'manager'" mat-button  [routerLink]="['survey-observation']">Survey statistics</button>
-    <button *ngIf="role == 'manager'" mat-button  [routerLink]="['malicious-patients']">Block patient</button>
+    <button id="blockPatient" *ngIf="role == 'manager'" mat-button  [routerLink]="['malicious-patients']">Block patient</button>
 
     <button *ngIf="role == 'manager'" mat-button [matMenuTriggerFor]="pharmacies">Pharmacies</button>
     <mat-menu #pharmacies="matMenu">

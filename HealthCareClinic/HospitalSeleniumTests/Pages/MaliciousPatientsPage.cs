@@ -11,9 +11,7 @@ namespace HospitalSeleniumTests.Pages
     {
         private readonly IWebDriver driver;
         public const string URI = "http://localhost:4200/malicious-patients";
-        private IWebElement Table => driver.FindElement(By.Id("maliciousPatients"));
-        //private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table[@id='maliciousPatients']/tbody/tr"));
-
+        private ReadOnlyCollection<IWebElement> Rows => driver.FindElements(By.XPath("//table[@id='maliciousPatients']/tbody/mat-row"));
         private IWebElement ButtonBlock => driver.FindElement(By.Id("1"));
         public string Title => driver.Title;
         public void EnsureButtonIsDisplayed()
@@ -23,7 +21,7 @@ namespace HospitalSeleniumTests.Pages
             {
                 try
                 {
-                    return LinkDisplayed();
+                    return LinkDisplayed() && Rows.Count > 0;
                 }
                 catch (StaleElementReferenceException)
                 {
@@ -61,6 +59,7 @@ namespace HospitalSeleniumTests.Pages
         {
             try 
             {
+                IWebElement ButtonBlock = driver.FindElement(By.Id("1"));
                 return ButtonBlock.Displayed;
             }
             catch
@@ -80,8 +79,8 @@ namespace HospitalSeleniumTests.Pages
 
         public int PatientsCount()
         {
-            //return Rows.Count;
-            return 0;
+            return Rows.Count;
+            //return 0;
         }
 
         public void Navigate() => driver.Navigate().GoToUrl(URI);

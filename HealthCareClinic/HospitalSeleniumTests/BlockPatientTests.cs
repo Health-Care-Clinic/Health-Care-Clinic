@@ -8,6 +8,8 @@ namespace HospitalSeleniumTests
     public class BlockPatientTests : IDisposable
     {
         private readonly IWebDriver driver;
+        private Pages.LoginPage loginPage;
+        private Pages.HomePage homePage;
         private Pages.MaliciousPatientsPage patientsPage;
         private int patientsCount = 0;
 
@@ -26,10 +28,9 @@ namespace HospitalSeleniumTests
 
             driver = new ChromeDriver(options);
 
-
-            patientsPage = new Pages.MaliciousPatientsPage(driver);      // create ProductsPage
-            patientsPage.Navigate();                            // navigate to url
-            patientsPage.EnsureButtonIsDisplayed();               // wait for table to populate        
+            loginPage = new Pages.LoginPage(driver);
+            loginPage.Navigate();
+            loginPage.EnsureButtonIsDisplayed();            
         }
         public void Dispose()
         {
@@ -41,16 +42,33 @@ namespace HospitalSeleniumTests
         [Fact]
         public void TestBlockPatient()
         {
-            Assert.True(patientsPage.LinkDisplayed());          // check if link displayed
-            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
-            patientsCount = patientsPage.PatientsCount();       // get number of table rows - after create successful sheck if number increased
+            Assert.True(loginPage.UsernameElementDisplayed());          
+            Assert.True(loginPage.PasswordElementDisplayed());          
+            Assert.True(loginPage.SubmitButtonElementDisplayed());
+            loginPage.InsertUsername("admin");
+            loginPage.InsertPassword("admin");
+            loginPage.SubmitForm();
 
-            patientsPage.ClickLink();                           // click link and navigate to CreateProductPage
+            loginPage.WaitForFormSubmit();
+            homePage = new Pages.HomePage(driver);
+            homePage.EnsureButtonIsDisplayed();
+            Assert.True(homePage.BlockPatientsButtonElementDisplayed());
+            homePage.ClickOnBlocking();
+
+
+            homePage.WaitForListingMalicious();
+            patientsPage = new Pages.MaliciousPatientsPage(driver);      
+            patientsPage.EnsureButtonIsDisplayed();                   
+            Assert.True(patientsPage.LinkDisplayed());         
+            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
+            patientsCount = patientsPage.PatientsCount();  
+
+            patientsPage.ClickLink();                    
 
             patientsPage.EnsureButtonIsNotDisplayed();
+            Assert.Equal(patientsCount - 1, patientsPage.PatientsCount());
+            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
             Assert.False(patientsPage.LinkDisplayed());
-
-            //Assert.Equal(patientsCount - 1, patientsPage.PatientsCount());           // check if number of rows increased  
         }
 
     }
