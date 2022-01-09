@@ -21,8 +21,8 @@
                     </p>
                     Requirements:
                     <ul>
-                        <li *ngFor="let medicine of tender.medicines">
-                            {{medicine.quantity}} {{medicine.name}}
+                        <li *ngFor="let tenderItem of tender.tenderItems">
+                            {{tenderItem.quantity}} {{tenderItem.name}}
                         </li>
                     </ul>
                     <br>
