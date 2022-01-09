@@ -48,9 +48,10 @@ services:
       DATABASE_SCHEMA: hospitalDb
       DATABASE_USER: postgres
       DATABASE_PASSWORD: password
+    working_dir: /Scripts
     command:
       [
-        "./Scripts/wait-for-it.sh",
+        "./wait-for-it.sh",
         "database:5432",
         "--",
         "dotnet",
