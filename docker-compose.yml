@@ -19,9 +19,9 @@ services:
         dotnet tool install --local dotnet-ef --version 5.11.0 &&
         echo "$PATH"
         dotnet restore "/Hospital\ API/Hospital\ API.csproj" &&
-        dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital\ API/Hospital\ API.csproj" --context HospitalDbContext &&
-        dotnet dotnet-ef database update --project "HealthCareClinic/Hospital\ API" &&
-        dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj" "
+        dotnet dotnet-ef migrations add TestingMigration --project "/Hospital\ API/Hospital\ API.csproj" --context HospitalDbContext &&
+        dotnet dotnet-ef database update --project "/Hospital\ API/Hospital\ API.csproj" &&
+        dotnet test "/HospitalIntegrationTests/HospitalIntegrationTests.csproj" "
       depends_on:
         - database  
   database:
