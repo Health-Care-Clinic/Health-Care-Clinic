@@ -1,70 +1,45 @@
 version: "3.2"
 services:
-  hospital-api:
-    image: nenadbecanovic/hospital-api:latest
-    #image: hospitalapi
-    #build:
-    #  context: ../
-    #  dockerfile: ../stacks/build/hospital/Dockerfile
-    depends_on:
-      - "database"
-    ports:
-      - "5000:8080"
-    environment:
-      DATABASE_HOST: database
-      DATABASE_PORT: 5432
-      DATABASE_SCHEMA: hospitalDb
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: password
-    networks:
-      - application
-      - hospital-database
-  
-  database: 
+  hospital-integration-tests:
+      container_name: hospital-integration-tests
+      environment:
+        DATABASE_HOST: database
+        DATABASE_PORT: 5432
+        DATABASE_SCHEMA: hospitalDb
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: password
+      networks:
+      - database_net
+      image: mcr.microsoft.com/dotnet/sdk:3.1
+      working_dir: /HealthCareClinic
+      volumes:
+      - .:/HealthCareClinic
+      entrypoint: ["/bin/sh","-c"]
+      command:
+      - |
+        dotnet new tool-manifest --force
+        dotnet tool install --local dotnet-ef --version 5.11.0
+        dotnet restore "/Hospital\ API/Hospital\ API.csproj"
+        echo "$PATH"
+        dotnet dotnet-ef migrations add TestingMigration --project "/Hospital\ API/Hospital\ API.csproj" --context HospitalDbContext
+        dotnet dotnet-ef database update --project "/Hospital\ API/Hospital\ API.csproj"
+        dotnet test "/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
+      depends_on:
+        - database  
+  database:
     image: postgres:latest
-    ports:
-      - "5433:5432"
     restart: always
-    volumes:
-      - type: volume
-        source: hospital-data
-        target: /var/lib/postgresql/data
-      - type: bind
-        source: ./HealthCareClinic/Hospital API/database.sql 
-        target: /docker-entrypoint-initdb.d/init.sql
+    container_name: database
+    networks:
+      - database_net
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "hospitalDb"
-    networks:
-      - hospital-database
-    
-  hospital-integration-tests:
-    container_name: hospital-integration-tests
-    image: mcr.microsoft.com/dotnet/sdk:5.0
-    environment:
-      DATABASE_HOST: database
-      DATABASE_PORT: 5432
-      DATABASE_SCHEMA: hospitalDb
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: password
-    working_dir: /Scripts
-    command:
-      [
-        "./wait-for-it.sh",
-        "database:5432",
-        "--",
-        "dotnet",
-        "test",
-        "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj"
-      ]
-    depends_on:
-      - database
-volumes:
-  hospital-data:
+    ports:
+      - "5433:5432"
 
 networks:
-  application:
-    driver: bridge
-  hospital-database:
-    driver: bridge
+  database_net:
+    name: database_net
+    driver: bridge 
