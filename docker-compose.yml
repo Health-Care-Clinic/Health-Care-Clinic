@@ -3,8 +3,7 @@ services:
   hospital-integration-tests:
       container_name: hospital-integration-tests
       build:
-        context: ../
-        dockerfile: ../stacks/build/hospital/test/Dockerfile
+        dockerfile: stacks/build/hospital/test/Dockerfile
       ports:
         - "5000:8080"
       environment:
