@@ -1,0 +1,42 @@
+version: "3.2"
+services:
+  integration-tests:
+      container_name: hospital-integration-tests
+      environment:
+        DATABASE_HOST: database
+        DATABASE_PORT: 5432
+        DATABASE_SCHEMA: hospitalDb
+        DATABASE_USER: postgres
+        DATABASE_PASSWORD: password
+      networks:
+      - database_net
+      image: mcr.microsoft.com/dotnet/sdk:5.0
+      working_dir: /HealthCareClinic
+      volumes:
+      - .:/HealthCareClinic
+      command: bash -c "
+        dotnet new tool-manifest --force && 
+        dotnet tool install --local dotnet-ef --version 5.0.11 &&
+        dotnet restore "Hospital API/Hospital API.csproj" &&
+        dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital API" &&
+        dotnet dotnet-ef database update --project "HealthCareClinic/Hospital API" &&
+        dotnet test "HealthCareClinic/HospitalIntegrationTests/HospitalIntegrationTests.csproj" "
+      depends_on:
+        - database  
+  database:
+    image: postgres:latest
+    restart: always
+    container_name: database
+    networks:
+      - database_net
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "hospitalDb"
+    ports:
+      - "5433:5432"
+
+networks:
+  database_net:
+    name: database_net
+    driver: bridge 

@@ -1,0 +1,14 @@
+name: Hospital Integration Tests
+
+on:
+  push:
+    branches: [ feat(d)/integration-testing]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execute tests
+        run: docker-compose up --exit-code-from hospital-integration-tests hospital-integration-tests
