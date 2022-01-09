@@ -4,6 +4,7 @@ using Hospital.Rooms_and_equipment.Repository;
 using Hospital.Rooms_and_equipment.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Hospital_API.Controller
 {
+    [Authorize(Roles = "manager")]
     [Route("api/[controller]")]
     [ApiController]
     public class BuildingController : ControllerBase

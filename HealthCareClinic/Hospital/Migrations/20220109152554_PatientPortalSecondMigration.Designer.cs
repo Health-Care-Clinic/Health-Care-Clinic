@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hospital.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    [Migration("20211227221049_GraphicalEditorVacationMigration")]
-    partial class GraphicalEditorVacationMigration
+    [Migration("20220109152554_PatientPortalSecondMigration")]
+    partial class PatientPortalSecondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1796,47 +1796,47 @@ namespace Hospital.Migrations
                         {
                             PatientId = 1,
                             AppointmentId = 1764,
-                            DateOfCancellation = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1765,
-                            DateOfCancellation = new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1763,
-                            DateOfCancellation = new DateTime(2021, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1766,
-                            DateOfCancellation = new DateTime(2021, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1777,
-                            DateOfCancellation = new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 16,
+                            PatientId = 6,
                             AppointmentId = 1767,
                             DateOfCancellation = new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 16,
+                            PatientId = 6,
                             AppointmentId = 1768,
                             DateOfCancellation = new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 16,
+                            PatientId = 6,
                             AppointmentId = 1769,
                             DateOfCancellation = new DateTime(2021, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -1844,19 +1844,19 @@ namespace Hospital.Migrations
                         {
                             PatientId = 2,
                             AppointmentId = 1799,
-                            DateOfCancellation = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 16,
+                            PatientId = 6,
                             AppointmentId = 1780,
-                            DateOfCancellation = new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1870,
-                            DateOfCancellation = new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -5585,7 +5585,7 @@ namespace Hospital.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("text");
 
-                    b.Property<int>("WorkShift")
+                    b.Property<int>("WorkShiftId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -5609,7 +5609,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Nikolic",
                             Username = "nikola",
-                            WorkShift = 0
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -5627,7 +5627,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Radic",
                             Username = "marko",
-                            WorkShift = 0
+                            WorkShiftId = 1
                         },
                         new
                         {
@@ -5645,7 +5645,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Sivc",
                             Username = "jozef",
-                            WorkShift = 0
+                            WorkShiftId = 1
                         },
                         new
                         {
@@ -5663,7 +5663,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Zoric",
                             Username = "dragana",
-                            WorkShift = 1
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -5681,7 +5681,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Grandic",
                             Username = "mile",
-                            WorkShift = 1
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -5699,7 +5699,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Bradina",
                             Username = "misa",
-                            WorkShift = 1
+                            WorkShiftId = 1
                         });
                 });
 
@@ -5859,10 +5859,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Jovan",
                             ParentName = "miki",
-                            Password = "miki",
+                            Password = "jovan",
                             Phone = "0697856665",
                             Surname = "Zoric",
-                            Username = "miki"
+                            Username = "jovan"
                         },
                         new
                         {
@@ -5879,10 +5879,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Zorana",
                             ParentName = "miki",
-                            Password = "miki",
+                            Password = "zorana",
                             Phone = "0697856665",
                             Surname = "Bilic",
-                            Username = "miki"
+                            Username = "zorana"
                         },
                         new
                         {
@@ -5899,10 +5899,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Milica",
                             ParentName = "miki",
-                            Password = "miki",
+                            Password = "milica",
                             Phone = "0697856665",
                             Surname = "Maric",
-                            Username = "miki"
+                            Username = "milica"
                         },
                         new
                         {
@@ -5919,10 +5919,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Igor",
                             ParentName = "miki",
-                            Password = "miki",
+                            Password = "igor",
                             Phone = "0697856665",
                             Surname = "Caric",
-                            Username = "miki"
+                            Username = "igor"
                         },
                         new
                         {
@@ -5939,10 +5939,10 @@ namespace Hospital.Migrations
                             IsBlocked = false,
                             Name = "Predrag",
                             ParentName = "miki",
-                            Password = "miki",
+                            Password = "predrag",
                             Phone = "0697856665",
                             Surname = "Zaric",
-                            Username = "miki"
+                            Username = "predrag"
                         },
                         new
                         {
@@ -6278,6 +6278,64 @@ namespace Hospital.Migrations
                     b.ToTable("WorkDay");
                 });
 
+            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDayShift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkDayShift");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EndTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "First",
+                            StartTime = new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EndTime = new DateTime(2022, 2, 22, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Second",
+                            StartTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ForeignId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsWinningBidChosen")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("TenderResponseDescription")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenders");
+                });
+
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {
                     b.HasOne("Hospital.Shared_model.Model.Patient", "Patient")
@@ -6356,6 +6414,99 @@ namespace Hospital.Migrations
                     b.HasOne("Hospital.Shared_model.Model.Doctor", null)
                         .WithMany("WorkDay")
                         .HasForeignKey("DoctorId");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.OwnsOne("Hospital.Tendering.Model.DateRange", "DateRange", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("End")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.Property<DateTime>("Start")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.OwnsMany("Hospital.Tendering.Model.Medicine", "Medicines", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("CompatibileMedicine")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Manufacturer")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<double>("Price")
+                                .HasColumnType("double precision");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("Reactions")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("SideEffects")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Usage")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Weight")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderId", "Id");
+
+                            b1.ToTable("Medicine");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.OwnsOne("Hospital.Tendering.Model.Price", "TotalPrice", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<double>("Amount")
+                                .HasColumnType("double precision");
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.Navigation("DateRange");
+
+                    b.Navigation("Medicines");
+
+                    b.Navigation("TotalPrice");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>

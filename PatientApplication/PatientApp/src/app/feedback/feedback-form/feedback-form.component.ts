@@ -17,7 +17,8 @@ export class FeedbackFormComponent {
   constructor(private _feedbackService: FeedbackService, private _snackBar: MatSnackBar) {}
 
   submit(): void {
-
+    this.feedbackModel.identity = JSON.parse(localStorage.getItem('id') || '{}');
+  
     this._feedbackService.addFeedback(this.feedbackModel)
     .subscribe(
       data => console.log('Success!', data),

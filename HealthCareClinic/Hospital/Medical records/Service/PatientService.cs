@@ -3,9 +3,12 @@ using Hospital.Shared_model.Model;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -119,6 +122,38 @@ namespace Hospital.Medical_records.Service
         public List<Patient> GetAllSuspiciousPatients()
         {
             return this.patientRepository.GetAllSuspiciousPatients();
+        }
+
+        public Patient FindByUsernameAndPassword(string username, string password)
+        {
+            if (username.Equals("admin") && password.Equals("admin"))
+                return new Patient(username, password);
+            return this.patientRepository.FindByUsernameAndPassword(username, password);
+        }
+
+        public string GenerateJwtToken(Patient patient)
+        {
+            string id = patient.Id.ToString();
+            string role = "patient";
+            if (patient.Username.Equals("admin") && patient.Password.Equals("admin"))
+                role = "manager";
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("Nisam to sto mislis, samo jedna plavusa");
+            SecurityTokenDescriptor tokenDescriptor;            
+
+            tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                    {
+                        new Claim("id", id),
+                        new Claim("role", role)
+                    }),
+                Expires = DateTime.UtcNow.AddMinutes(30),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }

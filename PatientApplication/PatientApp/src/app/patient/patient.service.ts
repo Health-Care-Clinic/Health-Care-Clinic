@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Doctor } from '../registration-form/doctor';
@@ -6,7 +6,10 @@ import { IAllergen } from '../registration-form/allergen';
 import { IPatient } from './ipatient';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import { Credentials } from './credentials';
 
+
+const headers = { 'content-type': 'application/json'} 
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +23,7 @@ export class PatientService {
   private _getAllAllergens     = this._patientRegistration + '/getAllAllergens';
   private _getAllUsernames     = this._patientRegistration + '/getAllUsernames';
   private _getPatient          = this._patientRegistration + '/getPatient/';
+  private _authenticate        = this._patientRegistration + '/authenticate';
 
 
   constructor(private _http: HttpClient) { }
@@ -36,24 +40,28 @@ export class PatientService {
                          .catch(this.handleError);
   }
 
-  getAllUsernames(): Observable<string[]> {
+  getAllUsernames(): Observable<string[]> { 
     return this._http.get<string[]>(this._getAllUsernames)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
-  getPatient(id: number): Observable<IPatient> {
+  getPatient(id: number): Observable<IPatient> {    
     return this._http.get<IPatient>(this._getPatient+id)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
   submitRequest(patient:IPatient): Observable<any> {
-
-    const headers = { 'content-type': 'application/json'}
     const body=JSON.stringify(patient);
     console.log(body)
-    return this._http.post(this._submitRegistration, body,{'headers':headers})
+    return this._http.post(this._submitRegistration, body)
+  }
+
+  logIn(credentials: Credentials): Observable<any> {
+    const body=JSON.stringify(credentials);
+    console.log(body)
+    return this._http.post(this._authenticate, body,{headers, responseType: 'text'})
   }
 
   private handleError(err : HttpErrorResponse) {
