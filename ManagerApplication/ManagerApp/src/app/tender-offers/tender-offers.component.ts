@@ -24,8 +24,9 @@ export class TenderOffersComponent implements OnInit {
 
   chooseOffer(id: number) {
     this._tenderService.chooseOffer(id).subscribe( response => {
-      this.openTendersComponent();
+      
     });
+    this.openTendersComponent();
   }
 
   openTendersComponent(): void {

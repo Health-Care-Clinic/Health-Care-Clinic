@@ -78,6 +78,8 @@ import { ChangeDoctorVacationComponent } from './component/change-doctor-vacatio
 import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacation/delete-doctor-vacation.component';
 import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
 import { TenderOffersComponent } from './tender-offers/tender-offers.component';
+import { PharmacyTenderStatisticsComponent } from './pharmacy-tender-statistics/pharmacy-tender-statistics.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const MaterialComponents = [
   MatTableModule,
@@ -98,7 +100,8 @@ const MaterialComponents = [
   MatExpansionModule,
   MatTooltipModule,
   MatSnackBarModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSelectModule
 ];
 
 @NgModule({
@@ -147,7 +150,8 @@ const MaterialComponents = [
     ChangeDoctorVacationComponent,
     DeleteDoctorVacationComponent,
     TenderStatisticsComponent,
-    TenderOffersComponent
+    TenderOffersComponent,
+    PharmacyTenderStatisticsComponent
   ],
   imports: [
     BrowserModule,
