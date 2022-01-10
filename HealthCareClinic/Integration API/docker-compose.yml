@@ -10,7 +10,7 @@ services:
       - "8082:8080"
     restart: always
     networks:
-      - hospitalapi_application
+      - application
 
   manager-front:
     image: nenadbecanovic/manager-gateway:latest
@@ -21,7 +21,7 @@ services:
     ports:
       - "4200:8080"
     networks: 
-      - hospitalapi_application
+      - application
 
   integration-api:
     image: nenadbecanovic/integration-api:latest
@@ -42,7 +42,7 @@ services:
       DATABASE_PASSWORD: password
       RABBITMQ_HOST: rabbitmq
     networks:
-      - hospitalapi_application
+      - application
       - database
       - rabbit
   
@@ -56,7 +56,7 @@ services:
         source: integration-data
         target: /var/lib/postgresql/data
       - type: bind
-        source: ./database.sql 
+        source: ./integrationDb.sql 
         target: /docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: "postgres"
@@ -71,7 +71,7 @@ services:
     environment:
       RABBITMQ_ERLANG_COOKIE: 'secret cookie here'
     ports:
-      - 15672:15672
+    #  - 15672:15672
       - 5672:5672
     networks:
       - rabbit
@@ -79,8 +79,8 @@ volumes:
   integration-data:
 
 networks:
-  hospitalapi_application:
-    external: true
+  application:
+    driver: bridge
   database:
     driver: bridge
   rabbit:
