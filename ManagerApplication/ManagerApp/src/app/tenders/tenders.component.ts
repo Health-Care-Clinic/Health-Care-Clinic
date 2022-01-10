@@ -34,4 +34,8 @@ export class TendersComponent implements OnInit {
     this._router.navigate(['/tender-statistics']);
   }
 
+  openTenderOffers(id: number): void {
+    this._router.navigate(['/tender-offers', id])
+  }
+
 }

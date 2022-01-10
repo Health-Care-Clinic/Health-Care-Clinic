@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ITender } from '../model/tender';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ITenderDTO } from '../dto/TenderDTO';
+import { ITenderResponse } from '../model/tenderResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,13 @@ export class TenderingServiceService {
 
   getBestOffers(): Observable<number[]> {
     return this._http.get<number[]>(this.serverUrl + "/api/tender/bestOffers");
+  }
+
+  getTenderResponses(id: number): Observable<ITenderResponse[]> {
+    return this._http.get<ITenderResponse[]>(this.serverUrl + "/api/tender/tenderResponses?tenderId=" + id);
+  }
+
+  chooseOffer(id: number) {
+    return this._http.post<any>(this.serverUrl + "/api/tender/" + id, id);
   }
 }

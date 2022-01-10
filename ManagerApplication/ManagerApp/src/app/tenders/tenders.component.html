@@ -30,7 +30,7 @@
                     <br>
                 </mat-card-content>
                 <mat-card-actions *ngIf="tender.offersNumber">
-                    <button mat-button [matBadge]='tender.offersNumber'>
+                    <button mat-button [matBadge]='tender.offersNumber' (click)="openTenderOffers(tender.id)">
                         SEE OFFERS
                     </button>
                 </mat-card-actions>

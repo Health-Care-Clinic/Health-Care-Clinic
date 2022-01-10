@@ -36,7 +36,7 @@ namespace Hospital.Tendering.Service
 
         public ICollection<TenderResponse> GetTenderResponsesByTenderId(int tenderId)
         {
-            return _tenderResponseRepository.GetAll().Where(x => x.TenderId == tenderId).ToList();
+            return _tenderResponseRepository.GetAll().Where(x => x.TenderId == tenderId && x.IsWinningBid == false).ToList();
         }
 
         public void Remove(TenderResponse entity)
@@ -109,7 +109,7 @@ namespace Hospital.Tendering.Service
             int offersNumber = 0;
             foreach (TenderResponse response in _tenderResponseRepository.GetAll())
             {
-                if (response.TenderId == tenderId) offersNumber++;
+                if (response.TenderId == tenderId && !response.IsWinningBid) offersNumber++;
             }
             return offersNumber;
         }

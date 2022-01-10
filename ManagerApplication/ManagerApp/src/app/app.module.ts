@@ -77,6 +77,7 @@ import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.com
 import { ChangeDoctorVacationComponent } from './component/change-doctor-vacation/change-doctor-vacation.component';
 import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacation/delete-doctor-vacation.component';
 import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
+import { TenderOffersComponent } from './tender-offers/tender-offers.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -145,7 +146,8 @@ const MaterialComponents = [
     EditShiftComponent,
     ChangeDoctorVacationComponent,
     DeleteDoctorVacationComponent,
-    TenderStatisticsComponent
+    TenderStatisticsComponent,
+    TenderOffersComponent
   ],
   imports: [
     BrowserModule,

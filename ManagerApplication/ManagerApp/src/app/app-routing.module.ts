@@ -36,6 +36,7 @@ import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 import { ChangeDoctorVacationComponent } from './component/change-doctor-vacation/change-doctor-vacation.component';
 import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacation/delete-doctor-vacation.component';
+import { TenderOffersComponent } from './tender-offers/tender-offers.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -79,7 +80,8 @@ const routes: Routes = [
   { path: 'delete-a-vacation/:idvd', component: DeleteDoctorVacationComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
-  { path: 'edit-shift/:ids', component: EditShiftComponent }
+  { path: 'edit-shift/:ids', component: EditShiftComponent },
+  { path: 'tender-offers/:id', component: TenderOffersComponent}
 ];
 
 @NgModule({

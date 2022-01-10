@@ -132,6 +132,14 @@ namespace Hospital_API.Controller
             return (Ok(_tenderResponseService.GetBestOffers()));
         }
 
+        [HttpGet("tenderResponses")]
+        public IActionResult GetTenderResponsesById(String tenderId)
+        {
+            List<TenderResponseDTO> responsesDTO = 
+                TenderAdapter.TenderResponsesToTenderResponsesDTO((List<TenderResponse>)_tenderResponseService.GetTenderResponsesByTenderId(Int32.Parse(tenderId)));
+            return (Ok(responsesDTO));
+        }
+
         private string GetPharmacyUrl(string pharmacyName)
         {
             return "http://localhost:18089";
