@@ -110,16 +110,23 @@ namespace Hospital_API.Controller
             return(Ok(_tenderResponseService.GetPharmacyNames()));
         }
 
+
         [HttpGet("numberOfWins")]
-        public IActionResult GetNumberOfWins(String pharmacyName)
+        public IActionResult GetNumberOfWins()
         {
-            return (Ok(_tenderResponseService.GetNumberOfWins(pharmacyName)));
+            return (Ok(_tenderResponseService.GetNumberOfWins()));
         }
 
         [HttpGet("numberOfOffers")]
-        public IActionResult GetNumberOfOffers(String pharmacyName)
+        public IActionResult GetNumberOfOffers()
         {
-            return (Ok(_tenderResponseService.GetNumberOfOffers(pharmacyName)));
+            return (Ok(_tenderResponseService.GetNumberOfOffers()));
+        }
+
+        [HttpGet("bestOffers")]
+        public IActionResult GetBestOffers()
+        {
+            return (Ok(_tenderResponseService.GetBestOffers()));
         }
 
         private string GetPharmacyUrl(string pharmacyName)

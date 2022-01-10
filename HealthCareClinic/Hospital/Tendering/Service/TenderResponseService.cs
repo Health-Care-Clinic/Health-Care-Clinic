@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Hospital_API.Tendering.Model;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace Hospital.Tendering.Service
 {
@@ -47,35 +49,110 @@ namespace Hospital.Tendering.Service
             _tenderResponseRepository.Update(entity);
         }
 
-        public List<string> GetPharmacyNames()
+        public IEnumerable<string> GetPharmacyNames()
         {
             List<String> names = new List<String>();
             foreach (TenderResponse response in _tenderResponseRepository.GetAll())
             {
                 names.Add(response.PharmacyName);
             }
-            return names;
+            return names.Distinct();
         }
 
-
-        public int GetNumberOfWins(string pharmacyName)
+        public List<int> GetNumberOfWins()
         {
-            int numberOfWins = 0;
-            foreach (TenderResponse tender in _tenderResponseRepository.GetAll())
+            List<int> wins = new List<int>();
+            IEnumerable<String> pharmacyNames = GetPharmacyNames();
+
+            foreach (String name in pharmacyNames)
             {
-                if (tender.PharmacyName.Equals(pharmacyName) && tender.IsWinningBid == true) numberOfWins++;
+                int numberOfWins = 0;
+                foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+                {
+                    if (response.IsWinningBid && response.PharmacyName.Equals(name)) numberOfWins++;
+                }
+                wins.Add(numberOfWins);
             }
-            return numberOfWins;
+            return wins;
         }
 
-        public int GetNumberOfOffers(string pharmacyName)
+        public List<int> GetNumberOfOffers()
         {
-            int numberOfOffers = 0;
-            foreach (TenderResponse tender in _tenderResponseRepository.GetAll())
+            List<int> offers = new List<int>();
+            IEnumerable<String> pharmacyNames = GetPharmacyNames();
+
+            foreach (String name in pharmacyNames)
             {
-                if (tender.PharmacyName.Equals(pharmacyName)) numberOfOffers++;
+                int numberOfOffers = 0;
+                foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+                {
+                    if (response.PharmacyName.Equals(name)) numberOfOffers++;
+                }
+                offers.Add(numberOfOffers);
             }
-            return numberOfOffers;
+            return offers;
         }
+
+        public List<double> GetBestOffers()
+        {
+            List<double> bestOffers = new List<double>();
+            foreach (String name in GetPharmacyNames())
+            {
+                double bestOffer = 0.0;
+                foreach (BestOfferDTO dto in GetAllOffers(name))
+                {
+                    bestOffer = dto.Offer;
+                    bestOffers.Add(bestOffer);
+                }
+                
+            }
+            return bestOffers;
+        }
+
+
+        private List<BestOfferDTO> GetAllOffers(String pharmacyName)
+        {
+            List<BestOfferDTO> allOffers = new List<BestOfferDTO>();
+            foreach (int id in GetTenderIds())
+            {
+                BestOfferDTO offer = new BestOfferDTO();
+                foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+                {
+                    if (response.PharmacyName.Equals(pharmacyName) && response.TenderId == id)
+                    {
+                        offer.TenderId = id;
+                        offer.PharmacyName = pharmacyName;
+                        offer.Offer = GetBestOffer(response.PharmacyName, response.TenderId);
+                    }
+                }
+                allOffers.Add(offer);
+            }
+            return allOffers;
+        }
+
+        private List<double> GetOfferByTender(int tenderId, string pharmacyName)
+        {
+            List<double> offers = new List<double>();
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            {
+                if (response.PharmacyName.Equals(pharmacyName) && response.TenderId == tenderId) offers.Add(response.TotalPrice.Amount);
+            }
+            return offers;
+        }
+        private double GetBestOffer(String pharmacyName, int id)
+        {
+            return GetOfferByTender(id, pharmacyName).Min(x => x);
+        }
+
+        private IEnumerable<int> GetTenderIds()
+        {
+            List<int> ids = new List<int>();
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            {
+                ids.Add(response.TenderId);
+            }
+            return ids.Distinct();
+        }
+
     }
 }

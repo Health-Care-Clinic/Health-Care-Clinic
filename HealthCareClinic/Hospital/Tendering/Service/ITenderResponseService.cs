@@ -3,6 +3,7 @@ using Hospital.Tendering.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Hospital_API.Tendering.Model;
 
 namespace Hospital.Tendering.Service
 {
@@ -10,8 +11,9 @@ namespace Hospital.Tendering.Service
     {
         ICollection<TenderResponse> GetTenderResponsesByTenderId(int tenderId);
         void Update(TenderResponse entity);
-        List<String> GetPharmacyNames();
-        int GetNumberOfWins(String pharmacyName);
-        int GetNumberOfOffers(String pharmacyName);
+        IEnumerable<String> GetPharmacyNames();
+        List<int> GetNumberOfOffers();
+        List<int> GetNumberOfWins();
+        List<double> GetBestOffers();
     }
 }

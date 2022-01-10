@@ -25,4 +25,16 @@ export class TenderingServiceService {
   getPharmacyNames(): Observable<string[]> {
     return this._http.get<string[]>("http://localhost:5000/api/tender/pharmacyNames");
   }
+
+  getNumberOfWins(): Observable<number[]> {
+    return this._http.get<number[]>("http://localhost:5000/api/tender/numberOfWins");
+  }
+
+  getNumberOfOffers(): Observable<number[]> {
+    return this._http.get<number[]>("http://localhost:5000/api/tender/numberOfOffers");
+  }
+
+  getBestOffers(): Observable<number[]> {
+    return this._http.get<number[]>("http://localhost:5000/api/tender/bestOffers");
+  }
 }
