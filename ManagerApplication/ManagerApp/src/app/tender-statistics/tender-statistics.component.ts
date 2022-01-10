@@ -14,13 +14,15 @@ export class TenderStatisticsComponent implements OnInit {
 
   public pharmacyNames: string[] = [];
 
-  constructor(private _tenderService: TenderingServiceService) { }
+  constructor(private _tenderService: TenderingServiceService) {
+
+    this.getPharmacyNames();
+  }
 
   ngOnInit(): void {
     this.createWinParticipateBarChart();
     this.createWinPieChart();
     this.createBestOfferBarChart();
-    this.getPharmacyNames();
   }
 
   getPharmacyNames(): void {
@@ -28,51 +30,56 @@ export class TenderStatisticsComponent implements OnInit {
       names => {
         this.pharmacyNames = names;
         console.log(this.pharmacyNames)
-    });
+      });
   }
 
   createWinParticipateBarChart() {
-    //var names: string[] = ['Benu', 'Jankovic', 'Irisfarm', 'Zegin'];
-    var names: string[] = this.pharmacyNames;
-    console.log(names)
-    var wins: number[] = [2];
-    var offers: number[] = [3];
-    var myChart = new Chart("winParticipateBarChart", {
-      type: 'bar',
-      data: {
-        labels: names, 
-        datasets: [{
-          label: 'Wins',
-          data: wins, 
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        },
-        {
-          label: 'Participations',
-          data: offers,
-          backgroundColor: [
-            'rgba(54, 162, 235, 0.2)'
-          ],
-          borderColor: [
-            'rgba(54, 162, 235, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
+    this._tenderService.getPharmacyNames().subscribe(
+      names => {
+
+        this.pharmacyNames = names;
+        var wins: number[] = [2];
+        var offers: number[] = [3];
+        var myChart = new Chart("winParticipateBarChart", {
+          type: 'bar',
+          data: {
+            labels: names,
+            datasets: [{
+              label: 'Wins',
+              data: wins,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+              ],
+              borderColor: [
+                'rgba(255, 99, 132, 1)'
+              ],
+              borderWidth: 1
+            },
+            {
+              label: 'Participations',
+              data: offers,
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 1
+            }]
           },
-        }
-      }
-    });
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            }
+          }
+        });
+      });
+
+
+
   }
 
   createBestOfferBarChart() {
@@ -135,7 +142,7 @@ export class TenderStatisticsComponent implements OnInit {
       }
     });
   }
-  
+
   createWinPieChart() {
     var pharmacyNames: string[] = ['Benu', 'Jankovic', 'Irisfarm', 'Zegin'];
     var wins: number[] = [2, 1, 3, 1];
