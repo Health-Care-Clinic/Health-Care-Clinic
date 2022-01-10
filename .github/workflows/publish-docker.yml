@@ -75,10 +75,10 @@ jobs:
          git checkout develop
          git pull origin develop
          git status
-         cd "HealthCareClinic/Hospital API"
+         cd "HealthCareClinic/Integration API"
          docker-compose up -d
          cd ../../
-         cd "HealthCareClinic/Integration API"
+         cd "HealthCareClinic/Hospital API"
          docker-compose up -d
          cd ../../
          cd "Pharmacy API/Pharmacy API"
