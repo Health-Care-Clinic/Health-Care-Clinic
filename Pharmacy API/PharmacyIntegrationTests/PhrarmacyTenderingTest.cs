@@ -22,6 +22,7 @@ namespace PharmacyIntegrationTests
     public class PhrarmacyTenderingTest
     {
       
+        [Fact]
         public void Valid_tender_response()
         {
             TenderResponseService tenderResponseService = GetTenderResponseService();
