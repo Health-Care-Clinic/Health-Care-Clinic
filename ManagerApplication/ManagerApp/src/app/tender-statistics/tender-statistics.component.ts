@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { Observable } from 'rxjs';
+import { AjaxErrorNames } from 'rxjs/internal/observable/dom/AjaxObservable';
+import { TenderingServiceService } from '../services/tendering-service.service';
 Chart.register(...registerables);
 
 @Component({
@@ -9,16 +12,31 @@ Chart.register(...registerables);
 })
 export class TenderStatisticsComponent implements OnInit {
 
+  public pharmacyNames: string[] = [];
+
+  constructor(private _tenderService: TenderingServiceService) { }
+
   ngOnInit(): void {
     this.createWinParticipateBarChart();
     this.createWinPieChart();
     this.createBestOfferBarChart();
+    this.getPharmacyNames();
+  }
+
+  getPharmacyNames(): void {
+    this._tenderService.getPharmacyNames().subscribe(
+      names => {
+        this.pharmacyNames = names;
+        console.log(this.pharmacyNames)
+    });
   }
 
   createWinParticipateBarChart() {
-    var names: string[] = ['Benu', 'Jankovic', 'Irisfarm', 'Zegin'];
-    var wins: number[] = [2, 1, 3, 1];
-    var offers: number[] = [3, 5, 9, 4];
+    //var names: string[] = ['Benu', 'Jankovic', 'Irisfarm', 'Zegin'];
+    var names: string[] = this.pharmacyNames;
+    console.log(names)
+    var wins: number[] = [2];
+    var offers: number[] = [3];
     var myChart = new Chart("winParticipateBarChart", {
       type: 'bar',
       data: {

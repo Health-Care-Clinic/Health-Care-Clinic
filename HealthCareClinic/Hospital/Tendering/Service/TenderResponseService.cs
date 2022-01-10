@@ -46,5 +46,36 @@ namespace Hospital.Tendering.Service
         {
             _tenderResponseRepository.Update(entity);
         }
+
+        public List<string> GetPharmacyNames()
+        {
+            List<String> names = new List<String>();
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            {
+                names.Add(response.PharmacyName);
+            }
+            return names;
+        }
+
+
+        public int GetNumberOfWins(string pharmacyName)
+        {
+            int numberOfWins = 0;
+            foreach (TenderResponse tender in _tenderResponseRepository.GetAll())
+            {
+                if (tender.PharmacyName.Equals(pharmacyName) && tender.IsWinningBid == true) numberOfWins++;
+            }
+            return numberOfWins;
+        }
+
+        public int GetNumberOfOffers(string pharmacyName)
+        {
+            int numberOfOffers = 0;
+            foreach (TenderResponse tender in _tenderResponseRepository.GetAll())
+            {
+                if (tender.PharmacyName.Equals(pharmacyName)) numberOfOffers++;
+            }
+            return numberOfOffers;
+        }
     }
 }

@@ -104,6 +104,24 @@ namespace Hospital_API.Controller
             return Ok("success");
         }
 
+        [HttpGet("pharmacyNames")]
+        public IActionResult GetPharmacyNames()
+        {
+            return(Ok(_tenderResponseService.GetPharmacyNames()));
+        }
+
+        [HttpGet("numberOfWins")]
+        public IActionResult GetNumberOfWins(String pharmacyName)
+        {
+            return (Ok(_tenderResponseService.GetNumberOfWins(pharmacyName)));
+        }
+
+        [HttpGet("numberOfOffers")]
+        public IActionResult GetNumberOfOffers(String pharmacyName)
+        {
+            return (Ok(_tenderResponseService.GetNumberOfOffers(pharmacyName)));
+        }
+
         private string GetPharmacyUrl(string pharmacyName)
         {
             return "http://localhost:18089";

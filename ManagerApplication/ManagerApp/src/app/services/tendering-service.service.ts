@@ -21,4 +21,8 @@ export class TenderingServiceService {
     headers.append('Content-Type', 'application/json');
     return this._http.post<any>(this.serverUrl + "/api/tender", tender, {headers: headers});
   }
+
+  getPharmacyNames(): Observable<string[]> {
+    return this._http.get<string[]>("http://localhost:5000/api/tender/pharmacyNames");
+  }
 }
