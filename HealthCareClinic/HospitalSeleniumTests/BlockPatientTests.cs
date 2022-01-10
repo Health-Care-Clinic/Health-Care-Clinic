@@ -28,7 +28,7 @@ namespace HospitalSeleniumTests
             options.AddArguments("--disable-notifications");    // disable notifications
 
             driver = new RemoteWebDriver(
-        new Uri("http://localhost:4445/wd/hub/"), options.ToCapabilities()
+        new Uri("http://localhost:4442/wd/hub/"), options.ToCapabilities()
       );
 
             loginPage = new Pages.LoginPage(driver);
