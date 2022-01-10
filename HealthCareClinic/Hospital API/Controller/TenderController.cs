@@ -53,6 +53,7 @@ namespace Hospital_API.Controller
         {
             Tender tender = TenderAdapter.TenderDTOToTender(dto);
             var factory = new ConnectionFactory() { HostName = "localhost" };
+            _tenderService.Add(tender);
 
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
@@ -72,7 +73,6 @@ namespace Hospital_API.Controller
                 
                 Console.WriteLine(" [x] Sent \n\tDate Range: {0} - {1}\n\tDescription: {2}", tender.DateRange.Start.ToShortDateString(),
                     tender.DateRange.End.ToShortDateString(), tender.Description);
-                _tenderService.Add(tender);
                 
             }
             return Ok();
@@ -82,9 +82,9 @@ namespace Hospital_API.Controller
         public IActionResult ChooseTenderResponse(int tenderResponseId)
         {
             TenderResponse winningTenderResponse = _tenderResponseService.GetOneById(tenderResponseId);
+            ICollection<TenderResponse> tenderResponses = _tenderResponseService.GetTenderResponsesByTenderId(winningTenderResponse.TenderId);
             winningTenderResponse.IsWinningBid = true;
             _tenderResponseService.Update(winningTenderResponse);
-            ICollection<TenderResponse> tenderResponses = _tenderResponseService.GetTenderResponsesByTenderId(winningTenderResponse.TenderId);
             foreach(TenderResponse tenderResponse in tenderResponses)
             {
                 if (tenderResponse.Id == winningTenderResponse.Id)
