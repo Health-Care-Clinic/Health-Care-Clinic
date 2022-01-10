@@ -48,7 +48,7 @@ services:
     restart: always
     container_name: database
     networks:
-      - database_net
+      - database
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
