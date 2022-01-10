@@ -150,6 +150,27 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Medicines",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Manufacturer = table.Column<string>(type: "text", nullable: true),
+                    Usage = table.Column<string>(type: "text", nullable: true),
+                    Weight = table.Column<int>(type: "integer", nullable: false),
+                    SideEffects = table.Column<string>(type: "text", nullable: true),
+                    Reactions = table.Column<string>(type: "text", nullable: true),
+                    CompatibileMedicine = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<double>(type: "double precision", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medicines", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OnCallShifts",
                 columns: table => new
                 {
@@ -201,17 +222,31 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TenderResponses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TenderId = table.Column<int>(type: "integer", nullable: false),
+                    PharmacyName = table.Column<string>(type: "text", nullable: true),
+                    TotalPrice_Amount = table.Column<double>(type: "double precision", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsWinningBid = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenderResponses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tenders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ForeignId = table.Column<int>(type: "integer", nullable: false),
                     DateRange_Start = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     DateRange_End = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    TotalPrice_Amount = table.Column<double>(type: "double precision", nullable: true),
-                    TenderResponseDescription = table.Column<string>(type: "text", nullable: true),
-                    IsWinningBidChosen = table.Column<bool>(type: "boolean", nullable: false)
+                    Description = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -365,27 +400,41 @@ namespace Hospital.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medicine",
+                name: "TenderResponses_TenderItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TenderResponseId = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenderResponses_TenderItems", x => new { x.TenderResponseId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_TenderResponses_TenderItems_TenderResponses_TenderResponseId",
+                        column: x => x.TenderResponseId,
+                        principalTable: "TenderResponses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tenders_TenderItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TenderId = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    Manufacturer = table.Column<string>(type: "text", nullable: true),
-                    Usage = table.Column<string>(type: "text", nullable: true),
-                    Weight = table.Column<int>(type: "integer", nullable: false),
-                    SideEffects = table.Column<string>(type: "text", nullable: true),
-                    Reactions = table.Column<string>(type: "text", nullable: true),
-                    CompatibileMedicine = table.Column<string>(type: "text", nullable: true),
-                    Price = table.Column<double>(type: "double precision", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Medicine", x => new { x.TenderId, x.Id });
+                    table.PrimaryKey("PK_Tenders_TenderItems", x => new { x.TenderId, x.Id });
                     table.ForeignKey(
-                        name: "FK_Medicine_Tenders_TenderId",
+                        name: "FK_Tenders_TenderItems_Tenders_TenderId",
                         column: x => x.TenderId,
                         principalTable: "Tenders",
                         principalColumn: "Id",
@@ -542,17 +591,17 @@ namespace Hospital.Migrations
                 columns: new[] { "AppointmentId", "PatientId", "DateOfCancellation" },
                 values: new object[,]
                 {
-                    { 1765, 1, new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1799, 2, new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1764, 1, new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1769, 16, new DateTime(2021, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1768, 16, new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1766, 1, new DateTime(2021, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1777, 1, new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1780, 16, new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1763, 1, new DateTime(2021, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1767, 16, new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1870, 1, new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1765, 1, new DateTime(2021, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1799, 2, new DateTime(2021, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1764, 1, new DateTime(2021, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1769, 6, new DateTime(2021, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1768, 6, new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1766, 1, new DateTime(2021, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1777, 1, new DateTime(2021, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1780, 6, new DateTime(2021, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1763, 1, new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1767, 6, new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1870, 1, new DateTime(2021, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -560,12 +609,12 @@ namespace Hospital.Migrations
                 columns: new[] { "Id", "Address", "BirthDate", "Email", "EmploymentDate", "Gender", "Name", "Password", "Phone", "PrimaryRoom", "Salary", "Specialty", "Surname", "Username", "WorkShiftId" },
                 values: new object[,]
                 {
-                    { 4, "Mike Antice 5", new DateTime(1968, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "dragana@gmail.com", new DateTime(2017, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "female", "Dragana", "dragana", "0697856665", 4, 80000.0, "Surgery", "Zoric", "dragana", -1 },
-                    { 3, "Bulevar Oslobodjenja 5", new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "jozika@gmail.com", new DateTime(2011, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Jozef", "jozef", "0697856665", 3, 80000.0, "General medicine", "Sivc", "jozef", -1 },
-                    { 1, "Brace Radica 15", new DateTime(1981, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "nikolanikolic@gmail.com", new DateTime(2021, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Nikola", "nikola", "0697856665", 1, 80000.0, "General medicine", "Nikolic", "nikola", -1 },
-                    { 2, "Bogoboja Atanackovica 5", new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "markoradic@gmail.com", new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Marko", "marko", "0697856665", 2, 80000.0, "General medicine", "Radic", "marko", -1 },
-                    { 6, "Pariske Komune 85", new DateTime(1968, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "misa@gmail.com", new DateTime(2006, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Misa", "misa", "0697856665", 6, 80000.0, "General medicine", "Bradina", "misa", -1 },
-                    { 5, "Pariske Komune 35", new DateTime(1978, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "mile@gmail.com", new DateTime(2007, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Mile", "mile", "0697856665", 5, 80000.0, "Surgery", "Grandic", "mile", -1 }
+                    { 4, "Mike Antice 5", new DateTime(1968, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "dragana@gmail.com", new DateTime(2017, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "female", "Dragana", "dragana", "0697856665", 4, 80000.0, "Surgery", "Zoric", "dragana", 2 },
+                    { 3, "Bulevar Oslobodjenja 5", new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "jozika@gmail.com", new DateTime(2011, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Jozef", "jozef", "0697856665", 3, 80000.0, "General medicine", "Sivc", "jozef", 1 },
+                    { 1, "Brace Radica 15", new DateTime(1981, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "nikolanikolic@gmail.com", new DateTime(2021, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Nikola", "nikola", "0697856665", 1, 80000.0, "General medicine", "Nikolic", "nikola", 2 },
+                    { 2, "Bogoboja Atanackovica 5", new DateTime(1986, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "markoradic@gmail.com", new DateTime(2020, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Marko", "marko", "0697856665", 2, 80000.0, "General medicine", "Radic", "marko", 1 },
+                    { 6, "Pariske Komune 85", new DateTime(1968, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "misa@gmail.com", new DateTime(2006, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Misa", "misa", "0697856665", 6, 80000.0, "General medicine", "Bradina", "misa", 1 },
+                    { 5, "Pariske Komune 35", new DateTime(1978, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "mile@gmail.com", new DateTime(2007, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "Mile", "mile", "0697856665", 5, 80000.0, "Surgery", "Grandic", "mile", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -827,11 +876,11 @@ namespace Hospital.Migrations
                 values: new object[,]
                 {
                     { 8, "Kralja Petra 19", new DateTime(1987, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "B", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, "zorka@gmail.com", "Unemployed", "female", null, true, false, "Zorka", "zorka", "zorka", "0697856665", "Djokic", "zorka" },
-                    { 6, "Voje Rodica 19", new DateTime(1975, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "miki@gmail.com", "Employed", "male", null, true, false, "Predrag", "miki", "miki", "0697856665", "Zaric", "miki" },
-                    { 5, "Voje Rodica 19", new DateTime(1936, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "miki@gmail.com", "Employed", "male", null, true, false, "Igor", "miki", "miki", "0697856665", "Caric", "miki" },
-                    { 4, "Voje Rodica 19", new DateTime(1969, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "miki@gmail.com", "Employed", "male", null, true, false, "Milica", "miki", "miki", "0697856665", "Maric", "miki" },
-                    { 3, "Voje Rodica 19", new DateTime(1978, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "miki@gmail.com", "Employed", "male", null, true, false, "Zorana", "miki", "miki", "0697856665", "Bilic", "miki" },
-                    { 2, "Voje Rodica 19", new DateTime(1985, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "miki@gmail.com", "Employed", "male", null, true, false, "Jovan", "miki", "miki", "0697856665", "Zoric", "miki" },
+                    { 6, "Voje Rodica 19", new DateTime(1975, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "miki@gmail.com", "Employed", "male", null, true, false, "Predrag", "miki", "predrag", "0697856665", "Zaric", "predrag" },
+                    { 5, "Voje Rodica 19", new DateTime(1936, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "miki@gmail.com", "Employed", "male", null, true, false, "Igor", "miki", "igor", "0697856665", "Caric", "igor" },
+                    { 4, "Voje Rodica 19", new DateTime(1969, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "miki@gmail.com", "Employed", "male", null, true, false, "Milica", "miki", "milica", "0697856665", "Maric", "milica" },
+                    { 3, "Voje Rodica 19", new DateTime(1978, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "miki@gmail.com", "Employed", "male", null, true, false, "Zorana", "miki", "zorana", "0697856665", "Bilic", "zorana" },
+                    { 2, "Voje Rodica 19", new DateTime(1985, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "miki@gmail.com", "Employed", "male", null, true, false, "Jovan", "miki", "jovan", "0697856665", "Zoric", "jovan" },
                     { 1, "Bogoboja Atanackovica 15", new DateTime(2005, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "petar@gmail.com", "Employed", "male", null, true, false, "Petar", "miki", "petar", "0634556665", "Petrovic", "petar" },
                     { 7, "Voje Rodica 19", new DateTime(1960, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "A", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, "miki@gmail.com", "Employed", "male", null, true, false, "Miki", "miki", "miki", "0697856665", "Nikolic", "miki" }
                 });
@@ -1376,7 +1425,7 @@ namespace Hospital.Migrations
                 name: "Floors");
 
             migrationBuilder.DropTable(
-                name: "Medicine");
+                name: "Medicines");
 
             migrationBuilder.DropTable(
                 name: "OnCallShifts");
@@ -1394,6 +1443,12 @@ namespace Hospital.Migrations
                 name: "SurveyQuestions");
 
             migrationBuilder.DropTable(
+                name: "TenderResponses_TenderItems");
+
+            migrationBuilder.DropTable(
+                name: "Tenders_TenderItems");
+
+            migrationBuilder.DropTable(
                 name: "Transfer");
 
             migrationBuilder.DropTable(
@@ -1406,13 +1461,16 @@ namespace Hospital.Migrations
                 name: "WorkDayShift");
 
             migrationBuilder.DropTable(
-                name: "Tenders");
-
-            migrationBuilder.DropTable(
                 name: "Patients");
 
             migrationBuilder.DropTable(
                 name: "SurveyCategories");
+
+            migrationBuilder.DropTable(
+                name: "TenderResponses");
+
+            migrationBuilder.DropTable(
+                name: "Tenders");
 
             migrationBuilder.DropTable(
                 name: "Doctors");

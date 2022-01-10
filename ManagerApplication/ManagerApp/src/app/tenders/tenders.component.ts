@@ -31,7 +31,7 @@ export class TendersComponent implements OnInit {
   }
 
   openTenderStatisticsComponent(): void {
-    //this._router.navigate(['tender-statistics']);
+    this._router.navigate(['/tender-statistics']);
   }
 
 }

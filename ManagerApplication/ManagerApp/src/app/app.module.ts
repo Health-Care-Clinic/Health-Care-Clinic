@@ -76,6 +76,7 @@ import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 import { ChangeDoctorVacationComponent } from './component/change-doctor-vacation/change-doctor-vacation.component';
 import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacation/delete-doctor-vacation.component';
+import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
 
 const MaterialComponents = [
   MatTableModule,
@@ -143,7 +144,8 @@ const MaterialComponents = [
     AddShiftComponent,
     EditShiftComponent,
     ChangeDoctorVacationComponent,
-    DeleteDoctorVacationComponent
+    DeleteDoctorVacationComponent,
+    TenderStatisticsComponent
   ],
   imports: [
     BrowserModule,
