@@ -10,8 +10,8 @@ using Pharmacy;
 namespace Pharmacy.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    [Migration("20220110164454_addAdvertisement")]
-    partial class addAdvertisement
+    [Migration("20220110170648_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
