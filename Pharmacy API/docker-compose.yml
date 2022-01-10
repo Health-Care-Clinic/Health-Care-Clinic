@@ -5,9 +5,12 @@ services:
     restart: always
     networks: 
       - pharmacy-database 
+    secrets:
+      - database_password
+      - database_user
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: /run/secrets/database_password
+      POSTGRES_USER: /run/secrets/database_user
       POSTGRES_DB: pharmacyDb
     volumes:
       - type: volume
@@ -27,12 +30,15 @@ services:
     #  dockerfile: stacks/build/pharmacy/Dockerfile
     depends_on:
       - postgres-database
+    secrets:
+      - database_password
+      - database_user
     environment: 
       DATABASE_HOST: postgres-database
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: pharmacyDb
-      DATABASE_PASSWORD: password
-      DATABASE_USER: postgres
+      DATABASE_PASSWORD: /run/secrets/database_password
+      DATABASE_USER: /run/secrets/database_user
       RABBITMQ_HOST: rabbitmq
     ports:
       - "5002:8080" 
@@ -52,3 +58,9 @@ networks:
     external: true
   pharmacy-database:
     driver: overlay
+
+secrets:
+  database_password:
+   external: true
+  database_user:
+   external: true
