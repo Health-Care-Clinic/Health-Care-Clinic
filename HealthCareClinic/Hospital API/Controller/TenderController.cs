@@ -35,7 +35,10 @@ namespace Hospital_API.Controller
         public IActionResult GetAllTenders()
         {
             List<TenderDTO> tendersDTO = TenderAdapter.TendersToTendersDTO((List<Tender>)_tenderService.GetAll());
-
+            foreach (TenderDTO dto in tendersDTO)
+            {
+                dto.OffersNumber = _tenderResponseService.GetNumberOfOffers(dto.Id);
+            }
             return Ok(tendersDTO);
         }
 

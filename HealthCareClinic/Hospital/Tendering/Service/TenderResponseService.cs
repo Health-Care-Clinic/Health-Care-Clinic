@@ -104,6 +104,15 @@ namespace Hospital.Tendering.Service
             }
             return bestOffers;
         }
+        public int GetNumberOfOffers(int tenderId)
+        {
+            int offersNumber = 0;
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            {
+                if (response.TenderId == tenderId) offersNumber++;
+            }
+            return offersNumber;
+        }
 
 
         private List<BestOfferDto> GetAllOffers(String pharmacyName)
