@@ -28,11 +28,17 @@ services:
     depends_on:
       - rabbitmq3
       - database
+      - chrome
+    links:
+      - chrome
     networks:
       - database
       - hospitalapi_application
       - rabbit
   
+  chrome:
+    image: selenium/standalone-chrome:latest
+
   manager-front:
     image: manager
     build:
