@@ -86,3 +86,5 @@ networks:
     driver: bridge
   rabbit:
     driver: bridge
+  web:
+   driver: bridge
