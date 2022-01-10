@@ -1,0 +1,14 @@
+name: Hospital E2E tests
+
+on:
+  push:
+    branches: [ feat(d)/selenium-tests]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execute tests 
+        run: docker-compose -f docker-compose-hospital-e2e.yml up --exit-code-from hospital-e2e-tests hospital-e2e-tests

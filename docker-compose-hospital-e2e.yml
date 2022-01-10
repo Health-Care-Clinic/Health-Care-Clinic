@@ -1,0 +1,76 @@
+version: "3.2"
+services:      
+  hospital-e2e-tests:
+    container_name: hospital-e2e-tests
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_SCHEMA: hospitalDb
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+    image: mcr.microsoft.com/dotnet/sdk:3.1
+    working_dir: /HealthCareClinic
+    volumes:
+    - .:/HealthCareClinic
+    entrypoint: ["/bin/sh","-c"]
+    command:
+    - |
+      dotnet new tool-manifest --force
+      dotnet tool install --local dotnet-ef --version 5.0.11
+      dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj"
+      cd HealthCareClinic/Hospital
+      rm -r Migrations 
+      cd ../ 
+      cd ../ 
+      dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext
+      dotnet dotnet-ef database update --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext
+      dotnet test "HealthCareClinic/HospitalSeleniumTests/HospitalSeleniumTests.csproj"
+    depends_on:
+      - rabbitmq3
+      - database
+    networks:
+      - database
+      - hospitalapi_application
+      - rabbit
+  
+  manager-front:
+    image: manager
+    build:
+      context: ./
+      dockerfile: stacks/build/manager-gateway/Dockerfile
+    ports:
+      - "4200:8080"
+    networks:
+      - hospitalapi_application
+
+  database:
+    image: postgres:latest
+    restart: always
+    container_name: database
+    networks:
+      - database_net
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "hospitalDb"
+    ports:
+      - "5433:5432"
+  
+  rabbitmq3:
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'secret cookie here'
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - rabbit
+
+networks:
+  hospitalapi_application:
+    driver: bridge
+  database:
+    driver: bridge
+  rabbit:
+    driver: bridge
