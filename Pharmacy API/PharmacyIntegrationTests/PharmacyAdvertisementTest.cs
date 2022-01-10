@@ -20,7 +20,7 @@ namespace PharmacyIntegrationTests
     {
 
         [Fact]
-        public async Task Add_advertsement()
+        public void Add_advertsement()
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
             var configuration = builder.Build();
@@ -47,7 +47,7 @@ namespace PharmacyIntegrationTests
         }
 
         [Fact]
-        public async Task Remove_advertsement()
+        public void Remove_advertisement()
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
             var configuration = builder.Build();
