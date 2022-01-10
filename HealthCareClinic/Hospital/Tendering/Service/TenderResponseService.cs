@@ -83,11 +83,7 @@ namespace Hospital.Tendering.Service
 
             foreach (String name in pharmacyNames)
             {
-                int numberOfOffers = 0;
-                foreach (TenderResponse response in _tenderResponseRepository.GetAll())
-                {
-                    if (response.PharmacyName.Equals(name)) numberOfOffers++;
-                }
+                int numberOfOffers = _tenderResponseRepository.GetAll().Count(response => response.PharmacyName.Equals(name));
                 offers.Add(numberOfOffers);
             }
             return offers;
@@ -99,7 +95,7 @@ namespace Hospital.Tendering.Service
             foreach (String name in GetPharmacyNames())
             {
                 double bestOffer = 0.0;
-                foreach (BestOfferDTO dto in GetAllOffers(name))
+                foreach (BestOfferDto dto in GetAllOffers(name))
                 {
                     bestOffer = dto.Offer;
                     bestOffers.Add(bestOffer);
@@ -110,12 +106,12 @@ namespace Hospital.Tendering.Service
         }
 
 
-        private List<BestOfferDTO> GetAllOffers(String pharmacyName)
+        private List<BestOfferDto> GetAllOffers(String pharmacyName)
         {
-            List<BestOfferDTO> allOffers = new List<BestOfferDTO>();
+            List<BestOfferDto> allOffers = new List<BestOfferDto>();
             foreach (int id in GetTenderIds())
             {
-                BestOfferDTO offer = new BestOfferDTO();
+                BestOfferDto offer = new BestOfferDto();
                 foreach (TenderResponse response in _tenderResponseRepository.GetAll())
                 {
                     if (response.PharmacyName.Equals(pharmacyName) && response.TenderId == id)

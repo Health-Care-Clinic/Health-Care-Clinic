@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace Hospital_API.Tendering.Model
 {
-    public class BestOfferDTO
+    public class BestOfferDto
     {
         public int TenderId { get; set; }
         public double Offer { get; set; }
         public string PharmacyName { get; set; }
 
-        public BestOfferDTO()
+        public BestOfferDto()
         {
         }
 
-        public BestOfferDTO(int tenderId, double offer, string pharmacyName)
+        public BestOfferDto(int tenderId, double offer, string pharmacyName)
         {
             TenderId = tenderId;
             Offer = offer;
