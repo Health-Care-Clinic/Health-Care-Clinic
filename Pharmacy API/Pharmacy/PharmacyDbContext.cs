@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Pharmacy.Advertisements.Model;
 using Pharmacy.ApiKeys.Model;
 using Pharmacy.ApiKeys.Repository;
 using Pharmacy.Feedbacks.Model;
@@ -13,6 +14,7 @@ namespace Pharmacy
 {
     public class PharmacyDbContext : DbContext
     {
+        public DbSet<AdvertisementMedicine> AdvertisementMedicine { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<ApiKey> ApiKeys { get; set; }
         public DbSet<Message> Messages { get; set; }
@@ -20,6 +22,7 @@ namespace Pharmacy
         public DbSet<FeedbackReply> FeedbackReplies { get; set; }
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<TenderResponse> TenderResponses { get; set; }
+        public DbSet<Advertisement> Advertisements { get; set; }
 
         public PharmacyDbContext(DbContextOptions<PharmacyDbContext> options) : base(options) { }
 
@@ -73,6 +76,31 @@ namespace Pharmacy
             modelBuilder.Entity<Tender>()
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Advertisement>()
+              .Property(p => p.Id)
+              .ValueGeneratedOnAdd();
+
+             modelBuilder.Entity<Advertisement>().HasData(
+                new Advertisement { Id = 1, Title = "Super ponuda", Description = "NIkada jeftiniji popust"}
+            );
+
+            modelBuilder.Entity<AdvertisementMedicine>().HasKey(sc => new { sc.AdvertisementId, sc.MedicineId });
+
+            modelBuilder.Entity<AdvertisementMedicine>()
+                .HasOne<Medicine>(sc => sc.Medicine)
+                .WithMany(s => s.AdvertisementMedicines)
+                .HasForeignKey(sc => sc.MedicineId);
+
+
+            modelBuilder.Entity<AdvertisementMedicine>()
+                .HasOne<Advertisement>(sc => sc.Advertisement)
+                .WithMany(s => s.AdvertisementMedicines)
+                .HasForeignKey(sc => sc.AdvertisementId);
+
+
+
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pharmacy;
@@ -9,9 +10,10 @@ using Pharmacy;
 namespace Pharmacy.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    partial class PharmacyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220109233529_advertisement")]
+    partial class advertisement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,14 +37,6 @@ namespace Pharmacy.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Advertisements");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "NIkada jeftiniji popust",
-                            Title = "Super ponuda"
-                        });
                 });
 
             modelBuilder.Entity("Pharmacy.Advertisements.Model.AdvertisementMedicine", b =>
