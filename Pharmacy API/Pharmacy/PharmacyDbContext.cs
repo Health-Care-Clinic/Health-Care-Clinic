@@ -23,7 +23,6 @@ namespace Pharmacy
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<TenderResponse> TenderResponses { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
-
         public PharmacyDbContext(DbContextOptions<PharmacyDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
