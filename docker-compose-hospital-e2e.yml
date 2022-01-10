@@ -35,9 +35,15 @@ services:
       - database
       - hospitalapi_application
       - rabbit
+      - web
   
   chrome:
-    image: selenium/standalone-chrome:latest
+        image: selenium/standalone-chrome:latest
+        hostname: chrome
+        networks:
+          - web
+        privileged: true
+        shm_size: 2g
 
   manager-front:
     image: manager
