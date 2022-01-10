@@ -11,7 +11,7 @@ namespace Pharmacy.FileCompression.Service
         private static readonly int sevenDaysInHours = 7 * 24;
         private static readonly int sevenDays = 7;
 
-        public static void CompressFiles()
+        public static void CompressFiles(object state)
         {
             string path = Directory.GetCurrentDirectory();
 
@@ -55,7 +55,7 @@ namespace Pharmacy.FileCompression.Service
                     zip.AddFile(fi.FullName, "Old data");
                 }
 
-                string zipPath = path + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" +
+                string zipPath = path + Path.DirectorySeparatorChar + DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day + "-" +
                     DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "-" + DateTime.Now.Millisecond + ".zip";
                 zip.Save(zipPath);
             }
