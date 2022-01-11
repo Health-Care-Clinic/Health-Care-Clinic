@@ -72,7 +72,7 @@ namespace HospitalSeleniumTests.Pages
         public void WaitForFormSubmit()
         {
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 20));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(HomePage.URI));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(HomePagePatientApp.URI));
         }
 
 
