@@ -12,12 +12,12 @@ namespace Hospital.Tendering.Service
         ICollection<TenderResponse> GetTenderResponsesByTenderId(int tenderId);
         void Update(TenderResponse entity);
         IEnumerable<String> GetPharmacyNames();
+        int GetNumberOfOffers(int tenderId);
         List<int> GetNumberOfOffers();
         List<int> GetNumberOfWins();
         List<double> GetBestOffers();
-        int GetNumberOfOffers(int tenderId);
-        int GetTendersNumberParticipatedByPharmacy(string name);
-        int GetTendersNumberWonByPharmacy(string name);
+        int GetTendersNumberParticipatedByPharmacy(string pharmacyName);
+        int GetTendersNumberWonByPharmacy(string pharmacyName);
         int GetOffersNumberByTender(int tenderId);
         List<double> GetOfferByTender(int tenderId, string pharmacyName);
     }
