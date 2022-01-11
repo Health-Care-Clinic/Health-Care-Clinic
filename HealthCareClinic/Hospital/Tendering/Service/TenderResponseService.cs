@@ -36,7 +36,7 @@ namespace Hospital.Tendering.Service
 
         public ICollection<TenderResponse> GetTenderResponsesByTenderId(int tenderId)
         {
-            return _tenderResponseRepository.GetAll().Where(x => x.TenderId == tenderId && x.IsWinningBid == false).ToList();
+            return _tenderResponseRepository.GetAll().Where(x => x.TenderId == tenderId && !x.IsWinningBid).ToList();
         }
 
         public void Remove(TenderResponse entity)
@@ -75,6 +75,15 @@ namespace Hospital.Tendering.Service
             }
             return wins;
         }
+        public int GetNumberOfOffers(int tenderId)
+        {
+            int offersNumber = 0;
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            {
+                if (response.TenderId == tenderId && !response.IsWinningBid) offersNumber++;
+            }
+            return offersNumber;
+        }
 
         public List<int> GetNumberOfOffers()
         {
@@ -104,17 +113,6 @@ namespace Hospital.Tendering.Service
             }
             return bestOffers;
         }
-        public int GetNumberOfOffers(int tenderId)
-        {
-            int offersNumber = 0;
-            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
-            {
-                if (response.TenderId == tenderId && !response.IsWinningBid) offersNumber++;
-            }
-            return offersNumber;
-        }
-
-
         private List<BestOfferDto> GetAllOffers(String pharmacyName)
         {
             List<BestOfferDto> allOffers = new List<BestOfferDto>();
@@ -138,10 +136,9 @@ namespace Hospital.Tendering.Service
         public int GetTendersNumberParticipatedByPharmacy(string pharmacyName)
         {
             List<int> tenders = new List<int>();
-            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll().Where(x => x.PharmacyName.Equals(pharmacyName)))
             {
-                if (response.PharmacyName.Equals(pharmacyName))
-                    tenders.Add(response.TenderId);
+                tenders.Add(response.TenderId);
             }
             tenders = tenders.Distinct().ToList();
             return tenders.Count;
@@ -151,7 +148,7 @@ namespace Hospital.Tendering.Service
             List<int> tenders = new List<int>();
             foreach (TenderResponse response in _tenderResponseRepository.GetAll())
             {
-                if (response.PharmacyName.Equals(pharmacyName) && response.IsWinningBid == true)
+                if (response.PharmacyName.Equals(pharmacyName) && response.IsWinningBid)
                     tenders.Add(response.TenderId);
             }
             tenders = tenders.Distinct().ToList();
