@@ -1,3 +1,22 @@
+<div style="margin-left: 25%; margin-top: 100px; margin-bottom: 30px;" >
+    
+<span style="margin-right: 1%; margin-top: 1.5%;">
+    Date:
+</span>
+<mat-form-field class="example-form-field" style="width: 20%; margin-right: 1%;">
+    <mat-label>from</mat-label>
+    <input matInput type="date">
+</mat-form-field>
+<mat-form-field class="example-form-field" style="width: 20%; margin-right: 5%;">
+    <mat-label>to</mat-label>
+    <input matInput type="date">
+</mat-form-field>
+
+<button mat-raised-button style="width:10%; height: 35px; margin-top: 1%;">Apply</button>
+
+</div>
+<button mat-raised-button color="primary" style="margin-inline: 42%; margin-bottom: 60px;" (click)="generatePDF()">Generate PDF</button>
+
 <div class="divBarChart">
     <h1 style="margin-inline: 50px; margin-block: 30px;">
         Ratio of pharmacy wins and participations in tenders
@@ -18,5 +37,3 @@
     </h1>
     <canvas id="bestOfferBarChart"></canvas>
 </div>
-
-<button mat-raised-button color="primary" style="margin-left: 45%; margin-bottom: 12px;" (click)="generatePDF()">Generate PDF</button>
