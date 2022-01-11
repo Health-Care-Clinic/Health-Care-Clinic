@@ -1,3 +1,4 @@
+
 <div class="divPieChart">
     <h1 style="margin-inline: 50px; margin-block: 30px;">
         Pharmacy wins vs. participations in tenders
@@ -14,7 +15,7 @@
                 Tender {{tender.id}}
             </mat-option>
         </mat-select>
-    </mat-form-field><button mat-raised-button color="primary" style="margin-left: 2%;">Show tender statistic</button>
+    </mat-form-field><button mat-raised-button color="primary" style="margin-left: 2%;" (click)="reloadCharts(selectedTender)">Show tender statistic</button>
 </div>
 
 <div class="divBarChart">

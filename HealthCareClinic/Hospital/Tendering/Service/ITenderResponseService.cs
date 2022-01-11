@@ -16,5 +16,9 @@ namespace Hospital.Tendering.Service
         List<int> GetNumberOfWins();
         List<double> GetBestOffers();
         int GetNumberOfOffers(int tenderId);
+        int GetTendersNumberParticipatedByPharmacy(string name);
+        int GetTendersNumberWonByPharmacy(string name);
+        int GetOffersNumberByTender(int tenderId);
+        List<double> GetOfferByTender(int tenderId, string pharmacyName);
     }
 }

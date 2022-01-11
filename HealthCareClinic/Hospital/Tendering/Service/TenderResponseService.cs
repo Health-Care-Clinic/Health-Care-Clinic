@@ -135,7 +135,40 @@ namespace Hospital.Tendering.Service
             return allOffers;
         }
 
-        private List<double> GetOfferByTender(int tenderId, string pharmacyName)
+        public int GetTendersNumberParticipatedByPharmacy(string pharmacyName)
+        {
+            List<int> tenders = new List<int>();
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            {
+                if (response.PharmacyName.Equals(pharmacyName))
+                    tenders.Add(response.TenderId);
+            }
+            tenders = tenders.Distinct().ToList();
+            return tenders.Count;
+        }
+        public int GetTendersNumberWonByPharmacy(string pharmacyName)
+        {
+            List<int> tenders = new List<int>();
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            {
+                if (response.PharmacyName.Equals(pharmacyName) && response.IsWinningBid == true)
+                    tenders.Add(response.TenderId);
+            }
+            tenders = tenders.Distinct().ToList();
+            return tenders.Count;
+        }
+
+        public int GetOffersNumberByTender(int tenderId)
+        {
+            int offers = 0;
+            foreach (TenderResponse response in _tenderResponseRepository.GetAll())
+            {
+                if (response.TenderId == tenderId) offers++;
+            }
+            return offers;
+        }
+
+        public List<double> GetOfferByTender(int tenderId, string pharmacyName)
         {
             List<double> offers = new List<double>();
             foreach (TenderResponse response in _tenderResponseRepository.GetAll())

@@ -46,4 +46,20 @@ export class TenderingServiceService {
   chooseOffer(id: number) {
     return this._http.post<any>(this.serverUrl + "/api/tender/" + id, id);
   }
+
+  getTendersNumberParticipatedByPharmacy(pharmacyName: string): Observable<number> {
+    return this._http.get<number>(this.serverUrl + "/api/tender/pharmacyParticipations/" + pharmacyName);
+  }
+
+  getTendersNumberWonByPharmacy(pharmacyName: string): Observable<number> {
+    return this._http.get<number>(this.serverUrl + "/api/tender/pharmacyWins/" + pharmacyName);
+  }
+
+  getPharmacyOffersForTender(pharmacyName: string, tid:number): Observable<number[]> {
+    return this._http.get<number[]>(this.serverUrl + "/api/tender/PharmacyOffersForTender/" + pharmacyName + "/" + tid);
+  }
+
+  getOffersNumberByTender(tid: number): Observable<number> {
+    return this._http.get<number>(this.serverUrl + "/api/tender/TenderOffersNumber/" + tid);
+  }
 }
