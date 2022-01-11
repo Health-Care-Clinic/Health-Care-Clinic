@@ -54,9 +54,9 @@ namespace Pharmacy.Tendering.Service
                         scope.ServiceProvider
                             .GetRequiredService<ITenderRepository>();
 
+                    SendTenderResponse(tender);
                     tenderRepository.Add(tender);
                     tenderRepository.Save();
-                    SendTenderResponse(tender);
                 }
             };
             channel.BasicConsume(queue: "tender",

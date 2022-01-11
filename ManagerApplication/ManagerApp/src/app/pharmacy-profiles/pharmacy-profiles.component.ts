@@ -31,6 +31,10 @@ export class PharmacyProfilesComponent implements OnInit {
     this._router.navigate(['edit-pharmacy-profile', id]);
   }
 
+  showTenderStatistic(name: string): void {
+    this._router.navigate(['pharmacy-tender-statistics', name]);
+  }
+
   loadPharmacyImage(i: number): void {
     this._pharmacyProfileService.getPharmacyImage(this.pharmacies[i].imagePath).subscribe(
       result => {

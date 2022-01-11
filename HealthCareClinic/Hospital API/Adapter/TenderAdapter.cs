@@ -52,6 +52,30 @@ namespace Hospital_API.Adapter
             return tendersDTO;
         }
 
+        public static TenderResponseDTO TenderResponseToTenderResponseDTO(TenderResponse tenderResponse)
+        {
+            TenderResponseDTO dto = new TenderResponseDTO();
+            dto.Id = tenderResponse.Id;
+            dto.TenderId = tenderResponse.TenderId;
+            dto.TotalPrice = tenderResponse.TotalPrice.Amount;
+            dto.Description = tenderResponse.Description;
+            dto.IsWinningBid = tenderResponse.IsWinningBid;
+            dto.TenderItems = tenderResponse.TenderItems;
+            dto.PharmacyName = tenderResponse.PharmacyName;
+            return dto;
+        }
+
+        public static List<TenderResponseDTO> TenderResponsesToTenderResponsesDTO(List<TenderResponse> responses)
+        {
+            List<TenderResponseDTO> responsessDTO = new List<TenderResponseDTO>();
+            foreach (TenderResponse response in responses)
+            {
+                TenderResponseDTO dto = TenderResponseToTenderResponseDTO(response);
+                responsessDTO.Add(dto);
+            }
+            return responsessDTO;
+        }
+
         private static DateTime StringToDate(string date)
         {
             string[] parts = date.Split("/");
