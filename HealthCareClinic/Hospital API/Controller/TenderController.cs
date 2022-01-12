@@ -107,29 +107,32 @@ namespace Hospital_API.Controller
             return Ok("success");
         }
 
+        // change
         [HttpGet("pharmacyNames")]
-        public IActionResult GetPharmacyNames()
+        public IActionResult GetPharmacyNames(string startDate, string endDate)
         {
-            return(Ok(_tenderResponseService.GetPharmacyNames()));
+            return(Ok(_tenderResponseService.GetPharmacyNames(startDate, endDate)));
         }
 
-
+        // change
         [HttpGet("numberOfWins")]
-        public IActionResult GetNumberOfWins()
+        public IActionResult GetNumberOfWins(string startDate, string endDate)
         {
-            return (Ok(_tenderResponseService.GetNumberOfWins()));
+            return (Ok(_tenderResponseService.GetNumberOfWins(startDate, endDate)));
         }
 
+        // change
         [HttpGet("numberOfOffers")]
-        public IActionResult GetNumberOfOffers()
+        public IActionResult GetNumberOfOffers(string startDate, string endDate)
         {
-            return (Ok(_tenderResponseService.GetNumberOfOffers()));
+            return (Ok(_tenderResponseService.GetNumberOfOffers(startDate, endDate)));
         }
 
+        // change
         [HttpGet("bestOffers")]
-        public IActionResult GetBestOffers()
+        public IActionResult GetBestOffers(string startDate, string endDate)
         {
-            return (Ok(_tenderResponseService.GetBestOffers()));
+            return (Ok(_tenderResponseService.GetBestOffers(startDate, endDate)));
         }
 
         [HttpGet("tenderResponses")]

@@ -23,20 +23,20 @@ export class TenderingServiceService {
     return this._http.post<any>(this.serverUrl + "/api/tender", tender, {headers: headers});
   }
 
-  getPharmacyNames(): Observable<string[]> {
-    return this._http.get<string[]>(this.serverUrl + "/api/tender/pharmacyNames");
+  getPharmacyNames(startDate: string, endDate:string): Observable<string[]> {
+    return this._http.get<string[]>(this.serverUrl + "/api/tender/pharmacyNames?startDate=" + startDate + "&endDate=" +  endDate);
   }
 
-  getNumberOfWins(): Observable<number[]> {
-    return this._http.get<number[]>(this.serverUrl + "/api/tender/numberOfWins");
+  getNumberOfWins(startDate: string, endDate:string): Observable<number[]> {
+    return this._http.get<number[]>(this.serverUrl + "/api/tender/numberOfWins?startDate=" + startDate + "&endDate=" +  endDate);
   }
 
-  getNumberOfOffers(): Observable<number[]> {
-    return this._http.get<number[]>(this.serverUrl + "/api/tender/numberOfOffers");
+  getNumberOfOffers(startDate: string, endDate:string): Observable<number[]> {
+    return this._http.get<number[]>(this.serverUrl + "/api/tender/numberOfOffers?startDate=" + startDate + "&endDate=" +  endDate);
   }
 
-  getBestOffers(): Observable<number[]> {
-    return this._http.get<number[]>(this.serverUrl + "/api/tender/bestOffers");
+  getBestOffers(startDate: string, endDate:string): Observable<number[]> {
+    return this._http.get<number[]>(this.serverUrl + "/api/tender/bestOffers?startDate=" + startDate + "&endDate=" +  endDate);
   }
 
   getTenderResponses(id: number): Observable<ITenderResponse[]> {

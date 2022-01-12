@@ -28,7 +28,13 @@ namespace Hospital.Tendering.Service
 
         public Tender GetOneById(int id)
         {
-            throw new NotImplementedException();
+            Tender found = new Tender();
+            foreach (Tender tender in GetAll())
+            {
+                if (tender.Id == id) found = tender;
+            }
+
+            return found;
         }
 
         public void Remove(Tender entity)

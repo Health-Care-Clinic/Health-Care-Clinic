@@ -11,11 +11,11 @@ namespace Hospital.Tendering.Service
     {
         ICollection<TenderResponse> GetTenderResponsesByTenderId(int tenderId);
         void Update(TenderResponse entity);
-        IEnumerable<String> GetPharmacyNames();
+        IEnumerable<String> GetPharmacyNames(string startDate, string endDate);
         int GetNumberOfOffers(int tenderId);
-        List<int> GetNumberOfOffers();
-        List<int> GetNumberOfWins();
-        List<double> GetBestOffers();
+        List<int> GetNumberOfOffers(string startDate, string endDate);
+        List<int> GetNumberOfWins(string startDate, string endDate);
+        List<double> GetBestOffers(string startDate, string endDate);
         int GetTendersNumberParticipatedByPharmacy(string pharmacyName);
         int GetTendersNumberWonByPharmacy(string pharmacyName);
         int GetOffersNumberByTender(int tenderId);
