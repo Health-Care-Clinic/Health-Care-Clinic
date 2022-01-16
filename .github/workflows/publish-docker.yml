@@ -76,4 +76,4 @@ jobs:
          git pull origin improvement/add-rabbit-and-event-store-to-docker
          git status
          cd "stacks"
-         docker stack deploy
+         docker stack deploy hospital-stack
