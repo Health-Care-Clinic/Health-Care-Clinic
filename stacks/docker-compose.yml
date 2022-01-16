@@ -3,17 +3,19 @@ version: '3.2'
 services:
 
   proxy:
-    build: 
-      context: "../HealthCareClinic/Integration API/Proxy"
-      dockerfile: Dockerfile
+    image: nenadbecanovic/integration-api-proxy:latest
+    # build: 
+    #   context: "../HealthCareClinic/Integration API/Proxy"
+    #   dockerfile: Dockerfile
     ports: 
       - "8082:8080"
     restart: always
 
   patient-proxy:
-    build: 
-      context: "../HealthCareClinic/Hospital API/Proxy"
-      dockerfile: Dockerfile
+    image: nenadbecanovic/hospital-api-proxy:latest
+    # build: 
+    #   context: "../HealthCareClinic/Hospital API/Proxy"
+    #   dockerfile: Dockerfile
     ports: 
       - "8081:8080"
     restart: always
