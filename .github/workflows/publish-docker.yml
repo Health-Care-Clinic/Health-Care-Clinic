@@ -1,7 +1,7 @@
 name: Publish docker images
 on:
-  pull_request:
-    branches: [develop]
+  push:
+    branches: [improvement/add-rabbit-and-event-store-to-docker]
 
 jobs:
   build:
@@ -75,11 +75,5 @@ jobs:
          git checkout develop
          git pull origin develop
          git status
-         cd "HealthCareClinic/Integration API"
-         docker-compose up -d
-         cd ../../
-         cd "HealthCareClinic/Hospital API"
-         docker-compose up -d
-         cd ../../
-         cd "Pharmacy API/Pharmacy API"
+         cd "stacks"
          docker-compose up -d

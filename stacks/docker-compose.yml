@@ -1,0 +1,184 @@
+version: '3.2' 
+
+services:
+
+  proxy:
+    build: 
+      context: "../HealthCareClinic/Integration API/Proxy"
+      dockerfile: Dockerfile
+    ports: 
+      - "8082:8080"
+    restart: always
+
+  patient-proxy:
+    build: 
+      context: "../HealthCareClinic/Hospital API/Proxy"
+      dockerfile: Dockerfile
+    ports: 
+      - "8081:8080"
+    restart: always
+
+  patient-front:
+    image: nenadbecanovic/patient-gateway:latest
+    #image: patient
+    #build:
+    #  context: ../../
+    #  dockerfile: stacks/build/patient-gateway/Dockerfile
+    depends_on:
+      - "hospital-api"
+    ports:
+      - "3200:8080"
+
+  hospital-api:
+    image: nenadbecanovic/hospital-api:latest
+    #image: hospitalapi
+    #build:
+    #  context: ../
+    #  dockerfile: ../stacks/build/hospital/Dockerfile
+    depends_on:
+      - "hospitalDatabase"
+      - "eventDatabase"
+      - "rabbitmq3"
+    restart: on-failure
+    ports:
+      - "5000:8088"
+    environment:
+      DATABASE_HOST_HOSPITAL: hospitalDatabase
+      DATABASE_PORT: 5432
+      DATABASE_SCHEMA_HOSPITAL: hospitalDb
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_HOST_EVENT: eventDatabase
+      DATABASE_SCHEMA_EVENT: eventsDb
+      RABBITMQ_HOST: rabbitmq
+  
+  hospitalDatabase: 
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - type: volume
+        source: hospital-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./hospitalDb.sql 
+        target: /docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "hospitalDb"
+
+  eventDatabase: 
+    image: postgres:latest
+    ports:
+      - "5435:5432"
+    restart: always
+    volumes:
+      - type: volume
+        source: event-store-data
+        target: /var/lib/postgresql/data
+#      - type: bind
+#        source: ./database.sql 
+#        target: /docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "eventsDb"
+
+  manager-front:
+    image: nenadbecanovic/manager-gateway:latest
+    # image: manager
+    # build:
+    #   context: ../../
+    #   dockerfile: stacks/build/manager-gateway/Dockerfile
+    ports:
+      - "4200:8080"
+
+  integration-api:
+    image: nenadbecanovic/integration-api:latest
+    #image: integrationapi
+    #build:
+    #  context: ../
+    #  dockerfile: ../stacks/build/integration/Dockerfile
+    depends_on:
+      - "database"
+      - "rabbitmq3"
+    ports:
+      - "5001:8089"     
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_SCHEMA: integrationDb
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      RABBITMQ_HOST: rabbitmq
+
+  pharmacyDatabase:
+    image: postgres 
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: pharmacyDb
+    volumes:
+      - type: volume
+        source: pharmacy-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./pharmacyDb.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5434:5432"
+
+  pharmacy:
+    image: nenadbecanovic/pharmacy-api:latest
+    #image: pharmacyapi
+    #build:
+    #  context: ../
+    #  dockerfile: stacks/build/pharmacy/Dockerfile
+    depends_on:
+      - pharmacyDatabase
+      - rabbitmq3
+    environment: 
+      DATABASE_HOST: pharmacyDatabase
+      DATABASE_PORT: 5432
+      DATABASE_SCHEMA: pharmacyDb
+      DATABASE_PASSWORD: password
+      DATABASE_USER: postgres
+      RABBITMQ_HOST: rabbitmq
+    ports:
+      - "5002:8087" 
+    restart: on-failure
+  
+  database: 
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - type: volume
+        source: integration-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./integrationDb.sql 
+        target: /docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "integrationDb"
+
+  rabbitmq3:
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: 'secret cookie here'
+    ports:
+      - 15672:15672
+      - 5672:5672
+
+volumes:
+  integration-data:
+  hospital-data:
+  pharmacy-data:
+  event-store-data:
