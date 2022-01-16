@@ -660,9 +660,9 @@ namespace Hospital.Mapper
         }
         private static string CreateConnectionStringFromEnvironment()
         {
-            var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            var server = Environment.GetEnvironmentVariable("DATABASE_HOST_HOSPITAL") ?? "localhost";
             var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";
-            var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "hospitalDb";
+            var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA_HOSPITAL") ?? "hospitalDb";
             var user = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? "postgres";
             var password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "password";
 
