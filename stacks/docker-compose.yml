@@ -44,12 +44,15 @@ services:
     restart: on-failure
     ports:
       - "5000:8088"
+    secrets:
+      - database_password
+      - database_user
     environment:
       DATABASE_HOST_HOSPITAL: hospitalDatabase
       DATABASE_PORT: 5432
       DATABASE_SCHEMA_HOSPITAL: hospitalDb
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: password
+      DATABASE_USER: /run/secrets/database_user
+      DATABASE_PASSWORD: /run/secrets/database_password
       DATABASE_HOST_EVENT: eventDatabase
       DATABASE_SCHEMA_EVENT: eventsDb
       RABBITMQ_HOST: rabbitmq
@@ -66,9 +69,12 @@ services:
       - type: bind
         source: ./hospitalDb.sql 
         target: /docker-entrypoint-initdb.d/init.sql
+    secrets:
+      - database_password
+      - database_user
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: /run/secrets/database_user
+      POSTGRES_PASSWORD: /run/secrets/database_password
       POSTGRES_DB: "hospitalDb"
 
   eventDatabase: 
@@ -83,9 +89,12 @@ services:
 #      - type: bind
 #        source: ./database.sql 
 #        target: /docker-entrypoint-initdb.d/init.sql
+    secrets:
+      - database_password
+      - database_user
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: /run/secrets/database_user
+      POSTGRES_PASSWORD: /run/secrets/database_password
       POSTGRES_DB: "eventsDb"
 
   manager-front:
@@ -108,20 +117,26 @@ services:
       - "rabbitmq3"
     ports:
       - "5001:8089"     
+    secrets:
+      - database_password
+      - database_user
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: integrationDb
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: password
+      DATABASE_USER: /run/secrets/database_user
+      DATABASE_PASSWORD: /run/secrets/database_password
       RABBITMQ_HOST: rabbitmq
 
   pharmacyDatabase:
     image: postgres 
     restart: always
+    secrets:
+      - database_password
+      - database_user
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: /run/secrets/database_password
+      POSTGRES_USER: /run/secrets/database_user
       POSTGRES_DB: pharmacyDb
     volumes:
       - type: volume
@@ -142,12 +157,15 @@ services:
     depends_on:
       - pharmacyDatabase
       - rabbitmq3
+    secrets:
+      - database_password
+      - database_user
     environment: 
       DATABASE_HOST: pharmacyDatabase
       DATABASE_PORT: 5432
       DATABASE_SCHEMA: pharmacyDb
-      DATABASE_PASSWORD: password
-      DATABASE_USER: postgres
+      DATABASE_PASSWORD: /run/secrets/database_password
+      DATABASE_USER: /run/secrets/database_user
       RABBITMQ_HOST: rabbitmq
     ports:
       - "5002:8087" 
@@ -165,9 +183,12 @@ services:
       - type: bind
         source: ./integrationDb.sql 
         target: /docker-entrypoint-initdb.d/init.sql
+    secrets:
+      - database_password
+      - database_user
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_USER: /run/secrets/database_user
+      POSTGRES_PASSWORD: /run/secrets/database_password
       POSTGRES_DB: "integrationDb"
 
   rabbitmq3:
@@ -184,3 +205,9 @@ volumes:
   hospital-data:
   pharmacy-data:
   event-store-data:
+    
+secrets:
+  database_password:
+   external: true
+  database_user:
+   external: true
