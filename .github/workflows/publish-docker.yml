@@ -72,8 +72,8 @@ jobs:
        port: 22210
        script: |
          cd Health-Care-Clinic
-         git checkout develop
-         git pull origin develop
+         git checkout improvement/add-rabbit-and-event-store-to-docker
+         git pull origin improvement/add-rabbit-and-event-store-to-docker
          git status
          cd "stacks"
          docker-compose up -d
