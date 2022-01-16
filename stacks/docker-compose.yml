@@ -21,7 +21,7 @@ services:
   patient-front:
     image: nenadbecanovic/patient-gateway:latest
     #image: patient
-    #build:
+    #build: 
     #  context: ../../
     #  dockerfile: stacks/build/patient-gateway/Dockerfile
     depends_on:
