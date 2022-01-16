@@ -1,7 +1,7 @@
 name: Publish docker images
 on:
   push:
-    branches: [improvement/add-rabbit-and-event-store-to-docker]
+    branches: [master ]
 
 jobs:
   build:
@@ -70,10 +70,11 @@ jobs:
        username: student
        key: ${{ secrets.STUDENT_KEY}}
        port: 22210
+      #  delete repository on server before running this action!
        script: |
          cd Health-Care-Clinic
-         git checkout improvement/add-rabbit-and-event-store-to-docker
-         git pull origin improvement/add-rabbit-and-event-store-to-docker
+         git checkout develop
+         git pull origin develop
          git status
          cd "stacks"
          docker stack deploy --compose-file docker-compose.yml hospital-stack
