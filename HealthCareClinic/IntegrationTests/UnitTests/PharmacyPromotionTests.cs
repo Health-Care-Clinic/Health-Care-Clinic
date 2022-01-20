@@ -11,11 +11,37 @@ using System.Text;
 using Integration.Promotions.Model;
 using Integration.Promotions.Service;
 using Xunit;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace IntegrationTests.UnitTests
 {
     public class PharmacyPromotionTests
     {
+        public PharmacyPromotionTests()
+        {
+            using (var file = File.OpenText(GetPath()))
+            {
+                var reader = new JsonTextReader(file);
+                var jObject = JObject.Load(reader);
+
+                var variables = jObject
+                    .GetValue("profiles")
+                    .SelectMany(profiles => profiles.Children())
+                    .SelectMany(profile => profile.Children<JProperty>())
+                    .Where(prop => prop.Name == "environmentVariables")
+                    .SelectMany(prop => prop.Value.Children<JProperty>())
+                    .ToList();
+
+                foreach (var variable in variables)
+                {
+                    Environment.SetEnvironmentVariable(variable.Name, variable.Value.ToString());
+                }
+            }
+        }
+
         [Fact]
         public void Gets_all_pharmacy_promotions()
         {
@@ -32,9 +58,10 @@ namespace IntegrationTests.UnitTests
             ((List<PharmacyPromotion>)pharmacyPromotionService.GetAll()).Count.ShouldBe(1);
         }
 
-        [Fact]
+        [SkippableFact]
         public void Opens_connection_to_message_queue()
         {
+            Skip.IfNot(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development"));
             var factory = new ConnectionFactory() { HostName = "localhost" };
 
             IConnection connection = factory.CreateConnection();
@@ -42,15 +69,25 @@ namespace IntegrationTests.UnitTests
             connection.ShouldNotBeNull();
         }
 
-        [Fact]
+        [SkippableFact]
         public void Opens_connection_channel()
         {
+            Skip.IfNot(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development"));
             var factory = new ConnectionFactory() { HostName = "localhost" };
 
             IConnection connection = factory.CreateConnection();
             IModel channel = connection.CreateModel();
 
             channel.ShouldNotBeNull();
+        }
+
+        private string GetPath()
+        {
+            string folderName = Path.Combine("Properties", "launchSettings.json");
+            string rootDirectory = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName).FullName;
+            string path = Path.Combine(rootDirectory, folderName);
+
+            return path;
         }
     }
 }
