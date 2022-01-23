@@ -44,6 +44,7 @@ namespace Hospital.Mapper
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<WorkDayShift> WorkDayShift { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
 
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Transfer> Transfer { get; set; }
@@ -612,24 +613,50 @@ namespace Hospital.Mapper
                 new WorkDayShift { Id = 1, Name = "First", StartTime = new DateTime(2022, 2, 22, 7, 0, 0), EndTime = new DateTime(2022, 2, 22, 13, 0, 0) },
                 new WorkDayShift { Id = 2, Name = "Second", StartTime = new DateTime(2022, 2, 22, 13, 0, 0), EndTime = new DateTime(2022, 2, 22, 19, 0, 0) });
 
-            modelBuilder.Entity<Patient>().HasData(
-                new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petar", "miki", null, "Employed", true)
-                { DoctorId = 1 },
-                new Patient(2, "Jovan", "Zoric", "male", "A", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "jovan", "jovan", "miki", null, "Employed", true)
-                { DoctorId = 2 },
-                new Patient(3, "Zorana", "Bilic", "male", "A", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "zorana", "zorana", "miki", null, "Employed", true)
-                { DoctorId = 2 },
-                new Patient(4, "Milica", "Maric", "male", "A", new System.DateTime(1969, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "milica", "milica", "miki", null, "Employed", true)
-                { DoctorId = 3 },
-                new Patient(5, "Igor", "Caric", "male", "A", new System.DateTime(1936, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "igor", "igor", "miki", null, "Employed", true)
-                { DoctorId = 3 },
-                new Patient(6, "Predrag", "Zaric", "male", "A", new System.DateTime(1975, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "predrag", "predrag", "miki", null, "Employed", true)
-                { DoctorId = 3 },
-                new Patient(7, "Miki", "Nikolic", "male", "A", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
-                { DoctorId = 3 },
-                new Patient(8, "Zorka", "Djokic", "female", "B", new System.DateTime(1987, 07, 01), "Kralja Petra 19", "0697856665", "zorka@gmail.com", "zorka", "zorka", "zorka", null, "Unemployed", true)
-                { DoctorId = 6 }
-                );
+            Patient patient01 = new Patient(1, "Petar", "Petrovic", "male", "A", new DateTime(2005, 09, 11), 
+                "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petarp001", "Miki", null, 
+                "Employed", true) { DoctorId = 1, MedicalRecordId = 1 };
+            Patient patient02 = new Patient(2, "Jovan", "Zoric", "male", "A", new DateTime(1985, 07, 11), 
+                "Voje Rodica 19", "0697856665", "miki@gmail.com", "jovan", "jovanp002", "Miki", null, 
+                "Employed", true) { DoctorId = 2, MedicalRecordId = 2 };
+            Patient patient03 = new Patient(3, "Zorana", "Bilic", "male", "A", new DateTime(1978, 07, 11), 
+                "Voje Rodica 19", "0697856665", "miki@gmail.com", "zorana", "zoranap003", "Miki", null, 
+                "Employed", true) { DoctorId = 2, MedicalRecordId = 3 };
+            Patient patient04 = new Patient(4, "Milica", "Maric", "male", "A", new DateTime(1969, 07, 11), 
+                "Voje Rodica 19", "0697856665", "miki@gmail.com", "milica", "milicap004", "Miki", null, 
+                "Employed", true) { DoctorId = 3, MedicalRecordId = 4 };
+            Patient patient05 = new Patient(5, "Igor", "Caric", "male", "A", new DateTime(1936, 07, 11), 
+                "Voje Rodica 19", "0697856665", "miki@gmail.com", "igor", "igorp005", "Miki", null, 
+                "Employed", true) { DoctorId = 3, MedicalRecordId = 5 };
+            Patient patient06 = new Patient(6, "Predrag", "Zaric", "male", "A", new DateTime(1975, 07, 11), 
+                "Voje Rodica 19", "0697856665", "miki@gmail.com", "predrag", "predragp006", "Miki", null, 
+                "Employed", true) { DoctorId = 3, MedicalRecordId = 6 };
+            Patient patient07 = new Patient(7, "Miki", "Nikolic", "male", "A", new DateTime(1960, 07, 11),
+                "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "mikip007", "Miki", null,
+                "Employed", true) { DoctorId = 3, MedicalRecordId = 7 };
+            Patient patient08 = new Patient(8, "Zorka", "Djokic", "female", "B", new DateTime(1987, 07, 01), 
+                "Kralja Petra 19", "0697856665", "zorka@gmail.com", "zorka", "zorkap008", "Zorka", null, 
+                "Unemployed", true) { DoctorId = 6, MedicalRecordId = 8 };
+            modelBuilder.Entity<Patient>().HasData(patient01, patient02, patient03, patient04, patient05, 
+                patient06, patient07, patient08);
+
+            modelBuilder.Entity<MedicalRecord>().HasData(
+                new MedicalRecord(1, patient01.MedicalRecord.Allergens, patient01.MedicalRecord.BloodType, 
+                    patient01.MedicalRecord.PersonalInfo),
+                new MedicalRecord(2, patient02.MedicalRecord.Allergens, patient02.MedicalRecord.BloodType,
+                    patient02.MedicalRecord.PersonalInfo),
+                new MedicalRecord(3, patient03.MedicalRecord.Allergens, patient03.MedicalRecord.BloodType, 
+                    patient03.MedicalRecord.PersonalInfo),
+                new MedicalRecord(4, patient04.MedicalRecord.Allergens, patient04.MedicalRecord.BloodType,
+                    patient04.MedicalRecord.PersonalInfo),
+                new MedicalRecord(5, patient05.MedicalRecord.Allergens, patient05.MedicalRecord.BloodType,
+                    patient05.MedicalRecord.PersonalInfo),
+                new MedicalRecord(6, patient06.MedicalRecord.Allergens, patient06.MedicalRecord.BloodType,
+                    patient06.MedicalRecord.PersonalInfo),
+                new MedicalRecord(7, patient07.MedicalRecord.Allergens, patient07.MedicalRecord.BloodType,
+                    patient07.MedicalRecord.PersonalInfo),
+                new MedicalRecord(8, patient08.MedicalRecord.Allergens, patient08.MedicalRecord.BloodType,
+                    patient08.MedicalRecord.PersonalInfo));
 
             modelBuilder.Entity<AllergenForPatient>()
                 .HasKey(c => new { c.PatientId, c.AllergenId });
