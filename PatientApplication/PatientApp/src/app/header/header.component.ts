@@ -31,6 +31,11 @@ export class HeaderComponent implements OnInit {
   goToMedicalRecord() {
     this.router.navigateByUrl('/medical-record');
   }
+  
+  goToPrescriptions()
+  {
+    this.router.navigateByUrl('/prescriptions');
+  }
 
   logOut() {
     localStorage.removeItem('id')

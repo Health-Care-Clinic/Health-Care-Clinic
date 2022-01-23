@@ -7,6 +7,7 @@ import { ISurvey } from '../survey/survey';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { find } from 'rxjs-compat/operator/find';
+import { PatientService } from '../patient/patient.service';
 
 @Component({
   selector: 'app-appointments',
@@ -16,7 +17,7 @@ import { find } from 'rxjs-compat/operator/find';
 
 export class AppointmentsComponent implements OnInit {
 
-  constructor(private _appointmentService: AppointmentService, private _surveyService: SurveyService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(private _appointmentService: AppointmentService,private _patientService : PatientService, private _surveyService: SurveyService, private router: Router, private _snackBar: MatSnackBar) { }
 
   @Input() id! : number;
   appointments : IAppointment[] = [];
@@ -24,7 +25,7 @@ export class AppointmentsComponent implements OnInit {
   currentDate = new Date();
   currentDatePlusTwoDays = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000);
   errorMessage : string = "";
-  displayedColumns: string[] = ['AppointmentId','Room','DoctorName', 'Date', 'Cancelled','Cancelation','SurveyId']; 
+  displayedColumns: string[] = ['AppointmentId','Room','DoctorName', 'Date', 'Cancelled','Cancelation','SurveyId','Report']; 
 
 
   ngOnInit(): void {
@@ -41,6 +42,11 @@ export class AppointmentsComponent implements OnInit {
     const navigationDetails: string[] = ['/survey'];
     this._surveyService.appointmentId = appointment.id;
     this.router.navigate(navigationDetails);
+  }
+
+  viewReport(appointment: IAppointment): void{
+    this._patientService.appointment = appointment;
+    this.router.navigateByUrl('report');
   }
 
   cancelAppointment(appointment :IAppointment){

@@ -7,6 +7,7 @@ import { IPatient } from './ipatient';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { Credentials } from './credentials';
+import { IAppointment } from '../service/IAppointment';
 
 
 const headers = { 'content-type': 'application/json'} 
@@ -24,8 +25,10 @@ export class PatientService {
   private _getAllUsernames     = this._patientRegistration + '/getAllUsernames';
   private _getPatient          = this._patientRegistration + '/getPatient/';
   private _authenticate        = this._patientRegistration + '/authenticate';
+  private _getAllPrescriptionsForPatient = this._patientRegistration + '/getAllPrescriptionsForPatient';
 
-
+  appointment !: IAppointment;
+  
   constructor(private _http: HttpClient) { }
 
   getAvailableDoctors(): Observable<Doctor[]> {
@@ -62,6 +65,13 @@ export class PatientService {
     const body=JSON.stringify(credentials);
     console.log(body)
     return this._http.post(this._authenticate, body,{headers, responseType: 'text'})
+  }
+
+  getAllPrescriptionsForPatient(): Observable<any> 
+  {
+    const body=JSON.stringify(localStorage.getItem('id'));
+    console.log(body)
+    return this._http.post(this._getAllPrescriptionsForPatient, body)
   }
 
   private handleError(err : HttpErrorResponse) {

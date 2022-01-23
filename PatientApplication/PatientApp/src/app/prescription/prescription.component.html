@@ -1,0 +1,33 @@
+<div  class="tableView">
+    <h2>Prescription history</h2>
+  <table id="myTable" style=" margin-left: 5%; width: 90%;" mat-table [dataSource]="allPrescriptions" class="mat-elevation-z8">
+    <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Prescribed Date </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              <ng-container >{{element.date | date  }}</ng-container>
+                </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="doctor">
+        <mat-header-cell *matHeaderCellDef> Doctor </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              <ng-container >{{element.doctor }}</ng-container>
+                </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="medicine">
+        <mat-header-cell *matHeaderCellDef> Medicine </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.medicine +" "+ element.quantity}} </mat-cell>
+      </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showPrescriptionInfo(row)" [class.selected]="row.selected"></mat-row>
+    </table>
+  </div>
+  
+  
+  <div *ngIf="show" style="margin-left: 10%; margin-top: 3%;">
+    <h2> Prescription details: </h2>            
+    <div><mat-form-field style="width: 600px; height: 200px;" appearance="fill">
+      <textarea required matInput [(ngModel)]="prescription.comment"  rows="15" cols="40" ></textarea>
+    </mat-form-field></div>
