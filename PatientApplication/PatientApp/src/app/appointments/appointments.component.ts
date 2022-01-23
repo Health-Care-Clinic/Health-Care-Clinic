@@ -5,6 +5,8 @@ import { SurveyService } from '../survey/survey.service';
 import { IAppointment } from '../service/IAppointment';
 import { ISurvey } from '../survey/survey';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { find } from 'rxjs-compat/operator/find';
 
 @Component({
   selector: 'app-appointments',
@@ -14,7 +16,7 @@ import { Router } from '@angular/router';
 
 export class AppointmentsComponent implements OnInit {
 
-  constructor(private _appointmentService: AppointmentService, private _surveyService: SurveyService, private router: Router) { }
+  constructor(private _appointmentService: AppointmentService, private _surveyService: SurveyService, private router: Router, private _snackBar: MatSnackBar) { }
 
   @Input() id! : number;
   appointments : IAppointment[] = [];
@@ -45,9 +47,14 @@ export class AppointmentsComponent implements OnInit {
     this._appointmentService.cancelAppointment(appointment.id)
         .subscribe(data => this.appointment = data,
                    error => this.errorMessage = <any>error);
+
     appointment.isCancelled = true;
-    this.getAppointmetsForPatient(appointment.patientId);
-    window.alert('Your appointment is cancelled!');
+
+    //let a = document.getElementById(appointment.id.toString()); 
+    //a?.parentNode?.removeChild(a);
+
+
+    this._snackBar.open('Your appointment is canceled', 'Close', {duration: 3000});
   }
 
   compare(appointmentDate: Date, tempDate: Date)

@@ -24,7 +24,7 @@ namespace Hospital_API.Controller
             this.appointmentService = _appointmentService;
         }
 
-
+        [AllowAnonymous]
         [HttpGet("allDoctors")]
         public IActionResult GetAllDoctors()
         {

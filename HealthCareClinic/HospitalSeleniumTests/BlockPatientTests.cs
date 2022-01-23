@@ -69,6 +69,9 @@ namespace HospitalSeleniumTests
             Assert.Equal(patientsCount - 1, patientsPage.PatientsCount());
             Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
             Assert.False(patientsPage.LinkDisplayed());
+
+            Assert.Equal(patientsCount - 1, patientsPage.PatientsCount());
+            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
         }
 
     }

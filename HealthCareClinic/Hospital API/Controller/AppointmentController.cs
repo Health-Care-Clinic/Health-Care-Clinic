@@ -18,7 +18,7 @@ using System.Linq;
 
 namespace Hospital_API.Controller
 {
-    [Authorize]
+    [Authorize(Roles = "patient")]
     [Route("api/[controller]")]
     [ApiController]
     public class AppointmentController : ControllerBase
