@@ -1,0 +1,34 @@
+
+<div class="divPieChart">
+    <h1 style="margin-inline: 50px; margin-block: 30px;">
+        Pharmacy wins vs. participations in tenders
+    </h1>
+    <canvas id="winPieChart"></canvas>
+</div>
+
+<div style="margin-inline: 33%;">
+    <span style="margin-inline: 2%;">Choose Tender:</span>
+    <mat-form-field style="margin-inline: 2%;">
+        <mat-label>Choose Tender</mat-label>
+        <mat-select [(ngModel)]="selectedTender" name="tender">
+            <mat-option *ngFor="let tender of tenders" [value]="tender.id">
+                Tender {{tender.id}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field><button mat-raised-button color="primary" style="margin-left: 2%;" (click)="reloadCharts(selectedTender)">Show tender statistic</button>
+</div>
+
+<div class="divBarChart">
+    <h1 style="margin-inline: 50px; margin-block: 30px;">
+        Pharmacy offers for tender
+    </h1>
+    <canvas id="offersBarChart"></canvas>
+</div>
+
+
+<div class="divPieChart">
+    <h1 style="margin-inline: 50px; margin-block: 30px;">
+        Ratio of pharmacy offers for tender
+    </h1>
+    <canvas id="offersPieChart"></canvas>
+</div>

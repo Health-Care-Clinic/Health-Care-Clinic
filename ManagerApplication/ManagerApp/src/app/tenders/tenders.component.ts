@@ -23,11 +23,20 @@ export class TendersComponent implements OnInit {
     this._tenderService.getAllTenders().subscribe(
       tenders => {
         this.tenders = tenders;
+        this.tenders = tenders.sort((a, b) => (a.id > b.id ? -1 : 1));
       });
   }
 
   openCreateTenderComponent(): void {
     this._router.navigate(['create-tender']);
+  }
+
+  openTenderStatisticsComponent(): void {
+    this._router.navigate(['/tender-statistics']);
+  }
+
+  openTenderOffers(id: number): void {
+    this._router.navigate(['/tender-offers', id])
   }
 
 }

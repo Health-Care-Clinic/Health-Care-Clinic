@@ -6313,6 +6313,45 @@ namespace Hospital.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Hospital.Tendering.Model.Medicine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("CompatibileMedicine")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Reactions")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SideEffects")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Usage")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Medicines");
+                });
+
             modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
                 {
                     b.Property<int>("Id")
@@ -6320,18 +6359,36 @@ namespace Hospital.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("ForeignId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsWinningBidChosen")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("TenderResponseDescription")
+                    b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Tenders");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.TenderResponse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsWinningBid")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PharmacyName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("TenderId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TenderResponses");
                 });
 
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
@@ -6437,7 +6494,7 @@ namespace Hospital.Migrations
                                 .HasForeignKey("TenderId");
                         });
 
-                    b.OwnsMany("Hospital.Tendering.Model.Medicine", "Medicines", b1 =>
+                    b.OwnsMany("Hospital.Tendering.Model.TenderItem", "TenderItems", b1 =>
                         {
                             b1.Property<int>("TenderId")
                                 .HasColumnType("integer");
@@ -6447,54 +6504,15 @@ namespace Hospital.Migrations
                                 .HasColumnType("integer")
                                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                            b1.Property<string>("CompatibileMedicine")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("Manufacturer")
-                                .HasColumnType("text");
-
                             b1.Property<string>("Name")
                                 .HasColumnType("text");
-
-                            b1.Property<double>("Price")
-                                .HasColumnType("double precision");
 
                             b1.Property<int>("Quantity")
                                 .HasColumnType("integer");
 
-                            b1.Property<string>("Reactions")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("SideEffects")
-                                .HasColumnType("text");
-
-                            b1.Property<string>("Usage")
-                                .HasColumnType("text");
-
-                            b1.Property<int>("Weight")
-                                .HasColumnType("integer");
-
                             b1.HasKey("TenderId", "Id");
 
-                            b1.ToTable("Medicine");
-
-                            b1.WithOwner()
-                                .HasForeignKey("TenderId");
-                        });
-
-                    b.OwnsOne("Hospital.Tendering.Model.Price", "TotalPrice", b1 =>
-                        {
-                            b1.Property<int>("TenderId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer")
-                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                            b1.Property<double>("Amount")
-                                .HasColumnType("double precision");
-
-                            b1.HasKey("TenderId");
-
-                            b1.ToTable("Tenders");
+                            b1.ToTable("Tenders_TenderItems");
 
                             b1.WithOwner()
                                 .HasForeignKey("TenderId");
@@ -6502,7 +6520,54 @@ namespace Hospital.Migrations
 
                     b.Navigation("DateRange");
 
-                    b.Navigation("Medicines");
+                    b.Navigation("TenderItems");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.TenderResponse", b =>
+                {
+                    b.OwnsOne("Hospital.Tendering.Model.Price", "TotalPrice", b1 =>
+                        {
+                            b1.Property<int>("TenderResponseId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<double>("Amount")
+                                .HasColumnType("double precision");
+
+                            b1.HasKey("TenderResponseId");
+
+                            b1.ToTable("TenderResponses");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderResponseId");
+                        });
+
+                    b.OwnsMany("Hospital.Tendering.Model.TenderItem", "TenderItems", b1 =>
+                        {
+                            b1.Property<int>("TenderResponseId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderResponseId", "Id");
+
+                            b1.ToTable("TenderResponses_TenderItems");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderResponseId");
+                        });
+
+                    b.Navigation("TenderItems");
 
                     b.Navigation("TotalPrice");
                 });

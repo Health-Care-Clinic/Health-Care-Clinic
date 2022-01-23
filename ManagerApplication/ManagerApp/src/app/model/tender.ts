@@ -7,7 +7,7 @@ export interface ITender{
     description: string;
     isWinningBidChosen: boolean;
     price: any;
-    medicines: Medicine[];
+    tenderItems: Medicine[];
     isOpen: boolean;
     offersNumber: number;
 }

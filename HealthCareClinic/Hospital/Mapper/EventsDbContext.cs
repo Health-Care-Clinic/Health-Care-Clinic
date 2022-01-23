@@ -31,9 +31,9 @@ namespace Hospital.Mapper
 
         private static string CreateConnectionStringFromEnvironment()
         {
-            var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            var server = Environment.GetEnvironmentVariable("DATABASE_HOST_EVENT") ?? "localhost";
             var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";
-            var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "eventsDb";
+            var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA_EVENT") ?? "eventsDb";
             var user = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? "postgres";
             var password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "password";
 
