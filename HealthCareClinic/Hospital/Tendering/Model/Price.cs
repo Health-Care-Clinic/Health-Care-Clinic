@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,8 @@ namespace Hospital.Tendering.Model
     [Owned]
     public class Price
     {
-        public double Amount { get; set; }
+        [JsonProperty]
+        public double Amount { get; private set; }
 
         public Price()
         {

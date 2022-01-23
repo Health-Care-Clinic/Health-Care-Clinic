@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Pharmacy.Advertisements.Model;
 using Pharmacy.ApiKeys.Model;
 using Pharmacy.ApiKeys.Repository;
 using Pharmacy.Feedbacks.Model;
@@ -13,13 +14,15 @@ namespace Pharmacy
 {
     public class PharmacyDbContext : DbContext
     {
+        public DbSet<AdvertisementMedicine> AdvertisementMedicine { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<ApiKey> ApiKeys { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<FeedbackReply> FeedbackReplies { get; set; }
         public DbSet<Tender> Tenders { get; set; }
-
+        public DbSet<TenderResponse> TenderResponses { get; set; }
+        public DbSet<Advertisement> Advertisements { get; set; }
         public PharmacyDbContext(DbContextOptions<PharmacyDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,23 +34,31 @@ namespace Pharmacy
             );
 
             modelBuilder.Entity<Tender>()
-              .Property(p => p.Id)
-              .ValueGeneratedOnAdd();
+               .Property(p => p.Id)
+               .ValueGeneratedOnAdd();
             modelBuilder.Entity<Tender>()
-                .OwnsOne(p => p.DateRange).WithOwner();
+                .OwnsOne(p => p.DateRange, y =>
+                {
+                    y.Property(y => y.Start)
+                        .HasColumnName("DateRange_Start");
+                    y.Property(y => y.End)
+                        .HasColumnName("DateRange_End");
+                });
             modelBuilder.Entity<Tender>()
-                .OwnsOne(p => p.TotalPrice).WithOwner();
-
-            //List<Medicine> medicinesToOrder = new List<Medicine>();
-            //medicinesToOrder.Add(new Medicine { Id = 1, Name = "Brufen", Quantity = 10, Manufacturer = "Bayer", Usage = "Pain relief", Weight = 400, SideEffects = "Rash, Stomach pain", Reactions = "Headache", CompatibileMedicine = "Aspirin", Price = 4.50 });
-            //medicinesToOrder.Add(new Medicine { Id = 3, Name = "Paracetamol", Quantity = 10, Manufacturer = "Galenika", Usage = "Toothache, Headache", Weight = 500, SideEffects = "None", Reactions = "None", CompatibileMedicine = "Aspirin", Price = 5.25 });
-            /*DateRange dateRange = new DateRange(new DateTime(2022, 1, 1), new DateTime(2022, 2, 1));
-
-            modelBuilder.Entity<Tender>().HasData(
-               new Tender(null, 1000, dateRange, "")
-                );*/
+                .OwnsMany(p => p.TenderItems);
 
 
+            modelBuilder.Entity<TenderResponse>()
+               .Property(p => p.Id)
+               .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TenderResponse>()
+                .OwnsOne(p => p.TotalPrice, y =>
+                {
+                    y.Property(y => y.Amount)
+                        .HasColumnName("TotalPrice_Amount");
+                });
+            modelBuilder.Entity<TenderResponse>()
+                .OwnsMany(p => p.TenderItems);
 
             modelBuilder.Entity<ApiKey>()
                 .Property(p => p.Id)
@@ -64,6 +75,31 @@ namespace Pharmacy
             modelBuilder.Entity<Tender>()
                 .Property(p => p.Id)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Advertisement>()
+              .Property(p => p.Id)
+              .ValueGeneratedOnAdd();
+
+             modelBuilder.Entity<Advertisement>().HasData(
+                new Advertisement { Id = 1, Title = "Super ponuda", Description = "NIkada jeftiniji popust"}
+            );
+
+            modelBuilder.Entity<AdvertisementMedicine>().HasKey(sc => new { sc.AdvertisementId, sc.MedicineId });
+
+            modelBuilder.Entity<AdvertisementMedicine>()
+                .HasOne<Medicine>(sc => sc.Medicine)
+                .WithMany(s => s.AdvertisementMedicines)
+                .HasForeignKey(sc => sc.MedicineId);
+
+
+            modelBuilder.Entity<AdvertisementMedicine>()
+                .HasOne<Advertisement>(sc => sc.Advertisement)
+                .WithMany(s => s.AdvertisementMedicines)
+                .HasForeignKey(sc => sc.AdvertisementId);
+
+
+
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

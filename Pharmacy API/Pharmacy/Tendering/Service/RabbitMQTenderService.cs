@@ -45,15 +45,16 @@ namespace Pharmacy.Tendering.Service
                 var jsonMessage = Encoding.UTF8.GetString(body);
                 Tender tender;
                 tender = JsonConvert.DeserializeObject<Tender>(jsonMessage);
+                Console.WriteLine(" [x] Received \n\tId: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.Id, tender.DateRange.Start.ToShortDateString(),
+                                    tender.DateRange.End.ToShortDateString(), tender.Description);
 
-                Console.WriteLine(" [x] Received \n\tPrice: {0}\n\tDate Range: {1} - {2}\n\tDescription: {3}", tender.TotalPrice.Amount, tender.DateRange.Start.ToShortDateString(),
-                                    tender.DateRange.End.ToShortDateString(), tender.TenderResponseDescription);
                 using (var scope = Services.CreateScope())
                 {
                     var tenderRepository =
                         scope.ServiceProvider
                             .GetRequiredService<ITenderRepository>();
 
+                    SendTenderResponse(tender);
                     tenderRepository.Add(tender);
                     tenderRepository.Save();
                 }
@@ -75,6 +76,39 @@ namespace Pharmacy.Tendering.Service
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             return Task.CompletedTask;
+        }
+
+        private void SendTenderResponse(Tender tender)
+        {
+            TenderResponse tenderResponse;
+            using (var scope = Services.CreateScope())
+            {
+                var tenderResponseService = scope.ServiceProvider
+                            .GetRequiredService<ITenderResponseService>();
+                tenderResponse = tenderResponseService.CreateResponseFromTender(tender);
+                tenderResponseService.Add(tenderResponse);
+            }
+
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queue: "tenderResponse",
+                                        durable: false,
+                                        exclusive: false,
+                                        autoDelete: false,
+                                        arguments: null);
+
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(tenderResponse));
+
+                channel.BasicPublish(exchange: "",
+                                        routingKey: "tenderResponse",
+                                        basicProperties: null,
+                                        body: body);
+                Console.WriteLine(" [x] Sent \n\tDescription: {0}", tenderResponse.Description);
+                
+            }
         }
     }
 }

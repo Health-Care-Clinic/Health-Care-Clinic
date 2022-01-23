@@ -13,7 +13,7 @@ namespace Hospital.Tendering.Repository
         {
         }
 
-        public HospitalDbContext PharmacyDbContext
+        public HospitalDbContext HospitalDbContext
         {
             get { return Context as HospitalDbContext; }
         }

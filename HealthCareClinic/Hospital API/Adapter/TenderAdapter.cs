@@ -13,15 +13,11 @@ namespace Hospital_API.Adapter
         public static Tender TenderDTOToTender(TenderDTO dto)
         {
             Tender tender = new Tender();
-            DateRange dateRange = new DateRange();
-            tender.TenderResponseDescription = dto.Description;
-            tender.IsWinningBidChosen = dto.IsWinningBidChosen;
-            tender.Medicines = dto.Medicines;
-            tender.TotalPrice = new Price();
+            
+            tender.Description = dto.Description;
+            tender.TenderItems = dto.TenderItems;
+            DateRange dateRange = new DateRange(StringToDate(dto.StartDate), StringToDate(dto.EndDate));
             tender.DateRange = dateRange;
-            tender.TotalPrice.Amount = dto.Price;
-            tender.DateRange.Start = StringToDate(dto.StartDate);
-            tender.DateRange.End = StringToDate(dto.EndDate);
             return tender;
         }
 
@@ -29,17 +25,15 @@ namespace Hospital_API.Adapter
         {
             TenderDTO dto = new TenderDTO();
             dto.Id = tender.Id;
-            dto.Description = tender.TenderResponseDescription;
-            dto.IsWinningBidChosen = tender.IsWinningBidChosen;
-            dto.Medicines = tender.Medicines;
-            dto.Price = tender.TotalPrice.Amount;
+            dto.Description = tender.Description;
+            dto.TenderItems = tender.TenderItems;
             var formatSpecifier = "o";
             var culture = CultureInfo.GetCultureInfo("en-US");
             dto.StartDate = tender.DateRange.Start.ToString(formatSpecifier, culture);
             dto.EndDate = tender.DateRange.End.ToString(formatSpecifier, culture);
             dto.IsOpen = true;
             DateTime currentDate = DateTime.Now;
-            if(tender.DateRange.Start > currentDate || tender.DateRange.End < currentDate || tender.IsWinningBidChosen == true)
+            //if(tender.DateRange.Start > currentDate || tender.DateRange.End < currentDate || tender.IsWinningBidChosen == true)
             {
                 dto.IsOpen = false;
             }
@@ -58,9 +52,33 @@ namespace Hospital_API.Adapter
             return tendersDTO;
         }
 
+        public static TenderResponseDTO TenderResponseToTenderResponseDTO(TenderResponse tenderResponse)
+        {
+            TenderResponseDTO dto = new TenderResponseDTO();
+            dto.Id = tenderResponse.Id;
+            dto.TenderId = tenderResponse.TenderId;
+            dto.TotalPrice = tenderResponse.TotalPrice.Amount;
+            dto.Description = tenderResponse.Description;
+            dto.IsWinningBid = tenderResponse.IsWinningBid;
+            dto.TenderItems = tenderResponse.TenderItems;
+            dto.PharmacyName = tenderResponse.PharmacyName;
+            return dto;
+        }
+
+        public static List<TenderResponseDTO> TenderResponsesToTenderResponsesDTO(List<TenderResponse> responses)
+        {
+            List<TenderResponseDTO> responsessDTO = new List<TenderResponseDTO>();
+            foreach (TenderResponse response in responses)
+            {
+                TenderResponseDTO dto = TenderResponseToTenderResponseDTO(response);
+                responsessDTO.Add(dto);
+            }
+            return responsessDTO;
+        }
+
         private static DateTime StringToDate(string date)
         {
-            string[] parts = date.Split("-");
+            string[] parts = date.Split("/");
             DateTime newDate = new DateTime(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]));
             return newDate;
         }

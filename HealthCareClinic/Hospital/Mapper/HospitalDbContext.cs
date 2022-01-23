@@ -49,6 +49,8 @@ namespace Hospital.Mapper
         public DbSet<Transfer> Transfer { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Tender> Tenders { get; set; }
+        public DbSet<TenderResponse> TenderResponses { get; set; }
+        public DbSet<Medicine> Medicines { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options) { }
 
         // only for testing purposes
@@ -61,9 +63,20 @@ namespace Hospital.Mapper
             modelBuilder.Entity<Tender>()
                 .OwnsOne(p => p.DateRange);
             modelBuilder.Entity<Tender>()
+                .OwnsMany(p => p.TenderItems);
+
+
+            modelBuilder.Entity<TenderResponse>()
+               .Property(p => p.Id)
+               .ValueGeneratedOnAdd();
+            modelBuilder.Entity<TenderResponse>()
                 .OwnsOne(p => p.TotalPrice);
-            modelBuilder.Entity<Tender>()
-                .OwnsMany(p => p.Medicines);
+            modelBuilder.Entity<TenderResponse>()
+                .OwnsMany(p => p.TenderItems);
+
+            modelBuilder.Entity<Medicine>()
+               .Property(p => p.Id)
+               .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<OnCallShift>().HasData(
                new OnCallShift { Id = 1, DoctorId = 1, Date = new DateTime(2022, 02, 02, 14, 00, 00)},
@@ -647,9 +660,9 @@ namespace Hospital.Mapper
         }
         private static string CreateConnectionStringFromEnvironment()
         {
-            var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            var server = Environment.GetEnvironmentVariable("DATABASE_HOST_HOSPITAL") ?? "localhost";
             var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";
-            var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "hospitalDb";
+            var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA_HOSPITAL") ?? "hospitalDb";
             var user = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? "postgres";
             var password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "password";
 

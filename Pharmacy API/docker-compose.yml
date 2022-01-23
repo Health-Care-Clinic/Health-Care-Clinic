@@ -14,7 +14,7 @@ services:
         source: database-data
         target: /var/lib/postgresql/data
       - type: bind
-        source: ./database.sql
+        source: ./pharmacyDb.sql
         target: /docker-entrypoint-initdb.d/init.sql
     ports:
       - "5434:5432"
@@ -38,7 +38,7 @@ services:
       - "5002:80" 
     restart: on-failure
     networks:
-      - hospitalapi_application
+      - integrationapi_application
       - pharmacy-database
       - integrationapi_rabbit
 
@@ -46,7 +46,7 @@ volumes:
   database-data:
 
 networks:
-  hospitalapi_application:
+  integrationapi_application:
     external: true
   integrationapi_rabbit:
     external: true

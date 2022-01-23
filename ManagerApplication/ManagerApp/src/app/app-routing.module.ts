@@ -29,12 +29,15 @@ import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-va
 import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
 import { ShiftsComponent } from './component/shifts/shifts.component';
 import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
 import { EditDoctorShiftComponent } from './component/edit-doctor-shift/edit-doctor-shift.component';
 import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vacation/schedule-doctor-vacation.component';
 import { WorkloadComponent } from './component/workload/workload.component';
 import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
 import { ChangeDoctorVacationComponent } from './component/change-doctor-vacation/change-doctor-vacation.component';
 import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacation/delete-doctor-vacation.component';
+import { TenderOffersComponent } from './tender-offers/tender-offers.component';
+import { PharmacyTenderStatisticsComponent } from './pharmacy-tender-statistics/pharmacy-tender-statistics.component';
 
 const routes: Routes = [
   { path: '',  component: LandingPageComponent },
@@ -63,10 +66,12 @@ const routes: Routes = [
   { path: 'shifts', component: ShiftsComponent },
   { path: 'tenders', component: TendersComponent },
   { path: 'create-tender', component: CreateTenderComponent },
+  { path: 'tender-statistics', component: TenderStatisticsComponent},
   { path: 'doctors', component: DoctorsComponent },
   { path: 'on-call-shifts/:ido', component: OnCallShiftComponent},
   { path: 'workload/:ido', component: WorkloadComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
+  { path: 'pharmacy-tender-statistics/:idp', component: PharmacyTenderStatisticsComponent },
   { path: 'new-on-call-shift/:ide', component: NewOnCallShiftComponent },
   { path: 'doctor-vacations/:iddv', component: DoctorVacationsComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
@@ -77,7 +82,8 @@ const routes: Routes = [
   { path: 'delete-a-vacation/:idvd', component: DeleteDoctorVacationComponent},
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
   { path: 'edit-pharmacy-profile/:idp', component: EditPharmacyProfileComponent },
-  { path: 'edit-shift/:ids', component: EditShiftComponent }
+  { path: 'edit-shift/:ids', component: EditShiftComponent },
+  { path: 'tender-offers/:id', component: TenderOffersComponent}
 ];
 
 @NgModule({
