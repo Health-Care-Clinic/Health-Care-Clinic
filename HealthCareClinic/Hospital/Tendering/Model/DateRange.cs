@@ -7,7 +7,7 @@ using System.Text;
 namespace Hospital.Tendering.Model
 {
     [Owned]
-    public class DateRange
+    public class DateRange : ValueObject
     {
         [JsonProperty]
         public DateTime Start { get; private set; }

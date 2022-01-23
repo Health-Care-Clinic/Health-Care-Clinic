@@ -49,6 +49,9 @@ export class CreateTenderComponent implements OnInit {
     console.log(this.tender)
     this._tenderingService.createTender(this.tender).subscribe(res => {
       this.openTendersComponent();
+    },
+    error => {
+      alert(error.error)
     }
     );
   }

@@ -51,7 +51,16 @@ namespace Hospital_API.Controller
         [HttpPost]
         public IActionResult SendTender(TenderDTO dto)
         {
-            Tender tender = TenderAdapter.TenderDTOToTender(dto);
+            Tender tender;
+            try
+            {
+                tender = TenderAdapter.TenderDTOToTender(dto);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return BadRequest("Tender cannot be created to start in the past!");
+            }
+
             var factory = new ConnectionFactory() { HostName = "localhost" };
             _tenderService.Add(tender);
 
@@ -87,21 +96,22 @@ namespace Hospital_API.Controller
             _tenderResponseService.Update(winningTenderResponse);
             foreach(TenderResponse tenderResponse in tenderResponses)
             {
+                var client = new RestClient(GetPharmacyUrl(tenderResponse.PharmacyName));
+                var request = new RestRequest("benu/tender/outcome");
+                request.AddJsonBody(tenderResponse);
+                IRestResponse response = client.Post(request);
+
+                if (!response.IsSuccessful)
+                {
+                    winningTenderResponse.IsWinningBid = false;
+                    _tenderResponseService.Update(winningTenderResponse);
+                    return BadRequest("Pharmacy is not available, so creation of tender is not allowed.");
+                }
+
                 if (tenderResponse.Id == winningTenderResponse.Id)
                 {
-                    var client = new RestClient(GetPharmacyUrl(tenderResponse.PharmacyName));
-                    var request = new RestRequest("benu/tender/outcome");
-                    request.AddJsonBody(tenderResponse);
-                    IRestResponse response = client.Post(request);
                     foreach (TenderItem tenderItem in tenderResponse.TenderItems)
                         _medicineService.AddMedicine(tenderItem.Name, tenderItem.Quantity.ToString());
-                }
-                else
-                {
-                    var client = new RestClient(GetPharmacyUrl(tenderResponse.PharmacyName));
-                    var request = new RestRequest("benu/tender/outcome");
-                    request.AddJsonBody(tenderResponse);
-                    IRestResponse response = client.Post(request);
                 }
             }
             return Ok("success");
