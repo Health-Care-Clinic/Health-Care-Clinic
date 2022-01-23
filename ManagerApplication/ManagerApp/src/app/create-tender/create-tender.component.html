@@ -10,19 +10,19 @@
                 <p>
                     <mat-form-field appearance="legacy" style="width: 100%;">
                         <mat-label>Start Date</mat-label>
-                        <input type="date" matInput placeholder="Start Date" [(ngModel)]='startDate'>
+                        <input id="startDate" type="date" matInput placeholder="Start Date" [(ngModel)]='startDate'>
                     </mat-form-field>
                 </p> 
                 <p>
                     <mat-form-field appearance="legacy" style="width: 100%;">
                         <mat-label>End Date</mat-label>
-                        <input type="date" matInput placeholder="End Date" [(ngModel)]='endDate'>
+                        <input id="endDate" type="date" matInput placeholder="End Date" [(ngModel)]='endDate'>
                     </mat-form-field>
                 </p>
                 <p>
                     <mat-form-field appearance="legacy" style="width: 100%;">
                         <mat-label>Description</mat-label>
-                        <textarea matInput placeholder="Note" [(ngModel)]='description'></textarea>
+                        <textarea id="description" matInput placeholder="Note" [(ngModel)]='description'></textarea>
                     </mat-form-field>
                 </p>
                 Requirements:
@@ -31,28 +31,28 @@
                 <div *ngFor="let medicine of medicines">
                     <mat-form-field appearance="legacy" style="width: 20%; margin-right: 10%;">
                         <mat-label>Quantity</mat-label>
-                        <input matInput [value]="medicine.quantity">
+                        <input id="quantity" matInput [value]="medicine.quantity">
                     </mat-form-field> 
                     <mat-form-field appearance="legacy" style="width: 70%;">
                         <mat-label>Medicine</mat-label>
-                        <input matInput [value]="medicine.name"> 
+                        <input id="medicineName" matInput [value]="medicine.name"> 
                     </mat-form-field>
                 </div>
                 <p>
                     <mat-form-field appearance="legacy" style="width: 20%; margin-right: 10%;">
                         <mat-label>Quantity</mat-label>
-                        <input type="number" matInput placeholder="1"  [(ngModel)]="newQuantity">
+                        <input id="quantity" type="number" matInput placeholder="1"  [(ngModel)]="newQuantity">
                     </mat-form-field> 
                     <mat-form-field appearance="legacy" style="width: 70%;">
                         <mat-label>Medicine</mat-label>
-                        <input matInput placeholder="Medicine" [(ngModel)]="newMedicine">
+                        <input id="medicineName" matInput placeholder="Medicine" [(ngModel)]="newMedicine">
                     </mat-form-field>
                     <button mat-button (click)="addMedicine()">
                         Add
                     </button>
                 </p>
                 <br> <br> <br>
-                <button mat-raised-button color="primary" (click)='createTender()'>
+                <button id="submitTender" mat-raised-button color="primary" (click)='createTender()'>
                     Create tender
                 </button>
                 <button mat-button color="primary" style="margin-left: 20px" (click)="openTendersComponent()">

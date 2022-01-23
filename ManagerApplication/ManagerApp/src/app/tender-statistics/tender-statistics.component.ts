@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { Observable } from 'rxjs';
-import { AjaxErrorNames } from 'rxjs/internal/observable/dom/AjaxObservable';
 import { TenderingServiceService } from '../services/tendering-service.service';
 import jspdf from 'jspdf';
+import { DatePipe } from '@angular/common';
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-tender-statistics',
   templateUrl: './tender-statistics.component.html',
-  styleUrls: ['./tender-statistics.component.css']
+  styleUrls: ['./tender-statistics.component.css'],
+  providers: [ TenderingServiceService, DatePipe ]
 })
 export class TenderStatisticsComponent implements OnInit {
 
   public pharmacyNames: string[] = [];
+  public startDate = new Date();
+  public endDate = new Date();
 
-  constructor(private _tenderService: TenderingServiceService) {
+  constructor(private _tenderService: TenderingServiceService, public datepipe: DatePipe) {
   }
 
   ngOnInit(): void {
-    this.createWinParticipateBarChart();
-    this.createWinPieChart();
-    this.createBestOfferBarChart();
   }
 
   generatePDF(): void {
@@ -36,7 +35,7 @@ export class TenderStatisticsComponent implements OnInit {
 
     var pdf = new jspdf('portrait');
     pdf.setFontSize(20);
-    pdf.text('Tendering statistics', 70, 15);
+    pdf.text('Tendering statistics', 75, 15);
     pdf.setFontSize(15);
     pdf.text('Ratio of pharmacy wins and participations in tenders', 45, 30);
     pdf.addImage(canvasImage, 'JPEG', 60, 35, 90, 90, "alias1");
@@ -46,15 +45,24 @@ export class TenderStatisticsComponent implements OnInit {
     pdf.setPage(2);
     pdf.text('Best offer per tender', 75, 15);
     pdf.addImage(canvasImage3, 'JPEG', 60, 35, 90, 90, "alias3");
-    pdf.save('charts.pdf');
+    //pdf.save('charts.pdf');
+    pdf.output('dataurlnewwindow')
+    //window.open(pdf.output('bloburi'), '_blank')
+  }
+  renderCharts(startDate: Date, endDate: Date): void {
+    var start: string = this.datepipe.transform(startDate, 'yyyy-MM-dd');
+    var end: string = this.datepipe.transform(endDate, 'yyyy-MM-dd');
+    this.createWinParticipateBarChart(start, end);
+    this.createWinPieChart(start, end);
+    this.createBestOfferBarChart(start, end);
   }
 
-  createWinParticipateBarChart() {
-    this._tenderService.getPharmacyNames().subscribe(
+  createWinParticipateBarChart(start: string, end: string) {
+    this._tenderService.getPharmacyNames(start, end).subscribe(
       names => {
-        this._tenderService.getNumberOfWins().subscribe(
+        this._tenderService.getNumberOfWins(start, end).subscribe(
           wins => {
-            this._tenderService.getNumberOfOffers().subscribe(
+            this._tenderService.getNumberOfOffers(start, end).subscribe(
               offers => {
               var myChart = new Chart("winParticipateBarChart", {
                 type: 'bar',
@@ -97,10 +105,10 @@ export class TenderStatisticsComponent implements OnInit {
       });
   }
 
-  createBestOfferBarChart() {
-    this._tenderService.getPharmacyNames().subscribe(
+  createBestOfferBarChart(start: string, end: string) {
+    this._tenderService.getPharmacyNames(start, end).subscribe(
       names => { 
-      this._tenderService.getBestOffers().subscribe(
+      this._tenderService.getBestOffers(start, end).subscribe(
         offers => {
       var myChart = new Chart("bestOfferBarChart", {
         type: 'bar',
@@ -142,10 +150,10 @@ export class TenderStatisticsComponent implements OnInit {
     });
   }
 
-  createWinPieChart() {
-    this._tenderService.getPharmacyNames().subscribe(
+  createWinPieChart(start: string, end: string) {
+    this._tenderService.getPharmacyNames(start, end).subscribe(
       pharmacyNames => {
-      this._tenderService.getNumberOfWins().subscribe(
+      this._tenderService.getNumberOfWins(start, end).subscribe(
         wins => { 
         var myChart = new Chart("winPieChart", {
           type: 'pie',
