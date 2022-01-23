@@ -39,6 +39,19 @@ export class UrgentProcurementComponent implements OnInit {
   }
 
   orderMedicine(pharmacyId: string) {
+    if (this.medicineName.trim() == '') {
+      alert('Molimo unesite naziv leka.')
+      return;
+    }
+    if (this.medicineAmount.trim() == '') {
+      alert('Molimo unesite kolicinu leka.')
+      return;
+    }
+    if (isNaN(Number(this.medicineAmount))) {
+      alert('Molimo unesite validan broj za kolicinu leka.')
+      return;
+    }
+
     let medicine = new Medicine(this.medicineName, Number(this.medicineAmount));
     this.urgentProcurementService.orderGrpc(medicine).subscribe(
       (data) => {
