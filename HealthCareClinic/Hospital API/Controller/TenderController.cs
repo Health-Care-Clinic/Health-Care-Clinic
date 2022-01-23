@@ -23,6 +23,7 @@ namespace Hospital_API.Controller
         private readonly ITenderService _tenderService;
         private readonly ITenderResponseService _tenderResponseService;
         private readonly IMedicineService _medicineService;
+        private MailService mailService = new MailService();
 
         public TenderController(ITenderService tenderService, ITenderResponseService tenderResponseService, IMedicineService medicineService)
         {
@@ -171,6 +172,13 @@ namespace Hospital_API.Controller
         public IActionResult pharmacyOffers(String name, int idt)
         {
             return (Ok(_tenderResponseService.GetOfferByTender(idt, name)));
+        }
+
+        [HttpPost("send")]
+        public IActionResult SendEmail()
+        {
+            mailService.SendEmail();
+            return (Ok());
         }
     }
 }
