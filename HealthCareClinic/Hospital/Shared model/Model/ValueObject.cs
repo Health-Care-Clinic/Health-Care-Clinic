@@ -8,6 +8,7 @@ namespace Hospital.Shared_model.Model
     public abstract class ValueObject
     {
         protected abstract IEnumerable<object> GetEqualityComponents();
+        protected abstract void Validate();
 
         protected static bool EqualOperator(ValueObject left, ValueObject right)
         {
