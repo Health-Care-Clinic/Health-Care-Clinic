@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace Hospital_API.Controller
 {
-    [Authorize(Roles = "patient")]
     [Route("api/[controller]")]
     [ApiController]
     public class AllergenController : ControllerBase
@@ -25,6 +24,7 @@ namespace Hospital_API.Controller
             _allergenService = allergenService;
         }
 
+        [AllowAnonymous]
         [HttpGet]       // GET /api/allergen
         public IActionResult GetAllAllergens()
         {
