@@ -22,14 +22,22 @@ namespace Hospital.Medical_records.Repository
         public void ActivatePatientsAccount(int id)
         {
             Patient patient = GetById(id);
-            patient.IsActive = true;
+
+            AccountInfo accountInfoForPatient = patient.AccountInfo;
+            patient.AccountInfo = new AccountInfo(accountInfoForPatient.DateOfRegistration, accountInfoForPatient.IsBlocked, 
+                true, accountInfoForPatient.Username, accountInfoForPatient.Password);
+
             Save();
         }
 
         public void BlockPatientById(int id)
         {
             Patient patient = GetById(id);
-            patient.IsBlocked = true;
+
+            AccountInfo accountInfoForPatient = patient.AccountInfo;
+            patient.AccountInfo = new AccountInfo(accountInfoForPatient.DateOfRegistration, true, 
+                accountInfoForPatient.IsActive, accountInfoForPatient.Username, accountInfoForPatient.Password);
+
             Save();
         }
 
@@ -40,14 +48,15 @@ namespace Hospital.Medical_records.Repository
 
         public Patient FindByUsernameAndPassword(string username, string password)
         {
-            return dbContext.Patients.SingleOrDefault(p => p.Username == username && p.Password == password);
+            return dbContext.Patients.
+                SingleOrDefault(p => p.AccountInfo.Username == username && p.AccountInfo.Password == password);
         }
 
         public List<Patient> GetAllSuspiciousPatients()
         {
             //BlockPatientById(1);
             var allPatientsIds = (from patient in dbContext.Patients
-                                       where patient.IsActive == true && patient.IsBlocked == false
+                                       where patient.AccountInfo.IsActive == true && patient.AccountInfo.IsBlocked == false
                                        select patient.Id);
 
             IQueryable<CanceledAppointment> allCanceledAppsInLastMonths = dbContext.CanceledAppointments.Where(c => allPatientsIds.Contains(c.PatientId) && (DateTime.Now.Date - c.DateOfCancellation.Date).Days < 30);
@@ -63,7 +72,7 @@ namespace Hospital.Medical_records.Repository
 
         public List<string> GetAllUsernames()
         {
-            return dbContext.Patients.Select(p => p.Username).ToList();
+            return dbContext.Patients.Select(p => p.AccountInfo.Username).ToList();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Model;
+﻿using Hospital.Medical_records.Model;
+using Hospital.Shared_model.Model;
 using Hospital_API.DTO;
 using System;
 using System.Collections.Generic;
@@ -11,27 +12,16 @@ namespace Hospital_API.Adapter
     {
         public static Patient PatientDTOToPatient(PatientDTO dto)
         {
-            Patient patient = new Patient();
+            PersonalInfo personalInfo = new PersonalInfo(dto.Name, dto.Surname, ConvertToDate(dto.BirthDate), dto.Phone, 
+                dto.Email, dto.Gender, dto.Address, dto.ParentName, dto.EmploymentStatus);
+            MedicalRecord medicalRecord = new MedicalRecord(dto.Id, 
+                AllergenAdapter.AllergenDTOListToAllergenForPatientList(dto.Allergens, dto.Id), dto.BloodType, personalInfo);
 
-            AllergenForPatient allergenForPatient = new AllergenForPatient();
+            AccountInfo accountInfo = new AccountInfo(ConvertToDate(dto.DateOfRegistration), dto.IsBlocked, dto.IsActive, 
+                dto.Username, dto.Password);
 
-            patient.Id = dto.Id;
-            patient.EmploymentStatus = dto.EmploymentStatus;
-            patient.Name = dto.Name;
-            patient.Surname = dto.Surname;
-            patient.BirthDate = ConvertToDate(dto.BirthDate);
-            patient.Phone = dto.Phone;
-            patient.Email = dto.Email;
-            patient.Gender = dto.Gender;
-            patient.Username = dto.Username;
-            patient.Password = dto.Password;
-            patient.Address = dto.Address;
-            patient.DateOfRegistration = ConvertToDate(dto.DateOfRegistration);
-            patient.ParentName = dto.ParentName;
-            patient.IsActive = dto.IsActive;
-            patient.BloodType = dto.BloodType;
-            patient.IsBlocked = dto.IsBlocked;
-            patient.Allergens = AllergenAdapter.AllergenDTOListToAllergenForPatientList(dto.Allergens, dto.Id);
+            Patient patient = new Patient(dto.Id, medicalRecord, accountInfo);
+
             return patient;
         }
 
@@ -40,22 +30,22 @@ namespace Hospital_API.Adapter
             PatientDTO dto = new PatientDTO();
 
             dto.Id = patient.Id;
-            dto.EmploymentStatus = patient.EmploymentStatus;
-            dto.Name = patient.Name;
-            dto.Surname = patient.Surname;
-            dto.BirthDate = ConvertToString(patient.BirthDate);
-            dto.Phone = patient.Phone;
-            dto.Email = patient.Email;
-            dto.Gender = patient.Gender;
-            dto.Username = patient.Username;
-            dto.Password = patient.Password;
-            dto.Address = patient.Address;
-            dto.DateOfRegistration = ConvertToString(patient.DateOfRegistration);
-            dto.ParentName = patient.ParentName;
-            dto.IsActive = patient.IsActive;
-            dto.Allergens = AllergenAdapter.AllergenForPatientListToAllergenDTOList(patient.Allergens);
-            dto.BloodType = patient.BloodType;
-            dto.IsBlocked = patient.IsBlocked;
+            dto.EmploymentStatus = patient.MedicalRecord.PersonalInfo.EmploymentStatus;
+            dto.Name = patient.MedicalRecord.PersonalInfo.Name;
+            dto.Surname = patient.MedicalRecord.PersonalInfo.Surname;
+            dto.BirthDate = ConvertToString(patient.MedicalRecord.PersonalInfo.BirthDate);
+            dto.Phone = patient.MedicalRecord.PersonalInfo.Phone;
+            dto.Email = patient.MedicalRecord.PersonalInfo.Email;
+            dto.Gender = patient.MedicalRecord.PersonalInfo.Gender;
+            dto.Username = patient.AccountInfo.Username;
+            dto.Password = patient.AccountInfo.Password;
+            dto.Address = patient.MedicalRecord.PersonalInfo.Address;
+            dto.DateOfRegistration = ConvertToString(patient.AccountInfo.DateOfRegistration);
+            dto.ParentName = patient.MedicalRecord.PersonalInfo.ParentName;
+            dto.IsActive = patient.AccountInfo.IsActive;
+            dto.Allergens = AllergenAdapter.AllergenForPatientListToAllergenDTOList(patient.MedicalRecord.Allergens);
+            dto.BloodType = patient.MedicalRecord.BloodType;
+            dto.IsBlocked = patient.AccountInfo.IsBlocked;
             dto.DoctorDTO = DoctorAdapter.DoctorToDoctorDTO(patient.Doctor);
 
             return dto;
