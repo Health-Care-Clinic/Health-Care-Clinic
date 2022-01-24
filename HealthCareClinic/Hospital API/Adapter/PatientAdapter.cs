@@ -12,15 +12,16 @@ namespace Hospital_API.Adapter
     {
         public static Patient PatientDTOToPatient(PatientDTO dto)
         {
-            PersonalInfo personalInfo = new PersonalInfo(dto.Name, dto.Surname, ConvertToDate(dto.BirthDate), dto.Phone, 
-                dto.Email, dto.Gender, dto.Address, dto.ParentName, dto.EmploymentStatus);
+            PersonalInfo personalInfo = new PersonalInfo(dto.Name, dto.Surname, ConvertToDate(dto.BirthDate), dto.Gender, 
+                dto.ParentName, dto.EmploymentStatus);
+            ContactInfo contactInfo = new ContactInfo(dto.Phone, dto.Email, dto.Address);
             MedicalRecord medicalRecord = new MedicalRecord(dto.Id, 
                 AllergenAdapter.AllergenDTOListToAllergenForPatientList(dto.Allergens, dto.Id), dto.BloodType, personalInfo);
 
             AccountInfo accountInfo = new AccountInfo(ConvertToDate(dto.DateOfRegistration), dto.IsBlocked, dto.IsActive, 
                 dto.Username, dto.Password);
 
-            Patient patient = new Patient(dto.Id, medicalRecord, accountInfo);
+            Patient patient = new Patient(dto.Id, medicalRecord, contactInfo, accountInfo);
 
             return patient;
         }
@@ -34,12 +35,12 @@ namespace Hospital_API.Adapter
             dto.Name = patient.MedicalRecord.PersonalInfo.Name;
             dto.Surname = patient.MedicalRecord.PersonalInfo.Surname;
             dto.BirthDate = ConvertToString(patient.MedicalRecord.PersonalInfo.BirthDate);
-            dto.Phone = patient.MedicalRecord.PersonalInfo.Phone;
-            dto.Email = patient.MedicalRecord.PersonalInfo.Email;
+            dto.Phone = patient.ContactInfo.Phone;
+            dto.Email = patient.ContactInfo.Email;
             dto.Gender = patient.MedicalRecord.PersonalInfo.Gender;
             dto.Username = patient.AccountInfo.Username;
             dto.Password = patient.AccountInfo.Password;
-            dto.Address = patient.MedicalRecord.PersonalInfo.Address;
+            dto.Address = patient.ContactInfo.Address;
             dto.DateOfRegistration = ConvertToString(patient.AccountInfo.DateOfRegistration);
             dto.ParentName = patient.MedicalRecord.PersonalInfo.ParentName;
             dto.IsActive = patient.AccountInfo.IsActive;

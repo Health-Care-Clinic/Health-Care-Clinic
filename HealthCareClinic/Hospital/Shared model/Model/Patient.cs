@@ -16,7 +16,7 @@ namespace Hospital.Shared_model.Model
         [ForeignKey("MedicalRecord")]
         public int MedicalRecordId { get; set; }
         public virtual MedicalRecord MedicalRecord { get; set; }
-
+        public ContactInfo ContactInfo { get; set; }
         public AccountInfo AccountInfo { get; set; }
 
         public string Hashcode { get; set; }
@@ -51,10 +51,11 @@ namespace Hospital.Shared_model.Model
 
         public Patient() { }
 
-        public Patient(int id, MedicalRecord medicalRecord, AccountInfo accountInfo)
+        public Patient(int id, MedicalRecord medicalRecord, ContactInfo contactInfo, AccountInfo accountInfo)
         {
             Id = id;
             MedicalRecord = medicalRecord;
+            ContactInfo = contactInfo;
             AccountInfo = accountInfo;
         }
 
@@ -64,8 +65,8 @@ namespace Hospital.Shared_model.Model
         {
             Id = id;
 
-            PersonalInfo personalInfo = new PersonalInfo(name, surname, birthDate, phone, email, gender, address, 
-                "Test roditelj", employmentStatus);
+            PersonalInfo personalInfo = new PersonalInfo(name, surname, birthDate, gender, "Test roditelj", employmentStatus);
+            ContactInfo = new ContactInfo(phone, email, address);
             MedicalRecord = new MedicalRecord(id, alergies, bloodType, personalInfo);
 
             AccountInfo = new AccountInfo(DateTime.Now, false, isActive, username, password);

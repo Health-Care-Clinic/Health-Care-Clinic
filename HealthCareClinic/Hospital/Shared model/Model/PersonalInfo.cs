@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,30 +7,25 @@ using System.Text.RegularExpressions;
 
 namespace Hospital.Shared_model.Model
 {
+    [Owned]
     public class PersonalInfo : ValueObject
     {
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public DateTime BirthDate { get; private set; }
-        public string Phone { get; private set; }
-        public string Email { get; private set; }
         public string Gender { get; private set; }
-        public string Address { get; private set; }
         public string ParentName { get; private set; }
         public string EmploymentStatus { get; private set; }
 
         public PersonalInfo() { }
 
-        public PersonalInfo(string name, string surname, DateTime birthDate, string phone, string email,
-            string gender, string address, string parentName, string employmentStatus)
+        public PersonalInfo(string name, string surname, DateTime birthDate, string gender, string parentName, 
+            string employmentStatus)
         {
             Name = name;
             Surname = surname;
             BirthDate = birthDate;
-            Phone = phone;
-            Email = email;
             Gender = gender;
-            Address = address;
             ParentName = parentName;
             EmploymentStatus = employmentStatus;
         }
@@ -39,10 +35,7 @@ namespace Hospital.Shared_model.Model
             yield return Name;
             yield return Surname;
             yield return BirthDate;
-            yield return Phone;
-            yield return Email;
             yield return Gender;
-            yield return Address;
             yield return ParentName;
             yield return EmploymentStatus;
         }
@@ -52,10 +45,7 @@ namespace Hospital.Shared_model.Model
             CheckIfSomeSortOfNameMatchesPresetPattern(Name);
             CheckIfSomeSortOfNameMatchesPresetPattern(Surname);
             CheckIfBirthDateIsInThePast();
-            CheckIfPhoneMatchesPresetPattern();
-            CheckIfEmailMatchesPresetPattern();
             CheckIfGenderIsMaleOrFemale();
-            CheckIfAddressIsNotAnEmptyString();
             CheckIfSomeSortOfNameMatchesPresetPattern(ParentName);
             CheckIfEmploymentStatusIsNotAnEmptyString();
         }
@@ -76,25 +66,6 @@ namespace Hospital.Shared_model.Model
                 throw new ArgumentException("Birth date cannot be in the future.");
         }
 
-        private void CheckIfPhoneMatchesPresetPattern()
-        {
-            if (Regex.IsMatch(Phone, @"^06[0-9]{7,8}$"))
-                return;
-            else
-                throw new ArgumentException("Phone must start with '06'. Phone must contain at least 9 and at most 10 ciphers.");
-        }
-
-        private void CheckIfEmailMatchesPresetPattern()
-        {
-            if (Regex.IsMatch(Email, @"^[a-z][-_a-z0-9\+\.]+@[a-z][-_a-z0-9\+]+\.[-_a-z0-9\+\.]+$"))
-                return;
-            else
-                throw new ArgumentException("Email must not contain letters outside of English aphabet. Email must start with " +
-                    "small letter and characters before '@' can be a small letter, cipher, '+', '-', '.' or '_'. Domain part " +
-                    "(part after '@') must start with small letter, while following characters can be any from sequence in " +
-                    "previous sentence.");
-        }
-
         private void CheckIfGenderIsMaleOrFemale()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -106,14 +77,6 @@ namespace Hospital.Shared_model.Model
                 return;
             else
                 throw new ArgumentException("Gender must be either 'Male' or 'Female'.");
-        }
-
-        private void CheckIfAddressIsNotAnEmptyString()
-        {
-            if (!Address.Equals(""))
-                return;
-            else
-                throw new ArgumentException("Address cannot be an empty string.");
         }
 
         private void CheckIfEmploymentStatusIsNotAnEmptyString()

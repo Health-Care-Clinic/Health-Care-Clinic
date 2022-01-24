@@ -77,7 +77,7 @@ namespace Hospital_API.Controller
 
                 var confirmationLink = "http://localhost:4200/api/patient/activate?token=" + newPatient.Hashcode;
                 patientService.SendMail(new MailRequest(confirmationLink, 
-                    newPatient.MedicalRecord.PersonalInfo.Name, newPatient.MedicalRecord.PersonalInfo.Email));
+                    newPatient.MedicalRecord.PersonalInfo.Name, newPatient.ContactInfo.Email));
 
                 return Ok();
             }
