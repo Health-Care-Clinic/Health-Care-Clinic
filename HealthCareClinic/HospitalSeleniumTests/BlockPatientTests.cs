@@ -26,12 +26,8 @@ namespace HospitalSeleniumTests
             options.AddArguments("--disable-dev-shm-usage");    // overcome limited resource problems
             options.AddArguments("--no-sandbox");               // Bypass OS security model
             options.AddArguments("--disable-notifications");    // disable notifications
-            options.AddArguments("--headless");
 
-            var chrome_uri = Environment.GetEnvironmentVariable("CHROME_ADDRES") ?? "http://127.0.0.1";
-            var chrome_port = Environment.GetEnvironmentVariable("CHROME_PORT") ?? "4444";
-            //driver = new ChromeDriver(options);
-            driver = new RemoteWebDriver(new Uri(chrome_uri + ":" + chrome_port), options);
+            driver = new ChromeDriver(options);
 
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
