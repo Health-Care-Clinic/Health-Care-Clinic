@@ -19,6 +19,63 @@ namespace Hospital.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("Hospital.Medical_records.Model.MedicalRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("BloodType")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MedicalRecords");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BloodType = "A"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BloodType = "A"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BloodType = "A"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BloodType = "A"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BloodType = "A"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BloodType = "A"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BloodType = "A"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BloodType = "B"
+                        });
+                });
+
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {
                     b.Property<int>("Id")
@@ -5764,60 +5821,20 @@ namespace Hospital.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("BloodType")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DateOfRegistration")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("EmploymentStatus")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("text");
 
                     b.Property<string>("Hashcode")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsBlocked")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ParentName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Surname")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("text");
+                    b.Property<int>("MedicalRecordId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
+
+                    b.HasIndex("MedicalRecordId");
 
                     b.ToTable("Patients");
 
@@ -5825,162 +5842,50 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "Bogoboja Atanackovica 15",
-                            BirthDate = new DateTime(2005, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 1,
-                            Email = "petar@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Petar",
-                            ParentName = "miki",
-                            Password = "petar",
-                            Phone = "0634556665",
-                            Surname = "Petrovic",
-                            Username = "petar"
+                            MedicalRecordId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1985, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 2,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Jovan",
-                            ParentName = "miki",
-                            Password = "jovan",
-                            Phone = "0697856665",
-                            Surname = "Zoric",
-                            Username = "jovan"
+                            MedicalRecordId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1978, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 2,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Zorana",
-                            ParentName = "miki",
-                            Password = "zorana",
-                            Phone = "0697856665",
-                            Surname = "Bilic",
-                            Username = "zorana"
+                            MedicalRecordId = 3
                         },
                         new
                         {
                             Id = 4,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1969, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Milica",
-                            ParentName = "miki",
-                            Password = "milica",
-                            Phone = "0697856665",
-                            Surname = "Maric",
-                            Username = "milica"
+                            MedicalRecordId = 4
                         },
                         new
                         {
                             Id = 5,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1936, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Igor",
-                            ParentName = "miki",
-                            Password = "igor",
-                            Phone = "0697856665",
-                            Surname = "Caric",
-                            Username = "igor"
+                            MedicalRecordId = 5
                         },
                         new
                         {
                             Id = 6,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1975, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Predrag",
-                            ParentName = "miki",
-                            Password = "predrag",
-                            Phone = "0697856665",
-                            Surname = "Zaric",
-                            Username = "predrag"
+                            MedicalRecordId = 6
                         },
                         new
                         {
                             Id = 7,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1960, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Miki",
-                            ParentName = "miki",
-                            Password = "miki",
-                            Phone = "0697856665",
-                            Surname = "Nikolic",
-                            Username = "miki"
+                            MedicalRecordId = 7
                         },
                         new
                         {
                             Id = 8,
-                            Address = "Kralja Petra 19",
-                            BirthDate = new DateTime(1987, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "B",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 6,
-                            Email = "zorka@gmail.com",
-                            EmploymentStatus = "Unemployed",
-                            Gender = "female",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Zorka",
-                            ParentName = "zorka",
-                            Password = "zorka",
-                            Phone = "0697856665",
-                            Surname = "Djokic",
-                            Username = "zorka"
+                            MedicalRecordId = 8
                         });
                 });
 
@@ -6391,6 +6296,132 @@ namespace Hospital.Migrations
                     b.ToTable("TenderResponses");
                 });
 
+            modelBuilder.Entity("Hospital.Medical_records.Model.MedicalRecord", b =>
+                {
+                    b.OwnsOne("Hospital.Shared_model.Model.PersonalInfo", "PersonalInfo", b1 =>
+                        {
+                            b1.Property<int>("MedicalRecordId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("BirthDate")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("BirthDate");
+
+                            b1.Property<string>("EmploymentStatus")
+                                .HasColumnType("text")
+                                .HasColumnName("EmploymentStatus");
+
+                            b1.Property<string>("Gender")
+                                .HasColumnType("text")
+                                .HasColumnName("Gender");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text")
+                                .HasColumnName("Name");
+
+                            b1.Property<string>("ParentName")
+                                .HasColumnType("text")
+                                .HasColumnName("ParentName");
+
+                            b1.Property<string>("Surname")
+                                .HasColumnType("text")
+                                .HasColumnName("Surname");
+
+                            b1.HasKey("MedicalRecordId");
+
+                            b1.ToTable("MedicalRecords");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MedicalRecordId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    MedicalRecordId = 1,
+                                    BirthDate = new DateTime(2005, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Petar",
+                                    ParentName = "Miki",
+                                    Surname = "Petrovic"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 2,
+                                    BirthDate = new DateTime(1985, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Jovan",
+                                    ParentName = "Miki",
+                                    Surname = "Zoric"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 3,
+                                    BirthDate = new DateTime(1978, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "female",
+                                    Name = "Zorana",
+                                    ParentName = "Miki",
+                                    Surname = "Bilic"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 4,
+                                    BirthDate = new DateTime(1969, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "female",
+                                    Name = "Milica",
+                                    ParentName = "Miki",
+                                    Surname = "Maric"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 5,
+                                    BirthDate = new DateTime(1936, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Igor",
+                                    ParentName = "Miki",
+                                    Surname = "Caric"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 6,
+                                    BirthDate = new DateTime(1975, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Predrag",
+                                    ParentName = "Miki",
+                                    Surname = "Zaric"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 7,
+                                    BirthDate = new DateTime(1960, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Miki",
+                                    ParentName = "Miki",
+                                    Surname = "Nikolic"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 8,
+                                    BirthDate = new DateTime(1987, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Unemployed",
+                                    Gender = "female",
+                                    Name = "Zorka",
+                                    ParentName = "Zorka",
+                                    Surname = "Djokic"
+                                });
+                        });
+
+                    b.Navigation("PersonalInfo");
+                });
+
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {
                     b.HasOne("Hospital.Shared_model.Model.Patient", "Patient")
@@ -6461,7 +6492,213 @@ namespace Hospital.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Hospital.Medical_records.Model.MedicalRecord", "MedicalRecord")
+                        .WithMany()
+                        .HasForeignKey("MedicalRecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Hospital.Shared_model.Model.AccountInfo", "AccountInfo", b1 =>
+                        {
+                            b1.Property<int>("PatientId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("DateOfRegistration")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("DateOfRegistration");
+
+                            b1.Property<bool>("IsActive")
+                                .HasColumnType("boolean")
+                                .HasColumnName("IsActive");
+
+                            b1.Property<bool>("IsBlocked")
+                                .HasColumnType("boolean")
+                                .HasColumnName("IsBlocked");
+
+                            b1.Property<string>("Password")
+                                .HasColumnType("text")
+                                .HasColumnName("Password");
+
+                            b1.Property<string>("Username")
+                                .HasColumnType("text")
+                                .HasColumnName("Username");
+
+                            b1.HasKey("PatientId");
+
+                            b1.ToTable("Patients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PatientId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    PatientId = 1,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "petarp001",
+                                    Username = "petar"
+                                },
+                                new
+                                {
+                                    PatientId = 2,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "jovanp002",
+                                    Username = "jovan"
+                                },
+                                new
+                                {
+                                    PatientId = 3,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "zoranap003",
+                                    Username = "zorana"
+                                },
+                                new
+                                {
+                                    PatientId = 4,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "milicap004",
+                                    Username = "milica"
+                                },
+                                new
+                                {
+                                    PatientId = 5,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "igorp005",
+                                    Username = "igor"
+                                },
+                                new
+                                {
+                                    PatientId = 6,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "predragp006",
+                                    Username = "predrag"
+                                },
+                                new
+                                {
+                                    PatientId = 7,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "mikip007",
+                                    Username = "miki"
+                                },
+                                new
+                                {
+                                    PatientId = 8,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "zorkap008",
+                                    Username = "zorka"
+                                });
+                        });
+
+                    b.OwnsOne("Hospital.Shared_model.Model.ContactInfo", "ContactInfo", b1 =>
+                        {
+                            b1.Property<int>("PatientId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("Address")
+                                .HasColumnType("text")
+                                .HasColumnName("Address");
+
+                            b1.Property<string>("Email")
+                                .HasColumnType("text")
+                                .HasColumnName("Email");
+
+                            b1.Property<string>("Phone")
+                                .HasColumnType("text")
+                                .HasColumnName("Phone");
+
+                            b1.HasKey("PatientId");
+
+                            b1.ToTable("Patients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PatientId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    PatientId = 1,
+                                    Address = "Bogoboja Atanackovica 15",
+                                    Email = "petar@gmail.com",
+                                    Phone = "0634556665"
+                                },
+                                new
+                                {
+                                    PatientId = 2,
+                                    Address = "Voje Rodica 19",
+                                    Email = "miki@gmail.com",
+                                    Phone = "0697856665"
+                                },
+                                new
+                                {
+                                    PatientId = 3,
+                                    Address = "Voje Rodica 19",
+                                    Email = "miki@gmail.com",
+                                    Phone = "0697856665"
+                                },
+                                new
+                                {
+                                    PatientId = 4,
+                                    Address = "Voje Rodica 19",
+                                    Email = "miki@gmail.com",
+                                    Phone = "0697856665"
+                                },
+                                new
+                                {
+                                    PatientId = 5,
+                                    Address = "Voje Rodica 19",
+                                    Email = "miki@gmail.com",
+                                    Phone = "0697856665"
+                                },
+                                new
+                                {
+                                    PatientId = 6,
+                                    Address = "Voje Rodica 19",
+                                    Email = "miki@gmail.com",
+                                    Phone = "0697856665"
+                                },
+                                new
+                                {
+                                    PatientId = 7,
+                                    Address = "Voje Rodica 19",
+                                    Email = "miki@gmail.com",
+                                    Phone = "0697856665"
+                                },
+                                new
+                                {
+                                    PatientId = 8,
+                                    Address = "Kralja Petra 19",
+                                    Email = "zorka@gmail.com",
+                                    Phone = "0697856665"
+                                });
+                        });
+
+                    b.Navigation("AccountInfo");
+
+                    b.Navigation("ContactInfo");
+
                     b.Navigation("Doctor");
+
+                    b.Navigation("MedicalRecord");
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.WorkDay", b =>
