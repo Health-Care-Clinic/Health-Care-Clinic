@@ -3,7 +3,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using System;
 using Xunit;
-using System.IO;
 
 namespace HospitalSeleniumTests
 {
@@ -15,11 +14,10 @@ namespace HospitalSeleniumTests
         private Pages.MaliciousPatientsPage patientsPage;
         private int patientsCount = 0;
 
+        public static String remote_url_chrome = "http://chrome:4444/wd/hub";
 
         public BlockPatientTests()
         {
-            string workingDirectory = Environment.CurrentDirectory;
-            System.Environment.SetEnvironmentVariable("webdriver.chrome.driver", @workingDirectory + Path.PathSeparator + "netcoreapp3.1" + Path.PathSeparator + "chromedriver.exe");
             // options for launching Google Chrome
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("start-maximized");            // open Browser in maximized mode
@@ -30,7 +28,7 @@ namespace HospitalSeleniumTests
             options.AddArguments("--no-sandbox");               // Bypass OS security model
             options.AddArguments("--disable-notifications");    // disable notifications
 
-            driver = new ChromeDriver(options);
+            driver = new ChromeDriver(remote_url_chrome, options);
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
             loginPage.EnsureButtonIsDisplayed();
