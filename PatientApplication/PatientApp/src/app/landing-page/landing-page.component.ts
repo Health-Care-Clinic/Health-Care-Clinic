@@ -37,6 +37,7 @@ export class LandingPageComponent implements OnInit {
   feedbacks : IFeedback[] = [];
   errorMessage : string  = '';
   promotions: PharmacyPromotion[] = [];
+  _images: any[] = [];
 
   constructor(public dialog: MatDialog, private _feedbackService : FeedbackService, private _appointmentService : AppointmentService) { 
   }
@@ -58,7 +59,12 @@ export class LandingPageComponent implements OnInit {
 
   getPromotions() {
     this._appointmentService.getPromotions()
-        .subscribe(data => this.promotions = data,
+        .subscribe(data => {
+                              this.promotions = data
+                              this._images = []
+                              for(let i=1; i <= this.promotions.length; i++)
+                                this._images.push({path: '', width: 0, height: 0})
+                              console.log(data)},
                     error => this.errorMessage = <any>error);  
   }
 }
