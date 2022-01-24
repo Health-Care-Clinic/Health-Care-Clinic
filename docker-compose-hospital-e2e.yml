@@ -8,7 +8,7 @@ services:
       DATABASE_SCHEMA: hospitalDb
       DATABASE_USER: postgres
       DATABASE_PASSWORD: password
-      CHROME_ADDRES: chrome
+      CHROME_uri: chrome
       CHROME_PORT: 4444
     image: mcr.microsoft.com/dotnet/sdk:3.1
     working_dir: /HealthCareClinic

@@ -14,9 +14,12 @@ namespace HospitalSeleniumTests
         private Pages.MaliciousPatientsPage patientsPage;
         private int patientsCount = 0;
 
+        public static String remote_url_chrome = "http://localhost:4445/wd/hub";
 
         public BlockPatientTests()
         {
+            var uri = Environment.GetEnvironmentVariable("CHROME_URI") ?? "localhost";
+            remote_url_chrome = "http://" + uri + ":4445/wd/hub";
             // options for launching Google Chrome
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("start-maximized");            // open Browser in maximized mode
@@ -27,8 +30,7 @@ namespace HospitalSeleniumTests
             options.AddArguments("--no-sandbox");               // Bypass OS security model
             options.AddArguments("--disable-notifications");    // disable notifications
 
-            driver = new ChromeDriver(options);
-
+            driver = new RemoteWebDriver(new Uri(remote_url_chrome), options);
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
             loginPage.EnsureButtonIsDisplayed();
