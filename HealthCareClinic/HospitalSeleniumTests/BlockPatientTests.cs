@@ -15,25 +15,23 @@ namespace HospitalSeleniumTests
         private Pages.HomePage homePage;
         private Pages.MaliciousPatientsPage patientsPage;
         private int patientsCount = 0;
+        private ChromeDriverService driverService = ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
         [OneTimeSetUp]
         public void Setup()
         {
             // options for launching Google Chrome
             ChromeOptions options = new ChromeOptions();
-            options.AddArguments("--no-sandbox");               // Bypass OS security model
-            options.AddArguments("--disable-dev-shm-usage");    // overcome limited resource problems
             options.AddArguments("start-maximized");            // open Browser in maximized mode
             options.AddArguments("disable-infobars");           // disabling infobars
             options.AddArguments("--disable-extensions");       // disabling extensions
             options.AddArguments("--disable-gpu");              // applicable to windows os only
+            options.AddArguments("--disable-dev-shm-usage");    // overcome limited resource problems
+            options.AddArguments("--no-sandbox");               // Bypass OS security model
             options.AddArguments("--disable-notifications");    // disable notifications
 
-#if RELEASE
-            options.AddArguments('--headless');
-#endif
+            driver = new ChromeDriver(options);
 
-            driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options);
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
             loginPage.EnsureButtonIsDisplayed();
