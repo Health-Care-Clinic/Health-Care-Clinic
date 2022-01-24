@@ -1,15 +1,14 @@
 name: Hospital Unit Test
 on:
-  push:
-    branches: [ feat(d)/selenium-tests]
+  pull_request:
+    branches: [ master, develop ]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     env:
       config: Release
       PROJECT: 'HealthCareClinic/Hospital/Hospital.csproj'
-      UNIT_TEST: 'HealthCareClinic/HospitalTests/HospitalUnitTests.csproj'
-      E2E_TEST: 'HealthCareClinic/HospitalSeleniumTests/HospitalSeleniumTests.csproj'
+      TEST: 'HealthCareClinic/HospitalTests/HospitalUnitTests.csproj'
     # Map a step output to a job output
     steps:
       - uses: actions/checkout@v2
@@ -23,24 +22,19 @@ jobs:
           base_ref:  develop
         
       - name: Setup .NET
-        # if: env.DIFF_DETECTED == 'true'
+        if: env.DIFF_DETECTED == 'true'
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.x
 
       - name: Restore dependencies
-        # if: env.DIFF_DETECTED == 'true'
+        if: env.DIFF_DETECTED == 'true'
         run: dotnet restore $PROJECT
 
       - name: Build
-        # if: env.DIFF_DETECTED == 'true'
-        run: dotnet build $PROJECT --configuration $config --no-restore
+        if: env.DIFF_DETECTED == 'true'
+        run: dotnet build $PROJECT --configuration $config --no-restore 
 
-      - name: E2E test
-        # if: env.DIFF_DETECTED == 'true'
-        run: dotnet test $E2E_TEST
-
-      # - name: Unit test
-        # if: env.DIFF_DETECTED == 'true'
-        # run: dotnet test $UNIT_TEST --verbosity quiet
-
+      - name: Test with dotnet
+        if: env.DIFF_DETECTED == 'true'
+        run: dotnet test $TEST --verbosity quiet

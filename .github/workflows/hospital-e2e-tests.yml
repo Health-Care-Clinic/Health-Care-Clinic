@@ -2,7 +2,7 @@ name: Hospital E2E tests
 
 on:
   push:
-    branches: [ master]
+    branches: [ feat(d)/selenium-tests]
 
 jobs:
   test:
