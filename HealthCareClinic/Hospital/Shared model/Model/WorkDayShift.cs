@@ -27,12 +27,12 @@ namespace Hospital.Shared_model.Model
             Id = id;
             Name = name;
             WorkHour = workHour;
-            Validate();
+            Validate(name);
         }
 
-        private void Validate()
+        private void Validate(string name)
         {
-            if (string.IsNullOrWhiteSpace(this.Name))
+            if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name can not be null", "name");
         }
 

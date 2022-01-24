@@ -28,12 +28,12 @@ namespace Hospital.Shared_model.Model
             Description = description;
             DateSpan = dateSpan;
             DoctorId = doctorId;
-            Validate();
+            Validate(description);
         }
 
-        private void Validate()
+        private void Validate(string description)
         {
-            if (string.IsNullOrWhiteSpace(this.Description))
+            if (string.IsNullOrWhiteSpace(description))
                 throw new ArgumentException("Description can not be null", "description");
         }
         public bool GetVacationAvailability(List<Vacation> allVacations)
