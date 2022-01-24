@@ -31,10 +31,7 @@ namespace Hospital_API.Controller
         {
             var restClient = new RestClient("http://localhost:65508");
             var request = new RestRequest("hospital/pharmacyPromotion/active");
-            IRestResponse restResponse = restClient.Get(request);
-
-            
-
+            IRestResponse restResponse = restClient.Get(request);        
 
             return Ok(restResponse.Content);
         }

@@ -22,7 +22,8 @@ namespace Integration.Promotions.Repository
 
         public List<PharmacyPromotion> GetAllActivePromotions()
         {
-            return dbContext.PharmacyPromotions.Where(p => p.StartTime.AddDays(1).Date < DateTime.Now.Date && p.EndTime.AddDays(1).Date > DateTime.Now.Date).ToList();
+            return dbContext.PharmacyPromotions.Where(p => p.Posted == true && p.StartTime.AddDays(1).Date < DateTime.Now.Date 
+                                                            && p.EndTime.AddDays(1).Date > DateTime.Now.Date).ToList();
         }
     }
 }

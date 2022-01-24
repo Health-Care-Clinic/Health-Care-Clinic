@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AppointmentService } from '../service/appointment.service';
 import { FeedbackService } from '../service/feedback.service';
 import { IFeedback } from '../service/IFeedback';
+import { PharmacyPromotion } from './PharmacyPromotion';
 
 @Component({
   selector: 'app-landing-page',
@@ -34,12 +36,14 @@ export class LandingPageComponent implements OnInit {
 
   feedbacks : IFeedback[] = [];
   errorMessage : string  = '';
+  promotions: PharmacyPromotion[] = [];
 
-  constructor(public dialog: MatDialog, private _feedbackService : FeedbackService) { 
+  constructor(public dialog: MatDialog, private _feedbackService : FeedbackService, private _appointmentService : AppointmentService) { 
   }
 
   ngOnInit(): void {
     this.refreshFeedback();
+    this.getPromotions();
   }
 
   openFeedbackDialog(feedback: any): void {
@@ -50,5 +54,11 @@ export class LandingPageComponent implements OnInit {
     this._feedbackService.getPublishedFeedbacks()
         .subscribe(feedbacks => this.feedbacks = feedbacks,
                     error => this.errorMessage = <any>error);     
+  }
+
+  getPromotions() {
+    this._appointmentService.getPromotions()
+        .subscribe(data => this.promotions = data,
+                    error => this.errorMessage = <any>error);  
   }
 }
