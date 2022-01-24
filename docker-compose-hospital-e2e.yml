@@ -31,22 +31,10 @@ services:
     depends_on:
       - rabbitmq3
       - database
-      - chrome
-    links:
-      - chrome
     networks:
       - database
       - hospitalapi_application
       - rabbit
-      - chrome-net
-  
-  chrome:
-    image: selenium/standalone-chrome:latest
-    hostname: chrome
-    privileged: true
-    shm_size: 2g
-    networks:
-      - chrome-net
 
   manager-front:
     image: manager
@@ -89,4 +77,3 @@ networks:
     driver: bridge
   rabbit:
     driver: bridge
-  chrome-net:
