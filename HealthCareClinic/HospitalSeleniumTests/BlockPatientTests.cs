@@ -27,9 +27,7 @@ namespace HospitalSeleniumTests
             options.AddArguments("--no-sandbox");               // Bypass OS security model
             options.AddArguments("--disable-notifications");    // disable notifications
 
-            driver = new RemoteWebDriver(
-        new Uri("http://127.0.0.1:4444"), options.ToCapabilities()
-      );
+            driver = new ChromeDriver(options);
 
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
