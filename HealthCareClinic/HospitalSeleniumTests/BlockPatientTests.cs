@@ -8,7 +8,7 @@ namespace HospitalSeleniumTests
 {
     public class BlockPatientTests : IDisposable
     {
-        private IWebDriver driver = null;
+        private IWebDriver driver;
         private Pages.LoginPage loginPage;
         private Pages.HomePage homePage;
         private Pages.MaliciousPatientsPage patientsPage;
