@@ -1,6 +1,8 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.IO;
+using System.Reflection;
 using Xunit;
 
 namespace HospitalSeleniumTests
@@ -25,8 +27,11 @@ namespace HospitalSeleniumTests
             options.AddArguments("--disable-dev-shm-usage");    // overcome limited resource problems
             options.AddArguments("--no-sandbox");               // Bypass OS security model
             options.AddArguments("--disable-notifications");    // disable notifications
-
-            driver = new ChromeDriver(options);
+            ChromeDriverService service = ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "chromedriver.exe");
+       
+            service.PortServerAddress = "4444";
+            
+            driver = new ChromeDriver(service, options);
 
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
