@@ -9,7 +9,6 @@ namespace Hospital.Shared_model.Model
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        
         public virtual DateSpan DateSpan { get; set; }
         public int DoctorId { get; set; }
         public Vacation() {}
@@ -19,7 +18,7 @@ namespace Hospital.Shared_model.Model
             Description = description;
             DateSpan = new DateSpan(startTime, endTime);
             DoctorId = doctorId;
-            Validate();
+            Validate(description);
         }
 
         public Vacation(int id, string description, DateSpan dateSpan, int doctorId)

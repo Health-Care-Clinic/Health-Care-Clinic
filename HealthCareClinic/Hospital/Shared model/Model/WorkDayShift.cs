@@ -19,7 +19,7 @@ namespace Hospital.Shared_model.Model
             Id = id;
             Name = name;
             WorkHour = new WorkHour(startTime, endTime);
-            Validate();
+            Validate(name);
         }
 
         public WorkDayShift(int id, string name, WorkHour workHour)
