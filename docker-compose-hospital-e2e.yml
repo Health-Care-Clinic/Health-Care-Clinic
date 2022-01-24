@@ -17,6 +17,7 @@ services:
     entrypoint: ["/bin/sh","-c"]
     command:
     - |
+      pip install chromedriver-py
       dotnet new tool-manifest --force
       dotnet tool install --local dotnet-ef --version 5.0.11
       dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj"
