@@ -89,3 +89,4 @@ networks:
     driver: bridge
   rabbit:
     driver: bridge
+  chrom_net:
