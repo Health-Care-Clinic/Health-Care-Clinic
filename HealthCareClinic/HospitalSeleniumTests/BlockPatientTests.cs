@@ -33,7 +33,8 @@ namespace HospitalSeleniumTests
             options.AddArguments('--headless');
 #endif
 
-            driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options);
+            //driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options);
+            driver = new ChromeDriver(options);
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
             loginPage.EnsureButtonIsDisplayed();
