@@ -1,10 +1,12 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace HospitalSeleniumTests.Pages
 {
-    public class LoginPage
+    public class LoginPageForManager
     {
         private readonly IWebDriver driver;
         public const string URI = "http://localhost:4200/login";
@@ -64,7 +66,7 @@ namespace HospitalSeleniumTests.Pages
             SubmitButtonElement.Click();
         }
 
-        public LoginPage(IWebDriver driver)
+        public LoginPageForManager(IWebDriver driver)
         {
             this.driver = driver;
         }
@@ -73,7 +75,7 @@ namespace HospitalSeleniumTests.Pages
         {
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 20));
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(HomePagePatientApp.URI));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(HomePageManagerApp.URI));  //mora se razdvojiti
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(HomePage.URI));
         }
 
