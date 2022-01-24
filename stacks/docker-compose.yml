@@ -4,7 +4,7 @@ services:
 
   proxy:
     image: nenadbecanovic/integration-api-proxy:latest
-    # build: 
+    #build: 
     #   context: "../HealthCareClinic/Integration API/Proxy"
     #   dockerfile: Dockerfile
     ports: 
@@ -13,7 +13,7 @@ services:
 
   patient-proxy:
     image: nenadbecanovic/hospital-api-proxy:latest
-    # build: 
+    #build: 
     #   context: "../HealthCareClinic/Hospital API/Proxy"
     #   dockerfile: Dockerfile
     ports: 
@@ -35,7 +35,7 @@ services:
     image: nenadbecanovic/hospital-api:latest
     #image: hospitalapi
     #build:
-    #  context: ../
+    #  context: ../HealthCareClinic/
     #  dockerfile: ../stacks/build/hospital/Dockerfile
     depends_on:
       - "hospitalDatabase"
@@ -53,6 +53,8 @@ services:
       DATABASE_SCHEMA_HOSPITAL: hospitalDb
       DATABASE_USER: /run/secrets/database_user
       DATABASE_PASSWORD: /run/secrets/database_password
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: password
       DATABASE_HOST_EVENT: eventDatabase
       DATABASE_SCHEMA_EVENT: eventsDb
       RABBITMQ_HOST: rabbitmq
@@ -75,6 +77,8 @@ services:
     environment:
       POSTGRES_USER: /run/secrets/database_user
       POSTGRES_PASSWORD: /run/secrets/database_password
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: password
       POSTGRES_DB: "hospitalDb"
 
   eventDatabase: 
@@ -95,6 +99,8 @@ services:
     environment:
       POSTGRES_USER: /run/secrets/database_user
       POSTGRES_PASSWORD: /run/secrets/database_password
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: password
       POSTGRES_DB: "eventsDb"
 
   manager-front:
@@ -126,6 +132,8 @@ services:
       DATABASE_SCHEMA: integrationDb
       DATABASE_USER: /run/secrets/database_user
       DATABASE_PASSWORD: /run/secrets/database_password
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: password
       RABBITMQ_HOST: rabbitmq
 
   pharmacyDatabase:
@@ -137,6 +145,8 @@ services:
     environment:
       POSTGRES_PASSWORD: /run/secrets/database_password
       POSTGRES_USER: /run/secrets/database_user
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: password
       POSTGRES_DB: pharmacyDb
     volumes:
       - type: volume
@@ -166,6 +176,8 @@ services:
       DATABASE_SCHEMA: pharmacyDb
       DATABASE_PASSWORD: /run/secrets/database_password
       DATABASE_USER: /run/secrets/database_user
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: password
       RABBITMQ_HOST: rabbitmq
     ports:
       - "5002:8087" 
@@ -189,6 +201,8 @@ services:
     environment:
       POSTGRES_USER: /run/secrets/database_user
       POSTGRES_PASSWORD: /run/secrets/database_password
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: password
       POSTGRES_DB: "integrationDb"
 
   rabbitmq3:
