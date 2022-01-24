@@ -4,15 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using MailKit;
 using Pharmacy.Interfaces.Service;
 using Pharmacy.Prescriptions.Model;
 using UrgentMedicines.Protos;
+using MailService = Pharmacy.UrgentMedicines.Service.MailService;
 
 namespace Pharmacy.UrgentMedicines
 {
     public class UrgentMedicinesService : NetGrpcService.NetGrpcServiceBase
     {
         private readonly IMedicineService _medicineService;
+        private MailService mailService = new Service.MailService();
 
         public UrgentMedicinesService(IMedicineService medicineService)
         {
@@ -37,6 +40,7 @@ namespace Pharmacy.UrgentMedicines
                     _medicineService.ReduceMedicineQuantity(medicine.Name, request.MedicineQuantity);
                     response.Response = "Lek " + request.MedicineName + " je prebacen u vasu bolnicu (kolicina: " + request.MedicineQuantity + ").";
                     response.Status = "STATUS OK";
+                    mailService.SendEmail();
                 }
             }
             else

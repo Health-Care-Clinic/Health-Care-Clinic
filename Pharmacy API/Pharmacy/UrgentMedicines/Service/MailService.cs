@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Net.Mail;
 using System.Text;
-using MimeKit;
 
-namespace Hospital.Tendering.Service
+namespace Pharmacy.UrgentMedicines.Service
 {
     public class MailService
     {
@@ -16,20 +14,20 @@ namespace Hospital.Tendering.Service
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
 
-                mail.From = new MailAddress("fishingbookernsm@gmail.com");
-                mail.To.Add("pharmacypsw@gmail.com");
-                mail.Subject = "Hospital Tender";
-                mail.Body = "Vasa ponuda za tender je izabrana.";
+                mail.From = new MailAddress("pharmacypsw@gmail.com");
+                mail.To.Add("fishingbookernsm@gmail.com");
+                mail.Subject = "Urgent Medicine Procurement";
+                mail.Body = "Successful urgent procurement!";
 
                 SmtpServer.Port = 587;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("fishingbookernsm@gmail.com", "ninasaramarija123");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("pharmacypsw@gmail.com", "apoteka123*");
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
             }
             catch (Exception ex)
             {
-               Console.WriteLine(ex);
+                Console.WriteLine(ex);
             }
         }
     }

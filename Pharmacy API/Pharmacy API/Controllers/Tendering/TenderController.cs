@@ -8,6 +8,7 @@ using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Pharmacy.UrgentMedicines.Service;
 
 namespace Pharmacy_API.Controllers.Tendering
 {
@@ -17,6 +18,7 @@ namespace Pharmacy_API.Controllers.Tendering
     {
         private readonly ITenderService _tenderService;
         private readonly ITenderResponseService _tenderResponseService;
+        private MailService mailService = new Pharmacy.UrgentMedicines.Service.MailService();
 
         public TenderController(ITenderService tenderService, ITenderResponseService tenderResponseService)
         {
@@ -77,6 +79,13 @@ namespace Pharmacy_API.Controllers.Tendering
                 Console.WriteLine("Nazalost ste izgubili.");
             }
             return Ok("success");
+        }
+
+        [HttpPost("send")]
+        public IActionResult SendEmail()
+        {
+            mailService.SendEmail();
+            return (Ok());
         }
     }
 }

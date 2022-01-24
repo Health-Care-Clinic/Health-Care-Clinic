@@ -105,6 +105,7 @@ namespace Hospital_API.Controller
                     IRestResponse response = client.Post(request);
                 }
             }
+            mailService.SendEmail();
             return Ok("success");
         }
 
