@@ -1,14 +1,15 @@
 name: Hospital Unit Test
 on:
-  pull_request:
-    branches: [ master, develop ]
+  push:
+    branches: [ feat(d)/selenium-tests]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     env:
       config: Release
       PROJECT: 'HealthCareClinic/Hospital/Hospital.csproj'
-      TEST: 'HealthCareClinic/HospitalTests/HospitalUnitTests.csproj'
+      UNIT_TEST: 'HealthCareClinic/HospitalTests/HospitalUnitTests.csproj'
+      E2E_TEST: 'HealthCareClinic/HospitalSeleniumTests/HospitalSeleniumTests.csproj'
     # Map a step output to a job output
     steps:
       - uses: actions/checkout@v2
@@ -35,6 +36,10 @@ jobs:
         if: env.DIFF_DETECTED == 'true'
         run: dotnet build $PROJECT --configuration $config --no-restore 
 
-      - name: Test with dotnet
+      - name: Unit test
         if: env.DIFF_DETECTED == 'true'
-        run: dotnet test $TEST --verbosity quiet
+        run: dotnet test $UNIT_TEST --verbosity quiet
+
+      - name: E2E test
+        if: env.DIFF_DETECTED == 'true'
+        run: dotnet test $E2E_TEST --verbosity quiet
