@@ -7,13 +7,13 @@ namespace HospitalSeleniumTests
 {
     public class BlockPatientTests : IDisposable
     {
-        private IWebDriver driver;
+        private readonly IWebDriver driver;
         private Pages.LoginPage loginPage;
         private Pages.HomePage homePage;
         private Pages.MaliciousPatientsPage patientsPage;
         private int patientsCount = 0;
 
-        public void Setup()
+        public BlockPatientTests()
         {
             // options for launching Google Chrome
             ChromeOptions options = new ChromeOptions();
@@ -26,7 +26,7 @@ namespace HospitalSeleniumTests
             options.AddArguments("--disable-notifications");    // disable notifications
 
 #if RELEASE
-            options.AddArguments('--headless');
+                        options.AddArguments('--headless');
 #endif
 
             driver = new ChromeDriver(options);
@@ -44,7 +44,6 @@ namespace HospitalSeleniumTests
         [Fact]
         public void TestBlockPatient()
         {
-            Setup();
             Assert.True(loginPage.UsernameElementDisplayed());
             Assert.True(loginPage.PasswordElementDisplayed());
             Assert.True(loginPage.SubmitButtonElementDisplayed());
