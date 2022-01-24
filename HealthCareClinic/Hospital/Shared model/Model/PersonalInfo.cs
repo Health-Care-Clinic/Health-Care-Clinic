@@ -28,6 +28,8 @@ namespace Hospital.Shared_model.Model
             Gender = gender;
             ParentName = parentName;
             EmploymentStatus = employmentStatus;
+
+            Validate();
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
@@ -55,7 +57,8 @@ namespace Hospital.Shared_model.Model
             if (Regex.IsMatch(someSortOfName, @"^[A-Z\p{L}][a-z\p{L}]+([ -][A-Z\p{L}][a-z\p{L}]+)*$"))
                 return;
             else
-                throw new ArgumentException("Name, surname and parent's name must contain only letters, '-' and ' '.");
+                throw new ArgumentException("Name, surname and parent's name must start with capital letter and contain " +
+                    "only letters, '-' and ' '.");
         }
 
         private void CheckIfBirthDateIsInThePast()

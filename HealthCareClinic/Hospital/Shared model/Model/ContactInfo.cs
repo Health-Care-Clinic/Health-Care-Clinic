@@ -20,6 +20,8 @@ namespace Hospital.Shared_model.Model
             Phone = phone;
             Email = email;
             Address = address;
+
+            Validate();
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
