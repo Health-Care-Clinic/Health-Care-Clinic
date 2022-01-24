@@ -29,11 +29,11 @@ services:
       dotnet run "HealthCareClinic/Hospital/Hospital.csproj"
       dotnet test "HealthCareClinic/HospitalSeleniumTests/HospitalSeleniumTests.csproj"
     depends_on:
-      - chrome
+      - chromedriver
       - rabbitmq3
       - database
     links:
-      - chrome
+      - chromedriver
     networks:
       - database
       - hospitalapi_application
