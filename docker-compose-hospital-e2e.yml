@@ -8,7 +8,7 @@ services:
       DATABASE_SCHEMA: hospitalDb
       DATABASE_USER: postgres
       DATABASE_PASSWORD: password
-      CHROME_uri: chrome
+      CHROME_ADDRES: chrome
       CHROME_PORT: 4444
     image: mcr.microsoft.com/dotnet/sdk:3.1
     working_dir: /HealthCareClinic
@@ -31,10 +31,24 @@ services:
     depends_on:
       - rabbitmq3
       - database
+      - chrome
+    links:
+      - chrome
     networks:
       - database
       - hospitalapi_application
       - rabbit
+      - chrome-net
+  
+  chrome:
+    image: selenium/standalone-chrome:latest
+    hostname: chrome
+    privileged: true
+    shm_size: 2g
+    ports:
+      - "4444:4444"
+    networks:
+      - chrome-net
 
   manager-front:
     image: manager
@@ -77,3 +91,4 @@ networks:
     driver: bridge
   rabbit:
     driver: bridge
+  chrome-net:
