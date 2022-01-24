@@ -32,6 +32,7 @@ services:
       - rabbitmq3
       - database
       - chrome
+      - chromedriver
     links:
       - chrome
     networks:
@@ -49,6 +50,18 @@ services:
       - "4444:4444"
     networks:
       - chrome-net
+
+  chromedriver:
+    image: robcherry/docker-chromedriver:latest
+    ports: 
+        - "4444"
+    cap_add: 
+        - SYS_ADMIN
+    environment:
+        CHROMEDRIVER_WHITELISTED_IPS: ""
+    networks:
+      - chrome-net
+
 
   patient-front:
     image: patient
