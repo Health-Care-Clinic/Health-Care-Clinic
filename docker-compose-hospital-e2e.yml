@@ -26,7 +26,7 @@ services:
       cd ../ 
       dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext
       dotnet dotnet-ef database update --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext
-      dotnet build --configuration $config --no-restore "HealthCareClinic/Hospital/Hospital.csproj" 
+      dotnet build "HealthCareClinic/Hospital/Hospital.csproj" --configuration Release --no-restore 
       dotnet test "HealthCareClinic/HospitalSeleniumTests/HospitalSeleniumTests.csproj"
     depends_on:
       - rabbitmq3
