@@ -111,8 +111,8 @@ namespace Hospital.Shared_model.Model
             foreach (var v in Appointments.Select(x => x.Date))
             {
                 if ((appointment.Date.CompareTo(v) > 0 && appointment.Date.CompareTo(v.AddMinutes(30)) < 0)
-                    || (appointment.Date.CompareTo(v) > 0 && appointment.Date.CompareTo(v.AddMinutes(30)) < 0)
-                    || (appointment.Date.CompareTo(v) < 0 && appointment.Date.CompareTo(v.AddMinutes(30)) > 0))
+                    || (appointment.Date.AddMinutes(30).CompareTo(v) > 0 && appointment.Date.AddMinutes(30).CompareTo(v.AddMinutes(30)) < 0)
+                    || (appointment.Date.CompareTo(v) < 0 && appointment.Date.AddMinutes(30).CompareTo(v.AddMinutes(30)) > 0))
                 {
                     return false;
                 }
