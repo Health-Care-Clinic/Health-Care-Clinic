@@ -58,12 +58,12 @@ namespace Hospital.Rooms_and_equipment.Service
 
             foreach (Equipment eq1 in equipmentRoom1)
             {
-                Equipment eq = new Equipment(eq1.Id, eq1.Name, eq1.Type, eq1.Quantity + GetQuantityOfEquipmentInOtherRoom(eq1.Name, equipmentRoom2), eq1.RoomId);
+                Equipment eq = new Equipment(eq1.Id, eq1.Name, eq1.Type, eq1.Quantity + eq1.GetQuantityOfEquipmentInOtherRoom(equipmentRoom2), eq1.RoomId);
                 newEquipment.Add(eq);
             }
             foreach (Equipment eq2 in equipmentRoom2)
             {
-                if (!EquipmentExistsInRoom(eq2.Name, equipmentRoom1))
+                if (!eq2.EquipmentExistsInRoom(equipmentRoom1))
                 {
                     Equipment eq = new Equipment(eq2.Id, eq2.Name, eq2.Type, eq2.Quantity, roomId1);
                     newEquipment.Add(eq);
@@ -73,56 +73,22 @@ namespace Hospital.Rooms_and_equipment.Service
             return newEquipment;
         }
 
-        private bool EquipmentExistsInRoom(string equipmentName, List<Equipment> roomEquipment)
-        {
-            foreach (Equipment eq in roomEquipment)
-            {
-                if (eq.Name.Equals(equipmentName))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private int GetQuantityOfEquipmentInOtherRoom(string equipmentName, List<Equipment> roomEquipment)
-        {
-            foreach (Equipment eq in roomEquipment)
-            {
-                if (eq.Name.Equals(equipmentName))
-                {
-                    return eq.Quantity;
-                }
-            }
-            return 0;
-        }
-
         public int GetQuantityOfEquipmentWhenTransferedFromOneRoomToAnother(string equipmentName, int roomId1, int roomId2)
         {
             List<Equipment> equipmentRoom1 = GetEquipmentByRoomId(roomId1);
             List<Equipment> equipmentRoom2 = GetEquipmentByRoomId(roomId2);
 
-            if (EquipmentExistsInRoom(equipmentName, equipmentRoom1))
+            Equipment equipment = new Equipment(equipmentName, 1);
+
+            if (equipment.EquipmentExistsInRoom(equipmentRoom1))
             {
-                foreach (Equipment eq1 in equipmentRoom1)
-                {
-                    if (eq1.Name.Equals(equipmentName))
-                    {
-                        return eq1.Quantity + GetQuantityOfEquipmentInOtherRoom(eq1.Name, equipmentRoom2);
-                    }
-                }
+                return new Equipment(equipmentName, 1).GetQuantityOfEquipmentInOtherRoom(equipmentRoom1) + new Equipment(equipmentName, 1).GetQuantityOfEquipmentInOtherRoom(equipmentRoom2);
             }
             else
             {
-                if (EquipmentExistsInRoom(equipmentName, equipmentRoom2))
+                if (equipment.EquipmentExistsInRoom(equipmentRoom2))
                 {
-                    foreach (Equipment eq2 in equipmentRoom2)
-                    {
-                        if (eq2.Name.Equals(equipmentName))
-                        {
-                            return eq2.Quantity;
-                        }
-                    }
+                    return new Equipment(equipmentName, 1).GetQuantityOfEquipmentInOtherRoom(equipmentRoom2);
                 }
             }
 
@@ -136,12 +102,12 @@ namespace Hospital.Rooms_and_equipment.Service
 
             foreach (Equipment eq1 in equipmentRoom1)
             {
-                int newQuantity = eq1.Quantity + GetQuantityOfEquipmentInOtherRoom(eq1.Name, equipmentRoom2);
+                int newQuantity = eq1.Quantity + eq1.GetQuantityOfEquipmentInOtherRoom(equipmentRoom2);
                 _equipmentRepository.ChangeQuantity(eq1.Id, newQuantity);
             }
             foreach (Equipment eq2 in equipmentRoom2)
             {
-                if (!EquipmentExistsInRoom(eq2.Name, equipmentRoom1))
+                if (!eq2.EquipmentExistsInRoom(equipmentRoom1))
                 {
                     _equipmentRepository.ChangeRoom(eq2.Id, firstRoomId);
                 } 

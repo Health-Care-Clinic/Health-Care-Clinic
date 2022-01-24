@@ -202,7 +202,7 @@ namespace Hospital.Rooms_and_equipment.Service
             List<Transfer> allTransfersOfSourceAndDestinationRoom = new List<Transfer>();
             foreach (Transfer tran in existingTransfers)
             {
-                if (tran.SourceRoomId == firstRoomId || tran.DestinationRoomId == secondRoomId || tran.SourceRoomId == secondRoomId || tran.DestinationRoomId == firstRoomId)
+                if (tran.RoomsForTransfer.SourceRoomId == firstRoomId || tran.RoomsForTransfer.DestinationRoomId == secondRoomId || tran.RoomsForTransfer.SourceRoomId == secondRoomId || tran.RoomsForTransfer.DestinationRoomId == firstRoomId)
                 {
                     allTransfersOfSourceAndDestinationRoom.Add(tran);
                 }
@@ -216,7 +216,7 @@ namespace Hospital.Rooms_and_equipment.Service
             List<Transfer> allTransfersOfFirst = new List<Transfer>();
             foreach (Transfer tran in existingTransfers)
             {
-                if (tran.SourceRoomId == firstRoomId || tran.DestinationRoomId == firstRoomId)
+                if (tran.RoomsForTransfer.SourceRoomId == firstRoomId || tran.RoomsForTransfer.DestinationRoomId == firstRoomId)
                 {
                     allTransfersOfFirst.Add(tran);
                 }
@@ -326,17 +326,17 @@ namespace Hospital.Rooms_and_equipment.Service
         {
             foreach (Transfer t in allTransfersOfSourceAndDestinationRoom)
             {
-                DateTime transferAndDuration = t.Date.AddHours(Convert.ToInt32(t.Duration) / 60);
-                transferAndDuration = addDuration(transferAndDuration, t.Duration);
-                if (t.Date <= today && today <= transferAndDuration)
+                DateTime transferAndDuration = t.DateAndDuration.Date.AddHours(Convert.ToInt32(t.DateAndDuration.Duration) / 60);
+                transferAndDuration = addDuration(transferAndDuration, t.DateAndDuration.Duration);
+                if (t.DateAndDuration.Date <= today && today <= transferAndDuration)
                 {
                     isFree = false;
                 }
-                if (t.Date <= todayAndDuration && todayAndDuration <= transferAndDuration)
+                if (t.DateAndDuration.Date <= todayAndDuration && todayAndDuration <= transferAndDuration)
                 {
                     isFree = false;
                 }
-                if (today <= t.Date && t.Date <= todayAndDuration)
+                if (today <= t.DateAndDuration.Date && t.DateAndDuration.Date <= todayAndDuration)
                 {
                     isFree = false;
                 }

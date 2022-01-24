@@ -85,8 +85,26 @@ namespace Hospital.Mapper
                 .OwnsOne(r => r.WorkHour)
                 .Property(p => p.EndTime).HasColumnName("EndTime");
 
-            
+            modelBuilder.Entity<Transfer>()
+              .OwnsOne(t => t.Equipment)
+              .Property(e => e.Name).HasColumnName("Name");
+            modelBuilder.Entity<Transfer>()
+                .OwnsOne(t => t.Equipment)
+                .Property(e => e.Quantity).HasColumnName("Quantity");
 
+            modelBuilder.Entity<Transfer>()
+              .OwnsOne(t => t.RoomsForTransfer)
+              .Property(e => e.SourceRoomId).HasColumnName("SourceRoomId");
+            modelBuilder.Entity<Transfer>()
+                .OwnsOne(t => t.RoomsForTransfer)
+                .Property(e => e.DestinationRoomId).HasColumnName("DestinationRoomId");
+
+            modelBuilder.Entity<Transfer>()
+              .OwnsOne(t => t.DateAndDuration)
+              .Property(e => e.Date).HasColumnName("Date");
+            modelBuilder.Entity<Transfer>()
+                .OwnsOne(t => t.DateAndDuration)
+                .Property(e => e.Duration).HasColumnName("Duration");
 
             modelBuilder.Entity<Tender>()
                .Property(p => p.Id)
@@ -95,7 +113,6 @@ namespace Hospital.Mapper
                 .OwnsOne(p => p.DateRange);
             modelBuilder.Entity<Tender>()
                 .OwnsMany(p => p.TenderItems);
-
 
             modelBuilder.Entity<TenderResponse>()
                .Property(p => p.Id)
@@ -118,31 +135,179 @@ namespace Hospital.Mapper
                new OnCallShift { Id = 6, DoctorId = 2, Date = new DateTime(2021, 11, 28, 14, 00, 00) }
                );
 
-
-
-
-
-
             modelBuilder.Entity<Renovation>().HasData(
                 new Renovation { Id = 1, FirstRoomId = 1, SecondRoomId = 2, Duration = 2, Date = new DateTime(2022, 02, 02, 14, 00, 00), Type = Renovation.RenovationType.Merge },
                 new Renovation { Id = 2, FirstRoomId = 1, SecondRoomId = 0, Duration = 3, Date = new DateTime(2022, 02, 05, 14, 00, 00), Type = Renovation.RenovationType.Divide },
                 new Renovation { Id = 3, FirstRoomId = 47, SecondRoomId = 62, Duration = 2, Date = new DateTime(2022, 02, 20, 14, 00, 00), Type = Renovation.RenovationType.Merge }
                 );
 
-            modelBuilder.Entity<Transfer>().HasData(
-                new Transfer { Id = 1, Equipment = "Bed", Quantity = 2, SourceRoomId = 1, DestinationRoomId = 2,
-                    Date = new DateTime(2021, 11, 25, 9, 30, 00), Duration = 60 },
-                new Transfer { Id = 6, Equipment = "Needle", Quantity = 5, SourceRoomId = 1, DestinationRoomId = 51,
-                    Date = new DateTime(2022, 08, 22, 9, 30, 00), Duration = 60 },
-                new Transfer { Id = 2, Equipment = "Bed", Quantity = 4, SourceRoomId = 50, DestinationRoomId = 60,
-                    Date = new DateTime(2021, 11, 30, 12, 00, 00), Duration = 45 },
-                new Transfer { Id = 3, Equipment = "TV", Quantity = 1, SourceRoomId = 45, DestinationRoomId = 52,
-                    Date = new DateTime(2021, 11, 24, 10, 00, 00), Duration = 45 },
-                new Transfer { Id = 4, Equipment = "Bandage", Quantity = 4, SourceRoomId = 47, DestinationRoomId = 62,
-                    Date = new DateTime(2021, 11, 24, 9, 30, 00), Duration = 15 },
-                new Transfer { Id = 5, Equipment = "Blanket", Quantity = 10, SourceRoomId = 18, DestinationRoomId = 23,
-                    Date = new DateTime(2021, 11, 28, 14, 00, 00), Duration = 15 }
-                );
+            modelBuilder.Entity<Transfer>(t =>
+            {
+                t.HasData(new Transfer
+                {
+                    Id = 9
+                });
+                t.OwnsOne(e => e.Equipment).HasData(new
+                {
+                    TransferId = 9,
+                    Id = 0,
+                    Name = "Bed",
+                    Quantity = 2,
+                    RoomId = 0
+                });
+                t.OwnsOne(e => e.RoomsForTransfer).HasData(new
+                {
+                    TransferId = 9,
+                    SourceRoomId = 1,
+                    DestinationRoomId = 2
+                });
+                t.OwnsOne(e => e.DateAndDuration).HasData(new
+                {
+                    TransferId = 9,
+                    Date = new DateTime(2021, 11, 25, 9, 30, 00),
+                    Duration = 60
+                });
+            });
+
+            modelBuilder.Entity<Transfer>(t =>
+            {
+                t.HasData(new Transfer
+                {
+                    Id = 6
+                });
+                t.OwnsOne(e => e.Equipment).HasData(new
+                {
+                    TransferId = 6,
+                    Id = 0,
+                    Name = "Needle",
+                    Quantity = 5,
+                    RoomId = 0
+                });
+                t.OwnsOne(e => e.RoomsForTransfer).HasData(new
+                {
+                    TransferId = 6,
+                    SourceRoomId = 1,
+                    DestinationRoomId = 51
+                });
+                t.OwnsOne(e => e.DateAndDuration).HasData(new
+                {
+                    TransferId = 6,
+                    Date = new DateTime(2022, 08, 22, 9, 30, 00),
+                    Duration = 60
+                });
+            });
+
+            modelBuilder.Entity<Transfer>(t =>
+            {
+                t.HasData(new Transfer
+                {
+                    Id = 2
+                });
+                t.OwnsOne(e => e.Equipment).HasData(new
+                {
+                    TransferId = 2,
+                    Id = 0,
+                    Name = "Bed",
+                    Quantity = 4,
+                    RoomId = 0
+                });
+                t.OwnsOne(e => e.RoomsForTransfer).HasData(new
+                {
+                    TransferId = 2,
+                    SourceRoomId = 50,
+                    DestinationRoomId = 60
+                });
+                t.OwnsOne(e => e.DateAndDuration).HasData(new
+                {
+                    TransferId = 2,
+                    Date = new DateTime(2021, 11, 30, 12, 00, 00),
+                    Duration = 45
+                });
+            });
+
+            modelBuilder.Entity<Transfer>(t =>
+            {
+                t.HasData(new Transfer
+                {
+                    Id = 3
+                });
+                t.OwnsOne(e => e.Equipment).HasData(new
+                {
+                    TransferId = 3,
+                    Id = 0,
+                    Name = "TV",
+                    Quantity = 1,
+                    RoomId = 0
+                });
+                t.OwnsOne(e => e.RoomsForTransfer).HasData(new
+                {
+                    TransferId = 3,
+                    SourceRoomId = 45,
+                    DestinationRoomId = 52
+                });
+                t.OwnsOne(e => e.DateAndDuration).HasData(new
+                {
+                    TransferId = 3,
+                    Date = new DateTime(2021, 11, 24, 10, 00, 00),
+                    Duration = 45
+                });
+            });
+
+            modelBuilder.Entity<Transfer>(t =>
+            {
+                t.HasData(new Transfer
+                {
+                    Id = 4
+                });
+                t.OwnsOne(e => e.Equipment).HasData(new
+                {
+                    TransferId = 4,
+                    Id = 0,
+                    Name = "Bandage",
+                    Quantity = 4,
+                    RoomId = 0
+                });
+                t.OwnsOne(e => e.RoomsForTransfer).HasData(new
+                {
+                    TransferId = 4,
+                    SourceRoomId = 47,
+                    DestinationRoomId = 62
+                });
+                t.OwnsOne(e => e.DateAndDuration).HasData(new
+                {
+                    TransferId = 4,
+                    Date = new DateTime(2022, 08, 22, 9, 30, 00),
+                    Duration = 15
+                });
+            });
+
+            modelBuilder.Entity<Transfer>(t =>
+            {
+                t.HasData(new Transfer
+                {
+                    Id = 5
+                });
+                t.OwnsOne(e => e.Equipment).HasData(new
+                {
+                    TransferId = 5,
+                    Id = 0,
+                    Name = "Blanket",
+                    Quantity = 10,
+                    RoomId = 0
+                });
+                t.OwnsOne(e => e.RoomsForTransfer).HasData(new
+                {
+                    TransferId = 5,
+                    SourceRoomId = 18,
+                    DestinationRoomId = 23
+                });
+                t.OwnsOne(e => e.DateAndDuration).HasData(new
+                {
+                    TransferId = 5,
+                    Date = new DateTime(2021, 11, 28, 14, 00, 00),
+                    Duration = 15
+                });
+            });
 
             modelBuilder.Entity<Equipment>().HasData(
                 new Equipment { Id = 1, Name = "Bed", Type = EquipmentType.Static, Quantity = 5, RoomId = 1 },
