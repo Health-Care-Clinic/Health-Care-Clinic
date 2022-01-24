@@ -56,6 +56,15 @@ namespace Integration
                 new MedicationConsumption { Id = 5, Name = "Robenan", Amount = 15, Date = new DateTime(2021, 11, 9) },
                 new MedicationConsumption { Id = 6, Name = "Andol", Amount = 10, Date = new DateTime(2021, 11, 13) }
                 );
+
+            modelBuilder.Entity<PharmacyPromotion>().HasData(
+                new PharmacyPromotion { Id = 1, Title = "Sale", Content = "Samo danas i sutra AKCIJA: Brufen 30% snizenje!!!", PharmacyName = "Tilda", Posted = true, StartTime = new DateTime(2021, 11, 10), EndTime = new DateTime(2022, 02, 10) },
+                new PharmacyPromotion { Id = 2, Title = "New season", Content = "Od sutra stupa novi lek na trziste -> VIJAGRA samo tada", PharmacyName = "BENU", Posted = true, StartTime = new DateTime(2021, 12, 10), EndTime = new DateTime(2022, 02, 11) },
+                new PharmacyPromotion { Id = 3, Title = "Sale", Content = "Finalna rasprodaja lekova...", PharmacyName = "Biljana i Luka", Posted = true, StartTime = new DateTime(2021, 11, 10), EndTime = new DateTime(2022, 02, 13) },
+                new PharmacyPromotion { Id = 4, Title = "Black friday", Content = "Petkom idite u apoteku 'Jankovic'", PharmacyName = "Jankovic", Posted = true, StartTime = new DateTime(2021, 11, 10), EndTime = new DateTime(2022, 02, 15) },
+                new PharmacyPromotion { Id = 5, Title = "Halloween action", Content = "Grrrr strasan demetrin", PharmacyName = "Medico", Posted = true, StartTime = new DateTime(2021, 11, 10), EndTime = new DateTime(2022, 02, 12) },
+                new PharmacyPromotion { Id = 6, Title = "Sale", Content = "Svugde podji, u Rodu dodji", PharmacyName = "Roda", Posted = true, StartTime = new DateTime(2021, 11, 10), EndTime = new DateTime(2022, 02, 13) }
+                );
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

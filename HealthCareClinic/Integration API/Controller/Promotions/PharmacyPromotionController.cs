@@ -22,6 +22,13 @@ namespace Integration_API.Controller.Promotions
             return Ok(pharmacyPromotions);
         }
 
+        [HttpGet("active")]
+        public IActionResult GetAllActivePromotions()
+        {
+            List<PharmacyPromotion> pharmacyPromotions = (List<PharmacyPromotion>)_pharmacyPromotionService.GetAllActivePromotions();
+            return Ok(pharmacyPromotions);
+        }
+
 
         [HttpPut("{id?}")]
         public IActionResult PostOrRemovePromotion(int id)

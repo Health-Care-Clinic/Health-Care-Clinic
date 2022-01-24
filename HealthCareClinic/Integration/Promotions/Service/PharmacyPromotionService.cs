@@ -37,5 +37,10 @@ namespace Integration.Promotions.Service
         {
             _pharmacyPromotionRepository.Save();
         }
+
+        public List<PharmacyPromotion> GetAllActivePromotions()
+        {
+            return _pharmacyPromotionRepository.GetAllActivePromotions();
+        }
     }
 }

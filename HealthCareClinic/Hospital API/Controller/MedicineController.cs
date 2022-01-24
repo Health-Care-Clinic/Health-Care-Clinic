@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RestSharp;
 
 namespace Hospital_API.Controller
 {
@@ -24,5 +25,20 @@ namespace Hospital_API.Controller
             _medicineService.AddMedicine(medicineName, quantity);
             return Ok();
         }
+
+        [HttpPost("allPharmacyPromotions")]
+        public IActionResult GetAllPharmacyPromotions()
+        {
+            var restClient = new RestClient("http://localhost:65508");
+            var request = new RestRequest("hospital/pharmacyPromotion/active");
+            IRestResponse restResponse = restClient.Get(request);
+
+            
+
+
+            return Ok(restResponse.Content);
+        }
+
+        
     }
 }
