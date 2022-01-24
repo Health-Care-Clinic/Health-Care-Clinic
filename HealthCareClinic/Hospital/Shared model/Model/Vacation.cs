@@ -34,7 +34,7 @@ namespace Hospital.Shared_model.Model
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(this.Description))
-                throw new ArgumentNullException("Description can not be null", "description");
+                throw new ArgumentNullException("Description can not be null", this.Description);
         }
         public bool GetVacationAvailability(List<Vacation> allVacations)
         {
