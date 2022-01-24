@@ -17,7 +17,7 @@ services:
     entrypoint: ["/bin/sh","-c"]
     command:
     - |
-      pip install chromedriver-py
+    
       dotnet new tool-manifest --force
       dotnet tool install --local dotnet-ef --version 5.0.11
       dotnet restore "HealthCareClinic/Hospital API/Hospital API.csproj"
@@ -40,20 +40,13 @@ services:
       - chrome-net
   
 
-  selenium-hub:
-    image: selenium/hub
-    container_name: selenium-hub
+
+
+
+  chrome:
+    image: selenium/standalone-chrome:latest
     ports:
       - "4444:4444"
-  chrome:
-    image: selenium/node-chrome
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
 
 
   patient-front:
