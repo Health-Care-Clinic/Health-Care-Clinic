@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IPrescription } from './IPrescription';
-import { IPatient } from "../patient/ipatient";
 import { PatientService } from '../patient/patient.service';
 @Component({
   selector: 'app-prescription',
@@ -11,19 +10,15 @@ export class PrescriptionComponent implements OnInit {
 
   prescription : IPrescription = 
   {
-    id: 0,
     date : new Date(),
     doctor : {
       id: 0,
       name : '',
       surname: ''
     },
-    comment: '',
-    medicine : {
-      id : 0,
-      name : '',
-      quantity:0
-    }
+    diagnosis: '',
+    medicine : '',
+    quantity : 0
   }
   show : boolean = false;
   displayedColumns: string[] = ['date', 'doctor', 'medicine'];

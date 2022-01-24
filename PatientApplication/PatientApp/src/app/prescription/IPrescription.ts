@@ -4,9 +4,9 @@ import { Doctor } from "../registration-form/doctor";
 import { IMedicine } from "./IMedicine";
 
 export interface IPrescription {
-    id: number ;
-    medicine : IMedicine;
-    comment: string ;
+    medicine : string;
+    quantity : number;
+    diagnosis: string ;
     date: Date ;
     doctor: Doctor ;
 }

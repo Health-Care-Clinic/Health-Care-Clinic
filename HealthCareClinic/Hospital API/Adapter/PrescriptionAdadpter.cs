@@ -20,11 +20,28 @@ namespace Hospital_API.Adapter
             return prescription;
         }
 
+        public static PrescriptionPatientDTO PrescriptionToPrescriptionPatientDTO(Prescription prescription)
+        {
+            PrescriptionPatientDTO dto = new PrescriptionPatientDTO();
+            dto.Diagnosis = prescription.Diagnosis;
+            dto.Medicine = prescription.Medicine;
+            dto.Quantity = prescription.Quantity;
+            dto.Date = ConvertToString(prescription.Date);
+            //dto.Doctor = prescription.Appointment.DoctorId
+            return dto;
+        }
+
         private static DateTime StringToDate(string date)
         {
             string[] parts = date.Split("-");
             DateTime newDate = new DateTime(int.Parse(parts[0]), int.Parse(parts[1]), int.Parse(parts[2]));
             return newDate;
+        }
+        private static String ConvertToString(DateTime date)
+        {
+            String dateAsString = date.ToString();
+
+            return dateAsString;
         }
     }
 }

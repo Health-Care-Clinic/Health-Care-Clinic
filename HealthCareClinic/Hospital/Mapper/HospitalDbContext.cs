@@ -426,10 +426,13 @@ namespace Hospital.Mapper
                 new Appointment(21, 17, 3, 3, false, false, new DateTime(2022, 2, 22, 11, 0, 0), 21),
                 new Appointment(22, 18, 3, 3, false, false, new DateTime(2022, 2, 22, 11, 30, 0), 22),
                 new Appointment(23, 19, 3, 3, false, false, new DateTime(2022, 2, 22, 12, 0, 0), 23),
-                new Appointment(24, 20, 3, 3, false, false, new DateTime(2022, 2, 22, 12, 30, 0), 24)
+                new Appointment(24, 20, 3, 3, false, false, new DateTime(2022, 2, 22, 12, 30, 0), 24),
+                new Appointment(25, 1, 2, 1, false, false, new DateTime(2022, 1, 22, 7, 0, 0), 25),
+                new Appointment(26, 1, 3, 3, false, false, new DateTime(2022, 1, 12, 8, 0, 0), 26),
+                new Appointment(27, 1, 1, 2, false, false, new DateTime(2022, 1, 05, 9, 0, 0), 27)
             );
 
-            for (int i = 1; i <= 24; i++)
+            for (int i = 1; i <= 27; i++)
             {
                 if (i != 10)
                 {
@@ -650,6 +653,12 @@ namespace Hospital.Mapper
                 new CanceledAppointment { AppointmentId = 1799, PatientId = 2, DateOfCancellation = new System.DateTime(2021, 12, 11) },
                 new CanceledAppointment { AppointmentId = 1780, PatientId = 6, DateOfCancellation = new System.DateTime(2021, 12, 21) },
                 new CanceledAppointment { AppointmentId = 1870, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 22) });
+
+            modelBuilder.Entity<Prescription>().HasData(
+                new Prescription { Id = 1, Diagnosis = "Uzimati 1 put dnevno do poboljsanja", Medicine = "Panklav", Quantity = 300, Date = new DateTime(2022, 1, 22, 7, 0, 0), PatientId = 1, AppointmentId = 25 },
+                new Prescription { Id = 2, Diagnosis = "Uzimati 2 put dnevno do poboljsanja", Medicine = "Brufen", Quantity = 200, Date = new DateTime(2022, 1, 12, 8, 0, 0), PatientId = 1, AppointmentId = 26 },
+                new Prescription { Id = 3, Diagnosis = "Uzimati 3 put dnevno do poboljsanja", Medicine = "Kafetin", Quantity = 400, Date = new DateTime(2022, 1, 05, 9, 0, 0), PatientId = 1, AppointmentId = 27 }
+                );
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

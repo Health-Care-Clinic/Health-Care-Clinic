@@ -25,7 +25,7 @@ export class PatientService {
   private _getAllUsernames     = this._patientRegistration + '/getAllUsernames';
   private _getPatient          = this._patientRegistration + '/getPatient/';
   private _authenticate        = this._patientRegistration + '/authenticate';
-  private _getAllPrescriptionsForPatient = this._patientRegistration + '/getAllPrescriptionsForPatient';
+  private _getAllPrescriptionsForPatient = this._patientRegistration + '/getAllPrescriptionsForPatient/';
 
   appointment !: IAppointment;
   
@@ -69,9 +69,9 @@ export class PatientService {
 
   getAllPrescriptionsForPatient(): Observable<any> 
   {
-    const body=JSON.stringify(localStorage.getItem('id'));
-    console.log(body)
-    return this._http.post(this._getAllPrescriptionsForPatient, body)
+    return this._http.get<IPatient>(this._getAllPrescriptionsForPatient + localStorage.getItem('id'))
+    .do(data =>  console.log('All: ' + JSON.stringify(data)))
+    .catch(this.handleError);
   }
 
   private handleError(err : HttpErrorResponse) {

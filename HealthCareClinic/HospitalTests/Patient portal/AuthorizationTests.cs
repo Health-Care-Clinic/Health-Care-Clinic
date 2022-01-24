@@ -20,7 +20,7 @@ namespace HospitalUnitTests.Patient_portal
         [Fact]
         public void Failed_login()
         {
-            PatientController patientController = new PatientController(null ,null, CreateStubPatientService());
+            PatientController patientController = new PatientController(null ,null,null, CreateStubPatientService());
             //PatientController patientController = new PatientController(alergenService, doctorService, patientService);
             UserCredentials fakeCredentials = new UserCredentials("lazni", "lazni");
 
@@ -31,7 +31,7 @@ namespace HospitalUnitTests.Patient_portal
         [Fact]
         public void Success_login()
         {
-            PatientController patientController = new PatientController(null, null, CreateStubPatientService());
+            PatientController patientController = new PatientController(null, null,null, CreateStubPatientService());
             //PatientController patientController = new PatientController(alergenService, doctorService, patientService);
             UserCredentials realCredentials = new UserCredentials("miki", "miki");
 

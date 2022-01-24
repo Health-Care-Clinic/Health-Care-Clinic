@@ -11,7 +11,7 @@
       <ng-container matColumnDef="doctor">
         <mat-header-cell *matHeaderCellDef> Doctor </mat-header-cell>
             <mat-cell *matCellDef="let element" >
-              <ng-container >{{element.doctor }}</ng-container>
+              <ng-container >{{element.doctor.name + " " + element.doctor.surname }}</ng-container>
                 </mat-cell>
       </ng-container>
 
@@ -29,5 +29,5 @@
   <div *ngIf="show" style="margin-left: 10%; margin-top: 3%;">
     <h2> Prescription details: </h2>            
     <div><mat-form-field style="width: 600px; height: 200px;" appearance="fill">
-      <textarea required matInput [(ngModel)]="prescription.comment"  rows="15" cols="40" ></textarea>
+      <textarea required matInput [(ngModel)]="prescription.diagnosis"  rows="15" cols="40" ></textarea>
     </mat-form-field></div>

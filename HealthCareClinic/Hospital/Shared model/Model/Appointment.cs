@@ -1,4 +1,5 @@
-﻿using Hospital.Schedule.Model;
+﻿using Hospital.Medical_records.Model;
+using Hospital.Schedule.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,6 +24,8 @@ namespace Hospital.Shared_model.Model
         public DateTime Date { get; set; }
 
         public int SurveyId { get; set; }
+ 
+        public virtual List<Prescription>? Prescriptions { get; set; }
 
         public Appointment()
         {
