@@ -29,7 +29,7 @@ services:
       dotnet run "HealthCareClinic/Hospital/Hospital.csproj"
       dotnet test "HealthCareClinic/HospitalSeleniumTests/HospitalSeleniumTests.csproj"
     depends_on:
-      - chromedriver
+      - node-chrome
       - rabbitmq3
       - database
     links:
@@ -41,16 +41,15 @@ services:
       - chrome-net
   
 
-  chromedriver:
-    image: robcherry/docker-chromedriver:latest
-    ports: 
-        - "4444"
-    cap_add: 
-        - SYS_ADMIN
-    environment:
-        CHROMEDRIVER_WHITELISTED_IPS: ""
-    networks:
-      - chrome-net
+  selenium-hub:
+    image: selenium/hub:3.14.0
+    container_name: hub
+    ports:
+      - "4444:4444"
+  node-chrome:
+    image: selenium/node-chrome-debug:3.14.0
+    links:
+     - selenium-hub
 
 
   patient-front:
