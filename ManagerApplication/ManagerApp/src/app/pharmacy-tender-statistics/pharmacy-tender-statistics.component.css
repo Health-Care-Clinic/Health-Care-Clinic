@@ -1,0 +1,17 @@
+.divBarChart{
+    display: block;
+    width: 46%;
+    margin-inline: 27%;
+    margin-top: 80px;
+    margin-bottom: 150px;
+
+}
+
+.divPieChart{
+    display: block;
+    width: 26%;
+    margin-inline: 37%;
+    margin-top: 80px;
+    margin-bottom: 150px;
+
+}

@@ -70,6 +70,7 @@ namespace Pharmacy_API.Controllers.Tendering
             if (tenderResponse.IsWinningBid)
             {
                 _tenderResponseService.UpdateByTenderId(tenderResponse);
+                Console.WriteLine("Vasa ponuda je prihvacena.");
             }
             else
             {

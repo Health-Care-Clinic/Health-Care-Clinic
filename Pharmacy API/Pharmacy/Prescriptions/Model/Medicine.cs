@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pharmacy.Advertisements.Model;
+using System;
+using System.Collections.Generic;
 
 namespace Pharmacy.Prescriptions.Model
 {
@@ -14,6 +16,7 @@ namespace Pharmacy.Prescriptions.Model
         public String Reactions { get; set; }
         public String CompatibileMedicine { get; set; }
         public double Price { get; set; }
+        public virtual ICollection<AdvertisementMedicine> AdvertisementMedicines { get; set; }
 
         public Medicine(int id, string name, int quantity)
         {
@@ -45,7 +48,9 @@ namespace Pharmacy.Prescriptions.Model
 
 
 
-        public Medicine() { }
+        public Medicine() {
+            
+        }
 
 
         public Boolean CheckQuantity(int quantiity)

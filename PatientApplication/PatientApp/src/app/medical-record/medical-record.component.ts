@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IPatient } from '../patient/ipatient';
+import { IPatient, PatientWithPicture } from '../patient/ipatient';
 import { PatientService } from '../patient/patient.service';
 
 @Component({
@@ -29,6 +29,12 @@ export class MedicalRecordComponent implements OnInit {
     isBlocked: false,
     isActive: false
   }
+
+  patientWithPicture: PatientWithPicture = {
+    patient: this.patientModel,
+    profilePicture: ""
+  }
+
   errorMessage : string  = '';
 
   constructor(public _patientservice: PatientService) { }
@@ -39,8 +45,12 @@ export class MedicalRecordComponent implements OnInit {
 
   getPatient(id: number) {
     this._patientservice.getPatient(id)
-        .subscribe(patientModel => this.patientModel = patientModel,
-                    error => this.errorMessage = <any>error);     
+        .subscribe(data => {
+          this.patientWithPicture = data
+          this.patientModel = this.patientWithPicture.patient
+          console.log(this.patientWithPicture)
+        },
+          error => this.errorMessage = <any>error);     
 
     /* location.reload() */
   }

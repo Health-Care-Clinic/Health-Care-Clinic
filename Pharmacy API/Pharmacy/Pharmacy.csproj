@@ -19,8 +19,6 @@
   <ItemGroup>
     <Compile Remove="ApiKeyService.cs" />
     <Compile Remove="Class1.cs" />
-    <Compile Remove="Migrations\20211119230133_FifthMigration.cs" />
-    <Compile Remove="Migrations\20211119230133_FifthMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,7 +7,7 @@ using System.Text;
 namespace Hospital.Tendering.Model
 {
     [Owned]
-    public class Price
+    public class Price : ValueObject
     {
         [JsonProperty]
         public double Amount { get; private set; }

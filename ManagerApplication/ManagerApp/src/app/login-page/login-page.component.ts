@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Credentials } from '../model/manager/credentials';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../services/login.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login-page',
@@ -20,7 +20,7 @@ export class LoginPageComponent {
 
   token: string = '';
 
-  constructor(public _loginService: LoginService, private router: Router) { }
+  constructor(public _loginService: LoginService, private router: Router, private _snackBar: MatSnackBar) { }
 
 
   submit(): void {
@@ -33,7 +33,10 @@ export class LoginPageComponent {
         console.log('Dobio: ', data)
         this.router.navigateByUrl('/hospital-map').then(() => location.reload());
       },
-      error => console.log('Error!', error),
+      error => {
+        console.log('Error!', error)
+        this._snackBar.open('Invalid username or password', 'Close', {duration: 3000});
+      }
     )
   }
 

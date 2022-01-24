@@ -10,8 +10,8 @@ using Pharmacy;
 namespace Pharmacy.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    [Migration("20220105232003_tender2")]
-    partial class tender2
+    [Migration("20220110170648_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,47 @@ namespace Pharmacy.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("Pharmacy.Advertisements.Model.Advertisement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Advertisements");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "NIkada jeftiniji popust",
+                            Title = "Super ponuda"
+                        });
+                });
+
+            modelBuilder.Entity("Pharmacy.Advertisements.Model.AdvertisementMedicine", b =>
+                {
+                    b.Property<int>("AdvertisementId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AdvertisementId", "MedicineId");
+
+                    b.HasIndex("MedicineId");
+
+                    b.ToTable("AdvertisementMedicine");
+                });
 
             modelBuilder.Entity("Pharmacy.ApiKeys.Model.ApiKey", b =>
                 {
@@ -236,6 +277,25 @@ namespace Pharmacy.Migrations
                     b.ToTable("TenderResponses");
                 });
 
+            modelBuilder.Entity("Pharmacy.Advertisements.Model.AdvertisementMedicine", b =>
+                {
+                    b.HasOne("Pharmacy.Advertisements.Model.Advertisement", "Advertisement")
+                        .WithMany("AdvertisementMedicines")
+                        .HasForeignKey("AdvertisementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pharmacy.Prescriptions.Model.Medicine", "Medicine")
+                        .WithMany("AdvertisementMedicines")
+                        .HasForeignKey("MedicineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Advertisement");
+
+                    b.Navigation("Medicine");
+                });
+
             modelBuilder.Entity("Pharmacy.Tendering.Model.Tender", b =>
                 {
                     b.OwnsOne("Pharmacy.Tendering.Model.DateRange", "DateRange", b1 =>
@@ -338,6 +398,16 @@ namespace Pharmacy.Migrations
                     b.Navigation("TenderItems");
 
                     b.Navigation("TotalPrice");
+                });
+
+            modelBuilder.Entity("Pharmacy.Advertisements.Model.Advertisement", b =>
+                {
+                    b.Navigation("AdvertisementMedicines");
+                });
+
+            modelBuilder.Entity("Pharmacy.Prescriptions.Model.Medicine", b =>
+                {
+                    b.Navigation("AdvertisementMedicines");
                 });
 #pragma warning restore 612, 618
         }

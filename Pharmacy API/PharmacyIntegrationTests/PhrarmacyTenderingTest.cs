@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Pharmacy;
+using System;
+using System.IO;
 using Moq;
 using Pharmacy.Model;
 using Pharmacy_API.DTO;
@@ -16,6 +21,7 @@ namespace PharmacyIntegrationTests
 {
     public class PhrarmacyTenderingTest
     {
+      
         [Fact]
         public void Valid_tender_response()
         {
@@ -75,6 +81,7 @@ namespace PharmacyIntegrationTests
             stubRepository.Setup(m => m.GetByNameManufacturerWeight("Brufen", "Bayer", 400)).Returns(enumerable);
             stubRepository.Setup(m => m.GetAll()).Returns(enumerable);
             return stubRepository.Object;
+
         }
     }
 }

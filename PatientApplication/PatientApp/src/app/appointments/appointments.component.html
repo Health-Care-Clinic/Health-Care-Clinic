@@ -1,5 +1,5 @@
 <div>
-  <table mat-table [dataSource]="appointments" class="mat-elevation-z8" style="width: 100%;">
+  <table id="Appointments" mat-table [dataSource]="appointments" class="mat-elevation-z8" style="width: 100%;">
 
       <ng-container matColumnDef="AppointmentId">
           <mat-header-cell *matHeaderCellDef> ApointmentId </mat-header-cell>
@@ -44,7 +44,7 @@
         <ng-container matColumnDef="Cancelation">
           <mat-header-cell *matHeaderCellDef>Cancel </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <button mat-button *ngIf="!element.isCancelled && !compare(element.date,currentDatePlusTwoDays) " (click)="cancelAppointment(element)">
+            <button mat-button [attr.id]="element.id" *ngIf="!element.isCancelled && !compare(element.date,currentDatePlusTwoDays) " (click)="cancelAppointment(element)">
               Cancel
             </button>
           </mat-cell>

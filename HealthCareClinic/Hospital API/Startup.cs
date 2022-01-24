@@ -100,6 +100,7 @@ namespace Hospital_API
 
             services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IProfilePictureRepository, ProfilePictureRepository>();
 
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<ITransferRepository, TransferRepository>();

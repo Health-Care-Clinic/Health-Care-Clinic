@@ -2,7 +2,7 @@
     <button style="font-size : 25px" mat-button (click)="goToLandingPage()">Hospital</button>
     <button style="margin-left : 25px" mat-button (click)="goToLandingPage()">About us</button>
     <!-- <button mat-button [routerLink]="['survey']">Survey</button> -->
-    <button *ngIf="role == 'patient'" mat-button (click)="goToFeedbackForm()">Create feedback</button>
+    <button id="createFButton"  *ngIf="role == 'patient'" mat-button (click)="goToFeedbackForm()">Create feedback</button>
     <button *ngIf="role == 'patient'" mat-button (click)="goToMedicalRecord()">Medical record</button>
     <button *ngIf="role == 'patient'" mat-button [matMenuTriggerFor]="menu">Schedule appointment</button>
         <mat-menu #menu="matMenu">

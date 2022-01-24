@@ -10,11 +10,11 @@
         <div>
             <mat-card class="example-card">
                 <mat-card-header>
-                    <mat-card-title>Tender {{tender.id+1}}</mat-card-title>
+                    <mat-card-title>Tender {{tender.id}}</mat-card-title>
                     <mat-card-subtitle>
                         {{tender.startDate | date : 'dd.MM.yyyy.'}} - {{tender.endDate | date : 'dd.MM.yyyy.'}}
                         <br>
-                        {{tender.isOpen ? "Open": "Closed"}}
+                        <!--{{tender.isOpen ? "Open": "Closed"}}-->
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
@@ -30,7 +30,7 @@
                     <br>
                 </mat-card-content>
                 <mat-card-actions *ngIf="tender.offersNumber">
-                    <button mat-button [matBadge]='tender.offersNumber'>
+                    <button mat-button [matBadge]='tender.offersNumber' (click)="openTenderOffers(tender.id)">
                         SEE OFFERS
                     </button>
                 </mat-card-actions>

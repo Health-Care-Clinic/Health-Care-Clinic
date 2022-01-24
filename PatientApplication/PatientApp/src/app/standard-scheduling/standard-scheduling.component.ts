@@ -15,20 +15,8 @@ import { IAppointment } from '../service/IAppointment';
 })
 export class StandardSchedulingComponent implements OnInit {
   
-  
 
-  appointmentModel : AppointmentWithDoctorId = {
-        id : 0,
-        patientId : 0,
-        doctorId : 0,
-        roomId : 0,
-        isCancelled : false,
-        isDone : false,
-        date: new Date(),
-        surveyId : 0
-  }
-
-  patientId : number = 1;
+  patientId: number = Number(localStorage.getItem('id'));
   specializations : Array<string> = [];
   selectedSpecialty : string = '';
   doctors : Doctor[] = [];
@@ -76,24 +64,19 @@ export class StandardSchedulingComponent implements OnInit {
                     error => this.errorMessage = <any>error);
   }
 
-  constructAppointment() {
-    this.appointmentModel.patientId = this.patientId;
-    this.appointmentModel.doctorId = this.selectedDoctor.id;
-    this.appointmentModel.roomId = 3;
-    this.appointmentModel.date = new Date(this.selectedTerm);
-  }
-
   confirm() {
-    this.constructAppointment();
     
-    this._appointmentService.schedule(this.appointmentModel.date, this.appointmentModel.doctorId, this.appointmentModel.patientId)
+    this._appointmentService.schedule(new Date(this.selectedTerm), this.selectedDoctor.id, this.patientId)
         .subscribe(
-            data => console.log('Success!', data),
-            error => console.log('Error!', error)
+            data => { 
+              console.log('Success!', data)
+              this._snackBar.open('Appointment successfully created!', 'Close', {duration: 3000});
+            },
+              error => this._snackBar.open('Failed to create appointment!', 'Close', {duration: 3000})
         )
 
-    console.log(this.appointmentModel);    
-    this._snackBar.open('Appointment successfully created!', 'Close', {duration: 3000});
+    console.log(this.selectedDate, this.selectedDoctor.id, this.patientId);    
+    
     this.router.navigateByUrl('/medical-record');
   }
 
