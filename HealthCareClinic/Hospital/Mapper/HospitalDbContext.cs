@@ -44,6 +44,7 @@ namespace Hospital.Mapper
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<WorkDayShift> WorkDayShift { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<ProfilePicture> ProfilePictures { get; set; }
 
         public DbSet<Renovation> Renovations { get; set; }
         public DbSet<Transfer> Transfer { get; set; }

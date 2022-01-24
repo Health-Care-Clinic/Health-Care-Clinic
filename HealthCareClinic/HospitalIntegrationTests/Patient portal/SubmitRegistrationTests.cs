@@ -63,8 +63,10 @@ namespace HospitalIntegrationTests.Patient_portal
                     IsActive = false
                 };
 
+                PatientWithPictureDTO patientWithPictureDTO = new PatientWithPictureDTO(patientDTO, "");
 
-                OkObjectResult res = patientController.SubmitPatientRegistrationRequest(patientDTO) as OkObjectResult;
+
+                OkObjectResult res = patientController.SubmitPatientRegistrationRequest(patientWithPictureDTO) as OkObjectResult;
 
                 OkObjectResult patientResult = patientController.GetPatient(patientDTO.Id) as OkObjectResult;
                 PatientDTO patient = patientResult.Value as PatientDTO;

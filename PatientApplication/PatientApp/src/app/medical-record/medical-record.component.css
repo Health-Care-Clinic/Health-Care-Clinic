@@ -15,6 +15,11 @@
     margin-right: 10%;
 }
 
+.pic {
+    
+    height: 300px; margin-top: 1%; margin-right: 0; margin-left: auto; object-fit: cover;
+}
+
 label {
     margin-right: 0;
     margin-left: auto;

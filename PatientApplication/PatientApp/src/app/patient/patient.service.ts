@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Doctor } from '../registration-form/doctor';
 import { IAllergen } from '../registration-form/allergen';
-import { IPatient } from './ipatient';
+import { IPatient, PatientWithPicture } from './ipatient';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import { Credentials } from './credentials';
@@ -46,13 +46,13 @@ export class PatientService {
                          .catch(this.handleError);
   }
 
-  getPatient(id: number): Observable<IPatient> {    
-    return this._http.get<IPatient>(this._getPatient+id)
+  getPatient(id: number): Observable<PatientWithPicture> {    
+    return this._http.get<PatientWithPicture>(this._getPatient+id)
                          .do(data =>  console.log('All: ' + JSON.stringify(data)))
                          .catch(this.handleError);
   }
 
-  submitRequest(patient:IPatient): Observable<any> {
+  submitRequest(patient:PatientWithPicture): Observable<any> {
     const body=JSON.stringify(patient);
     console.log(body)
     return this._http.post(this._submitRegistration, body)
