@@ -3,6 +3,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace HospitalSeleniumTests
 {
@@ -30,9 +32,8 @@ namespace HospitalSeleniumTests
 #if RELEASE
             options.AddArguments('--headless');
 #endif
-            string workingDirectory = Environment.CurrentDirectory;
 
-            driver = new ChromeDriver(@workingDirectory, options);
+            driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options);
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
             loginPage.EnsureButtonIsDisplayed();
