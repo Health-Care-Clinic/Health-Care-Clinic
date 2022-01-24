@@ -1,13 +1,13 @@
 <mat-toolbar color="warn" class="navbar">
     <button style="font-size : 25px" mat-button [routerLink]="['']">Hospital</button>
 
-    <button *ngIf="role == 'manager'" mat-button [matMenuTriggerFor]="facility">Our Facility</button>
+    <button *ngIf="role == 'manager'" mat-button id="facility" [matMenuTriggerFor]="facility">Our Facility</button>
     <mat-menu #facility="matMenu">
         <button mat-menu-item [routerLink]="['hospital-map']">Hospital map</button>
         <button mat-menu-item [routerLink]="['moving-equipment']">Move equipment</button>
         <button mat-menu-item [routerLink]="['renovation']">Renovation</button>
         <button mat-menu-item [routerLink]="['shifts']">Shifts</button>
-        <button mat-menu-item [routerLink]="['doctors']">Doctors</button>
+        <button mat-menu-item id="doctors" [routerLink]="['doctors']">Doctors</button>
     </mat-menu>
     
     <button *ngIf="role == 'manager'" mat-button  [routerLink]="['feedback-view']">All feedbacks</button>
