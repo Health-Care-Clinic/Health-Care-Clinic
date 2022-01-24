@@ -23,23 +23,23 @@ jobs:
           base_ref:  develop
         
       - name: Setup .NET
-        if: env.DIFF_DETECTED == 'true'
+        # if: env.DIFF_DETECTED == 'true'
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.x
 
       - name: Restore dependencies
-        if: env.DIFF_DETECTED == 'true'
+        # if: env.DIFF_DETECTED == 'true'
         run: dotnet restore $PROJECT
 
       - name: Build
-        if: env.DIFF_DETECTED == 'true'
+        # if: env.DIFF_DETECTED == 'true'
         run: dotnet build $PROJECT --configuration $config --no-restore 
 
       - name: Unit test
-        if: env.DIFF_DETECTED == 'true'
+        # if: env.DIFF_DETECTED == 'true'
         run: dotnet test $UNIT_TEST --verbosity quiet
 
       - name: E2E test
-        if: env.DIFF_DETECTED == 'true'
+        # if: env.DIFF_DETECTED == 'true'
         run: dotnet test $E2E_TEST --verbosity quiet
