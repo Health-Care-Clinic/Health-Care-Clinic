@@ -30,8 +30,9 @@ namespace HospitalSeleniumTests
 #if RELEASE
             options.AddArguments('--headless');
 #endif
+            string workingDirectory = Environment.CurrentDirectory;
 
-            driver = new ChromeDriver(options);
+            driver = new ChromeDriver(@workingDirectory, options);
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
             loginPage.EnsureButtonIsDisplayed();
