@@ -79,6 +79,7 @@ namespace HospitalIntegrationTests.Graphical_editor
             OnCallShiftService onCallShiftService = new OnCallShiftService(onCallShiftRepository);
             List<OnCallShift> onCallShiftsBefore = (List<OnCallShift>)onCallShiftRepository.GetAll();
             OnCallShift newShift = new OnCallShift(7, new DateTime(2022, 1, 1), 1);
+
             onCallShiftService.Add(newShift);
             List<OnCallShift> onCallShifts = (List<OnCallShift>)onCallShiftRepository.GetAll();
             onCallShiftService.Remove(newShift);

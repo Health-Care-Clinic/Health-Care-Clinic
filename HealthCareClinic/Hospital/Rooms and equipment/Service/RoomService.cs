@@ -9,7 +9,7 @@ namespace Hospital.Rooms_and_equipment.Service
 {
     public class RoomService : IRoomService
     {
-        private IRoomRepository _roomRepository;
+        private readonly IRoomRepository _roomRepository;
 
         public RoomService(IRoomRepository roomRepository)
         {
@@ -55,13 +55,12 @@ namespace Hospital.Rooms_and_equipment.Service
             if (room1.FloorId != room2.FloorId)
                 return false;
 
-            if (room1.Y != room2.Y)
+            if (room1.PositionAndDimension.Y != room2.PositionAndDimension.Y)
                 return false;
             else {
-                if ((room1.X + room1.Width) != room2.X)
+                if ((room1.PositionAndDimension.X + room1.PositionAndDimension.Width) != room2.PositionAndDimension.X && (room2.PositionAndDimension.X + room2.PositionAndDimension.Width) != room1.PositionAndDimension.X)
                 {
-                    if ((room2.X + room2.Width) != room1.X)
-                        return false;
+                    return false;
                 }
             }
 
@@ -73,13 +72,13 @@ namespace Hospital.Rooms_and_equipment.Service
             Room room1 = GetOneById(firstRoomId);
             Room room2 = GetOneById(secondRoomId);
 
-            if ((room1.X + room1.Width) == room2.X)
+            if ((room1.PositionAndDimension.X + room1.PositionAndDimension.Width) == room2.PositionAndDimension.X)
             {
-                _roomRepository.ChangeMergedDimensions(firstRoomId, room1.X, room1.Width + room2.Width);
+                _roomRepository.ChangeMergedDimensions(firstRoomId, room1.PositionAndDimension.X, room1.PositionAndDimension.Width + room2.PositionAndDimension.Width);
             }
-            else if ((room2.X + room2.Width) == room1.X)
+            else if ((room2.PositionAndDimension.X + room2.PositionAndDimension.Width) == room1.PositionAndDimension.X)
             {
-                _roomRepository.ChangeMergedDimensions(firstRoomId, room1.X - room2.Width, room1.Width + room2.Width);
+                _roomRepository.ChangeMergedDimensions(firstRoomId, room1.PositionAndDimension.X - room2.PositionAndDimension.Width, room1.PositionAndDimension.Width + room2.PositionAndDimension.Width);
             }
 
         }
@@ -88,10 +87,10 @@ namespace Hospital.Rooms_and_equipment.Service
         {
             Room room1 = GetOneById(firstRoomId);
 
-            float x = room1.X;
-            float y = room1.Y;
-            float width = room1.Width / 2;
-            float height = room1.Height;
+            float x = room1.PositionAndDimension.X;
+            float y = room1.PositionAndDimension.Y;
+            float width = room1.PositionAndDimension.Width / 2;
+            float height = room1.PositionAndDimension.Height;
             _roomRepository.ChangeDividedDimensions(firstRoomId, x, y, width, height);
             _roomRepository.ChangeDividedDimensions(secondRoomId, x + width, y, width, height);
 

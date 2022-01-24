@@ -56,7 +56,7 @@ namespace Hospital.Shared_model.Service
 
             foreach (Vacation v in allVacations)
             {
-                if (v.EndTime.CompareTo(DateTime.Now) < 0)
+                if (v.DateSpan.EndTime.CompareTo(DateTime.Now) < 0)
                 {
                     pastVacations.Add(v);
                 }
@@ -72,7 +72,7 @@ namespace Hospital.Shared_model.Service
 
             foreach (Vacation v in allVacations)
             {
-                if (v.StartTime.CompareTo(DateTime.Now) < 0 && v.EndTime.CompareTo(DateTime.Now) > 0)
+                if (v.DateSpan.StartTime.CompareTo(DateTime.Now) < 0 && v.DateSpan.EndTime.CompareTo(DateTime.Now) > 0)
                 {
                     currentVacations.Add(v);
                 }
@@ -88,7 +88,7 @@ namespace Hospital.Shared_model.Service
 
             foreach (Vacation v in allVacations)
             {
-                if (v.StartTime.CompareTo(DateTime.Now) > 0)
+                if (v.DateSpan.StartTime.CompareTo(DateTime.Now) > 0)
                 {
                     futureVacations.Add(v);
                 }
@@ -101,35 +101,15 @@ namespace Hospital.Shared_model.Service
         {
             List<Vacation> allVacations = _vacationRepository.GetVacationsByDoctorId(doctorId);
 
-            foreach (Vacation v in allVacations)
-            {
-                if ((vacationStart.CompareTo(v.StartTime) > 0 && vacationStart.CompareTo(v.EndTime) < 0) 
-                    || (vacationEnd.CompareTo(v.StartTime) > 0 && vacationEnd.CompareTo(v.EndTime) < 0)
-                    || (vacationStart.CompareTo(v.StartTime) < 0 && vacationEnd.CompareTo(v.EndTime) > 0))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            Vacation vacation = new Vacation(101,"Description..",new DateSpan(vacationStart,vacationEnd),doctorId);
+            return vacation.GetVacationAvailability(allVacations);
+            
         }
 
         public bool GetChangedVacationAvailability(Vacation vacation)
         {
             List<Vacation> allVacations = _vacationRepository.GetVacationsByDoctorId(vacation.DoctorId);
-
-            foreach (Vacation v in allVacations)
-            {
-				if (!vacation.Id.Equals(v.Id) && 
-					((vacation.StartTime.CompareTo(v.StartTime) > 0 && vacation.StartTime.CompareTo(v.EndTime) < 0)
-					|| (vacation.EndTime.CompareTo(v.StartTime) > 0 && vacation.EndTime.CompareTo(v.EndTime) < 0)
-					|| (vacation.StartTime.CompareTo(v.StartTime) < 0 && vacation.EndTime.CompareTo(v.EndTime) > 0)))
-				{
-					return false;
-				}
-            }
-
-            return true;
+            return vacation.GetChangedVacationAvailability(allVacations);
         }
     }
 }

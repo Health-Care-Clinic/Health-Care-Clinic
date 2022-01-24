@@ -26,8 +26,7 @@ namespace Hospital.Shared_model.Repository
         public void Edit(WorkDayShift workDayShift)
         {
             Context.Set<WorkDayShift>().Find(workDayShift.Id).Name = workDayShift.Name;
-            Context.Set<WorkDayShift>().Find(workDayShift.Id).StartTime = workDayShift.StartTime;
-            Context.Set<WorkDayShift>().Find(workDayShift.Id).EndTime = workDayShift.EndTime;
+            Context.Set<WorkDayShift>().Find(workDayShift.Id).WorkHour = new WorkHour(workDayShift.WorkHour.StartTime, workDayShift.WorkHour.EndTime);
             Context.SaveChanges();
         }
     }

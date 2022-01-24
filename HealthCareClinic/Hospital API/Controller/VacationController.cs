@@ -91,7 +91,7 @@ namespace Hospital_API.Controller
         public IActionResult GetVacationAvailability(VacationDTO vacationDTO)
         {
             Vacation vacation = VacationAdapter.VacationDTOToVacation(vacationDTO);
-            bool available = vacationService.GetVacationAvailability(vacation.DoctorId, vacation.StartTime, vacation.EndTime);
+            bool available = vacationService.GetVacationAvailability(vacation.DoctorId, vacation.DateSpan.StartTime, vacation.DateSpan.EndTime);
             return Ok(available);
         }
 
