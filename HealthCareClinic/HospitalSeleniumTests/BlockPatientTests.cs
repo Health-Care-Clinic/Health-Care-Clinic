@@ -1,22 +1,21 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 using System;
-using Xunit;
+using NUnit.Framework;
 
 namespace HospitalSeleniumTests
 {
     public class BlockPatientTests : IDisposable
     {
-        private readonly IWebDriver driver;
+        private IWebDriver driver = null;
         private Pages.LoginPage loginPage;
         private Pages.HomePage homePage;
         private Pages.MaliciousPatientsPage patientsPage;
         private int patientsCount = 0;
 
-        public static String remote_url_chrome = "http://chrome:4444/wd/hub";
-
-        public BlockPatientTests()
+        [OneTimeSetUp]
+        public void Setup()
         {
             // options for launching Google Chrome
             ChromeOptions options = new ChromeOptions();
@@ -28,7 +27,11 @@ namespace HospitalSeleniumTests
             options.AddArguments("--no-sandbox");               // Bypass OS security model
             options.AddArguments("--disable-notifications");    // disable notifications
 
-            driver = new ChromeDriver(remote_url_chrome, options);
+#if RELEASE
+            options.AddArguments('--headless');
+#endif
+
+            driver = new ChromeDriver(options);
             loginPage = new Pages.LoginPage(driver);
             loginPage.Navigate();
             loginPage.EnsureButtonIsDisplayed();
@@ -40,7 +43,7 @@ namespace HospitalSeleniumTests
         }
 
 
-        [Fact]
+        [Test]
         public void TestBlockPatient()
         {
             Assert.True(loginPage.UsernameElementDisplayed());
@@ -61,14 +64,14 @@ namespace HospitalSeleniumTests
             patientsPage = new Pages.MaliciousPatientsPage(driver);
             patientsPage.EnsureButtonIsDisplayed();
             Assert.True(patientsPage.LinkDisplayed());
-            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
+            Assert.AreEqual(driver.Url, Pages.MaliciousPatientsPage.URI);
             patientsCount = patientsPage.PatientsCount();
 
             patientsPage.ClickLink();
 
             patientsPage.EnsureButtonIsNotDisplayed();
-            Assert.Equal(patientsCount - 1, patientsPage.PatientsCount());
-            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
+            Assert.AreEqual(patientsCount - 1, patientsPage.PatientsCount());
+            Assert.AreEqual(driver.Url, Pages.MaliciousPatientsPage.URI);
             Assert.False(patientsPage.LinkDisplayed());
         }
 
