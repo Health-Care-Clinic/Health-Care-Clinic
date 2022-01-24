@@ -38,12 +38,15 @@ services:
       - database
       - hospitalapi_application
       - rabbit
+      - chrom_net
   
   chrome:
-        image: selenium/standalone-chrome:latest
-        hostname: chrome
-        privileged: true
-        shm_size: 2g
+    image: selenium/standalone-chrome:latest
+    hostname: chrome
+    privileged: true
+    shm_size: 2g
+    networks:
+      - chrome-net
 
   manager-front:
     image: manager
