@@ -38,7 +38,7 @@ services:
       - database
       - hospitalapi_application
       - rabbit
-      - chrom_net
+      - chrome-net
   
   chrome:
     image: selenium/standalone-chrome:latest
