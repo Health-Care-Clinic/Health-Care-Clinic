@@ -34,12 +34,13 @@ jobs:
 
       - name: Build
         # if: env.DIFF_DETECTED == 'true'
-        run: dotnet build $PROJECT --configuration $config --no-restore 
-
-      - name: Unit test
-        # if: env.DIFF_DETECTED == 'true'
-        run: dotnet test $UNIT_TEST --verbosity quiet
+        run: dotnet build $PROJECT --configuration $config --no-restore
 
       - name: E2E test
         # if: env.DIFF_DETECTED == 'true'
         run: dotnet test $E2E_TEST --verbosity quiet
+
+      # - name: Unit test
+        # if: env.DIFF_DETECTED == 'true'
+        # run: dotnet test $UNIT_TEST --verbosity quiet
+
