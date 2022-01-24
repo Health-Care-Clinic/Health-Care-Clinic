@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Hospital.Rooms_and_equipment.Model
 {
-   public class Equipment
+    [Owned]
+    public class Equipment
     {
         public enum EquipmentType
         {

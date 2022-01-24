@@ -28,66 +28,66 @@ namespace Hospital_API.Controller
             return Ok(allDoctorSchedules);
         }
 
-        [HttpGet("checkVacationAvailabilityDoctorSchedule")]
-        public IActionResult CheckVacationAvailability(DoctorSchedule doctorSchedule, Vacation vacation)
+        [HttpPost("checkVacationAvailabilityDoctorSchedule")]
+        public IActionResult CheckVacationAvailability(DoctorSchedule doctorSchedule)
         {
-            bool available = doctorScheduleService.CheckVacationAvailability(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, vacation);
+            bool available = doctorScheduleService.CheckVacationAvailability(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new Vacation());
             return Ok(available);
         }
 
-        [HttpGet("addVacationDoctorSchedule")]
-        public IActionResult AddVacation(DoctorSchedule doctorSchedule, Vacation vacation)
+        [HttpPost("addVacationDoctorSchedule")]
+        public IActionResult AddVacation(DoctorSchedule doctorSchedule)
         {
-            bool canAdd = doctorScheduleService.AddVacation(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, vacation);
+            bool canAdd = doctorScheduleService.AddVacation(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new Vacation());
             return Ok(canAdd);
         }
 
-        [HttpGet("removeVacationDoctorSchedule")]
-        public IActionResult RemoveVacation(DoctorSchedule doctorSchedule, Vacation vacation)
+        [HttpPost("removeVacationDoctorSchedule")]
+        public IActionResult RemoveVacation(DoctorSchedule doctorSchedule)
         {
-            bool canRemove = doctorScheduleService.RemoveVacation(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, vacation);
+            bool canRemove = doctorScheduleService.RemoveVacation(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new Vacation());
             return Ok(canRemove);
         }
 
-        [HttpGet("checkOnCallShiftAvailabilityDoctorSchedule")]
-        public IActionResult CheckOnCallShiftAvailability(DoctorSchedule doctorSchedule, OnCallShift onCallShift)
+        [HttpPost("checkOnCallShiftAvailabilityDoctorSchedule")]
+        public IActionResult CheckOnCallShiftAvailability(DoctorSchedule doctorSchedule)
         {
-            bool available = doctorScheduleService.CheckOnCallShiftAvailability(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, onCallShift);
+            bool available = doctorScheduleService.CheckOnCallShiftAvailability(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new OnCallShift());
             return Ok(available);
         }
 
-        [HttpGet("addOnCallShiftDoctorSchedule")]
-        public IActionResult AddOnCallShift(DoctorSchedule doctorSchedule, OnCallShift onCallShift)
+        [HttpPost("addOnCallShiftDoctorSchedule")]
+        public IActionResult AddOnCallShift(DoctorSchedule doctorSchedule)
         {
-            bool canAdd = doctorScheduleService.AddOnCallShift(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, onCallShift);
+            bool canAdd = doctorScheduleService.AddOnCallShift(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new OnCallShift());
             return Ok(canAdd);
         }
 
-        [HttpGet("removeOnCallShiftDoctorSchedule")]
-        public IActionResult RemoveOnCallShift(DoctorSchedule doctorSchedule, OnCallShift onCallShift)
+        [HttpPost("removeOnCallShiftDoctorSchedule")]
+        public IActionResult RemoveOnCallShift(DoctorSchedule doctorSchedule)
         {
-            bool canRemove = doctorScheduleService.RemoveOnCallShift(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, onCallShift);
+            bool canRemove = doctorScheduleService.RemoveOnCallShift(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new OnCallShift());
             return Ok(canRemove);
         }
 
-        [HttpGet("checkAppointmentAvailabilityDoctorSchedule")]
-        public IActionResult CheckAppointmentAvailability(DoctorSchedule doctorSchedule, Appointment appointment)
+        [HttpPost("checkAppointmentAvailabilityDoctorSchedule")]
+        public IActionResult CheckAppointmentAvailability(DoctorSchedule doctorSchedule)
         {
-            bool available = doctorScheduleService.CheckAppointmentAvailability(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, appointment);
+            bool available = doctorScheduleService.CheckAppointmentAvailability(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new Appointment());
             return Ok(available);
         }
 
-        [HttpGet("addAppointmentDoctorSchedule")]
-        public IActionResult AddAppointment(DoctorSchedule doctorSchedule, Appointment appointment)
+        [HttpPost("addAppointmentDoctorSchedule")]
+        public IActionResult AddAppointment(DoctorSchedule doctorSchedule)
         {
-            bool canAdd = doctorScheduleService.AddAppointment(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, appointment);
+            bool canAdd = doctorScheduleService.AddAppointment(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new Appointment());
             return Ok(canAdd);
         }
 
-        [HttpGet("removeAppointmentDoctorSchedule")]
-        public IActionResult RemoveAppointment(DoctorSchedule doctorSchedule, Appointment appointment)
+        [HttpPost("removeAppointmentDoctorSchedule")]
+        public IActionResult RemoveAppointment(DoctorSchedule doctorSchedule)
         {
-            bool canRemove = doctorScheduleService.RemoveAppointment(doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, appointment);
+            bool canRemove = doctorScheduleService.RemoveAppointment(doctorSchedule.Id, doctorSchedule.Doctor, doctorSchedule.WorkDayShift, doctorSchedule.Vacations, doctorSchedule.OnCallShifts, doctorSchedule.Appointments, new Appointment());
             return Ok(canRemove);
         }
     }
