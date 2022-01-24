@@ -26,7 +26,7 @@ services:
       cd ../ 
       dotnet dotnet-ef migrations add TestingMigration --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext
       dotnet dotnet-ef database update --project "HealthCareClinic/Hospital/Hospital.csproj" --startup-project "HealthCareClinic/Hospital API/Hospital API.csproj" --context HospitalDbContext
-      dotnet build "HealthCareClinic/Hospital/Hospital.csproj" --configuration Release --no-restore 
+      dotnet run "HealthCareClinic/Hospital/Hospital.csproj"
       dotnet test "HealthCareClinic/HospitalSeleniumTests/HospitalSeleniumTests.csproj"
     depends_on:
       - rabbitmq3
@@ -50,11 +50,11 @@ services:
     networks:
       - chrome-net
 
-  manager-front:
-    image: manager
+  patient-front:
+    image: patient
     build:
       context: ./
-      dockerfile: stacks/build/manager-gateway/Dockerfile
+      dockerfile: stacks/build/patient-gateway/Dockerfile
     ports:
       - "4200:8080"
     networks:
