@@ -15,8 +15,7 @@ namespace Hospital_API.Adapter
 
             vacation.Id = dto.Id;
             vacation.Description = dto.Description;
-            vacation.StartTime = dto.StartTime;
-            vacation.EndTime = dto.EndTime;
+            vacation.DateSpan = new DateSpan(dto.StartTime, dto.EndTime);
             vacation.DoctorId = dto.DoctorId;
 
             return vacation;
@@ -28,8 +27,8 @@ namespace Hospital_API.Adapter
 
             dto.Id = vacation.Id;
             dto.Description = vacation.Description;
-            dto.StartTime = vacation.StartTime;
-            dto.EndTime = vacation.EndTime;
+            dto.StartTime = vacation.DateSpan.StartTime;
+            dto.EndTime = vacation.DateSpan.EndTime;
             dto.DoctorId = vacation.DoctorId;
 
             return dto;

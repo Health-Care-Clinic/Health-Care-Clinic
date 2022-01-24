@@ -16,22 +16,24 @@
     </select>
     <button (click)="next()" id="next1">Next</button>
 </div>
-<table>
-    <div *ngIf="nextPressed">
-        <h2>Select date</h2>
-        <tr *ngFor="let t of freeDates; let indexOfelement = index; " [attr.data-index]="indexOfelement">
-            <td> <input type="radio" id="html" name="fav_language" value="{{indexOfelement}}" [(ngModel)]="radioInput"> </td>
-            <td style="margin-right: 20px;"> {{t | date:'dd.MM.yyyy'}} </td>
-        </tr>
-        <tr>
-            <td>
-                <button (click)="submit()"> Add </button>
-            </td>
-            <td>
-                <button (click)="back()"> Back </button>
-            </td>
-        </tr>
-        <p *ngIf="errorMessage" style="color: red; font-size: 20px;"> You must select the date! </p>
-    </div>
-</table>
+<div *ngIf="nextPressed">
+    <table id="freeterms">
+        <tbody>
+            <h2>Select date</h2>
+            <tr *ngFor="let t of freeDates; let indexOfelement = index; " [attr.data-index]="indexOfelement">
+                <td> <input type="radio" id="{{indexOfelement}}" value="{{indexOfelement}}" [(ngModel)]="radioInput"> </td>
+                <td style="margin-right: 20px;"> {{t | date:'dd.MM.yyyy'}}  </td>
+            </tr>
+            <tr>
+                <td>
+                    <button (click)="submit()" id="addshift"> Add </button>
+                </td>
+                <td>
+                    <button (click)="back()"> Back </button>
+                </td>
+            </tr>
+            <p *ngIf="errorMessage" style="color: red; font-size: 20px;"> You must select the date! </p>
+        </tbody>
+    </table>
+</div>
 

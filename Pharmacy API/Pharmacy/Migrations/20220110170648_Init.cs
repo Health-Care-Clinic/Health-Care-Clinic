@@ -4,10 +4,24 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Pharmacy.Migrations
 {
-    public partial class tender1 : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Advertisements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Advertisements", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "ApiKeys",
                 columns: table => new
@@ -101,6 +115,7 @@ namespace Pharmacy.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TenderId = table.Column<int>(type: "integer", nullable: false),
                     PharmacyName = table.Column<string>(type: "text", nullable: true),
+                    TotalPrice_Amount = table.Column<double>(type: "double precision", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     IsWinningBid = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -115,11 +130,37 @@ namespace Pharmacy.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DateRange_Start = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DateRange_End = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tenders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AdvertisementMedicine",
+                columns: table => new
+                {
+                    AdvertisementId = table.Column<int>(type: "integer", nullable: false),
+                    MedicineId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdvertisementMedicine", x => new { x.AdvertisementId, x.MedicineId });
+                    table.ForeignKey(
+                        name: "FK_AdvertisementMedicine_Advertisements_AdvertisementId",
+                        column: x => x.AdvertisementId,
+                        principalTable: "Advertisements",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AdvertisementMedicine_Medicines_MedicineId",
+                        column: x => x.MedicineId,
+                        principalTable: "Medicines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,6 +206,11 @@ namespace Pharmacy.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Advertisements",
+                columns: new[] { "Id", "Description", "Title" },
+                values: new object[] { 1, "NIkada jeftiniji popust", "Super ponuda" });
+
+            migrationBuilder.InsertData(
                 table: "Medicines",
                 columns: new[] { "Id", "CompatibileMedicine", "Manufacturer", "Name", "Price", "Quantity", "Reactions", "SideEffects", "Usage", "Weight" },
                 values: new object[,]
@@ -173,10 +219,18 @@ namespace Pharmacy.Migrations
                     { 2, "Aspirin", "Bayer", "Klacid", 5.0, 200, "Headache, Swelling", "Rash, Unconsciousness", "Lung infections, Bronchitis", 500 },
                     { 3, "Aspirin", "Galenika", "Paracetamol", 5.25, 250, "None", "None", "Toothache, Headache", 500 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AdvertisementMedicine_MedicineId",
+                table: "AdvertisementMedicine",
+                column: "MedicineId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AdvertisementMedicine");
+
             migrationBuilder.DropTable(
                 name: "ApiKeys");
 
@@ -187,9 +241,6 @@ namespace Pharmacy.Migrations
                 name: "Feedbacks");
 
             migrationBuilder.DropTable(
-                name: "Medicines");
-
-            migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
@@ -197,6 +248,12 @@ namespace Pharmacy.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tenders_TenderItems");
+
+            migrationBuilder.DropTable(
+                name: "Advertisements");
+
+            migrationBuilder.DropTable(
+                name: "Medicines");
 
             migrationBuilder.DropTable(
                 name: "TenderResponses");

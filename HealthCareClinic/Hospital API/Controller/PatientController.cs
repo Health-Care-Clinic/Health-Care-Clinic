@@ -1,4 +1,5 @@
 ﻿using Hospital.Mapper;
+using Hospital.Medical_records.Model;
 using Hospital.Medical_records.Service;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
@@ -30,7 +31,7 @@ namespace Hospital_API.Controller
             this.patientService = patientService;
         }
 
-        [Authorize(Roles = "patient")]
+        [AllowAnonymous]
         [HttpGet("getAllAvailableDoctors")]
         public IActionResult GetAvailableDoctors()
         {
@@ -43,10 +44,13 @@ namespace Hospital_API.Controller
         [HttpGet("getPatient/{id?}")]
         public IActionResult GetPatient(int id)
         {
-            return Ok(PatientAdapter.PatientToPatientDTO(patientService.GetOneById(id)));
+            PatientDTO dto = PatientAdapter.PatientToPatientDTO(patientService.GetOneById(id));
+            String picture = patientService.GetProfilePicture(dto.Id);
+
+            return Ok(new PatientWithPictureDTO(dto, picture));
         }
 
-        [Authorize(Roles = "patient")]
+        [AllowAnonymous]
         [HttpGet("getAllAllergens")]       // GET /api/getAllAllergens
         public IActionResult GetAllAllergens()
         {
@@ -55,25 +59,32 @@ namespace Hospital_API.Controller
             return Ok(AllergenAdapter.AllergenListToDtoList(result));
         }
 
-        [Authorize(Roles = "patient")]
+        [AllowAnonymous]
         [HttpGet("getAllUsernames")]       // GET /api/getAllUsernames
         public IActionResult GetAllUsernames()
         {
             return Ok(patientService.GetAllUsernames());
         }
 
-        [Authorize(Roles = "patient")]
+        [AllowAnonymous]
         [HttpPost("submitPatientRegistrationRequest")]
-        public IActionResult SubmitPatientRegistrationRequest(PatientDTO patientDTO)
+        public IActionResult SubmitPatientRegistrationRequest(PatientWithPictureDTO patientWithPictureDTO)
         {
+            if (patientWithPictureDTO == null) return BadRequest();
+
+            PatientDTO patientDTO = patientWithPictureDTO.Patient;
+
             if (PatientRegistrationValidation.IsIncomingPatientDtoValid(patientDTO))
             {
                 Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
-                newPatient.Doctor = doctorService.GetOneById(patientDTO.DoctorDTO.Id);
+                ProfilePicture profilePicture = new ProfilePicture(0, patientWithPictureDTO.ProfilePicture);
 
                 newPatient.Hashcode = patientService.GenerateHashcode(newPatient.AccountInfo.Password);
+                newPatient.Doctor = doctorService.GetOneById(patientDTO.DoctorDTO.Id);
 
                 patientService.Add(newPatient);
+                profilePicture.PatientId = newPatient.Id;
+                patientService.AddProfilePicture(profilePicture);
 
                 var confirmationLink = "http://localhost:4200/api/patient/activate?token=" + newPatient.Hashcode;
                 patientService.SendMail(new MailRequest(confirmationLink, 

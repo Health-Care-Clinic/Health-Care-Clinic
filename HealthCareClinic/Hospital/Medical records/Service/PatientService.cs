@@ -1,4 +1,5 @@
-﻿using Hospital.Medical_records.Repository.Interface;
+﻿using Hospital.Medical_records.Model;
+using Hospital.Medical_records.Repository.Interface;
 using Hospital.Shared_model.Model;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -19,15 +20,22 @@ namespace Hospital.Medical_records.Service
     {
         private readonly IPatientRepository patientRepository;
         private readonly MailSettings _mailSettings;
+        private readonly IProfilePictureRepository profilePictureRepository;
 
         public PatientService(IPatientRepository patientRepository)
         {
             this.patientRepository = patientRepository;
         }
-        public PatientService(IPatientRepository patientRepository, IOptions<MailSettings> mailSettings)
+        public PatientService(IPatientRepository patientRepository, IProfilePictureRepository profilePictureRepository)
+        {
+            this.patientRepository = patientRepository;
+            this.profilePictureRepository = profilePictureRepository;
+        }
+        public PatientService(IPatientRepository patientRepository, IOptions<MailSettings> mailSettings, IProfilePictureRepository profilePictureRepository)
         {
             this.patientRepository = patientRepository;
             _mailSettings = mailSettings.Value;
+            this.profilePictureRepository = profilePictureRepository;
         }
 
         public void Add(Patient entity)
@@ -154,6 +162,16 @@ namespace Hospital.Medical_records.Service
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public String GetProfilePicture(int id)
+        {
+            return profilePictureRepository.GetByPatientId(id).Picture;
+        }
+
+        public void AddProfilePicture(ProfilePicture profilePicture)
+        {
+            profilePictureRepository.Add(profilePicture);
         }
     }
 }

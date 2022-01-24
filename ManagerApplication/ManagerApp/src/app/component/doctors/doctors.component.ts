@@ -23,8 +23,6 @@ export class DoctorsComponent implements OnInit {
     })
     this.shiftService.getAllShifts().subscribe(ret => {
       this.shifts = ret;
-      
-      
     });
   }
 

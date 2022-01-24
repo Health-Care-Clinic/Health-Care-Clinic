@@ -22,3 +22,8 @@ export interface IPatient {
     isActive: boolean ;
 }
 
+export interface PatientWithPicture {
+    patient: IPatient;
+    profilePicture: string;
+}
+

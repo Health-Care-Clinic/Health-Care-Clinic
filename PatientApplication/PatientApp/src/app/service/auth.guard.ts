@@ -19,7 +19,8 @@ export class AuthGuard implements CanActivate {
         var hasExpired = this.authService.hasExpired();
 
         if (!isAuthenticated || !isPatient || hasExpired) {          
-          this.router.navigate(['/login']);       
+          this.router.navigate(['/login']).then(_ =>
+            this._snackBar.open('Invalid username or password', 'Close', {duration: 3000}));       
         }
         return isAuthenticated;
     }

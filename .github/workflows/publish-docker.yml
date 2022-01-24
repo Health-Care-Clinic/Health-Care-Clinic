@@ -70,16 +70,11 @@ jobs:
        username: student
        key: ${{ secrets.STUDENT_KEY}}
        port: 22210
+      #  delete repository on server before running this action!
        script: |
          cd Health-Care-Clinic
-         git checkout master
+         git checkout develop
          git pull origin develop
          git status
-         cd "HealthCareClinic/Hospital API"
-         docker-compose up -d
-         cd ../../
-         cd "HealthCareClinic/Integration API"
-         docker-compose up -d
-         cd ../../
-         cd "Pharmacy API/Pharmacy API"
-         docker-compose up -d
+         cd "stacks"
+         docker stack deploy --compose-file docker-compose.yml hospital-stack
