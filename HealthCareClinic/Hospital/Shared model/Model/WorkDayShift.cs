@@ -33,7 +33,7 @@ namespace Hospital.Shared_model.Model
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(this.Name))
-                throw new ArgumentNullException("Name can not be null", this.Name);
+                throw new ArgumentException("Name can not be null", "name");
         }
 
         private void AdjustStartAndEndTime()
