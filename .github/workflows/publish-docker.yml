@@ -22,7 +22,7 @@ jobs:
       -
         name: Build and push manager-gateway image
         uses: docker/build-push-action@v2
-       with:
+        with:
           context: './ManagerApplication/ManagerApp/'
           file: ./stacks/build/manager-gateway/Dockerfile
           push: true
