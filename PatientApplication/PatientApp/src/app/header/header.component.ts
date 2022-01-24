@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ScheduleEvent } from '../service/event';
+import { EventService } from '../service/event.service';
 
 @Component({
   selector: 'app-header',
@@ -10,17 +12,23 @@ export class HeaderComponent implements OnInit {
 
   role: any
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private _eventService: EventService) { }
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role')
   }
 
   goToLandingPage() {
-    this.router.navigateByUrl('/');
+    if (this.router.url == '/standard-scheduling')
+      this._eventService.createEvent(new ScheduleEvent('Change-Page', Number(localStorage.getItem('id')))).subscribe()
+
+    this.router.navigateByUrl('/'); 
   }
 
   goToFeedbackForm() {
+    if (this.router.url == '/standard-scheduling')
+      this._eventService.createEvent(new ScheduleEvent('Change-Page', Number(localStorage.getItem('id')))).subscribe()
+      
     this.router.navigateByUrl('/feedback-form');
   }
 
@@ -29,10 +37,16 @@ export class HeaderComponent implements OnInit {
   }
 
   goToMedicalRecord() {
+    if (this.router.url == '/standard-scheduling')
+      this._eventService.createEvent(new ScheduleEvent('Change-Page', Number(localStorage.getItem('id')))).subscribe()
+    
     this.router.navigateByUrl('/medical-record');
   }
 
   logOut() {
+    if (this.router.url == '/standard-scheduling')
+      this._eventService.createEvent(new ScheduleEvent('Change-Page', Number(localStorage.getItem('id')))).subscribe()
+    
     localStorage.removeItem('id')
     localStorage.removeItem('jwtToken')
     localStorage.removeItem('role')

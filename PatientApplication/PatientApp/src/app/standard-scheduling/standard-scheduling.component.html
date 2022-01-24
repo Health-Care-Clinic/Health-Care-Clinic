@@ -33,7 +33,7 @@
                       </mat-form-field>
             
                     <div>
-                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperPrevious (click)="genereateEventBackToDate()" >Back</button>
                       <button mat-button matStepperNext (click)="getDoctorsBySpecialty()">Next</button>
                     </div>
                 </div>      
@@ -54,7 +54,7 @@
                       </mat-form-field>
         
                     <div>
-                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperPrevious (click)="genereateEventBackToSpec()" >Back</button>
                       <button mat-button matStepperNext (click)="getTermsForSelectedDoctor()">Next</button>
                     </div>
                 </div>            
@@ -75,7 +75,7 @@
                       </mat-form-field>
         
                     <div>
-                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperPrevious (click)="genereateEventBackToDoctor()" >Back</button>
                       <button mat-button (click)="confirm(); stepper.reset()" [disabled]="!fourthFormGroup.valid">Confirm</button>
                     </div>
                 </div>           
