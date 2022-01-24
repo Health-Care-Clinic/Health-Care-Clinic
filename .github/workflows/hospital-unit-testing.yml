@@ -38,7 +38,7 @@ jobs:
 
       - name: E2E test
         # if: env.DIFF_DETECTED == 'true'
-        run: dotnet test $E2E_TEST --verbosity quiet
+        run: dotnet test $E2E_TEST
 
       # - name: Unit test
         # if: env.DIFF_DETECTED == 'true'
