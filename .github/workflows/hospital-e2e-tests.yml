@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Execute tests 
-        run: docker-compose -f stacks/docker-compose.yml up
+        run: docker-compose -f stacks/docker-compose.yml up --exit-code-from hospital-e2e-tests hospital-e2e-tests
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
