@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { IPatient } from '../patient/ipatient';
+import { IPatient, PatientWithPicture } from '../patient/ipatient';
 import { Doctor } from './doctor';
 import { IAllergen } from './allergen';
 import { PatientService } from '../patient/patient.service';
@@ -62,6 +62,12 @@ export class RegistrationFormComponent implements OnInit {
   errorMessage : string  = '';
   repassword: string = '';
   usernames: Array<string> = [];
+  selectedFile: any;
+  selectedFileName : string = "unedfined";
+  patientWithPicture: PatientWithPicture = {
+    patient: this.patientModel,
+    profilePicture: ""
+  }
 
 
 
@@ -94,15 +100,51 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   submit(): void {
+    this.patientWithPicture.patient = this.patientModel
 
-    this._patientservice.submitRequest(this.patientModel)
+    if (this.selectedFile)
+      this.patientWithPicture.profilePicture = this.selectedFile
+    else
+      this.patientWithPicture.profilePicture = ""
+
+    this._patientservice.submitRequest(this.patientWithPicture)
     .subscribe(
-      data => console.log('Success!', data),
-      error => console.log('Error!', error)
+      data => {
+        console.log('Success!', data)
+        this._snackBar.open('Registration request successfully submited! An activation mail has been sent to your inbox.', 'Close', {duration: 3000});
+      },
+      error => {
+        console.log('Error!', error)
+        this._snackBar.open('Failed to submit registration request!', 'Close', {duration: 3000});
+      } 
     )
 
-    console.log(this.patientModel);
-    this._snackBar.open('Registration request successfully submited! An activation mail has been sent to your inbox.', 'Close', {duration: 3000});
+    console.log(this.patientWithPicture);
+  }
+
+  onFileSelected(event: any) {
+    if(!event || !event.target) {
+      return;
+    }
+
+    if (!event.target.files)
+      this.selectedFile = null
+
+    this.selectedFile = event.target.files[0];
+    this.selectedFileName = event.target.files[0].name;
+    let reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    var self = this;
+
+
+    reader.onload = function () {
+      self.selectedFile = reader.result;
+    }
+    reader.onerror = function () {
+      console.log("Error converting image!")
+    };
   }
 
 }
+
+
