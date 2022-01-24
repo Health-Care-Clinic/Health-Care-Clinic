@@ -44,6 +44,7 @@ namespace HospitalSeleniumTests
         [Fact]
         public void TestBlockPatient()
         {
+            Setup();
             Assert.True(loginPage.UsernameElementDisplayed());
             Assert.True(loginPage.PasswordElementDisplayed());
             Assert.True(loginPage.SubmitButtonElementDisplayed());
