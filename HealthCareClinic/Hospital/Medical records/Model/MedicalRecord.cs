@@ -1,6 +1,7 @@
 ﻿using Hospital.Shared_model.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -8,17 +9,16 @@ namespace Hospital.Medical_records.Model
 {
     public class MedicalRecord
     {
+        [Key]
         public int Id { get; set; }
-        public virtual ICollection<AllergenForPatient> Allergens { get; set; }
         public string BloodType { get; set; }
         public virtual PersonalInfo PersonalInfo { get; set; }
 
         public MedicalRecord() { }
         
-        public MedicalRecord(int id, ICollection<AllergenForPatient> allergens, string bloodType, PersonalInfo personalInfo)
+        public MedicalRecord(int id, string bloodType, PersonalInfo personalInfo)
         {
             Id = id;
-            Allergens = allergens;
             BloodType = bloodType;
             PersonalInfo = personalInfo;
 

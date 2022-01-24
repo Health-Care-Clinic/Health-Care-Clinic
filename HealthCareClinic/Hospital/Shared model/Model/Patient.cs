@@ -16,9 +16,10 @@ namespace Hospital.Shared_model.Model
         [ForeignKey("MedicalRecord")]
         public int MedicalRecordId { get; set; }
         public virtual MedicalRecord MedicalRecord { get; set; }
-        public ContactInfo ContactInfo { get; set; }
-        public AccountInfo AccountInfo { get; set; }
+        public virtual ContactInfo ContactInfo { get; set; }
+        public virtual AccountInfo AccountInfo { get; set; }
 
+        public virtual ICollection<AllergenForPatient> Allergens { get; set; }
         public string Hashcode { get; set; }
 
         [ForeignKey("Doctor")]
@@ -51,23 +52,27 @@ namespace Hospital.Shared_model.Model
 
         public Patient() { }
 
-        public Patient(int id, MedicalRecord medicalRecord, ContactInfo contactInfo, AccountInfo accountInfo)
+        public Patient(int id, MedicalRecord medicalRecord, ContactInfo contactInfo, AccountInfo accountInfo, 
+            ICollection<AllergenForPatient> alergies)
         {
             Id = id;
             MedicalRecord = medicalRecord;
             ContactInfo = contactInfo;
             AccountInfo = accountInfo;
+            Allergens = alergies;
         }
 
         public Patient(int id, string name, string surname, string gender, string bloodType, DateTime birthDate, 
-            string address, string phone, string email, string username, string password, string ParentName, 
+            string address, string phone, string email, string username, string password, string parentName, 
             List<AllergenForPatient> alergies, string employmentStatus, bool isActive)
         {
             Id = id;
 
-            PersonalInfo personalInfo = new PersonalInfo(name, surname, birthDate, gender, "Test roditelj", employmentStatus);
+            PersonalInfo personalInfo = new PersonalInfo(name, surname, birthDate, gender, parentName, employmentStatus);
             ContactInfo = new ContactInfo(phone, email, address);
-            MedicalRecord = new MedicalRecord(id, alergies, bloodType, personalInfo);
+            MedicalRecord = new MedicalRecord(id, bloodType, personalInfo);
+
+            Allergens = alergies;
 
             AccountInfo = new AccountInfo(DateTime.Now, false, isActive, username, password);
         }

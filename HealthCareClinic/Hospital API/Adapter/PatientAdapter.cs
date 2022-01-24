@@ -15,13 +15,13 @@ namespace Hospital_API.Adapter
             PersonalInfo personalInfo = new PersonalInfo(dto.Name, dto.Surname, ConvertToDate(dto.BirthDate), dto.Gender, 
                 dto.ParentName, dto.EmploymentStatus);
             ContactInfo contactInfo = new ContactInfo(dto.Phone, dto.Email, dto.Address);
-            MedicalRecord medicalRecord = new MedicalRecord(dto.Id, 
-                AllergenAdapter.AllergenDTOListToAllergenForPatientList(dto.Allergens, dto.Id), dto.BloodType, personalInfo);
+            MedicalRecord medicalRecord = new MedicalRecord(dto.Id, dto.BloodType, personalInfo);
 
             AccountInfo accountInfo = new AccountInfo(ConvertToDate(dto.DateOfRegistration), dto.IsBlocked, dto.IsActive, 
                 dto.Username, dto.Password);
 
-            Patient patient = new Patient(dto.Id, medicalRecord, contactInfo, accountInfo);
+            Patient patient = new Patient(dto.Id, medicalRecord, contactInfo, accountInfo, 
+                AllergenAdapter.AllergenDTOListToAllergenForPatientList(dto.Allergens, dto.Id));
 
             return patient;
         }
@@ -44,7 +44,7 @@ namespace Hospital_API.Adapter
             dto.DateOfRegistration = ConvertToString(patient.AccountInfo.DateOfRegistration);
             dto.ParentName = patient.MedicalRecord.PersonalInfo.ParentName;
             dto.IsActive = patient.AccountInfo.IsActive;
-            dto.Allergens = AllergenAdapter.AllergenForPatientListToAllergenDTOList(patient.MedicalRecord.Allergens);
+            dto.Allergens = AllergenAdapter.AllergenForPatientListToAllergenDTOList(patient.Allergens);
             dto.BloodType = patient.MedicalRecord.BloodType;
             dto.IsBlocked = patient.AccountInfo.IsBlocked;
             dto.DoctorDTO = DoctorAdapter.DoctorToDoctorDTO(patient.Doctor);
