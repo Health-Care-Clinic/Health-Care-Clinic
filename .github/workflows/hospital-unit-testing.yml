@@ -40,6 +40,8 @@ jobs:
       #   if: env.DIFF_DETECTED == 'true'
       #   run: dotnet test $TEST --verbosity quiet
       - run: pwd
+        
+      - run: cd 'HealthCareClinic/HospitalSeleniumTests/bin/Debug/netcoreapp3.1/'
 
       - name: Test with dotnet
         run: dotnet test $E2E_TEST
