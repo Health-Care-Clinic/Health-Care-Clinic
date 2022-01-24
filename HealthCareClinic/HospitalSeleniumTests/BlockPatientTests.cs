@@ -1,8 +1,7 @@
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
+using Xunit;
 
 namespace HospitalSeleniumTests
 {
@@ -14,7 +13,6 @@ namespace HospitalSeleniumTests
         private Pages.MaliciousPatientsPage patientsPage;
         private int patientsCount = 0;
 
-        [OneTimeSetUp]
         public void Setup()
         {
             // options for launching Google Chrome
@@ -43,7 +41,7 @@ namespace HospitalSeleniumTests
         }
 
 
-        [Test]
+        [Fact]
         public void TestBlockPatient()
         {
             Assert.True(loginPage.UsernameElementDisplayed());
@@ -64,14 +62,14 @@ namespace HospitalSeleniumTests
             patientsPage = new Pages.MaliciousPatientsPage(driver);
             patientsPage.EnsureButtonIsDisplayed();
             Assert.True(patientsPage.LinkDisplayed());
-            Assert.AreEqual(driver.Url, Pages.MaliciousPatientsPage.URI);
+            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
             patientsCount = patientsPage.PatientsCount();
 
             patientsPage.ClickLink();
 
             patientsPage.EnsureButtonIsNotDisplayed();
-            Assert.AreEqual(patientsCount - 1, patientsPage.PatientsCount());
-            Assert.AreEqual(driver.Url, Pages.MaliciousPatientsPage.URI);
+            Assert.Equal(patientsCount - 1, patientsPage.PatientsCount());
+            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
             Assert.False(patientsPage.LinkDisplayed());
         }
 
