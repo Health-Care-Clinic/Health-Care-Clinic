@@ -305,7 +305,7 @@ namespace Hospital.Rooms_and_equipment.Service
         {
             foreach (var t in allTransfersOfSourceAndDestinationRoom.Select(x => x.DateAndDuration))
             {
-                DateTime transferAndDuration = t.Date.AddHours((double) Convert.ToInt32(t.Duration) / 60);
+                DateTime transferAndDuration = t.Date.AddHours((double) (Convert.ToInt32(t.Duration) / 60));
                 transferAndDuration = addDuration(transferAndDuration, t.Duration);
                 if (t.Date <= today && today <= transferAndDuration)
                 {
@@ -390,11 +390,11 @@ namespace Hospital.Rooms_and_equipment.Service
             int year = 2022;
             List<Renovation> renovations = GetAll().ToList();
 
-            foreach (var r in renovations.Select(x => x.Date))
+            foreach (var r in renovations.Select(x => x.Date.Year))
             {
-                if (r.Year > year)
+                if (r > year)
                 {
-                    year = r.Year;
+                    year = r;
                 }
             }
 

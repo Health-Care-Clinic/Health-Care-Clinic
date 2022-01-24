@@ -46,13 +46,13 @@ namespace Hospital.Rooms_and_equipment.Service
             List<Transfer> allTransfersOfSourceAndDestinationRoom = transfer.GetTransfersOfSourceAndDestination(GetAll().ToList());
             List<DateTime> allAvailableDates = new List<DateTime>();        
             DateTime today = transfer.RoundMinutes(DateTime.Now);
-            DateTime todayAndDuration = today.AddHours((double) Convert.ToInt32(transfer.DateAndDuration.Duration) / 60);
+            DateTime todayAndDuration = today.AddHours((double) (Convert.ToInt32(transfer.DateAndDuration.Duration) / 60));
             todayAndDuration = transfer.AddDuration(todayAndDuration);
             while (todayAndDuration < transfer.DateAndDuration.Date)
             {
                 foreach (Transfer t in allTransfersOfSourceAndDestinationRoom)
                 {
-                    DateTime transferAndDuration = t.DateAndDuration.Date.AddHours((double) Convert.ToInt32(t.DateAndDuration.Duration) / 60);
+                    DateTime transferAndDuration = t.DateAndDuration.Date.AddHours((double) (Convert.ToInt32(t.DateAndDuration.Duration) / 60));
                     transferAndDuration = t.AddDuration(transferAndDuration);
                     if (!(t.DateAndDuration.Date <= today && today <= transferAndDuration
                         || t.DateAndDuration.Date <= todayAndDuration && todayAndDuration <= transferAndDuration
@@ -61,7 +61,7 @@ namespace Hospital.Rooms_and_equipment.Service
                         allAvailableDates.Add(today);
                     }
                 }
-                todayAndDuration = transfer.AddTime(today).AddHours((double) Convert.ToInt32(transfer.DateAndDuration.Duration) / 60);
+                todayAndDuration = transfer.AddTime(today).AddHours((double) (Convert.ToInt32(transfer.DateAndDuration.Duration) / 60));
                 todayAndDuration = transfer.AddDuration(todayAndDuration);
             }
 
