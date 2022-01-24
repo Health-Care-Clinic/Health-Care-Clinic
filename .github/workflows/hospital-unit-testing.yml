@@ -1,6 +1,6 @@
 name: Hospital Unit Test
 on:
-  pull_request:
+  push:
     branches: [ feat(d)/selenium-tests ]
 jobs:
   build-and-test:
