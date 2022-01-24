@@ -39,6 +39,7 @@ jobs:
       # - name: Test with dotnet
       #   if: env.DIFF_DETECTED == 'true'
       #   run: dotnet test $TEST --verbosity quiet
+      - run: pwd
 
       - name: Test with dotnet
         run: dotnet test $E2E_TEST
