@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Hospital.Rooms_and_equipment.Model
@@ -46,7 +47,7 @@ namespace Hospital.Rooms_and_equipment.Model
 
         private void CheckName()
         {
-            if (Name.Equals(""))
+            if (string.IsNullOrEmpty(Name))
                 throw new ArgumentException("Equipment name can't be empty!");
         }
 
@@ -73,12 +74,9 @@ namespace Hospital.Rooms_and_equipment.Model
 
         public bool EquipmentExistsInRoom(List<Equipment> roomEquipment)
         {
-            foreach (Equipment eq in roomEquipment)
+            foreach (var name in roomEquipment.Select(eq => eq.Name).Where(x => x.Equals(Name)))
             {
-                if (eq.Name.Equals(Name))
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;
@@ -86,12 +84,9 @@ namespace Hospital.Rooms_and_equipment.Model
 
         public int GetQuantityOfEquipmentInOtherRoom(List<Equipment> roomEquipment)
         {
-            foreach (Equipment eq in roomEquipment)
+            foreach (Equipment eq in roomEquipment.Where(x => x.Name.Equals(Name)))
             {
-                if (eq.Name.Equals(Name))
-                {
-                    return eq.Quantity;
-                }
+                return eq.Quantity;
             }
 
             return 0;

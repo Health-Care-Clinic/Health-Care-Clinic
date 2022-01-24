@@ -11,9 +11,9 @@ namespace Hospital.Rooms_and_equipment.Service
 {
     public class RenovationService : IRenovationService
     {
-        private IRenovationRepository _renovationRepository;
-        private ITransferRepository _transferRepository;
-        private IAppointmentRepository _appointmentRepository;
+        private readonly IRenovationRepository _renovationRepository;
+        private readonly ITransferRepository _transferRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
 
         public RenovationService(IRenovationRepository renovationRepository, ITransferRepository transferRepository, IAppointmentRepository appointmentRepository)
         {
@@ -43,82 +43,87 @@ namespace Hospital.Rooms_and_equipment.Service
         }
         public List<DateTime> getFreeTermsForMerge(Renovation renovation)
         {
-
             List<Transfer> allTransfersOfSourceAndDestinationRoom = getTransfersOfFirstAndSecond(renovation.FirstRoomId, renovation.SecondRoomId);
             List<Renovation> allRenovationsOfFirstAndSecond = getRenovationsOfFirstAndSecond(renovation.FirstRoomId, renovation.SecondRoomId);
             List<Appointment> allAppointmentsOfFirstAndSecond = getAppointmentsOfFirstAndSecond(renovation.FirstRoomId, renovation.SecondRoomId);
             List<DateTime> allAvailableDates = new List<DateTime>();
-            DateTime today = DateTime.Now;
-            today = roundMinutes(today);
+            DateTime today = roundMinutes(DateTime.Now);
             DateTime todayAndDuration = today.AddDays(Convert.ToInt32(renovation.Duration));
             while (todayAndDuration < renovation.Date)
             {
-                Boolean isFree = true;
+                bool isFree = true;
 
                 isFree = CheckForTransfers(allTransfersOfSourceAndDestinationRoom, isFree, today, todayAndDuration);
                 isFree = CheckForRenovation(allRenovationsOfFirstAndSecond, isFree, today, todayAndDuration);
                 isFree = CheckForAppointment(allAppointmentsOfFirstAndSecond, isFree, today, todayAndDuration);
-               
 
                 if (isFree)
                 {
                     allAvailableDates.Add(today);
                 }
-                if (today.Minute < 45)
-                {
-                    today = today.AddMinutes(15);
+                today = AddTime(today);
+                todayAndDuration = today.AddDays(Convert.ToInt32(renovation.Duration));
+            }
 
+            return allAvailableDates;
+        }
+
+        private DateTime AddTime(DateTime today)
+        {
+            if (today.Minute < 45)
+            {
+                today = today.AddMinutes(15);
+            }
+            else
+            {
+                if (today.Hour < 23)
+                {
+                    today = today.AddHours(1);
+                    today = ChangeTime(today.Year, today.Month, today.Day, today.Hour, 0, 0);
                 }
                 else
                 {
-                    if (today.Hour < 23)
+                    if (today.Day < DateTime.DaysInMonth(today.Year, today.Month))
                     {
-                        today = today.AddHours(1);
-                        today = ChangeTime(today.Year, today.Month, today.Day, today.Hour, 0, 0);
+                        today = today.AddDays(1);
+                        today = ChangeTime(today.Year, today.Month, today.Day, 0, 0, 0);
                     }
                     else
                     {
-                        if (today.Day < DateTime.DaysInMonth(today.Year, today.Month))
-                        {
-                            today = today.AddDays(1);
-                            today = ChangeTime(today.Year, today.Month, today.Day, 0, 0, 0);
-                        }
-                        else
-                        {
-                            if (today.Month < 12)
-                            {
-                                today = today.AddMonths(1);
-                                today = ChangeTime(today.Year, today.Month, 1, 0, 0, 0);
-                            }
-                            else
-                            {
-                                today = today.AddYears(1);
-                            }
-                        }
+                        today = AddMonthOrYear(today);
                     }
-
                 }
-                todayAndDuration = today.AddDays(Convert.ToInt32(renovation.Duration));
-
             }
-            return allAvailableDates;
 
+            return today;
         }
 
+        private DateTime AddMonthOrYear(DateTime today)
+        {
+            if (today.Month < 12)
+            {
+                today = today.AddMonths(1);
+                today = ChangeTime(today.Year, today.Month, 1, 0, 0, 0);
+            }
+            else
+            {
+                today = today.AddYears(1);
+            }
+
+            return today;
+        }
 
         public List<DateTime> getFreeTermsForDivide(Renovation renovation)
         {
-
             List<Transfer> allTransfersOfSourceAndDestinationRoom = getTransfersOfFirstRoom(renovation.FirstRoomId);
             List<Renovation> allRenovationsOfFirstAndSecond = getRenovationsOfFirstRoom(renovation.FirstRoomId);
             List<Appointment> allApointmentsOfFirst = getAppointmentsOfFirst(renovation.FirstRoomId);
             List<DateTime> allAvailableDates = new List<DateTime>();
-            DateTime today = DateTime.Now;
-            today = roundMinutes(today);
+            DateTime today = roundMinutes(DateTime.Now);
             DateTime todayAndDuration = today.AddDays(Convert.ToInt32(renovation.Duration));
             while (todayAndDuration < renovation.Date)
             {
-                Boolean isFree = true;
+                bool isFree = true;
 
                 isFree = CheckForTransfers(allTransfersOfSourceAndDestinationRoom, isFree, today, todayAndDuration);
                 isFree = CheckForRenovation(allRenovationsOfFirstAndSecond, isFree, today, todayAndDuration);
@@ -128,45 +133,11 @@ namespace Hospital.Rooms_and_equipment.Service
                 {
                     allAvailableDates.Add(today);
                 }
-                if (today.Minute < 45)
-                {
-                    today = today.AddMinutes(15);
-
-                }
-                else
-                {
-                    if (today.Hour < 23)
-                    {
-                        today = today.AddHours(1);
-                        today = ChangeTime(today.Year, today.Month, today.Day, today.Hour, 0, 0);
-                    }
-                    else
-                    {
-                        if (today.Day < DateTime.DaysInMonth(today.Year, today.Month))
-                        {
-                            today = today.AddDays(1);
-                            today = ChangeTime(today.Year, today.Month, today.Day, 0, 0, 0);
-                        }
-                        else
-                        {
-                            if (today.Month < 12)
-                            {
-                                today = today.AddMonths(1);
-                                today = ChangeTime(today.Year, today.Month, 1, 0, 0, 0);
-                            }
-                            else
-                            {
-                                today = today.AddYears(1);
-                            }
-                        }
-                    }
-
-                }
+                today = AddTime(today);
                 todayAndDuration = today.AddDays(Convert.ToInt32(renovation.Duration));
-
             }
-            return allAvailableDates;
 
+            return allAvailableDates;
         }
 
         private List<Appointment> getAppointmentsOfFirstAndSecond(int firstRoomId, int secondRoomId)
@@ -180,6 +151,7 @@ namespace Hospital.Rooms_and_equipment.Service
                     allAppointmentOfSourceAndDestinationRoom.Add(tran);
                 }
             }
+
             return allAppointmentOfSourceAndDestinationRoom;
         }
 
@@ -207,6 +179,7 @@ namespace Hospital.Rooms_and_equipment.Service
                     allTransfersOfSourceAndDestinationRoom.Add(tran);
                 }
             }
+
             return allTransfersOfSourceAndDestinationRoom;
         }
 
@@ -221,6 +194,7 @@ namespace Hospital.Rooms_and_equipment.Service
                     allTransfersOfFirst.Add(tran);
                 }
             }
+
             return allTransfersOfFirst;
         }
 
@@ -235,6 +209,7 @@ namespace Hospital.Rooms_and_equipment.Service
                     allRenovationsOfFirstAndSecondRoom.Add(ren);
                 }
             }
+
             return allRenovationsOfFirstAndSecondRoom;
         }
 
@@ -249,6 +224,7 @@ namespace Hospital.Rooms_and_equipment.Service
                     allRenovationsOfFirst.Add(ren);
                 }
             }
+
             return allRenovationsOfFirst;
         }
 
@@ -283,6 +259,7 @@ namespace Hospital.Rooms_and_equipment.Service
                 now = now.AddHours(1);
                 now = ChangeTime(now.Year, now.Month, now.Day, now.Hour, (now.Minute + (duration % 60)) - 60, 0);
             }
+
             return now;
         }
         private DateTime ChangeTime(int year, int month, int day, int hours, int minutes, int seconds)
@@ -304,6 +281,7 @@ namespace Hospital.Rooms_and_equipment.Service
                 if (renovation.SecondRoomId == id || renovation.FirstRoomId == id)
                     roomRenovations.Add(renovation);
             }
+
             return roomRenovations;
         }
 
@@ -314,6 +292,7 @@ namespace Hospital.Rooms_and_equipment.Service
                 if (renovation.Id == id && DateTime.Now.AddHours(24) <= renovation.Date)
                     return true;
             }
+
             return false;
         }
 
@@ -322,21 +301,21 @@ namespace Hospital.Rooms_and_equipment.Service
             _renovationRepository.RemoveById(id);
         }
 
-        public Boolean CheckForTransfers(List<Transfer> allTransfersOfSourceAndDestinationRoom, Boolean isFree, DateTime today, DateTime todayAndDuration)
+        public bool CheckForTransfers(List<Transfer> allTransfersOfSourceAndDestinationRoom, bool isFree, DateTime today, DateTime todayAndDuration)
         {
-            foreach (Transfer t in allTransfersOfSourceAndDestinationRoom)
+            foreach (var t in allTransfersOfSourceAndDestinationRoom.Select(x => x.DateAndDuration))
             {
-                DateTime transferAndDuration = t.DateAndDuration.Date.AddHours(Convert.ToInt32(t.DateAndDuration.Duration) / 60);
-                transferAndDuration = addDuration(transferAndDuration, t.DateAndDuration.Duration);
-                if (t.DateAndDuration.Date <= today && today <= transferAndDuration)
+                DateTime transferAndDuration = t.Date.AddHours((double) Convert.ToInt32(t.Duration) / 60);
+                transferAndDuration = addDuration(transferAndDuration, t.Duration);
+                if (t.Date <= today && today <= transferAndDuration)
                 {
                     isFree = false;
                 }
-                if (t.DateAndDuration.Date <= todayAndDuration && todayAndDuration <= transferAndDuration)
+                if (t.Date <= todayAndDuration && todayAndDuration <= transferAndDuration)
                 {
                     isFree = false;
                 }
-                if (today <= t.DateAndDuration.Date && t.DateAndDuration.Date <= todayAndDuration)
+                if (today <= t.Date && t.Date <= todayAndDuration)
                 {
                     isFree = false;
                 }
@@ -345,7 +324,7 @@ namespace Hospital.Rooms_and_equipment.Service
             return isFree;
         }
 
-        public Boolean CheckForRenovation(List<Renovation> allRenovationsOfFirstAndSecond,Boolean isFree, DateTime today, DateTime todayAndDuration)
+        public bool CheckForRenovation(List<Renovation> allRenovationsOfFirstAndSecond, bool isFree, DateTime today, DateTime todayAndDuration)
         {
             foreach (Renovation r in allRenovationsOfFirstAndSecond)
             {
@@ -362,30 +341,31 @@ namespace Hospital.Rooms_and_equipment.Service
                 {
                     isFree = false;
                 }
-
             }
+
             return isFree;
         }
 
-        public Boolean CheckForAppointment(List<Appointment> allAppointmentsOfFirstAndSecond, Boolean isFree, DateTime today, DateTime todayAndDuration)
+        public bool CheckForAppointment(List<Appointment> allAppointmentsOfFirstAndSecond, bool isFree, DateTime today, DateTime todayAndDuration)
         {
-            foreach (Appointment r in allAppointmentsOfFirstAndSecond)
+            foreach (var r in allAppointmentsOfFirstAndSecond.Select(x => x.Date))
             {
-                DateTime appointmentAndDuration = addDuration(r.Date, 30);
-                if (r.Date <= today && today <= appointmentAndDuration)
+                DateTime appointmentAndDuration = addDuration(r, 30);
+                if (r <= today && today <= appointmentAndDuration)
                 {
                     isFree = false;
                 }
-                if (r.Date <= todayAndDuration && todayAndDuration <= appointmentAndDuration)
+                if (r <= todayAndDuration && todayAndDuration <= appointmentAndDuration)
                 {
                     isFree = false;
                 }
-                if (today <= r.Date && r.Date <= todayAndDuration)
+                if (today <= r && r <= todayAndDuration)
                 {
                     isFree = false;
                 }
 
             }
+
             return isFree;
         }
 
@@ -394,11 +374,11 @@ namespace Hospital.Rooms_and_equipment.Service
             int id = 0;
             List<Renovation> renovations = GetAll().ToList();
 
-            foreach (Renovation r in renovations)
+            foreach (var r in renovations.Select(x => x.Id))
             {
-                if (r.Id > id)
+                if (r > id)
                 {
-                    id = r.Id;
+                    id = r;
                 }
             }
 
@@ -410,11 +390,11 @@ namespace Hospital.Rooms_and_equipment.Service
             int year = 2022;
             List<Renovation> renovations = GetAll().ToList();
 
-            foreach (Renovation r in renovations)
+            foreach (var r in renovations.Select(x => x.Date))
             {
-                if (r.Date.Year > year)
+                if (r.Year > year)
                 {
-                    year = r.Date.Year;
+                    year = r.Year;
                 }
             }
 

@@ -9,7 +9,7 @@ namespace Hospital.Rooms_and_equipment.Service
 {
     public class EquipmentService : IEquipmentService
     {
-        private IEquipmentRepository _equipmentRepository;
+        private readonly IEquipmentRepository _equipmentRepository;
 
         public EquipmentService(IEquipmentRepository equipmentRepository)
         {
