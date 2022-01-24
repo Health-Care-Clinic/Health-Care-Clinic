@@ -57,9 +57,6 @@ namespace Hospital.Mapper
         // only for testing purposes
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            //modelBuilder.Entity<Room>().HasKey(o => o.Id);
-
             modelBuilder.Entity<Vacation>()
                .OwnsOne(r => r.DateSpan)
                .Property(p => p.StartTime).HasColumnName("StartTime");

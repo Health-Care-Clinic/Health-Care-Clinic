@@ -42,17 +42,6 @@ namespace Hospital.Rooms_and_equipment.Model
             get; set;
         }
 
-
-        public Room(int id, RoomType type, string name, string description, float x, float y, float width, float height, int floorId)
-        {
-            Id = id;
-            Type = type;
-            Name = name;
-            Description = description;
-            FloorId = floorId;
-            PositionAndDimension = new PositionAndDimension(x, y, width, height);
-        }
-
         public Room(int id, RoomType type, string name, string description, int floorId, PositionAndDimension positionAndDimension)
         {
             Id = id;

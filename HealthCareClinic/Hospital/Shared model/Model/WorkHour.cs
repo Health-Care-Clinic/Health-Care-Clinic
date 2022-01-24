@@ -29,9 +29,7 @@ namespace Hospital.Shared_model.Model
 
         private void CheckIfStartTimeIsBeforeEndTime()
         {
-            if (this.StartTime < this.EndTime)
-                return;
-            else
+            if (this.StartTime >= this.EndTime)
                 throw new ArgumentException("Start can't be after end.");
         }
 
@@ -39,9 +37,7 @@ namespace Hospital.Shared_model.Model
         {
             DateTime earliestShiftStartTime = new DateTime(2022, 2, 22, 7, 0, 0);
             DateTime latestShiftEndTime = new DateTime(2022, 2, 22, 19, 0, 0);
-            if (this.StartTime >= earliestShiftStartTime && this.EndTime <= latestShiftEndTime)
-                return;
-            else
+            if (!(this.StartTime >= earliestShiftStartTime && this.EndTime <= latestShiftEndTime))
                 throw new ArgumentException("Shift with on call shift.");
         }
     }

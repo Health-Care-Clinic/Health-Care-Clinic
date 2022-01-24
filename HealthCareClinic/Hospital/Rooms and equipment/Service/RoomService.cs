@@ -9,7 +9,7 @@ namespace Hospital.Rooms_and_equipment.Service
 {
     public class RoomService : IRoomService
     {
-        private IRoomRepository _roomRepository;
+        private readonly IRoomRepository _roomRepository;
 
         public RoomService(IRoomRepository roomRepository)
         {
@@ -58,10 +58,9 @@ namespace Hospital.Rooms_and_equipment.Service
             if (room1.PositionAndDimension.Y != room2.PositionAndDimension.Y)
                 return false;
             else {
-                if ((room1.PositionAndDimension.X + room1.PositionAndDimension.Width) != room2.PositionAndDimension.X)
+                if ((room1.PositionAndDimension.X + room1.PositionAndDimension.Width) != room2.PositionAndDimension.X && (room2.PositionAndDimension.X + room2.PositionAndDimension.Width) != room1.PositionAndDimension.X)
                 {
-                    if ((room2.PositionAndDimension.X + room2.PositionAndDimension.Width) != room1.PositionAndDimension.X)
-                        return false;
+                    return false;
                 }
             }
 

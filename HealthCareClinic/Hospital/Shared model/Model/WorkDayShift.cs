@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Hospital.Shared_model.Model
@@ -10,6 +11,8 @@ namespace Hospital.Shared_model.Model
         public String Name { get; set; }
         
         public virtual WorkHour WorkHour { get; set; }
+
+        public WorkDayShift() { }
 
         public WorkDayShift(int id, String name, DateTime startTime, DateTime endTime)
         {
@@ -30,10 +33,8 @@ namespace Hospital.Shared_model.Model
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(this.Name))
-                throw new ArgumentNullException("Name can not be null");
+                throw new ArgumentNullException("Name can not be null", "name");
         }
-
-        public WorkDayShift() { }
 
         private void AdjustStartAndEndTime()
         {
@@ -62,9 +63,9 @@ namespace Hospital.Shared_model.Model
         public bool CheckIfShiftDoesntOverlapWithOtherShifts(List<WorkDayShift> allWorkDayShifts)
         {
             AdjustStartAndEndTime();
-            foreach (WorkDayShift wds in allWorkDayShifts)
+            foreach (var wds in allWorkDayShifts.Select(x => x.WorkHour))
             {
-                if (!(this.WorkHour.StartTime >= wds.WorkHour.EndTime || this.WorkHour.EndTime <= wds.WorkHour.StartTime))
+                if (!(this.WorkHour.StartTime >= wds.EndTime || this.WorkHour.EndTime <= wds.StartTime))
                 {
                     return false;
                 }

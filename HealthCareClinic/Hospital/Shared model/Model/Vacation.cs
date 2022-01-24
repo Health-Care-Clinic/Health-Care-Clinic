@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Hospital.Shared_model.Model
@@ -33,17 +34,15 @@ namespace Hospital.Shared_model.Model
         private void Validate()
         {
             if (string.IsNullOrWhiteSpace(this.Description))
-                throw new ArgumentNullException("Description can not be null");
-            if (this.DoctorId == null)
-                throw new ArgumentNullException("Doctor id can not be null");
+                throw new ArgumentNullException("Description can not be null", "description");
         }
         public bool GetVacationAvailability(List<Vacation> allVacations)
-        { 
-            foreach (Vacation v in allVacations)
+        {
+            foreach (var v in allVacations.Select(x => x.DateSpan))
             {
-                if ((this.DateSpan.StartTime.CompareTo(v.DateSpan.StartTime) > 0 && this.DateSpan.StartTime.CompareTo(v.DateSpan.EndTime) < 0)
-                    || (this.DateSpan.EndTime.CompareTo(v.DateSpan.StartTime) > 0 && this.DateSpan.EndTime.CompareTo(v.DateSpan.EndTime) < 0)
-                    || (this.DateSpan.StartTime.CompareTo(v.DateSpan.StartTime) < 0 && this.DateSpan.EndTime.CompareTo(v.DateSpan.EndTime) > 0))
+                if ((this.DateSpan.StartTime.CompareTo(v.StartTime) > 0 && this.DateSpan.StartTime.CompareTo(v.EndTime) < 0)
+                    || (this.DateSpan.EndTime.CompareTo(v.StartTime) > 0 && this.DateSpan.EndTime.CompareTo(v.EndTime) < 0)
+                    || (this.DateSpan.StartTime.CompareTo(v.StartTime) < 0 && this.DateSpan.EndTime.CompareTo(v.EndTime) > 0))
                 {
                     return false;
                 }
