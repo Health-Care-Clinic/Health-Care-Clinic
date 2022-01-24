@@ -219,7 +219,7 @@ volumes:
   hospital-data:
   pharmacy-data:
   event-store-data:
-    
+     
 secrets:
   database_password:
    external: true
