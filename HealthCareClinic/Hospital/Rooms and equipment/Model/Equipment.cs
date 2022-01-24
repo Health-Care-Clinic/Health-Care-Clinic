@@ -74,7 +74,7 @@ namespace Hospital.Rooms_and_equipment.Model
 
         public bool EquipmentExistsInRoom(List<Equipment> roomEquipment)
         {
-            if (roomEquipment.Select(eq => eq.Name).Where(x => x.Equals(Name)).Any())
+            if (roomEquipment.Select(eq => eq.Name).Any(x => x.Equals(Name)))
             {
                 return true;
             }
@@ -84,12 +84,13 @@ namespace Hospital.Rooms_and_equipment.Model
 
         public int GetQuantityOfEquipmentInOtherRoom(List<Equipment> roomEquipment)
         {
-            if (roomEquipment.Contains(new Equipment(Id, Name, Type, Quantity, RoomId)))
+            int quantity = 0;
+            foreach (Equipment eq in roomEquipment.Where(x => x.Name.Equals(Name)))
             {
-                return Quantity;
+                quantity += eq.Quantity;
             }
 
-            return 0;
+            return quantity;
         }
     }
 }
