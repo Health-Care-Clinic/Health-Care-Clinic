@@ -1,24 +1,20 @@
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
-using System.IO;
-using System.Reflection;
+using Xunit;
 
 namespace HospitalSeleniumTests
 {
     public class BlockPatientTests : IDisposable
     {
-        private IWebDriver driver;
+        private readonly IWebDriver driver;
         private Pages.LoginPage loginPage;
         private Pages.HomePage homePage;
         private Pages.MaliciousPatientsPage patientsPage;
         private int patientsCount = 0;
-        private ChromeDriverService driverService = ChromeDriverService.CreateDefaultService(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
-        [OneTimeSetUp]
-        public void Setup()
+
+        public BlockPatientTests()
         {
             // options for launching Google Chrome
             ChromeOptions options = new ChromeOptions();
@@ -43,7 +39,7 @@ namespace HospitalSeleniumTests
         }
 
 
-        [Test]
+        [Fact]
         public void TestBlockPatient()
         {
             Assert.True(loginPage.UsernameElementDisplayed());
@@ -64,15 +60,18 @@ namespace HospitalSeleniumTests
             patientsPage = new Pages.MaliciousPatientsPage(driver);
             patientsPage.EnsureButtonIsDisplayed();
             Assert.True(patientsPage.LinkDisplayed());
-            Assert.AreEqual(driver.Url, Pages.MaliciousPatientsPage.URI);
+            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
             patientsCount = patientsPage.PatientsCount();
 
             patientsPage.ClickLink();
 
             patientsPage.EnsureButtonIsNotDisplayed();
-            Assert.AreEqual(patientsCount - 1, patientsPage.PatientsCount());
-            Assert.AreEqual(driver.Url, Pages.MaliciousPatientsPage.URI);
+            Assert.Equal(patientsCount - 1, patientsPage.PatientsCount());
+            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
             Assert.False(patientsPage.LinkDisplayed());
+
+            Assert.Equal(patientsCount - 1, patientsPage.PatientsCount());
+            Assert.Equal(driver.Url, Pages.MaliciousPatientsPage.URI);
         }
 
     }
