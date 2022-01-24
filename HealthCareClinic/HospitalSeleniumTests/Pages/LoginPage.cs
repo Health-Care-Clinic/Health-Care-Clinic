@@ -7,7 +7,7 @@ namespace HospitalSeleniumTests.Pages
     public class LoginPage
     {
         private readonly IWebDriver driver;
-        public const string URI = "http://localhost:4200/login";
+        public const string URI = "http://127.0.0.1:8080/login";
         private IWebElement UsernameElement => driver.FindElement(By.Id("username"));
         private IWebElement PasswordElement => driver.FindElement(By.Id("password"));
         private IWebElement SubmitButtonElement => driver.FindElement(By.Id("submit"));
