@@ -22,7 +22,8 @@ const routes: Routes = [
   { path: 'recommendation-scheduling', component: RecommendationSchedulingComponent, canActivate: [AuthGuard] },
   { path: 'prescriptions', component: PrescriptionComponent, canActivate: [AuthGuard]},
   { path: 'report', component: ReportComponent, canActivate: [AuthGuard]},
-  { path: 'standard-scheduling', component: StandardSchedulingComponent }
+  { path: 'standard-scheduling', component: StandardSchedulingComponent },
+  { path: 'standard-scheduling', component: StandardSchedulingComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -17,7 +17,6 @@
   <ItemGroup>
     <Folder Include="Graphical editor\Model\" />
     <Folder Include="Graphical editor\Repository\" />
-    <Folder Include="Medical records\Model\" />
     <Folder Include="Schedule\Service\" />
     <Folder Include="Schedule\Repository\" />
   </ItemGroup>

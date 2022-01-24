@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Feedback } from '../feedback';
 import { FeedbackService } from '../feedback.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class FeedbackFormComponent {
 
   feedbackModel: Feedback = new Feedback();
 
-  constructor(private _feedbackService: FeedbackService, private _snackBar: MatSnackBar) {}
+  constructor(private _feedbackService: FeedbackService, private router: Router, private _snackBar: MatSnackBar) {}
 
   submit(): void {
     this.feedbackModel.identity = JSON.parse(localStorage.getItem('id') || '{}');
@@ -25,9 +26,9 @@ export class FeedbackFormComponent {
       error => console.log('Error!', error)
     ) 
     
+    this.router.navigateByUrl('')
+
     this._snackBar.open('Your feedback has been submited.', 'Close', {duration: 3000});
     this.feedbackModel = new Feedback();
-    }
-
-  
+    }  
 }

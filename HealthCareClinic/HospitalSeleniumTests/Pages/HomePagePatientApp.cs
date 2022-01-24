@@ -10,6 +10,7 @@ namespace HospitalSeleniumTests.Pages
         private readonly IWebDriver driver;
         public const string URI = "http://localhost:4200/medical-record";
         private IWebElement AppointmentsTabelLabelElement => driver.FindElement(By.Id("mat-tab-label-0-3"));
+        private IWebElement CreateFeedbackButtonElement => driver.FindElement(By.Id("createFButton"));
         public string Title => driver.Title;
 
 
@@ -43,6 +44,11 @@ namespace HospitalSeleniumTests.Pages
             AppointmentsTabelLabelElement.Click();
         }
 
+        public void ClickOnCreateFeedback()
+        {
+            CreateFeedbackButtonElement.Click();
+        }
+
         public HomePagePatientApp(IWebDriver driver)
         {
             this.driver = driver;
@@ -52,6 +58,12 @@ namespace HospitalSeleniumTests.Pages
         {
             var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='Appointments']"))); // cela tabela appointmenta
+        }
+
+        public void WaitForFeedbackFormPage()
+        {
+            var wait = new WebDriverWait(driver, new TimeSpan(0, 0, 20));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='feedbackSubmit']")));
         }
 
         public void Navigate() => driver.Navigate().GoToUrl(URI);
