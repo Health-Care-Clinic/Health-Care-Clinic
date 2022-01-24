@@ -27,21 +27,50 @@ namespace HospitalSeleniumTests
 
             _driver = new ChromeDriver(options);
 
+            loginPage = new Pages.LoginPage(_driver);
+            loginPage.Navigate();
+            loginPage.EnsureButtonIsDisplayed();
+            loginPage.InsertUsername("admin");
+            loginPage.InsertPassword("admin");
+            loginPage.SubmitForm();
+            loginPage.WaitForFormSubmit();
+
             urgentProcurementPage = new Pages.UrgentProcurementPage(_driver);
             urgentProcurementPage.Navigate();
-            
+            urgentProcurementPage.EnsurePageIsDisplayed();
 
-            Assert.Equal(_driver.Url, Pages.CreateTenderPage.URI);
+            Assert.Equal(_driver.Url, Pages.UrgentProcurementPage.URI);
 
             Assert.True(urgentProcurementPage.MedicineNameDisplayed());
             Assert.True(urgentProcurementPage.MedicineAmountDisplayed());
+            Assert.True(urgentProcurementPage.OrderMedicineButtonDisplayed());
         }
 
         [Fact]
-        public void SuccessfulSubmit()
+        public void TestSuccessfulSubmit()
         {
-            Assert.True(urgentProcurementPage.MedicineNameDisplayed());
-            Assert.True(urgentProcurementPage.MedicineAmountDisplayed());
+            urgentProcurementPage.InsertMedicineName("Brufen");
+            urgentProcurementPage.InsertMedicineAmount("2");
+            urgentProcurementPage.CheckMedicine();
+            urgentProcurementPage.Order();
+
+            urgentProcurementPage.WaitForAlertDialog();
+            Assert.Equal(urgentProcurementPage.GetDialogMessage(), Pages.UrgentProcurementPage.SuccessMessage());
+            urgentProcurementPage.ResolveAlertDialog();
+            Assert.Equal(_driver.Url, Pages.UrgentProcurementPage.URI);
+        }
+
+        [Fact]
+        public void TestUnsuccessfulSubmit()
+        {
+            urgentProcurementPage.InsertMedicineName("Brufen");
+            urgentProcurementPage.InsertMedicineAmount("20000000");
+            urgentProcurementPage.CheckMedicine();
+
+            urgentProcurementPage.WaitForAlertDialog();
+            Assert.Equal(urgentProcurementPage.GetDialogMessage(), Pages.UrgentProcurementPage.OrderError());
+            urgentProcurementPage.ResolveAlertDialog();
+            Assert.Equal(_driver.Url, Pages.UrgentProcurementPage.URI);
         }
 
         public void Dispose()

@@ -14,7 +14,9 @@ namespace HospitalSeleniumTests.Pages
         private ReadOnlyCollection<IWebElement> Rows => _driver.FindElements(By.XPath("//table[@id='pharmacyTable']/tr"));
         private IWebElement MedicineName => _driver.FindElement(By.Id("medicineName"));
         private IWebElement MedicineAmount => _driver.FindElement(By.Id("medicineAmount"));
+        private IWebElement OrderDialogButton => _driver.FindElement(By.Id("orderDialogButton"));
         private IWebElement OrderMedicineButton => _driver.FindElement(By.XPath("//table[@id='pharmacyTable']/tr[2]/td[4]/button"));
+        private IWebElement CheckMedicineButton => _driver.FindElement(By.XPath("//table[@id='pharmacyTable']/tr[3]/td[4]/button"));
         public string Title => _driver.Title;
         public const string InvalidMedicineNameMessage = "Molimo unesite naziv leka.";
         public const string InvalidMedicineAmountMessage = "Molimo unesite kolicinu leka.";
@@ -44,6 +46,18 @@ namespace HospitalSeleniumTests.Pages
                 }
             });
         }
+
+        public void CheckMedicine()
+        {
+            CheckMedicineButton.Click();
+        }
+        public void Order()
+        {
+            var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 10));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("orderDialogButton")));
+            OrderDialogButton.Click();
+        }
+
 
         public bool MedicineNameDisplayed()
         {
@@ -112,6 +126,16 @@ namespace HospitalSeleniumTests.Pages
         public static string MedicineTransferedMessage(string medicineName, int medicineAmount)
         {
             return "Lek " + medicineName + " je prebacen u vasu bolnicu (kolicina: " + medicineAmount + ").";
+        }
+
+        public static string OrderError()
+        {
+            return "Does not exist.";
+        }
+
+        public static string SuccessMessage()
+        {
+            return "Medicine moved!";
         }
     }
 }
