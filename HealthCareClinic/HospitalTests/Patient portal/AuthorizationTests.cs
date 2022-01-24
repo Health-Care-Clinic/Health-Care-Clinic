@@ -46,7 +46,7 @@ namespace HospitalUnitTests.Patient_portal
         private static IPatientService CreateStubPatientService()
         {
             Mock<IPatientService> stubService = new Mock<IPatientService>();
-            Patient patient = new Patient(7, "Miki", "Nikolic", "male", "A", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
+            Patient patient = new Patient(7, "Miki", "Nikolic", "male", "A", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "mikip001", "Miki", null, "Employed", true)
             { DoctorId = 3 };
 
             stubService.Setup(m => m.GenerateJwtToken(patient)).Returns("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjciLCJyb2xlIjoicGF0aWVudCJ9.FtOrWDpyT84TL1NT8TyTzRR4zLTR4mRKkJXzL1JDv9Y");
