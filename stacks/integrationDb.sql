@@ -223,3 +223,10 @@ VALUES ('20211209014516_ApiKeyExpended', '5.0.11');
 
 COMMIT;
 
+START TRANSACTION;
+
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20220111061855_first', '5.0.11');
+
+COMMIT;
+

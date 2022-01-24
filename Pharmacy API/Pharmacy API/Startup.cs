@@ -21,6 +21,8 @@ using Pharmacy.Prescriptions.Service;
 using UrgentMedicines.Protos;
 using Pharmacy.Tendering.Repository;
 using Pharmacy.Tendering.Service;
+using Pharmacy.Advertisements.Repository;
+using Pharmacy.Advertisements.Service;
 
 namespace Pharmacy_API
 {
@@ -48,6 +50,8 @@ namespace Pharmacy_API
             services.AddScoped<IApiKeyService, ApiKeyService>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
+            services.AddScoped<IAdvertisementService, AdvertisementService>();
 
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IFeedbackService, FeedbackService>();
@@ -59,10 +63,7 @@ namespace Pharmacy_API
             services.AddScoped<ITenderService, TenderService>();
             services.AddScoped<ITenderResponseRepository, TenderResponseRepository>();
             services.AddScoped<ITenderResponseService, TenderResponseService>();
-
-
-            Thread fileCompressionThread = new Thread(FileCompressionService.CompressFiles);
-            fileCompressionThread.Start();
+            ThreadPool.QueueUserWorkItem(FileCompressionService.CompressFiles);
         }
 
         private Server server;

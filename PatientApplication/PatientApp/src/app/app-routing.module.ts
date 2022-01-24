@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'medical-record', component: MedicalRecordComponent, canActivate: [AuthGuard] },
   { path: 'recommendation-scheduling', component: RecommendationSchedulingComponent, canActivate: [AuthGuard] },
-  { path: 'standard-scheduling', component: StandardSchedulingComponent }
+  { path: 'standard-scheduling', component: StandardSchedulingComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

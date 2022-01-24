@@ -25,7 +25,7 @@ services:
         cd ../ 
         cd ../ 
         dotnet dotnet-ef migrations add TestingMigration --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "Pharmacy API/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext
-        dotnet dotnet-ef database update --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "HealthCareClinic/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext
+        dotnet dotnet-ef database update --project "Pharmacy API/Pharmacy/Pharmacy.csproj" --startup-project "Pharmacy API/Pharmacy API/Pharmacy API.csproj" --context PharmacyDbContext
         dotnet test "Pharmacy API/PharmacyIntegrationTests/PharmacyIntegrationTests.csproj"
       depends_on:
         - database  

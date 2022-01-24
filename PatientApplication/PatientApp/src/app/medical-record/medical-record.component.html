@@ -1,101 +1,4 @@
-<!-- <mat-tab-group>
-    <mat-tab label="Personal info">
-        <mat-list>
-            <mat-list-item>Name:{{patientModel.name}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Surname:{{patientModel.surname}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Parent name:{{patientModel.parentName}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Birth date:{{patientModel.birthDate}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Address:{{patientModel.address}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Phone number:{{patientModel.phone}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Employment status:{{patientModel.employmentStatus}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Gender:{{patientModel.gender}}</mat-list-item>
-        </mat-list>
-    </mat-tab>
-    <mat-tab label="Account info">
-        <mat-list>
-            <mat-list-item></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Item 2</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Item 3</mat-list-item>
-        </mat-list>
-    </mat-tab>
-    <mat-tab label="Medical info">
-        <mat-list>
-            <mat-list-item>Item 1</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Item 2</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Item 3</mat-list-item>
-        </mat-list>
-    </mat-tab>
-  </mat-tab-group> -->
 
-<!-- <div class="medical-record">
-    <mat-grid-list cols="3">
-        <mat-grid-tile>       
-            <mat-list>
-                <mat-list-item></mat-list-item>
-                <mat-list-item></mat-list-item>
-                <mat-list-item><b>Personal info</b></mat-list-item>
-                <mat-list-item>
-                    Name:
-                    <label>{{patientModel.name}}</label>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item>
-                    Surname:
-                    <label>{{patientModel.surname}}</label>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item>
-                    Parent name:
-                    <label>{{patientModel.parentName}}</label>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item>
-                    Birth date:
-                    <label>{{patientModel.birthDate | date:'mediumDate'}}</label>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item>
-                    Address:
-                    <label>{{patientModel.address}}</label>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item>
-                    Phone number:
-                    <label>{{patientModel.phone}}</label>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item>
-                    Employment status:
-                    <label>{{patientModel.employmentStatus}}</label>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item>
-                    Gender:
-                    <label>{{patientModel.gender}}</label>
-                </mat-list-item>
-            </mat-list>   
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <h1>Account info</h1>
-            
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <h1>Medical info</h1>
-            
-        </mat-grid-tile>
-      </mat-grid-list>
-</div> -->
 
 <mat-tab-group mat-stretch-tabs>
     <mat-tab>
@@ -151,7 +54,19 @@
             Account info
         </ng-template>
 
+        
         <mat-list>
+            
+            
+            <div *ngIf="patientWithPicture.profilePicture != '' ">
+                <mat-list-item>
+                    Profile picture:
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <img class="pic" src="{{patientWithPicture.profilePicture}}">
+                <mat-divider></mat-divider>
+            </div>
+
             <mat-list-item>
                 Username:
                 <label>{{patientModel.username}}</label>

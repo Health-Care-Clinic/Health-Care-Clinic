@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Pharmacy.Migrations
+namespace Hospital.Migrations
 {
-    public partial class FifthMigration : Migration
+    public partial class PatientPortalThirdMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

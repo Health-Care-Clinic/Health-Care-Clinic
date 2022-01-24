@@ -48,6 +48,24 @@ namespace Hospital.Migrations
                     b.ToTable("Prescriptions");
                 });
 
+            modelBuilder.Entity("Hospital.Medical_records.Model.ProfilePicture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfilePictures");
+                });
+
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
                 {
                     b.Property<int>("Id")
