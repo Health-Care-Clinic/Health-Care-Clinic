@@ -1,0 +1,20 @@
+name: Hospital E2E tests
+
+on:
+  push:
+    branches: [ feat(d)/run-e2e ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Execute tests 
+        run: docker-compose -f stacks/docker-compose.yml" up
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+      - name: Test
+        run: dotnet test 'HealthCareClinic/HospitalSeleniumTests/HospitalSeleniumTests.csproj'
