@@ -32,8 +32,6 @@ services:
       - node-chrome
       - rabbitmq3
       - database
-    links:
-      - chromedriver
     networks:
       - database
       - hospitalapi_application
