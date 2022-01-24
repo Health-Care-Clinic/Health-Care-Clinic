@@ -12,7 +12,6 @@ namespace HospitalSeleniumTests
     {
         private readonly IWebDriver _driver;
         private Pages.CreateTenderPage createTenderPage;
-        private Pages.LoginPage loginPage;
 
         public CreateTenderTests()
         {
@@ -39,6 +38,7 @@ namespace HospitalSeleniumTests
             Assert.True(createTenderPage.MedicineNameElementDisplayed());
             Assert.True(createTenderPage.QuantityElementDisplayed());
             Assert.True(createTenderPage.SubmitButtonElementDisplayed());
+            Assert.True(createTenderPage.AddMedicineButtonDisplayed());
         }
 
         [Fact]
@@ -49,8 +49,66 @@ namespace HospitalSeleniumTests
             createTenderPage.InsertDescription("Tender description");
             createTenderPage.InsertMedicineName("Brufen");
             createTenderPage.InsertQuantity("100");
+            createTenderPage.AddMedicine();
             createTenderPage.CreateTender();
 
+            createTenderPage.WaitForAlertDialog();
+            Assert.Equal(createTenderPage.GetDialogMessage(), Pages.CreateTenderPage.SuccessMessage);
+            createTenderPage.ResolveAlertDialog();
+            Assert.Equal(_driver.Url, Pages.CreateTenderPage.URI);
+        }
+
+        [Fact]
+        public void MissingDescriptionSubmit()
+        {
+            createTenderPage.InsertStartDate("01/01/2022");
+            createTenderPage.InsertEndDate("02/02/2022");
+            createTenderPage.InsertDescription("");
+            createTenderPage.InsertMedicineName("Brufen");
+            createTenderPage.InsertQuantity("100");
+            createTenderPage.AddMedicine();
+            createTenderPage.CreateTender();
+
+            createTenderPage.WaitForAlertDialog();
+            Assert.Equal(createTenderPage.GetDialogMessage(), Pages.CreateTenderPage.MissingDescriptionMessage);
+            createTenderPage.ResolveAlertDialog();
+            Assert.Equal(_driver.Url, Pages.CreateTenderPage.URI);
+        }
+
+        [Fact]
+        public void MissingMedicineNameSubmit()
+        {
+            createTenderPage.InsertStartDate("01/01/2022");
+            createTenderPage.InsertEndDate("02/02/2022");
+            createTenderPage.InsertDescription("Tender description");
+            createTenderPage.InsertMedicineName("");
+            createTenderPage.InsertQuantity("100");
+            createTenderPage.AddMedicine();
+
+            createTenderPage.WaitForAlertDialog();
+            Assert.Equal(createTenderPage.GetDialogMessage(), Pages.CreateTenderPage.MissingMedicineNameMessage);
+            createTenderPage.ResolveAlertDialog();
+            Assert.Equal(_driver.Url, Pages.CreateTenderPage.URI);
+
+            createTenderPage.CreateTender();
+        }
+
+        [Fact]
+        public void MissingMedicineQuantitySubmit()
+        {
+            createTenderPage.InsertStartDate("01/01/2022");
+            createTenderPage.InsertEndDate("02/02/2022");
+            createTenderPage.InsertDescription("Tender description");
+            createTenderPage.InsertMedicineName("Brufen");
+            createTenderPage.InsertQuantity("");
+            createTenderPage.AddMedicine();
+
+            createTenderPage.WaitForAlertDialog();
+            Assert.Equal(createTenderPage.GetDialogMessage(), Pages.CreateTenderPage.MissingMedicineQuantityMessage);
+            createTenderPage.ResolveAlertDialog();
+            Assert.Equal(_driver.Url, Pages.CreateTenderPage.URI);
+
+            createTenderPage.CreateTender();
         }
 
         public void Dispose()

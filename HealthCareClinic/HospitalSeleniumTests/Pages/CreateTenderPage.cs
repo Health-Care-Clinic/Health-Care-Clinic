@@ -16,7 +16,12 @@ namespace HospitalSeleniumTests.Pages
         private IWebElement MedicineNameElement => _driver.FindElement(By.Id("medicineName"));
         private IWebElement QuantityElement => _driver.FindElement(By.Id("quantity"));
         private IWebElement SubmitButtonElement => _driver.FindElement(By.Id("submitTender"));
+        private IWebElement AddMedicineButtonElement => _driver.FindElement(By.Id("add-button"));
         public string Title => _driver.Title;
+        public const string MissingDescriptionMessage = "Please enter tender description!";
+        public const string MissingMedicineNameMessage = "Please enter medicine name!";
+        public const string MissingMedicineQuantityMessage = "Please enter medicine quantity!";
+        public const string SuccessMessage = "Tender has been created successfully!";
 
         public CreateTenderPage(IWebDriver driver)
         {
@@ -73,6 +78,11 @@ namespace HospitalSeleniumTests.Pages
             return QuantityElement.Displayed;
         }
 
+        public bool AddMedicineButtonDisplayed()
+        {
+            return AddMedicineButtonElement.Displayed;
+        }
+
         public void InsertStartDate(string startDate)
         {
             StartDateElement.SendKeys(startDate);
@@ -103,10 +113,31 @@ namespace HospitalSeleniumTests.Pages
             SubmitButtonElement.Click();
         }
 
+        public void AddMedicine()
+        {
+            AddMedicineButtonElement.Click();
+        }
+
         public void WaitForFormSubmit()
         {
             var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 20));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.UrlToBe(HomePage.URI));
+        }
+
+        public void WaitForAlertDialog()
+        {
+            var wait = new WebDriverWait(_driver, new TimeSpan(0, 0, 10));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.AlertIsPresent());
+        }
+
+        public string GetDialogMessage()
+        {
+            return _driver.SwitchTo().Alert().Text;
+        }
+
+        public void ResolveAlertDialog()
+        {
+            _driver.SwitchTo().Alert().Accept();
         }
 
         public void Navigate() => _driver.Navigate().GoToUrl(URI);

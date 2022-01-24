@@ -80,6 +80,7 @@ import { TenderStatisticsComponent } from './tender-statistics/tender-statistics
 import { TenderOffersComponent } from './tender-offers/tender-offers.component';
 import { PharmacyTenderStatisticsComponent } from './pharmacy-tender-statistics/pharmacy-tender-statistics.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ToastrModule } from 'ngx-toastr';
 
 const MaterialComponents = [
   MatTableModule,
@@ -162,8 +163,9 @@ const MaterialComponents = [
     ]),
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     IvyCarouselModule,
-    MaterialComponents
+    MaterialComponents,
   ],
   providers: [FeedbackService, SurveyObservationService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService,

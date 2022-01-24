@@ -4,6 +4,7 @@ import { Medicine } from '../model/medicine';
 import { ITenderDTO } from '../dto/TenderDTO';
 import { TenderingServiceService } from '../services/tendering-service.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-tender',
@@ -21,7 +22,7 @@ export class CreateTenderComponent implements OnInit {
   public description: string = "";
   public tender: ITenderDTO = { id: 0, startDate: "", endDate: "", description: "", isWinningBidChosen: false, price: null, tenderItems: null, isOpen: true, offersNumber: 0 }
 
-  constructor(private _router: Router, private _tenderingService: TenderingServiceService, public datepipe: DatePipe) {
+  constructor(private _router: Router, private _tenderingService: TenderingServiceService, public datepipe: DatePipe, private toastr: ToastrService) {
     this.tender;
   }
 
@@ -34,10 +35,20 @@ export class CreateTenderComponent implements OnInit {
       this.medicines.push(medicine);
       this.newMedicine = "";
       this.newQuantity = null;
+    } else if (this.newMedicine == "") {
+      alert('Please enter medicine name!')
+      return;
+    } else if (this.newQuantity == null) {
+      alert('Please enter medicine quantity!')
+      return;
     }
   }
 
   createTender(): void {
+    if (this.description == '') {
+      alert('Please enter tender description!')
+      return;
+    }
     this.tender.startDate = this.datepipe.transform(this.startDate, 'yyyy/MM/dd');
     this.tender.endDate = this.datepipe.transform(this.endDate, 'yyyy/MM/dd');
     this.tender.description = this.description;
@@ -48,9 +59,10 @@ export class CreateTenderComponent implements OnInit {
     this.tender.offersNumber = 0;
     console.log(this.tender)
     this._tenderingService.createTender(this.tender).subscribe(res => {
-      this.openTendersComponent();
+      //this.openTendersComponent();
     }
     );
+    alert('Tender has been created successfully!');
   }
 
   openTendersComponent(): void {
