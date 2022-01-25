@@ -7,6 +7,7 @@ namespace Hospital.Shared_model.Model
 {
     public class DoctorSchedule
     {
+        public int Id { get; set; }
         public Doctor Doctor { get; set; }
         public WorkDayShift WorkDayShift { get; set; }
         public List<Vacation> Vacations { get; set; }
@@ -14,8 +15,9 @@ namespace Hospital.Shared_model.Model
         public List<Appointment> Appointments { get; set; }
 
         public DoctorSchedule() { }
-        public DoctorSchedule(Doctor doctor, WorkDayShift workDayShift, List<Vacation> vacations, List<OnCallShift> onCallShifts, List<Appointment> appointments) 
+        public DoctorSchedule(int id, Doctor doctor, WorkDayShift workDayShift, List<Vacation> vacations, List<OnCallShift> onCallShifts, List<Appointment> appointments) 
         {
+            Id = id;
             Doctor = doctor;
             WorkDayShift = workDayShift;
             Vacations = vacations;
