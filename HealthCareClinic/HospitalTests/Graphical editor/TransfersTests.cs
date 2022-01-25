@@ -26,10 +26,10 @@ namespace HospitalUnitTests.Graphical_editor
 
             using (var context = new HospitalDbContext(options))
             {
-                context.Transfer.Add(new Transfer { Id = 1, Equipment = new Equipment("Bed", 5), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2022, 2, 22, 9, 0 ,0), 60) });
-                context.Transfer.Add(new Transfer { Id = 2, Equipment = new Equipment("TV", 2), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2021, 11, 28, 11, 0, 0), 30) });
-                context.Transfer.Add(new Transfer { Id = 3, Equipment = new Equipment("Blanket", 7), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2022, 2, 22, 15, 30, 0), 45) });
-                context.Transfer.Add(new Transfer { Id = 4, Equipment = new Equipment("Needle", 25), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2021, 10, 25, 15, 30, 0), 45) });
+                context.Transfer.Add(new Transfer { Id = 1, Equipment = new EquipmentForTransfer("Bed", 5), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2022, 2, 22, 9, 0 ,0), 60) });
+                context.Transfer.Add(new Transfer { Id = 2, Equipment = new EquipmentForTransfer("TV", 2), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2021, 11, 28, 11, 0, 0), 30) });
+                context.Transfer.Add(new Transfer { Id = 3, Equipment = new EquipmentForTransfer("Blanket", 7), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2022, 2, 22, 15, 30, 0), 45) });
+                context.Transfer.Add(new Transfer { Id = 4, Equipment = new EquipmentForTransfer("Needle", 25), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2021, 10, 25, 15, 30, 0), 45) });
                 context.Rooms.Add(new Room { Id = 1, Name = "Operation room 1", Type = Room.RoomType.OperationRoom, PositionAndDimension = new PositionAndDimension(10, 100, 100, 200), FloorId = 1 });
                 context.Rooms.Add(new Room { Id = 2, Name = "Operation room 2", Type = Room.RoomType.OperationRoom, PositionAndDimension = new PositionAndDimension(110, 100, 190, 110), FloorId = 1 });
                 context.Equipments.Add(new Equipment { Id = 1, Name = "Bed", Type = EquipmentType.Static, Quantity = 25, RoomId = 1 });

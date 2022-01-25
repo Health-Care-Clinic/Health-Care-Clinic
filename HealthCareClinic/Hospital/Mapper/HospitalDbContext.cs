@@ -87,8 +87,8 @@ namespace Hospital.Mapper
                 .Property(p => p.EndTime).HasColumnName("EndTime");
 
             modelBuilder.Entity<Transfer>()
-              .OwnsOne(t => t.Equipment)
-              .Property(e => e.Name).HasColumnName("Name");
+                .OwnsOne(t => t.Equipment)
+                .Property(e => e.Name).HasColumnName("Name");
             modelBuilder.Entity<Transfer>()
                 .OwnsOne(t => t.Equipment)
                 .Property(e => e.Quantity).HasColumnName("Quantity");
@@ -146,15 +146,14 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 9
+                    Id = 9/*,
+                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
                     TransferId = 9,
-                    Id = 0,
                     Name = "Bed",
-                    Quantity = 2,
-                    RoomId = 0
+                    Quantity = 2
                 });
                 t.OwnsOne(e => e.RoomsForTransfer).HasData(new
                 {
@@ -174,15 +173,14 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 6
+                    Id = 6/*,
+                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
                     TransferId = 6,
-                    Id = 0,
                     Name = "Needle",
-                    Quantity = 5,
-                    RoomId = 0
+                    Quantity = 5
                 });
                 t.OwnsOne(e => e.RoomsForTransfer).HasData(new
                 {
@@ -202,15 +200,14 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 2
+                    Id = 2/*,
+                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
                     TransferId = 2,
-                    Id = 0,
                     Name = "Bed",
-                    Quantity = 4,
-                    RoomId = 0
+                    Quantity = 4
                 });
                 t.OwnsOne(e => e.RoomsForTransfer).HasData(new
                 {
@@ -230,15 +227,14 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 3
+                    Id = 3/*,
+                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
                     TransferId = 3,
-                    Id = 0,
                     Name = "TV",
-                    Quantity = 1,
-                    RoomId = 0
+                    Quantity = 1
                 });
                 t.OwnsOne(e => e.RoomsForTransfer).HasData(new
                 {
@@ -258,15 +254,14 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 4
+                    Id = 4/*,
+                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
                     TransferId = 4,
-                    Id = 0,
                     Name = "Bandage",
-                    Quantity = 4,
-                    RoomId = 0
+                    Quantity = 4
                 });
                 t.OwnsOne(e => e.RoomsForTransfer).HasData(new
                 {
@@ -286,15 +281,14 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 5
+                    Id = 5/*,
+                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
                     TransferId = 5,
-                    Id = 0,
                     Name = "Blanket",
-                    Quantity = 10,
-                    RoomId = 0
+                    Quantity = 10
                 });
                 t.OwnsOne(e => e.RoomsForTransfer).HasData(new
                 {
