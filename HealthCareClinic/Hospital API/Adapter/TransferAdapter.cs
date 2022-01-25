@@ -14,7 +14,7 @@ namespace Hospital_API.Adapter
             Transfer transfer = new Transfer();
 
             transfer.Id = dto.Id;
-            transfer.Equipment = new Equipment(dto.Equipment, dto.Quantity);
+            transfer.Equipment = new EquipmentForTransfer(dto.Equipment, dto.Quantity);
             transfer.RoomsForTransfer = new RoomsForTransfer(dto.SourceRoomId, dto.DestinationRoomId);
             transfer.DateAndDuration = new DateAndDuration(dto.Date, dto.Duration);
 
