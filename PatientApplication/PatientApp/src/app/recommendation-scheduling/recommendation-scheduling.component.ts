@@ -8,6 +8,7 @@ import { TermsInDateRange } from './termsInDateRange';
 import { TermsInDateRangeForDoctor } from './termsInDateRangeForDoctor';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-recommendation-scheduling',
@@ -123,9 +124,15 @@ export class RecommendationSchedulingComponent implements OnInit {
     return specialty;
   }
 
-  schedule(term: Date) {
-    this._appointmentService.schedule(term, this.dto.doctorId, this.patientId)
-    .subscribe(
+  schedule(term: Date, doctorId?: number) {
+    var scheduleActionResult : Observable<any>;
+    if (typeof doctorId === 'undefined') {
+      scheduleActionResult = this._appointmentService.schedule(term, this.dto.doctorId, this.patientId)
+    } else {
+      scheduleActionResult = this._appointmentService.schedule(term, doctorId, this.patientId)
+    }
+    
+    scheduleActionResult.subscribe(
       data => {
         console.log('Success!', data)
         this.router.navigateByUrl('/medical-record')
