@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Hospital.Graphical_editor.Model;
 
 namespace Hospital.Rooms_and_equipment.Repository
 {
@@ -38,17 +39,13 @@ namespace Hospital.Rooms_and_equipment.Repository
 
         public void ChangeMergedDimensions(int roomId, float x, float width)
         {
-            Context.Set<Room>().Find(roomId).X = x;
-            Context.Set<Room>().Find(roomId).Width = width;
+            Context.Set<Room>().Find(roomId).PositionAndDimension = new PositionAndDimension(x, Context.Set<Room>().Find(roomId).PositionAndDimension.Y, width, Context.Set<Room>().Find(roomId).PositionAndDimension.Height);
             Save();
         }
 
         public void ChangeDividedDimensions(int roomId, float x, float y, float width, float height)
         {
-            Context.Set<Room>().Find(roomId).X = x;
-            Context.Set<Room>().Find(roomId).Y = y;
-            Context.Set<Room>().Find(roomId).Width = width;
-            Context.Set<Room>().Find(roomId).Height = height;
+            Context.Set<Room>().Find(roomId).PositionAndDimension = new PositionAndDimension(x, y, width, height);
             Save();
         }
 

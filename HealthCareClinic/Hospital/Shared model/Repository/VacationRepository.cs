@@ -21,8 +21,7 @@ namespace Hospital.Shared_model.Repository
         public void Change(Vacation entity)
         {
             Context.Set<Vacation>().Find(entity.Id).Description = entity.Description;
-            Context.Set<Vacation>().Find(entity.Id).StartTime = entity.StartTime;
-            Context.Set<Vacation>().Find(entity.Id).EndTime = entity.EndTime;
+            Context.Set<Vacation>().Find(entity.Id).DateSpan = new DateSpan(entity.DateSpan.StartTime, entity.DateSpan.EndTime);
 
             Save();
         }

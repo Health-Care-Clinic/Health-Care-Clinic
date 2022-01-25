@@ -23,11 +23,11 @@ namespace HospitalUnitTests.Graphical_editor
 
             using (var context = new HospitalDbContext(options))
             {
-                context.Transfer.Add(new Transfer { Id = 1, Equipment = "Bed", Quantity = 5, SourceRoomId = 1, DestinationRoomId = 2, Date = new DateTime(2021, 12, 31, 9, 0, 0), Duration = 60 });
-                context.Transfer.Add(new Transfer { Id = 2, Equipment = "TV", Quantity = 2, SourceRoomId = 1, DestinationRoomId = 2, Date = new DateTime(2021, 12, 28, 11, 0, 0), Duration = 30 });
-                context.Transfer.Add(new Transfer { Id = 3, Equipment = "Blanket", Quantity = 7, SourceRoomId = 2, DestinationRoomId = 5, Date = new DateTime(2021, 12, 25, 15, 30, 0), Duration = 45 });
-                context.Transfer.Add(new Transfer { Id = 4, Equipment = "Needle", Quantity = 4, SourceRoomId = 8, DestinationRoomId = 9, Date = DateTime.Now.AddHours(20), Duration = 45 });
-                context.Transfer.Add(new Transfer { Id = 5, Equipment = "Bandage", Quantity = 3, SourceRoomId = 7, DestinationRoomId = 12, Date = DateTime.Now.AddHours(30), Duration = 45 });
+                context.Transfer.Add(new Transfer { Id = 1, Equipment = new Equipment("Bed", 5), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2021, 12, 31, 9, 0, 0), 60) });
+                context.Transfer.Add(new Transfer { Id = 2, Equipment = new Equipment("TV", 2), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2021, 12, 28, 11, 0, 0), 30) });
+                context.Transfer.Add(new Transfer { Id = 3, Equipment = new Equipment("Blanket", 7), RoomsForTransfer = new RoomsForTransfer(2, 5), DateAndDuration = new DateAndDuration(new DateTime(2021, 12, 25, 15, 30, 0),  45) });
+                context.Transfer.Add(new Transfer { Id = 4, Equipment = new Equipment("Needle", 4), RoomsForTransfer = new RoomsForTransfer(8, 9), DateAndDuration = new DateAndDuration(DateTime.Now.AddHours(20), 45) });
+                context.Transfer.Add(new Transfer { Id = 5, Equipment = new Equipment("Bandage", 3), RoomsForTransfer = new RoomsForTransfer(7, 12), DateAndDuration = new DateAndDuration(DateTime.Now.AddHours(30), 45) });
                 context.SaveChanges();
             }
 

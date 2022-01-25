@@ -1,4 +1,5 @@
-﻿using Hospital.Mapper;
+﻿using Hospital.Graphical_editor.Model;
+using Hospital.Mapper;
 using Hospital.Rooms_and_equipment.Model;
 using Hospital.Rooms_and_equipment.Repository;
 using Hospital.Rooms_and_equipment.Service;
@@ -26,9 +27,9 @@ namespace HospitalUnitTests.Graphical_editor
 
             using (var context = new HospitalDbContext(options))
             {
-                context.Rooms.Add(new Room { Id = 1, Name = "Operation room 1", Type = RoomType.OperationRoom, X = 10, Y = 10, Width = 100, Height = 200, FloorId = 1 });
-                context.Rooms.Add(new Room { Id = 2, Name = "Operation room 2", Type = RoomType.OperationRoom, X = 100, Y = 100, Width = 190, Height = 110, FloorId = 1 });
-                context.Rooms.Add(new Room { Id = 3, Name = "Room for appointments", Type = RoomType.RoomForAppointments, X = 212, Y = 120, Width = 150, Height = 150, FloorId = 2 });
+                context.Rooms.Add(new Room { Id = 1, Name = "Operation room 1", Type = RoomType.OperationRoom, PositionAndDimension = new PositionAndDimension(10, 10, 100, 200), FloorId = 1 });
+                context.Rooms.Add(new Room { Id = 2, Name = "Operation room 2", Type = RoomType.OperationRoom, PositionAndDimension = new PositionAndDimension(100, 100, 190, 110), FloorId = 1 });
+                context.Rooms.Add(new Room { Id = 3, Name = "Room for appointments", Type = RoomType.RoomForAppointments, PositionAndDimension = new PositionAndDimension(212, 120, 150, 150), FloorId = 2 });
                 context.SaveChanges();
             }
 
