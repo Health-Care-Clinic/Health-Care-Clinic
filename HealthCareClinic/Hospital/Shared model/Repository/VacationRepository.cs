@@ -15,7 +15,7 @@ namespace Hospital.Shared_model.Repository
 
         public HospitalDbContext HospitalDbContext
         {
-            get { return Context; }
+            get { return (HospitalDbContext) Context; }
         }
 
         public void Change(Vacation entity)

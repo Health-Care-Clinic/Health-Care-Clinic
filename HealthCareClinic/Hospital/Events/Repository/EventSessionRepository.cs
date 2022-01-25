@@ -7,11 +7,10 @@ using System.Text;
 
 namespace Hospital.Events.Repository
 {
-    public class EventRepository : Repository<Event>, IEventRepository
+    public class EventSessionRepository : Repository<EventSession>, IEventSessionRepository
     {
-
-        public EventRepository(EventsDbContext context) : base(context)
-        { 
+        public EventSessionRepository(EventsDbContext context) : base(context)
+        {
         }
     }
 }

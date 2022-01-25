@@ -38,5 +38,15 @@ namespace Hospital_API.Adapter
             }
             return eventDTOs;
         }
+
+        public static List<Event> EventSessionDTOToEvents(List<EventDTO> dtos)
+        {
+            List<Event> events = new List<Event>();
+
+            foreach (EventDTO eventDto in dtos)
+                events.Add(EventDTOToEvent(eventDto));
+
+            return events;
+        }
     }
 }

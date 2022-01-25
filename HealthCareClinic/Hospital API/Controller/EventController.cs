@@ -28,12 +28,13 @@ namespace Hospital_API.Controller
             return Ok(eventDTOs);
         }
 
-        [HttpPost("createEvent")]
-        public IActionResult CreateEvent(EventDTO eventDto)
+        [HttpPost("createEventSession")]
+        public IActionResult CreateEventSession(EventSessionDTO eventSessionDTO)
         {
-            Event ev = EventAdapter.EventDTOToEvent(eventDto);
+            EventSession eventSession = new EventSession(eventSessionDTO.ResultedInSucces, eventSessionDTO.UserId);
 
-            _eventService.Add(ev);
+            _eventService.AddEventSession(eventSession);
+            _eventService.AddEvents(EventAdapter.EventSessionDTOToEvents(eventSessionDTO.Events), eventSession.Id);
 
             return Ok();
         }

@@ -46,11 +46,11 @@ export class StandardSchedulingComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this._eventService.createEvent(new ScheduleEvent('Step-1:date-selection', this.patientId)).subscribe() 
+    this._eventService.eventQueue.push(new ScheduleEvent('Step-1:date-selection', this.patientId))
   }
 
   getAllSpecialties() {
-    this._eventService.createEvent(new ScheduleEvent('Step-2:specialization-selection', this.patientId)).subscribe() 
+    this._eventService.eventQueue.push(new ScheduleEvent('Step-2:specialization-selection', this.patientId))
   
     this._appointmentService.getAllSpecialties()
         .subscribe(specializations => this.specializations = specializations,
@@ -58,7 +58,7 @@ export class StandardSchedulingComponent implements OnInit {
   }
 
   getDoctorsBySpecialty() {
-    this._eventService.createEvent(new ScheduleEvent('Step-3:doctor-selection', this.patientId)).subscribe() 
+    this._eventService.eventQueue.push(new ScheduleEvent('Step-3:doctor-selection', this.patientId))
 
     this._appointmentService.getDoctorsBySpecialty(this.selectedSpecialty)
         .subscribe(data => this.doctors = data,
@@ -66,7 +66,7 @@ export class StandardSchedulingComponent implements OnInit {
   }
 
   getTermsForSelectedDoctor() {
-    this._eventService.createEvent(new ScheduleEvent('Step-4:term-selection', this.patientId)).subscribe() 
+    this._eventService.eventQueue.push(new ScheduleEvent('Step-4:term-selection', this.patientId))
 
     this._appointmentService.getTermsForSelectedDoctor(this.selectedDoctor.id, this.selectedDate)
         .subscribe(terms => this.terms = terms,
@@ -74,39 +74,41 @@ export class StandardSchedulingComponent implements OnInit {
   }
 
   confirm() {
-    this._eventService.createEvent(new ScheduleEvent('Attempt:schedule-appointment', this.patientId)).subscribe() 
     
     this._appointmentService.schedule(new Date(this.selectedTerm), this.selectedDoctor.id, this.patientId)
         .subscribe(
             data => { 
               console.log('Success!', data)
-              this._eventService.createEvent(new ScheduleEvent('Successful:schedule-appointment', this.patientId)).subscribe() 
+              this._eventService.finishEventSession(true).subscribe()
               this.router.navigateByUrl('/medical-record').then( f => 
                 this._snackBar.open('Appointment successfully created!', 'Close', {duration: 3000})
               )
               
-            },
-              error => this._snackBar.open('Failed to create appointment!', 'Close', {duration: 3000})
+            }, 
+              error => {
+                this._snackBar.open('Failed to create appointment!', 'Close', {duration: 3000})
+                this._eventService.finishEventSession(false).subscribe()
+              } 
         )
 
     console.log(this.selectedDate, this.selectedDoctor.id, this.patientId);    
   }
 
   genereateEventBackToDate() {
-    this._eventService.createEvent(new ScheduleEvent('Back-to:Step-1', this.patientId)).subscribe() 
+    this._eventService.eventQueue.push(new ScheduleEvent('Back-to:Step-1', this.patientId))
   }
 
   genereateEventBackToSpec() {
-    this._eventService.createEvent(new ScheduleEvent('Back-to:Step-2', this.patientId)).subscribe() 
+    this._eventService.eventQueue.push(new ScheduleEvent('Back-to:Step-2', this.patientId))
   }
 
   genereateEventBackToDoctor() {
-    this._eventService.createEvent(new ScheduleEvent('Back-to:Step-3', this.patientId)).subscribe() 
+    this._eventService.eventQueue.push(new ScheduleEvent('Back-to:Step-3', this.patientId))
   }
 
   @HostListener('window:unload', [ '$event' ])
   unloadHandler() {
-    this._eventService.createEvent(new ScheduleEvent('Close-Page', this.patientId)).subscribe() 
+    this._eventService.finishEventSession(false).subscribe()
   }
 
   enableNext() {

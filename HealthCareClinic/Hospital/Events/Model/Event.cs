@@ -10,6 +10,7 @@ namespace Hospital.Events.Model
         public DateTime Timestamp { get; set; }
         public String Content { get; set; }
         public int UserId { get; set; }
+        public int SessionId { get; set; }
 
         public Event()
         {

@@ -8,5 +8,7 @@ namespace Hospital.Events.Service
 {
     public interface IEventService : IService<Event>
     {
+        void AddEventSession(EventSession eventSession);
+        void AddEvents(List<Event> events, int sessionId);
     }
 }

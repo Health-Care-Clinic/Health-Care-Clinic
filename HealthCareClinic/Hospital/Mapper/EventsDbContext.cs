@@ -10,6 +10,8 @@ namespace Hospital.Mapper
     {
         public DbSet<Event> Events { get; set; }
 
+        public DbSet<EventSession> EventSessions { get; set; }
+
         public EventsDbContext() { }
 
         public EventsDbContext(DbContextOptions<EventsDbContext> options) : base(options) { }

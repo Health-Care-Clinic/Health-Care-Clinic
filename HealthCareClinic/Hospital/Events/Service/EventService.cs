@@ -9,15 +9,30 @@ namespace Hospital.Events.Service
     public class EventService : IEventService
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IEventSessionRepository _eventSessionRepository;
 
-        public EventService(IEventRepository eventRepository)
+        public EventService(IEventRepository eventRepository, IEventSessionRepository eventSessionRepository)
         {
             _eventRepository = eventRepository;
+            _eventSessionRepository = eventSessionRepository;
         }
         public void Add(Event entity)
         {
             _eventRepository.Add(entity);
-            _eventRepository.Save();
+        }
+
+        public void AddEvents(List<Event> events, int sessionId)
+        {
+            foreach (Event e in events)
+            {
+                e.SessionId = sessionId;
+                Add(e);
+            }
+        }
+
+        public void AddEventSession(EventSession eventSession)
+        {
+            _eventSessionRepository.Add(eventSession);
         }
 
         public IEnumerable<Event> GetAll()

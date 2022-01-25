@@ -11,9 +11,9 @@ namespace Hospital.Shared_model.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly HospitalDbContext Context;
+        protected readonly DbContext Context;
 
-        public Repository(HospitalDbContext context)
+        public Repository(DbContext context)
         {
             Context = context;
         }
