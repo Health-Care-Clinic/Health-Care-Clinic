@@ -1,6 +1,6 @@
 <p style="text-align: center; margin-top: 6%; font-size: 16px;" *ngIf="rooms.length === 0"><b>Ne postoje rezultati pretrage za uneti parametar</b></p>
 <div id="tableDiv">
-    <table *ngIf="rooms.length > 0" style="border: 1px solid black;width: 100%;">
+    <table *ngIf="rooms.length > 0" id="searchedRooms" style="border: 1px solid black;width: 100%;">
         <thead style="background-color: #d3955f;">
             <tr>
                 <th style="border: 1px solid black;"><b>Room</b></th>
@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody style="background-color: #52DEE5;">
-            <tr *ngFor="let room of rooms;let i = index;">
+            <tr *ngFor="let room of rooms;let i = index;" id="{{i}}">
                 <td (click)="goToRoom(room.id)" style="border: 1px solid black;"><b>{{room.name}}</b></td>
                 <td (click)="goToRoom(room.id)" style="border: 1px solid black;"><b>{{roomsFloors[i].name}}</b></td>
                 <td (click)="goToRoom(room.id)" style="border: 1px solid black;"><b>{{roomsBuildings[i].name}}</b></td>

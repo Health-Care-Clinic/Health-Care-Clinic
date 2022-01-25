@@ -13,6 +13,7 @@ namespace HospitalSeleniumTests.Pages
         public const string URI = "http://localhost:4200/doctors";
         private ReadOnlyCollection<IWebElement> RowsOfDoctors => driver.FindElements(By.XPath("//table[@id='doctors']/tbody/tr"));
         private IWebElement OnCallShiftButton => driver.FindElement(By.XPath("//table[@id='doctors']/tbody/tr[last()]/td[3]"));
+        private IWebElement VacationButton => driver.FindElement(By.XPath("//table[@id='doctors']/tbody/tr[last()]/td[4]"));
 
         public AllDoctorsPage(IWebDriver driver)
         {
@@ -44,9 +45,19 @@ namespace HospitalSeleniumTests.Pages
             return OnCallShiftButton.Displayed;
         }
 
+        public bool VacationButtonDisplayed()
+        {
+            return VacationButton.Displayed;
+        }
+
         public void ClickOnOnCallShifts()
         {
             OnCallShiftButton.Click();
+        }
+
+        public void ClickOnVacations()
+        {
+            VacationButton.Click();
         }
 
         public void Navigate() => driver.Navigate().GoToUrl(URI);

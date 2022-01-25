@@ -5,7 +5,7 @@
     <input placeholder="Search building by name" style="margin-left: 50px; margin-top: 25px;" type="text" id="buildingSearchHTML" value=""/>
     <button style="margin-left: 5px; background-color: #BDD5EA;" (click)="searchBuildings()" >Search</button>
     <input placeholder="Search room by name" style="margin-left: 50px; margin-top: 25px;" type="text" (keyup)="setRoomSearchText()" id="roomSearchHTML" value=""/>
-    <button style="margin-left: 5px; background-color: #BDD5EA;" [routerLink]="['/room-search-result', roomSearchText]">Search</button>
+    <button style="margin-left: 5px; background-color: #BDD5EA;" id="searchRoomsByNameButton" [routerLink]="['/room-search-result', roomSearchText]">Search</button>
     <ul id="myUL" style="width: 166px; margin-left: 50px; margin-top: 1px; margin-right: 114px;" *ngFor="let searchedBuilding of searchedBuildings">
         <li (click)="selectSearchedBuilding(searchedBuilding.id)">{{searchedBuilding.name}}</li>
     </ul>
