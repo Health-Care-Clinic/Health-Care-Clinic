@@ -14,12 +14,9 @@ namespace Hospital_API.Adapter
             Transfer transfer = new Transfer();
 
             transfer.Id = dto.Id;
-            transfer.Equipment = dto.Equipment;
-            transfer.Quantity = dto.Quantity;
-            transfer.SourceRoomId = dto.SourceRoomId;
-            transfer.DestinationRoomId = dto.DestinationRoomId;
-            transfer.Date = dto.Date;
-            transfer.Duration = dto.Duration;
+            transfer.Equipment = new EquipmentForTransfer(dto.Equipment, dto.Quantity);
+            transfer.RoomsForTransfer = new RoomsForTransfer(dto.SourceRoomId, dto.DestinationRoomId);
+            transfer.DateAndDuration = new DateAndDuration(dto.Date, dto.Duration);
 
             return transfer;
         }
@@ -29,68 +26,15 @@ namespace Hospital_API.Adapter
             TransferDTO dto = new TransferDTO();
             
             dto.Id = transfer.Id;
-            dto.Equipment = transfer.Equipment;
-            dto.Quantity = transfer.Quantity;
-            dto.SourceRoomId = transfer.SourceRoomId;
-            dto.DestinationRoomId = transfer.DestinationRoomId;
-            dto.Date = transfer.Date;
-            dto.Duration = transfer.Duration;
+            dto.Equipment = transfer.Equipment.Name;
+            dto.Quantity = transfer.Equipment.Quantity;
+            dto.SourceRoomId = transfer.RoomsForTransfer.SourceRoomId;
+            dto.DestinationRoomId = transfer.RoomsForTransfer.DestinationRoomId;
+            dto.Date = transfer.DateAndDuration.Date;
+            dto.Duration = transfer.DateAndDuration.Duration;
             
             return dto;
         }
-        /*
-        private static int returnMonth(String month)
-        {
-            if (month == "Dec")
-            {
-                return 12;
-            }
-            else if (month == "Nov")
-            {
-                return 11;
-            }
-            else if (month == "Oct")
-            {
-                return 10;
-            }
-            else if (month == "Sep")
-            {
-                return 9;
-            }
-            else if (month == "Aug")
-            {
-                return 8;
-            }
-            else if (month == "Jul")
-            {
-                return 7;
-            }
-            else if (month == "Jun")
-            {
-                return 6;
-            }
-            else if (month == "May")
-            {
-                return 5;
-            }
-            else if (month == "Apr")
-            {
-                return 4;
-            }
-            else if (month == "Mar")
-            {
-                return 3;
-            }
-            else if (month == "Feb")
-            {
-                return 2;
-            }
-            else
-            {
-                return 1;
-            }
-
-        }*/
     }
 
 }

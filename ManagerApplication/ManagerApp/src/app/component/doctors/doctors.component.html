@@ -1,6 +1,6 @@
 <div id="tableDiv">
     <div style="height: 30px;"></div>
-    <table style="border: 1px solid black;width: 100%;">
+    <table id="doctors" style="border: 1px solid black;width: 100%;">
         <thead style="background-color: #d3955f;">
             <tr>
                 <th style="border: 1px solid black;"><b>First name</b></th>
@@ -22,7 +22,7 @@
                     <td ><b>{{returnShift(doctor.workShiftId)}}</b></td>
                     <button style="margin-left: 25px;" [routerLink]="['/edit-doctor-shift', doctor.id]"> Edit shift </button>
                 </div>
-                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/on-call-shifts', doctor.id]">On call shifts</button></b></td>
+                <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" id="oncallshift doctor.id" [routerLink]="['/on-call-shifts', doctor.id]">On call shifts</button></b></td>
                 <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/doctor-vacations', doctor.id]">Vacations</button></b></td>
                 <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/workload', doctor.id]">Workload</button></b></td>
             </tr>
