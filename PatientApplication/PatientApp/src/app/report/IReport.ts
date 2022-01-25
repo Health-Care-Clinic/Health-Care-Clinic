@@ -5,5 +5,4 @@ export interface IReport
     id : number;
     comment : string;
     date :Date;
-    doctor : Doctor;
 }

@@ -49,7 +49,7 @@ namespace Hospital_API.Controller
             List<Prescription> prescriptions = (List<Prescription>)prescriptionService.GetAllPrescriptionsForPatient(patientService.GetOneById(id));
             List<PrescriptionPatientDTO> result = new List<PrescriptionPatientDTO>();
             prescriptions.ForEach(pres => {
-                PrescriptionPatientDTO dto = PrescriptionAdadpter.PrescriptionToPrescriptionPatientDTO(pres);
+                PrescriptionPatientDTO dto = PrescriptionAdapter.PrescriptionToPrescriptionPatientDTO(pres);
                 dto.Doctor = DoctorAdapter.DoctorToDoctorDTO(doctorService.GetOneById(pres.Appointment.DoctorId));
                 result.Add(dto);});
             return Ok(result);

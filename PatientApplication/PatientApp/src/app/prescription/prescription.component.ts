@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IPrescription } from './IPrescription';
 import { PatientService } from '../patient/patient.service';
+import { IAppointment } from '../service/IAppointment';
+import { ObjectUnsubscribedError } from 'rxjs';
 @Component({
   selector: 'app-prescription',
   templateUrl: './prescription.component.html',
@@ -10,16 +12,18 @@ export class PrescriptionComponent implements OnInit {
 
   prescription : IPrescription = 
   {
-    date : new Date(),
-    doctor : {
+    date: new Date(),
+    doctor: {
       id: 0,
-      name : '',
+      name: '',
       surname: ''
     },
     diagnosis: '',
-    medicine : '',
-    quantity : 0
+    medicine: '',
+    quantity: 0,
+    appointmetnId: 0
   }
+  @Input() appointment !: IAppointment;
   show : boolean = false;
   displayedColumns: string[] = ['date', 'doctor', 'medicine'];
 
@@ -39,9 +43,14 @@ allPrescriptions : IPrescription[] = [];
 
   getAllPrescriptions()
   {
+    let self = this
     this._patientService.getAllPrescriptionsForPatient()
-    .subscribe(data => this.allPrescriptions = data,
-                error => this.errorMessage = <any>error);
+    .subscribe(data =>{ this.allPrescriptions = data
+      //if(this.appointment.id != 0 )
+        //this.allPrescriptions = this.allPrescriptions.filter(p => p.appointmetnId.valueOf() === self.appointment.id.valueOf());
+      //this.allPrescriptions = this.appointment.id != 0 ? this.allPrescriptions.filter(p => p.appointmetnId === self.appointment.id) : this.allPrescriptions
+    },
+         error => this.errorMessage = <any>error);
   }
 
 }

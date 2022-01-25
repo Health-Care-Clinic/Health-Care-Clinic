@@ -56,8 +56,8 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 1,
-                            AppointmentId = 25,
-                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentId = 10,
+                            Date = new DateTime(2022, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             Diagnosis = "Uzimati 1 put dnevno do poboljsanja",
                             Medicine = "Panklav",
                             PatientId = 1,
@@ -66,8 +66,8 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 2,
-                            AppointmentId = 26,
-                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentId = 25,
+                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
                             Diagnosis = "Uzimati 2 put dnevno do poboljsanja",
                             Medicine = "Brufen",
                             PatientId = 1,
@@ -76,8 +76,8 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 3,
-                            AppointmentId = 27,
-                            Date = new DateTime(2022, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentId = 26,
+                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             Diagnosis = "Uzimati 3 put dnevno do poboljsanja",
                             Medicine = "Kafetin",
                             PatientId = 1,
@@ -101,6 +101,44 @@ namespace Hospital.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProfilePictures");
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.Report", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reports");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Pacijent se zali na tegobe sa mucninom i bolom u stomaku",
+                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comment = "Pacijent se zali na tegobe sa glavoboljom",
+                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comment = "Pacijent se zali na zubobolju",
+                            Date = new DateTime(2021, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
@@ -2197,12 +2235,6 @@ namespace Hospital.Migrations
                         },
                         new
                         {
-                            Id = 27,
-                            AppointmentId = 27,
-                            Done = false
-                        },
-                        new
-                        {
                             Id = 10,
                             AppointmentId = 10,
                             Done = true
@@ -2678,24 +2710,6 @@ namespace Hospital.Migrations
                             Id = 78,
                             Name = "Hospital",
                             SurveyId = 26
-                        },
-                        new
-                        {
-                            Id = 79,
-                            Name = "Doctor",
-                            SurveyId = 27
-                        },
-                        new
-                        {
-                            Id = 80,
-                            Name = "Medical stuff",
-                            SurveyId = 27
-                        },
-                        new
-                        {
-                            Id = 81,
-                            Name = "Hospital",
-                            SurveyId = 27
                         },
                         new
                         {
@@ -5367,111 +5381,6 @@ namespace Hospital.Migrations
                         },
                         new
                         {
-                            Id = 391,
-                            Content = "How careful did doctor listen you?",
-                            Grade = 0,
-                            SurveyCategoryId = 79
-                        },
-                        new
-                        {
-                            Id = 392,
-                            Content = "Has doctor been polite?",
-                            Grade = 0,
-                            SurveyCategoryId = 79
-                        },
-                        new
-                        {
-                            Id = 393,
-                            Content = "Has he explained you your condition enough that you can understand it?",
-                            Grade = 0,
-                            SurveyCategoryId = 79
-                        },
-                        new
-                        {
-                            Id = 394,
-                            Content = "How would you rate doctors' professionalism?",
-                            Grade = 0,
-                            SurveyCategoryId = 79
-                        },
-                        new
-                        {
-                            Id = 395,
-                            Content = "Your general grade for doctors' service",
-                            Grade = 0,
-                            SurveyCategoryId = 79
-                        },
-                        new
-                        {
-                            Id = 396,
-                            Content = "How much our medical staff were polite?",
-                            Grade = 0,
-                            SurveyCategoryId = 80
-                        },
-                        new
-                        {
-                            Id = 397,
-                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
-                            Grade = 0,
-                            SurveyCategoryId = 80
-                        },
-                        new
-                        {
-                            Id = 398,
-                            Content = "How prepared were stuff for emergency situations?",
-                            Grade = 0,
-                            SurveyCategoryId = 80
-                        },
-                        new
-                        {
-                            Id = 399,
-                            Content = "How good has stuff explained you our procedures?",
-                            Grade = 0,
-                            SurveyCategoryId = 80
-                        },
-                        new
-                        {
-                            Id = 400,
-                            Content = "Your general grade for medical stuffs' service",
-                            Grade = 0,
-                            SurveyCategoryId = 80
-                        },
-                        new
-                        {
-                            Id = 401,
-                            Content = "How would you rate our appointment organisation?",
-                            Grade = 0,
-                            SurveyCategoryId = 81
-                        },
-                        new
-                        {
-                            Id = 402,
-                            Content = "How would you rate hospitals' hygiene?",
-                            Grade = 0,
-                            SurveyCategoryId = 81
-                        },
-                        new
-                        {
-                            Id = 403,
-                            Content = "How good were procedure for booking appointment?",
-                            Grade = 0,
-                            SurveyCategoryId = 81
-                        },
-                        new
-                        {
-                            Id = 404,
-                            Content = "How easy was to use our application?",
-                            Grade = 0,
-                            SurveyCategoryId = 81
-                        },
-                        new
-                        {
-                            Id = 405,
-                            Content = "Your general grade for whole hospital' service",
-                            Grade = 0,
-                            SurveyCategoryId = 81
-                        },
-                        new
-                        {
                             Id = 136,
                             Content = "How careful did doctor listen you?",
                             Grade = 1,
@@ -5676,6 +5585,9 @@ namespace Hospital.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ReportId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("integer");
 
@@ -5689,6 +5601,9 @@ namespace Hospital.Migrations
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReportId")
+                        .IsUnique();
 
                     b.ToTable("Appointments");
 
@@ -5795,9 +5710,10 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 10,
-                            Date = new DateTime(2021, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2022, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 2,
                             PatientId = 1,
+                            ReportId = 1,
                             RoomId = 2,
                             SurveyId = 10,
                             isCancelled = false,
@@ -5963,10 +5879,11 @@ namespace Hospital.Migrations
                             Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 2,
                             PatientId = 1,
+                            ReportId = 2,
                             RoomId = 1,
                             SurveyId = 25,
                             isCancelled = false,
-                            isDone = false
+                            isDone = true
                         },
                         new
                         {
@@ -5974,21 +5891,11 @@ namespace Hospital.Migrations
                             Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
                             PatientId = 1,
+                            ReportId = 3,
                             RoomId = 3,
                             SurveyId = 26,
                             isCancelled = false,
-                            isDone = false
-                        },
-                        new
-                        {
-                            Id = 27,
-                            Date = new DateTime(2022, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            DoctorId = 1,
-                            PatientId = 1,
-                            RoomId = 2,
-                            SurveyId = 27,
-                            isCancelled = false,
-                            isDone = false
+                            isDone = true
                         });
                 });
 
@@ -6927,6 +6834,15 @@ namespace Hospital.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.HasOne("Hospital.Medical_records.Model.Report", "Report")
+                        .WithOne("Appointment")
+                        .HasForeignKey("Hospital.Shared_model.Model.Appointment", "ReportId");
+
+                    b.Navigation("Report");
+                });
+
             modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
                 {
                     b.HasOne("Hospital.Shared_model.Model.Doctor", null)
@@ -7053,6 +6969,11 @@ namespace Hospital.Migrations
                     b.Navigation("TenderItems");
 
                     b.Navigation("TotalPrice");
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.Report", b =>
+                {
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>

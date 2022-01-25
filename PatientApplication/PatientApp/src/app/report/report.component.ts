@@ -12,14 +12,14 @@ import { IReport } from './IReport';
 export class ReportComponent implements OnInit {
 
   appointment !: IAppointment;
-  report !: IReport;
   constructor(private _patientService : PatientService,private router : Router) { }
 
   ngOnInit(): void {
     this.appointment = this._patientService.appointment;
     if(this.appointment == null)
-    this.router.navigateByUrl('medical-record');
-    this.report = this.appointment.report;
+      this.router.navigateByUrl('medical-record');
   }
+
+  
 
 }

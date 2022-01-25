@@ -1,1 +1,18 @@
-<p>report works!</p>
+<div  style="margin-left: 10%; margin-top: 3%;margin-bottom: 3%;">
+    <div>
+        <span class="span1"></span>
+        <label style="font-size: 150%;">Doctor: <b>{{appointment.doctorDTO.name + " " + appointment.doctorDTO.surname}}</b></label>
+        <span class="span2"></span>
+        <label style="font-size: 120%;">Date: <b>{{appointment.date | date}}</b></label>
+    </div>
+    <h2> Report details: </h2>            
+    <div style="width: 300%; height: 200px;">
+      <textarea required [(ngModel)]="appointment.reportDTO.comment"  rows="15" cols="165" disabled = true ></textarea>
+    </div>
+   
+</div>
+<div>
+    <app-prescription  [appointment] = "appointment">
+       
+    </app-prescription>
+</div>

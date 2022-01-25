@@ -7,7 +7,7 @@ using Hospital_API.DTO;
 
 namespace Hospital_API.Adapter
 {
-    public class PrescriptionAdadpter
+    public class PrescriptionAdapter
     {
         public static Prescription PrescriptionDTOToPrescription(PrescriptionDTO dto)
         {
@@ -27,7 +27,7 @@ namespace Hospital_API.Adapter
             dto.Medicine = prescription.Medicine;
             dto.Quantity = prescription.Quantity;
             dto.Date = ConvertToString(prescription.Date);
-            //dto.Doctor = prescription.Appointment.DoctorId
+            dto.AppointmentId = prescription.AppointmentId;
             return dto;
         }
 

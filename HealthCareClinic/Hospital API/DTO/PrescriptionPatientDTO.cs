@@ -14,6 +14,8 @@ namespace Hospital_API.DTO
         public int Quantity { get; set; }
         public string Date { get; set; }
 
+        public int AppointmentId { get; set; }
+
         public PrescriptionPatientDTO()
         {
         }

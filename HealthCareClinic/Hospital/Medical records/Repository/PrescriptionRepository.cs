@@ -7,6 +7,7 @@ using Hospital.Mapper;
 using Hospital.Medical_records.Model;
 using Hospital.Medical_records.Repository.Interface;
 using Hospital.Shared_model.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital.Medical_records.Repository
 {
@@ -21,7 +22,7 @@ namespace Hospital.Medical_records.Repository
 
         public List<Prescription> GetAllPrescriptionsForPatient(Patient patient)
         {
-            return _dbContext.Prescriptions.Where(pres => pres.PatientId == patient.Id).ToList();
+            return _dbContext.Prescriptions.Include("Appointment").Where(pres => pres.PatientId == patient.Id).ToList();
         }
     }
 }

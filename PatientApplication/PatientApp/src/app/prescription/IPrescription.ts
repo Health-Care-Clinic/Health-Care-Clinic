@@ -9,4 +9,5 @@ export interface IPrescription {
     diagnosis: string ;
     date: Date ;
     doctor: Doctor ;
+    appointmetnId : number;
 }
