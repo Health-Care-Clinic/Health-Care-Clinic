@@ -6,7 +6,6 @@ using System.Text;
 
 namespace Hospital.Rooms_and_equipment.Model
 {
-    [Owned]
     public class Equipment
     {
         public enum EquipmentType
