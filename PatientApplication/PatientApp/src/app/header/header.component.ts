@@ -19,36 +19,47 @@ export class HeaderComponent implements OnInit {
   }
 
   goToLandingPage() {
-    if (this.router.url == '/standard-scheduling')
+    if (this.router.url == '/standard-scheduling') {
+      this._eventService.eventQueue.push(new ScheduleEvent('End-session', Number(localStorage.getItem('id'))))
       this._eventService.finishEventSession(false).subscribe()
+    }
+      
 
     this.router.navigateByUrl('/'); 
   }
 
   goToFeedbackForm() {
-    if (this.router.url == '/standard-scheduling')
+    if (this.router.url == '/standard-scheduling') {
+      this._eventService.eventQueue.push(new ScheduleEvent('End-session', Number(localStorage.getItem('id'))))
       this._eventService.finishEventSession(false).subscribe()
+    }
       
     this.router.navigateByUrl('/feedback-form');
   }
 
   goToRegistrationForm() {
-    if (this.router.url == '/standard-scheduling')
+    if (this.router.url == '/standard-scheduling') {
+      this._eventService.eventQueue.push(new ScheduleEvent('End-session', Number(localStorage.getItem('id'))))
       this._eventService.finishEventSession(false).subscribe()
+    }
 
     this.router.navigateByUrl('/register');
   }
 
   goToMedicalRecord() {
-    if (this.router.url == '/standard-scheduling')
+    if (this.router.url == '/standard-scheduling') {
+      this._eventService.eventQueue.push(new ScheduleEvent('End-session', Number(localStorage.getItem('id'))))
       this._eventService.finishEventSession(false).subscribe()
+    }
     
     this.router.navigateByUrl('/medical-record');
   }
 
   logOut() {
-    if (this.router.url == '/standard-scheduling')
+    if (this.router.url == '/standard-scheduling') {
+      this._eventService.eventQueue.push(new ScheduleEvent('End-session', Number(localStorage.getItem('id'))))
       this._eventService.finishEventSession(false).subscribe()
+    }
     
     localStorage.removeItem('id')
     localStorage.removeItem('jwtToken')

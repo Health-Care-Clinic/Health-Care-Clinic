@@ -79,6 +79,7 @@ export class StandardSchedulingComponent implements OnInit {
         .subscribe(
             data => { 
               console.log('Success!', data)
+              this._eventService.eventQueue.push(new ScheduleEvent('End-session', this.patientId))
               this._eventService.finishEventSession(true).subscribe()
               this.router.navigateByUrl('/medical-record').then( f => 
                 this._snackBar.open('Appointment successfully created!', 'Close', {duration: 3000})
@@ -108,6 +109,7 @@ export class StandardSchedulingComponent implements OnInit {
 
   @HostListener('window:unload', [ '$event' ])
   unloadHandler() {
+    this._eventService.eventQueue.push(new ScheduleEvent('End-session', this.patientId))
     this._eventService.finishEventSession(false).subscribe()
   }
 
