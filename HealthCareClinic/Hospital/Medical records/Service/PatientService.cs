@@ -143,7 +143,7 @@ namespace Hospital.Medical_records.Service
         {
             string id = patient.Id.ToString();
             string role = "patient";
-            if (patient.Username.Equals("admin") && patient.Password.Equals("admin"))
+            if (patient.AccountInfo.Username.Equals("admin") && patient.AccountInfo.Password.Equals("admin"))
                 role = "manager";
 
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -88,7 +88,7 @@ namespace Hospital.Shared_model.Model
         }
         public List<Patient> GetActivePatients()
         {
-            return this.Patients.Where(p => p.IsActive == true).ToList();
+            return this.Patients.Where(p => p.AccountInfo.IsActive == true).ToList();
         }
         public void ViewPatientDocuments(Patient patient)
         {

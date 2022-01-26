@@ -79,15 +79,16 @@ namespace Hospital_API.Controller
                 Patient newPatient = PatientAdapter.PatientDTOToPatient(patientDTO);
                 ProfilePicture profilePicture = new ProfilePicture(0, patientWithPictureDTO.ProfilePicture);
 
+                newPatient.Hashcode = patientService.GenerateHashcode(newPatient.AccountInfo.Password);
                 newPatient.Doctor = doctorService.GetOneById(patientDTO.DoctorDTO.Id);
-                newPatient.Hashcode = patientService.GenerateHashcode(newPatient.Password);
 
                 patientService.Add(newPatient);
                 profilePicture.PatientId = newPatient.Id;
                 patientService.AddProfilePicture(profilePicture);
 
                 var confirmationLink = "http://localhost:4200/api/patient/activate?token=" + newPatient.Hashcode;
-                patientService.SendMail(new MailRequest(confirmationLink, newPatient.Name, newPatient.Email));
+                patientService.SendMail(new MailRequest(confirmationLink, 
+                    newPatient.MedicalRecord.PersonalInfo.Name, newPatient.ContactInfo.Email));
 
                 return Ok();
             }
@@ -102,7 +103,7 @@ namespace Hospital_API.Controller
         {
             Patient patient = patientService.FindByToken(token);
 
-            if (patient == null || patient.IsActive)
+            if (patient == null || patient.AccountInfo.IsActive)
             {
                 return NotFound();
             }
@@ -116,7 +117,7 @@ namespace Hospital_API.Controller
         public IActionResult BlockPatientById(int id)
         {
             Patient patient = patientService.GetOneById(id);
-            if (patient == null || patient.IsBlocked)
+            if (patient == null || patient.AccountInfo.IsBlocked)
             {
                 return NotFound();
             }

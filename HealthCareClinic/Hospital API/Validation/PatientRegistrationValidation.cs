@@ -110,19 +110,19 @@ namespace Hospital_API.Validation
 
         private static bool IsGenderValid(string gender)
         {
-            bool bloodTypeValidity = false;
+            bool genderValidity = false;
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append(gender.ElementAt(0).ToString().ToLower());
             stringBuilder.Append(gender.Substring(1, gender.Length - 1));
 
             string genderWithLoweredFirstChar = stringBuilder.ToString();
-            if (genderWithLoweredFirstChar.Equals("male") || !genderWithLoweredFirstChar.Equals("female"))
+            if (genderWithLoweredFirstChar.Equals("male") || genderWithLoweredFirstChar.Equals("female"))
             {
-                bloodTypeValidity = true;
+                genderValidity = true;
             }
 
-            return bloodTypeValidity;
+            return genderValidity;
         }
 
         private static bool IsEmailValid(string email)

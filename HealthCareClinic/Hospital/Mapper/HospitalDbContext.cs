@@ -45,6 +45,7 @@ namespace Hospital.Mapper
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<WorkDayShift> WorkDayShift { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<ProfilePicture> ProfilePictures { get; set; }
 
         public DbSet<Renovation> Renovations { get; set; }
@@ -2287,25 +2288,390 @@ namespace Hospital.Mapper
                 });
             });
 
-            modelBuilder.Entity<Patient>().HasData(
-                new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petar", "miki", null, "Employed", true)
-                { DoctorId = 1 },
-                new Patient(2, "Jovan", "Zoric", "male", "A", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "jovan", "jovan", "miki", null, "Employed", true)
-                { DoctorId = 2 },
-                new Patient(3, "Zorana", "Bilic", "male", "A", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "zorana", "zorana", "miki", null, "Employed", true)
-                { DoctorId = 2 },
-                new Patient(4, "Milica", "Maric", "male", "A", new System.DateTime(1969, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "milica", "milica", "miki", null, "Employed", true)
-                { DoctorId = 3 },
-                new Patient(5, "Igor", "Caric", "male", "A", new System.DateTime(1936, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "igor", "igor", "miki", null, "Employed", true)
-                { DoctorId = 3 },
-                new Patient(6, "Predrag", "Zaric", "male", "A", new System.DateTime(1975, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "predrag", "predrag", "miki", null, "Employed", true)
-                { DoctorId = 3 },
-                new Patient(7, "Miki", "Nikolic", "male", "A", new System.DateTime(1960, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", true)
-                { DoctorId = 3 },
-                new Patient(8, "Zorka", "Djokic", "female", "B", new System.DateTime(1987, 07, 01), "Kralja Petra 19", "0697856665", "zorka@gmail.com", "zorka", "zorka", "zorka", null, "Unemployed", true)
-                { DoctorId = 6 }
-                );
+            modelBuilder.Entity<Patient>().OwnsOne(p => p.ContactInfo).
+                Property(cinfo => cinfo.Phone).HasColumnName("Phone");
+            modelBuilder.Entity<Patient>().OwnsOne(p => p.ContactInfo).
+                Property(cinfo => cinfo.Email).HasColumnName("Email");
+            modelBuilder.Entity<Patient>().OwnsOne(p => p.ContactInfo).
+                Property(cinfo => cinfo.Address).HasColumnName("Address");
+            modelBuilder.Entity<Patient>().OwnsOne(p => p.AccountInfo).
+                Property(ainfo => ainfo.DateOfRegistration).HasColumnName("DateOfRegistration");
+            modelBuilder.Entity<Patient>().OwnsOne(p => p.AccountInfo).
+                Property(ainfo => ainfo.IsBlocked).HasColumnName("IsBlocked");
+            modelBuilder.Entity<Patient>().OwnsOne(p => p.AccountInfo).
+                Property(ainfo => ainfo.IsActive).HasColumnName("IsActive");
+            modelBuilder.Entity<Patient>().OwnsOne(p => p.AccountInfo).
+                Property(ainfo => ainfo.Username).HasColumnName("Username");
+            modelBuilder.Entity<Patient>().OwnsOne(p => p.AccountInfo).
+                Property(ainfo => ainfo.Password).HasColumnName("Password");
+            
+            modelBuilder.Entity<MedicalRecord>().OwnsOne(mr => mr.PersonalInfo).
+                Property(pinfo => pinfo.Name).HasColumnName("Name");
+            modelBuilder.Entity<MedicalRecord>().OwnsOne(mr => mr.PersonalInfo).
+                Property(pinfo => pinfo.Surname).HasColumnName("Surname");
+            modelBuilder.Entity<MedicalRecord>().OwnsOne(mr => mr.PersonalInfo).
+                Property(pinfo => pinfo.BirthDate).HasColumnName("BirthDate");
+            modelBuilder.Entity<MedicalRecord>().OwnsOne(mr => mr.PersonalInfo).
+                Property(pinfo => pinfo.Gender).HasColumnName("Gender");
+            modelBuilder.Entity<MedicalRecord>().OwnsOne(mr => mr.PersonalInfo).
+                Property(pinfo => pinfo.ParentName).HasColumnName("ParentName");
+            modelBuilder.Entity<MedicalRecord>().OwnsOne(mr => mr.PersonalInfo).
+                Property(pinfo => pinfo.EmploymentStatus).HasColumnName("EmploymentStatus");
 
+            modelBuilder.Entity<Patient>(p =>
+            {
+                p.HasData(new Patient
+                {
+                    Id = 1,
+                    MedicalRecordId = 1,
+                    Allergens = null,
+                    DoctorId = 1
+                });
+                p.OwnsOne(pat => pat.ContactInfo).HasData(new
+                {
+                    PatientId = 1,
+                    Phone = "0634556665",
+                    Email = "petar@gmail.com",
+                    Address = "Bogoboja Atanackovica 15"
+                });
+                p.OwnsOne(pat => pat.AccountInfo).HasData(new
+                {
+                    PatientId = 1,
+                    DateOfRegistration = new DateTime(2020, 12, 30),
+                    IsBlocked = false,
+                    IsActive = true,
+                    Username = "petar",
+                    Password = "petarp001"
+                });
+            });
+            modelBuilder.Entity<Patient>(p =>
+            {
+                p.HasData(new Patient
+                {
+                    Id = 2,
+                    MedicalRecordId = 2,
+                    Allergens = null,
+                    DoctorId = 2
+                });
+                p.OwnsOne(pat => pat.ContactInfo).HasData(new
+                {
+                    PatientId = 2,
+                    Phone = "0697856665",
+                    Email = "miki@gmail.com",
+                    Address = "Voje Rodica 19"
+                });
+                p.OwnsOne(pat => pat.AccountInfo).HasData(new
+                {
+                    PatientId = 2,
+                    DateOfRegistration = new DateTime(2020, 12, 30),
+                    IsBlocked = false,
+                    IsActive = true,
+                    Username = "jovan",
+                    Password = "jovanp002"
+                });
+            });
+            modelBuilder.Entity<Patient>(p =>
+            {
+                p.HasData(new Patient
+                {
+                    Id = 3,
+                    MedicalRecordId = 3,
+                    Allergens = null,
+                    DoctorId = 2
+                });
+                p.OwnsOne(pat => pat.ContactInfo).HasData(new
+                {
+                    PatientId = 3,
+                    Phone = "0697856665",
+                    Email = "miki@gmail.com",
+                    Address = "Voje Rodica 19"
+                });
+                p.OwnsOne(pat => pat.AccountInfo).HasData(new
+                {
+                    PatientId = 3,
+                    DateOfRegistration = new DateTime(2020, 12, 30),
+                    IsBlocked = false,
+                    IsActive = true,
+                    Username = "zorana",
+                    Password = "zoranap003"
+                });
+            });
+            modelBuilder.Entity<Patient>(p =>
+            {
+                p.HasData(new Patient
+                {
+                    Id = 4,
+                    MedicalRecordId = 4,
+                    Allergens = null,
+                    DoctorId = 3
+                });
+                p.OwnsOne(pat => pat.ContactInfo).HasData(new
+                {
+                    PatientId = 4,
+                    Phone = "0697856665",
+                    Email = "miki@gmail.com",
+                    Address = "Voje Rodica 19"
+                });
+                p.OwnsOne(pat => pat.AccountInfo).HasData(new
+                {
+                    PatientId = 4,
+                    DateOfRegistration = new DateTime(2020, 12, 30),
+                    IsBlocked = false,
+                    IsActive = true,
+                    Username = "milica",
+                    Password = "milicap004"
+                });
+            });
+            modelBuilder.Entity<Patient>(p =>
+            {
+                p.HasData(new Patient
+                {
+                    Id = 5,
+                    MedicalRecordId = 5,
+                    Allergens = null,
+                    DoctorId = 3
+                });
+                p.OwnsOne(pat => pat.ContactInfo).HasData(new
+                {
+                    PatientId = 5,
+                    Phone = "0697856665",
+                    Email = "miki@gmail.com",
+                    Address = "Voje Rodica 19"
+                });
+                p.OwnsOne(pat => pat.AccountInfo).HasData(new
+                {
+                    PatientId = 5,
+                    DateOfRegistration = new DateTime(2020, 12, 30),
+                    IsBlocked = false,
+                    IsActive = true,
+                    Username = "igor",
+                    Password = "igorp005"
+                });
+            });
+            modelBuilder.Entity<Patient>(p =>
+            {
+                p.HasData(new Patient
+                {
+                    Id = 6,
+                    MedicalRecordId = 6,
+                    Allergens = null,
+                    DoctorId = 3
+                });
+                p.OwnsOne(pat => pat.ContactInfo).HasData(new
+                {
+                    PatientId = 6,
+                    Phone = "0697856665",
+                    Email = "miki@gmail.com",
+                    Address = "Voje Rodica 19"
+                });
+                p.OwnsOne(pat => pat.AccountInfo).HasData(new
+                {
+                    PatientId = 6,
+                    DateOfRegistration = new DateTime(2020, 12, 30),
+                    IsBlocked = false,
+                    IsActive = true,
+                    Username = "predrag",
+                    Password = "predragp006"
+                });
+            });
+            modelBuilder.Entity<Patient>(p =>
+            {
+                p.HasData(new Patient
+                {
+                    Id = 7,
+                    MedicalRecordId = 7,
+                    Allergens = null,
+                    DoctorId = 3
+                });
+                p.OwnsOne(pat => pat.ContactInfo).HasData(new
+                {
+                    PatientId = 7,
+                    Phone = "0697856665",
+                    Email = "miki@gmail.com",
+                    Address = "Voje Rodica 19"
+                });
+                p.OwnsOne(pat => pat.AccountInfo).HasData(new
+                {
+                    PatientId = 7,
+                    DateOfRegistration = new DateTime(2020, 12, 30),
+                    IsBlocked = false,
+                    IsActive = true,
+                    Username = "miki",
+                    Password = "mikip007"
+                });
+            });
+            modelBuilder.Entity<Patient>(p =>
+            {
+                p.HasData(new Patient
+                {
+                    Id = 8,
+                    MedicalRecordId = 8,
+                    Allergens = null,
+                    DoctorId = 6
+                });
+                p.OwnsOne(pat => pat.ContactInfo).HasData(new
+                {
+                    PatientId = 8,
+                    Phone = "0697856665",
+                    Email = "zorka@gmail.com",
+                    Address = "Kralja Petra 19"
+                });
+                p.OwnsOne(pat => pat.AccountInfo).HasData(new
+                {
+                    PatientId = 8,
+                    DateOfRegistration = new DateTime(2020, 12, 30),
+                    IsBlocked = false,
+                    IsActive = true,
+                    Username = "zorka",
+                    Password = "zorkap008"
+                });
+            });
+
+            modelBuilder.Entity<MedicalRecord>(md =>
+            {
+                md.HasData(new MedicalRecord
+                {
+                    Id = 1,
+                    BloodType = "A"
+                });
+                md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
+                {
+                    MedicalRecordId = 1,
+                    Name = "Petar",
+                    Surname = "Petrovic",
+                    BirthDate = new DateTime(2005, 09, 11),
+                    Gender = "male",
+                    ParentName = "Miki",
+                    EmploymentStatus = "Employed",
+                });
+            });
+            modelBuilder.Entity<MedicalRecord>(md =>
+            {
+                md.HasData(new MedicalRecord
+                {
+                    Id = 2,
+                    BloodType = "A"
+                });
+                md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
+                {
+                    MedicalRecordId = 2,
+                    Name = "Jovan",
+                    Surname = "Zoric",
+                    BirthDate = new DateTime(1985, 07, 11),
+                    Gender = "male",
+                    ParentName = "Miki",
+                    EmploymentStatus = "Employed",
+                });
+            });
+            modelBuilder.Entity<MedicalRecord>(md =>
+            {
+                md.HasData(new MedicalRecord
+                {
+                    Id = 3,
+                    BloodType = "A"
+                });
+                md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
+                {
+                    MedicalRecordId = 3,
+                    Name = "Zorana",
+                    Surname = "Bilic",
+                    BirthDate = new DateTime(1978, 07, 11),
+                    Gender = "female",
+                    ParentName = "Miki",
+                    EmploymentStatus = "Employed",
+                });
+            });
+            modelBuilder.Entity<MedicalRecord>(md =>
+            {
+                md.HasData(new MedicalRecord
+                {
+                    Id = 4,
+                    BloodType = "A"
+                });
+                md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
+                {
+                    MedicalRecordId = 4,
+                    Name = "Milica",
+                    Surname = "Maric",
+                    BirthDate = new DateTime(1969, 07, 11),
+                    Gender = "female",
+                    ParentName = "Miki",
+                    EmploymentStatus = "Employed",
+                });
+            });
+            modelBuilder.Entity<MedicalRecord>(md =>
+            {
+                md.HasData(new MedicalRecord
+                {
+                    Id = 5,
+                    BloodType = "A"
+                });
+                md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
+                {
+                    MedicalRecordId = 5,
+                    Name = "Igor",
+                    Surname = "Caric",
+                    BirthDate = new DateTime(1936, 07, 11),
+                    Gender = "male",
+                    ParentName = "Miki",
+                    EmploymentStatus = "Employed",
+                });
+            });
+            modelBuilder.Entity<MedicalRecord>(md =>
+            {
+                md.HasData(new MedicalRecord
+                {
+                    Id = 6,
+                    BloodType = "A"
+                });
+                md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
+                {
+                    MedicalRecordId = 6,
+                    Name = "Predrag",
+                    Surname = "Zaric",
+                    BirthDate = new DateTime(1975, 07, 11),
+                    Gender = "male",
+                    ParentName = "Miki",
+                    EmploymentStatus = "Employed",
+                });
+            });
+            modelBuilder.Entity<MedicalRecord>(md =>
+            {
+                md.HasData(new MedicalRecord
+                {
+                    Id = 7,
+                    BloodType = "A"
+                });
+                md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
+                {
+                    MedicalRecordId = 7,
+                    Name = "Miki",
+                    Surname = "Nikolic",
+                    BirthDate = new DateTime(1960, 07, 11),
+                    Gender = "male",
+                    ParentName = "Miki",
+                    EmploymentStatus = "Employed",
+                });
+            });
+            modelBuilder.Entity<MedicalRecord>(md =>
+            {
+                md.HasData(new MedicalRecord
+                {
+                    Id = 8,
+                    BloodType = "B"
+                });
+                md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
+                {
+                    MedicalRecordId = 8,
+                    Name = "Zorka",
+                    Surname = "Djokic",
+                    BirthDate = new DateTime(1987, 07, 01),
+                    Gender = "female",
+                    ParentName = "Zorka",
+                    EmploymentStatus = "Unemployed",
+                });
+            });
+            
             modelBuilder.Entity<AllergenForPatient>()
                 .HasKey(c => new { c.PatientId, c.AllergenId });
 
