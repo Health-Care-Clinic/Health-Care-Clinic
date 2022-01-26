@@ -9,5 +9,6 @@ namespace Integration.Interface.Repository
 {
     public interface IPharmacyPromotionRepository : IRepository<PharmacyPromotion>
     {
+        List<PharmacyPromotion> GetAllActivePromotions();
     }
 }

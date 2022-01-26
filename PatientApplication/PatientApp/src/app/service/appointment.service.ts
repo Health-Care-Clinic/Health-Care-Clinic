@@ -10,6 +10,7 @@ import { AppointmentsComponent } from '../appointments/appointments.component';
 import { GettingTermsDTO } from '../recommendation-scheduling/gettingTermsDTO';
 import { DoctorWithSpecialty } from '../recommendation-scheduling/doctor-with-specialty';
 import { AppointmentWithDoctorId } from '../recommendation-scheduling/appointment-doctorId';
+import { PharmacyPromotion } from '../landing-page/PharmacyPromotion';
 
 
 @Injectable({
@@ -38,8 +39,16 @@ export class AppointmentService {
   private _getAllSpecializations = this._appointmentUrl + '/getAllSpecialties';
   private _getDoctorsBySpecialty = this._appointmentUrl + '/getDoctorsBySpecialty/';
   private _getTermsForSelectedDoctor = this._appointmentUrl + '/getTermsForSelectedDoctor/';
+  private _getPromotions = '/api/medicine/allPharmacyPromotions';
 
   constructor(private _http : HttpClient){}
+
+
+  getPromotions(): Observable<PharmacyPromotion[]> {
+    return this._http.get<PharmacyPromotion[]>(this._getPromotions)
+                           .do(data =>  console.log('Iz service-a: ' + JSON.stringify(data)))
+                           .catch(this.handleError);
+  }
 
   getAppointmetsForPatient(id: number): Observable<IAppointment[]> {
       return this._http.get<IAppointment[]>(this._getAppointmentsForPatient+id)
