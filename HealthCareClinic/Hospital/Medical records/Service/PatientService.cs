@@ -166,7 +166,7 @@ namespace Hospital.Medical_records.Service
 
         public String GetProfilePicture(int id)
         {
-            return profilePictureRepository.GetByPatientId(id).Picture;
+            return profilePictureRepository.GetByPatientId(id) == null ? "" : profilePictureRepository.GetByPatientId(id).Picture;
         }
 
         public void AddProfilePicture(ProfilePicture profilePicture)

@@ -23,7 +23,7 @@ namespace Hospital_API.Adapter
             dto.isDone = appointment.isDone;
             dto.Date = ConvertToString(appointment.Date);
             dto.SurveyDTO = SurveyAdapter.SurveyToSurveyDtoForAppointment(surveyService.GetOneById(appointment.SurveyId));
-
+            dto.ReportDTO = appointment.Report == null ? null : ReportAdapter.ReporttoReportDTO(appointment.Report);
             return dto;
         }
 
@@ -39,7 +39,6 @@ namespace Hospital_API.Adapter
             dto.isDone = appointment.isDone;
             dto.Date = ConvertToString(appointment.Date);
             dto.SurveyId = appointment.SurveyId;
-
             return dto;
         }
 

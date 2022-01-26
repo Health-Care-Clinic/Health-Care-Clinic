@@ -4,6 +4,7 @@
     <!-- <button mat-button [routerLink]="['survey']">Survey</button> -->
     <button id="createFButton"  *ngIf="role == 'patient'" mat-button (click)="goToFeedbackForm()">Create feedback</button>
     <button *ngIf="role == 'patient'" mat-button (click)="goToMedicalRecord()">Medical record</button>
+    <button *ngIf="role == 'patient'" mat-button (click)="goToPrescriptions()">Prescriptions</button>
     <button *ngIf="role == 'patient'" mat-button [matMenuTriggerFor]="menu">Schedule appointment</button>
         <mat-menu #menu="matMenu">
         <button mat-menu-item [routerLink]="['standard-scheduling']" >Standard scheduling</button>

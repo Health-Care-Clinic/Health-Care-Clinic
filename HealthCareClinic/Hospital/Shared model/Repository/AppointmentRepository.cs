@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Hospital.Schedule.Model;
+using Hospital.Medical_records.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital.Shared_model.Repository
 {
@@ -31,7 +33,7 @@ namespace Hospital.Shared_model.Repository
 
         public List<Appointment> GetAppointmentsByPatientId(int patinetId)
         {
-            return dbContext.Appointments.Where(app => app.PatientId == patinetId).ToList();
+            return dbContext.Appointments.Include("Report").Where(app => app.PatientId == patinetId).ToList();
         }
 
         public List<Appointment> getAppointmentsByDoctorId(int doctorId)
@@ -154,6 +156,7 @@ namespace Hospital.Shared_model.Repository
             Add(app);
             Survey newSurvey = new Survey(app.Id);
             dbContext.Surveys.Add(newSurvey);
+            //dbContext.Reports.Add(app.Report);
             Save();
             app.SurveyId = newSurvey.Id;
             Save();

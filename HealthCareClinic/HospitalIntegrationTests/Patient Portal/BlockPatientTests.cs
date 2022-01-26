@@ -34,7 +34,10 @@ namespace HospitalIntegrationTests.Patient_portal
                 PatientRepository patientRepository = new PatientRepository(context);
                 PatientService patientService = new PatientService(patientRepository);
 
-                PatientController patientController = new PatientController(alergenService, doctorService, patientService);
+                PrescriptionRepository prescriptionRepository = new PrescriptionRepository(context);
+                PrescriptionService prescriptionService = new PrescriptionService(prescriptionRepository);
+
+                PatientController patientController = new PatientController(alergenService, doctorService, prescriptionService, patientService);
 
                 OkObjectResult result = patientController.BlockPatientById(1) as OkObjectResult;
                 PatientDTO blockedPatient = result.Value as PatientDTO;
@@ -74,7 +77,10 @@ namespace HospitalIntegrationTests.Patient_portal
                 PatientRepository patientRepository = new PatientRepository(context);
                 PatientService patientService = new PatientService(patientRepository);
 
-                PatientController patientController = new PatientController(alergenService, doctorService, patientService);
+                PrescriptionRepository prescriptionRepository = new PrescriptionRepository(context);
+                PrescriptionService prescriptionService = new PrescriptionService(prescriptionRepository);
+
+                PatientController patientController = new PatientController(alergenService, doctorService, prescriptionService, patientService);
 
                 OkObjectResult result = patientController.GetAllSuspiciousPatients() as OkObjectResult;
                 List<PatientDTO> suspiciousPatients = result.Value as List<PatientDTO>;

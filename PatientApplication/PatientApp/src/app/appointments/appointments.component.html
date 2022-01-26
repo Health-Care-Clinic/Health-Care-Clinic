@@ -50,6 +50,15 @@
           </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="Report">
+          <mat-header-cell *matHeaderCellDef>Report </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            <button mat-button [attr.id]="element.id" *ngIf="element.isDone" (click)="viewReport(element)">
+              View
+            </button>
+          </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </table>

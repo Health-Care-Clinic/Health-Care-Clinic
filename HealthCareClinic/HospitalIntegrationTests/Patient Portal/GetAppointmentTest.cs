@@ -16,6 +16,7 @@ using Hospital.Medical_records.Repository;
 using Hospital.Schedule.Service;
 using Hospital.Medical_records.Service;
 using Hospital.Schedule.Model;
+using Hospital.Medical_records.Model;
 
 namespace HospitalIntegrationTests.Patient_portal
 {
@@ -54,6 +55,12 @@ namespace HospitalIntegrationTests.Patient_portal
                 List<AppointmentDTOForMedicalRecord> appointmentDTOs = (List<AppointmentDTOForMedicalRecord>)response.Value;
 
                 appointmentDTOs.Count.ShouldBeEquivalentTo(2);
+                appointmentDTOs.ForEach(appointmentDTO => {
+                    if (appointmentDTO.isDone == false)
+                        appointmentDTO.ReportDTO.ShouldBe(null);
+                    else
+                        appointmentDTO.ReportDTO.ShouldNotBe(null);
+                    });
 
             }
         }
@@ -99,7 +106,7 @@ namespace HospitalIntegrationTests.Patient_portal
 
             using (var context = new HospitalDbContext(options))
             {
-
+                Report report = new Report { Id = 1, Comment = "Pacijent se zali na tegobe sa mucninom i bolom u stomaku", Date = new DateTime(2022, 1, 22, 7, 0, 0) };
                 Appointment appointment1 = new Appointment()
                 {
                     Id = 1,
@@ -109,7 +116,8 @@ namespace HospitalIntegrationTests.Patient_portal
                     SurveyId = 1,
                     RoomId = 1,
                     isCancelled = false,
-                    isDone = true
+                    isDone = true,
+                    ReportId = 1        
                 };
                 Appointment appointment2 = new Appointment()
                 {
@@ -124,7 +132,9 @@ namespace HospitalIntegrationTests.Patient_portal
                 };
                 Survey survey1 = new Survey { Id = 1, Done = true, SurveyCategories = new List<SurveyCategory>(), AppointmentId = 1 };
                 Survey survey2 =  new Survey { Id = 2, Done = false, SurveyCategories = new List<SurveyCategory>(), AppointmentId = 2 };
+               
 
+                context.Reports.Add(report);
                 context.Appointments.Add(appointment1);
                 context.Appointments.Add(appointment2);
                 context.Surveys.Add(survey1);

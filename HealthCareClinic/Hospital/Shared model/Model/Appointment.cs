@@ -1,4 +1,5 @@
-﻿using Hospital.Schedule.Model;
+﻿using Hospital.Medical_records.Model;
+using Hospital.Schedule.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,6 +24,11 @@ namespace Hospital.Shared_model.Model
         public DateTime Date { get; set; }
 
         public int SurveyId { get; set; }
+ 
+        public virtual List<Prescription>? Prescriptions { get; set; }
+
+        public int? ReportId { get; set; }
+        public virtual Report Report { get; set; }
 
         public Appointment()
         {
@@ -38,6 +44,11 @@ namespace Hospital.Shared_model.Model
             this.isDone = isDone;
             Date = date;
             SurveyId = surveyId;
+        }
+
+        public Appointment(int id, int patientId, int doctorId, int roomId, bool isCancelled, bool isDone, DateTime date, int surveyId, int reportId) : this(id, patientId, doctorId, roomId, isCancelled, isDone, date, surveyId)
+        {
+            ReportId = reportId;
         }
     }
 }

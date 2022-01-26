@@ -26,6 +26,9 @@ namespace Hospital.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
@@ -43,9 +46,43 @@ namespace Hospital.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppointmentId");
+
                     b.HasIndex("PatientId");
 
                     b.ToTable("Prescriptions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentId = 10,
+                            Date = new DateTime(2022, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Diagnosis = "Uzimati 1 put dnevno do poboljsanja",
+                            Medicine = "Panklav",
+                            PatientId = 1,
+                            Quantity = 300
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppointmentId = 25,
+                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Diagnosis = "Uzimati 2 put dnevno do poboljsanja",
+                            Medicine = "Brufen",
+                            PatientId = 1,
+                            Quantity = 200
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AppointmentId = 26,
+                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Diagnosis = "Uzimati 3 put dnevno do poboljsanja",
+                            Medicine = "Kafetin",
+                            PatientId = 1,
+                            Quantity = 400
+                        });
                 });
 
             modelBuilder.Entity("Hospital.Medical_records.Model.ProfilePicture", b =>
@@ -64,6 +101,44 @@ namespace Hospital.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProfilePictures");
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.Report", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reports");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Pacijent se zali na tegobe sa mucninom i bolom u stomaku",
+                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comment = "Pacijent se zali na tegobe sa glavoboljom",
+                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comment = "Pacijent se zali na zubobolju",
+                            Date = new DateTime(2021, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
@@ -1802,6 +1877,18 @@ namespace Hospital.Migrations
                         },
                         new
                         {
+                            Id = 25,
+                            AppointmentId = 25,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 26,
+                            AppointmentId = 26,
+                            Done = false
+                        },
+                        new
+                        {
                             Id = 10,
                             AppointmentId = 10,
                             Done = true
@@ -2241,6 +2328,42 @@ namespace Hospital.Migrations
                             Id = 72,
                             Name = "Hospital",
                             SurveyId = 24
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Name = "Doctor",
+                            SurveyId = 25
+                        },
+                        new
+                        {
+                            Id = 74,
+                            Name = "Medical stuff",
+                            SurveyId = 25
+                        },
+                        new
+                        {
+                            Id = 75,
+                            Name = "Hospital",
+                            SurveyId = 25
+                        },
+                        new
+                        {
+                            Id = 76,
+                            Name = "Doctor",
+                            SurveyId = 26
+                        },
+                        new
+                        {
+                            Id = 77,
+                            Name = "Medical stuff",
+                            SurveyId = 26
+                        },
+                        new
+                        {
+                            Id = 78,
+                            Name = "Hospital",
+                            SurveyId = 26
                         },
                         new
                         {
@@ -4702,6 +4825,216 @@ namespace Hospital.Migrations
                         },
                         new
                         {
+                            Id = 361,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 362,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 363,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 364,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 365,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 366,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 367,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 368,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 369,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 370,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 371,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 372,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 373,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 374,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 375,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 376,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 377,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 378,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 379,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 380,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 381,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 382,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 383,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 384,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 385,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 386,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
+                            Id = 387,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
+                            Id = 388,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
+                            Id = 389,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
+                            Id = 390,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
                             Id = 136,
                             Content = "How careful did doctor listen you?",
                             Grade = 1,
@@ -4906,6 +5239,9 @@ namespace Hospital.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ReportId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("integer");
 
@@ -4919,6 +5255,9 @@ namespace Hospital.Migrations
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReportId")
+                        .IsUnique();
 
                     b.ToTable("Appointments");
 
@@ -5025,9 +5364,10 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 10,
-                            Date = new DateTime(2021, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2022, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 2,
                             PatientId = 1,
+                            ReportId = 1,
                             RoomId = 2,
                             SurveyId = 10,
                             isCancelled = false,
@@ -5186,6 +5526,30 @@ namespace Hospital.Migrations
                             SurveyId = 24,
                             isCancelled = false,
                             isDone = false
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2,
+                            PatientId = 1,
+                            ReportId = 2,
+                            RoomId = 1,
+                            SurveyId = 25,
+                            isCancelled = false,
+                            isDone = true
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 1,
+                            ReportId = 3,
+                            RoomId = 3,
+                            SurveyId = 26,
+                            isCancelled = false,
+                            isDone = true
                         });
                 });
 
@@ -5869,11 +6233,19 @@ namespace Hospital.Migrations
 
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {
+                    b.HasOne("Hospital.Shared_model.Model.Appointment", "Appointment")
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Hospital.Shared_model.Model.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Appointment");
 
                     b.Navigation("Patient");
                 });
@@ -6710,6 +7082,15 @@ namespace Hospital.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.HasOne("Hospital.Medical_records.Model.Report", "Report")
+                        .WithOne("Appointment")
+                        .HasForeignKey("Hospital.Shared_model.Model.Appointment", "ReportId");
+
+                    b.Navigation("Report");
+                });
+
             modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
                 {
                     b.HasOne("Hospital.Shared_model.Model.Doctor", null)
@@ -6970,6 +7351,11 @@ namespace Hospital.Migrations
                     b.Navigation("TotalPrice");
                 });
 
+            modelBuilder.Entity("Hospital.Medical_records.Model.Report", b =>
+                {
+                    b.Navigation("Appointment");
+                });
+
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
                 {
                     b.Navigation("SurveyCategories");
@@ -6978,6 +7364,11 @@ namespace Hospital.Migrations
             modelBuilder.Entity("Hospital.Schedule.Model.SurveyCategory", b =>
                 {
                     b.Navigation("SurveyQuestions");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.Navigation("Prescriptions");
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>

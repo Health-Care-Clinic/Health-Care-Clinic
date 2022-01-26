@@ -22,16 +22,19 @@ namespace Hospital_API.DTO
 
         public SurveyDTOForAppointment SurveyDTO { get; set; }
 
-        public AppointmentDTOForMedicalRecord(int id, int patientId, DoctorDTO doctoDTO, int roomId, bool isCancelled, bool isDone, string date, SurveyDTOForAppointment surveyDTO)
+        public  ReportDTO ReportDTO { get; set; }
+
+        public AppointmentDTOForMedicalRecord(int id, int patientId, DoctorDTO doctorDTO, int roomId, bool isCancelled, bool isDone, string date, SurveyDTOForAppointment surveyDTO, ReportDTO report)
         {
             Id = id;
             PatientId = patientId;
-            DoctorDTO = doctoDTO;
+            DoctorDTO = doctorDTO;
             RoomId = roomId;
             this.isCancelled = isCancelled;
             this.isDone = isDone;
             Date = date;
             SurveyDTO = surveyDTO;
+            ReportDTO = report;
         }
 
         public AppointmentDTOForMedicalRecord()

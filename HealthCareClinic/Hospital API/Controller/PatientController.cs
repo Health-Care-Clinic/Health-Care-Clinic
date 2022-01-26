@@ -3,7 +3,8 @@ using Hospital.Medical_records.Model;
 using Hospital.Medical_records.Service;
 using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
-using Hospital.Shared_model.Service;
+using Hospital.Medical_records.Model;
+    using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Hospital_API.Validation;
@@ -23,12 +24,13 @@ namespace Hospital_API.Controller
         private IPatientService patientService;
         private IAllergenService allergenService;
         private IDoctorService doctorService;
-
-        public PatientController(IAllergenService allergenService, IDoctorService doctorService, IPatientService patientService)
+        private IPrescriptionService prescriptionService;
+        public PatientController(IAllergenService allergenService, IDoctorService doctorService,IPrescriptionService prescriptionService, IPatientService patientService)
         {
             this.allergenService = allergenService;
             this.doctorService = doctorService;
             this.patientService = patientService;
+            this.prescriptionService = prescriptionService;
         }
 
         [AllowAnonymous]
@@ -37,6 +39,19 @@ namespace Hospital_API.Controller
         {
             List<Doctor> doctors = (List<Doctor>)doctorService.GetAvailableDoctors();
             List<DoctorDTO> result = DoctorAdapter.DoctorListToDoctorDTOList(doctors);
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "patient")]
+        [HttpGet("getAllPrescriptionsForPatient/{id?}")]
+        public IActionResult GetAllPrescriptionsForPatient(int id)
+        {
+            List<Prescription> prescriptions = (List<Prescription>)prescriptionService.GetAllPrescriptionsForPatient(patientService.GetOneById(id));
+            List<PrescriptionPatientDTO> result = new List<PrescriptionPatientDTO>();
+            prescriptions.ForEach(pres => {
+                PrescriptionPatientDTO dto = PrescriptionAdapter.PrescriptionToPrescriptionPatientDTO(pres);
+                dto.Doctor = DoctorAdapter.DoctorToDoctorDTO(doctorService.GetOneById(pres.Appointment.DoctorId));
+                result.Add(dto);});
             return Ok(result);
         }
 

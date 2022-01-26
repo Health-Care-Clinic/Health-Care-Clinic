@@ -17,6 +17,7 @@
 
         public int SurveyId { get; set; }
 
+
         public AppointmentDTO(int id, int patientId, int doctorId, int roomId, bool isCancelled, bool isDone, string date, int surveyId)
         {
             Id = id;
