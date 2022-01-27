@@ -35,5 +35,12 @@ namespace Integration_API.Controller.Notifications
             _notificationService.MarkAllAsSeen();
             return Ok();
         }
+
+        [HttpPost("tenderOffer")]
+        public IActionResult CreateNotificationForTenderOffer(string name)
+        {
+            _notificationService.CreateNewTenderResponseNotification(name);
+            return Ok();
+        }
     }
 }

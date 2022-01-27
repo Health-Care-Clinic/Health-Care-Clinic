@@ -60,6 +60,13 @@ namespace Integration.Notifications.Service
             SaveChanges();
         }
 
+        public void CreateNewTenderResponseNotification(string pharmacyName)
+        {
+            Notification fileNotifiction = new Notification("New Tender Offer", "Pharmacy " + pharmacyName + " has submitted a tender offer.");
+            Add(fileNotifiction);
+            SaveChanges();
+        }
+
         public IEnumerable<Notification> CreateDummy()
         {
             Notification n1 = new Notification("Hello Notification", " Ut tortor pretium viverra suspendisse. Consectetur purus ut faucibus pulvinar elementum. Senectus et netus et malesuada fames ac turpis egestas.", new DateTime(2021, 12, 4, 14, 38, 11), false);

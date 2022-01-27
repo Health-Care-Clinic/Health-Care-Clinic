@@ -53,6 +53,7 @@ namespace Hospital.Tendering.Service
 
                     tenderResponseRepository.Add(tenderResponse);
                     tenderResponseRepository.Save();
+                    SendTenderResponseNotification(tenderResponse.PharmacyName);
                 }
             };
             channel.BasicConsume(queue: "tenderResponse",
@@ -60,6 +61,14 @@ namespace Hospital.Tendering.Service
                                     consumer: consumer);
 
             return base.StartAsync(cancellationToken);
+        }
+
+        public void SendTenderResponseNotification(string pharmacyName)
+        {
+            /*var client = new RestSharp.RestClient("http://localhost:65508");
+            var request = new RestRequest("hospital/notification/tenderOffer");
+            request.AddJsonBody(pharmacyName);
+            IRestResponse response = client.Post(request);*/
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)

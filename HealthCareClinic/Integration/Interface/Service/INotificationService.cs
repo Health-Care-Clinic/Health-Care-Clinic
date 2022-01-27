@@ -14,6 +14,8 @@ namespace Integration.Interface.Service
 
         void CreateNewFileNotification(string filename);
 
+        void CreateNewTenderResponseNotification(string pharmacyName);
+
         IEnumerable<Notification> CreateDummy();
 
         //int CheckForNewFileNotifications();
