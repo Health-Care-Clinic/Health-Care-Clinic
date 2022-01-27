@@ -74,7 +74,7 @@ namespace Hospital.Shared_model.Model
 
         private void CheckIfPasswordMatchesPresetPattern()
         {
-            if (Password.Length >= 7 && Password.Length <= 15)
+            if (Password.Length >= 4 && Password.Length <= 15)
                 return;
             else
                 throw new ArgumentException("Password must contain at least 7 and at most 15 characters.");

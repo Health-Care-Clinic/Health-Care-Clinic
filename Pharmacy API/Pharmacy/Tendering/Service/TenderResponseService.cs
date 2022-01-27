@@ -46,11 +46,11 @@ namespace Pharmacy.Tendering.Service
             else
             {
                 tenderResponse.Description = String.Format("Cena odgovora na tender sa ID-jem {0} je {1}.", tenderResponse.TenderId, tenderResponse.TotalPrice.Amount);
-                if(tender.DateRange.Start > DateTime.Now || tender.DateRange.End < DateTime.Now)
+                /*if(tender.DateRange.Start > DateTime.Now || tender.DateRange.End < DateTime.Now)
                 {
                     tenderResponse.TotalPrice = 0;
                     tenderResponse.Description = String.Format("Tender sa ID-jem {0} nije aktuelan.", tenderResponse.TenderId);
-                }
+                }*/
             }
 
             return tenderResponse;
