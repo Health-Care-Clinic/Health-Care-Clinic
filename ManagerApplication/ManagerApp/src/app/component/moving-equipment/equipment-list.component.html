@@ -1,6 +1,14 @@
 <div class="row">
     <div class="col-6">
         <div>
+            <h3>Your most frequent equipment transfer is transfer of equipment:
+            {{transfer.equipment}} (count = {{transfer.quantity}}) from room:
+            {{transfer.sourceRoomId}}, to room:
+            {{transfer.destinationRoomId}}</h3>
+            We suggest you to do auto complite this transfer. Transfer will start by {{transfer.date}}
+            and it will execute for {{transfer.duration}} minutes. <br> 
+            If you want to to do this transfer again just click 'Complete' button.
+            <button (click)="complete()">Complete</button> <br><br>
             <h1>Step 1: Select the equipment that you want to move</h1>
             <form (ngSubmit)="onSubmit()">
                 <select id="select1">

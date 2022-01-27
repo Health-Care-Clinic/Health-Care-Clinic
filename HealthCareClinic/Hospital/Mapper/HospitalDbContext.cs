@@ -145,8 +145,7 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 9/*,
-                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
+                    Id = 9
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
@@ -172,8 +171,7 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 6/*,
-                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
+                    Id = 6
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
@@ -199,8 +197,7 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 2/*,
-                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
+                    Id = 2
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
@@ -226,8 +223,7 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 3/*,
-                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
+                    Id = 3
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
@@ -253,8 +249,7 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 4/*,
-                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
+                    Id = 4
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {
@@ -280,8 +275,7 @@ namespace Hospital.Mapper
             {
                 t.HasData(new Transfer
                 {
-                    Id = 5/*,
-                    TimeOfCreation = new DateTime(2022, 01, 01, 08, 00, 00)*/
+                    Id = 5
                 });
                 t.OwnsOne(e => e.Equipment).HasData(new
                 {

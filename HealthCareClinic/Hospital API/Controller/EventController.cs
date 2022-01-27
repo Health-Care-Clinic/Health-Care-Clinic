@@ -1,5 +1,6 @@
 ﻿using Hospital.Events.Model;
 using Hospital.Events.Service;
+using Hospital.Rooms_and_equipment.Model;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,13 @@ namespace Hospital_API.Controller
             _eventService.Add(ev);
 
             return Ok();
+        }
+
+        [HttpGet("getMostFrequentEvent")]
+        public IActionResult getMostFrequentEvents()
+        {
+            TransferDTO transferDTO = TransferAdapter.TransferToTransferDTO(_eventService.GetMostFrequentEvent());
+            return Ok(transferDTO);
         }
     }
 }

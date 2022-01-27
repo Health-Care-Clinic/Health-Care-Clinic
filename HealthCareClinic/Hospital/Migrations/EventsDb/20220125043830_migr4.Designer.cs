@@ -3,15 +3,17 @@ using System;
 using Hospital.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.Migrations.EventsDb
 {
     [DbContext(typeof(EventsDbContext))]
-    partial class EventsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220125043830_migr4")]
+    partial class migr4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,7 +94,7 @@ namespace Hospital.Migrations.EventsDb
                         new
                         {
                             Id = 8,
-                            Content = "1:2:Bed:2",
+                            Content = "1:2:Bed:1",
                             Timestamp = new DateTime(2022, 1, 5, 9, 41, 28, 0, DateTimeKind.Unspecified),
                             UserId = 100
                         },
@@ -113,14 +115,14 @@ namespace Hospital.Migrations.EventsDb
                         new
                         {
                             Id = 11,
-                            Content = "1:2:Blanket:2",
+                            Content = "1:2:Blanket:1",
                             Timestamp = new DateTime(2022, 1, 4, 18, 21, 8, 0, DateTimeKind.Unspecified),
                             UserId = 100
                         },
                         new
                         {
                             Id = 12,
-                            Content = "1:2:Bed:2",
+                            Content = "1:2:Bed:1",
                             Timestamp = new DateTime(2022, 1, 5, 9, 41, 28, 0, DateTimeKind.Unspecified),
                             UserId = 100
                         });

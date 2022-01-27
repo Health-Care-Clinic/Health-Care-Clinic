@@ -10,15 +10,13 @@ namespace Hospital.Rooms_and_equipment.Model
         public virtual EquipmentForTransfer Equipment { get; set; }
         public virtual RoomsForTransfer RoomsForTransfer { get; set; }
         public virtual DateAndDuration DateAndDuration { get; set; }
-        //public DateTime TimeOfCreation { get; set; }
 
         public Transfer() { }
-        public Transfer(int id, Equipment equipment, int sourceID, int destinationID, DateTime date, int duration, DateTime timeOfCreation) {
+        public Transfer(int id, Equipment equipment, int sourceID, int destinationID, DateTime date, int duration) {
             Id = id;
             Equipment = new EquipmentForTransfer(equipment.Name, equipment.Quantity);
             RoomsForTransfer = new RoomsForTransfer(sourceID, destinationID);
             DateAndDuration = new DateAndDuration(date, duration);
-            //TimeOfCreation = timeOfCreation;
         }
 
         public List<Transfer> GetTransfersOfSourceAndDestination(List<Transfer> existingTransfers)

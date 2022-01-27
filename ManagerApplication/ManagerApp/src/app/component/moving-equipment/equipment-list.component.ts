@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Event } from 'src/app/model/event';
+import { Room } from 'src/app/model/room';
 import { Transfer } from 'src/app/model/transfer';
+import { EventService } from 'src/app/services/event.service ';
 import { HospitalMapService } from 'src/app/services/hospital-map-service.service';
 
 @Component({
@@ -34,7 +37,9 @@ export class EquipmentListComponent implements OnInit {
   backButton4: any;
   backButton5: any;
 
-  constructor(private hospitalMapService: HospitalMapService) {
+  transfer: Transfer;
+
+  constructor(private hospitalMapService: HospitalMapService, private eventService: EventService) {
    }
 
   ngOnInit(): void {
@@ -63,7 +68,15 @@ export class EquipmentListComponent implements OnInit {
       this.backButton4 = false;
       this.backButton5 = false;
     });
-   
+    this.eventService.getMostFrequentEvent().subscribe(ret => {
+      this.transfer = ret;
+      this.hospitalMapService.checkFreeTransfers(this.transfer).subscribe(datesFromBack => {
+        this.freeTerms = datesFromBack;
+      });
+    });
+    this.hospitalMapService.getTransfers().subscribe(transfersFromBack =>{
+      this.allTransfers = transfersFromBack;
+    })
    }
 
    onFinish(): void {
@@ -386,5 +399,26 @@ export class EquipmentListComponent implements OnInit {
     }
 
     return ret;
+  }
+
+  complete(): void {
+    let id = this.returnKey() + 1
+
+    let transfer = new Transfer(id, this.transfer.equipment, this.transfer.quantity, this.transfer.sourceRoomId, this.transfer.destinationRoomId, this.transfer.date, this.transfer.duration);
+    this.hospitalMapService.addTransfer(transfer).subscribe(ret => {
+      let eventId = 0;
+      this.eventService.getAllEvents().subscribe(ret => {
+        for (let e of ret) {
+          if (e.id > eventId) {
+            eventId = e.id;
+          }
+        }
+        let event = new Event(eventId + 1, new Date(), transfer.sourceRoomId.toString() + ":" + transfer.destinationRoomId.toString() + ":" + transfer.equipment + ":" + transfer.quantity, 100)
+        this.eventService.addNewEvent(event).subscribe( ret => {
+          window.location.reload();
+        });
+      });
+      
+    });
   }
 }
