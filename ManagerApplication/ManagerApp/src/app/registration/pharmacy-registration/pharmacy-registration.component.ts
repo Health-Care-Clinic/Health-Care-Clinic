@@ -1,5 +1,6 @@
 import { ReturnStatement, TypeScriptEmitter } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { IApiKey } from 'src/app/model/apikey';
 import { RegistrationService } from 'src/app/services/registration.service';
 
@@ -18,7 +19,7 @@ export class PharmacyRegistrationComponent implements OnInit {
   public apikey: IApiKey = {id: 0, name: "", key: "", baseUrl: "", city: "", category: "", imagePath: "", note: "", image:""};
   public url: string = "";
 
-  constructor(private _registrationService : RegistrationService) {
+  constructor(private _registrationService : RegistrationService,  private _snackBar: MatSnackBar) {
     this.isErrorLabelVisible = true;
     this.errorText = "no error";
     this.apikey
@@ -45,7 +46,14 @@ export class PharmacyRegistrationComponent implements OnInit {
     this.apikey.name = this.name;
     this.apikey.baseUrl = this.url;
     this.apikey.category = "Pharmacy";
-    this._registrationService.registerPharmacy(this.apikey).subscribe(res => {this.name = ""; this.url = "";}, error => {
+    this._registrationService.registerPharmacy(this.apikey).subscribe(res => {
+      this.name = ""; 
+      this.url = "";
+      this._snackBar.open("Successfully registered!", 'Dissmiss', {
+        duration: 3000
+      });
+    }, 
+      error => {
         this.errorText = "Unsuccesful registration.";
         this.isErrorLabelVisible = true;}
       );

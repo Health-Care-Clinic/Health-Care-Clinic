@@ -23,7 +23,7 @@
               <br> 
               <p *ngIf="labelVisible" style="color: crimson;">
                  {{ errorText }}
-              </p><br> <br>
+              </p><br>
               <button mat-raised-button color="primary" (click)='register()' style="width: 24%; margin-left: 38%;">
                   Register
               </button>
@@ -32,43 +32,3 @@
       </div>
   </mat-card>
 </div>
-
-
-<!--div class="d-flex flex-column align-items-center bg-ghostwhite flex-grow-1">
-    <h3 class="col-6 mt-5 px-5 lead" style="font-size: x-large">Pharmacy registration</h3>
-
-    <div class="d-flex flex-column align-items-center w-50 p-4 mt-3 bg-white box-shadow">
-        <table>
-          <tr>
-            <td>
-              <label for="name" class="mx-3 mt-2">
-                <h5>Company name:</h5>
-              </label>
-            </td>
-            <td><input [(ngModel)]='name' name="name" id="name" placeholder="name" class="ml-2 input-size"></td>
-
-          </tr>
-          <tr>
-            <td><label for="ph-url" class="mx-3 mt-2">
-                <h5>Application URL:</h5>
-              </label>
-            </td>
-            <td>
-              <input [(ngModel)]='url' name="ph-url" id="ph-url" placeholder="url" class="ml-2 input-size">
-            </td>
-
-          </tr>
-          <tr>
-              <td colspan="2" *ngIf="labelVisible" class="m-3 px-4 text-danger text-center"> {{ errorText }}</td>
-          
-          </tr>
-
-          <tr>
-            <td colspan="2" class="text-center"><button (click)='register()' class="btn btn-dark mt-3 px-3">Register</button>
-            </td>
-          </tr>
-        </table>
-    </div>
-
-
-  </div-->
