@@ -2008,8 +2008,8 @@ namespace Hospital.Mapper
                 new FeedbackMessage
                 {
                     Id = 6,
-                    Date = new DateTime(2021, 9, 30, 7, 50, 19),
-                    Text = "Savremena bolnica koju bih preporučio ljudima.",
+                    Date = new DateTime(2021, 10, 3, 11, 45, 3),
+                    Text = "Bolnica koja se revnosno stara o vašem zdravlju.",
                     IsAnonymous = false,
                     Identity = "IvanJovanovic",
                     CanBePublished = true,
@@ -2018,8 +2018,8 @@ namespace Hospital.Mapper
                 new FeedbackMessage
                 {
                     Id = 7,
-                    Date = new DateTime(2021, 9, 30, 7, 50, 19),
-                    Text = "Savremena bolnica koju bih preporučio ljudima.",
+                    Date = new DateTime(2021, 10, 18, 15, 27, 36),
+                    Text = "Ljubazno osoblje, imam prijatno iskustvo boravka ovde.",
                     IsAnonymous = false,
                     Identity = "JovanaGugl",
                     CanBePublished = true,
@@ -2028,8 +2028,8 @@ namespace Hospital.Mapper
                 new FeedbackMessage
                 {
                     Id = 8,
-                    Date = new DateTime(2021, 9, 30, 7, 50, 19),
-                    Text = "Savremena bolnica koju bih preporučio ljudima.",
+                    Date = new DateTime(2021, 11, 26, 19, 42, 24),
+                    Text = "Drago mi je da u mojoj blizini postoji ovako kvalitetna zdravstvena ustanova.",
                     IsAnonymous = false,
                     Identity = "RatkoVarda8",
                     CanBePublished = true,
@@ -2335,7 +2335,7 @@ namespace Hospital.Mapper
                     PatientId = 1,
                     Phone = "0634556665",
                     Email = "petar@gmail.com",
-                    Address = "Bogoboja Atanackovica 15"
+                    Address = "Bogoboja Atanackovića 15, Novi Sad"
                 });
                 p.OwnsOne(pat => pat.AccountInfo).HasData(new
                 {
@@ -2359,9 +2359,9 @@ namespace Hospital.Mapper
                 p.OwnsOne(pat => pat.ContactInfo).HasData(new
                 {
                     PatientId = 2,
-                    Phone = "0697856665",
-                    Email = "miki@gmail.com",
-                    Address = "Voje Rodica 19"
+                    Phone = "0697627440",
+                    Email = "jovan@gmail.com",
+                    Address = "Svetog Save 17, Novi Sad"
                 });
                 p.OwnsOne(pat => pat.AccountInfo).HasData(new
                 {
@@ -2385,9 +2385,9 @@ namespace Hospital.Mapper
                 p.OwnsOne(pat => pat.ContactInfo).HasData(new
                 {
                     PatientId = 3,
-                    Phone = "0697856665",
-                    Email = "miki@gmail.com",
-                    Address = "Voje Rodica 19"
+                    Phone = "0648210031",
+                    Email = "zorana@gmail.com",
+                    Address = "Sonje Marinković 44, Novi Sad"
                 });
                 p.OwnsOne(pat => pat.AccountInfo).HasData(new
                 {
@@ -2411,9 +2411,9 @@ namespace Hospital.Mapper
                 p.OwnsOne(pat => pat.ContactInfo).HasData(new
                 {
                     PatientId = 4,
-                    Phone = "0697856665",
-                    Email = "miki@gmail.com",
-                    Address = "Voje Rodica 19"
+                    Phone = "0624756905",
+                    Email = "milica@gmail.com",
+                    Address = "Žarka Zrenjanina 2, Novi Sad"
                 });
                 p.OwnsOne(pat => pat.AccountInfo).HasData(new
                 {
@@ -2437,9 +2437,9 @@ namespace Hospital.Mapper
                 p.OwnsOne(pat => pat.ContactInfo).HasData(new
                 {
                     PatientId = 5,
-                    Phone = "0697856665",
-                    Email = "miki@gmail.com",
-                    Address = "Voje Rodica 19"
+                    Phone = "0631742209",
+                    Email = "igor@gmail.com",
+                    Address = "Radnička 7 stan br. 3, Novi Sad"
                 });
                 p.OwnsOne(pat => pat.AccountInfo).HasData(new
                 {
@@ -2463,9 +2463,9 @@ namespace Hospital.Mapper
                 p.OwnsOne(pat => pat.ContactInfo).HasData(new
                 {
                     PatientId = 6,
-                    Phone = "0697856665",
-                    Email = "miki@gmail.com",
-                    Address = "Voje Rodica 19"
+                    Phone = "0644530769",
+                    Email = "predrag@gmail.com",
+                    Address = "Maksima Gorkog 55 stan br. 6, Novi Sad"
                 });
                 p.OwnsOne(pat => pat.AccountInfo).HasData(new
                 {
@@ -2489,9 +2489,9 @@ namespace Hospital.Mapper
                 p.OwnsOne(pat => pat.ContactInfo).HasData(new
                 {
                     PatientId = 7,
-                    Phone = "0697856665",
-                    Email = "miki@gmail.com",
-                    Address = "Voje Rodica 19"
+                    Phone = "0658003294",
+                    Email = "matija@gmail.com",
+                    Address = "Starca Vujadina 22, Novi Sad"
                 });
                 p.OwnsOne(pat => pat.AccountInfo).HasData(new
                 {
@@ -2499,8 +2499,8 @@ namespace Hospital.Mapper
                     DateOfRegistration = new DateTime(2020, 12, 30),
                     IsBlocked = false,
                     IsActive = true,
-                    Username = "miki",
-                    Password = "mikip007"
+                    Username = "matija",
+                    Password = "matijap007"
                 });
             });
             modelBuilder.Entity<Patient>(p =>
@@ -2515,9 +2515,9 @@ namespace Hospital.Mapper
                 p.OwnsOne(pat => pat.ContactInfo).HasData(new
                 {
                     PatientId = 8,
-                    Phone = "0697856665",
+                    Phone = "0627133687",
                     Email = "zorka@gmail.com",
-                    Address = "Kralja Petra 19"
+                    Address = "Bulevar Kralja Petra I 19, Novi Sad"
                 });
                 p.OwnsOne(pat => pat.AccountInfo).HasData(new
                 {
@@ -2541,10 +2541,10 @@ namespace Hospital.Mapper
                 {
                     MedicalRecordId = 1,
                     Name = "Petar",
-                    Surname = "Petrovic",
+                    Surname = "Maljković",
                     BirthDate = new DateTime(2005, 09, 11),
                     Gender = "male",
-                    ParentName = "Miki",
+                    ParentName = "Marko",
                     EmploymentStatus = "Employed",
                 });
             });
@@ -2553,16 +2553,16 @@ namespace Hospital.Mapper
                 md.HasData(new MedicalRecord
                 {
                     Id = 2,
-                    BloodType = "A"
+                    BloodType = "A+"
                 });
                 md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
                 {
                     MedicalRecordId = 2,
                     Name = "Jovan",
-                    Surname = "Zoric",
+                    Surname = "Zorić",
                     BirthDate = new DateTime(1985, 07, 11),
                     Gender = "male",
-                    ParentName = "Miki",
+                    ParentName = "Ilija",
                     EmploymentStatus = "Employed",
                 });
             });
@@ -2571,16 +2571,16 @@ namespace Hospital.Mapper
                 md.HasData(new MedicalRecord
                 {
                     Id = 3,
-                    BloodType = "A"
+                    BloodType = "A-"
                 });
                 md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
                 {
                     MedicalRecordId = 3,
                     Name = "Zorana",
-                    Surname = "Bilic",
+                    Surname = "Bilić",
                     BirthDate = new DateTime(1978, 07, 11),
                     Gender = "female",
-                    ParentName = "Miki",
+                    ParentName = "Radovan",
                     EmploymentStatus = "Employed",
                 });
             });
@@ -2589,16 +2589,16 @@ namespace Hospital.Mapper
                 md.HasData(new MedicalRecord
                 {
                     Id = 4,
-                    BloodType = "A"
+                    BloodType = "0"
                 });
                 md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
                 {
                     MedicalRecordId = 4,
                     Name = "Milica",
-                    Surname = "Maric",
+                    Surname = "Marić",
                     BirthDate = new DateTime(1969, 07, 11),
                     Gender = "female",
-                    ParentName = "Miki",
+                    ParentName = "Ana",
                     EmploymentStatus = "Employed",
                 });
             });
@@ -2607,16 +2607,16 @@ namespace Hospital.Mapper
                 md.HasData(new MedicalRecord
                 {
                     Id = 5,
-                    BloodType = "A"
+                    BloodType = "0-"
                 });
                 md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
                 {
                     MedicalRecordId = 5,
                     Name = "Igor",
-                    Surname = "Caric",
+                    Surname = "Carić",
                     BirthDate = new DateTime(1936, 07, 11),
                     Gender = "male",
-                    ParentName = "Miki",
+                    ParentName = "Nikola",
                     EmploymentStatus = "Employed",
                 });
             });
@@ -2625,16 +2625,16 @@ namespace Hospital.Mapper
                 md.HasData(new MedicalRecord
                 {
                     Id = 6,
-                    BloodType = "A"
+                    BloodType = "0+"
                 });
                 md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
                 {
                     MedicalRecordId = 6,
                     Name = "Predrag",
-                    Surname = "Zaric",
+                    Surname = "Urošević",
                     BirthDate = new DateTime(1975, 07, 11),
                     Gender = "male",
-                    ParentName = "Miki",
+                    ParentName = "Natalija",
                     EmploymentStatus = "Employed",
                 });
             });
@@ -2643,16 +2643,16 @@ namespace Hospital.Mapper
                 md.HasData(new MedicalRecord
                 {
                     Id = 7,
-                    BloodType = "A"
+                    BloodType = "AB-"
                 });
                 md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
                 {
                     MedicalRecordId = 7,
-                    Name = "Miki",
-                    Surname = "Nikolic",
+                    Name = "Matija",
+                    Surname = "Nikolić",
                     BirthDate = new DateTime(1960, 07, 11),
                     Gender = "male",
-                    ParentName = "Miki",
+                    ParentName = "Stojan",
                     EmploymentStatus = "Employed",
                 });
             });
@@ -2661,20 +2661,20 @@ namespace Hospital.Mapper
                 md.HasData(new MedicalRecord
                 {
                     Id = 8,
-                    BloodType = "B"
+                    BloodType = "B+"
                 });
                 md.OwnsOne(mRecord => mRecord.PersonalInfo).HasData(new
                 {
                     MedicalRecordId = 8,
                     Name = "Zorka",
-                    Surname = "Djokic",
+                    Surname = "Đokić",
                     BirthDate = new DateTime(1987, 07, 01),
                     Gender = "female",
-                    ParentName = "Zorka",
+                    ParentName = "Vesna",
                     EmploymentStatus = "Unemployed",
                 });
             });
-            
+
             modelBuilder.Entity<AllergenForPatient>()
                 .HasKey(c => new { c.PatientId, c.AllergenId });
 
@@ -2696,15 +2696,15 @@ namespace Hospital.Mapper
                 new CanceledAppointment { AppointmentId = 1870, PatientId = 1, DateOfCancellation = new System.DateTime(2021, 12, 22) });
 
             modelBuilder.Entity<Prescription>().HasData(
-                new Prescription { Id = 1, Diagnosis = "Uzimati 1 put dnevno do poboljsanja", Medicine = "Panklav", Quantity = 300, Date = new DateTime(2022, 1, 05, 9, 0, 0), PatientId = 1, AppointmentId = 10 },
-                new Prescription { Id = 2, Diagnosis = "Uzimati 2 put dnevno do poboljsanja", Medicine = "Brufen", Quantity = 200, Date = new DateTime(2022, 1, 22, 7, 0, 0), PatientId = 1, AppointmentId = 25 },
-                new Prescription { Id = 3, Diagnosis = "Uzimati 3 put dnevno do poboljsanja", Medicine = "Kafetin", Quantity = 400, Date = new DateTime(2022, 1, 12, 8, 0, 0), PatientId = 1, AppointmentId = 26 }
+                new Prescription { Id = 1, Diagnosis = "Uzimati 1 put dnevno do poboljšanja.", Medicine = "Panklav", Quantity = 300, Date = new DateTime(2022, 1, 05, 9, 0, 0), PatientId = 1, AppointmentId = 10 },
+                new Prescription { Id = 2, Diagnosis = "Uzimati 2 puta dnevno do poboljšanja.", Medicine = "Brufen", Quantity = 200, Date = new DateTime(2022, 1, 22, 7, 0, 0), PatientId = 1, AppointmentId = 25 },
+                new Prescription { Id = 3, Diagnosis = "Uzimati 3 puta dnevno do poboljšanja.", Medicine = "Kafetin", Quantity = 400, Date = new DateTime(2022, 1, 12, 8, 0, 0), PatientId = 1, AppointmentId = 26 }
                 );
 
             modelBuilder.Entity<Report>().HasData(
-                new Report { Id = 1, Comment = "Pacijent se zali na tegobe sa mucninom i bolom u stomaku", Date = new DateTime(2022, 1, 22, 7, 0, 0)},
-                new Report { Id = 2, Comment = "Pacijent se zali na tegobe sa glavoboljom", Date = new DateTime(2022, 1, 12, 8, 0, 0) },
-                new Report { Id = 3, Comment = "Pacijent se zali na zubobolju", Date = new DateTime(2021, 2, 22, 11, 30, 0) }
+                new Report { Id = 1, Comment = "Pacijent se žali na tegobe sa mučninom i bolom u stomaku.", Date = new DateTime(2022, 1, 22, 7, 0, 0)},
+                new Report { Id = 2, Comment = "Pacijent se žali na tegobe sa glavoboljom.", Date = new DateTime(2022, 1, 12, 8, 0, 0) },
+                new Report { Id = 3, Comment = "Pacijent se žali na zubobolju.", Date = new DateTime(2021, 2, 22, 11, 30, 0) }
                 );
         }
 
