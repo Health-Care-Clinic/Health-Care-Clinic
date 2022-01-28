@@ -69,7 +69,7 @@ namespace HospitalIntegrationTests.Patient_portal
                 Prescription prescription1 = new Prescription (1, "Uzimati 1 put dnevno do poboljsanja", "Panklav",300,new DateTime(2022, 1, 22, 7, 0, 0), 1,  10 );
                 Prescription prescription2 = new Prescription (2, "Uzimati 2 put dnevno do poboljsanja", "Brufen",  200, new DateTime(2022, 1, 12, 8, 0, 0), 1,25 );
                 Prescription prescription3 = new Prescription (3, "Uzimati 3 put dnevno do poboljsanja", "Kafetin",  400,  new DateTime(2022, 1, 05, 9, 0, 0),  1, 26 );
-                Patient patient1 = new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petar", "miki", null, "Employed", true)
+                Patient patient1 = new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petarp001", "Miki", null, "Employed", true)
                 { DoctorId = 1 };
                 Doctor doctor1 = new Doctor(1, "Nikola", "Nikolic", "male", new System.DateTime(1981, 05, 06), 80000.0, "Brace Radica 15", "0697856665", "nikolanikolic@gmail.com", "nikola", "nikola",
                     new System.DateTime(2021, 06, 10), null, "General medicine", 1);

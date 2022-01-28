@@ -27,7 +27,7 @@ namespace Hospital_API
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    //services.AddHostedService<RabbitMQTenderResponseService>();
+                    services.AddHostedService<RabbitMQTenderResponseService>();
                 });
     }
 }
