@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FeedbackService } from '../../../services/feedback.service';
 import { IFeedback } from '../../../model/feedback/IFeedback';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-feedback-publish',
@@ -13,7 +14,7 @@ export class FeedbackPublishComponent implements OnChanges {
   feedbacks : IFeedback[] = [];
   errorMessage : string  = '';
 
-  constructor(private _feedbackService : FeedbackService) { }
+  constructor(private _feedbackService : FeedbackService, private _snackBar: MatSnackBar) { }
 
   ngOnChanges(): void {
     //this.refreshFeedback();
@@ -21,13 +22,13 @@ export class FeedbackPublishComponent implements OnChanges {
 
   publish(feedback: IFeedback){
     feedback.isPublished = true;
-    window.alert('Mišljenje pacijenta je objavljeno!');
+    this._snackBar.open('Feedback has been successfuly published!', 'Close', {duration: 5000});
     this.editFeedback();
   }
 
   unpublish(feedback: IFeedback){
     feedback.isPublished = false;
-    window.alert('Mišljenje pacijenta je povuceno!');
+    this._snackBar.open('Feedback has been successfuly unpublished!', 'Close', {duration: 5000});
     this.editFeedback();
   }
 

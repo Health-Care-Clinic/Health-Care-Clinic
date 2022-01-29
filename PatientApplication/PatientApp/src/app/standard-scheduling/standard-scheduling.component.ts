@@ -68,16 +68,16 @@ export class StandardSchedulingComponent implements OnInit {
     
     this._appointmentService.schedule(new Date(this.selectedTerm), this.selectedDoctor.id, this.patientId)
         .subscribe(
-            data => { 
-              console.log('Success!', data)
-              this._snackBar.open('Appointment successfully created!', 'Close', {duration: 3000});
-            },
+          data => {
+            console.log('Success!', data)
+            this.router.navigateByUrl('/medical-record').then(() => {
+              this._snackBar.open('You have been successfully scheduled an appointment', 'Close', {duration: 3000});
+            });
+          },
               error => this._snackBar.open('Failed to create appointment!', 'Close', {duration: 3000})
         )
 
-    console.log(this.selectedDate, this.selectedDoctor.id, this.patientId);    
-    
-    this.router.navigateByUrl('/medical-record');
+    console.log(this.selectedDate, this.selectedDoctor.id, this.patientId);  
   }
 
   enableNext() {
