@@ -1,6 +1,6 @@
 export class Feedback {
     id: number = 0;
-    date: Date = new Date();
+    date: string = "";
     text: string = "";
     isAnonymous: boolean = false;
     identity: string = "";

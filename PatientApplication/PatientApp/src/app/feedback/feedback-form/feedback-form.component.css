@@ -1,7 +1,26 @@
+.feedback-field {
+  border: solid;
+  border-color:darkslateblue;
+  border-style: groove;
+  margin-top: 1%;
+  margin-left: 32.5%;
+  margin-right: 32.5%;
+  height: 300px;
+  width: 35%;
+  background-color:azure;
+}
+
 textarea {
-    display:block;
-    margin-left: auto;
-    margin-right: auto;
+    display:inline-block;
+    margin-left: 5%;
+}
+
+.card {
+  margin-top: 5%;
+  width: 35%;
+  margin-left: 32.5%;
+  margin-right: 32.5%;
+  text-align: center;
 }
 
 .checkboxes label {

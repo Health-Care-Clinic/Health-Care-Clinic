@@ -14,7 +14,7 @@ export class FeedbackService {
 
   addFeedback(feedback:Feedback): Observable<any> {
 
-    feedback.date = new Date();
+    feedback.date = new Date().toString();
     const body=JSON.stringify(feedback);
     console.log(body)
     return this._http.post(this._feedbackUrl, body)

@@ -14,11 +14,13 @@ import { Router } from '@angular/router';
 export class FeedbackFormComponent {
 
   feedbackModel: Feedback = new Feedback();
+  date: Date = new Date()
 
   constructor(private _feedbackService: FeedbackService, private router: Router, private _snackBar: MatSnackBar) {}
 
   submit(): void {
     this.feedbackModel.identity = JSON.parse(localStorage.getItem('id') || '{}');
+    this.feedbackModel.date = this.date.toDateString() 
   
     this._feedbackService.addFeedback(this.feedbackModel)
     .subscribe(

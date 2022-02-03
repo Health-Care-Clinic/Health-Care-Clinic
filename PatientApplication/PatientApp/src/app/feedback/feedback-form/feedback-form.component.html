@@ -1,8 +1,20 @@
-<mat-form-field style="width: 300px; height: 200px;">
-    <textarea id="feedbackTextArea" required matInput placeholder="Write your oppinion" [(ngModel)]="feedbackModel.text"  rows="15" cols="40" ></textarea>
-</mat-form-field>
-<div style="margin-left: 350px;">
-    <mat-checkbox [(ngModel)]="feedbackModel.canBePublished">Allow my feedback to be published</mat-checkbox>
-    <div><mat-checkbox [(ngModel)]="feedbackModel.isAnonymous">Anonymus</mat-checkbox></div>
-    <div><button id="feedbackSubmit" mat-raised-button name="submit-button" (click)="submit()" [disabled]="feedbackModel.text === ''">Submit</button></div>
+
+<div class="card">
+    <mat-card>
+    <mat-card-title> Share your opinion with us </mat-card-title>
+    <mat-card-subtitle> <br> We strive to achieve the highest standars for our users and you can help us achieve that goal</mat-card-subtitle>
+    <mat-card-subtitle> by writing what you liked or disliked about our services. Every input is most welcome. </mat-card-subtitle>
+    
+    </mat-card>
+</div>
+
+<div class="feedback-field">
+    <mat-form-field style="width: 300px; height: 200px; margin-left: 5%; margin-top: 1%;">
+        <textarea id="feedbackTextArea" required matInput placeholder="Write your opinion here" [(ngModel)]="feedbackModel.text"  rows="15" cols="40" ></textarea>
+    </mat-form-field>
+    <div style="display: inline-block; margin-left: 5%;">
+        <mat-checkbox [(ngModel)]="feedbackModel.canBePublished">Allow my feedback to be published</mat-checkbox>
+        <div><mat-checkbox [(ngModel)]="feedbackModel.isAnonymous">Anonymus</mat-checkbox></div>
+        <div><button id="feedbackSubmit" mat-raised-button name="submit-button" (click)="submit()" [disabled]="feedbackModel.text === ''">Submit</button></div>
+    </div>
 </div>
