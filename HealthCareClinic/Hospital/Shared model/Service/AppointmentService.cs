@@ -1,7 +1,9 @@
-﻿using Hospital.Shared_model.Model;
+﻿using Hospital.Schedule.Model;
+using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Hospital.Shared_model.Service
@@ -34,9 +36,9 @@ namespace Hospital.Shared_model.Service
             throw new NotImplementedException();
         }
 
-        public List<Appointment> getAppointmentsByPatientId(int patinetId)
+        public List<Appointment> GetAppointmentsByPatientId(int patinetId)
         {
-            return appointmentRepository.getAppointmentsByPatientId(patinetId);
+            return appointmentRepository.GetAppointmentsByPatientId(patinetId);
         }
 
         public Appointment CancelAppointment(int appointmentId)
@@ -47,6 +49,11 @@ namespace Hospital.Shared_model.Service
         public List<DateTime> GetAvailableTermsForDoctor(Doctor doctor, DateTime fromDate, DateTime toDate)
         {
             return appointmentRepository.GetAvailableTermsForDoctor(doctor, fromDate, toDate);
+        }
+
+        public TermsInDateRange GetAvailableTermsForDateRange(TermsInDateRange initialObjectWithoutTerms, List<Doctor> doctorsWithSpecialty)
+        {
+            return appointmentRepository.GetAvailableTermsForDateRange(initialObjectWithoutTerms, doctorsWithSpecialty);
         }
 
         public void AddAppointment(Appointment app)
@@ -63,6 +70,34 @@ namespace Hospital.Shared_model.Service
                     roomAppointments.Add(appointment);
             }
             return roomAppointments;
+        }
+
+        public List<DateTime> GetAvailableTerms(Doctor selectedDoctor, DateTime selectedDate)
+        {
+            return appointmentRepository.GetAvailableTerms(selectedDoctor, selectedDate);
+        }
+
+        public int GetNumOfAppointments(int id, int month, int year)
+        {
+           List<Appointment> allAppointments = appointmentRepository.getAppointmentsByDoctorId(id);
+            int number = 0;
+           foreach(Appointment ap in allAppointments.Where(x=> (x.Date.Date.Year.Equals(year) && x.Date.Date.Month.Equals(month))))
+            {
+                    number = number + 1;  
+            }
+            return number;
+        }
+        public int GetNumOfPatients(int id, int month, int year)
+        {
+            List<Appointment> allAppointments = appointmentRepository.getAppointmentsByDoctorId(id);
+            List<int> idOfPatients = new List<int>();
+            int number = 0;
+            foreach (Appointment ap in allAppointments.Where(x=> x.Date.Date.Year.Equals(year) && x.Date.Date.Month.Equals(month) && !idOfPatients.Contains(x.PatientId)))
+            {
+                    number = number + 1;
+                    idOfPatients.Add(ap.PatientId);
+            }
+            return number;
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pharmacy.Prescriptions.Model;
 
 namespace Pharmacy_API.Adapter
 {
@@ -19,6 +20,7 @@ namespace Pharmacy_API.Adapter
             medicine.SideEffects = dto.SideEffects;
             medicine.Usage = dto.Usage;
             medicine.Weight = dto.Weight;
+            medicine.Price = dto.Price;
 
             return medicine;
         }
@@ -33,6 +35,7 @@ namespace Pharmacy_API.Adapter
             medicineDTO.SideEffects = medicine.SideEffects;
             medicineDTO.Usage = medicine.Usage;
             medicineDTO.Weight = medicine.Weight;
+            medicineDTO.Price = medicine.Price;
 
             return medicineDTO;
         }

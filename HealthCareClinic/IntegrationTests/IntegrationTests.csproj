@@ -23,12 +23,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Xunit.SkippableFact" Version="1.4.13" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Hospital API\Hospital API.csproj" />
     <ProjectReference Include="..\Integration API\Integration API.csproj" />
-    <ProjectReference Include="..\Integration\Integration.csproj" />
   </ItemGroup>
 
 </Project>

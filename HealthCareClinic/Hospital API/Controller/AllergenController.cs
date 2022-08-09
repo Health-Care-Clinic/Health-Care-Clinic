@@ -3,6 +3,7 @@ using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
 using Hospital_API.Adapter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,6 +24,7 @@ namespace Hospital_API.Controller
             _allergenService = allergenService;
         }
 
+        [AllowAnonymous]
         [HttpGet]       // GET /api/allergen
         public IActionResult GetAllAllergens()
         {

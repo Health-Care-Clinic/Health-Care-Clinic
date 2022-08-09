@@ -1,0 +1,75 @@
+<div>
+    <div style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%;">
+        <h1>
+            Doctor:
+            {{doctor.name}}
+            {{doctor.surname}}
+        </h1>
+    </div>
+    <div style="width: 100%; float: left; margin: auto; text-align: center; margin-top: 2%;">
+        <button style="background-color: rgb(255, 255, 110); cursor: pointer; min-height: 50px;" [routerLink]="['/schedule-a-vacation', doctor.id]"><b>Schedule a vacation</b></button>
+    </div>
+    <div style="width: 100%;">
+        <table style="border: 1px solid black; width: 27%; float: left; margin-right: 5%; margin-left: 7%; margin-top: 2%; margin-bottom: 6%;">
+            <thead style="background-color: #d3955f;">
+                <tr>
+                    <th colspan="4">Past vacations</th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid black;"><b>Start date</b></th>
+                    <th style="border: 1px solid black;"><b>End date</b></th>
+                    <th style="border: 1px solid black;"><b>Description</b></th>
+                    <th style="border: 1px solid black;"></th>
+                </tr>
+            </thead>
+            <tbody style="background-color: #52DEE5;">
+                <tr *ngFor="let vacation of pastVacations;">
+                    <td style="border: 1px solid black;"><b>{{vacation.startTime | date:'dd.MM.yyyy'}}</b></td>
+                    <td style="border: 1px solid black;"><b>{{vacation.endTime | date:'dd.MM.yyyy'}}</b></td>
+                    <td style="border: 1px solid black;"><b>{{vacation.description}}</b></td>
+                    <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/delete-a-vacation', vacation.id]">Delete</button></b></td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="border: 1px solid black; width: 21%; float: left; margin-right: 5%; margin-top: 2%; margin-bottom: 6%;">
+            <thead style="background-color: #d3955f;">
+                <tr>
+                    <th colspan="3">Current vacations</th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid black;"><b>Start date</b></th>
+                    <th style="border: 1px solid black;"><b>End date</b></th>
+                    <th style="border: 1px solid black;"><b>Description</b></th>
+                </tr>
+            </thead>
+            <tbody style="background-color: #52DEE5;">
+                <tr *ngFor="let vacation of currentVacations;">
+                    <td style="border: 1px solid black;"><b>{{vacation.startTime | date:'dd.MM.yyyy'}}</b></td>
+                    <td style="border: 1px solid black;"><b>{{vacation.endTime | date:'dd.MM.yyyy'}}</b></td>
+                    <td style="border: 1px solid black;"><b>{{vacation.description}}</b></td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="border: 1px solid black; width: 27%; float: left; margin-right: 7%; margin-top: 2%; margin-bottom: 6%;">
+            <thead style="background-color: #d3955f;">
+                <tr>
+                    <th colspan="4">Future vacations</th>
+                </tr>
+                <tr>
+                    <th style="border: 1px solid black;"><b>Start date</b></th>
+                    <th style="border: 1px solid black;"><b>End date</b></th>
+                    <th style="border: 1px solid black;"><b>Description</b></th>
+                    <th style="border: 1px solid black;"></th>
+                </tr>
+            </thead>
+            <tbody style="background-color: #52DEE5;">
+                <tr *ngFor="let vacation of futureVacations;">
+                    <td style="border: 1px solid black;"><b>{{vacation.startTime | date:'dd.MM.yyyy'}}</b></td>
+                    <td style="border: 1px solid black;"><b>{{vacation.endTime | date:'dd.MM.yyyy'}}</b></td>
+                    <td style="border: 1px solid black;"><b>{{vacation.description}}</b></td>
+                    <td style="border: 1px solid black;"><b><button style="background-color: rgb(255, 255, 110); cursor: pointer;" [routerLink]="['/change-a-vacation', vacation.id]">Change</button></b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

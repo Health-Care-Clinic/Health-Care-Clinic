@@ -17,13 +17,12 @@
   <ItemGroup>
     <Folder Include="Graphical editor\Model\" />
     <Folder Include="Graphical editor\Repository\" />
-    <Folder Include="Medical records\Model\" />
     <Folder Include="Schedule\Service\" />
     <Folder Include="Schedule\Repository\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClinicCore" Version="1.0.1" />
+    <PackageReference Include="ClinicCore" Version="1.0.2" />
     <PackageReference Include="MailKit" Version="2.15.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.11" />
@@ -32,13 +31,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="MimeKit" Version="2.15.1" />
     <PackageReference Include="Npgsql" Version="5.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
+    <ProjectReference Include="..\ClinicCore\ClinicCore.csproj" />
   </ItemGroup>
+
 
 </Project>

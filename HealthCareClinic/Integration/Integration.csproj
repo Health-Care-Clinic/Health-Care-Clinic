@@ -10,27 +10,35 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
+ 
   <ItemGroup>
-    <Compile Remove="ApiKeys\Repository\ApiKeyRepository.cs" />
+    <Compile Remove="ApiKeys\Repository\NewFolder\**" />
+    <Compile Remove="Repository\**" />
+    <EmbeddedResource Remove="ApiKeys\Repository\NewFolder\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <None Remove="ApiKeys\Repository\NewFolder\**" />
+    <None Remove="Repository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="ApiKeys\Repository\IApiKeyRepository.cs" />
-    <Compile Remove="ApiKeys\Service\ApiKeyService.cs" />
     <Compile Remove="Class1.cs" />
     <Compile Remove="DTO\PeriodDTO.cs" />
     <Compile Remove="Interface\Service\IReportService.cs" />
+    <Compile Remove="Pharmacy\Service\MedSpecificationService.cs" />
     <Compile Remove="Pharmacy\Service\ReportServicee.cs" />
     <Compile Remove="Service\IFileTransferService.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ApiKeys\Repository\" />
-    <Folder Include="ApiKeys\Service\" />
-    <Folder Include="Notifications\Repository\" />
-    <Folder Include="Notifications\Service\" />
+    <None Remove="UrgentMedicines\Protos\model.proto" />
+    <None Remove="UrgentMedicines\Protos\netGrpcService.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Partnership\Model\" />
     <Folder Include="Partnership\Service\" />
     <Folder Include="Partnership\Repository\" />
-    <Folder Include="Pharmacy\Repository\" />
-    <Folder Include="Pharmacy\Service\" />
     <Folder Include="Shared model\" />
     <Folder Include="Tendering\Model\" />
     <Folder Include="Tendering\Service\" />
@@ -38,7 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClinicCore" Version="1.0.1" />
     <PackageReference Include="iTextSharp" Version="5.5.13.2" />
     <PackageReference Include="Google.Protobuf" Version="3.19.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
@@ -55,6 +62,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Npgsql" Version="5.0.10" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     <PackageReference Include="QRCoder" Version="1.4.2" />
@@ -66,7 +74,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ClinicCore\ClinicCore.csproj" />
+    <ProjectReference Include="..\ClinicCore\ClinicCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="UrgentMedicines\Protos\model.proto" GrpcServices="None">
+      <ProtoRoot>UrgentMedicines\Protos\</ProtoRoot>
+    </Protobuf>
+    <Protobuf Include="UrgentMedicines\Protos\netGrpcService.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

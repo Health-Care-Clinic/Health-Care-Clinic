@@ -1,0 +1,85 @@
+<mat-stepper linear #stepper>
+    <mat-step label="Choose date" [stepControl]="firstFormGroup">
+        <body>
+            <form [formGroup]="firstFormGroup">
+
+                <div style="font-size: 16px">
+                    <mat-form-field>
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker" name="date" [min]="today" formControlName="firstCtrl" [(ngModel)]="selectedDate" (dateInput)="enableNext()" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                
+            
+                    <div>
+                        <button mat-button matStepperNext (click)="getAllSpecialties()" [disabled]="nextDisabled">Next</button>
+                    </div>
+                </div>
+              </form>
+        </body> 
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Select specialization">
+        <body>
+            <form [formGroup]="secondFormGroup">
+                <div style="font-size: 16px">
+                    <mat-form-field appearance="fill">
+                        <mat-label>--Specializations--</mat-label>
+                        <mat-select formControlName="secondCtrl" [(ngModel)]="selectedSpecialty" required>
+                          <mat-option *ngFor="let specialization of specializations" [value]="specialization">
+                            {{specialization}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+            
+                    <div>
+                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperNext (click)="getDoctorsBySpecialty()">Next</button>
+                    </div>
+                </div>      
+            </form>
+        </body>  
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup" label="Select doctor">
+        <body>
+            <form [formGroup]="thirdFormGroup">
+                <div style="font-size: 16px">
+                    <mat-form-field appearance="fill">
+                        <mat-label>--Doctors--</mat-label>
+                        <mat-select formControlName="thirdCtrl" [(ngModel)]="selectedDoctor" required>
+                          <mat-option *ngFor="let doctor of doctors" [value]="doctor">
+                            {{doctor.name + " " + doctor.surname}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+        
+                    <div>
+                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button matStepperNext (click)="getTermsForSelectedDoctor()">Next</button>
+                    </div>
+                </div>            
+              </form>
+        </body>     
+    </mat-step>
+    <mat-step [stepControl]="fourthFormGroup" label="Select term">
+        <body>
+            <form [formGroup]="fourthFormGroup">
+                <div style="font-size: 16px">
+                    <mat-form-field appearance="fill">
+                        <mat-label>--Terms--</mat-label>
+                        <mat-select formControlName="fourthCtrl" [(ngModel)]="selectedTerm" required>
+                          <mat-option *ngFor="let term of terms" [value]="term">
+                            {{term.substring(11,16)}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+        
+                    <div>
+                      <button mat-button matStepperPrevious>Back</button>
+                      <button mat-button (click)="confirm(); stepper.reset()" [disabled]="!fourthFormGroup.valid">Confirm</button>
+                    </div>
+                </div>           
+              </form>
+        </body> 
+    </mat-step>
+  </mat-stepper>

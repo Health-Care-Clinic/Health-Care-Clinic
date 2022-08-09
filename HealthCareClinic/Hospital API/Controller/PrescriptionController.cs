@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Hospital.Medical_records.Service;
 using Hospital_API.Adapter;
 using Hospital_API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
 
 namespace Hospital_API.Controller
 {
+    [Authorize(Roles = "manager")]
     [Route("api/[controller]")]
     [ApiController]
     public class PrescriptionController : ControllerBase
@@ -24,7 +26,7 @@ namespace Hospital_API.Controller
         [HttpPost]
         public IActionResult SendPrescription(PrescriptionDTO prescriptionDto)
         {
-            _prescriptionService.Add(PrescriptionAdadpter.PrescriptionDTOToPrescription(prescriptionDto));
+            _prescriptionService.Add(PrescriptionAdapter.PrescriptionDTOToPrescription(prescriptionDto));
 
             var client = new RestClient("http://localhost:65508");
             var request = new RestRequest("hospital/prescription");
@@ -37,7 +39,7 @@ namespace Hospital_API.Controller
         [HttpPost("qr")]
         public IActionResult SendPrescriptionQr(PrescriptionDTO prescriptionDto)
         {
-            _prescriptionService.Add(PrescriptionAdadpter.PrescriptionDTOToPrescription(prescriptionDto));
+            _prescriptionService.Add(PrescriptionAdapter.PrescriptionDTOToPrescription(prescriptionDto));
 
             var client = new RestClient("http://localhost:65508");
             var request = new RestRequest("hospital/prescription/qr");

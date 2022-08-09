@@ -1,5 +1,5 @@
 import { Doctor } from "../registration-form/doctor";
-import { ISurvey } from "../survey/survey";
+import { IReport } from "../report/IReport";
 import { ISurveyForAppointment } from "../survey/survey";
 
 export interface IAppointment {
@@ -19,4 +19,6 @@ export interface IAppointment {
         date : Date;
 
         surveyDTO : ISurveyForAppointment;
+
+        reportDTO : IReport;
 }

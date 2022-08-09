@@ -60,7 +60,10 @@ namespace HospitalIntegrationTests.Patient_portal
                 PatientRepository patientRepository = new PatientRepository(context);
                 PatientService patientService = new PatientService(patientRepository);
 
-                PatientController patientRegistrationController = new PatientController(alergenService, doctorService, patientService);
+                PrescriptionRepository prescriptionRepository = new PrescriptionRepository(context);
+                PrescriptionService prescriptionService = new PrescriptionService(prescriptionRepository);
+
+                PatientController patientRegistrationController = new PatientController(alergenService, doctorService, prescriptionService, patientService);
 
                 OkObjectResult a = patientRegistrationController.GetAllAllergens() as OkObjectResult;
                 List<AllergenDTO> allergens = a.Value as List<AllergenDTO>;

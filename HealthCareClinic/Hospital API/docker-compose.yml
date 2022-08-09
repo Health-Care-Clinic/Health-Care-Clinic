@@ -1,0 +1,102 @@
+version: '3.2' 
+
+services:
+
+  proxy:
+    build: 
+      context: ./Proxy
+      dockerfile: Dockerfile
+    ports: 
+      - "8081:8080"
+    restart: always
+    networks:
+      - integrationapi_application
+        
+  patient-front:
+    image: nenadbecanovic/patient-gateway:latest
+    #image: patient
+    #build:
+    #  context: ../../
+    #  dockerfile: stacks/build/patient-gateway/Dockerfile
+    depends_on:
+      - "hospital-api"
+    ports:
+      - "3200:8080"
+    networks: 
+      - integrationapi_application
+
+  hospital-api:
+    image: nenadbecanovic/hospital-api:latest
+    #image: hospitalapi
+    #build:
+    #  context: ../
+    #  dockerfile: ../stacks/build/hospital/Dockerfile
+    depends_on:
+      - "database"
+      - "eventDatabase"
+    restart: on-failure
+    ports:
+      - "5000:8080"
+    environment:
+      DATABASE_HOST_HOSPITAL: database
+      DATABASE_PORT: 5432
+      DATABASE_SCHEMA_HOSPITAL: hospitalDb
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_HOST_EVENT: eventDatabase
+      DATABASE_SCHEMA_EVENT: eventsDb
+      RABBITMQ_HOST: rabbitmq
+    networks:
+      - integrationapi_application
+      - hospital-database
+      - integrationapi_rabbit
+  
+  database: 
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - type: volume
+        source: hospital-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./hospitalDb.sql 
+        target: /docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "hospitalDb"
+    networks:
+      - hospital-database
+
+  eventDatabase: 
+    image: postgres:latest
+    ports:
+      - "5435:5432"
+    restart: always
+    volumes:
+      - type: volume
+        source: event-store-data
+        target: /var/lib/postgresql/data
+#      - type: bind
+#        source: ./database.sql 
+#        target: /docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "eventsDb"
+    networks:
+      - hospital-database
+
+volumes:
+  hospital-data:
+  event-store-data:
+
+networks:
+  integrationapi_application:
+    external: true
+  hospital-database:
+    driver: bridge
+  integrationapi_rabbit:
+    external: true

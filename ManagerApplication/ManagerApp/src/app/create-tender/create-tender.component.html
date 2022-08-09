@@ -1,0 +1,65 @@
+<div style="margin-left: 3%; margin-right: 3%;">
+    <mat-card class="example-card" style="margin-left: 25%; margin-right: 25%; margin-top: 5%;">
+        <div style="margin-left: 25%; margin-right: 25%;">
+            <mat-card-header>
+                <mat-card-title>Create new tender:</mat-card-title>
+                <mat-card-subtitle></mat-card-subtitle>
+            </mat-card-header>
+            <br>
+            <mat-card-content style="margin-left: 1%; margin-right: 1%;">
+                <p>
+                    <mat-form-field appearance="legacy" style="width: 100%;">
+                        <mat-label>Start Date</mat-label>
+                        <input type="date" matInput placeholder="Start Date" [(ngModel)]='startDate'>
+                    </mat-form-field>
+                </p> 
+                <p>
+                    <mat-form-field appearance="legacy" style="width: 100%;">
+                        <mat-label>End Date</mat-label>
+                        <input type="date" matInput placeholder="End Date" [(ngModel)]='endDate'>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="legacy" style="width: 100%;">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput placeholder="Note" [(ngModel)]='description'></textarea>
+                    </mat-form-field>
+                </p>
+                Requirements:
+                <br>
+                <br>
+                <div *ngFor="let medicine of medicines">
+                    <mat-form-field appearance="legacy" style="width: 20%; margin-right: 10%;">
+                        <mat-label>Quantity</mat-label>
+                        <input matInput [value]="medicine.quantity">
+                    </mat-form-field> 
+                    <mat-form-field appearance="legacy" style="width: 70%;">
+                        <mat-label>Medicine</mat-label>
+                        <input matInput [value]="medicine.name"> 
+                    </mat-form-field>
+                </div>
+                <p>
+                    <mat-form-field appearance="legacy" style="width: 20%; margin-right: 10%;">
+                        <mat-label>Quantity</mat-label>
+                        <input type="number" matInput placeholder="1"  [(ngModel)]="newQuantity">
+                    </mat-form-field> 
+                    <mat-form-field appearance="legacy" style="width: 70%;">
+                        <mat-label>Medicine</mat-label>
+                        <input matInput placeholder="Medicine" [(ngModel)]="newMedicine">
+                    </mat-form-field>
+                    <button mat-button (click)="addMedicine()">
+                        Add
+                    </button>
+                </p>
+                <br> <br> <br>
+                <button mat-raised-button color="primary" (click)='createTender()'>
+                    Create tender
+                </button>
+                <button mat-button color="primary" style="margin-left: 20px" (click)="openTendersComponent()">
+                    Cancel
+                </button>
+            </mat-card-content>
+            <br>
+        </div>
+    </mat-card>
+</div>

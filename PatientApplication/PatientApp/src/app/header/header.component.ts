@@ -8,9 +8,12 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  role: any
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.role = localStorage.getItem('role')
   }
 
   goToLandingPage() {
@@ -28,4 +31,20 @@ export class HeaderComponent implements OnInit {
   goToMedicalRecord() {
     this.router.navigateByUrl('/medical-record');
   }
+  
+  goToPrescriptions()
+  {
+    this.router.navigateByUrl('/prescriptions');
+  }
+
+  logOut() {
+    localStorage.removeItem('id')
+    localStorage.removeItem('jwtToken')
+    localStorage.removeItem('role')
+
+    this.role = ''
+
+    this.goToLandingPage()
+  }
+
 }

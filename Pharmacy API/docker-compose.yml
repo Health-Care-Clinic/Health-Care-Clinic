@@ -1,0 +1,54 @@
+version: '3.2'
+services:
+  postgres-database:
+    image: postgres 
+    restart: always
+    networks: 
+      - pharmacy-database 
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: pharmacyDb
+    volumes:
+      - type: volume
+        source: database-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./pharmacyDb.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5434:5432"
+
+  pharmacy:
+    image: nenadbecanovic/pharmacy-api:latest
+    #image: pharmacyapi
+    #build:
+    #  context: ../
+    #  dockerfile: stacks/build/pharmacy/Dockerfile
+    depends_on:
+      - postgres-database
+    environment: 
+      DATABASE_HOST: postgres-database
+      DATABASE_PORT: 5432
+      DATABASE_SCHEMA: pharmacyDb
+      DATABASE_PASSWORD: password
+      DATABASE_USER: postgres
+      RABBITMQ_HOST: rabbitmq
+    ports:
+      - "5002:80" 
+    restart: on-failure
+    networks:
+      - integrationapi_application
+      - pharmacy-database
+      - integrationapi_rabbit
+
+volumes:
+  database-data:
+
+networks:
+  integrationapi_application:
+    external: true
+  integrationapi_rabbit:
+    external: true
+  pharmacy-database:
+    driver: bridge

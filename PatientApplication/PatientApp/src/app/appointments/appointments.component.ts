@@ -5,6 +5,9 @@ import { SurveyService } from '../survey/survey.service';
 import { IAppointment } from '../service/IAppointment';
 import { ISurvey } from '../survey/survey';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { find } from 'rxjs-compat/operator/find';
+import { PatientService } from '../patient/patient.service';
 
 @Component({
   selector: 'app-appointments',
@@ -14,7 +17,7 @@ import { Router } from '@angular/router';
 
 export class AppointmentsComponent implements OnInit {
 
-  constructor(private _appointmentService: AppointmentService, private _surveyService: SurveyService, private router: Router) { }
+  constructor(private _appointmentService: AppointmentService,private _patientService : PatientService, private _surveyService: SurveyService, private router: Router, private _snackBar: MatSnackBar) { }
 
   @Input() id! : number;
   appointments : IAppointment[] = [];
@@ -22,17 +25,17 @@ export class AppointmentsComponent implements OnInit {
   currentDate = new Date();
   currentDatePlusTwoDays = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000);
   errorMessage : string = "";
-  displayedColumns: string[] = ['AppointmentId','Room','DoctorName', 'Date', 'Cancelled','Cancelation','SurveyId']; 
+  displayedColumns: string[] = ['AppointmentId','Room','DoctorName', 'Date', 'Cancelled','Cancelation','SurveyId','Report']; 
 
 
   ngOnInit(): void {
-    this.getAppointmetsForPatient(1)
+    this.getAppointmetsForPatient(Number(localStorage.getItem('id')))
   }
 
   getAppointmetsForPatient(id: number) {
     this._appointmentService.getAppointmetsForPatient(id)
         .subscribe(data =>  this.appointments = data,
-                   error => this.errorMessage = <any>error);     
+                   error => this.errorMessage = <any>error);   
   }
 
   goToSurvey(appointment: IAppointment): void {
@@ -41,24 +44,29 @@ export class AppointmentsComponent implements OnInit {
     this.router.navigate(navigationDetails);
   }
 
+  viewReport(appointment: IAppointment): void{
+    this._patientService.appointment = appointment;
+    this.router.navigateByUrl('report');
+  }
+
   cancelAppointment(appointment :IAppointment){
-    this.appointment = appointment
     this._appointmentService.cancelAppointment(appointment.id)
         .subscribe(data => this.appointment = data,
                    error => this.errorMessage = <any>error);
-    if(this.appointment != undefined)
-    {
-      this.appointment.isCancelled = true;
-      window.alert('Zakazani pregled je otkazan');
-    }
-    else{
-      window.alert('Zakazani pregled ne moze biti otkazan manje od dva dana pre termina');
-    }
+
+    appointment.isCancelled = true;
+
+    //let a = document.getElementById(appointment.id.toString()); 
+    //a?.parentNode?.removeChild(a);
+
+
+    this._snackBar.open('Your appointment is canceled', 'Close', {duration: 3000});
   }
 
   compare(appointmentDate: Date, tempDate: Date)
   {
-    if(appointmentDate < tempDate)
+    var appointmentTime = new Date(appointmentDate);
+    if(appointmentTime.getTime() < tempDate.getTime())
     {
       return true;
     }

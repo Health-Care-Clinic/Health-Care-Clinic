@@ -2,7 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -58,6 +58,28 @@ import { RenovationRoomsComponent } from './component/renovation-rooms/renovatio
 import { RoomScheduleComponent } from './component/hospital-map/room-schedule.component';
 import { PharmacyProfilesComponent } from './pharmacy-profiles/pharmacy-profiles.component';
 import { EditPharmacyProfileComponent } from './edit-pharmacy-profile/edit-pharmacy-profile.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { TokenInterceptor } from './services/token-interceptor.service';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { TendersComponent } from './tenders/tenders.component';
+import { CreateTenderComponent } from './create-tender/create-tender.component';
+import { DoctorsComponent } from './component/doctors/doctors.component';
+import { OnCallShiftComponent } from './component/on-call-shift/on-call-shift.component';
+import { NewOnCallShiftComponent } from './component/new-on-call-shift/new-on-call-shift.component';
+import { DoctorVacationsComponent } from './component/doctor-vacations/doctor-vacations.component';
+import { AddingShiftComponent } from './component/adding-shift/adding-shift.component';
+import { ShiftsComponent } from './component/shifts/shifts.component';
+import { AddShiftComponent } from './component/shifts/add-shift/add-shift.component';
+import { EditDoctorShiftComponent } from './component/edit-doctor-shift/edit-doctor-shift.component';
+import { ScheduleDoctorVacationComponent } from './component/schedule-doctor-vacation/schedule-doctor-vacation.component';
+import { WorkloadComponent } from './component/workload/workload.component';
+import { EditShiftComponent } from './component/shifts/edit-shift/edit-shift.component';
+import { ChangeDoctorVacationComponent } from './component/change-doctor-vacation/change-doctor-vacation.component';
+import { DeleteDoctorVacationComponent } from './component/delete-doctor-vacation/delete-doctor-vacation.component';
+import { TenderStatisticsComponent } from './tender-statistics/tender-statistics.component';
+import { TenderOffersComponent } from './tender-offers/tender-offers.component';
+import { PharmacyTenderStatisticsComponent } from './pharmacy-tender-statistics/pharmacy-tender-statistics.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const MaterialComponents = [
   MatTableModule,
@@ -78,7 +100,8 @@ const MaterialComponents = [
   MatExpansionModule,
   MatTooltipModule,
   MatSnackBarModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSelectModule
 ];
 
 @NgModule({
@@ -106,7 +129,29 @@ const MaterialComponents = [
     RoomScheduleComponent,
     NotificationsComponent,
     PharmacyProfilesComponent,
-    EditPharmacyProfileComponent
+    EditPharmacyProfileComponent,
+    LoginPageComponent,
+    TendersComponent,
+    CreateTenderComponent,
+    DoctorsComponent,
+    OnCallShiftComponent,
+    NewOnCallShiftComponent,
+    DoctorVacationsComponent,
+    ShiftsComponent,
+    AddingShiftComponent,
+    AddShiftComponent,
+    EditDoctorShiftComponent,
+    ScheduleDoctorVacationComponent,
+    AddShiftComponent,
+    WorkloadComponent,
+    AddingShiftComponent,
+    AddShiftComponent,
+    EditShiftComponent,
+    ChangeDoctorVacationComponent,
+    DeleteDoctorVacationComponent,
+    TenderStatisticsComponent,
+    TenderOffersComponent,
+    PharmacyTenderStatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +165,9 @@ const MaterialComponents = [
     IvyCarouselModule,
     MaterialComponents
   ],
-  providers: [FeedbackService, SurveyObservationService],
+  providers: [FeedbackService, SurveyObservationService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent],
   entryComponents: [OrderDialogComponent]
 })

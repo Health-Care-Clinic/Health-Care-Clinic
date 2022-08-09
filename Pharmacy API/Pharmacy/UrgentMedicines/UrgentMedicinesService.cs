@@ -1,10 +1,11 @@
 ﻿using Grpc.Core;
 using Pharmacy.Model;
-using Pharmacy.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Pharmacy.Interfaces.Service;
+using Pharmacy.Prescriptions.Model;
 using UrgentMedicines.Protos;
 
 namespace Pharmacy.UrgentMedicines

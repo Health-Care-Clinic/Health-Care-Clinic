@@ -1,4 +1,5 @@
 ﻿
+using Hospital.Graphical_editor.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -36,36 +37,19 @@ namespace Hospital.Rooms_and_equipment.Model
             get; set;
         }
 
-        public float X
-        {
-            get; set;
-        }
-        public float Y
-        {
-            get; set;
-        }
-        public float Width
-        {
-            get; set;
-        }
-        public float Height
+        public virtual PositionAndDimension PositionAndDimension 
         {
             get; set;
         }
 
-
-        public Room(int id, RoomType type, string name, string description, float x, float y, float width, float height, int floorId)
+        public Room(int id, RoomType type, string name, string description, int floorId, PositionAndDimension positionAndDimension)
         {
             Id = id;
             Type = type;
             Name = name;
             Description = description;
             FloorId = floorId;
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
-
+            PositionAndDimension = positionAndDimension;
         }
 
         public Room()

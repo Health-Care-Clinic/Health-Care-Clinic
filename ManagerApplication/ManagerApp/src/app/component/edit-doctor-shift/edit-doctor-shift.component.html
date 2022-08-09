@@ -1,0 +1,11 @@
+<div>
+    <h1>Select shift</h1>
+    <div class="row">
+        <input type="radio" id="html" name="fav_language" value="1" [(ngModel)]="radioInput"> First shift(07:00 - 13:00)
+    </div>
+    <div class="row">
+        <input type="radio" id="html" name="fav_language" value="2" [(ngModel)]="radioInput"> Second shift(13:00 - 19:00)
+    </div>
+    <button (click)="edit()" id="edit">Edit</button>
+    <p *ngIf="errorMessage" style="color: red; font-size: 20px;"> You must select the shift! </p>
+</div>

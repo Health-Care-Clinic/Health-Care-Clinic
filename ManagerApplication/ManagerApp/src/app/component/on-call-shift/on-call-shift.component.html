@@ -1,0 +1,28 @@
+<div style="margin-left:auto; margin-right:auto; display:flex;align-content:center;align-items: center;justify-content: center;">
+    <div id="tableDiv" style="margin-right: 100px;">
+        <div style="height: 30px;"></div>
+        <table id="shifts" style="border: 1px solid black;width: 100%;">
+            <thead style="background-color: #d3955f;">
+                <tr>
+                    <th style="border: 1px solid black;"><b>Date</b></th>
+                </tr>
+            </thead>
+            <tbody style="background-color: #52DEE5;">
+                <tr *ngFor="let onCallShift of onCallShifts;let i = index;">
+                    <td (click)="append(onCallShift.id)" style="border: 1px solid black;"><b>{{onCallShift.date | date:'dd.MM.yyyy'}}</b></td>
+                </tr>
+                <tr>
+                    <td> <button id="add-new-on-call-shift" [routerLink]="['/new-on-call-shift', OnCallShiftId]">Add on call shift</button> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-right: 350px; background-color:#495869; display:flex;flex-direction: column;justify-content: flex-start;width: 20%;">
+        
+        <b style="text-align: center;">Name:</b>
+
+
+        <div style="display:flex;flex-direction: row;justify-content: center;"><input style="text-align: center;width: 60%;" type="date" id="inputId"/></div>
+        <div style="display:flex;flex-direction: row;justify-content: center;"><button style="background-color: #BDD5EA;width: 60%;" (click)="change()" >Change</button></div>
+    </div>
+</div>

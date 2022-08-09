@@ -1,8 +1,8 @@
 <mat-form-field style="width: 300px; height: 200px;">
-    <textarea required matInput placeholder="Write your oppinion" [(ngModel)]="feedbackModel.text"  rows="15" cols="40" ></textarea>
+    <textarea id="feedbackTextArea" required matInput placeholder="Write your oppinion" [(ngModel)]="feedbackModel.text"  rows="15" cols="40" ></textarea>
 </mat-form-field>
 <div style="margin-left: 350px;">
     <mat-checkbox [(ngModel)]="feedbackModel.canBePublished">Allow my feedback to be published</mat-checkbox>
     <div><mat-checkbox [(ngModel)]="feedbackModel.isAnonymous">Anonymus</mat-checkbox></div>
-    <div><button mat-raised-button name="submit-button" (click)="submit()" [disabled]="feedbackModel.text === ''">Submit</button></div>
+    <div><button id="feedbackSubmit" mat-raised-button name="submit-button" (click)="submit()" [disabled]="feedbackModel.text === ''">Submit</button></div>
 </div>

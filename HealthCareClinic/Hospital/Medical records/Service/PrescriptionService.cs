@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Hospital.Medical_records.Model;
 using Hospital.Medical_records.Repository.Interface;
+using Hospital.Shared_model.Model;
 
 namespace Hospital.Medical_records.Service
 {
@@ -33,6 +34,11 @@ namespace Hospital.Medical_records.Service
         public IEnumerable<Prescription> GetAll()
         {
             return _prescriptionRepository.GetAll();
+        }
+
+        public List<Prescription> GetAllPrescriptionsForPatient(Patient patient)
+        {
+            return _prescriptionRepository.GetAllPrescriptionsForPatient(patient);
         }
     }
 }

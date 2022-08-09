@@ -1,5 +1,5 @@
 <div>
-  <table mat-table [dataSource]="appointments" class="mat-elevation-z8" style="width: 100%;">
+  <table id="Appointments" mat-table [dataSource]="appointments" class="mat-elevation-z8" style="width: 100%;">
 
       <ng-container matColumnDef="AppointmentId">
           <mat-header-cell *matHeaderCellDef> ApointmentId </mat-header-cell>
@@ -32,15 +32,10 @@
           <mat-cell *matCellDef="let element"> {{element.isCancelled}} </mat-cell>
         </ng-container>
 
- <!--        <ng-container matColumnDef="Done">
-          <mat-header-cell *matHeaderCellDef> Done </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.isDone}} </mat-cell>
-        </ng-container> -->
-
         <ng-container matColumnDef="SurveyId">
           <mat-header-cell *matHeaderCellDef>Survey </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <button mat-button *ngIf="!element.surveyDTO.done && !element.isCancelled && compare(element.date,currentDate) " (click)="goToSurvey(element.id)">
+            <button mat-button *ngIf="!element.surveyDTO.done && !element.isCancelled && compare(element.date,currentDate) " (click)="goToSurvey(element)">
               Survey
             </button>
           </mat-cell>
@@ -49,8 +44,17 @@
         <ng-container matColumnDef="Cancelation">
           <mat-header-cell *matHeaderCellDef>Cancel </mat-header-cell>
           <mat-cell *matCellDef="let element"> 
-            <button mat-button *ngIf="!element.isCancelled && !compare(element.date,currentDatePlusTwoDays) " (click)="cancelAppointment(element)">
+            <button mat-button [attr.id]="element.id" *ngIf="!element.isCancelled && !compare(element.date,currentDatePlusTwoDays) " (click)="cancelAppointment(element)">
               Cancel
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Report">
+          <mat-header-cell *matHeaderCellDef>Report </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+            <button mat-button [attr.id]="element.id" *ngIf="element.isDone" (click)="viewReport(element)">
+              View
             </button>
           </mat-cell>
         </ng-container>

@@ -250,7 +250,7 @@ namespace Integration.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Integration.Pharmacy.Model.PharmacyPromotion", b =>
+            modelBuilder.Entity("Integration.Promotions.Model.PharmacyPromotion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,6 +278,68 @@ namespace Integration.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PharmacyPromotions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Samo danas i sutra AKCIJA: Brufen 30% snizenje!!!",
+                            EndTime = new DateTime(2022, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PharmacyName = "Tilda",
+                            Posted = true,
+                            StartTime = new DateTime(2021, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Sale"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Od sutra stupa novi lek na trziste -> VIJAGRA samo tada",
+                            EndTime = new DateTime(2022, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PharmacyName = "BENU",
+                            Posted = true,
+                            StartTime = new DateTime(2021, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "New season"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Finalna rasprodaja lekova...",
+                            EndTime = new DateTime(2022, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PharmacyName = "Biljana i Luka",
+                            Posted = true,
+                            StartTime = new DateTime(2021, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Sale"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "Petkom idite u apoteku 'Jankovic'",
+                            EndTime = new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PharmacyName = "Jankovic",
+                            Posted = true,
+                            StartTime = new DateTime(2021, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Black friday"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "Grrrr strasan demetrin",
+                            EndTime = new DateTime(2022, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PharmacyName = "Medico",
+                            Posted = true,
+                            StartTime = new DateTime(2021, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Halloween action"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Content = "Svugde podji, u Rodu dodji",
+                            EndTime = new DateTime(2022, 2, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PharmacyName = "Roda",
+                            Posted = true,
+                            StartTime = new DateTime(2021, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Sale"
+                        });
                 });
 #pragma warning restore 612, 618
         }

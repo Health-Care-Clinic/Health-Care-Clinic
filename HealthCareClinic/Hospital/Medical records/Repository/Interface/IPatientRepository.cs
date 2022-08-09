@@ -12,5 +12,6 @@ namespace Hospital.Medical_records.Repository.Interface
         public List<string> GetAllUsernames();
         public void BlockPatientById(int id);
         public List<Patient> GetAllSuspiciousPatients();
+        public Patient FindByUsernameAndPassword(string username, string password);
     }
 }

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital_API.Controller.FeedbacksController
 {
@@ -28,7 +29,7 @@ namespace Hospital_API.Controller.FeedbacksController
         {
             List<FeedbackMessage> feedbacks = (List<FeedbackMessage>)feedbackMessageService.GetAll();
             List<FeedbackMessageDTO> result = FeedbackMessageAdapter.FeedbackMessageListToFeedbackMessageDTOList(feedbacks);
-
+            
             return Ok(result);
         }
 
@@ -41,6 +42,7 @@ namespace Hospital_API.Controller.FeedbacksController
             return Ok(result);
         }
 
+        [Authorize(Roles = "manager")]
         [HttpPut("{id?}")]       // PUT /api/feedbackMessage/id
         public IActionResult ModifyPublishable(int id = 0)
         {
@@ -60,6 +62,7 @@ namespace Hospital_API.Controller.FeedbacksController
             }
         }
 
+        [Authorize(Roles = "patient")]
         [HttpPost("submit")]      // POST /api/feedbackMessage/submit
         public IActionResult SubmitFeedback(FeedbackMessageDTO dto)
         {

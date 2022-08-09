@@ -1,0 +1,22 @@
+.mat-row:hover {
+    background-color: rgb(236, 234, 234);
+    cursor: pointer;
+  }
+
+.mat-header-cell:hover {
+    background-color: rgb(223, 221, 221);
+    cursor: pointer;
+  }
+
+.reserve {
+    margin-top: -20%;
+}
+
+.infoDiv{
+  margin-bottom: 8%;
+  position: sticky;
+}
+.customer_info{
+    
+    font-size: larger;
+}

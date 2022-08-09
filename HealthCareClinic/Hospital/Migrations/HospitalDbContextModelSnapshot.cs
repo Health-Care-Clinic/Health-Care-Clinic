@@ -19,12 +19,72 @@ namespace Hospital.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("Hospital.Medical_records.Model.MedicalRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("BloodType")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MedicalRecords");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BloodType = "A"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BloodType = "A+"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BloodType = "A-"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BloodType = "0"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BloodType = "0-"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BloodType = "0+"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BloodType = "AB-"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BloodType = "B+"
+                        });
+                });
+
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
@@ -43,9 +103,99 @@ namespace Hospital.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppointmentId");
+
                     b.HasIndex("PatientId");
 
                     b.ToTable("Prescriptions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentId = 10,
+                            Date = new DateTime(2022, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Diagnosis = "Uzimati 1 put dnevno do poboljšanja.",
+                            Medicine = "Panklav",
+                            PatientId = 1,
+                            Quantity = 300
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppointmentId = 25,
+                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Diagnosis = "Uzimati 2 puta dnevno do poboljšanja.",
+                            Medicine = "Brufen",
+                            PatientId = 1,
+                            Quantity = 200
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AppointmentId = 26,
+                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Diagnosis = "Uzimati 3 puta dnevno do poboljšanja.",
+                            Medicine = "Kafetin",
+                            PatientId = 1,
+                            Quantity = 400
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.ProfilePicture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfilePictures");
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.Report", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reports");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Pacijent se žali na tegobe sa mučninom i bolom u stomaku.",
+                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comment = "Pacijent se žali na tegobe sa glavoboljom.",
+                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comment = "Pacijent se žali na zubobolju.",
+                            Date = new DateTime(2021, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Building", b =>
@@ -817,23 +967,11 @@ namespace Hospital.Migrations
                     b.Property<int>("FloorId")
                         .HasColumnType("integer");
 
-                    b.Property<float>("Height")
-                        .HasColumnType("real");
-
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");
-
-                    b.Property<float>("Width")
-                        .HasColumnType("real");
-
-                    b.Property<float>("X")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Y")
-                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -845,840 +983,560 @@ namespace Hospital.Migrations
                             Id = 1,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 2,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 3,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 4,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 5,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 6,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 7,
                             Description = "Room description...",
                             FloorId = 1,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 8,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 9,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 10,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 11,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 12,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 13,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 14,
                             Description = "Room description...",
                             FloorId = 2,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 15,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 16,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 17,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 18,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 19,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 20,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 21,
                             Description = "Room description...",
                             FloorId = 3,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 22,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 23,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 24,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 25,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 26,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 27,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 28,
                             Description = "Room description...",
                             FloorId = 4,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 29,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 30,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 31,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 32,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 33,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 34,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 35,
                             Description = "Room description...",
                             FloorId = 5,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 36,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 37,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 38,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 39,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 40,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 41,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 42,
                             Description = "Room description...",
                             FloorId = 6,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 43,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 44,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 45,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 46,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 47,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 48,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 49,
                             Description = "Room description...",
                             FloorId = 7,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 50,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 51,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 52,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 53,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 54,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 55,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 56,
                             Description = "Room description...",
                             FloorId = 8,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 57,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 58,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 59,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 60,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 61,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 62,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 63,
                             Description = "Room description...",
                             FloorId = 9,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         },
                         new
                         {
                             Id = 64,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Operation room",
-                            Type = 1,
-                            Width = 400f,
-                            X = 320f,
-                            Y = 30f
+                            Type = 1
                         },
                         new
                         {
                             Id = 65,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 380f,
-                            X = 320f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 66,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 67,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 300f,
-                            X = 700f,
-                            Y = 260f
+                            Type = 0
                         },
                         new
                         {
                             Id = 68,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 270f,
-                            X = 50f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 69,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 140f,
                             Name = "Room for appointments",
-                            Type = 0,
-                            Width = 280f,
-                            X = 720f,
-                            Y = 30f
+                            Type = 0
                         },
                         new
                         {
                             Id = 70,
                             Description = "Room description...",
                             FloorId = 10,
-                            Height = 90f,
                             Name = "WC",
-                            Type = 2,
-                            Width = 150f,
-                            X = 50f,
-                            Y = 170f
+                            Type = 2
                         });
                 });
 
@@ -1689,24 +1547,6 @@ namespace Hospital.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("DestinationRoomId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Duration")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Equipment")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SourceRoomId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.ToTable("Transfer");
@@ -1714,63 +1554,27 @@ namespace Hospital.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Date = new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified),
-                            DestinationRoomId = 2,
-                            Duration = 60,
-                            Equipment = "Bed",
-                            Quantity = 2,
-                            SourceRoomId = 1
+                            Id = 9
                         },
                         new
                         {
-                            Id = 6,
-                            Date = new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
-                            DestinationRoomId = 51,
-                            Duration = 60,
-                            Equipment = "Needle",
-                            Quantity = 5,
-                            SourceRoomId = 1
+                            Id = 6
                         },
                         new
                         {
-                            Id = 2,
-                            Date = new DateTime(2021, 11, 30, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            DestinationRoomId = 60,
-                            Duration = 45,
-                            Equipment = "Bed",
-                            Quantity = 4,
-                            SourceRoomId = 50
+                            Id = 2
                         },
                         new
                         {
-                            Id = 3,
-                            Date = new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified),
-                            DestinationRoomId = 52,
-                            Duration = 45,
-                            Equipment = "TV",
-                            Quantity = 1,
-                            SourceRoomId = 45
+                            Id = 3
                         },
                         new
                         {
-                            Id = 4,
-                            Date = new DateTime(2021, 11, 24, 9, 30, 0, 0, DateTimeKind.Unspecified),
-                            DestinationRoomId = 62,
-                            Duration = 15,
-                            Equipment = "Bandage",
-                            Quantity = 4,
-                            SourceRoomId = 47
+                            Id = 4
                         },
                         new
                         {
-                            Id = 5,
-                            Date = new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            DestinationRoomId = 23,
-                            Duration = 15,
-                            Equipment = "Blanket",
-                            Quantity = 10,
-                            SourceRoomId = 18
+                            Id = 5
                         });
                 });
 
@@ -1794,47 +1598,47 @@ namespace Hospital.Migrations
                         {
                             PatientId = 1,
                             AppointmentId = 1764,
-                            DateOfCancellation = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1765,
-                            DateOfCancellation = new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1763,
-                            DateOfCancellation = new DateTime(2021, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1766,
-                            DateOfCancellation = new DateTime(2021, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1777,
-                            DateOfCancellation = new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 16,
+                            PatientId = 6,
                             AppointmentId = 1767,
                             DateOfCancellation = new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 16,
+                            PatientId = 6,
                             AppointmentId = 1768,
                             DateOfCancellation = new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 16,
+                            PatientId = 6,
                             AppointmentId = 1769,
                             DateOfCancellation = new DateTime(2021, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -1842,19 +1646,19 @@ namespace Hospital.Migrations
                         {
                             PatientId = 2,
                             AppointmentId = 1799,
-                            DateOfCancellation = new DateTime(2021, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            PatientId = 16,
+                            PatientId = 6,
                             AppointmentId = 1780,
-                            DateOfCancellation = new DateTime(2021, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             PatientId = 1,
                             AppointmentId = 1870,
-                            DateOfCancellation = new DateTime(2021, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DateOfCancellation = new DateTime(2021, 12, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -1942,31 +1746,31 @@ namespace Hospital.Migrations
                         {
                             Id = 6,
                             CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2021, 10, 3, 11, 45, 3, 0, DateTimeKind.Unspecified),
                             Identity = "IvanJovanovic",
                             IsAnonymous = false,
                             IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                            Text = "Bolnica koja se revnosno stara o vašem zdravlju."
                         },
                         new
                         {
                             Id = 7,
                             CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2021, 10, 18, 15, 27, 36, 0, DateTimeKind.Unspecified),
                             Identity = "JovanaGugl",
                             IsAnonymous = false,
                             IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                            Text = "Ljubazno osoblje, imam prijatno iskustvo boravka ovde."
                         },
                         new
                         {
                             Id = 8,
                             CanBePublished = true,
-                            Date = new DateTime(2021, 9, 30, 7, 50, 19, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2021, 11, 26, 19, 42, 24, 0, DateTimeKind.Unspecified),
                             Identity = "RatkoVarda8",
                             IsAnonymous = false,
                             IsPublished = true,
-                            Text = "Savremena bolnica koju bih preporučio ljudima."
+                            Text = "Drago mi je da u mojoj blizini postoji ovako kvalitetna zdravstvena ustanova."
                         });
                 });
 
@@ -2042,6 +1846,102 @@ namespace Hospital.Migrations
                         {
                             Id = 9,
                             AppointmentId = 9,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AppointmentId = 11,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AppointmentId = 12,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AppointmentId = 13,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AppointmentId = 14,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AppointmentId = 15,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AppointmentId = 16,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AppointmentId = 17,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 18,
+                            AppointmentId = 18,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 19,
+                            AppointmentId = 19,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 20,
+                            AppointmentId = 20,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 21,
+                            AppointmentId = 21,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 22,
+                            AppointmentId = 22,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 23,
+                            AppointmentId = 23,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 24,
+                            AppointmentId = 24,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 25,
+                            AppointmentId = 25,
+                            Done = false
+                        },
+                        new
+                        {
+                            Id = 26,
+                            AppointmentId = 26,
                             Done = false
                         },
                         new
@@ -2233,6 +2133,294 @@ namespace Hospital.Migrations
                             Id = 27,
                             Name = "Hospital",
                             SurveyId = 9
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Name = "Doctor",
+                            SurveyId = 11
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Name = "Medical stuff",
+                            SurveyId = 11
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Name = "Hospital",
+                            SurveyId = 11
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Name = "Doctor",
+                            SurveyId = 12
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Name = "Medical stuff",
+                            SurveyId = 12
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Name = "Hospital",
+                            SurveyId = 12
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Name = "Doctor",
+                            SurveyId = 13
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Name = "Medical stuff",
+                            SurveyId = 13
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Name = "Hospital",
+                            SurveyId = 13
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Name = "Doctor",
+                            SurveyId = 14
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Name = "Medical stuff",
+                            SurveyId = 14
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Name = "Hospital",
+                            SurveyId = 14
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Name = "Doctor",
+                            SurveyId = 15
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Name = "Medical stuff",
+                            SurveyId = 15
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Name = "Hospital",
+                            SurveyId = 15
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Name = "Doctor",
+                            SurveyId = 16
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Name = "Medical stuff",
+                            SurveyId = 16
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Name = "Hospital",
+                            SurveyId = 16
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Name = "Doctor",
+                            SurveyId = 17
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Name = "Medical stuff",
+                            SurveyId = 17
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Name = "Hospital",
+                            SurveyId = 17
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Name = "Doctor",
+                            SurveyId = 18
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Name = "Medical stuff",
+                            SurveyId = 18
+                        },
+                        new
+                        {
+                            Id = 54,
+                            Name = "Hospital",
+                            SurveyId = 18
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Name = "Doctor",
+                            SurveyId = 19
+                        },
+                        new
+                        {
+                            Id = 56,
+                            Name = "Medical stuff",
+                            SurveyId = 19
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Name = "Hospital",
+                            SurveyId = 19
+                        },
+                        new
+                        {
+                            Id = 58,
+                            Name = "Doctor",
+                            SurveyId = 20
+                        },
+                        new
+                        {
+                            Id = 59,
+                            Name = "Medical stuff",
+                            SurveyId = 20
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Name = "Hospital",
+                            SurveyId = 20
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Name = "Doctor",
+                            SurveyId = 21
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Name = "Medical stuff",
+                            SurveyId = 21
+                        },
+                        new
+                        {
+                            Id = 63,
+                            Name = "Hospital",
+                            SurveyId = 21
+                        },
+                        new
+                        {
+                            Id = 64,
+                            Name = "Doctor",
+                            SurveyId = 22
+                        },
+                        new
+                        {
+                            Id = 65,
+                            Name = "Medical stuff",
+                            SurveyId = 22
+                        },
+                        new
+                        {
+                            Id = 66,
+                            Name = "Hospital",
+                            SurveyId = 22
+                        },
+                        new
+                        {
+                            Id = 67,
+                            Name = "Doctor",
+                            SurveyId = 23
+                        },
+                        new
+                        {
+                            Id = 68,
+                            Name = "Medical stuff",
+                            SurveyId = 23
+                        },
+                        new
+                        {
+                            Id = 69,
+                            Name = "Hospital",
+                            SurveyId = 23
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Name = "Doctor",
+                            SurveyId = 24
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Name = "Medical stuff",
+                            SurveyId = 24
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Name = "Hospital",
+                            SurveyId = 24
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Name = "Doctor",
+                            SurveyId = 25
+                        },
+                        new
+                        {
+                            Id = 74,
+                            Name = "Medical stuff",
+                            SurveyId = 25
+                        },
+                        new
+                        {
+                            Id = 75,
+                            Name = "Hospital",
+                            SurveyId = 25
+                        },
+                        new
+                        {
+                            Id = 76,
+                            Name = "Doctor",
+                            SurveyId = 26
+                        },
+                        new
+                        {
+                            Id = 77,
+                            Name = "Medical stuff",
+                            SurveyId = 26
+                        },
+                        new
+                        {
+                            Id = 78,
+                            Name = "Hospital",
+                            SurveyId = 26
                         },
                         new
                         {
@@ -3224,6 +3412,1686 @@ namespace Hospital.Migrations
                         },
                         new
                         {
+                            Id = 151,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 152,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 153,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 154,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 155,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 31
+                        },
+                        new
+                        {
+                            Id = 156,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 157,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 158,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 159,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 160,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 32
+                        },
+                        new
+                        {
+                            Id = 161,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 162,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 163,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 164,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 165,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 33
+                        },
+                        new
+                        {
+                            Id = 166,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 167,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 168,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 169,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 170,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 34
+                        },
+                        new
+                        {
+                            Id = 171,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 172,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 173,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 174,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 175,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 35
+                        },
+                        new
+                        {
+                            Id = 176,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 177,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 178,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 179,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 180,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 36
+                        },
+                        new
+                        {
+                            Id = 181,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 182,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 183,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 184,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 185,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 37
+                        },
+                        new
+                        {
+                            Id = 186,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 187,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 188,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 189,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 190,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 38
+                        },
+                        new
+                        {
+                            Id = 191,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 192,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 193,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 194,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 195,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 39
+                        },
+                        new
+                        {
+                            Id = 196,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 197,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 198,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 199,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 200,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 40
+                        },
+                        new
+                        {
+                            Id = 201,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 202,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 203,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 204,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 205,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 41
+                        },
+                        new
+                        {
+                            Id = 206,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 207,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 208,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 209,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 210,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 42
+                        },
+                        new
+                        {
+                            Id = 211,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 212,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 213,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 214,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 215,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 43
+                        },
+                        new
+                        {
+                            Id = 216,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 217,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 218,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 219,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 220,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 44
+                        },
+                        new
+                        {
+                            Id = 221,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 222,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 223,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 224,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 225,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 45
+                        },
+                        new
+                        {
+                            Id = 226,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 227,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 228,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 229,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 230,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 46
+                        },
+                        new
+                        {
+                            Id = 231,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 232,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 233,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 234,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 235,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 47
+                        },
+                        new
+                        {
+                            Id = 236,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 237,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 238,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 239,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 240,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 48
+                        },
+                        new
+                        {
+                            Id = 241,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 242,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 243,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 244,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 245,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 49
+                        },
+                        new
+                        {
+                            Id = 246,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 247,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 248,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 249,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 250,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 50
+                        },
+                        new
+                        {
+                            Id = 251,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 252,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 253,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 254,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 255,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 51
+                        },
+                        new
+                        {
+                            Id = 256,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 257,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 258,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 259,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 260,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 52
+                        },
+                        new
+                        {
+                            Id = 261,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 262,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 263,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 264,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 265,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 53
+                        },
+                        new
+                        {
+                            Id = 266,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 267,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 268,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 269,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 270,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 54
+                        },
+                        new
+                        {
+                            Id = 271,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 272,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 273,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 274,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 275,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 55
+                        },
+                        new
+                        {
+                            Id = 276,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 277,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 278,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 279,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 280,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 56
+                        },
+                        new
+                        {
+                            Id = 281,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 282,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 283,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 284,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 285,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 57
+                        },
+                        new
+                        {
+                            Id = 286,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 287,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 288,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 289,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 290,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 58
+                        },
+                        new
+                        {
+                            Id = 291,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 292,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 293,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 294,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 295,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 59
+                        },
+                        new
+                        {
+                            Id = 296,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 297,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 298,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 299,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 300,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 60
+                        },
+                        new
+                        {
+                            Id = 301,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 302,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 303,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 304,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 305,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 61
+                        },
+                        new
+                        {
+                            Id = 306,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 307,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 308,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 309,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 310,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 62
+                        },
+                        new
+                        {
+                            Id = 311,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 312,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 313,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 314,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 315,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 63
+                        },
+                        new
+                        {
+                            Id = 316,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 317,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 318,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 319,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 320,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 64
+                        },
+                        new
+                        {
+                            Id = 321,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 322,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 323,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 324,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 325,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 65
+                        },
+                        new
+                        {
+                            Id = 326,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 327,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 328,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 329,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 330,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 66
+                        },
+                        new
+                        {
+                            Id = 331,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 332,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 333,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 334,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 335,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 67
+                        },
+                        new
+                        {
+                            Id = 336,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 337,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 338,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 339,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 340,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 68
+                        },
+                        new
+                        {
+                            Id = 341,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 342,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 343,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 344,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 345,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 69
+                        },
+                        new
+                        {
+                            Id = 346,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 347,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 348,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 349,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 350,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 70
+                        },
+                        new
+                        {
+                            Id = 351,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 352,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 353,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 354,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 355,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 71
+                        },
+                        new
+                        {
+                            Id = 356,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 357,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 358,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 359,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 360,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 72
+                        },
+                        new
+                        {
+                            Id = 361,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 362,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 363,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 364,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 365,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 73
+                        },
+                        new
+                        {
+                            Id = 366,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 367,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 368,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 369,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 370,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 74
+                        },
+                        new
+                        {
+                            Id = 371,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 372,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 373,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 374,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 375,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 75
+                        },
+                        new
+                        {
+                            Id = 376,
+                            Content = "How careful did doctor listen you?",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 377,
+                            Content = "Has doctor been polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 378,
+                            Content = "Has he explained you your condition enough that you can understand it?",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 379,
+                            Content = "How would you rate doctors' professionalism?",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 380,
+                            Content = "Your general grade for doctors' service",
+                            Grade = 0,
+                            SurveyCategoryId = 76
+                        },
+                        new
+                        {
+                            Id = 381,
+                            Content = "How much our medical staff were polite?",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 382,
+                            Content = "How would you rate time span that you spend waiting untill doctor attended you?",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 383,
+                            Content = "How prepared were stuff for emergency situations?",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 384,
+                            Content = "How good has stuff explained you our procedures?",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 385,
+                            Content = "Your general grade for medical stuffs' service",
+                            Grade = 0,
+                            SurveyCategoryId = 77
+                        },
+                        new
+                        {
+                            Id = 386,
+                            Content = "How would you rate our appointment organisation?",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
+                            Id = 387,
+                            Content = "How would you rate hospitals' hygiene?",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
+                            Id = 388,
+                            Content = "How good were procedure for booking appointment?",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
+                            Id = 389,
+                            Content = "How easy was to use our application?",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
+                            Id = 390,
+                            Content = "Your general grade for whole hospital' service",
+                            Grade = 0,
+                            SurveyCategoryId = 78
+                        },
+                        new
+                        {
                             Id = 136,
                             Content = "How careful did doctor listen you?",
                             Grade = 1,
@@ -3428,6 +5296,9 @@ namespace Hospital.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ReportId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("integer");
 
@@ -3441,6 +5312,9 @@ namespace Hospital.Migrations
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReportId")
+                        .IsUnique();
 
                     b.ToTable("Appointments");
 
@@ -3547,11 +5421,190 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 10,
-                            Date = new DateTime(2021, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2022, 1, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 2,
                             PatientId = 1,
+                            ReportId = 1,
                             RoomId = 2,
                             SurveyId = 10,
+                            isCancelled = false,
+                            isDone = true
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Date = new DateTime(2022, 2, 22, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1,
+                            PatientId = 1,
+                            RoomId = 1,
+                            SurveyId = 11,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Date = new DateTime(2022, 2, 22, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1,
+                            PatientId = 1,
+                            RoomId = 1,
+                            SurveyId = 12,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Date = new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 9,
+                            RoomId = 3,
+                            SurveyId = 13,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Date = new DateTime(2022, 2, 22, 7, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 10,
+                            RoomId = 3,
+                            SurveyId = 14,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Date = new DateTime(2022, 2, 22, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 11,
+                            RoomId = 3,
+                            SurveyId = 15,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Date = new DateTime(2022, 2, 22, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 12,
+                            RoomId = 3,
+                            SurveyId = 16,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Date = new DateTime(2022, 2, 22, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 13,
+                            RoomId = 3,
+                            SurveyId = 17,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Date = new DateTime(2022, 2, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 14,
+                            RoomId = 3,
+                            SurveyId = 18,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Date = new DateTime(2022, 2, 22, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 15,
+                            RoomId = 3,
+                            SurveyId = 19,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Date = new DateTime(2022, 2, 22, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 16,
+                            RoomId = 3,
+                            SurveyId = 20,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Date = new DateTime(2022, 2, 22, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 17,
+                            RoomId = 3,
+                            SurveyId = 21,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Date = new DateTime(2022, 2, 22, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 18,
+                            RoomId = 3,
+                            SurveyId = 22,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Date = new DateTime(2022, 2, 22, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 19,
+                            RoomId = 3,
+                            SurveyId = 23,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Date = new DateTime(2022, 2, 22, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 20,
+                            RoomId = 3,
+                            SurveyId = 24,
+                            isCancelled = false,
+                            isDone = false
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Date = new DateTime(2022, 1, 22, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2,
+                            PatientId = 1,
+                            ReportId = 2,
+                            RoomId = 1,
+                            SurveyId = 25,
+                            isCancelled = false,
+                            isDone = true
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Date = new DateTime(2022, 1, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 3,
+                            PatientId = 1,
+                            ReportId = 3,
+                            RoomId = 3,
+                            SurveyId = 26,
                             isCancelled = false,
                             isDone = true
                         });
@@ -3623,7 +5676,7 @@ namespace Hospital.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("text");
 
-                    b.Property<int>("WorkShift")
+                    b.Property<int>("WorkShiftId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -3647,7 +5700,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Nikolic",
                             Username = "nikola",
-                            WorkShift = 0
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -3665,7 +5718,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Radic",
                             Username = "marko",
-                            WorkShift = 0
+                            WorkShiftId = 1
                         },
                         new
                         {
@@ -3683,7 +5736,7 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Sivc",
                             Username = "jozef",
-                            WorkShift = 0
+                            WorkShiftId = 1
                         },
                         new
                         {
@@ -3701,7 +5754,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Zoric",
                             Username = "dragana",
-                            WorkShift = 1
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -3719,7 +5772,7 @@ namespace Hospital.Migrations
                             Specialty = "Surgery",
                             Surname = "Grandic",
                             Username = "mile",
-                            WorkShift = 1
+                            WorkShiftId = 2
                         },
                         new
                         {
@@ -3737,7 +5790,63 @@ namespace Hospital.Migrations
                             Specialty = "General medicine",
                             Surname = "Bradina",
                             Username = "misa",
-                            WorkShift = 1
+                            WorkShiftId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.OnCallShift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OnCallShifts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2022, 2, 2, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(2021, 11, 23, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Date = new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorId = 2
                         });
                 });
 
@@ -3748,60 +5857,20 @@ namespace Hospital.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("BloodType")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DateOfRegistration")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("EmploymentStatus")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("text");
 
                     b.Property<string>("Hashcode")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsBlocked")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ParentName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Surname")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("text");
+                    b.Property<int>("MedicalRecordId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
+
+                    b.HasIndex("MedicalRecordId");
 
                     b.ToTable("Patients");
 
@@ -3809,162 +5878,130 @@ namespace Hospital.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "Bogoboja Atanackovica 15",
-                            BirthDate = new DateTime(2005, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 1,
-                            Email = "petar@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Petar",
-                            ParentName = "miki",
-                            Password = "petar",
-                            Phone = "0634556665",
-                            Surname = "Petrovic",
-                            Username = "petar"
+                            MedicalRecordId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1985, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 2,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Jovan",
-                            ParentName = "miki",
-                            Password = "miki",
-                            Phone = "0697856665",
-                            Surname = "Zoric",
-                            Username = "miki"
+                            MedicalRecordId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1978, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 2,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Zorana",
-                            ParentName = "miki",
-                            Password = "miki",
-                            Phone = "0697856665",
-                            Surname = "Bilic",
-                            Username = "miki"
+                            MedicalRecordId = 3
                         },
                         new
                         {
                             Id = 4,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1969, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Milica",
-                            ParentName = "miki",
-                            Password = "miki",
-                            Phone = "0697856665",
-                            Surname = "Maric",
-                            Username = "miki"
+                            MedicalRecordId = 4
                         },
                         new
                         {
                             Id = 5,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1936, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Igor",
-                            ParentName = "miki",
-                            Password = "miki",
-                            Phone = "0697856665",
-                            Surname = "Caric",
-                            Username = "miki"
+                            MedicalRecordId = 5
                         },
                         new
                         {
                             Id = 6,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1975, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Predrag",
-                            ParentName = "miki",
-                            Password = "miki",
-                            Phone = "0697856665",
-                            Surname = "Zaric",
-                            Username = "miki"
+                            MedicalRecordId = 6
                         },
                         new
                         {
                             Id = 7,
-                            Address = "Voje Rodica 19",
-                            BirthDate = new DateTime(1960, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "A",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 3,
-                            Email = "miki@gmail.com",
-                            EmploymentStatus = "Employed",
-                            Gender = "male",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Miki",
-                            ParentName = "miki",
-                            Password = "miki",
-                            Phone = "0697856665",
-                            Surname = "Nikolic",
-                            Username = "miki"
+                            MedicalRecordId = 7
                         },
                         new
                         {
                             Id = 8,
-                            Address = "Kralja Petra 19",
-                            BirthDate = new DateTime(1987, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BloodType = "B",
-                            DateOfRegistration = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DoctorId = 6,
-                            Email = "zorka@gmail.com",
-                            EmploymentStatus = "Unemployed",
-                            Gender = "female",
-                            IsActive = true,
-                            IsBlocked = false,
-                            Name = "Zorka",
-                            ParentName = "zorka",
-                            Password = "zorka",
-                            Phone = "0697856665",
-                            Surname = "Djokic",
-                            Username = "zorka"
+                            MedicalRecordId = 8
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Vacation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vacations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Description...",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Description...",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Description...",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Description...",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Description...",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Description...",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Description...",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Description...",
+                            DoctorId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Description...",
+                            DoctorId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Description...",
+                            DoctorId = 2
                         });
                 });
 
@@ -3994,15 +6031,1044 @@ namespace Hospital.Migrations
                     b.ToTable("WorkDay");
                 });
 
+            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDayShift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkDayShift");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "First"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Second"
+                        });
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Medicine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("CompatibileMedicine")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Reactions")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SideEffects")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Usage")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Medicines");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tenders");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.TenderResponse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsWinningBid")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PharmacyName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("TenderId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TenderResponses");
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.MedicalRecord", b =>
+                {
+                    b.OwnsOne("Hospital.Shared_model.Model.PersonalInfo", "PersonalInfo", b1 =>
+                        {
+                            b1.Property<int>("MedicalRecordId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("BirthDate")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("BirthDate");
+
+                            b1.Property<string>("EmploymentStatus")
+                                .HasColumnType("text")
+                                .HasColumnName("EmploymentStatus");
+
+                            b1.Property<string>("Gender")
+                                .HasColumnType("text")
+                                .HasColumnName("Gender");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text")
+                                .HasColumnName("Name");
+
+                            b1.Property<string>("ParentName")
+                                .HasColumnType("text")
+                                .HasColumnName("ParentName");
+
+                            b1.Property<string>("Surname")
+                                .HasColumnType("text")
+                                .HasColumnName("Surname");
+
+                            b1.HasKey("MedicalRecordId");
+
+                            b1.ToTable("MedicalRecords");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MedicalRecordId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    MedicalRecordId = 1,
+                                    BirthDate = new DateTime(2005, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Petar",
+                                    ParentName = "Marko",
+                                    Surname = "Maljković"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 2,
+                                    BirthDate = new DateTime(1985, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Jovan",
+                                    ParentName = "Ilija",
+                                    Surname = "Zorić"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 3,
+                                    BirthDate = new DateTime(1978, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "female",
+                                    Name = "Zorana",
+                                    ParentName = "Radovan",
+                                    Surname = "Bilić"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 4,
+                                    BirthDate = new DateTime(1969, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "female",
+                                    Name = "Milica",
+                                    ParentName = "Ana",
+                                    Surname = "Marić"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 5,
+                                    BirthDate = new DateTime(1936, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Igor",
+                                    ParentName = "Nikola",
+                                    Surname = "Carić"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 6,
+                                    BirthDate = new DateTime(1975, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Predrag",
+                                    ParentName = "Natalija",
+                                    Surname = "Urošević"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 7,
+                                    BirthDate = new DateTime(1960, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Employed",
+                                    Gender = "male",
+                                    Name = "Matija",
+                                    ParentName = "Stojan",
+                                    Surname = "Nikolić"
+                                },
+                                new
+                                {
+                                    MedicalRecordId = 8,
+                                    BirthDate = new DateTime(1987, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    EmploymentStatus = "Unemployed",
+                                    Gender = "female",
+                                    Name = "Zorka",
+                                    ParentName = "Vesna",
+                                    Surname = "Đokić"
+                                });
+                        });
+
+                    b.Navigation("PersonalInfo");
+                });
+
             modelBuilder.Entity("Hospital.Medical_records.Model.Prescription", b =>
                 {
+                    b.HasOne("Hospital.Shared_model.Model.Appointment", "Appointment")
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Hospital.Shared_model.Model.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Appointment");
+
                     b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Room", b =>
+                {
+                    b.OwnsOne("Hospital.Graphical_editor.Model.PositionAndDimension", "PositionAndDimension", b1 =>
+                        {
+                            b1.Property<int>("RoomId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<float>("Height")
+                                .HasColumnType("real")
+                                .HasColumnName("Height");
+
+                            b1.Property<float>("Width")
+                                .HasColumnType("real")
+                                .HasColumnName("Width");
+
+                            b1.Property<float>("X")
+                                .HasColumnType("real")
+                                .HasColumnName("X");
+
+                            b1.Property<float>("Y")
+                                .HasColumnType("real")
+                                .HasColumnName("Y");
+
+                            b1.HasKey("RoomId");
+
+                            b1.ToTable("Rooms");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoomId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    RoomId = 1,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 2,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 3,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 4,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 5,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 6,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 7,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 8,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 9,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 10,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 11,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 12,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 13,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 14,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 15,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 16,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 17,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 18,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 19,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 20,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 21,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 22,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 23,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 24,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 25,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 26,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 27,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 28,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 29,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 30,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 31,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 32,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 33,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 34,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 35,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 36,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 37,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 38,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 39,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 40,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 41,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 42,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 43,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 44,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 45,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 46,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 47,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 48,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 49,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 50,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 51,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 52,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 53,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 54,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 55,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 56,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 57,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 58,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 59,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 60,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 61,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 62,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 63,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                },
+                                new
+                                {
+                                    RoomId = 64,
+                                    Height = 140f,
+                                    Width = 400f,
+                                    X = 320f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 65,
+                                    Height = 140f,
+                                    Width = 380f,
+                                    X = 320f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 66,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 67,
+                                    Height = 140f,
+                                    Width = 300f,
+                                    X = 700f,
+                                    Y = 260f
+                                },
+                                new
+                                {
+                                    RoomId = 68,
+                                    Height = 140f,
+                                    Width = 270f,
+                                    X = 50f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 69,
+                                    Height = 140f,
+                                    Width = 280f,
+                                    X = 720f,
+                                    Y = 30f
+                                },
+                                new
+                                {
+                                    RoomId = 70,
+                                    Height = 90f,
+                                    Width = 150f,
+                                    X = 50f,
+                                    Y = 170f
+                                });
+                        });
+
+                    b.Navigation("PositionAndDimension");
+                });
+
+            modelBuilder.Entity("Hospital.Rooms_and_equipment.Model.Transfer", b =>
+                {
+                    b.OwnsOne("Hospital.Rooms_and_equipment.Model.DateAndDuration", "DateAndDuration", b1 =>
+                        {
+                            b1.Property<int>("TransferId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("Date")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("Date");
+
+                            b1.Property<int>("Duration")
+                                .HasColumnType("integer")
+                                .HasColumnName("Duration");
+
+                            b1.HasKey("TransferId");
+
+                            b1.ToTable("Transfer");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TransferId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    TransferId = 9,
+                                    Date = new DateTime(2021, 11, 25, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                                    Duration = 60
+                                },
+                                new
+                                {
+                                    TransferId = 6,
+                                    Date = new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                                    Duration = 60
+                                },
+                                new
+                                {
+                                    TransferId = 2,
+                                    Date = new DateTime(2021, 11, 30, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                                    Duration = 45
+                                },
+                                new
+                                {
+                                    TransferId = 3,
+                                    Date = new DateTime(2021, 11, 24, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                                    Duration = 45
+                                },
+                                new
+                                {
+                                    TransferId = 4,
+                                    Date = new DateTime(2022, 8, 22, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                                    Duration = 15
+                                },
+                                new
+                                {
+                                    TransferId = 5,
+                                    Date = new DateTime(2021, 11, 28, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                                    Duration = 15
+                                });
+                        });
+
+                    b.OwnsOne("Hospital.Rooms_and_equipment.Model.EquipmentForTransfer", "Equipment", b1 =>
+                        {
+                            b1.Property<int>("TransferId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text")
+                                .HasColumnName("Name");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer")
+                                .HasColumnName("Quantity");
+
+                            b1.HasKey("TransferId");
+
+                            b1.ToTable("Transfer");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TransferId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    TransferId = 9,
+                                    Name = "Bed",
+                                    Quantity = 2
+                                },
+                                new
+                                {
+                                    TransferId = 6,
+                                    Name = "Needle",
+                                    Quantity = 5
+                                },
+                                new
+                                {
+                                    TransferId = 2,
+                                    Name = "Bed",
+                                    Quantity = 4
+                                },
+                                new
+                                {
+                                    TransferId = 3,
+                                    Name = "TV",
+                                    Quantity = 1
+                                },
+                                new
+                                {
+                                    TransferId = 4,
+                                    Name = "Bandage",
+                                    Quantity = 4
+                                },
+                                new
+                                {
+                                    TransferId = 5,
+                                    Name = "Blanket",
+                                    Quantity = 10
+                                });
+                        });
+
+                    b.OwnsOne("Hospital.Rooms_and_equipment.Model.RoomsForTransfer", "RoomsForTransfer", b1 =>
+                        {
+                            b1.Property<int>("TransferId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<int>("DestinationRoomId")
+                                .HasColumnType("integer")
+                                .HasColumnName("DestinationRoomId");
+
+                            b1.Property<int>("SourceRoomId")
+                                .HasColumnType("integer")
+                                .HasColumnName("SourceRoomId");
+
+                            b1.HasKey("TransferId");
+
+                            b1.ToTable("Transfer");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TransferId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    TransferId = 9,
+                                    DestinationRoomId = 2,
+                                    SourceRoomId = 1
+                                },
+                                new
+                                {
+                                    TransferId = 6,
+                                    DestinationRoomId = 51,
+                                    SourceRoomId = 1
+                                },
+                                new
+                                {
+                                    TransferId = 2,
+                                    DestinationRoomId = 60,
+                                    SourceRoomId = 50
+                                },
+                                new
+                                {
+                                    TransferId = 3,
+                                    DestinationRoomId = 52,
+                                    SourceRoomId = 45
+                                },
+                                new
+                                {
+                                    TransferId = 4,
+                                    DestinationRoomId = 62,
+                                    SourceRoomId = 47
+                                },
+                                new
+                                {
+                                    TransferId = 5,
+                                    DestinationRoomId = 23,
+                                    SourceRoomId = 18
+                                });
+                        });
+
+                    b.Navigation("DateAndDuration");
+
+                    b.Navigation("Equipment");
+
+                    b.Navigation("RoomsForTransfer");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
@@ -4047,6 +7113,15 @@ namespace Hospital.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.HasOne("Hospital.Medical_records.Model.Report", "Report")
+                        .WithOne("Appointment")
+                        .HasForeignKey("Hospital.Shared_model.Model.Appointment", "ReportId");
+
+                    b.Navigation("Report");
+                });
+
             modelBuilder.Entity("Hospital.Shared_model.Model.Day", b =>
                 {
                     b.HasOne("Hospital.Shared_model.Model.Doctor", null)
@@ -4064,7 +7139,303 @@ namespace Hospital.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Hospital.Medical_records.Model.MedicalRecord", "MedicalRecord")
+                        .WithMany()
+                        .HasForeignKey("MedicalRecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Hospital.Shared_model.Model.AccountInfo", "AccountInfo", b1 =>
+                        {
+                            b1.Property<int>("PatientId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("DateOfRegistration")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("DateOfRegistration");
+
+                            b1.Property<bool>("IsActive")
+                                .HasColumnType("boolean")
+                                .HasColumnName("IsActive");
+
+                            b1.Property<bool>("IsBlocked")
+                                .HasColumnType("boolean")
+                                .HasColumnName("IsBlocked");
+
+                            b1.Property<string>("Password")
+                                .HasColumnType("text")
+                                .HasColumnName("Password");
+
+                            b1.Property<string>("Username")
+                                .HasColumnType("text")
+                                .HasColumnName("Username");
+
+                            b1.HasKey("PatientId");
+
+                            b1.ToTable("Patients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PatientId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    PatientId = 1,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "petarp001",
+                                    Username = "petar"
+                                },
+                                new
+                                {
+                                    PatientId = 2,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "jovanp002",
+                                    Username = "jovan"
+                                },
+                                new
+                                {
+                                    PatientId = 3,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "zoranap003",
+                                    Username = "zorana"
+                                },
+                                new
+                                {
+                                    PatientId = 4,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "milicap004",
+                                    Username = "milica"
+                                },
+                                new
+                                {
+                                    PatientId = 5,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "igorp005",
+                                    Username = "igor"
+                                },
+                                new
+                                {
+                                    PatientId = 6,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "predragp006",
+                                    Username = "predrag"
+                                },
+                                new
+                                {
+                                    PatientId = 7,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "matijap007",
+                                    Username = "matija"
+                                },
+                                new
+                                {
+                                    PatientId = 8,
+                                    DateOfRegistration = new DateTime(2020, 12, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                                    IsActive = true,
+                                    IsBlocked = false,
+                                    Password = "zorkap008",
+                                    Username = "zorka"
+                                });
+                        });
+
+                    b.OwnsOne("Hospital.Shared_model.Model.ContactInfo", "ContactInfo", b1 =>
+                        {
+                            b1.Property<int>("PatientId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("Address")
+                                .HasColumnType("text")
+                                .HasColumnName("Address");
+
+                            b1.Property<string>("Email")
+                                .HasColumnType("text")
+                                .HasColumnName("Email");
+
+                            b1.Property<string>("Phone")
+                                .HasColumnType("text")
+                                .HasColumnName("Phone");
+
+                            b1.HasKey("PatientId");
+
+                            b1.ToTable("Patients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PatientId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    PatientId = 1,
+                                    Address = "Bogoboja Atanackovića 15, Novi Sad",
+                                    Email = "petar@gmail.com",
+                                    Phone = "0634556665"
+                                },
+                                new
+                                {
+                                    PatientId = 2,
+                                    Address = "Svetog Save 17, Novi Sad",
+                                    Email = "jovan@gmail.com",
+                                    Phone = "0697627440"
+                                },
+                                new
+                                {
+                                    PatientId = 3,
+                                    Address = "Sonje Marinković 44, Novi Sad",
+                                    Email = "zorana@gmail.com",
+                                    Phone = "0648210031"
+                                },
+                                new
+                                {
+                                    PatientId = 4,
+                                    Address = "Žarka Zrenjanina 2, Novi Sad",
+                                    Email = "milica@gmail.com",
+                                    Phone = "0624756905"
+                                },
+                                new
+                                {
+                                    PatientId = 5,
+                                    Address = "Radnička 7 stan br. 3, Novi Sad",
+                                    Email = "igor@gmail.com",
+                                    Phone = "0631742209"
+                                },
+                                new
+                                {
+                                    PatientId = 6,
+                                    Address = "Maksima Gorkog 55 stan br. 6, Novi Sad",
+                                    Email = "predrag@gmail.com",
+                                    Phone = "0644530769"
+                                },
+                                new
+                                {
+                                    PatientId = 7,
+                                    Address = "Starca Vujadina 22, Novi Sad",
+                                    Email = "matija@gmail.com",
+                                    Phone = "0658003294"
+                                },
+                                new
+                                {
+                                    PatientId = 8,
+                                    Address = "Bulevar Kralja Petra I 19, Novi Sad",
+                                    Email = "zorka@gmail.com",
+                                    Phone = "0627133687"
+                                });
+                        });
+
+                    b.Navigation("AccountInfo");
+
+                    b.Navigation("ContactInfo");
+
                     b.Navigation("Doctor");
+
+                    b.Navigation("MedicalRecord");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Vacation", b =>
+                {
+                    b.OwnsOne("Hospital.Shared_model.Model.DateSpan", "DateSpan", b1 =>
+                        {
+                            b1.Property<int>("VacationId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("EndTime")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("EndTime");
+
+                            b1.Property<DateTime>("StartTime")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("StartTime");
+
+                            b1.HasKey("VacationId");
+
+                            b1.ToTable("Vacations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("VacationId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    VacationId = 1,
+                                    EndTime = new DateTime(2020, 5, 27, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2020, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 2,
+                                    EndTime = new DateTime(2020, 7, 3, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2020, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 3,
+                                    EndTime = new DateTime(2020, 10, 18, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2020, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 4,
+                                    EndTime = new DateTime(2020, 10, 21, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2020, 10, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 5,
+                                    EndTime = new DateTime(2021, 3, 20, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2021, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 6,
+                                    EndTime = new DateTime(2021, 8, 22, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 7,
+                                    EndTime = new DateTime(2022, 1, 13, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2022, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 8,
+                                    EndTime = new DateTime(2022, 1, 21, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 9,
+                                    EndTime = new DateTime(2022, 5, 7, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2022, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    VacationId = 10,
+                                    EndTime = new DateTime(2022, 8, 26, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2022, 8, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                                });
+                        });
+
+                    b.Navigation("DateSpan");
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.WorkDay", b =>
@@ -4072,6 +7443,154 @@ namespace Hospital.Migrations
                     b.HasOne("Hospital.Shared_model.Model.Doctor", null)
                         .WithMany("WorkDay")
                         .HasForeignKey("DoctorId");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.WorkDayShift", b =>
+                {
+                    b.OwnsOne("Hospital.Shared_model.Model.WorkHour", "WorkHour", b1 =>
+                        {
+                            b1.Property<int>("WorkDayShiftId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("EndTime")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("EndTime");
+
+                            b1.Property<DateTime>("StartTime")
+                                .HasColumnType("timestamp without time zone")
+                                .HasColumnName("StartTime");
+
+                            b1.HasKey("WorkDayShiftId");
+
+                            b1.ToTable("WorkDayShift");
+
+                            b1.WithOwner()
+                                .HasForeignKey("WorkDayShiftId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    WorkDayShiftId = 1,
+                                    EndTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2022, 2, 22, 7, 0, 0, 0, DateTimeKind.Unspecified)
+                                },
+                                new
+                                {
+                                    WorkDayShiftId = 2,
+                                    EndTime = new DateTime(2022, 2, 22, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                                    StartTime = new DateTime(2022, 2, 22, 13, 0, 0, 0, DateTimeKind.Unspecified)
+                                });
+                        });
+
+                    b.Navigation("WorkHour");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.Tender", b =>
+                {
+                    b.OwnsOne("Hospital.Tendering.Model.DateRange", "DateRange", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("End")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.Property<DateTime>("Start")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.HasKey("TenderId");
+
+                            b1.ToTable("Tenders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.OwnsMany("Hospital.Tendering.Model.TenderItem", "TenderItems", b1 =>
+                        {
+                            b1.Property<int>("TenderId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderId", "Id");
+
+                            b1.ToTable("Tenders_TenderItems");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderId");
+                        });
+
+                    b.Navigation("DateRange");
+
+                    b.Navigation("TenderItems");
+                });
+
+            modelBuilder.Entity("Hospital.Tendering.Model.TenderResponse", b =>
+                {
+                    b.OwnsOne("Hospital.Tendering.Model.Price", "TotalPrice", b1 =>
+                        {
+                            b1.Property<int>("TenderResponseId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<double>("Amount")
+                                .HasColumnType("double precision");
+
+                            b1.HasKey("TenderResponseId");
+
+                            b1.ToTable("TenderResponses");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderResponseId");
+                        });
+
+                    b.OwnsMany("Hospital.Tendering.Model.TenderItem", "TenderItems", b1 =>
+                        {
+                            b1.Property<int>("TenderResponseId")
+                                .HasColumnType("integer");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Quantity")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("TenderResponseId", "Id");
+
+                            b1.ToTable("TenderResponses_TenderItems");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TenderResponseId");
+                        });
+
+                    b.Navigation("TenderItems");
+
+                    b.Navigation("TotalPrice");
+                });
+
+            modelBuilder.Entity("Hospital.Medical_records.Model.Report", b =>
+                {
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("Hospital.Schedule.Model.Survey", b =>
@@ -4082,6 +7601,11 @@ namespace Hospital.Migrations
             modelBuilder.Entity("Hospital.Schedule.Model.SurveyCategory", b =>
                 {
                     b.Navigation("SurveyQuestions");
+                });
+
+            modelBuilder.Entity("Hospital.Shared_model.Model.Appointment", b =>
+                {
+                    b.Navigation("Prescriptions");
                 });
 
             modelBuilder.Entity("Hospital.Shared_model.Model.Doctor", b =>

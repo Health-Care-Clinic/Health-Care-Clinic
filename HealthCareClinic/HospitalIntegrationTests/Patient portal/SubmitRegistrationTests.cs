@@ -34,7 +34,10 @@ namespace HospitalIntegrationTests.Patient_portal
                 PatientRepository patientRepository = new PatientRepository(context);
                 PatientService patientService = new PatientService(patientRepository);
 
-                PatientController patientController = new PatientController(alergenService, doctorService, patientService);
+                PrescriptionRepository prescriptionRepository = new PrescriptionRepository(context);
+                PrescriptionService prescriptionService = new PrescriptionService(prescriptionRepository);
+
+                PatientController patientController = new PatientController(alergenService, doctorService, prescriptionService, patientService);
 
                 List<AllergenDTO> alergens = new List<AllergenDTO>();
                 alergens.Add(new AllergenDTO(1, "Polen ambrozije"));
@@ -63,8 +66,10 @@ namespace HospitalIntegrationTests.Patient_portal
                     IsActive = false
                 };
 
+                PatientWithPictureDTO patientWithPictureDTO = new PatientWithPictureDTO(patientDTO, "");
 
-                OkObjectResult res = patientController.SubmitPatientRegistrationRequest(patientDTO) as OkObjectResult;
+
+                OkObjectResult res = patientController.SubmitPatientRegistrationRequest(patientWithPictureDTO) as OkObjectResult;
 
                 OkObjectResult patientResult = patientController.GetPatient(patientDTO.Id) as OkObjectResult;
                 PatientDTO patient = patientResult.Value as PatientDTO;
@@ -102,17 +107,17 @@ namespace HospitalIntegrationTests.Patient_portal
             {
 
 
-                Patient patient1 = new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petar", "miki", null, "Employed", false)
+                Patient patient1 = new Patient(1, "Petar", "Petrovic", "male", "A", new System.DateTime(2005, 09, 11), "Bogoboja Atanackovica 15", "0634556665", "petar@gmail.com", "petar", "petarp001", "Miki", null, "Employed", false)
                 {
                     DoctorId = 1,
                     Hashcode = "praviHashToken"
                 };
-                Patient patient2 = new Patient(2, "Jovan", "Zoric", "male", "A", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", false)
+                Patient patient2 = new Patient(2, "Jovan", "Zoric", "male", "A", new System.DateTime(1985, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "mikip002", "Miki", null, "Employed", false)
                 {
                     DoctorId = 2,
                     Hashcode = ""
                 };
-                Patient patient3 = new Patient(3, "Zorana", "Bilic", "male", "A", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "miki", "miki", null, "Employed", false)
+                Patient patient3 = new Patient(3, "Zorana", "Bilic", "male", "A", new System.DateTime(1978, 07, 11), "Voje Rodica 19", "0697856665", "miki@gmail.com", "miki", "mikip003", "Miki", null, "Employed", false)
                 {
                     DoctorId = 2,
                     Hashcode = ""

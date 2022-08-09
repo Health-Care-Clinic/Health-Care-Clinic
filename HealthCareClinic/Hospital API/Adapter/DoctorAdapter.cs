@@ -36,6 +36,7 @@ namespace Hospital_API.Adapter
             doctor.Id = dto.Id;
             doctor.Name = dto.Name;
             doctor.Surname = dto.Surname;
+            doctor.WorkShiftId = dto.WorkShiftId;
 
             return doctor;
         }
@@ -60,8 +61,24 @@ namespace Hospital_API.Adapter
             dto.Name = doctor.Name;
             dto.Surname = doctor.Surname;
             dto.Specialty = doctor.Specialty;
+            dto.WorkShiftId = doctor.WorkShiftId;
 
             return dto;
+        }
+
+        public static Doctor DoctorWithSpecialtyDTOToDoctor(DoctorWithSpecialtyDTO dto)
+        {
+            if (dto is null)
+                return null;
+
+            Doctor doctor = new Doctor();
+
+            doctor.Id = dto.Id;
+            doctor.Name = dto.Name;
+            doctor.Surname = dto.Surname;
+            doctor.Specialty = dto.Specialty;
+
+            return doctor;
         }
     }
 }

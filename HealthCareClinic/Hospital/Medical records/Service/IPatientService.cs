@@ -1,4 +1,5 @@
-﻿using Hospital.Shared_model.Interface;
+﻿using Hospital.Medical_records.Model;
+using Hospital.Shared_model.Interface;
 using Hospital.Shared_model.Model;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,9 @@ namespace Hospital.Medical_records.Service
         public List<string> GetAllUsernames();
         public void BlockPatientById(int id);
         public List<Patient> GetAllSuspiciousPatients();
+        public Patient FindByUsernameAndPassword(string username, string password);
+        public string GenerateJwtToken(Patient patient);
+        string GetProfilePicture(int id);
+        void AddProfilePicture(ProfilePicture profilePicture);
     }
 }

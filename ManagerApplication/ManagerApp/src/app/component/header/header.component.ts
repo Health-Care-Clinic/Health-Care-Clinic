@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { INotification } from 'src/app/model/notification';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -11,7 +12,8 @@ export class HeaderComponent implements OnInit {
 
   notifications : INotification[] = [];
   unreadNotificationNumber: number = 0;
-  constructor(private _notificationService : NotificationService) { }
+  role : any
+  constructor(private _notificationService : NotificationService, private router: Router) { }
 
   ngOnInit(): void {
     this._notificationService.getAllNotifications().subscribe(
@@ -24,6 +26,7 @@ export class HeaderComponent implements OnInit {
         }
       }
       );
+    this.role = localStorage.getItem('role');
   } 
   
   seeNotifications(): void {
@@ -31,5 +34,15 @@ export class HeaderComponent implements OnInit {
       notification.seen = true;
     }
     this.unreadNotificationNumber = 0;
+  }
+
+  logout() {
+    localStorage.removeItem('id')
+    localStorage.removeItem('jwtToken')
+    localStorage.removeItem('role')
+
+    this.role = ''
+
+    this.router.navigateByUrl('/');
   }
 }
