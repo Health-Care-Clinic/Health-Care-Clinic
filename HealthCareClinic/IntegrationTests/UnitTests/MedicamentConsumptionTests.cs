@@ -21,6 +21,8 @@ namespace IntegrationTests.UnitTests
             ConsumptionReportServiceTest serviceTest = new ConsumptionReportServiceTest();
 
             serviceTest.DoesFileExist(consumptionReport.Object).ShouldNotBe(false);
+            // Resenje testa
+            // File.Exists(consumptionReport.Object.UploadFile()).ShouldNotBe(false);
         }
 
         [Fact]
@@ -33,6 +35,8 @@ namespace IntegrationTests.UnitTests
             ConsumptionReportServiceTest serviceTest = new ConsumptionReportServiceTest();
 
             serviceTest.DoesFileExist(consumptionReport.Object).ShouldNotBe(true);
+            // Resenje testa
+            // File.Exists(consumptionReport.Object.UploadFile()).ShouldNotBe(false);
         }
     }
 }

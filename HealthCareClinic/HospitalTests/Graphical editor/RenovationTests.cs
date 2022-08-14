@@ -35,11 +35,11 @@ namespace HospitalUnitTests.Graphical_editor
                 context.Transfer.Add(new Transfer { Id = 4, Equipment = new EquipmentForTransfer("Needle", 25), RoomsForTransfer = new RoomsForTransfer(1, 2), DateAndDuration = new DateAndDuration(new DateTime(2021, 10, 25, 15, 30, 0), 45) });
                 context.Rooms.Add(new Room { Id = 1, Name = "Operation room 1", Type = Room.RoomType.OperationRoom, PositionAndDimension = new PositionAndDimension(10, 100, 100, 200), FloorId = 1 });
                 context.Rooms.Add(new Room { Id = 2, Name = "Operation room 2", Type = Room.RoomType.OperationRoom, PositionAndDimension = new PositionAndDimension(110, 100, 190, 110), FloorId = 1 });
-                context.Equipments.Add(new Equipment { Id = 1, Name = "Bed", Type = EquipmentType.Static, Quantity = 25, RoomId = 1 });
+/*                context.Equipments.Add(new Equipment { Id = 1, Name = "Bed", Type = EquipmentType.Static, Quantity = 25, RoomId = 1 });
                 context.Equipments.Add(new Equipment { Id = 2, Name = "TV", Type = EquipmentType.Static, Quantity = 2, RoomId = 2 });
-                context.Equipments.Add(new Equipment { Id = 3, Name = "TV", Type = EquipmentType.Static, Quantity = 25, RoomId = 1 });
-                context.Equipments.Add(new Equipment { Id = 4, Name = "Blanket", Type = EquipmentType.Dynamic, Quantity = 25, RoomId = 1 });
-                context.Equipments.Add(new Equipment { Id = 5, Name = "Needle", Type = EquipmentType.Dynamic, Quantity = 25, RoomId = 1 });
+                context.Equipments.Add(new Equipment { Id = 3, Name = "TV", Type = EquipmentType.Static, Quantity = 25, RoomId = 1 });*/
+                context.Equipments.Add(new Equipment { Id = 4, Name = "Blanket", Type = EquipmentType.Dynamic, Quantity = 27, RoomId = 1 });
+/*                context.Equipments.Add(new Equipment { Id = 5, Name = "Needle", Type = EquipmentType.Dynamic, Quantity = 25, RoomId = 1 });*/
                 context.SaveChanges();
             }
 
@@ -81,12 +81,12 @@ namespace HospitalUnitTests.Graphical_editor
                 TransferRepository transferRepository = new TransferRepository(context);
                 AppointmentRepository appointmentRepository = new AppointmentRepository(context);
                 RenovationService renovationService = new RenovationService(renovationRepository, transferRepository, appointmentRepository);
-                Renovation renovation = new Renovation(4, 1, 2, new DateTime(2022, 2, 23, 14, 30, 00), 1, Renovation.RenovationType.Merge);
+                Renovation renovation = new Renovation(4, 1, 2, new DateTime(2022, 8, 17, 14, 30, 00), 1, Renovation.RenovationType.Merge);
                 List<DateTime> freeTerms = renovationService.getFreeTermsForMerge(renovation);
                 ClearStubRepository(context);
 
 
-                Assert.Contains(new DateTime(2022, 2, 22, 8, 30, 0), freeTerms);
+                Assert.Contains(new DateTime(2022, 8, 16, 8, 30, 0), freeTerms);
             }
         }
 
@@ -133,7 +133,7 @@ namespace HospitalUnitTests.Graphical_editor
                 EquipmentRepository equipmentRepository = new EquipmentRepository(context);
                 EquipmentService equipmentService = new EquipmentService(equipmentRepository);
 
-                Equipment eq = new Equipment(4, "Blanket", EquipmentType.Dynamic, 25, 2);
+                Equipment eq = new Equipment(4, "Blanket", EquipmentType.Dynamic, 27, 2);
 
                 List<Equipment> newEquipment = equipmentService.TransferEquipmentFromOneRoomToAnother(2, 1);
 
@@ -153,7 +153,7 @@ namespace HospitalUnitTests.Graphical_editor
                 EquipmentRepository equipmentRepository = new EquipmentRepository(context);
                 EquipmentService equipmentService = new EquipmentService(equipmentRepository);
 
-                int quantity = equipmentService.GetQuantityOfEquipmentWhenTransferedFromOneRoomToAnother("TV", 1, 2);
+                int quantity = equipmentService.GetQuantityOfEquipmentWhenTransferedFromOneRoomToAnother("Blanket", 2, 1);
 
                 ClearStubRepository(context);
 

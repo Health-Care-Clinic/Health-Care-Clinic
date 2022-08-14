@@ -23,7 +23,7 @@ namespace HospitalUnitTests.Graphical_editor
             {
                 context.Appointments.Add(new Appointment { Id = 1, PatientId = 1, DoctorId = 1, RoomId = 1, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 22, 7, 0, 0), SurveyId = 1 });
                 context.Appointments.Add(new Appointment { Id = 2, PatientId = 2, DoctorId = 1, RoomId = 1, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 22, 18, 0, 0), SurveyId = 2 });
-                context.Appointments.Add(new Appointment { Id = 3, PatientId = 3, DoctorId = 2, RoomId = 2, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 25, 10, 0, 0), SurveyId = 3 });
+//                context.Appointments.Add(new Appointment { Id = 3, PatientId = 3, DoctorId = 2, RoomId = 2, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 25, 10, 0, 0), SurveyId = 3 });
                 context.SaveChanges();
             }
 

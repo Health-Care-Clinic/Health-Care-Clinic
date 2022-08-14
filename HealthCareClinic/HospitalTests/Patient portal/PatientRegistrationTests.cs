@@ -26,19 +26,23 @@ namespace HospitalUnitTests.Patient_portal
                 new object[] { 2, false }
             };
 
-        [Theory]
-        [InlineData(2, true)]
-        [InlineData(3, false)]
-        public void Get_all_general_medicine_doctors_who_are_not_over_ocupied(int numberOfAvailableDoctors, bool shouldWork)
+     //   [Theory]
+     //   [InlineData(2, true)]
+      //  [InlineData(3, false)]
+        [Fact]
+      //  public void Get_all_general_medicine_doctors_who_are_not_over_ocupied(int numberOfAvailableDoctors, bool shouldWork)
+        public void Get_all_general_medicine_doctors_who_are_not_over_ocupied()
         {
+            int numberOfAvailableDoctors = 2;
+
             DoctorService doctorService = new DoctorService(CreateStubRepository());
 
             List<Doctor> availableDoctors = doctorService.GetAvailableDoctors();
 
-            if (shouldWork)
-                Assert.Equal(numberOfAvailableDoctors, availableDoctors.Count);
-            else
-                Assert.NotEqual(numberOfAvailableDoctors, availableDoctors.Count);
+       //     if (shouldWork)
+            Assert.Equal(numberOfAvailableDoctors, availableDoctors.Count);
+      //      else
+      //          Assert.NotEqual(numberOfAvailableDoctors, availableDoctors.Count);
         }
 
 

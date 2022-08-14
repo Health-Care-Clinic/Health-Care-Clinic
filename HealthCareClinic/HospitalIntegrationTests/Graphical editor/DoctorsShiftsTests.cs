@@ -28,7 +28,7 @@ namespace HospitalIntegrationTests.Graphical_editor
 
             Doctor doctor = doctorRepository.GetById(3);
 
-            Assert.Equal(-1, doctor.WorkShiftId);
+            Assert.Equal(1, doctor.WorkShiftId);
         }
 
         [Fact]
