@@ -4,57 +4,40 @@ using Hospital.Shared_model.Model;
 using Hospital.Shared_model.Repository;
 using Hospital.Shared_model.Service;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Moq;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace HospitalUnitTests.Graphical_editor
 {
     public class AppointmentTests
     {
-        private DbContextOptions<HospitalDbContext> CreateStubRepository()
+
+        private static IAppointmentRepository CreateStubRepository()
         {
-            var options = new DbContextOptionsBuilder<HospitalDbContext>()
-            .UseInMemoryDatabase(databaseName: "Appointment")
-            .Options;
+            List<Appointment> appointments = new List<Appointment>();
+            var stubRepository = new Mock<IAppointmentRepository>();
+            var doctorId = 1;
 
-            using (var context = new HospitalDbContext(options))
-            {
-                context.Appointments.Add(new Appointment { Id = 1, PatientId = 1, DoctorId = 1, RoomId = 1, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 22, 7, 0, 0), SurveyId = 1 });
-                context.Appointments.Add(new Appointment { Id = 2, PatientId = 2, DoctorId = 1, RoomId = 1, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 22, 18, 0, 0), SurveyId = 2 });
-//                context.Appointments.Add(new Appointment { Id = 3, PatientId = 3, DoctorId = 2, RoomId = 2, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 25, 10, 0, 0), SurveyId = 3 });
-                context.SaveChanges();
-            }
+            appointments.Add(new Appointment { Id = 1, PatientId = 1, DoctorId = doctorId, RoomId = 1, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 22, 7, 0, 0), SurveyId = 1 });
+            appointments.Add(new Appointment { Id = 2, PatientId = 2, DoctorId = doctorId, RoomId = 1, isCancelled = false, isDone = false, Date = new System.DateTime(2022, 2, 22, 18, 0, 0), SurveyId = 2 });
 
-            return options;
-        }
+            stubRepository.Setup(m => m.GetAll()).Returns(appointments);
+            stubRepository.Setup(m => m.getAppointmentsByDoctorId(doctorId)).Returns(appointments);
 
-        private void ClearStubRepository(HospitalDbContext context)
-        {
-            foreach (Appointment a in context.Appointments)
-            {
-                context.Appointments.Remove(a);
-                context.SaveChanges();
-            }
+            return stubRepository.Object;
         }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void Get_room_appointments(int roomId, int roomAppointmentsCount)
+        public void Get_room_appointments_mock(int roomId, int roomAppointmentsCount)
         {
-            var options = CreateStubRepository();
+            AppointmentService appointmentService = new AppointmentService(CreateStubRepository());
 
-            using (var context = new HospitalDbContext(options))
-            {
-                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
-                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+            List<Appointment> roomAppointments = appointmentService.GetRoomAppointments(roomId);
 
-                List<Appointment> roomAppointments = appointmentService.GetRoomAppointments(roomId);
-                ClearStubRepository(context);
-
-                Assert.Equal(roomAppointmentsCount, roomAppointments.Count);
-            }
+            Assert.Equal(roomAppointmentsCount, roomAppointments.Count);
+            
         }
 
         public static IEnumerable<object[]> Data()
@@ -70,37 +53,27 @@ namespace HospitalUnitTests.Graphical_editor
         [Fact]
         public void Get_doctor_appointments_by_month()
         {
-            var options = CreateStubRepository();
+            AppointmentService appointmentService = new AppointmentService(CreateStubRepository());
+            var doctorId = 1;
+            var month = 2;
+            var year = 2022;
+            int allAppointments = appointmentService.GetNumOfAppointments(doctorId, month, year);
 
-            using (var context = new HospitalDbContext(options))
-            {
-                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
-                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
-
-                int allAppointments = appointmentService.GetNumOfAppointments(1, 2, 2022);
-
-                ClearStubRepository(context);
-
-                Assert.Equal(2, allAppointments);
-            }
+            Assert.Equal(2, allAppointments);
         }
 
         [Fact]
         public void Get_doctor_patients_by_month()
         {
-            var options = CreateStubRepository();
+            AppointmentService appointmentService = new AppointmentService(CreateStubRepository());
+            var doctorId = 1;
+            var month = 2;
+            var year = 2022;
 
-            using (var context = new HospitalDbContext(options))
-            {
-                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
-                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+            int allAppointments = appointmentService.GetNumOfPatients(doctorId, month, year);
 
-                int allAppointments = appointmentService.GetNumOfPatients(1, 2, 2022);
+            Assert.Equal(2, allAppointments);
 
-                ClearStubRepository(context);
-
-                Assert.Equal(2, allAppointments);
-            }
         }
     }
 }
