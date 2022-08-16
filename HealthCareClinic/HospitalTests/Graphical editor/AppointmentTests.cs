@@ -12,7 +12,6 @@ namespace HospitalUnitTests.Graphical_editor
 {
     public class AppointmentTests
     {
-
         private static IAppointmentRepository CreateStubRepository()
         {
             List<Appointment> appointments = new List<Appointment>();
