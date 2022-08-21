@@ -42,20 +42,18 @@ namespace Hospital_API.Controller
 
         [HttpGet("isFirstRoomNextToSecond/{id1}/{id2}")]
         public Boolean IsFirstRoomNextToSecond(int id1, int id2) {
-            List<RoomDTO> rooms = new List<RoomDTO>();
-            roomService.GetAll().ToList().ForEach(Room
-                => rooms.Add(RoomAdapter.RoomToRoomDTO(Room)));
-            RoomDTO room1 = new RoomDTO();
-            RoomDTO room2 = new RoomDTO();
+            var rooms = roomService.GetAll().ToList();
+            Room room1 = new Room();
+            Room room2 = new Room();
 
-            foreach (RoomDTO room in rooms) {
+            foreach (Room room in rooms) {
                 if (room.Id == id1)
                     room1 = room;
                 else if (room.Id == id2)
                     room2 = room;
             }
 
-            return roomService.checkRooms(RoomAdapter.RoomDTOToRoom(room1), RoomAdapter.RoomDTOToRoom(room2));
+            return roomService.checkRooms(room1, room2);
         }
 
 

@@ -18,11 +18,9 @@ namespace IntegrationTests.UnitTests
             Mock<IConsumptionReport> consumptionReport = new Mock<IConsumptionReport>();
             consumptionReport.Setup(r => r.UploadFile()).Returns("ftpsettings.json");
 
-            ConsumptionReportServiceTest serviceTest = new ConsumptionReportServiceTest();
+            var uploadedFile = consumptionReport.Object.UploadFile();
 
-            serviceTest.DoesFileExist(consumptionReport.Object).ShouldNotBe(false);
-            // Resenje testa
-            // File.Exists(consumptionReport.Object.UploadFile()).ShouldNotBe(false);
+            File.Exists(uploadedFile).ShouldBeTrue();
         }
 
         [Fact]
@@ -32,11 +30,9 @@ namespace IntegrationTests.UnitTests
             consumptionReport.Setup(r => r.UploadFile())
                 .Returns(ServerCredentialsDTO.GetInstance().ServerFolder + Path.DirectorySeparatorChar + "medicaments.html");
 
-            ConsumptionReportServiceTest serviceTest = new ConsumptionReportServiceTest();
+            var uploadedFile = consumptionReport.Object.UploadFile();
 
-            serviceTest.DoesFileExist(consumptionReport.Object).ShouldNotBe(true);
-            // Resenje testa
-            // File.Exists(consumptionReport.Object.UploadFile()).ShouldNotBe(false);
+            File.Exists(uploadedFile).ShouldBeFalse();
         }
     }
 }

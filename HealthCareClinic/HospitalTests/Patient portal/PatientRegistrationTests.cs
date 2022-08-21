@@ -18,33 +18,30 @@ namespace HospitalUnitTests.Patient_portal
 {
     public class PatientRegistrationTests
     {    
-        //2 Unit testa
-        public static IEnumerable<object[]> Data =>
-            new List<object[]>
-            {
-                new object[] { 3, true },
-                new object[] { 2, false }
-            };
 
-     //   [Theory]
-     //   [InlineData(2, true)]
-      //  [InlineData(3, false)]
         [Fact]
-      //  public void Get_all_general_medicine_doctors_who_are_not_over_ocupied(int numberOfAvailableDoctors, bool shouldWork)
-        public void Get_all_general_medicine_doctors_who_are_not_over_ocupied()
+        public void Get_all_available_doctors_when_exist()
         {
             int numberOfAvailableDoctors = 2;
-
             DoctorService doctorService = new DoctorService(CreateStubRepository());
 
             List<Doctor> availableDoctors = doctorService.GetAvailableDoctors();
 
-       //     if (shouldWork)
             Assert.Equal(numberOfAvailableDoctors, availableDoctors.Count);
-      //      else
-      //          Assert.NotEqual(numberOfAvailableDoctors, availableDoctors.Count);
         }
 
+        [Fact]
+        public void Get_all_available_doctors_when_not_exist()
+        {
+            Mock<IDoctorRepository> doctorRepository = new Mock<IDoctorRepository>();
+            doctorRepository.Setup(m => m.GetAvailableDoctors()).Returns(new List<Doctor>());
+            int numberOfAvailableDoctors = 0;
+            DoctorService doctorService = new DoctorService(doctorRepository.Object);
+
+            List<Doctor> availableDoctors = doctorService.GetAvailableDoctors();
+
+            Assert.Equal(numberOfAvailableDoctors, availableDoctors.Count);
+        }
 
         private static IDoctorRepository CreateStubRepository()
         {
