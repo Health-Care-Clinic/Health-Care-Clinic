@@ -62,6 +62,10 @@ namespace HospitalIntegrationTests.Patient_portal
         public void Get_free_terms_for_doctor()
         {
             var options = CreateStubDatabase();
+            var doctorId = 1;
+            var specialty = "General medicine";
+            var beginningDateAsString = "2022-02-22T00:00:00";
+            var endingDateAsString = "2022-02-22T00:00:00";
 
             using (var context = new HospitalDbContext(options))
             {
@@ -76,7 +80,7 @@ namespace HospitalIntegrationTests.Patient_portal
 
                 AppointmentController appointmentController = new AppointmentController(appointmentService, surveyService, doctorService);
 
-                DoctorAndDateRangeDataDTO dtoInput = new DoctorAndDateRangeDataDTO(1, "General medicine", "2022-2-22T00:00:00", "2022-2-22T00:00:00");
+                DoctorAndDateRangeDataDTO dtoInput = new DoctorAndDateRangeDataDTO(doctorId, specialty, beginningDateAsString, endingDateAsString);
 
                 OkObjectResult result = appointmentController.GetAvailableTermsForDoctor(dtoInput) as OkObjectResult;
 
@@ -123,6 +127,76 @@ namespace HospitalIntegrationTests.Patient_portal
 
                 Assert.Single(termsInDateRangeForDoctorDTOs);
                 Assert.Equal(10, termsInDateRangeForDoctorDTOs[0].Terms.Count);
+            }
+        }
+
+        [Fact]
+        public void Return_bad_request_when_doctor_id_not_valid_in_get_free_terms_for_date_range()
+        {
+            var options = CreateStubDatabase();
+            var doctorId = 0;
+            var specialty = "General medicine";
+            var beginningDateAsString = "2022-02-22T00:00:00";
+            var endingDateAsString = "2022-02-22T00:00:00";
+            var expectedMessage = "Doctor's id is not a positive integer!";
+
+            using (var context = new HospitalDbContext(options))
+            {
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+
+                SurveyRepository surveyRepository = new SurveyRepository(context);
+                SurveyService surveyService = new SurveyService(surveyRepository);
+
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                DoctorService doctorService = new DoctorService(doctorRepository);
+
+                AppointmentController appointmentController =
+                    new AppointmentController(appointmentService, surveyService, doctorService);
+                DoctorAndDateRangeDataDTO dto =
+                    new DoctorAndDateRangeDataDTO(doctorId, specialty, beginningDateAsString, endingDateAsString);
+
+                var result = appointmentController.GetAvailableTermsForDateRange(dto) as BadRequestObjectResult;
+
+                clearData(context);
+
+                Assert.Equal(400, result.StatusCode);
+                Assert.Equal(expectedMessage, result.Value);
+            }
+        }
+
+        [Fact]
+        public void Return_bad_request_when_date_range_not_valid_in_get_free_terms_for_date_range()
+        {
+            var options = CreateStubDatabase();
+            var doctorId = 1;
+            var specialty = "General medicine";
+            var beginningDateAsString = "2022-02-22T00:00:00";
+            var endingDateAsString = "2022-02-21T00:00:00";
+            var expectedMessage = "Beginning date is not preceding or equal to ending date!";
+
+            using (var context = new HospitalDbContext(options))
+            {
+                AppointmentRepository appointmentRepository = new AppointmentRepository(context);
+                AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+
+                SurveyRepository surveyRepository = new SurveyRepository(context);
+                SurveyService surveyService = new SurveyService(surveyRepository);
+
+                DoctorRepository doctorRepository = new DoctorRepository(context);
+                DoctorService doctorService = new DoctorService(doctorRepository);
+
+                AppointmentController appointmentController =
+                    new AppointmentController(appointmentService, surveyService, doctorService);
+                DoctorAndDateRangeDataDTO dto =
+                    new DoctorAndDateRangeDataDTO(doctorId, specialty, beginningDateAsString, endingDateAsString);
+
+                var result = appointmentController.GetAvailableTermsForDateRange(dto) as BadRequestObjectResult;
+
+                clearData(context);
+
+                Assert.Equal(400, result.StatusCode);
+                Assert.Equal(expectedMessage, result.Value);
             }
         }
 
