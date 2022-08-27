@@ -40,8 +40,7 @@ namespace Hospital.Shared_model.Model
             foreach (var v in allVacations.Select(x => x.DateSpan))
             {
                 if ((this.DateSpan.StartTime.CompareTo(v.StartTime) > 0 && this.DateSpan.StartTime.CompareTo(v.EndTime) < 0)
-                    || (this.DateSpan.EndTime.CompareTo(v.StartTime) > 0 && this.DateSpan.EndTime.CompareTo(v.EndTime) < 0)
-                    || (this.DateSpan.StartTime.CompareTo(v.StartTime) < 0 && this.DateSpan.EndTime.CompareTo(v.EndTime) > 0))
+                    || (this.DateSpan.EndTime.CompareTo(v.StartTime) > 0 && this.DateSpan.EndTime.CompareTo(v.EndTime) < 0))
                 {
                     return false;
                 }
@@ -56,8 +55,7 @@ namespace Hospital.Shared_model.Model
             {
                 if (!this.Id.Equals(v.Id) &&
                     ((this.DateSpan.StartTime.CompareTo(v.DateSpan.StartTime) > 0 && this.DateSpan.StartTime.CompareTo(v.DateSpan.EndTime) < 0)
-                    || (this.DateSpan.EndTime.CompareTo(v.DateSpan.StartTime) > 0 && this.DateSpan.EndTime.CompareTo(v.DateSpan.EndTime) < 0)
-                    || (this.DateSpan.StartTime.CompareTo(v.DateSpan.StartTime) < 0 && this.DateSpan.EndTime.CompareTo(v.DateSpan.EndTime) > 0)))
+                    || (this.DateSpan.EndTime.CompareTo(v.DateSpan.StartTime) > 0 && this.DateSpan.EndTime.CompareTo(v.DateSpan.EndTime) < 0)))
                 {
                     return false;
                 }
