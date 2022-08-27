@@ -22,13 +22,13 @@ namespace HospitalIntegrationTests.Graphical_editor
             var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
             optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
             var _context = new HospitalDbContext(optionsBuilder.Options);
-
+           
             DoctorRepository doctorRepository = new DoctorRepository(_context);
             DoctorService doctorService = new DoctorService(doctorRepository);
 
-            Doctor doctor = doctorRepository.GetById(3);
-
-            Assert.Equal(1, doctor.WorkShiftId);
+            Doctor doctor = doctorRepository.GetById(4);
+            
+            Assert.Equal(2, doctor.WorkShiftId);
         }
 
         [Fact]
@@ -39,16 +39,18 @@ namespace HospitalIntegrationTests.Graphical_editor
             var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
             optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
             var _context = new HospitalDbContext(optionsBuilder.Options);
-
             DoctorRepository doctorRepository = new DoctorRepository(_context);
             DoctorService doctorService = new DoctorService(doctorRepository);
 
-            Doctor doctor = doctorRepository.GetById(3);
+            _context.Database.BeginTransaction();
+            Doctor doctor = doctorRepository.GetById(4);
             doctor.WorkShiftId = 1;
+
             doctorService.addShiftToDoctor(doctor);
 
-            Doctor d = doctorRepository.GetById(3);
+            _context.ChangeTracker.Clear();
 
+            Doctor d = doctorRepository.GetById(4);
             Assert.Equal(1, d.WorkShiftId);
         }
 
@@ -60,16 +62,18 @@ namespace HospitalIntegrationTests.Graphical_editor
             var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
             optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
             var _context = new HospitalDbContext(optionsBuilder.Options);
-
             DoctorRepository doctorRepository = new DoctorRepository(_context);
             DoctorService doctorService = new DoctorService(doctorRepository);
 
+            _context.Database.BeginTransaction();
             Doctor doctor = doctorRepository.GetById(2);
             doctor.WorkShiftId = 1;
+
             doctorService.addShiftToDoctor(doctor);
 
-            Doctor d = doctorRepository.GetById(2);
+            _context.ChangeTracker.Clear();
 
+            Doctor d = doctorRepository.GetById(2);
             Assert.Equal(1, d.WorkShiftId);
         }
     }
