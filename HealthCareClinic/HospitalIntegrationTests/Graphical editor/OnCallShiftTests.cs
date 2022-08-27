@@ -56,12 +56,14 @@ namespace HospitalIntegrationTests.Graphical_editor
             var _context = new HospitalDbContext(optionsBuilder.Options);
             OnCallShiftRepository onCallShiftRepository = new OnCallShiftRepository(_context);
             OnCallShiftService onCallShiftService = new OnCallShiftService(onCallShiftRepository);
-
+            _context.Database.BeginTransaction();
             OnCallShift shift = onCallShiftService.GetOneById(1);
-            onCallShiftService.ChangeById(new OnCallShift(1,new DateTime(),1));
-            OnCallShift shift2 = onCallShiftService.GetOneById(1);
-            onCallShiftService.ChangeById(shift);
 
+            onCallShiftService.ChangeById(new OnCallShift(1,new DateTime(),1));
+
+            _context.ChangeTracker.Clear();
+
+            OnCallShift shift2 = onCallShiftService.GetOneById(1);
             Assert.True(shift.Date != shift2.Date);
 
         }

@@ -21,12 +21,13 @@ namespace HospitalIntegrationTests.Graphical_editor
             var optionsBuilder = new DbContextOptionsBuilder<HospitalDbContext>();
             optionsBuilder.UseNpgsql(configuration.GetConnectionString("HospitalDbConnectionString"));
             var _context = new HospitalDbContext(optionsBuilder.Options);
-
             EquipmentRepository equipmentRepository = new EquipmentRepository(_context);
             EquipmentService equipmentService = new EquipmentService(equipmentRepository);
+            var roomId = 4;
 
-            Assert.True(equipmentService.GetEquipmentByRoomId(4).Count > 0);
+            var equipment = equipmentService.GetEquipmentByRoomId(roomId);
 
+            Assert.True(equipment.Count > 0);
         }
     }
 }
